@@ -73,7 +73,7 @@ use dom::processinginstruction::ProcessingInstruction;
 use dom::progressevent::ProgressEvent;
 use dom::promise::Promise;
 use dom::range::Range;
-use dom::servoparser::ServoParser;
+use script_traits::servoparser::ServoParser;
 use dom::storageevent::StorageEvent;
 use dom::stylesheetlist::StyleSheetList;
 use dom::text::Text;
@@ -239,7 +239,7 @@ impl ::style::stylesheets::StylesheetInDocument for StyleSheetInDocument {
 
 /// <https://dom.spec.whatwg.org/#document>
 #[dom_struct]
-pub struct Document {
+pub struct Document<SP: ServoParser> {
     node: Node,
     window: Dom<Window>,
     implementation: MutNullableDom<DOMImplementation>,
@@ -307,7 +307,7 @@ pub struct Document {
     /// Tracks all outstanding loads related to this document.
     loader: DomRefCell<DocumentLoader>,
     /// The current active HTML parser, to allow resuming after interruptions.
-    current_parser: MutNullableDom<ServoParser>,
+    current_parser: MutNullableDom<SP>,
     /// When we should kick off a reflow. This happens during parsing.
     reflow_timeout: Cell<Option<u64>>,
     /// The cached first `base` element with an `href` attribute.
@@ -426,7 +426,7 @@ impl CollectionFilter for AnchorsFilter {
     }
 }
 
-impl Document {
+impl<SP> Document<SP> {
     #[inline]
     pub fn loader(&self) -> Ref<DocumentLoader> {
         self.loader.borrow()
@@ -1865,11 +1865,11 @@ impl Document {
         self.send_to_constellation(ScriptMsg::LoadComplete);
     }
 
-    pub fn set_current_parser(&self, script: Option<&ServoParser>) {
+    pub fn set_current_parser(&self, script: Option<&SP>) {
         self.current_parser.set(script);
     }
 
-    pub fn get_current_parser(&self) -> Option<DomRoot<ServoParser>> {
+    pub fn get_current_parser(&self) -> Option<DomRoot<SP>> {
         self.current_parser.get()
     }
 
@@ -2730,7 +2730,7 @@ impl ProfilerMetadataFactory for Document {
     }
 }
 
-impl DocumentMethods for Document {
+impl<SP> DocumentMethods for Document<SP> {
     // https://drafts.csswg.org/cssom/#dom-document-stylesheets
     fn StyleSheets(&self) -> DomRoot<StyleSheetList> {
         self.stylesheet_list.or_init(|| StyleSheetList::new(&self.window, Dom::from_ref(&self)))
@@ -3804,7 +3804,7 @@ impl DocumentMethods for Document {
             self.window.upcast::<GlobalScope>().resource_threads().clone();
         *self.loader.borrow_mut() =
             DocumentLoader::new_with_threads(resource_threads, Some(url.clone()));
-        ServoParser::parse_html_script_input(self, url, "text/html");
+        SP::parse_html_script_input(self, url, "text/html");
 
         // Step 27.
         self.ready_state.set(DocumentReadyState::Interactive);
