@@ -21,6 +21,8 @@ use js::rust::{HandleValue, MutableHandleObject};
 use std::cell::Cell;
 use std::ptr;
 use std::ptr::NonNull;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// The values that an iterator will iterate over.
 #[derive(JSTraceable, MallocSizeOf)]
@@ -48,33 +50,34 @@ pub trait Iterable {
 }
 
 /// An iterator over the iterable entries of a given DOM interface.
-//FIXME: #12811 prevents dom_struct with type parameters
 #[dom_struct]
 pub struct IterableIterator<T: DomObject + JSTraceable + Iterable> {
-    reflector: Reflector,
+    reflector: Reflector<T::TypeHolder>,
     iterable: Dom<T>,
     type_: IteratorType,
     index: Cell<u32>,
+    _p: PhantomData<T::TypeHolder>,
 }
 
 impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T> {
     /// Create a new iterator instance for the provided iterable DOM interface.
     pub fn new(iterable: &T,
                type_: IteratorType,
-               wrap: unsafe fn(*mut JSContext, &GlobalScope, Box<IterableIterator<T>>)
+               wrap: unsafe fn(*mut JSContext, &GlobalScope<T::TypeHolder>, Box<IterableIterator<T>>)
                      -> DomRoot<Self>) -> DomRoot<Self> {
         let iterator = Box::new(IterableIterator {
             reflector: Reflector::new(),
             type_: type_,
             iterable: Dom::from_ref(iterable),
             index: Cell::new(0),
+            _p: Default::default(),
         });
-        reflect_dom_object(iterator, &*iterable.global(), wrap)
+        reflect_dom_object::<Self, GlobalScope<T::TypeHolder>,T::TypeHolder>(iterator, &*iterable.global(), wrap)
     }
 
     /// Return the next value from the iterable object.
     #[allow(non_snake_case)]
-    pub fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>> {
+    pub fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>, T::TypeHolder> {
         let index = self.index.get();
         rooted!(in(cx) let mut value = UndefinedValue());
         rooted!(in(cx) let mut rval = ptr::null_mut::<JSObject>());
@@ -111,10 +114,10 @@ impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T> {
     }
 }
 
-fn dict_return(cx: *mut JSContext,
+fn dict_return<TH: TypeHolderTrait>(cx: *mut JSContext,
                mut result: MutableHandleObject,
                done: bool,
-               value: HandleValue) -> Fallible<()> {
+               value: HandleValue) -> Fallible<(), TH> {
     let mut dict = unsafe { IterableKeyOrValueResult::empty(cx) };
     dict.done = done;
     dict.value.set(value.get());
@@ -126,10 +129,10 @@ fn dict_return(cx: *mut JSContext,
     Ok(())
 }
 
-fn key_and_value_return(cx: *mut JSContext,
+fn key_and_value_return<TH: TypeHolderTrait>(cx: *mut JSContext,
                         mut result: MutableHandleObject,
                         key: HandleValue,
-                        value: HandleValue) -> Fallible<()> {
+                        value: HandleValue) -> Fallible<(), TH> {
     let mut dict = unsafe { IterableKeyAndValueResult::empty(cx) };
     dict.done = false;
     dict.value = Some(vec![key, value]

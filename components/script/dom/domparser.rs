@@ -21,38 +21,39 @@ use dom::servoparser::ServoParser;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use script_traits::DocumentActivity;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMParser {
-    reflector_: Reflector,
-    window: Dom<Window>, // XXXjdm Document instead?
+pub struct DOMParser<TH: TypeHolderTrait + 'static> {
+    reflector_: Reflector<TH>,
+    window: Dom<Window<TH>>, // XXXjdm Document instead?
 }
 
-impl DOMParser {
-    fn new_inherited(window: &Window) -> DOMParser {
+impl<TH: TypeHolderTrait> DOMParser<TH> {
+    fn new_inherited(window: &Window<TH>) -> DOMParser<TH> {
         DOMParser {
             reflector_: Reflector::new(),
             window: Dom::from_ref(window),
         }
     }
 
-    pub fn new(window: &Window) -> DomRoot<DOMParser> {
+    pub fn new(window: &Window<TH>) -> DomRoot<DOMParser<TH>> {
         reflect_dom_object(Box::new(DOMParser::new_inherited(window)),
                            window,
                            DOMParserBinding::Wrap)
     }
 
-    pub fn Constructor(window: &Window) -> Fallible<DomRoot<DOMParser>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<DOMParser<TH>>, TH> {
         Ok(DOMParser::new(window))
     }
 }
 
-impl DOMParserMethods for DOMParser {
+impl<TH: TypeHolderTrait> DOMParserMethods<TH> for DOMParser<TH> {
     // https://w3c.github.io/DOM-Parsing/#the-domparser-interface
     fn ParseFromString(&self,
                        s: DOMString,
                        ty: DOMParserBinding::SupportedType)
-                       -> Fallible<DomRoot<Document>> {
+                       -> Fallible<DomRoot<Document<TH>>, TH> {
         let url = self.window.get_url();
         let content_type = ty.as_str().parse().expect("Supported type is not a MIME type");
         let doc = self.window.Document();
@@ -72,7 +73,7 @@ impl DOMParserMethods for DOMParser {
                                              None,
                                              None,
                                              Default::default());
-                ServoParser::parse_html_document(&document, s, url);
+                TH::ServoParser::parse_html_document(&document, s, url);
                 document.set_ready_state(DocumentReadyState::Complete);
                 Ok(document)
             }
@@ -90,7 +91,7 @@ impl DOMParserMethods for DOMParser {
                                              None,
                                              None,
                                              Default::default());
-                ServoParser::parse_xml_document(&document, s, url);
+                TH::ServoParser::parse_xml_document(&document, s, url);
                 document.set_ready_state(DocumentReadyState::Complete);
                 Ok(document)
             }

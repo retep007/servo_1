@@ -16,37 +16,41 @@ use js::rust::CustomAutoRooterGuard;
 use js::typedarray::ArrayBufferView;
 use servo_rand::{ServoRng, Rng};
 use std::ptr::NonNull;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 unsafe_no_jsmanaged_fields!(ServoRng);
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Crypto
 #[dom_struct]
-pub struct Crypto {
-    reflector_: Reflector,
+pub struct Crypto<TH: TypeHolderTrait + 'static> {
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rand"]
     rng: DomRefCell<ServoRng>,
+    _p: PhantomData<TH>,
 }
 
-impl Crypto {
-    fn new_inherited() -> Crypto {
+impl<TH: TypeHolderTrait> Crypto<TH> {
+    fn new_inherited() -> Crypto<TH> {
         Crypto {
             reflector_: Reflector::new(),
             rng: DomRefCell::new(ServoRng::new()),
+            _p: Default::default(),
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<Crypto> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Crypto<TH>> {
         reflect_dom_object(Box::new(Crypto::new_inherited()), global, CryptoBinding::Wrap)
     }
 }
 
-impl CryptoMethods for Crypto {
+impl<TH: TypeHolderTrait> CryptoMethods<TH> for Crypto<TH> {
     #[allow(unsafe_code)]
     // https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#Crypto-method-getRandomValues
     unsafe fn GetRandomValues(&self,
                        _cx: *mut JSContext,
                        mut input: CustomAutoRooterGuard<ArrayBufferView>)
-                       -> Fallible<NonNull<JSObject>> {
+                       -> Fallible<NonNull<JSObject>, TH> {
         let array_type = input.get_array_type();
 
         if !is_integer_buffer(array_type) {

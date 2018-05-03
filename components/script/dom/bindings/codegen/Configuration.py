@@ -17,6 +17,7 @@ class Configuration:
         glbl = {}
         execfile(filename, glbl)
         config = glbl['DOMInterfaces']
+        self.genericStructs = glbl['GenericStructs']
 
         # Build descriptors for all the interfaces we have in the parse data.
         # This allows callers to specify a subset of interfaces by filtering
@@ -173,6 +174,7 @@ class Descriptor(DescriptorProvider):
     def __init__(self, config, interface, desc):
         DescriptorProvider.__init__(self, config)
         self.interface = interface
+        self.isGeneric = False
 
         if not self.isExposedConditionally():
             if interface.parent and interface.parent.isExposedConditionally():
@@ -192,10 +194,15 @@ class Descriptor(DescriptorProvider):
         if self.interface.isIteratorInterface():
             itrName = self.interface.iterableInterface.identifier.name
             itrDesc = self.getDescriptor(itrName)
-            nativeTypeDefault = iteratorNativeType(itrDesc)
+            self.isGeneric = self.isGeneric or itrDesc.isGeneric
+            nativeTypeDefault = iteratorNativeType(itrDesc, False, config)
 
         typeName = desc.get('nativeType', nativeTypeDefault)
 
+        self.nonGenericType = typeName
+        if typeName in config.genericStructs:
+            typeName = "%s<TH>" % typeName
+            self.isGeneric = True
         spiderMonkeyInterface = desc.get('spiderMonkeyInterface', False)
 
         # Callback and SpiderMonkey types do not use JS smart pointers, so we should not use the
@@ -204,13 +211,17 @@ class Descriptor(DescriptorProvider):
             self.returnType = 'Rc<%s>' % typeName
             self.argumentType = '&%s' % typeName
             self.nativeType = typeName
-            pathDefault = 'dom::types::%s' % typeName
+            pathDefault = 'dom::types::%s' % self.nonGenericType
         elif self.interface.isCallback():
+            name = ifaceName
+            if name in config.genericStructs:
+                name = "%s<TH>" % name
             ty = 'dom::bindings::codegen::Bindings::%sBinding::%s' % (ifaceName, ifaceName)
             pathDefault = ty
             self.returnType = "Rc<%s>" % ty
             self.argumentType = "???"
             self.nativeType = ty
+            self.generic = 'dom::bindings::codegen::Bindings::%sBinding::%s' % (ifaceName, name)
         else:
             self.returnType = "DomRoot<%s>" % typeName
             self.argumentType = "&%s" % typeName
@@ -218,7 +229,7 @@ class Descriptor(DescriptorProvider):
             if self.interface.isIteratorInterface():
                 pathDefault = 'dom::bindings::iterable::IterableIterator'
             else:
-                pathDefault = 'dom::types::%s' % MakeNativeName(typeName)
+                pathDefault = 'dom::types::%s' % MakeNativeName(self.nonGenericType)
 
         self.concreteType = typeName
         self.register = desc.get('register', True)
@@ -339,9 +350,17 @@ class Descriptor(DescriptorProvider):
 
         # Build the prototype chain.
         self.prototypeChain = []
+        self.concreteChain = []
         parent = interface
         while parent:
             self.prototypeChain.insert(0, parent.identifier.name)
+            parent = parent.parent
+        parent = interface
+        while parent:
+            name = parent.identifier.name
+            if name in config.genericStructs:
+                name += "<TH>"
+            self.concreteChain.insert(0, name)
             parent = parent.parent
         self.prototypeDepth = len(self.prototypeChain) - 1
         config.maxProtoChainLength = max(config.maxProtoChainLength,
@@ -477,8 +496,10 @@ def getUnwrappedType(type):
     return type
 
 
-def iteratorNativeType(descriptor, infer=False):
+def iteratorNativeType(descriptor, infer=False, config=None):
     assert descriptor.interface.isIterable()
     iterableDecl = descriptor.interface.maplikeOrSetlikeOrIterable
     assert iterableDecl.isPairIterator()
-    return "IterableIterator%s" % ("" if infer else '<%s>' % descriptor.interface.identifier.name)
+    name = descriptor.interface.identifier.name
+    type = '%s<TH>' % name if config and name in config.genericStructs else name
+    return "IterableIterator%s" % ("" if infer else '<%s>' % type)
