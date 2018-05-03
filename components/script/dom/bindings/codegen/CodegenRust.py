@@ -2093,7 +2093,10 @@ def DOMClass(descriptor):
     # padding.
     protoList.extend(['PrototypeList::ID::Last'] * (descriptor.config.maxProtoChainLength - len(protoList)))
     prototypeChainString = ', '.join(protoList)
-    mallocSizeOf = 'malloc_size_of_including_raw_self::<%s>' % descriptor.concreteType
+    if descriptor.concreteType == 'ServoParser':
+        mallocSizeOf = 'malloc_size_of_including_raw_self::<Box<%s>>' % descriptor.concreteType
+    else:
+        mallocSizeOf = 'malloc_size_of_including_raw_self::<%s>' % descriptor.concreteType
     if descriptor.isGlobal():
         globals_ = camel_to_upper_snake(descriptor.name)
     else:
@@ -2529,7 +2532,10 @@ class CGConstructorEnabled(CGAbstractMethod):
 
 def CreateBindingJSObject(descriptor, parent=None):
     assert not descriptor.isGlobal()
-    create = "let raw = Box::into_raw(object);\nlet _rt = RootedTraceable::new(&*raw);\n"
+    if descriptor.concreteType == 'ServoParser':
+        create = "let raw = Box::into_raw(object);\nlet _rt = RootedTraceableBox::new(&*raw);\n"
+    else:
+        create = "let raw = Box::into_raw(object);\nlet _rt = RootedTraceable::new(&*raw);\n"
     if descriptor.proxy:
         create += """
 let handler = RegisterBindings::PROXY_HANDLERS[PrototypeList::Proxies::%s as usize];
@@ -2624,13 +2630,33 @@ class CGWrapMethod(CGAbstractMethod):
         args = [Argument('*mut JSContext', 'cx'),
                 Argument('&GlobalScope', 'scope'),
                 Argument("Box<%s>" % descriptor.concreteType, 'object')]
-        retval = 'DomRoot<%s>' % descriptor.concreteType
+        if descriptor.concreteType == 'ServoParser':
+            retval = 'DomRoot<Box<%s>>' % descriptor.concreteType
+        else:
+            retval = 'DomRoot<%s>' % descriptor.concreteType
         CGAbstractMethod.__init__(self, descriptor, 'Wrap', retval, args,
                                   pub=True, unsafe=True)
 
     def definition_body(self):
         unforgeable = CopyUnforgeablePropertiesToInstance(self.descriptor)
         create = CreateBindingJSObject(self.descriptor, "scope")
+        if self.descriptor.concreteType == 'ServoParser':
+            return CGGeneric("""\
+let scope = scope.reflector().get_jsobject();
+assert!(!scope.get().is_null());
+assert!(((*get_object_class(scope.get())).flags & JSCLASS_IS_GLOBAL) != 0);
+
+rooted!(in(cx) let mut proto = ptr::null_mut::<JSObject>());
+let _ac = JSAutoCompartment::new(cx, scope.get());
+GetProtoObject(cx, scope, proto.handle_mut());
+assert!(!proto.is_null());
+
+%(createObject)s
+
+%(copyUnforgeable)s
+(*raw).init_reflector(obj.get());
+
+DomRoot::from_ref(&Box::from_raw(raw))""" % {'copyUnforgeable': unforgeable, 'createObject': create})
         return CGGeneric("""\
 let scope = scope.reflector().get_jsobject();
 assert!(!scope.get().is_null());
@@ -2727,7 +2753,24 @@ class CGIDLInterface(CGThing):
             check = "class as *const _ == &Class as *const _"
         else:
             check = "class as *const _ == &Class.dom_class as *const _"
-        return """\
+        s = ""
+        if name == 'ServoParser':
+                return """\
+    impl IDLInterface for Box<%(name)s> {
+        #[inline]
+        fn derives(class: &'static DOMClass) -> bool {
+            %(check)s
+        }
+    }
+
+    impl PartialEq for Box<%(name)s> {
+        fn eq(&self, other: &Box<%(name)s>) -> bool {
+            (&**self) as *const %(name)s == &**other
+        }
+    }
+    """ % {'check': check, 'name': name}
+
+        return s + """\
 impl IDLInterface for %(name)s {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
@@ -5355,7 +5398,12 @@ class CGAbstractClassHook(CGAbstractExternMethod):
                                         args)
 
     def definition_body_prologue(self):
-        return CGGeneric("""
+        if self.descriptor.concreteType == 'ServoParser':
+            return CGGeneric("""
+let this = native_from_object::<Box<%s>>(obj).unwrap();
+""" % self.descriptor.concreteType)
+        else:
+            return CGGeneric("""
 let this = native_from_object::<%s>(obj).unwrap();
 """ % self.descriptor.concreteType)
 
@@ -5393,13 +5441,14 @@ if !weak_box_ptr.is_null() {
     }
 }
 """ % descriptor.concreteType
-    release += """\
-if !this.is_null() {
-    // The pointer can be null if the object is the unforgeable holder of that interface.
-    let _ = Box::from_raw(this as *mut %s);
-}
-debug!("%s finalize: {:p}", this);\
-""" % (descriptor.concreteType, descriptor.concreteType)
+    if descriptor.concreteType != 'ServoParser':
+        release += """\
+    if !this.is_null() {
+        // The pointer can be null if the object is the unforgeable holder of that interface.
+        let _ = Box::from_raw(this as *mut %s);
+    }
+    debug!("%s finalize: {:p}", this);\
+    """ % (descriptor.concreteType, descriptor.concreteType)
     return release
 
 

@@ -90,6 +90,12 @@ impl DomObject for Reflector {
     }
 }
 
+impl<S: DomObject + ?Sized> DomObject for Box<S> {
+    fn reflector(&self) -> &Reflector {
+       (*self).reflector()
+    }
+}
+
 /// A trait to initialize the `Reflector` for a DOM object.
 pub trait MutDomObject: DomObject {
     /// Initializes the Reflector
@@ -101,3 +107,9 @@ impl MutDomObject for Reflector {
         self.set_jsobject(obj)
     }
 }
+
+// impl <S: MutDomObject + ?Sized> MutDomObject for Box<S> {
+//     fn init_reflector(&mut self, obj: *mut JSObject) {
+//         (*self).init_reflector(obj)
+//     }
+// }

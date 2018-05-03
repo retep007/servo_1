@@ -189,6 +189,12 @@ unsafe impl<T: JSTraceable + ?Sized> JSTraceable for Box<T> {
     }
 }
 
+unsafe impl<'a, T: JSTraceable + ?Sized> JSTraceable for &'a T {
+    unsafe fn trace(&self, trc: *mut JSTracer) {
+        (**self).trace(trc)
+    }
+}
+
 unsafe impl<T: JSTraceable> JSTraceable for [T] {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         for e in self.iter() {

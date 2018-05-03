@@ -307,7 +307,7 @@ pub struct Document {
     /// Tracks all outstanding loads related to this document.
     loader: DomRefCell<DocumentLoader>,
     /// The current active HTML parser, to allow resuming after interruptions.
-    current_parser: MutNullableDom<ServoParser>,
+    current_parser: MutNullableDom<Box<ServoParser>>,
     /// When we should kick off a reflow. This happens during parsing.
     reflow_timeout: Cell<Option<u64>>,
     /// The cached first `base` element with an `href` attribute.
@@ -1865,11 +1865,11 @@ impl Document {
         self.send_to_constellation(ScriptMsg::LoadComplete);
     }
 
-    pub fn set_current_parser(&self, script: Option<&ServoParser>) {
+    pub fn set_current_parser(&self, script: Option<&Box<ServoParser>>) {
         self.current_parser.set(script);
     }
 
-    pub fn get_current_parser(&self) -> Option<DomRoot<ServoParser>> {
+    pub fn get_current_parser(&self) -> Option<DomRoot<Box<ServoParser>>> {
         self.current_parser.get()
     }
 
