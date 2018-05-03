@@ -1,0 +1,1739 @@
+Searching 1037 files for "<EventHandlerNonNull>" (regex)
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/BluetoothBinding.rs:
+  924      return wrap_panic(panic::AssertUnwindSafe(|| {
+  925          let this = &*this;
+  926:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  927              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  928          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/BluetoothDeviceBinding.rs:
+  710      return wrap_panic(panic::AssertUnwindSafe(|| {
+  711          let this = &*this;
+  712:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  713              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  714          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/BluetoothRemoteGATTCharacteristicBinding.rs:
+  883      return wrap_panic(panic::AssertUnwindSafe(|| {
+  884          let this = &*this;
+  885:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  886              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  887          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/BluetoothRemoteGATTServiceBinding.rs:
+  802      return wrap_panic(panic::AssertUnwindSafe(|| {
+  803          let this = &*this;
+  804:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  805              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  806          } else {
+  ...
+  865      return wrap_panic(panic::AssertUnwindSafe(|| {
+  866          let this = &*this;
+  867:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  868              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  869          } else {
+  ...
+  928      return wrap_panic(panic::AssertUnwindSafe(|| {
+  929          let this = &*this;
+  930:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  931              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  932          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/DedicatedWorkerGlobalScopeBinding.rs:
+  569      return wrap_panic(panic::AssertUnwindSafe(|| {
+  570          let this = &*this;
+  571:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  572              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  573          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/DocumentBinding.rs:
+ 3015      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3016          let this = &*this;
+ 3017:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3018              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3019          } else {
+ ....
+ 3823      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3824          let this = &*this;
+ 3825:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3826              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3827          } else {
+ ....
+ 3886      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3887          let this = &*this;
+ 3888:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3889              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3890          } else {
+ ....
+ 3949      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3950          let this = &*this;
+ 3951:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3952              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3953          } else {
+ ....
+ 4012      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4013          let this = &*this;
+ 4014:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4015              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4016          } else {
+ ....
+ 4075      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4076          let this = &*this;
+ 4077:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4078              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4079          } else {
+ ....
+ 4138      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4139          let this = &*this;
+ 4140:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4141              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4142          } else {
+ ....
+ 4201      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4202          let this = &*this;
+ 4203:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4204              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4205          } else {
+ ....
+ 4264      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4265          let this = &*this;
+ 4266:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4267              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4268          } else {
+ ....
+ 4327      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4328          let this = &*this;
+ 4329:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4330              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4331          } else {
+ ....
+ 4390      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4391          let this = &*this;
+ 4392:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4393              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4394          } else {
+ ....
+ 4453      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4454          let this = &*this;
+ 4455:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4456              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4457          } else {
+ ....
+ 4516      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4517          let this = &*this;
+ 4518:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4519              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4520          } else {
+ ....
+ 4579      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4580          let this = &*this;
+ 4581:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4582              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4583          } else {
+ ....
+ 4642      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4643          let this = &*this;
+ 4644:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4645              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4646          } else {
+ ....
+ 4705      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4706          let this = &*this;
+ 4707:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4708              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4709          } else {
+ ....
+ 4768      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4769          let this = &*this;
+ 4770:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4771              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4772          } else {
+ ....
+ 4831      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4832          let this = &*this;
+ 4833:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4834              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4835          } else {
+ ....
+ 4894      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4895          let this = &*this;
+ 4896:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4897              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4898          } else {
+ ....
+ 4957      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4958          let this = &*this;
+ 4959:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4960              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4961          } else {
+ ....
+ 5020      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5021          let this = &*this;
+ 5022:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5023              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5024          } else {
+ ....
+ 5083      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5084          let this = &*this;
+ 5085:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5086              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5087          } else {
+ ....
+ 5146      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5147          let this = &*this;
+ 5148:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5149              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5150          } else {
+ ....
+ 5209      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5210          let this = &*this;
+ 5211:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5212              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5213          } else {
+ ....
+ 5272      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5273          let this = &*this;
+ 5274:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5275              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5276          } else {
+ ....
+ 5335      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5336          let this = &*this;
+ 5337:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5338              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5339          } else {
+ ....
+ 5398      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5399          let this = &*this;
+ 5400:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5401              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5402          } else {
+ ....
+ 5461      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5462          let this = &*this;
+ 5463:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5464              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5465          } else {
+ ....
+ 5587      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5588          let this = &*this;
+ 5589:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5590              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5591          } else {
+ ....
+ 5650      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5651          let this = &*this;
+ 5652:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5653              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5654          } else {
+ ....
+ 5713      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5714          let this = &*this;
+ 5715:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5716              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5717          } else {
+ ....
+ 5776      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5777          let this = &*this;
+ 5778:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5779              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5780          } else {
+ ....
+ 5839      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5840          let this = &*this;
+ 5841:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5842              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5843          } else {
+ ....
+ 5902      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5903          let this = &*this;
+ 5904:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5905              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5906          } else {
+ ....
+ 5965      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5966          let this = &*this;
+ 5967:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5968              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5969          } else {
+ ....
+ 6028      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6029          let this = &*this;
+ 6030:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6031              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6032          } else {
+ ....
+ 6091      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6092          let this = &*this;
+ 6093:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6094              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6095          } else {
+ ....
+ 6154      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6155          let this = &*this;
+ 6156:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6157              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6158          } else {
+ ....
+ 6217      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6218          let this = &*this;
+ 6219:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6220              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6221          } else {
+ ....
+ 6280      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6281          let this = &*this;
+ 6282:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6283              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6284          } else {
+ ....
+ 6343      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6344          let this = &*this;
+ 6345:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6346              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6347          } else {
+ ....
+ 6406      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6407          let this = &*this;
+ 6408:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6409              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6410          } else {
+ ....
+ 6469      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6470          let this = &*this;
+ 6471:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6472              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6473          } else {
+ ....
+ 6532      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6533          let this = &*this;
+ 6534:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6535              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6536          } else {
+ ....
+ 6595      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6596          let this = &*this;
+ 6597:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6598              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6599          } else {
+ ....
+ 6658      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6659          let this = &*this;
+ 6660:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6661              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6662          } else {
+ ....
+ 6721      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6722          let this = &*this;
+ 6723:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6724              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6725          } else {
+ ....
+ 6784      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6785          let this = &*this;
+ 6786:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6787              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6788          } else {
+ ....
+ 6847      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6848          let this = &*this;
+ 6849:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6850              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6851          } else {
+ ....
+ 6910      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6911          let this = &*this;
+ 6912:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6913              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6914          } else {
+ ....
+ 6973      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6974          let this = &*this;
+ 6975:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6976              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6977          } else {
+ ....
+ 7036      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7037          let this = &*this;
+ 7038:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7039              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7040          } else {
+ ....
+ 7099      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7100          let this = &*this;
+ 7101:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7102              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7103          } else {
+ ....
+ 7162      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7163          let this = &*this;
+ 7164:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7165              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7166          } else {
+ ....
+ 7225      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7226          let this = &*this;
+ 7227:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7228              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7229          } else {
+ ....
+ 7288      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7289          let this = &*this;
+ 7290:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7291              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7292          } else {
+ ....
+ 7351      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7352          let this = &*this;
+ 7353:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7354              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7355          } else {
+ ....
+ 7414      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7415          let this = &*this;
+ 7416:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7417              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7418          } else {
+ ....
+ 7477      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7478          let this = &*this;
+ 7479:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7480              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7481          } else {
+ ....
+ 7540      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7541          let this = &*this;
+ 7542:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7543              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7544          } else {
+ ....
+ 7603      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7604          let this = &*this;
+ 7605:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7606              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7607          } else {
+ ....
+ 7666      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7667          let this = &*this;
+ 7668:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7669              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7670          } else {
+ ....
+ 7729      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7730          let this = &*this;
+ 7731:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7732              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7733          } else {
+ ....
+ 7792      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7793          let this = &*this;
+ 7794:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7795              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7796          } else {
+ ....
+ 7855      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7856          let this = &*this;
+ 7857:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7858              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7859          } else {
+ ....
+ 7918      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7919          let this = &*this;
+ 7920:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7921              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7922          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/EventSourceBinding.rs:
+  680      return wrap_panic(panic::AssertUnwindSafe(|| {
+  681          let this = &*this;
+  682:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  683              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  684          } else {
+  ...
+  743      return wrap_panic(panic::AssertUnwindSafe(|| {
+  744          let this = &*this;
+  745:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  746              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  747          } else {
+  ...
+  806      return wrap_panic(panic::AssertUnwindSafe(|| {
+  807          let this = &*this;
+  808:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  809              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  810          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/FileReaderBinding.rs:
+  841      return wrap_panic(panic::AssertUnwindSafe(|| {
+  842          let this = &*this;
+  843:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  844              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  845          } else {
+  ...
+  904      return wrap_panic(panic::AssertUnwindSafe(|| {
+  905          let this = &*this;
+  906:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  907              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  908          } else {
+  ...
+  967      return wrap_panic(panic::AssertUnwindSafe(|| {
+  968          let this = &*this;
+  969:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  970              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  971          } else {
+  ...
+ 1030      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1031          let this = &*this;
+ 1032:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1033              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1034          } else {
+ ....
+ 1093      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1094          let this = &*this;
+ 1095:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1096              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1097          } else {
+ ....
+ 1156      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1157          let this = &*this;
+ 1158:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1159              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1160          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/HTMLBodyElementBinding.rs:
+  753      return wrap_panic(panic::AssertUnwindSafe(|| {
+  754          let this = &*this;
+  755:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  756              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  757          } else {
+  ...
+  816      return wrap_panic(panic::AssertUnwindSafe(|| {
+  817          let this = &*this;
+  818:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  819              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  820          } else {
+  ...
+  942      return wrap_panic(panic::AssertUnwindSafe(|| {
+  943          let this = &*this;
+  944:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  945              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  946          } else {
+  ...
+ 1005      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1006          let this = &*this;
+ 1007:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1008              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1009          } else {
+ ....
+ 1068      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1069          let this = &*this;
+ 1070:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1071              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1072          } else {
+ ....
+ 1131      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1132          let this = &*this;
+ 1133:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1134              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1135          } else {
+ ....
+ 1194      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1195          let this = &*this;
+ 1196:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1197              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1198          } else {
+ ....
+ 1257      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1258          let this = &*this;
+ 1259:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1260              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1261          } else {
+ ....
+ 1320      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1321          let this = &*this;
+ 1322:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1323              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1324          } else {
+ ....
+ 1383      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1384          let this = &*this;
+ 1385:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1386              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1387          } else {
+ ....
+ 1446      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1447          let this = &*this;
+ 1448:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1449              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1450          } else {
+ ....
+ 1509      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1510          let this = &*this;
+ 1511:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1512              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1513          } else {
+ ....
+ 1572      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1573          let this = &*this;
+ 1574:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1575              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1576          } else {
+ ....
+ 1635      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1636          let this = &*this;
+ 1637:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1638              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1639          } else {
+ ....
+ 1698      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1699          let this = &*this;
+ 1700:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1701              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1702          } else {
+ ....
+ 1761      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1762          let this = &*this;
+ 1763:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1764              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1765          } else {
+ ....
+ 1824      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1825          let this = &*this;
+ 1826:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1827              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1828          } else {
+ ....
+ 1887      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1888          let this = &*this;
+ 1889:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1890              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1891          } else {
+ ....
+ 1950      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1951          let this = &*this;
+ 1952:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1953              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1954          } else {
+ ....
+ 2013      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2014          let this = &*this;
+ 2015:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2016              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2017          } else {
+ ....
+ 2076      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2077          let this = &*this;
+ 2078:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2079              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2080          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/HTMLElementBinding.rs:
+ 1165      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1166          let this = &*this;
+ 1167:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1168              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1169          } else {
+ ....
+ 1228      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1229          let this = &*this;
+ 1230:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1231              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1232          } else {
+ ....
+ 1291      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1292          let this = &*this;
+ 1293:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1294              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1295          } else {
+ ....
+ 1384      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1385          let this = &*this;
+ 1386:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1387              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1388          } else {
+ ....
+ 1447      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1448          let this = &*this;
+ 1449:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1450              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1451          } else {
+ ....
+ 1510      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1511          let this = &*this;
+ 1512:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1513              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1514          } else {
+ ....
+ 1573      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1574          let this = &*this;
+ 1575:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1576              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1577          } else {
+ ....
+ 1636      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1637          let this = &*this;
+ 1638:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1639              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1640          } else {
+ ....
+ 1699      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1700          let this = &*this;
+ 1701:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1702              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1703          } else {
+ ....
+ 1762      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1763          let this = &*this;
+ 1764:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1765              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1766          } else {
+ ....
+ 1825      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1826          let this = &*this;
+ 1827:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1828              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1829          } else {
+ ....
+ 1888      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1889          let this = &*this;
+ 1890:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1891              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1892          } else {
+ ....
+ 1951      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1952          let this = &*this;
+ 1953:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1954              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1955          } else {
+ ....
+ 2014      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2015          let this = &*this;
+ 2016:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2017              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2018          } else {
+ ....
+ 2077      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2078          let this = &*this;
+ 2079:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2080              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2081          } else {
+ ....
+ 2140      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2141          let this = &*this;
+ 2142:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2143              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2144          } else {
+ ....
+ 2203      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2204          let this = &*this;
+ 2205:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2206              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2207          } else {
+ ....
+ 2266      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2267          let this = &*this;
+ 2268:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2269              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2270          } else {
+ ....
+ 2329      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2330          let this = &*this;
+ 2331:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2332              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2333          } else {
+ ....
+ 2392      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2393          let this = &*this;
+ 2394:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2395              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2396          } else {
+ ....
+ 2455      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2456          let this = &*this;
+ 2457:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2458              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2459          } else {
+ ....
+ 2518      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2519          let this = &*this;
+ 2520:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2521              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2522          } else {
+ ....
+ 2581      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2582          let this = &*this;
+ 2583:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2584              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2585          } else {
+ ....
+ 2644      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2645          let this = &*this;
+ 2646:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2647              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2648          } else {
+ ....
+ 2707      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2708          let this = &*this;
+ 2709:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2710              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2711          } else {
+ ....
+ 2833      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2834          let this = &*this;
+ 2835:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2836              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2837          } else {
+ ....
+ 2896      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2897          let this = &*this;
+ 2898:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2899              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2900          } else {
+ ....
+ 2959      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2960          let this = &*this;
+ 2961:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2962              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2963          } else {
+ ....
+ 3022      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3023          let this = &*this;
+ 3024:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3025              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3026          } else {
+ ....
+ 3085      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3086          let this = &*this;
+ 3087:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3088              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3089          } else {
+ ....
+ 3148      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3149          let this = &*this;
+ 3150:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3151              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3152          } else {
+ ....
+ 3211      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3212          let this = &*this;
+ 3213:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3214              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3215          } else {
+ ....
+ 3274      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3275          let this = &*this;
+ 3276:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3277              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3278          } else {
+ ....
+ 3337      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3338          let this = &*this;
+ 3339:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3340              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3341          } else {
+ ....
+ 3400      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3401          let this = &*this;
+ 3402:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3403              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3404          } else {
+ ....
+ 3463      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3464          let this = &*this;
+ 3465:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3466              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3467          } else {
+ ....
+ 3526      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3527          let this = &*this;
+ 3528:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3529              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3530          } else {
+ ....
+ 3589      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3590          let this = &*this;
+ 3591:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3592              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3593          } else {
+ ....
+ 3652      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3653          let this = &*this;
+ 3654:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3655              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3656          } else {
+ ....
+ 3715      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3716          let this = &*this;
+ 3717:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3718              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3719          } else {
+ ....
+ 3778      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3779          let this = &*this;
+ 3780:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3781              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3782          } else {
+ ....
+ 3841      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3842          let this = &*this;
+ 3843:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3844              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3845          } else {
+ ....
+ 3904      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3905          let this = &*this;
+ 3906:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3907              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3908          } else {
+ ....
+ 3967      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3968          let this = &*this;
+ 3969:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3970              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3971          } else {
+ ....
+ 4030      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4031          let this = &*this;
+ 4032:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4033              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4034          } else {
+ ....
+ 4093      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4094          let this = &*this;
+ 4095:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4096              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4097          } else {
+ ....
+ 4156      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4157          let this = &*this;
+ 4158:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4159              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4160          } else {
+ ....
+ 4219      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4220          let this = &*this;
+ 4221:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4222              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4223          } else {
+ ....
+ 4282      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4283          let this = &*this;
+ 4284:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4285              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4286          } else {
+ ....
+ 4345      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4346          let this = &*this;
+ 4347:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4348              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4349          } else {
+ ....
+ 4408      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4409          let this = &*this;
+ 4410:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4411              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4412          } else {
+ ....
+ 4471      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4472          let this = &*this;
+ 4473:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4474              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4475          } else {
+ ....
+ 4534      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4535          let this = &*this;
+ 4536:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4537              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4538          } else {
+ ....
+ 4597      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4598          let this = &*this;
+ 4599:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4600              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4601          } else {
+ ....
+ 4660      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4661          let this = &*this;
+ 4662:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4663              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4664          } else {
+ ....
+ 4723      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4724          let this = &*this;
+ 4725:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4726              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4727          } else {
+ ....
+ 4786      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4787          let this = &*this;
+ 4788:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4789              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4790          } else {
+ ....
+ 4849      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4850          let this = &*this;
+ 4851:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4852              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4853          } else {
+ ....
+ 4912      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4913          let this = &*this;
+ 4914:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4915              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4916          } else {
+ ....
+ 4975      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4976          let this = &*this;
+ 4977:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4978              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4979          } else {
+ ....
+ 5038      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5039          let this = &*this;
+ 5040:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5041              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5042          } else {
+ ....
+ 5101      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5102          let this = &*this;
+ 5103:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5104              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5105          } else {
+ ....
+ 5164      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5165          let this = &*this;
+ 5166:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5167              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5168          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/HTMLFrameSetElementBinding.rs:
+  525      return wrap_panic(panic::AssertUnwindSafe(|| {
+  526          let this = &*this;
+  527:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  528              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  529          } else {
+  ...
+  588      return wrap_panic(panic::AssertUnwindSafe(|| {
+  589          let this = &*this;
+  590:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  591              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  592          } else {
+  ...
+  714      return wrap_panic(panic::AssertUnwindSafe(|| {
+  715          let this = &*this;
+  716:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  717              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  718          } else {
+  ...
+  777      return wrap_panic(panic::AssertUnwindSafe(|| {
+  778          let this = &*this;
+  779:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  780              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  781          } else {
+  ...
+  840      return wrap_panic(panic::AssertUnwindSafe(|| {
+  841          let this = &*this;
+  842:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  843              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  844          } else {
+  ...
+  903      return wrap_panic(panic::AssertUnwindSafe(|| {
+  904          let this = &*this;
+  905:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  906              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  907          } else {
+  ...
+  966      return wrap_panic(panic::AssertUnwindSafe(|| {
+  967          let this = &*this;
+  968:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  969              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  970          } else {
+  ...
+ 1029      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1030          let this = &*this;
+ 1031:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1032              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1033          } else {
+ ....
+ 1092      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1093          let this = &*this;
+ 1094:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1095              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1096          } else {
+ ....
+ 1155      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1156          let this = &*this;
+ 1157:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1158              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1159          } else {
+ ....
+ 1218      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1219          let this = &*this;
+ 1220:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1221              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1222          } else {
+ ....
+ 1281      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1282          let this = &*this;
+ 1283:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1284              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1285          } else {
+ ....
+ 1344      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1345          let this = &*this;
+ 1346:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1347              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1348          } else {
+ ....
+ 1407      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1408          let this = &*this;
+ 1409:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1410              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1411          } else {
+ ....
+ 1470      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1471          let this = &*this;
+ 1472:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1473              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1474          } else {
+ ....
+ 1533      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1534          let this = &*this;
+ 1535:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1536              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1537          } else {
+ ....
+ 1596      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1597          let this = &*this;
+ 1598:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1599              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1600          } else {
+ ....
+ 1659      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1660          let this = &*this;
+ 1661:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1662              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1663          } else {
+ ....
+ 1722      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1723          let this = &*this;
+ 1724:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1725              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1726          } else {
+ ....
+ 1785      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1786          let this = &*this;
+ 1787:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1788              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1789          } else {
+ ....
+ 1848      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 1849          let this = &*this;
+ 1850:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 1851              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 1852          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/MediaQueryListBinding.rs:
+  677      return wrap_panic(panic::AssertUnwindSafe(|| {
+  678          let this = &*this;
+  679:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  680              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  681          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/PermissionStatusBinding.rs:
+  937      return wrap_panic(panic::AssertUnwindSafe(|| {
+  938          let this = &*this;
+  939:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  940              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  941          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/ServiceWorkerBinding.rs:
+  673      return wrap_panic(panic::AssertUnwindSafe(|| {
+  674          let this = &*this;
+  675:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  676              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  677          } else {
+  ...
+  736      return wrap_panic(panic::AssertUnwindSafe(|| {
+  737          let this = &*this;
+  738:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  739              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  740          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/ServiceWorkerGlobalScopeBinding.rs:
+  524      return wrap_panic(panic::AssertUnwindSafe(|| {
+  525          let this = &*this;
+  526:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  527              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  528          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/WebSocketBinding.rs:
+  653      return wrap_panic(panic::AssertUnwindSafe(|| {
+  654          let this = &*this;
+  655:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  656              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  657          } else {
+  ...
+  716      return wrap_panic(panic::AssertUnwindSafe(|| {
+  717          let this = &*this;
+  718:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  719              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  720          } else {
+  ...
+  779      return wrap_panic(panic::AssertUnwindSafe(|| {
+  780          let this = &*this;
+  781:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  782              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  783          } else {
+  ...
+  939      return wrap_panic(panic::AssertUnwindSafe(|| {
+  940          let this = &*this;
+  941:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  942              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  943          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/WindowBinding.rs:
+ 2943      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 2944          let this = &*this;
+ 2945:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 2946              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 2947          } else {
+ ....
+ 3006      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3007          let this = &*this;
+ 3008:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3009              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3010          } else {
+ ....
+ 3069      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3070          let this = &*this;
+ 3071:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3072              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3073          } else {
+ ....
+ 3132      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3133          let this = &*this;
+ 3134:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3135              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3136          } else {
+ ....
+ 3195      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3196          let this = &*this;
+ 3197:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3198              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3199          } else {
+ ....
+ 3258      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3259          let this = &*this;
+ 3260:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3261              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3262          } else {
+ ....
+ 3321      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3322          let this = &*this;
+ 3323:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3324              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3325          } else {
+ ....
+ 3384      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3385          let this = &*this;
+ 3386:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3387              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3388          } else {
+ ....
+ 3447      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3448          let this = &*this;
+ 3449:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3450              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3451          } else {
+ ....
+ 3510      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3511          let this = &*this;
+ 3512:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3513              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3514          } else {
+ ....
+ 3573      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3574          let this = &*this;
+ 3575:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3576              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3577          } else {
+ ....
+ 3636      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3637          let this = &*this;
+ 3638:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3639              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3640          } else {
+ ....
+ 3699      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3700          let this = &*this;
+ 3701:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3702              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3703          } else {
+ ....
+ 3762      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3763          let this = &*this;
+ 3764:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3765              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3766          } else {
+ ....
+ 3825      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3826          let this = &*this;
+ 3827:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3828              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3829          } else {
+ ....
+ 3888      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3889          let this = &*this;
+ 3890:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3891              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3892          } else {
+ ....
+ 3951      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 3952          let this = &*this;
+ 3953:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 3954              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 3955          } else {
+ ....
+ 4014      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4015          let this = &*this;
+ 4016:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4017              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4018          } else {
+ ....
+ 4077      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4078          let this = &*this;
+ 4079:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4080              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4081          } else {
+ ....
+ 4140      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4141          let this = &*this;
+ 4142:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4143              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4144          } else {
+ ....
+ 4203      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4204          let this = &*this;
+ 4205:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4206              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4207          } else {
+ ....
+ 4266      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4267          let this = &*this;
+ 4268:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4269              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4270          } else {
+ ....
+ 4392      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4393          let this = &*this;
+ 4394:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4395              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4396          } else {
+ ....
+ 4455      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4456          let this = &*this;
+ 4457:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4458              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4459          } else {
+ ....
+ 4518      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4519          let this = &*this;
+ 4520:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4521              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4522          } else {
+ ....
+ 4581      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4582          let this = &*this;
+ 4583:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4584              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4585          } else {
+ ....
+ 4644      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4645          let this = &*this;
+ 4646:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4647              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4648          } else {
+ ....
+ 4707      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4708          let this = &*this;
+ 4709:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4710              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4711          } else {
+ ....
+ 4770      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4771          let this = &*this;
+ 4772:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4773              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4774          } else {
+ ....
+ 4833      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4834          let this = &*this;
+ 4835:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4836              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4837          } else {
+ ....
+ 4896      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4897          let this = &*this;
+ 4898:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4899              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4900          } else {
+ ....
+ 4959      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 4960          let this = &*this;
+ 4961:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 4962              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 4963          } else {
+ ....
+ 5022      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5023          let this = &*this;
+ 5024:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5025              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5026          } else {
+ ....
+ 5085      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5086          let this = &*this;
+ 5087:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5088              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5089          } else {
+ ....
+ 5148      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5149          let this = &*this;
+ 5150:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5151              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5152          } else {
+ ....
+ 5211      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5212          let this = &*this;
+ 5213:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5214              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5215          } else {
+ ....
+ 5274      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5275          let this = &*this;
+ 5276:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5277              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5278          } else {
+ ....
+ 5337      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5338          let this = &*this;
+ 5339:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5340              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5341          } else {
+ ....
+ 5400      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5401          let this = &*this;
+ 5402:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5403              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5404          } else {
+ ....
+ 5463      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5464          let this = &*this;
+ 5465:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5466              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5467          } else {
+ ....
+ 5526      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5527          let this = &*this;
+ 5528:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5529              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5530          } else {
+ ....
+ 5589      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5590          let this = &*this;
+ 5591:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5592              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5593          } else {
+ ....
+ 5652      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5653          let this = &*this;
+ 5654:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5655              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5656          } else {
+ ....
+ 5715      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5716          let this = &*this;
+ 5717:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5718              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5719          } else {
+ ....
+ 5778      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5779          let this = &*this;
+ 5780:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5781              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5782          } else {
+ ....
+ 5841      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5842          let this = &*this;
+ 5843:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5844              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5845          } else {
+ ....
+ 5904      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5905          let this = &*this;
+ 5906:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5907              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5908          } else {
+ ....
+ 5967      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 5968          let this = &*this;
+ 5969:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 5970              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 5971          } else {
+ ....
+ 6030      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6031          let this = &*this;
+ 6032:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6033              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6034          } else {
+ ....
+ 6093      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6094          let this = &*this;
+ 6095:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6096              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6097          } else {
+ ....
+ 6156      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6157          let this = &*this;
+ 6158:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6159              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6160          } else {
+ ....
+ 6219      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6220          let this = &*this;
+ 6221:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6222              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6223          } else {
+ ....
+ 6282      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6283          let this = &*this;
+ 6284:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6285              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6286          } else {
+ ....
+ 6345      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6346          let this = &*this;
+ 6347:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6348              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6349          } else {
+ ....
+ 6408      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6409          let this = &*this;
+ 6410:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6411              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6412          } else {
+ ....
+ 6471      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6472          let this = &*this;
+ 6473:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6474              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6475          } else {
+ ....
+ 6534      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6535          let this = &*this;
+ 6536:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6537              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6538          } else {
+ ....
+ 6597      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6598          let this = &*this;
+ 6599:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6600              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6601          } else {
+ ....
+ 6660      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6661          let this = &*this;
+ 6662:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6663              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6664          } else {
+ ....
+ 6723      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6724          let this = &*this;
+ 6725:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6726              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6727          } else {
+ ....
+ 6786      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6787          let this = &*this;
+ 6788:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6789              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6790          } else {
+ ....
+ 6849      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6850          let this = &*this;
+ 6851:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6852              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6853          } else {
+ ....
+ 6975      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 6976          let this = &*this;
+ 6977:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 6978              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 6979          } else {
+ ....
+ 7038      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7039          let this = &*this;
+ 7040:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7041              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7042          } else {
+ ....
+ 7101      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7102          let this = &*this;
+ 7103:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7104              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7105          } else {
+ ....
+ 7164      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7165          let this = &*this;
+ 7166:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7167              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7168          } else {
+ ....
+ 7227      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7228          let this = &*this;
+ 7229:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7230              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7231          } else {
+ ....
+ 7290      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7291          let this = &*this;
+ 7292:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7293              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7294          } else {
+ ....
+ 7353      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7354          let this = &*this;
+ 7355:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7356              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7357          } else {
+ ....
+ 7416      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7417          let this = &*this;
+ 7418:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7419              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7420          } else {
+ ....
+ 7479      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7480          let this = &*this;
+ 7481:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7482              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7483          } else {
+ ....
+ 7542      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7543          let this = &*this;
+ 7544:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7545              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7546          } else {
+ ....
+ 7605      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7606          let this = &*this;
+ 7607:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7608              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7609          } else {
+ ....
+ 7668      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7669          let this = &*this;
+ 7670:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7671              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7672          } else {
+ ....
+ 7731      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7732          let this = &*this;
+ 7733:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7734              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7735          } else {
+ ....
+ 7794      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7795          let this = &*this;
+ 7796:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7797              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7798          } else {
+ ....
+ 7857      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7858          let this = &*this;
+ 7859:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7860              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7861          } else {
+ ....
+ 7920      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7921          let this = &*this;
+ 7922:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7923              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7924          } else {
+ ....
+ 7983      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 7984          let this = &*this;
+ 7985:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 7986              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 7987          } else {
+ ....
+ 8046      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 8047          let this = &*this;
+ 8048:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 8049              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 8050          } else {
+ ....
+ 8109      return wrap_panic(panic::AssertUnwindSafe(|| {
+ 8110          let this = &*this;
+ 8111:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+ 8112              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+ 8113          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/WorkerBinding.rs:
+  601      return wrap_panic(panic::AssertUnwindSafe(|| {
+  602          let this = &*this;
+  603:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  604              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  605          } else {
+  ...
+  664      return wrap_panic(panic::AssertUnwindSafe(|| {
+  665          let this = &*this;
+  666:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  667              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  668          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/XMLHttpRequestBinding.rs:
+  582      return wrap_panic(panic::AssertUnwindSafe(|| {
+  583          let this = &*this;
+  584:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  585              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  586          } else {
+
+/Users/peterhrvola/dev/servo/components/script/Bindings/XMLHttpRequestEventTargetBinding.rs:
+  524      return wrap_panic(panic::AssertUnwindSafe(|| {
+  525          let this = &*this;
+  526:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  527              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  528          } else {
+  ...
+  587      return wrap_panic(panic::AssertUnwindSafe(|| {
+  588          let this = &*this;
+  589:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  590              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  591          } else {
+  ...
+  650      return wrap_panic(panic::AssertUnwindSafe(|| {
+  651          let this = &*this;
+  652:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  653              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  654          } else {
+  ...
+  713      return wrap_panic(panic::AssertUnwindSafe(|| {
+  714          let this = &*this;
+  715:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  716              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  717          } else {
+  ...
+  776      return wrap_panic(panic::AssertUnwindSafe(|| {
+  777          let this = &*this;
+  778:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  779              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  780          } else {
+  ...
+  839      return wrap_panic(panic::AssertUnwindSafe(|| {
+  840          let this = &*this;
+  841:         let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+  842              Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
+  843          } else {
+
+286 matches across 20 files
