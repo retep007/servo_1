@@ -8,7 +8,7 @@ use dom::bindings::codegen::InterfaceObjectMap::Globals;
 use dom::bindings::codegen::PrototypeList;
 use script_dom_bindings::constant::{define_constants, ConstantSpec};
 use dom::bindings::conversions::{get_dom_class, DOM_OBJECT_SLOT};
-use dom::bindings::guard::Guard;
+use script_dom_bindings::guard::Guard;
 use dom::bindings::utils::{get_proto_or_iface_array, ProtoOrIfaceArray, DOM_PROTOTYPE_SLOT};
 use js::error::throw_type_error;
 use js::glue::{UncheckedUnwrapObject, RUST_SYMBOL_TO_JSID};
