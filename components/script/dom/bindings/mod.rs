@@ -134,7 +134,6 @@
 #![deny(non_snake_case)]
 
 pub mod callback;
-pub mod constant;
 pub mod conversions;
 pub mod error;
 pub mod guard;

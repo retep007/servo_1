@@ -13,3 +13,5 @@ path = "lib.rs"
 style = {path = "../style", features = ["servo"]}
 malloc_size_of = { path = "../malloc_size_of" }
 malloc_size_of_derive = { path = "../malloc_size_of_derive" }
+mozjs = { version = "0.6", features = ["promises"]}
+libc = "0.2"
