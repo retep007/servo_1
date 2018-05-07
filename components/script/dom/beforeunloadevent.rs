@@ -4,7 +4,7 @@
 
 #![allow(dead_code)]
 
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::BeforeUnloadEventBinding;
 use dom::bindings::codegen::Bindings::BeforeUnloadEventBinding::BeforeUnloadEventMethods;
 use dom::bindings::codegen::Bindings::EventBinding::EventMethods;

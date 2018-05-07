@@ -7,7 +7,7 @@
 //! the script thread. The script thread contains a JobQueue, which stores all scheduled Jobs
 //! by multiple service worker clients in a Vec.
 
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::error::Error;
 use dom::bindings::refcounted::{Trusted, TrustedPromise};
 use dom::bindings::reflector::DomObject;

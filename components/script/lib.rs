@@ -75,6 +75,7 @@ extern crate profile_traits;
 extern crate ref_filter_map;
 extern crate ref_slice;
 extern crate regex;
+extern crate script_dom_bindings;
 extern crate script_layout_interface;
 extern crate script_traits;
 extern crate selectors;

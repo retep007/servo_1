@@ -6,7 +6,7 @@ use devtools;
 use devtools_traits::DevtoolScriptControlMsg;
 use dom::abstractworker::{SharedRt, SimpleWorkerErrorHandler, WorkerScriptMsg};
 use dom::abstractworkerglobalscope::{SendableWorkerScriptChan, WorkerThreadWorkerChan};
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::DedicatedWorkerGlobalScopeBinding;
 use dom::bindings::codegen::Bindings::DedicatedWorkerGlobalScopeBinding::DedicatedWorkerGlobalScopeMethods;
 use dom::bindings::error::{ErrorInfo, ErrorResult};

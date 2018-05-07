@@ -4,7 +4,7 @@
 
 use canvas_traits::webgl::{webgl_channel, WebGLReceiver, WebVRCommand};
 use dom::bindings::callback::ExceptionHandling;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::PerformanceBinding::PerformanceBinding::PerformanceMethods;
 use dom::bindings::codegen::Bindings::VRDisplayBinding;
 use dom::bindings::codegen::Bindings::VRDisplayBinding::VRDisplayMethods;

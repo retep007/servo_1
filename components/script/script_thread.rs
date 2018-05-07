@@ -26,7 +26,7 @@ use devtools_traits::{DevtoolScriptControlMsg, DevtoolsPageInfo};
 use devtools_traits::{ScriptToDevtoolsControlMsg, WorkerId};
 use devtools_traits::CSSError;
 use document_loader::DocumentLoader;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::DocumentBinding::{DocumentMethods, DocumentReadyState};
 use dom::bindings::codegen::Bindings::EventBinding::EventInit;
 use dom::bindings::codegen::Bindings::TransitionEventBinding::TransitionEventInit;

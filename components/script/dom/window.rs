@@ -8,7 +8,7 @@ use bluetooth_traits::BluetoothRequest;
 use canvas_traits::webgl::WebGLChan;
 use cssparser::{Parser, ParserInput};
 use devtools_traits::{ScriptToDevtoolsControlMsg, TimelineMarker, TimelineMarkerType};
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::DocumentBinding::{DocumentMethods, DocumentReadyState};
 use dom::bindings::codegen::Bindings::FunctionBinding::Function;
 use dom::bindings::codegen::Bindings::PermissionStatusBinding::PermissionState;

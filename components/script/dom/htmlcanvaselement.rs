@@ -6,7 +6,7 @@ use base64;
 use canvas_traits::canvas::{CanvasMsg, CanvasId, FromScriptMsg};
 use canvas_traits::webgl::WebGLVersion;
 use dom::attr::Attr;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::CanvasRenderingContext2DBinding::CanvasRenderingContext2DMethods;
 use dom::bindings::codegen::Bindings::HTMLCanvasElementBinding;
 use dom::bindings::codegen::Bindings::HTMLCanvasElementBinding::{HTMLCanvasElementMethods, RenderingContext};

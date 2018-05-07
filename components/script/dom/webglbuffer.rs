@@ -5,7 +5,7 @@
 // https://www.khronos.org/registry/webgl/specs/latest/1.0/webgl.idl
 use canvas_traits::webgl::{WebGLBufferId, WebGLCommand, WebGLError, WebGLMsgSender, WebGLResult, WebGLVertexArrayId};
 use canvas_traits::webgl::webgl_channel;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::WebGLBufferBinding;
 use dom::bindings::codegen::Bindings::WebGLRenderingContextBinding::WebGLRenderingContextConstants;
 use dom::bindings::reflector::reflect_dom_object;

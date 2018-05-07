@@ -4,7 +4,7 @@
 
 use bluetooth_traits::{BluetoothCharacteristicMsg, BluetoothDescriptorMsg};
 use bluetooth_traits::{BluetoothRequest, BluetoothResponse, BluetoothServiceMsg};
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::BluetoothDeviceBinding;
 use dom::bindings::codegen::Bindings::BluetoothDeviceBinding::BluetoothDeviceMethods;
 use dom::bindings::codegen::Bindings::BluetoothRemoteGATTServerBinding::BluetoothRemoteGATTServerMethods;

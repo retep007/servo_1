@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 use body::{BodyOperations, BodyType, consume_body};
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::HeadersBinding::{HeadersInit, HeadersMethods};
 use dom::bindings::codegen::Bindings::RequestBinding;
 use dom::bindings::codegen::Bindings::RequestBinding::ReferrerPolicy;

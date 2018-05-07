@@ -4,7 +4,7 @@
 
 // check-tidy: no specs after this line
 
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::TestBindingIterableBinding::{self, TestBindingIterableMethods};
 use dom::bindings::error::Fallible;
 use dom::bindings::reflector::{Reflector, reflect_dom_object};

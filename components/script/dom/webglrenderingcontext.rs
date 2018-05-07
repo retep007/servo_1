@@ -10,7 +10,7 @@ use canvas_traits::webgl::{WebGLParameter, WebGLResult, WebGLSLVersion, WebGLVer
 use canvas_traits::webgl::DOMToTextureCommand;
 use canvas_traits::webgl::WebGLError::*;
 use canvas_traits::webgl::webgl_channel;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::WebGLRenderingContextBinding::{self, WebGLContextAttributes};
 use dom::bindings::codegen::Bindings::WebGLRenderingContextBinding::WebGLRenderingContextConstants as constants;
 use dom::bindings::codegen::Bindings::WebGLRenderingContextBinding::WebGLRenderingContextMethods;

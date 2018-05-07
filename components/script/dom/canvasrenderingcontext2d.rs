@@ -8,7 +8,7 @@ use canvas_traits::canvas::{LineCapStyle, LineJoinStyle, LinearGradientStyle};
 use canvas_traits::canvas::{RadialGradientStyle, RepetitionStyle, byte_swap_and_premultiply};
 use cssparser::{Parser, ParserInput, RGBA};
 use cssparser::Color as CSSColor;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::CanvasRenderingContext2DBinding;
 use dom::bindings::codegen::Bindings::CanvasRenderingContext2DBinding::CanvasFillRule;
 use dom::bindings::codegen::Bindings::CanvasRenderingContext2DBinding::CanvasImageSource;

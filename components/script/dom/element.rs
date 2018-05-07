@@ -7,7 +7,7 @@
 use devtools_traits::AttrInfo;
 use dom::activation::Activatable;
 use dom::attr::{Attr, AttrHelpersForLayout};
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::AttrBinding::AttrMethods;
 use dom::bindings::codegen::Bindings::DocumentBinding::DocumentMethods;
 use dom::bindings::codegen::Bindings::ElementBinding;

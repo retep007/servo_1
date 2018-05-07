@@ -4,7 +4,7 @@
 
 use devtools_traits::{TimelineMarker, TimelineMarkerType};
 use dom::bindings::callback::ExceptionHandling;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::EventBinding;
 use dom::bindings::codegen::Bindings::EventBinding::{EventConstants, EventMethods};
 use dom::bindings::error::Fallible;

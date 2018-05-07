@@ -7,7 +7,7 @@
 //! perform checkpoints at appropriate times, as well as enqueue microtasks as required.
 
 use dom::bindings::callback::ExceptionHandling;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::PromiseBinding::PromiseJobCallback;
 use dom::bindings::root::DomRoot;
 use dom::globalscope::GlobalScope;

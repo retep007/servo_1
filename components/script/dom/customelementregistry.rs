@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 use dom::bindings::callback::{CallbackContainer, ExceptionHandling};
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::CustomElementRegistryBinding;
 use dom::bindings::codegen::Bindings::CustomElementRegistryBinding::CustomElementRegistryMethods;
 use dom::bindings::codegen::Bindings::CustomElementRegistryBinding::ElementDefinitionOptions;

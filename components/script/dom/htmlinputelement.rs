@@ -5,7 +5,7 @@
 use caseless::compatibility_caseless_match_str;
 use dom::activation::{Activatable, ActivationSource, synthetic_click_activation};
 use dom::attr::Attr;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::EventBinding::EventMethods;
 use dom::bindings::codegen::Bindings::FileListBinding::FileListMethods;
 use dom::bindings::codegen::Bindings::HTMLFormElementBinding::SelectionMode;

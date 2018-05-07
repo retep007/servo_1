@@ -6,7 +6,7 @@
 
 use canvas_traits::webgl::{webgl_channel, WebGLCommand, WebGLError, WebGLMsgSender, WebGLResult, WebGLTextureId};
 use canvas_traits::webgl::DOMToTextureCommand;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::WebGLRenderingContextBinding::WebGLRenderingContextConstants as constants;
 use dom::bindings::codegen::Bindings::WebGLTextureBinding;
 use dom::bindings::reflector::reflect_dom_object;

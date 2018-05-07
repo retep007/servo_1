@@ -4,7 +4,7 @@
 
 //! DOM bindings for `CharacterData`.
 
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::CharacterDataBinding::CharacterDataMethods;
 use dom::bindings::codegen::Bindings::NodeBinding::NodeBinding::NodeMethods;
 use dom::bindings::codegen::Bindings::ProcessingInstructionBinding::ProcessingInstructionMethods;

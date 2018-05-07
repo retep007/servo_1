@@ -6,7 +6,7 @@
 use canvas_traits::webgl::{WebGLCommand, WebGLFramebufferBindingRequest, WebGLFramebufferId};
 use canvas_traits::webgl::{WebGLMsgSender, WebGLResult, WebGLError};
 use canvas_traits::webgl::webgl_channel;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::WebGLFramebufferBinding;
 use dom::bindings::codegen::Bindings::WebGLRenderingContextBinding::WebGLRenderingContextConstants as constants;
 use dom::bindings::reflector::reflect_dom_object;

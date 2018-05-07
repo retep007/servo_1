@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 use devtools_traits::AttrInfo;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::AttrBinding::{self, AttrMethods};
 use dom::bindings::inheritance::Castable;
 use dom::bindings::reflector::{Reflector, reflect_dom_object};

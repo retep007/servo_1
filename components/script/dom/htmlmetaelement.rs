@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 use dom::attr::Attr;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::HTMLMetaElementBinding;
 use dom::bindings::codegen::Bindings::HTMLMetaElementBinding::HTMLMetaElementMethods;
 use dom::bindings::codegen::Bindings::NodeBinding::NodeMethods;

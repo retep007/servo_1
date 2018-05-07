@@ -5,7 +5,7 @@
 use canvas_traits::canvas::{CanvasGradientStop, FillOrStrokeStyle, LinearGradientStyle, RadialGradientStyle};
 use cssparser::{Parser, ParserInput, RGBA};
 use cssparser::Color as CSSColor;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::CanvasGradientBinding;
 use dom::bindings::codegen::Bindings::CanvasGradientBinding::CanvasGradientMethods;
 use dom::bindings::error::{Error, ErrorResult};

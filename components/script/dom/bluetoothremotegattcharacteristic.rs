@@ -4,7 +4,7 @@
 
 use bluetooth_traits::{BluetoothRequest, BluetoothResponse, GATTType};
 use bluetooth_traits::blocklist::{Blocklist, uuid_is_blocklisted};
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::BluetoothCharacteristicPropertiesBinding::
     BluetoothCharacteristicPropertiesMethods;
 use dom::bindings::codegen::Bindings::BluetoothRemoteGATTCharacteristicBinding;

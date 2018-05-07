@@ -5,7 +5,7 @@
 use audio_video_metadata;
 use document_loader::{LoadBlocker, LoadType};
 use dom::attr::Attr;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::AttrBinding::AttrMethods;
 use dom::bindings::codegen::Bindings::HTMLMediaElementBinding::CanPlayTypeResult;
 use dom::bindings::codegen::Bindings::HTMLMediaElementBinding::HTMLMediaElementConstants;

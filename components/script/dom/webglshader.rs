@@ -6,7 +6,7 @@
 use canvas_traits::webgl::{WebGLCommand, WebGLError, WebGLMsgSender};
 use canvas_traits::webgl::{WebGLParameter, WebGLResult, WebGLSLVersion};
 use canvas_traits::webgl::{WebGLShaderId, WebGLVersion, webgl_channel};
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::WebGLShaderBinding;
 use dom::bindings::reflector::reflect_dom_object;
 use dom::bindings::root::DomRoot;

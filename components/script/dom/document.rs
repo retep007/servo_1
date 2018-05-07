@@ -9,7 +9,7 @@ use dom::activation::{ActivationSource, synthetic_click_activation};
 use dom::attr::Attr;
 use dom::beforeunloadevent::BeforeUnloadEvent;
 use dom::bindings::callback::ExceptionHandling;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::DocumentBinding;
 use dom::bindings::codegen::Bindings::DocumentBinding::{DocumentMethods, DocumentReadyState, ElementCreationOptions};
 use dom::bindings::codegen::Bindings::HTMLIFrameElementBinding::HTMLIFrameElementBinding::HTMLIFrameElementMethods;

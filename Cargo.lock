@@ -2553,6 +2553,7 @@ dependencies = [
  "ref_filter_map 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "ref_slice 1.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "script_dom_bindings 0.0.1",
  "script_layout_interface 0.0.1",
  "script_plugins 0.0.1",
  "script_traits 0.0.1",
@@ -2580,6 +2581,15 @@ dependencies = [
  "webrender_api 0.57.2 (git+https://github.com/servo/webrender)",
  "webvr_traits 0.0.1",
  "xml5ever 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "script_dom_bindings"
+version = "0.0.1"
+dependencies = [
+ "malloc_size_of 0.0.1",
+ "malloc_size_of_derive 0.0.1",
+ "style 0.0.1",
 ]
 
 [[package]]

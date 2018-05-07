@@ -1,0 +1,15 @@
+[package]
+name = "script_dom_bindings"
+version = "0.0.1"
+authors = ["The Servo Project Developers"]
+license = "MPL-2.0"
+publish = false
+
+[lib]
+name = "script_dom_bindings"
+path = "lib.rs"
+
+[dependencies]
+style = {path = "../style", features = ["servo"]}
+malloc_size_of = { path = "../malloc_size_of" }
+malloc_size_of_derive = { path = "../malloc_size_of_derive" }

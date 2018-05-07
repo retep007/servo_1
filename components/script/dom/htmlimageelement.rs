@@ -7,7 +7,7 @@ use cssparser::{Parser, ParserInput};
 use document_loader::{LoadType, LoadBlocker};
 use dom::activation::Activatable;
 use dom::attr::Attr;
-use dom::bindings::cell::DomRefCell;
+use script_dom_bindings::cell::DomRefCell;
 use dom::bindings::codegen::Bindings::DOMRectBinding::DOMRectBinding::DOMRectMethods;
 use dom::bindings::codegen::Bindings::ElementBinding::ElementBinding::ElementMethods;
 use dom::bindings::codegen::Bindings::HTMLImageElementBinding;
