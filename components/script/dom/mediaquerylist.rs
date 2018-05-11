@@ -24,6 +24,7 @@ use std::cell::Cell;
 use std::rc::Rc;
 use style::media_queries::MediaList;
 use style_traits::ToCss;
+use typeholder::TypeHolderTrait;
 
 pub enum MediaQueryListMatchState {
     Same(bool),
@@ -31,15 +32,15 @@ pub enum MediaQueryListMatchState {
 }
 
 #[dom_struct]
-pub struct MediaQueryList {
+pub struct MediaQueryList<TH: TypeHolderTrait> {
     eventtarget: EventTarget,
-    document: Dom<Document>,
+    document: Dom<Document<TH>>,
     media_query_list: MediaList,
     last_match_state: Cell<Option<bool>>
 }
 
-impl MediaQueryList {
-    fn new_inherited(document: &Document, media_query_list: MediaList) -> MediaQueryList {
+impl<TH: TypeHolderTrait> MediaQueryList<TH> {
+    fn new_inherited(document: &Document<TH>, media_query_list: MediaList) -> MediaQueryList<TH> {
         MediaQueryList {
             eventtarget: EventTarget::new_inherited(),
             document: Dom::from_ref(document),
@@ -48,14 +49,14 @@ impl MediaQueryList {
         }
     }
 
-    pub fn new(document: &Document, media_query_list: MediaList) -> DomRoot<MediaQueryList> {
+    pub fn new(document: &Document<TH>, media_query_list: MediaList) -> DomRoot<MediaQueryList<TH>> {
         reflect_dom_object(Box::new(MediaQueryList::new_inherited(document, media_query_list)),
                            document.window(),
                            MediaQueryListBinding::Wrap)
     }
 }
 
-impl MediaQueryList {
+impl<TH> MediaQueryList<TH> {
     fn evaluate_changes(&self) -> MediaQueryListMatchState {
         let matches = self.evaluate();
 
@@ -80,7 +81,7 @@ impl MediaQueryList {
     }
 }
 
-impl MediaQueryListMethods for MediaQueryList {
+impl<TH> MediaQueryListMethods for MediaQueryList<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylist-media
     fn Media(&self) -> DOMString {
         self.media_query_list.to_css_string().into()
@@ -117,17 +118,17 @@ impl MediaQueryListMethods for MediaQueryList {
 }
 
 #[derive(MallocSizeOf)]
-pub struct WeakMediaQueryListVec {
-    cell: DomRefCell<WeakRefVec<MediaQueryList>>,
+pub struct WeakMediaQueryListVec<TH: TypeHolderTrait> {
+    cell: DomRefCell<WeakRefVec<MediaQueryList<TH>>>,
 }
 
-impl WeakMediaQueryListVec {
+impl<TH: TypeHolderTrait> WeakMediaQueryListVec<TH> {
     /// Create a new vector of weak references to MediaQueryList
     pub fn new() -> Self {
         WeakMediaQueryListVec { cell: DomRefCell::new(WeakRefVec::new()) }
     }
 
-    pub fn push(&self, mql: &MediaQueryList) {
+    pub fn push(&self, mql: &MediaQueryList<TH>) {
         self.cell.borrow_mut().push(WeakRef::new(mql));
     }
 
@@ -155,7 +156,7 @@ impl WeakMediaQueryListVec {
 }
 
 #[allow(unsafe_code)]
-unsafe impl JSTraceable for WeakMediaQueryListVec {
+unsafe impl<TH> JSTraceable for WeakMediaQueryListVec<TH> {
     unsafe fn trace(&self, _: *mut JSTracer) {
         self.cell.borrow_mut().retain_alive()
     }

@@ -74,6 +74,7 @@ use task_source::networking::NetworkingTaskSource;
 use time;
 use timers::{OneshotTimerCallback, OneshotTimerHandle};
 use url::Position;
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, Debug, JSTraceable, MallocSizeOf, PartialEq)]
 enum XMLHttpRequestState {
@@ -120,7 +121,7 @@ impl XHRProgress {
 }
 
 #[dom_struct]
-pub struct XMLHttpRequest {
+pub struct XMLHttpRequest<TH: TypeHolderTrait> {
     eventtarget: XMLHttpRequestEventTarget,
     ready_state: Cell<XMLHttpRequestState>,
     timeout: Cell<u32>,
@@ -131,7 +132,7 @@ pub struct XMLHttpRequest {
     status_text: DomRefCell<ByteString>,
     response: DomRefCell<ByteString>,
     response_type: Cell<XMLHttpRequestResponseType>,
-    response_xml: MutNullableDom<Document>,
+    response_xml: MutNullableDom<Document<TH>>,
     response_blob: MutNullableDom<Blob>,
     response_arraybuffer: Heap<*mut JSObject>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
@@ -162,10 +163,10 @@ pub struct XMLHttpRequest {
     canceller: DomRefCell<FetchCanceller>,
 }
 
-impl XMLHttpRequest {
-    fn new_inherited(global: &GlobalScope) -> XMLHttpRequest {
+impl<TH> XMLHttpRequest<TH> {
+    fn new_inherited(global: &GlobalScope) -> XMLHttpRequest<TH> {
         //TODO - update this when referrer policy implemented for workers
-        let (referrer_url, referrer_policy) = if let Some(window) = global.downcast::<Window>() {
+        let (referrer_url, referrer_policy) = if let Some(window) = global.downcast::<Window<TH>>() {
             let document = window.Document();
             (Some(document.url()), document.get_referrer_policy())
         } else {
@@ -208,19 +209,19 @@ impl XMLHttpRequest {
             canceller: DomRefCell::new(Default::default()),
         }
     }
-    pub fn new(global: &GlobalScope) -> DomRoot<XMLHttpRequest> {
+    pub fn new(global: &GlobalScope) -> DomRoot<XMLHttpRequest<TH>> {
         reflect_dom_object(Box::new(XMLHttpRequest::new_inherited(global)),
                            global,
                            XMLHttpRequestBinding::Wrap)
     }
 
     // https://xhr.spec.whatwg.org/#constructors
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<XMLHttpRequest>> {
+    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<XMLHttpRequest<TH>>> {
         Ok(XMLHttpRequest::new(global))
     }
 
     fn sync_in_window(&self) -> bool {
-        self.sync.get() && self.global().is::<Window>()
+        self.sync.get() && self.global().is::<Window<TH>>()
     }
 
     fn initiate_async_xhr(context: Arc<Mutex<XHRContext>>,
@@ -278,7 +279,7 @@ impl XMLHttpRequest {
     }
 }
 
-impl XMLHttpRequestMethods for XMLHttpRequest {
+impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
     // https://xhr.spec.whatwg.org/#handler-xhr-onreadystatechange
     event_handler!(readystatechange, GetOnreadystatechange, SetOnreadystatechange);
 
@@ -297,7 +298,7 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     fn Open_(&self, method: ByteString, url: USVString, async: bool,
              username: Option<USVString>, password: Option<USVString>) -> ErrorResult {
         // Step 1
-        if let Some(window) = DomRoot::downcast::<Window>(self.global()) {
+        if let Some(window) = DomRoot::downcast::<Window<TH>>(self.global()) {
             if !window.Document().is_fully_active() {
                 return Err(Error::InvalidState);
             }
@@ -805,7 +806,7 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#the-responsexml-attribute
-    fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document>>> {
+    fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document<TH>>>> {
         // TODO(#2823): Until [Exposed] is implemented, this attribute needs to return null
         //              explicitly in the worker scope.
         if self.global().is::<WorkerGlobalScope>() {
@@ -828,10 +829,10 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 }
 
-pub type TrustedXHRAddress = Trusted<XMLHttpRequest>;
+pub type TrustedXHRAddress<TH> = Trusted<XMLHttpRequest<TH>>;
 
 
-impl XMLHttpRequest {
+impl<TH> XMLHttpRequest<TH> {
     fn change_ready_state(&self, rs: XMLHttpRequestState) {
         assert_ne!(self.ready_state.get(), rs);
         self.ready_state.set(rs);
@@ -1121,7 +1122,7 @@ impl XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#document-response
-    fn document_response(&self) -> Option<DomRoot<Document>> {
+    fn document_response(&self) -> Option<DomRoot<Document<TH>>> {
         // Step 1
         let response = self.response_xml.get();
         if response.is_some() {
@@ -1131,7 +1132,7 @@ impl XMLHttpRequest {
         let mime_type = self.final_mime_type();
         // TODO: prescan the response to determine encoding if final charset is null
         let charset = self.final_charset().unwrap_or(UTF_8);
-        let temp_doc: DomRoot<Document>;
+        let temp_doc: DomRoot<Document<TH>>;
         match mime_type {
             Some(Mime(mime::TopLevel::Text, mime::SubLevel::Html, _)) => {
                 // Step 5
@@ -1217,7 +1218,7 @@ impl XMLHttpRequest {
         self.response_json.get()
     }
 
-    fn document_text_html(&self) -> DomRoot<Document> {
+    fn document_text_html(&self) -> DomRoot<Document<TH>> {
         let charset = self.final_charset().unwrap_or(UTF_8);
         let wr = self.global();
         let response = self.response.borrow();
@@ -1231,7 +1232,7 @@ impl XMLHttpRequest {
         document
     }
 
-    fn handle_xml(&self) -> DomRoot<Document> {
+    fn handle_xml(&self) -> DomRoot<Document<TH>> {
         let charset = self.final_charset().unwrap_or(UTF_8);
         let wr = self.global();
         let response = self.response.borrow();
@@ -1245,7 +1246,7 @@ impl XMLHttpRequest {
         document
     }
 
-    fn new_doc(&self, is_html_document: IsHTMLDocument) -> DomRoot<Document> {
+    fn new_doc(&self, is_html_document: IsHTMLDocument) -> DomRoot<Document<TH>> {
         let wr = self.global();
         let win = wr.as_window();
         let doc = win.Document();
@@ -1373,13 +1374,13 @@ impl XMLHttpRequest {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct XHRTimeoutCallback {
+pub struct XHRTimeoutCallback<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
-    xhr: Trusted<XMLHttpRequest>,
+    xhr: Trusted<XMLHttpRequest<TH>>,
     generation_id: GenerationId,
 }
 
-impl XHRTimeoutCallback {
+impl<TH> XHRTimeoutCallback<TH> {
     pub fn invoke(self) {
         let xhr = self.xhr.root();
         if xhr.ready_state.get() != XMLHttpRequestState::Done {
@@ -1427,9 +1428,9 @@ impl Extractable for URLSearchParams {
     }
 }
 
-fn serialize_document(doc: &Document) -> Fallible<DOMString> {
+fn serialize_document<TH: TypeHolderTrait>(doc: &Document<TH>) -> Fallible<DOMString> {
     let mut writer = vec![];
-    match serialize(&mut writer, &doc.upcast::<Node>(), SerializeOpts::default()) {
+    match serialize(&mut writer, &doc.upcast::<Node<TH>>(), SerializeOpts::default()) {
         Ok(_) => Ok(DOMString::from(String::from_utf8(writer).unwrap())),
         Err(_) => Err(Error::InvalidState),
     }

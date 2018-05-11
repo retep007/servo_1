@@ -31,18 +31,19 @@ use num_traits::ToPrimitive;
 use servo_url::ServoUrl;
 use std::default::Default;
 use style::attr::AttrValue;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLAnchorElement {
+pub struct HTMLAnchorElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     rel_list: MutNullableDom<DOMTokenList>,
     url: DomRefCell<Option<ServoUrl>>,
 }
 
-impl HTMLAnchorElement {
+impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLAnchorElement {
+                     document: &Document) -> HTMLAnchorElement<TH> {
         HTMLAnchorElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -54,7 +55,7 @@ impl HTMLAnchorElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLAnchorElement> {
+               document: &Document) -> DomRoot<HTMLAnchorElement<TH>> {
         Node::reflect_node(Box::new(HTMLAnchorElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLAnchorElementBinding::Wrap)
@@ -87,7 +88,7 @@ impl HTMLAnchorElement {
     }
 }
 
-impl VirtualMethods for HTMLAnchorElement {
+impl<TH> VirtualMethods for HTMLAnchorElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -100,15 +101,15 @@ impl VirtualMethods for HTMLAnchorElement {
     }
 }
 
-impl HTMLAnchorElementMethods for HTMLAnchorElement {
+impl<TH> HTMLAnchorElementMethods for HTMLAnchorElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-a-text
     fn Text(&self) -> DOMString {
-        self.upcast::<Node>().GetTextContent().unwrap()
+        self.upcast::<Node<TH>>().GetTextContent().unwrap()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-a-text
     fn SetText(&self, value: DOMString) {
-        self.upcast::<Node>().SetTextContent(Some(value))
+        self.upcast::<Node<TH>>().SetTextContent(Some(value))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-a-rel
@@ -510,7 +511,7 @@ impl HTMLAnchorElementMethods for HTMLAnchorElement {
     }
 }
 
-impl Activatable for HTMLAnchorElement {
+impl<TH> Activatable for HTMLAnchorElement<TH> {
     fn as_element(&self) -> &Element {
         self.upcast::<Element>()
     }
@@ -548,7 +549,7 @@ impl Activatable for HTMLAnchorElement {
         let mut ismap_suffix = None;
         if let Some(element) = target.downcast::<Element>() {
             if target.is::<HTMLImageElement>() && element.has_attribute(&local_name!("ismap")) {
-                let target_node = element.upcast::<Node>();
+                let target_node = element.upcast::<Node<TH>>();
                 let rect = target_node.bounding_content_box_or_zero();
                 ismap_suffix = Some(
                     format!("?{},{}", mouse_event.ClientX().to_f32().unwrap() - rect.origin.x.to_f32_px(),

@@ -16,32 +16,33 @@ use dom::event::{Event, EventBubbles, EventCancelable};
 use dom::window::Window;
 use dom_struct::dom_struct;
 use servo_atoms::Atom;
+use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#beforeunloadevent
 #[dom_struct]
-pub struct BeforeUnloadEvent {
+pub struct BeforeUnloadEvent<TH: TypeHolderTrait> {
     event: Event,
     return_value: DomRefCell<DOMString>,
 }
 
-impl BeforeUnloadEvent {
-    fn new_inherited() -> BeforeUnloadEvent {
+impl<TH: TypeHolderTrait> BeforeUnloadEvent<TH> {
+    fn new_inherited() -> Self {
         BeforeUnloadEvent {
             event: Event::new_inherited(),
             return_value: DomRefCell::new(DOMString::new()),
         }
     }
 
-    pub fn new_uninitialized(window: &Window) -> DomRoot<BeforeUnloadEvent> {
+    pub fn new_uninitialized(window: &Window) -> DomRoot<Self> {
         reflect_dom_object(Box::new(BeforeUnloadEvent::new_inherited()),
                            window,
                            BeforeUnloadEventBinding::Wrap)
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                type_: Atom,
                bubbles: EventBubbles,
-               cancelable: EventCancelable) -> DomRoot<BeforeUnloadEvent> {
+               cancelable: EventCancelable) -> DomRoot<Self> {
         let ev = BeforeUnloadEvent::new_uninitialized(window);
         {
             let event = ev.upcast::<Event>();

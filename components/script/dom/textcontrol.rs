@@ -17,19 +17,20 @@ use dom::eventtarget::EventTarget;
 use dom::node::{Node, NodeDamage, window_from_node};
 use script_traits::ScriptToConstellationChan;
 use textinput::{SelectionDirection, SelectionState, TextInput};
+use typeholder::TypeHolderTrait;
 
-pub trait TextControlElement: DerivedFrom<EventTarget> + DerivedFrom<Node> {
+pub trait TextControlElement<TH: TypeHolderTrait>: DerivedFrom<EventTarget> + DerivedFrom<Node<TH>> {
     fn selection_api_applies(&self) -> bool;
     fn has_selectable_text(&self) -> bool;
     fn set_dirty_value_flag(&self, value: bool);
 }
 
-pub struct TextControlSelection<'a, E: TextControlElement> {
+pub struct TextControlSelection<'a, E: TextControlElement, TH: TypeHolderTrait> {
     element: &'a E,
     textinput: &'a DomRefCell<TextInput<ScriptToConstellationChan>>,
 }
 
-impl<'a, E: TextControlElement> TextControlSelection<'a, E> {
+impl<'a, E: TextControlElement, TH: TypeHolderTrait> TextControlSelection<'a, E, TH> {
     pub fn new(element: &'a E, textinput: &'a DomRefCell<TextInput<ScriptToConstellationChan>>) -> Self {
         TextControlSelection { element, textinput }
     }
@@ -291,6 +292,6 @@ impl<'a, E: TextControlElement> TextControlSelection<'a, E> {
                 &window);
         }
 
-        self.element.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+        self.element.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
     }
 }

@@ -24,6 +24,7 @@ use metrics::ToMs;
 use std::cell::Cell;
 use std::cmp::Ordering;
 use time;
+use typeholder::TypeHolderTrait;
 
 const INVALID_ENTRY_NAMES: &'static [&'static str] = &[
     "navigationStart",
@@ -109,7 +110,7 @@ struct PerformanceObserver {
 }
 
 #[dom_struct]
-pub struct Performance {
+pub struct Performance<TH: TypeHolderTrait> {
     reflector_: Reflector,
     timing: Option<Dom<PerformanceTiming>>,
     entries: DomRefCell<PerformanceEntryList>,
@@ -118,13 +119,13 @@ pub struct Performance {
     navigation_start_precise: u64,
 }
 
-impl Performance {
+impl<TH: TypeHolderTrait> Performance<TH> {
     fn new_inherited(global: &GlobalScope,
                      navigation_start: u64,
                      navigation_start_precise: u64) -> Performance {
         Performance {
             reflector_: Reflector::new(),
-            timing: if global.is::<Window>() {
+            timing: if global.is::<Window<TH>>() {
                 Some(Dom::from_ref(&*PerformanceTiming::new(global.as_window(),
                                                            navigation_start,
                                                            navigation_start_precise)))
@@ -257,7 +258,7 @@ impl Performance {
     }
 }
 
-impl PerformanceMethods for Performance {
+impl<TH: TypeHolderTrait> PerformanceMethods for Performance<TH> {
     // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html#performance-timing-attribute
     fn Timing(&self) -> DomRoot<PerformanceTiming> {
         match self.timing {
@@ -291,7 +292,7 @@ impl PerformanceMethods for Performance {
     fn Mark(&self, mark_name: DOMString) -> Fallible<()> {
         let global = self.global();
         // Step 1.
-        if global.is::<Window>() && INVALID_ENTRY_NAMES.contains(&mark_name.as_ref()) {
+        if global.is::<Window<TH>>() && INVALID_ENTRY_NAMES.contains(&mark_name.as_ref()) {
             return Err(Error::Syntax);
         }
 

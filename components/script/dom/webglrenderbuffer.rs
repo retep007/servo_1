@@ -12,9 +12,10 @@ use dom::webglobject::WebGLObject;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use std::cell::Cell;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLRenderbuffer {
+pub struct WebGLRenderbuffer<TH: TypeHolderTrait> {
     webgl_object: WebGLObject,
     id: WebGLRenderbufferId,
     ever_bound: Cell<bool>,
@@ -25,7 +26,7 @@ pub struct WebGLRenderbuffer {
     renderer: WebGLMsgSender,
 }
 
-impl WebGLRenderbuffer {
+impl<TH: TypeHolderTrait> WebGLRenderbuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLRenderbufferId)
                      -> WebGLRenderbuffer {
@@ -40,7 +41,7 @@ impl WebGLRenderbuffer {
         }
     }
 
-    pub fn maybe_new(window: &Window, renderer: WebGLMsgSender)
+    pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
                      -> Option<DomRoot<WebGLRenderbuffer>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateRenderbuffer(sender)).unwrap();
@@ -49,7 +50,7 @@ impl WebGLRenderbuffer {
         result.map(|renderbuffer_id| WebGLRenderbuffer::new(window, renderer, renderbuffer_id))
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLRenderbufferId)
                -> DomRoot<WebGLRenderbuffer> {
@@ -60,7 +61,7 @@ impl WebGLRenderbuffer {
 }
 
 
-impl WebGLRenderbuffer {
+impl<TH> WebGLRenderbuffer<TH> {
     pub fn id(&self) -> WebGLRenderbufferId {
         self.id
     }

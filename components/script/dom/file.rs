@@ -16,15 +16,16 @@ use dom::window::Window;
 use dom_struct::dom_struct;
 use net_traits::filemanager_thread::SelectedFile;
 use time;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct File {
+pub struct File<TH: TypeHolderTrait> {
     blob: Blob,
     name: DOMString,
     modified: i64,
 }
 
-impl File {
+impl<TH: TypeHolderTrait> File<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(blob_impl: BlobImpl, name: DOMString,
                      modified: Option<i64>, type_string: &str) -> File {
@@ -51,7 +52,7 @@ impl File {
     }
 
     // Construct from selected file message from file manager thread
-    pub fn new_from_selected(window: &Window, selected: SelectedFile) -> DomRoot<File> {
+    pub fn new_from_selected(window: &Window<TH>, selected: SelectedFile) -> DomRoot<File> {
         let name = DOMString::from(selected.filename.to_str().expect("File name encoding error"));
 
         File::new(window.upcast(), BlobImpl::new_from_file(selected.id, selected.filename, selected.size),
@@ -88,7 +89,7 @@ impl File {
     }
 }
 
-impl FileMethods for File {
+impl<TH> FileMethods for File<TH> {
     // https://w3c.github.io/FileAPI/#dfn-name
     fn Name(&self) -> DOMString {
         self.name.clone()

@@ -20,16 +20,17 @@ use dom::virtualmethods::VirtualMethods;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use style::attr::AttrValue;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLLabelElement {
+pub struct HTMLLabelElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement
 }
 
-impl HTMLLabelElement {
+impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLLabelElement {
+                     document: &Document<TH>) -> HTMLLabelElement<TH> {
         HTMLLabelElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -39,14 +40,14 @@ impl HTMLLabelElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLLabelElement> {
+               document: &Document<TH>) -> DomRoot<HTMLLabelElement<TH>> {
         Node::reflect_node(Box::new(HTMLLabelElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLLabelElementBinding::Wrap)
     }
 }
 
-impl Activatable for HTMLLabelElement {
+impl<TH> Activatable for HTMLLabelElement<TH> {
     fn as_element(&self) -> &Element {
         self.upcast::<Element>()
     }
@@ -86,7 +87,7 @@ impl Activatable for HTMLLabelElement {
 
 }
 
-impl HTMLLabelElementMethods for HTMLLabelElement {
+impl<TH: TypeHolderTrait> HTMLLabelElementMethods for HTMLLabelElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-fae-form
     fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
         self.form_owner()
@@ -100,7 +101,7 @@ impl HTMLLabelElementMethods for HTMLLabelElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-label-control
     fn GetControl(&self) -> Option<DomRoot<HTMLElement>> {
-        if !self.upcast::<Node>().is_in_doc() {
+        if !self.upcast::<Node<TH>>().is_in_doc() {
             return None;
         }
 
@@ -118,7 +119,7 @@ impl HTMLLabelElementMethods for HTMLLabelElement {
     }
 }
 
-impl VirtualMethods for HTMLLabelElement {
+impl<TH> VirtualMethods for HTMLLabelElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -141,9 +142,9 @@ impl VirtualMethods for HTMLLabelElement {
     }
 }
 
-impl HTMLLabelElement {
+impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
     pub fn first_labelable_descendant(&self) -> Option<DomRoot<HTMLElement>> {
-        self.upcast::<Node>()
+        self.upcast::<Node<TH>>()
             .traverse_preorder()
             .filter_map(DomRoot::downcast::<HTMLElement>)
             .filter(|elem| elem.is_labelable_element())
@@ -151,7 +152,7 @@ impl HTMLLabelElement {
     }
 }
 
-impl FormControl for HTMLLabelElement {
+impl<TH> FormControl for HTMLLabelElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
         self.GetControl().map(DomRoot::upcast::<Element>).and_then(|elem| {
             elem.as_maybe_form_control().and_then(|control| control.form_owner())

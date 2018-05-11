@@ -17,6 +17,7 @@ use dom::webgltexture::WebGLTexture;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use std::cell::Cell;
+use typeholder::TypeHolderTrait;
 
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
@@ -32,7 +33,7 @@ pub enum WebGLFramebufferAttachmentRoot {
 }
 
 #[dom_struct]
-pub struct WebGLFramebuffer {
+pub struct WebGLFramebuffer<TH: TypeHolderTrait> {
     webgl_object: WebGLObject,
     id: WebGLFramebufferId,
     /// target can only be gl::FRAMEBUFFER at the moment
@@ -51,7 +52,7 @@ pub struct WebGLFramebuffer {
     depthstencil: DomRefCell<Option<WebGLFramebufferAttachment>>,
 }
 
-impl WebGLFramebuffer {
+impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLFramebufferId)
                      -> WebGLFramebuffer {
@@ -70,7 +71,7 @@ impl WebGLFramebuffer {
         }
     }
 
-    pub fn maybe_new(window: &Window, renderer: WebGLMsgSender)
+    pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
                      -> Option<DomRoot<WebGLFramebuffer>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateFramebuffer(sender)).unwrap();
@@ -79,7 +80,7 @@ impl WebGLFramebuffer {
         result.map(|fb_id| WebGLFramebuffer::new(window, renderer, fb_id))
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLFramebufferId)
                -> DomRoot<WebGLFramebuffer> {
@@ -90,7 +91,7 @@ impl WebGLFramebuffer {
 }
 
 
-impl WebGLFramebuffer {
+impl<TH> WebGLFramebuffer<TH> {
     pub fn id(&self) -> WebGLFramebufferId {
         self.id
     }
@@ -392,7 +393,7 @@ impl WebGLFramebuffer {
     }
 }
 
-impl Drop for WebGLFramebuffer {
+impl<TH> Drop for WebGLFramebuffer<TH> {
     fn drop(&mut self) {
         self.delete();
     }

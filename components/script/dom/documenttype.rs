@@ -12,23 +12,24 @@ use dom::bindings::str::DOMString;
 use dom::document::Document;
 use dom::node::Node;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#documenttype
 /// The `DOCTYPE` tag.
 #[dom_struct]
-pub struct DocumentType {
-    node: Node,
+pub struct DocumentType<TH: TypeHolderTrait> {
+    node: Node<TH>,
     name: DOMString,
     public_id: DOMString,
     system_id: DOMString,
 }
 
-impl DocumentType {
+impl<TH: TypeHolderTrait> DocumentType<TH> {
     fn new_inherited(name: DOMString,
                      public_id: Option<DOMString>,
                      system_id: Option<DOMString>,
-                     document: &Document)
-                     -> DocumentType {
+                     document: &Document<TH>)
+                     -> DocumentType<TH> {
         DocumentType {
             node: Node::new_inherited(document),
             name: name,
@@ -40,8 +41,8 @@ impl DocumentType {
     pub fn new(name: DOMString,
                public_id: Option<DOMString>,
                system_id: Option<DOMString>,
-               document: &Document)
-               -> DomRoot<DocumentType> {
+               document: &Document<TH>)
+               -> DomRoot<DocumentType<TH>> {
         Node::reflect_node(Box::new(DocumentType::new_inherited(name, public_id, system_id, document)),
                            document,
                            DocumentTypeBinding::Wrap)
@@ -63,7 +64,7 @@ impl DocumentType {
     }
 }
 
-impl DocumentTypeMethods for DocumentType {
+impl<TH: TypeHolderTrait> DocumentTypeMethods for DocumentType<TH> {
     // https://dom.spec.whatwg.org/#dom-documenttype-name
     fn Name(&self) -> DOMString {
         self.name.clone()
@@ -81,21 +82,21 @@ impl DocumentTypeMethods for DocumentType {
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
     fn Before(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
-        self.upcast::<Node>().before(nodes)
+        self.upcast::<Node<TH>>().before(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
     fn After(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
-        self.upcast::<Node>().after(nodes)
+        self.upcast::<Node<TH>>().after(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
     fn ReplaceWith(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
-        self.upcast::<Node>().replace_with(nodes)
+        self.upcast::<Node<TH>>().replace_with(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-remove
     fn Remove(&self) {
-        self.upcast::<Node>().remove_self();
+        self.upcast::<Node<TH>>().remove_self();
     }
 }

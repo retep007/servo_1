@@ -17,6 +17,7 @@ use dom::window::Window;
 use dom_struct::dom_struct;
 use std::cell::Cell;
 use std::cmp;
+use typeholder::TypeHolderTrait;
 
 pub enum TexParameterValue {
     Float(f32),
@@ -29,7 +30,7 @@ const MAX_FACE_COUNT: usize = 6;
 jsmanaged_array!(MAX_LEVEL_COUNT * MAX_FACE_COUNT);
 
 #[dom_struct]
-pub struct WebGLTexture {
+pub struct WebGLTexture<TH: TypeHolderTrait> {
     webgl_object: WebGLObject,
     id: WebGLTextureId,
     /// The target to which this texture was bound the first time
@@ -50,10 +51,10 @@ pub struct WebGLTexture {
     attached_to_dom: Cell<bool>,
 }
 
-impl WebGLTexture {
+impl<TH: TypeHolderTrait> WebGLTexture<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLTextureId)
-                     -> WebGLTexture {
+                     -> WebGLTexture<TH> {
         WebGLTexture {
             webgl_object: WebGLObject::new_inherited(),
             id: id,
@@ -69,8 +70,8 @@ impl WebGLTexture {
         }
     }
 
-    pub fn maybe_new(window: &Window, renderer: WebGLMsgSender)
-                     -> Option<DomRoot<WebGLTexture>> {
+    pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
+                     -> Option<DomRoot<WebGLTexture<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateTexture(sender)).unwrap();
 
@@ -78,10 +79,10 @@ impl WebGLTexture {
         result.map(|texture_id| WebGLTexture::new(window, renderer, texture_id))
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLTextureId)
-               -> DomRoot<WebGLTexture> {
+               -> DomRoot<WebGLTexture<TH>> {
         reflect_dom_object(Box::new(WebGLTexture::new_inherited(renderer, id)),
                            window,
                            WebGLTextureBinding::Wrap)
@@ -89,7 +90,7 @@ impl WebGLTexture {
 }
 
 
-impl WebGLTexture {
+impl<TH> WebGLTexture<TH> {
     pub fn id(&self) -> WebGLTextureId {
         self.id
     }
@@ -388,7 +389,7 @@ impl WebGLTexture {
     }
 }
 
-impl Drop for WebGLTexture {
+impl<TH> Drop for WebGLTexture<TH> {
     fn drop(&mut self) {
         self.delete();
     }

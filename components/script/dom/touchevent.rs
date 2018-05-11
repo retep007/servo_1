@@ -15,9 +15,10 @@ use dom::uievent::UIEvent;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use std::cell::Cell;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TouchEvent {
+pub struct TouchEvent<TH: TypeHolderTrait> {
     uievent: UIEvent,
     touches: MutDom<TouchList>,
     target_touches: MutDom<TouchList>,
@@ -28,7 +29,7 @@ pub struct TouchEvent {
     shift_key: Cell<bool>,
 }
 
-impl TouchEvent {
+impl<TH: TypeHolderTrait> TouchEvent<TH> {
     fn new_inherited(touches: &TouchList,
                      changed_touches: &TouchList,
                      target_touches: &TouchList) -> TouchEvent {
@@ -44,7 +45,7 @@ impl TouchEvent {
         }
     }
 
-    pub fn new_uninitialized(window: &Window,
+    pub fn new_uninitialized(window: &Window<TH>,
                      touches: &TouchList,
                      changed_touches: &TouchList,
                      target_touches: &TouchList) -> DomRoot<TouchEvent> {
@@ -53,7 +54,7 @@ impl TouchEvent {
                            TouchEventBinding::Wrap)
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                type_: DOMString,
                can_bubble: EventBubbles,
                cancelable: EventCancelable,

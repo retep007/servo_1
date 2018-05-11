@@ -432,8 +432,9 @@ pub mod utils {
     use net_traits::image_cache::{ImageResponse, UsePlaceholder, ImageOrMetadataAvailable};
     use net_traits::image_cache::CanRequestImages;
     use servo_url::ServoUrl;
+    use typeholder::TypeHolderTrait;
 
-    pub fn request_image_from_cache(window: &Window, url: ServoUrl) -> ImageResponse {
+    pub fn request_image_from_cache<TH: TypeHolderTrait>(window: &Window<TH>, url: ServoUrl) -> ImageResponse {
         let image_cache = window.image_cache();
         let response =
             image_cache.find_image_or_metadata(url.into(),

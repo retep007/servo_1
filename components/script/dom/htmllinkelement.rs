@@ -36,6 +36,7 @@ use style::str::HTML_SPACE_CHARACTERS;
 use style::stylesheets::{CssRuleType, Stylesheet};
 use style_traits::ParsingMode;
 use stylesheet_loader::{StylesheetLoader, StylesheetContextSource, StylesheetOwner};
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, JSTraceable, MallocSizeOf, PartialEq)]
 pub struct RequestGenerationId(u32);
@@ -47,7 +48,7 @@ impl RequestGenerationId {
 }
 
 #[dom_struct]
-pub struct HTMLLinkElement {
+pub struct HTMLLinkElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     rel_list: MutNullableDom<DOMTokenList>,
     #[ignore_malloc_size_of = "Arc"]
@@ -65,9 +66,9 @@ pub struct HTMLLinkElement {
     request_generation_id: Cell<RequestGenerationId>,
 }
 
-impl HTMLLinkElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document,
-                     creator: ElementCreator) -> HTMLLinkElement {
+impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>,
+                     creator: ElementCreator) -> HTMLLinkElement<TH> {
         HTMLLinkElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             rel_list: Default::default(),
@@ -83,8 +84,8 @@ impl HTMLLinkElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document,
-               creator: ElementCreator) -> DomRoot<HTMLLinkElement> {
+               document: &Document<TH>,
+               creator: ElementCreator) -> DomRoot<HTMLLinkElement<TH>> {
         Node::reflect_node(Box::new(HTMLLinkElement::new_inherited(local_name, prefix, document, creator)),
                            document,
                            HTMLLinkElementBinding::Wrap)
@@ -166,14 +167,14 @@ fn is_favicon(value: &Option<String>) -> bool {
     }
 }
 
-impl VirtualMethods for HTMLLinkElement {
+impl<TH: TypeHolderTrait> VirtualMethods for HTMLLinkElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
 
     fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
-        if !self.upcast::<Node>().is_in_doc() || mutation.is_removal() {
+        if !self.upcast::<Node<TH>>().is_in_doc() || mutation.is_removal() {
             return;
         }
 
@@ -241,7 +242,7 @@ impl VirtualMethods for HTMLLinkElement {
 }
 
 
-impl HTMLLinkElement {
+impl<TH> HTMLLinkElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#concept-link-obtain>
     fn handle_stylesheet_url(&self, href: &str) {
         let document = document_from_node(self);
@@ -314,7 +315,7 @@ impl HTMLLinkElement {
     }
 }
 
-impl StylesheetOwner for HTMLLinkElement {
+impl<TH> StylesheetOwner for HTMLLinkElement<TH> {
     fn increment_pending_loads_count(&self) {
         self.pending_loads.set(self.pending_loads.get() + 1)
     }
@@ -354,7 +355,7 @@ impl StylesheetOwner for HTMLLinkElement {
     }
 }
 
-impl HTMLLinkElementMethods for HTMLLinkElement {
+impl<TH> HTMLLinkElementMethods for HTMLLinkElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-link-href
     make_url_getter!(Href, "href");
 

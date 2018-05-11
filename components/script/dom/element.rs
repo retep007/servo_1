@@ -126,14 +126,15 @@ use xml5ever::serialize::SerializeOpts as XmlSerializeOpts;
 use xml5ever::serialize::TraversalScope as XmlTraversalScope;
 use xml5ever::serialize::TraversalScope::ChildrenOnly as XmlChildrenOnly;
 use xml5ever::serialize::TraversalScope::IncludeNode as XmlIncludeNode;
+use typeholder::TypeHolderTrait;
 
 // TODO: Update focus state when the top-level browsing context gains or loses system focus,
 // and when the element enters or leaves a browsing context container.
 // https://html.spec.whatwg.org/multipage/#selector-focus
 
 #[dom_struct]
-pub struct Element {
-    node: Node,
+pub struct Element<TH: TypeHolderTrait> {
+    node: Node<TH>,
     local_name: LocalName,
     tag_name: TagName,
     namespace: Namespace,
@@ -161,7 +162,7 @@ pub struct Element {
     custom_element_state: Cell<CustomElementState>,
 }
 
-impl fmt::Debug for Element {
+impl<TH> fmt::Debug for Element<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "<{}", self.local_name)?;
         if let Some(ref id) = *self.id_attribute.borrow() {
@@ -171,7 +172,7 @@ impl fmt::Debug for Element {
     }
 }
 
-impl fmt::Debug for DomRoot<Element> {
+impl<TH> fmt::Debug for DomRoot<Element<TH>> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         (**self).fmt(f)
     }
@@ -236,10 +237,10 @@ impl FromStr for AdjacentPosition {
 //
 // Element methods
 //
-impl Element {
+impl<TH: TypeHolderTrait> Element<TH> {
     pub fn create(name: QualName,
                   is: Option<LocalName>,
-                  document: &Document,
+                  document: &Document<TH>,
                   creator: ElementCreator,
                   mode: CustomElementCreationMode)
                   -> DomRoot<Element> {
@@ -353,7 +354,7 @@ impl Element {
     /// layout box iff it doesn't have `display: none`.
     pub fn style(&self) -> Option<Arc<ComputedValues>> {
         window_from_node(self).style_query(
-            self.upcast::<Node>().to_trusted_node_address()
+            self.upcast::<Node<TH>>().to_trusted_node_address()
         )
     }
 
@@ -429,7 +430,7 @@ pub unsafe fn get_attr_for_layout<'a>(elem: &'a Element, namespace: &Namespace, 
 }
 
 #[allow(unsafe_code)]
-impl RawLayoutElementHelpers for Element {
+impl<TH> RawLayoutElementHelpers for Element<TH> {
     #[inline]
     unsafe fn get_attr_for_layout<'a>(&'a self, namespace: &Namespace, name: &LocalName)
                                       -> Option<&'a AttrValue> {
@@ -487,7 +488,7 @@ pub trait LayoutElementHelpers {
     fn has_selector_flags(&self, flags: ElementSelectorFlags) -> bool;
 }
 
-impl LayoutElementHelpers for LayoutDom<Element> {
+impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
     #[allow(unsafe_code)]
     #[inline]
     unsafe fn has_class_for_layout(&self, name: &Atom, case_sensitivity: CaseSensitivity) -> bool {
@@ -518,7 +519,7 @@ impl LayoutElementHelpers for LayoutDom<Element> {
                 CascadeLevel::PresHints)
         }
 
-        let document = self.upcast::<Node>().owner_doc_for_layout();
+        let document = self.upcast::<Node<TH>>().owner_doc_for_layout();
         let shared_lock = document.style_shared_lock();
 
         let bgcolor = if let Some(this) = self.downcast::<HTMLBodyElement>() {
@@ -844,7 +845,7 @@ impl LayoutElementHelpers for LayoutDom<Element> {
     #[allow(unsafe_code)]
     fn get_lang_for_layout(&self) -> String {
         unsafe {
-            let mut current_node = Some(self.upcast::<Node>());
+            let mut current_node = Some(self.upcast::<Node<TH>>());
             while let Some(node) = current_node {
                 current_node = node.parent_node_ref();
                 match node.downcast::<Element>().map(|el| el.unsafe_get()) {
@@ -916,13 +917,13 @@ impl LayoutElementHelpers for LayoutDom<Element> {
     }
 }
 
-impl Element {
+impl<TH: TypeHolderTrait> Element<TH> {
     pub fn is_html_element(&self) -> bool {
         self.namespace == ns!(html)
     }
 
     pub fn html_element_in_html_document(&self) -> bool {
-        self.is_html_element() && self.upcast::<Node>().is_in_html_doc()
+        self.is_html_element() && self.upcast::<Node<TH>>().is_in_html_doc()
     }
 
     pub fn local_name(&self) -> &LocalName {
@@ -957,7 +958,7 @@ impl Element {
         let prefix = prefix.map(String::from).map(LocalName::from);
 
         let inclusive_ancestor_elements =
-            self.upcast::<Node>()
+            self.upcast::<Node<TH>>()
                 .inclusive_ancestors()
                 .filter_map(DomRoot::downcast::<Self>);
 
@@ -1027,7 +1028,7 @@ impl Element {
     pub fn serialize(&self, traversal_scope: TraversalScope) -> Fallible<DOMString> {
         let mut writer = vec![];
         match serialize(&mut writer,
-                        &self.upcast::<Node>(),
+                        &self.upcast::<Node<TH>>(),
                         SerializeOpts {
                             traversal_scope: traversal_scope,
                             ..Default::default()
@@ -1041,7 +1042,7 @@ impl Element {
     pub fn xmlSerialize(&self, traversal_scope: XmlTraversalScope) -> Fallible<DOMString> {
         let mut writer = vec![];
         match xmlSerialize::serialize(&mut writer,
-                        &self.upcast::<Node>(),
+                        &self.upcast::<Node<TH>>(),
                         XmlSerializeOpts {
                             traversal_scope: traversal_scope,
                             ..Default::default()
@@ -1053,12 +1054,12 @@ impl Element {
 
     pub fn root_element(&self) -> DomRoot<Element> {
         if self.node.is_in_doc() {
-            self.upcast::<Node>()
+            self.upcast::<Node<TH>>()
                 .owner_doc()
                 .GetDocumentElement()
                 .unwrap()
         } else {
-            self.upcast::<Node>()
+            self.upcast::<Node<TH>>()
                 .inclusive_ancestors()
                 .filter_map(DomRoot::downcast)
                 .last()
@@ -1068,7 +1069,7 @@ impl Element {
 
     // https://dom.spec.whatwg.org/#locate-a-namespace-prefix
     pub fn lookup_prefix(&self, namespace: Namespace) -> Option<DOMString> {
-        for node in self.upcast::<Node>().inclusive_ancestors() {
+        for node in self.upcast::<Node<TH>>().inclusive_ancestors() {
             let element = node.downcast::<Element>()?;
             // Step 1.
             if *element.namespace() == namespace {
@@ -1109,7 +1110,7 @@ impl Element {
             return false;
         }
         // TODO: Check whether the element is being rendered (i.e. not hidden).
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         if node.get_flag(NodeFlags::SEQUENTIALLY_FOCUSABLE) {
             return true;
         }
@@ -1126,7 +1127,7 @@ impl Element {
     }
 
     pub fn is_actually_disabled(&self) -> bool {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         match node.type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLButtonElement)) |
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) |
@@ -1448,14 +1449,14 @@ impl Element {
     }
 
     pub fn will_mutate_attr(&self, attr: &Attr) {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         node.owner_doc().element_attr_will_change(self, attr);
     }
 
     // https://dom.spec.whatwg.org/#insert-adjacent
     pub fn insert_adjacent(&self, where_: AdjacentPosition, node: &Node)
-                           -> Fallible<Option<DomRoot<Node>>> {
-        let self_node = self.upcast::<Node>();
+                           -> Fallible<Option<DomRoot<Node<TH>>>> {
+        let self_node = self.upcast::<Node<TH>>();
         match where_ {
             AdjacentPosition::BeforeBegin => {
                 if let Some(parent) = self_node.GetParentNode() {
@@ -1486,7 +1487,7 @@ impl Element {
         let x = if x_.is_finite() { x_ } else { 0.0f64 };
         let y = if y_.is_finite() { y_ } else { 0.0f64 };
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
 
         // Step 3
         let doc = node.owner_doc();
@@ -1541,13 +1542,13 @@ impl Element {
         let fragment = DocumentFragment::new(&context_document);
         // Step 4.
         for child in new_children {
-            fragment.upcast::<Node>().AppendChild(&child).unwrap();
+            fragment.upcast::<Node<TH>>().AppendChild(&child).unwrap();
         }
         // Step 5.
         Ok(fragment)
     }
 
-    pub fn fragment_parsing_context(owner_doc: &Document, element: Option<&Self>) -> DomRoot<Self> {
+    pub fn fragment_parsing_context(owner_doc: &Document<TH>, element: Option<&Self>) -> DomRoot<Self> {
         match element {
             Some(elem) if elem.local_name() != &local_name!("html") || !elem.html_element_in_html_document() => {
                 DomRoot::from_ref(elem)
@@ -1576,7 +1577,7 @@ impl Element {
     }
 }
 
-impl ElementMethods for Element {
+impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     // https://dom.spec.whatwg.org/#dom-element-namespaceuri
     fn GetNamespaceURI(&self) -> Option<DOMString> {
         Node::namespace_to_string(self.namespace.clone())
@@ -1833,7 +1834,7 @@ impl ElementMethods for Element {
     // https://drafts.csswg.org/cssom-view/#dom-element-getclientrects
     fn GetClientRects(&self) -> Vec<DomRoot<DOMRect>> {
         let win = window_from_node(self);
-        let raw_rects = self.upcast::<Node>().content_boxes();
+        let raw_rects = self.upcast::<Node<TH>>().content_boxes();
         raw_rects.iter().map(|rect| {
             DOMRect::new(win.upcast(),
                          rect.origin.x.to_f64_px(),
@@ -1846,7 +1847,7 @@ impl ElementMethods for Element {
     // https://drafts.csswg.org/cssom-view/#dom-element-getboundingclientrect
     fn GetBoundingClientRect(&self) -> DomRoot<DOMRect> {
         let win = window_from_node(self);
-        let rect = self.upcast::<Node>().bounding_content_box_or_zero();
+        let rect = self.upcast::<Node<TH>>().bounding_content_box_or_zero();
         DOMRect::new(win.upcast(),
                      rect.origin.x.to_f64_px(),
                      rect.origin.y.to_f64_px(),
@@ -1897,7 +1898,7 @@ impl ElementMethods for Element {
 
     // https://drafts.csswg.org/cssom-view/#dom-element-scrolltop
     fn ScrollTop(&self) -> f64 {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
 
         // Step 1
         let doc = node.owner_doc();
@@ -1948,7 +1949,7 @@ impl ElementMethods for Element {
         // Step 1, 2
         let y = if y_.is_finite() { y_ } else { 0.0f64 };
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
 
         // Step 3
         let doc = node.owner_doc();
@@ -1995,7 +1996,7 @@ impl ElementMethods for Element {
 
     // https://drafts.csswg.org/cssom-view/#dom-element-scrolltop
     fn ScrollLeft(&self) -> f64 {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
 
         // Step 1
         let doc = node.owner_doc();
@@ -2046,7 +2047,7 @@ impl ElementMethods for Element {
         // Step 1, 2
         let x = if x_.is_finite() { x_ } else { 0.0f64 };
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
 
         // Step 3
         let doc = node.owner_doc();
@@ -2094,32 +2095,32 @@ impl ElementMethods for Element {
 
     // https://drafts.csswg.org/cssom-view/#dom-element-scrollwidth
     fn ScrollWidth(&self) -> i32 {
-        self.upcast::<Node>().scroll_area().size.width
+        self.upcast::<Node<TH>>().scroll_area().size.width
     }
 
     // https://drafts.csswg.org/cssom-view/#dom-element-scrollheight
     fn ScrollHeight(&self) -> i32 {
-        self.upcast::<Node>().scroll_area().size.height
+        self.upcast::<Node<TH>>().scroll_area().size.height
     }
 
     // https://drafts.csswg.org/cssom-view/#dom-element-clienttop
     fn ClientTop(&self) -> i32 {
-        self.upcast::<Node>().client_rect().origin.y
+        self.upcast::<Node<TH>>().client_rect().origin.y
     }
 
     // https://drafts.csswg.org/cssom-view/#dom-element-clientleft
     fn ClientLeft(&self) -> i32 {
-        self.upcast::<Node>().client_rect().origin.x
+        self.upcast::<Node<TH>>().client_rect().origin.x
     }
 
     // https://drafts.csswg.org/cssom-view/#dom-element-clientwidth
     fn ClientWidth(&self) -> i32 {
-        self.upcast::<Node>().client_rect().size.width
+        self.upcast::<Node<TH>>().client_rect().size.width
     }
 
     // https://drafts.csswg.org/cssom-view/#dom-element-clientheight
     fn ClientHeight(&self) -> i32 {
-        self.upcast::<Node>().client_rect().size.height
+        self.upcast::<Node<TH>>().client_rect().size.height
     }
 
     /// <https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML>
@@ -2161,7 +2162,7 @@ impl ElementMethods for Element {
     // https://w3c.github.io/DOM-Parsing/#dom-element-outerhtml
     fn SetOuterHTML(&self, value: DOMString) -> ErrorResult {
         let context_document = document_from_node(self);
-        let context_node = self.upcast::<Node>();
+        let context_node = self.upcast::<Node<TH>>();
         // Step 1.
         let context_parent = match context_node.GetParentNode() {
             None => {
@@ -2196,12 +2197,12 @@ impl ElementMethods for Element {
 
     // https://dom.spec.whatwg.org/#dom-nondocumenttypechildnode-previouselementsibling
     fn GetPreviousElementSibling(&self) -> Option<DomRoot<Element>> {
-        self.upcast::<Node>().preceding_siblings().filter_map(DomRoot::downcast).next()
+        self.upcast::<Node<TH>>().preceding_siblings().filter_map(DomRoot::downcast).next()
     }
 
     // https://dom.spec.whatwg.org/#dom-nondocumenttypechildnode-nextelementsibling
     fn GetNextElementSibling(&self) -> Option<DomRoot<Element>> {
-        self.upcast::<Node>().following_siblings().filter_map(DomRoot::downcast).next()
+        self.upcast::<Node<TH>>().following_siblings().filter_map(DomRoot::downcast).next()
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-children
@@ -2212,59 +2213,59 @@ impl ElementMethods for Element {
 
     // https://dom.spec.whatwg.org/#dom-parentnode-firstelementchild
     fn GetFirstElementChild(&self) -> Option<DomRoot<Element>> {
-        self.upcast::<Node>().child_elements().next()
+        self.upcast::<Node<TH>>().child_elements().next()
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-lastelementchild
     fn GetLastElementChild(&self) -> Option<DomRoot<Element>> {
-        self.upcast::<Node>().rev_children().filter_map(DomRoot::downcast::<Element>).next()
+        self.upcast::<Node<TH>>().rev_children().filter_map(DomRoot::downcast::<Element>).next()
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-childelementcount
     fn ChildElementCount(&self) -> u32 {
-        self.upcast::<Node>().child_elements().count() as u32
+        self.upcast::<Node<TH>>().child_elements().count() as u32
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
     fn Prepend(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
-        self.upcast::<Node>().prepend(nodes)
+        self.upcast::<Node<TH>>().prepend(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
     fn Append(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
-        self.upcast::<Node>().append(nodes)
+        self.upcast::<Node<TH>>().append(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
     fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element>>> {
-        let root = self.upcast::<Node>();
+        let root = self.upcast::<Node<TH>>();
         root.query_selector(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
     fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList>> {
-        let root = self.upcast::<Node>();
+        let root = self.upcast::<Node<TH>>();
         root.query_selector_all(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
     fn Before(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
-        self.upcast::<Node>().before(nodes)
+        self.upcast::<Node<TH>>().before(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
     fn After(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
-        self.upcast::<Node>().after(nodes)
+        self.upcast::<Node<TH>>().after(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
     fn ReplaceWith(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
-        self.upcast::<Node>().replace_with(nodes)
+        self.upcast::<Node<TH>>().replace_with(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-remove
     fn Remove(&self) {
-        self.upcast::<Node>().remove_self();
+        self.upcast::<Node<TH>>().remove_self();
     }
 
     // https://dom.spec.whatwg.org/#dom-element-matches
@@ -2329,8 +2330,8 @@ impl ElementMethods for Element {
 
         let context = match position {
             AdjacentPosition::BeforeBegin | AdjacentPosition::AfterEnd => {
-                match self.upcast::<Node>().GetParentNode() {
-                    Some(ref node) if node.is::<Document>() => {
+                match self.upcast::<Node<TH>>().GetParentNode() {
+                    Some(ref node) if node.is::<Document<TH>>() => {
                         return Err(Error::NoModificationAllowed)
                     }
                     None => return Err(Error::NoModificationAllowed),
@@ -2338,7 +2339,7 @@ impl ElementMethods for Element {
                 }
             }
             AdjacentPosition::AfterBegin | AdjacentPosition::BeforeEnd => {
-                DomRoot::from_ref(self.upcast::<Node>())
+                DomRoot::from_ref(self.upcast::<Node<TH>>())
             }
         };
 
@@ -2382,9 +2383,9 @@ impl ElementMethods for Element {
     }
 }
 
-impl VirtualMethods for Element {
+impl<TH> VirtualMethods for Element<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<Node>() as &VirtualMethods)
+        Some(self.upcast::<Node<TH>>() as &VirtualMethods)
     }
 
     fn attribute_affects_presentational_hints(&self, attr: &Attr) -> bool {
@@ -2399,7 +2400,7 @@ impl VirtualMethods for Element {
 
     fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let doc = node.owner_doc();
         match attr.local_name() {
             &local_name!("style") => {
@@ -2548,7 +2549,7 @@ impl VirtualMethods for Element {
         let flags = self.selector_flags.get();
         if flags.intersects(ElementSelectorFlags::HAS_SLOW_SELECTOR) {
             // All children of this node need to be restyled when any child changes.
-            self.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+            self.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
         } else {
             if flags.intersects(ElementSelectorFlags::HAS_SLOW_SELECTOR_LATER_SIBLINGS) {
                 if let Some(next_child) = mutation.next_child() {
@@ -2576,7 +2577,7 @@ impl VirtualMethods for Element {
     }
 }
 
-impl<'a> SelectorsElement for DomRoot<Element> {
+impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
     type Impl = SelectorImpl;
 
     fn opaque(&self) -> ::selectors::OpaqueElement {
@@ -2584,7 +2585,7 @@ impl<'a> SelectorsElement for DomRoot<Element> {
     }
 
     fn parent_element(&self) -> Option<DomRoot<Element>> {
-        self.upcast::<Node>().GetParentElement()
+        self.upcast::<Node<TH>>().GetParentElement()
     }
 
     fn parent_node_is_shadow_root(&self) -> bool {
@@ -2641,7 +2642,7 @@ impl<'a> SelectorsElement for DomRoot<Element> {
     fn is_root(&self) -> bool {
         match self.node.GetParentNode() {
             None => false,
-            Some(node) => node.is::<Document>(),
+            Some(node) => node.is::<Document<TH>>(),
         }
     }
 
@@ -2718,7 +2719,7 @@ impl<'a> SelectorsElement for DomRoot<Element> {
 
     fn is_link(&self) -> bool {
         // FIXME: This is HTML only.
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         match node.type_id() {
             // https://html.spec.whatwg.org/multipage/#selector-link
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLAnchorElement)) |
@@ -2748,9 +2749,9 @@ impl<'a> SelectorsElement for DomRoot<Element> {
 }
 
 
-impl Element {
+impl<TH> Element<TH> {
     pub fn as_maybe_activatable(&self) -> Option<&Activatable> {
-        let element = match self.upcast::<Node>().type_id() {
+        let element = match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
                 let element = self.downcast::<HTMLInputElement>().unwrap();
                 Some(element as &Activatable)
@@ -2794,7 +2795,7 @@ impl Element {
 
     // https://html.spec.whatwg.org/multipage/#category-submit
     pub fn as_maybe_validatable(&self) -> Option<&Validatable> {
-        let element = match self.upcast::<Node>().type_id() {
+        let element = match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
                 let element = self.downcast::<HTMLInputElement>().unwrap();
                 Some(element as &Validatable)
@@ -2823,11 +2824,11 @@ impl Element {
     }
 
     pub fn click_in_progress(&self) -> bool {
-        self.upcast::<Node>().get_flag(NodeFlags::CLICK_IN_PROGRESS)
+        self.upcast::<Node<TH>>().get_flag(NodeFlags::CLICK_IN_PROGRESS)
     }
 
     pub fn set_click_in_progress(&self, click: bool) {
-        self.upcast::<Node>().set_flag(NodeFlags::CLICK_IN_PROGRESS, click)
+        self.upcast::<Node<TH>>().set_flag(NodeFlags::CLICK_IN_PROGRESS, click)
     }
 
     // https://html.spec.whatwg.org/multipage/#nearest-activatable-element
@@ -2835,7 +2836,7 @@ impl Element {
         match self.as_maybe_activatable() {
             Some(el) => Some(DomRoot::from_ref(el.as_element())),
             None => {
-                let node = self.upcast::<Node>();
+                let node = self.upcast::<Node<TH>>();
                 for node in node.ancestors() {
                     if let Some(node) = node.downcast::<Element>() {
                         if node.as_maybe_activatable().is_some() {
@@ -2896,7 +2897,7 @@ impl Element {
 
     // https://html.spec.whatwg.org/multipage/#language
     pub fn get_lang(&self) -> String {
-        self.upcast::<Node>().inclusive_ancestors().filter_map(|node| {
+        self.upcast::<Node<TH>>().inclusive_ancestors().filter_map(|node| {
             node.downcast::<Element>().and_then(|el| {
                 el.get_attribute(&ns!(xml), &local_name!("lang")).or_else(|| {
                     el.get_attribute(&ns!(), &local_name!("lang"))
@@ -2916,7 +2917,7 @@ impl Element {
         if state.contains(which) == value {
             return;
         }
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         node.owner_doc().element_state_will_change(self);
         if value {
             state.insert(which);
@@ -2934,7 +2935,7 @@ impl Element {
     pub fn set_active_state(&self, value: bool) {
         self.set_state(ElementState::IN_ACTIVE_STATE, value);
 
-        if let Some(parent) = self.upcast::<Node>().GetParentElement() {
+        if let Some(parent) = self.upcast::<Node<TH>>().GetParentElement() {
             parent.set_active_state(value);
         }
     }
@@ -2945,7 +2946,7 @@ impl Element {
 
     pub fn set_focus_state(&self, value: bool) {
         self.set_state(ElementState::IN_FOCUS_STATE, value);
-        self.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+        self.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
     }
 
     pub fn hover_state(&self) -> bool {
@@ -2987,7 +2988,7 @@ impl Element {
     pub fn set_placeholder_shown_state(&self, value: bool) {
         if self.placeholder_shown_state() != value {
             self.set_state(ElementState::IN_PLACEHOLDER_SHOWN_STATE, value);
-            self.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+            self.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
         }
     }
 
@@ -3009,15 +3010,15 @@ impl Element {
 
     /// <https://dom.spec.whatwg.org/#connected>
     pub fn is_connected(&self) -> bool {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let root = node.GetRootNode();
-        root.is::<Document>()
+        root.is::<Document<TH>>()
     }
 }
 
-impl Element {
+impl<TH: TypeHolderTrait> Element<TH> {
     pub fn check_ancestors_disabled_state_for_form_control(&self) {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         if self.disabled_state() {
             return;
         }
@@ -3049,7 +3050,7 @@ impl Element {
         if self.disabled_state() {
             return;
         }
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         if let Some(ref parent) = node.GetParentNode() {
             if parent.is::<HTMLOptGroupElement>() &&
                parent.downcast::<Element>().unwrap().disabled_state() {

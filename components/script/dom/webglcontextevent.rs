@@ -15,14 +15,15 @@ use dom::event::{Event, EventBubbles, EventCancelable};
 use dom::window::Window;
 use dom_struct::dom_struct;
 use servo_atoms::Atom;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLContextEvent {
+pub struct WebGLContextEvent<TH: TypeHolderTrait> {
     event: Event,
     status_message: DOMString,
 }
 
-impl WebGLContextEventMethods for WebGLContextEvent {
+impl<TH> WebGLContextEventMethods for WebGLContextEvent<TH> {
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15
     fn StatusMessage(&self) -> DOMString {
         self.status_message.clone()
@@ -34,7 +35,7 @@ impl WebGLContextEventMethods for WebGLContextEvent {
     }
 }
 
-impl WebGLContextEvent {
+impl<TH: TypeHolderTrait> WebGLContextEvent<TH> {
     pub fn new_inherited(status_message: DOMString) -> WebGLContextEvent {
         WebGLContextEvent {
             event: Event::new_inherited(),
@@ -42,7 +43,7 @@ impl WebGLContextEvent {
         }
     }
 
-    pub fn new_uninitialized(window: &Window) -> DomRoot<WebGLContextEvent> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<WebGLContextEvent> {
         // according to https://www.khronos.org/registry/webgl/specs/1.0/#5.15 this is
         // additional information or the empty string if no additional information is
         // available.
@@ -53,7 +54,7 @@ impl WebGLContextEvent {
                         WebGLContextEventBinding::Wrap)
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                type_: Atom,
                bubbles: EventBubbles,
                cancelable: EventCancelable,
@@ -71,7 +72,7 @@ impl WebGLContextEvent {
         event
     }
 
-    pub fn Constructor(window: &Window,
+    pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &WebGLContextEventInit) -> Fallible<DomRoot<WebGLContextEvent>> {
         let status_message = match init.statusMessage.as_ref() {

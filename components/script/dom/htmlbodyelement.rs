@@ -22,19 +22,20 @@ use script_traits::ScriptMsg;
 use servo_url::ServoUrl;
 use style::attr::AttrValue;
 use time;
+use typeholder::TypeHolderTrait;
 
 /// How long we should wait before performing the initial reflow after `<body>` is parsed, in
 /// nanoseconds.
 const INITIAL_REFLOW_DELAY: u64 = 200_000_000;
 
 #[dom_struct]
-pub struct HTMLBodyElement {
+pub struct HTMLBodyElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
 }
 
-impl HTMLBodyElement {
+impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document)
-                     -> HTMLBodyElement {
+                     -> HTMLBodyElement<TH> {
         HTMLBodyElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
         }
@@ -42,7 +43,7 @@ impl HTMLBodyElement {
 
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document)
-               -> DomRoot<HTMLBodyElement> {
+               -> DomRoot<HTMLBodyElement<TH>> {
         Node::reflect_node(Box::new(HTMLBodyElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLBodyElementBinding::Wrap)
@@ -50,16 +51,16 @@ impl HTMLBodyElement {
 
     /// <https://drafts.csswg.org/cssom-view/#the-html-body-element>
     pub fn is_the_html_body_element(&self) -> bool {
-        let self_node = self.upcast::<Node>();
+        let self_node = self.upcast::<Node<TH>>();
         let root_elem = self.upcast::<Element>().root_element();
-        let root_node = root_elem.upcast::<Node>();
+        let root_node = root_elem.upcast::<Node<TH>>();
         root_node.is_parent_of(self_node) &&
             self_node.preceding_siblings().all(|n| !n.is::<HTMLBodyElement>())
     }
 
 }
 
-impl HTMLBodyElementMethods for HTMLBodyElement {
+impl<TH> HTMLBodyElementMethods for HTMLBodyElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-body-bgcolor
     make_getter!(BgColor, "bgcolor");
 
@@ -94,7 +95,7 @@ pub trait HTMLBodyElementLayoutHelpers {
     fn get_background(&self) -> Option<ServoUrl>;
 }
 
-impl HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement> {
+impl<TH> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
     #[allow(unsafe_code)]
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
@@ -126,7 +127,7 @@ impl HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement> {
     }
 }
 
-impl VirtualMethods for HTMLBodyElement {
+impl<TH> VirtualMethods for HTMLBodyElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }

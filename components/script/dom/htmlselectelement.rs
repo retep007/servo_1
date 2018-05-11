@@ -36,16 +36,17 @@ use std::default::Default;
 use std::iter;
 use style::attr::AttrValue;
 use style::element_state::ElementState;
+use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct OptionsFilter;
-impl CollectionFilter for OptionsFilter {
-    fn filter<'a>(&self, elem: &'a Element, root: &'a Node) -> bool {
+struct OptionsFilter<TH: TypeHolderTrait>;
+impl<TH: TypeHolderTrait> CollectionFilter for OptionsFilter<TH> {
+    fn filter<'a>(&self, elem: &'a Element, root: &'a Node<TH>) -> bool {
         if !elem.is::<HTMLOptionElement>() {
             return false;
         }
 
-        let node = elem.upcast::<Node>();
+        let node = elem.upcast::<Node<TH>>();
         if root.is_parent_of(node) {
             return true;
         }
@@ -59,7 +60,7 @@ impl CollectionFilter for OptionsFilter {
 }
 
 #[dom_struct]
-pub struct HTMLSelectElement {
+pub struct HTMLSelectElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     options: MutNullableDom<HTMLOptionsCollection>,
     form_owner: MutNullableDom<HTMLFormElement>,
@@ -67,10 +68,10 @@ pub struct HTMLSelectElement {
 
 static DEFAULT_SELECT_SIZE: u32 = 0;
 
-impl HTMLSelectElement {
+impl<TH: TypeHolderTrait> HTMLSelectElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLSelectElement {
+                     document: &Document<TH>) -> HTMLSelectElement<TH> {
         HTMLSelectElement {
             htmlelement:
                 HTMLElement::new_inherited_with_state(ElementState::IN_ENABLED_STATE,
@@ -83,7 +84,7 @@ impl HTMLSelectElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLSelectElement> {
+               document: &Document<TH>) -> DomRoot<HTMLSelectElement<TH>> {
         Node::reflect_node(Box::new(HTMLSelectElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLSelectElementBinding::Wrap)
@@ -91,7 +92,7 @@ impl HTMLSelectElement {
 
     // https://html.spec.whatwg.org/multipage/#concept-select-option-list
     fn list_of_options(&self) -> impl Iterator<Item=DomRoot<HTMLOptionElement>> {
-        self.upcast::<Node>()
+        self.upcast::<Node<TH>>()
             .children()
             .flat_map(|node| {
                 if node.is::<HTMLOptionElement>() {
@@ -187,7 +188,7 @@ impl HTMLSelectElement {
      }
 }
 
-impl HTMLSelectElementMethods for HTMLSelectElement {
+impl<TH> HTMLSelectElementMethods for HTMLSelectElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState> {
         let window = window_from_node(self);
@@ -340,7 +341,7 @@ impl HTMLSelectElementMethods for HTMLSelectElement {
     }
 }
 
-impl VirtualMethods for HTMLSelectElement {
+impl<TH: TypeHolderTrait> VirtualMethods for HTMLSelectElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -380,7 +381,7 @@ impl VirtualMethods for HTMLSelectElement {
     fn unbind_from_tree(&self, context: &UnbindContext) {
         self.super_type().unwrap().unbind_from_tree(context);
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let el = self.upcast::<Element>();
         if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
             el.check_ancestors_disabled_state_for_form_control();

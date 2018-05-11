@@ -15,18 +15,19 @@ use dom_struct::dom_struct;
 use servo_arc::Arc;
 use style::shared_lock::{Locked, ToCssWithGuard};
 use style::stylesheets::keyframes_rule::Keyframe;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSKeyframeRule {
+pub struct CSSKeyframeRule<TH: TypeHolderTrait> {
     cssrule: CSSRule,
     #[ignore_malloc_size_of = "Arc"]
     keyframerule: Arc<Locked<Keyframe>>,
     style_decl: MutNullableDom<CSSStyleDeclaration>,
 }
 
-impl CSSKeyframeRule {
+impl<TH: TypeHolderTrait> CSSKeyframeRule<TH> {
     fn new_inherited(parent_stylesheet: &CSSStyleSheet, keyframerule: Arc<Locked<Keyframe>>)
-                     -> CSSKeyframeRule {
+                     -> Self {
         CSSKeyframeRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
             keyframerule: keyframerule,
@@ -35,7 +36,7 @@ impl CSSKeyframeRule {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
                keyframerule: Arc<Locked<Keyframe>>) -> DomRoot<CSSKeyframeRule> {
         reflect_dom_object(Box::new(CSSKeyframeRule::new_inherited(parent_stylesheet, keyframerule)),
                            window,
@@ -43,7 +44,7 @@ impl CSSKeyframeRule {
     }
 }
 
-impl CSSKeyframeRuleMethods for CSSKeyframeRule {
+impl<TH> CSSKeyframeRuleMethods for CSSKeyframeRule<TH> {
     // https://drafts.csswg.org/css-animations/#dom-csskeyframerule-style
     fn Style(&self) -> DomRoot<CSSStyleDeclaration> {
         self.style_decl.or_init(|| {

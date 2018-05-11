@@ -16,35 +16,36 @@ use dom::document::Document;
 use dom::node::Node;
 use dom::window::Window;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 /// An HTML text node.
 #[dom_struct]
-pub struct Text {
+pub struct Text<TH: TypeHolderTrait> {
     characterdata: CharacterData,
 }
 
-impl Text {
-    fn new_inherited(text: DOMString, document: &Document) -> Text {
+impl<TH: TypeHolderTrait> Text<TH> {
+    fn new_inherited(text: DOMString, document: &Document) -> Text<TH> {
         Text {
             characterdata: CharacterData::new_inherited(text, document)
         }
     }
 
-    pub fn new(text: DOMString, document: &Document) -> DomRoot<Text> {
+    pub fn new(text: DOMString, document: &Document<TH>) -> DomRoot<Text<TH>> {
         Node::reflect_node(Box::new(Text::new_inherited(text, document)),
                            document, TextBinding::Wrap)
     }
 
-    pub fn Constructor(window: &Window, text: DOMString) -> Fallible<DomRoot<Text>> {
+    pub fn Constructor(window: &Window<TH>, text: DOMString) -> Fallible<DomRoot<Text<TH>>> {
         let document = window.Document();
         Ok(Text::new(text, &document))
     }
 }
 
-impl TextMethods for Text {
+impl<TH: TypeHolderTrait> TextMethods for Text<TH> {
     // https://dom.spec.whatwg.org/#dom-text-splittext
     // https://dom.spec.whatwg.org/#concept-text-split
-    fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text>> {
+    fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text<TH>>> {
         let cdata = self.upcast::<CharacterData>();
         // Step 1.
         let length = cdata.Length();
@@ -57,7 +58,7 @@ impl TextMethods for Text {
         // Step 4.
         let new_data = cdata.SubstringData(offset, count).unwrap();
         // Step 5.
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let owner_doc = node.owner_doc();
         let new_node = owner_doc.CreateTextNode(new_data);
         // Step 6.
@@ -78,7 +79,7 @@ impl TextMethods for Text {
 
     // https://dom.spec.whatwg.org/#dom-text-wholetext
     fn WholeText(&self) -> DOMString {
-        let first = self.upcast::<Node>().inclusively_preceding_siblings()
+        let first = self.upcast::<Node<TH>>().inclusively_preceding_siblings()
                                          .take_while(|node| node.is::<Text>())
                                          .last().unwrap();
         let nodes = first.inclusively_following_siblings()

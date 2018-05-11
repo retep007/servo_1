@@ -18,6 +18,7 @@ use html5ever::{LocalName, QualName};
 use servo_atoms::Atom;
 use std::cell::Cell;
 use style::str::split_html_space_chars;
+use typeholder::TypeHolderTrait;
 
 pub trait CollectionFilter : JSTraceable {
     fn filter<'a>(&self, elem: &'a Element, root: &'a Node) -> bool;
@@ -51,9 +52,9 @@ impl OptionU32 {
 }
 
 #[dom_struct]
-pub struct HTMLCollection {
+pub struct HTMLCollection<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    root: Dom<Node>,
+    root: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Contains a trait object; can't measure due to #6870"]
     filter: Box<CollectionFilter + 'static>,
     // We cache the version of the root node and all its decendents,
@@ -65,9 +66,9 @@ pub struct HTMLCollection {
     cached_length: Cell<OptionU32>,
 }
 
-impl HTMLCollection {
+impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     #[allow(unrooted_must_root)]
-    pub fn new_inherited(root: &Node, filter: Box<CollectionFilter + 'static>) -> HTMLCollection {
+    pub fn new_inherited(root: &Node<TH>, filter: Box<CollectionFilter + 'static>) -> HTMLCollection<TH> {
         HTMLCollection {
             reflector_: Reflector::new(),
             root: Dom::from_ref(root),
@@ -81,7 +82,7 @@ impl HTMLCollection {
     }
 
     /// Returns a collection which is always empty.
-    pub fn always_empty(window: &Window, root: &Node) -> DomRoot<Self> {
+    pub fn always_empty(window: &Window<TH>, root: &Node) -> DomRoot<Self> {
         #[derive(JSTraceable)]
         struct NoFilter;
         impl CollectionFilter for NoFilter {
@@ -94,13 +95,13 @@ impl HTMLCollection {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window, root: &Node, filter: Box<CollectionFilter + 'static>) -> DomRoot<HTMLCollection> {
+    pub fn new(window: &Window<TH>, root: &Node<TH>, filter: Box<CollectionFilter + 'static>) -> DomRoot<HTMLCollection<TH>> {
         reflect_dom_object(Box::new(HTMLCollection::new_inherited(root, filter)),
                            window, HTMLCollectionBinding::Wrap)
     }
 
-    pub fn create(window: &Window, root: &Node,
-                  filter: Box<CollectionFilter + 'static>) -> DomRoot<HTMLCollection> {
+    pub fn create(window: &Window<TH>, root: &Node<TH>,
+                  filter: Box<CollectionFilter + 'static>) -> DomRoot<HTMLCollection<TH>> {
         HTMLCollection::new(window, root, filter)
     }
 
@@ -128,8 +129,8 @@ impl HTMLCollection {
     }
 
     // https://dom.spec.whatwg.org/#concept-getelementsbytagname
-    pub fn by_qualified_name(window: &Window, root: &Node, qualified_name: LocalName)
-                             -> DomRoot<HTMLCollection> {
+    pub fn by_qualified_name(window: &Window<TH>, root: &Node<TH>, qualified_name: LocalName)
+                             -> DomRoot<HTMLCollection<TH>> {
         // case 1
         if qualified_name == local_name!("*") {
             #[derive(JSTraceable, MallocSizeOf)]
@@ -143,12 +144,12 @@ impl HTMLCollection {
         }
 
         #[derive(JSTraceable, MallocSizeOf)]
-        struct HtmlDocumentFilter {
+        struct HtmlDocumentFilter<TH> {
             qualified_name: LocalName,
             ascii_lower_qualified_name: LocalName,
         }
-        impl CollectionFilter for HtmlDocumentFilter {
-            fn filter(&self, elem: &Element, root: &Node) -> bool {
+        impl<TH> CollectionFilter for HtmlDocumentFilter<TH> {
+            fn filter(&self, elem: &Element, root: &Node<TH>) -> bool {
                 if root.is_in_html_doc() && elem.namespace() == &ns!(html) {    // case 2
                     HTMLCollection::match_element(elem, &self.ascii_lower_qualified_name)
                 } else {    // case 2 and 3
@@ -173,15 +174,15 @@ impl HTMLCollection {
         }
     }
 
-    pub fn by_tag_name_ns(window: &Window, root: &Node, tag: DOMString,
-                          maybe_ns: Option<DOMString>) -> DomRoot<HTMLCollection> {
+    pub fn by_tag_name_ns(window: &Window<TH>, root: &Node<TH>, tag: DOMString,
+                          maybe_ns: Option<DOMString>) -> DomRoot<HTMLCollection<TH>> {
         let local = LocalName::from(tag);
         let ns = namespace_from_domstring(maybe_ns);
         let qname = QualName::new(None, ns, local);
         HTMLCollection::by_qual_tag_name(window, root, qname)
     }
 
-    pub fn by_qual_tag_name(window: &Window, root: &Node, qname: QualName) -> DomRoot<HTMLCollection> {
+    pub fn by_qual_tag_name(window: &Window<TH>, root: &Node<TH>, qname: QualName) -> DomRoot<HTMLCollection> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct TagNameNSFilter {
             qname: QualName
@@ -198,14 +199,14 @@ impl HTMLCollection {
         HTMLCollection::create(window, root, Box::new(filter))
     }
 
-    pub fn by_class_name(window: &Window, root: &Node, classes: DOMString)
-                         -> DomRoot<HTMLCollection> {
+    pub fn by_class_name(window: &Window<TH>, root: &Node<TH>, classes: DOMString)
+                         -> DomRoot<HTMLCollection<TH>> {
         let class_atoms = split_html_space_chars(&classes).map(Atom::from).collect();
         HTMLCollection::by_atomic_class_name(window, root, class_atoms)
     }
 
-    pub fn by_atomic_class_name(window: &Window, root: &Node, classes: Vec<Atom>)
-                         -> DomRoot<HTMLCollection> {
+    pub fn by_atomic_class_name(window: &Window<TH>, root: &Node<TH>, classes: Vec<Atom>)
+                         -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct ClassNameFilter {
             classes: Vec<Atom>
@@ -224,7 +225,7 @@ impl HTMLCollection {
         HTMLCollection::create(window, root, Box::new(filter))
     }
 
-    pub fn children(window: &Window, root: &Node) -> DomRoot<HTMLCollection> {
+    pub fn children(window: &Window<TH>, root: &Node) -> DomRoot<HTMLCollection> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct ElementChildFilter;
         impl CollectionFilter for ElementChildFilter {
@@ -254,12 +255,12 @@ impl HTMLCollection {
             .filter(move |element| self.filter.filter(&element, &self.root))
     }
 
-    pub fn root_node(&self) -> DomRoot<Node> {
+    pub fn root_node(&self) -> DomRoot<Node<TH>> {
         DomRoot::from_ref(&self.root)
     }
 }
 
-impl HTMLCollectionMethods for HTMLCollection {
+impl<TH: TypeHolderTrait> HTMLCollectionMethods for HTMLCollection<TH> {
     // https://dom.spec.whatwg.org/#dom-htmlcollection-length
     fn Length(&self) -> u32 {
         self.validate_cache();
@@ -289,14 +290,14 @@ impl HTMLCollectionMethods for HTMLCollection {
                     // The cursor is before the element we're looking for
                     // Iterate forwards, starting at the cursor.
                     let offset = index - (cached_index + 1);
-                    let node: DomRoot<Node> = DomRoot::upcast(element);
+                    let node: DomRoot<Node<TH>> = DomRoot::upcast(element);
                     let mut iter = self.elements_iter_after(&node);
                     self.set_cached_cursor(index, iter.nth(offset as usize))
                 } else {
                     // The cursor is after the element we're looking for
                     // Iterate backwards, starting at the cursor.
                     let offset = cached_index - (index + 1);
-                    let node: DomRoot<Node> = DomRoot::upcast(element);
+                    let node: DomRoot<Node<TH>> = DomRoot::upcast(element);
                     let mut iter = self.elements_iter_before(&node);
                     self.set_cached_cursor(index, iter.nth(offset as usize))
                 }

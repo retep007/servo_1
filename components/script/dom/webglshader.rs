@@ -19,6 +19,7 @@ use dom_struct::dom_struct;
 use mozangle::shaders::{BuiltInResources, Output, ShaderValidator};
 use std::cell::Cell;
 use std::sync::{ONCE_INIT, Once};
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, Debug, JSTraceable, MallocSizeOf, PartialEq)]
 pub enum ShaderCompilationStatus {
@@ -28,7 +29,7 @@ pub enum ShaderCompilationStatus {
 }
 
 #[dom_struct]
-pub struct WebGLShader {
+pub struct WebGLShader<TH: TypeHolderTrait> {
     webgl_object: WebGLObject,
     id: WebGLShaderId,
     gl_type: u32,
@@ -43,7 +44,7 @@ pub struct WebGLShader {
 
 static GLSLANG_INITIALIZATION: Once = ONCE_INIT;
 
-impl WebGLShader {
+impl<TH: TypeHolderTrait> WebGLShader<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLShaderId,
                      shader_type: u32)
@@ -62,7 +63,7 @@ impl WebGLShader {
         }
     }
 
-    pub fn maybe_new(window: &Window,
+    pub fn maybe_new(window: &Window<TH>,
                      renderer: WebGLMsgSender,
                      shader_type: u32)
                      -> Option<DomRoot<WebGLShader>> {
@@ -73,7 +74,7 @@ impl WebGLShader {
         result.map(|shader_id| WebGLShader::new(window, renderer, shader_id, shader_type))
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLShaderId,
                shader_type: u32)
@@ -235,7 +236,7 @@ impl WebGLShader {
     }
 }
 
-impl Drop for WebGLShader {
+impl<TH> Drop for WebGLShader<TH> {
     fn drop(&mut self) {
         assert_eq!(self.attached_counter.get(), 0);
         self.delete();

@@ -10,9 +10,10 @@ use dom::bindings::root::{DomRoot, MutDom};
 use dom::eventtarget::EventTarget;
 use dom::window::Window;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Touch {
+pub struct Touch<TH: TypeHolderTrait> {
     reflector_: Reflector,
     identifier: i32,
     target: MutDom<EventTarget>,
@@ -24,11 +25,11 @@ pub struct Touch {
     page_y: f64,
 }
 
-impl Touch {
+impl<TH: TypeHolderTrait> Touch<TH> {
     fn new_inherited(identifier: i32, target: &EventTarget,
                      screen_x: Finite<f64>, screen_y: Finite<f64>,
                      client_x: Finite<f64>, client_y: Finite<f64>,
-                     page_x: Finite<f64>, page_y: Finite<f64>) -> Touch {
+                     page_x: Finite<f64>, page_y: Finite<f64>) -> Touch<TH> {
         Touch {
             reflector_: Reflector::new(),
             identifier: identifier,
@@ -42,10 +43,10 @@ impl Touch {
         }
     }
 
-    pub fn new(window: &Window, identifier: i32, target: &EventTarget,
+    pub fn new(window: &Window<TH>, identifier: i32, target: &EventTarget,
               screen_x: Finite<f64>, screen_y: Finite<f64>,
               client_x: Finite<f64>, client_y: Finite<f64>,
-              page_x: Finite<f64>, page_y: Finite<f64>) -> DomRoot<Touch> {
+              page_x: Finite<f64>, page_y: Finite<f64>) -> DomRoot<Touch<TH>> {
         reflect_dom_object(Box::new(
             Touch::new_inherited(
                 identifier, target,
@@ -59,7 +60,7 @@ impl Touch {
     }
 }
 
-impl TouchMethods for Touch {
+impl<TH> TouchMethods for Touch<TH> {
     /// <https://w3c.github.io/touch-events/#widl-Touch-identifier>
     fn Identifier(&self) -> i32 {
         self.identifier

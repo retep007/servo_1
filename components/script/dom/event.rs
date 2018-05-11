@@ -25,9 +25,10 @@ use std::cell::Cell;
 use std::default::Default;
 use task::TaskOnce;
 use time;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Event {
+pub struct Event<TH: TypeHolderTrait> {
     reflector_: Reflector,
     current_target: MutNullableDom<EventTarget>,
     target: MutNullableDom<EventTarget>,
@@ -44,8 +45,8 @@ pub struct Event {
     timestamp: u64,
 }
 
-impl Event {
-    pub fn new_inherited() -> Event {
+impl<TH: TypeHolderTrait> Event<TH> {
+    pub fn new_inherited() -> Event<TH> {
         Event {
             reflector_: Reflector::new(),
             current_target: Default::default(),
@@ -64,7 +65,7 @@ impl Event {
         }
     }
 
-    pub fn new_uninitialized(global: &GlobalScope) -> DomRoot<Event> {
+    pub fn new_uninitialized(global: &GlobalScope) -> DomRoot<Event<TH>> {
         reflect_dom_object(Box::new(Event::new_inherited()),
                            global,
                            EventBinding::Wrap)
@@ -81,7 +82,7 @@ impl Event {
 
     pub fn Constructor(global: &GlobalScope,
                        type_: DOMString,
-                       init: &EventBinding::EventInit) -> Fallible<DomRoot<Event>> {
+                       init: &EventBinding::EventInit) -> Fallible<DomRoot<Event<TH>>> {
         let bubbles = EventBubbles::from(init.bubbles);
         let cancelable = EventCancelable::from(init.cancelable);
         Ok(Event::new(global, Atom::from(type_), bubbles, cancelable))
@@ -135,13 +136,13 @@ impl Event {
         rooted_vec!(let mut event_path);
 
         // Step 4.
-        if let Some(target_node) = target.downcast::<Node>() {
+        if let Some(target_node) = target.downcast::<Node<TH>>() {
             for ancestor in target_node.ancestors() {
                 event_path.push(Dom::from_ref(ancestor.upcast::<EventTarget>()));
             }
             let top_most_ancestor_or_target =
                 DomRoot::from_ref(event_path.r().last().cloned().unwrap_or(target));
-            if let Some(document) = DomRoot::downcast::<Document>(top_most_ancestor_or_target) {
+            if let Some(document) = DomRoot::downcast::<Document<TH>>(top_most_ancestor_or_target) {
                 if self.type_() != atom!("load") && document.browsing_context().is_some() {
                     event_path.push(Dom::from_ref(document.window().upcast()));
                 }
@@ -153,7 +154,7 @@ impl Event {
 
         // Default action.
         if let Some(target) = self.GetTarget() {
-            if let Some(node) = target.downcast::<Node>() {
+            if let Some(node) = target.downcast::<Node<TH>>() {
                 let vtable = vtable_for(&node);
                 vtable.handle_event(self);
             }
@@ -221,7 +222,7 @@ impl Event {
     }
 }
 
-impl EventMethods for Event {
+impl<TH> EventMethods for Event<TH> {
     // https://dom.spec.whatwg.org/#dom-event-eventphase
     fn EventPhase(&self) -> u16 {
         self.phase.get() as u16
@@ -412,11 +413,11 @@ impl TaskOnce for SimpleEventTask {
 
 // See dispatch_event.
 // https://dom.spec.whatwg.org/#concept-event-dispatch
-fn dispatch_to_listeners(event: &Event, target: &EventTarget, event_path: &[&EventTarget]) {
+fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event, target: &EventTarget, event_path: &[&EventTarget]) {
     assert!(!event.stop_propagation.get());
     assert!(!event.stop_immediate.get());
 
-    let window = match DomRoot::downcast::<Window>(target.global()) {
+    let window = match DomRoot::downcast::<Window<TH>>(target.global()) {
         Some(window) => {
             if window.need_emit_timeline_marker(TimelineMarkerType::DOMEvent) {
                 Some(window)

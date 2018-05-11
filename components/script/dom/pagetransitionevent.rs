@@ -15,16 +15,16 @@ use dom::window::Window;
 use dom_struct::dom_struct;
 use servo_atoms::Atom;
 use std::cell::Cell;
-
+use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#pagetransitionevent
 #[dom_struct]
-pub struct PageTransitionEvent {
+pub struct PageTransitionEvent<TH: TypeHolderTrait> {
     event: Event,
     persisted: Cell<bool>,
 }
 
-impl PageTransitionEvent {
-    fn new_inherited() -> PageTransitionEvent {
+impl<TH: TypeHolderTrait> PageTransitionEvent<TH> {
+    fn new_inherited() -> PageTransitionEvent<TH> {
         PageTransitionEvent {
             event: Event::new_inherited(),
             persisted: Cell::new(false),
@@ -37,7 +37,7 @@ impl PageTransitionEvent {
                            PageTransitionEventBinding::Wrap)
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                type_: Atom,
                bubbles: bool,
                cancelable: bool,
@@ -52,7 +52,7 @@ impl PageTransitionEvent {
         ev
     }
 
-    pub fn Constructor(window: &Window,
+    pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &PageTransitionEventBinding::PageTransitionEventInit)
                        -> Fallible<DomRoot<PageTransitionEvent>> {

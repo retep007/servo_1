@@ -586,15 +586,16 @@ macro_rules! impl_performance_entry_struct(
         use dom::globalscope::GlobalScope;
         use dom::performanceentry::PerformanceEntry;
         use dom_struct::dom_struct;
+        use typeholder::TypeHolderTrait;
 
         #[dom_struct]
         pub struct $struct {
             entry: PerformanceEntry,
         }
 
-        impl $struct {
+        impl<TH: TypeHolderTrait> $struct<TH> {
             fn new_inherited(name: DOMString, start_time: f64, duration: f64)
-                -> $struct {
+                -> Self {
                 $struct {
                     entry: PerformanceEntry::new_inherited(name,
                                                            DOMString::from($type),
@@ -604,10 +605,10 @@ macro_rules! impl_performance_entry_struct(
             }
 
             #[allow(unrooted_must_root)]
-            pub fn new(global: &GlobalScope,
+            pub fn new(global: &GlobalScope<TH>,
                        name: DOMString,
                        start_time: f64,
-                       duration: f64) -> DomRoot<$struct> {
+                       duration: f64) -> DomRoot<Self> {
                 let entry = $struct::new_inherited(name, start_time, duration);
                 reflect_dom_object(Box::new(entry), global, $binding::Wrap)
             }

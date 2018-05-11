@@ -22,10 +22,11 @@ use style::properties::{parse_one_declaration_into, parse_style_attribute, Sourc
 use style::selector_parser::PseudoElement;
 use style::shared_lock::Locked;
 use style_traits::ParsingMode;
+use typeholder::TypeHolderTrait;
 
 // http://dev.w3.org/csswg/cssom/#the-cssstyledeclaration-interface
 #[dom_struct]
-pub struct CSSStyleDeclaration {
+pub struct CSSStyleDeclaration<TH: TypeHolderTrait> {
     reflector_: Reflector,
     owner: CSSStyleOwner,
     readonly: bool,
@@ -34,14 +35,14 @@ pub struct CSSStyleDeclaration {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub enum CSSStyleOwner {
-    Element(Dom<Element>),
+pub enum CSSStyleOwner<TH: TypeHolderTrait> {
+    Element(Dom<Element<TH>>),
     CSSRule(Dom<CSSRule>,
             #[ignore_malloc_size_of = "Arc"]
             Arc<Locked<PropertyDeclarationBlock>>),
 }
 
-impl CSSStyleOwner {
+impl<TH> CSSStyleOwner<TH> {
     // Mutate the declaration block associated to this style owner, and
     // optionally indicate if it has changed (assumed to be true).
     fn mutate_associated_block<F, R>(&self, f: F) -> R
@@ -137,7 +138,7 @@ impl CSSStyleOwner {
         }
     }
 
-    fn window(&self) -> DomRoot<Window> {
+    fn window(&self) -> DomRoot<Window<TH>> {
         match *self {
             CSSStyleOwner::Element(ref el) => window_from_node(&**el),
             CSSStyleOwner::CSSRule(ref rule, _) => DomRoot::from_ref(rule.global().as_window()),
@@ -181,12 +182,12 @@ macro_rules! css_properties(
     );
 );
 
-impl CSSStyleDeclaration {
+impl<TH: TypeHolderTrait> CSSStyleDeclaration<TH> {
     #[allow(unrooted_must_root)]
     pub fn new_inherited(owner: CSSStyleOwner,
                          pseudo: Option<PseudoElement>,
                          modification_access: CSSModificationAccess)
-                         -> CSSStyleDeclaration {
+                         -> Self {
         CSSStyleDeclaration {
             reflector_: Reflector::new(),
             owner: owner,
@@ -196,11 +197,11 @@ impl CSSStyleDeclaration {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(global: &Window,
+    pub fn new(global: &Window<TH>,
                owner: CSSStyleOwner,
                pseudo: Option<PseudoElement>,
                modification_access: CSSModificationAccess)
-               -> DomRoot<CSSStyleDeclaration> {
+               -> DomRoot<Self> {
         reflect_dom_object(
             Box::new(CSSStyleDeclaration::new_inherited(owner, pseudo, modification_access)),
             global,
@@ -213,7 +214,7 @@ impl CSSStyleDeclaration {
             CSSStyleOwner::CSSRule(..) =>
                 panic!("get_computed_style called on CSSStyleDeclaration with a CSSRule owner"),
             CSSStyleOwner::Element(ref el) => {
-                let node = el.upcast::<Node>();
+                let node = el.upcast::<Node<TH>>();
                 if !node.is_in_doc() {
                     // TODO: Node should be matched against the style rules of this window.
                     // Firefox is currently the only browser to implement this.
@@ -297,7 +298,7 @@ impl CSSStyleDeclaration {
     }
 }
 
-impl CSSStyleDeclarationMethods for CSSStyleDeclaration {
+impl<TH> CSSStyleDeclarationMethods for CSSStyleDeclaration<TH> {
     // https://dev.w3.org/csswg/cssom/#dom-cssstyledeclaration-length
     fn Length(&self) -> u32 {
         self.owner.with_block(|pdb| {

@@ -167,7 +167,7 @@
 //! # use script::dom::node::Node;
 //! # use script::dom::htmlelement::HTMLElement;
 //! fn f(element: &Element) {
-//!     let base = element.upcast::<Node>();
+//!     let base = element.upcast::<Node<TH>>();
 //!     let derived = element.downcast::<HTMLElement>().unwrap();
 //! }
 //! ```

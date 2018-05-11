@@ -18,9 +18,10 @@ use servo_arc::Arc;
 use std::cell::Cell;
 use style::shared_lock::SharedRwLock;
 use style::stylesheets::Stylesheet as StyleStyleSheet;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSStyleSheet {
+pub struct CSSStyleSheet<TH: TypeHolderTrait> {
     stylesheet: StyleSheet,
     owner: Dom<Element>,
     rulelist: MutNullableDom<CSSRuleList>,
@@ -29,12 +30,12 @@ pub struct CSSStyleSheet {
     origin_clean: Cell<bool>,
 }
 
-impl CSSStyleSheet {
-    fn new_inherited(owner: &Element,
+impl<TH: TypeHolderTrait> CSSStyleSheet<TH> {
+    fn new_inherited(owner: &Element<TH>,
                      type_: DOMString,
                      href: Option<DOMString>,
                      title: Option<DOMString>,
-                     stylesheet: Arc<StyleStyleSheet>) -> CSSStyleSheet {
+                     stylesheet: Arc<StyleStyleSheet>) -> Self {
         CSSStyleSheet {
             stylesheet: StyleSheet::new_inherited(type_, href, title),
             owner: Dom::from_ref(owner),
@@ -45,8 +46,8 @@ impl CSSStyleSheet {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window,
-               owner: &Element,
+    pub fn new(window: &Window<TH>,
+               owner: &Element<TH>,
                type_: DOMString,
                href: Option<DOMString>,
                title: Option<DOMString>,
@@ -90,7 +91,7 @@ impl CSSStyleSheet {
     }
 }
 
-impl CSSStyleSheetMethods for CSSStyleSheet {
+impl<TH> CSSStyleSheetMethods for CSSStyleSheet<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-cssrules
     fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList>> {
         if !self.origin_clean.get() {

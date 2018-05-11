@@ -66,6 +66,7 @@ use style::values::specified::{Length, ViewportPercentageLength};
 use style::values::specified::length::NoCalcLength;
 use style_traits::ParsingMode;
 use task_source::TaskSource;
+use typeholder::TypeHolderTrait;
 
 enum ParseState {
     InDescriptor,
@@ -118,7 +119,7 @@ struct ImageRequest {
     final_url: Option<ServoUrl>,
 }
 #[dom_struct]
-pub struct HTMLImageElement {
+pub struct HTMLImageElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     image_request: Cell<ImageRequestPhase>,
     current_request: DomRefCell<ImageRequest>,
@@ -127,7 +128,7 @@ pub struct HTMLImageElement {
     generation: Cell<u32>,
 }
 
-impl HTMLImageElement {
+impl<TH> HTMLImageElement<TH> {
     pub fn get_url(&self) -> Option<ServoUrl> {
         self.current_request.borrow().parsed_url.clone()
     }
@@ -187,7 +188,7 @@ impl FetchResponseListener for ImageContext {
 
 impl PreInvoke for ImageContext {}
 
-impl HTMLImageElement {
+impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
     /// Update the current image with a valid URL.
     fn fetch_image(&self, img_url: &ServoUrl) {
         fn add_cache_listener_for_element(image_cache: Arc<ImageCache>,
@@ -299,7 +300,7 @@ impl HTMLImageElement {
                 self.current_request.borrow_mut().state = State::CompletelyAvailable;
                 LoadBlocker::terminate(&mut self.current_request.borrow_mut().blocker);
                 // Mark the node dirty
-                self.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+                self.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
                 (true, false)
             },
             (ImageResponse::Loaded(image, url), ImageRequestPhase::Pending) |
@@ -314,7 +315,7 @@ impl HTMLImageElement {
                 self.current_request.borrow_mut().image = Some(image);
                 self.current_request.borrow_mut().state = State::CompletelyAvailable;
                 LoadBlocker::terminate(&mut self.current_request.borrow_mut().blocker);
-                self.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+                self.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
                 (true, false)
             },
             (ImageResponse::MetadataLoaded(meta), ImageRequestPhase::Current) => {
@@ -608,7 +609,7 @@ impl HTMLImageElement {
         ScriptThread::await_stable_state(Microtask::ImageElement(task));
     }
 
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLImageElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLImageElement {
         HTMLImageElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             image_request: Cell::new(ImageRequestPhase::Current),
@@ -638,15 +639,15 @@ impl HTMLImageElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLImageElement> {
+               document: &Document<TH>) -> DomRoot<HTMLImageElement<TH>> {
         Node::reflect_node(Box::new(HTMLImageElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLImageElementBinding::Wrap)
     }
 
-    pub fn Image(window: &Window,
+    pub fn Image(window: &Window<TH>,
                  width: Option<u32>,
-                 height: Option<u32>) -> Fallible<DomRoot<HTMLImageElement>> {
+                 height: Option<u32>) -> Fallible<DomRoot<HTMLImageElement<TH>>> {
         let document = window.Document();
         let image = HTMLImageElement::new(local_name!("img"), None, &document);
         if let Some(w) = width {
@@ -674,7 +675,7 @@ impl HTMLImageElement {
             return None
         }
 
-        let useMapElements = document_from_node(self).upcast::<Node>()
+        let useMapElements = document_from_node(self).upcast::<Node<TH>>()
                                 .traverse_preorder()
                                 .filter_map(DomRoot::downcast::<HTMLMapElement>)
                                 .find(|n| n.upcast::<Element>().get_string_attribute(&LocalName::from("name")) == last);
@@ -724,7 +725,7 @@ pub trait LayoutHTMLImageElementHelpers {
     fn get_height(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl LayoutHTMLImageElementHelpers for LayoutDom<HTMLImageElement> {
+impl<TH> LayoutHTMLImageElementHelpers for LayoutDom<HTMLImageElement<TH>> {
     #[allow(unsafe_code)]
     unsafe fn image(&self) -> Option<Arc<Image>> {
         (*self.unsafe_get()).current_request.borrow_for_layout().image.clone()
@@ -812,7 +813,7 @@ pub fn parse_a_sizes_attribute(input: DOMString, width: Option<u32>) -> Vec<Size
     sizes
 }
 
-impl HTMLImageElementMethods for HTMLImageElement {
+impl<TH: TypeHolderTrait> HTMLImageElementMethods for HTMLImageElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-img-alt
     make_getter!(Alt, "alt");
     // https://html.spec.whatwg.org/multipage/#dom-img-alt
@@ -846,7 +847,7 @@ impl HTMLImageElementMethods for HTMLImageElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-img-width
     fn Width(&self) -> u32 {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         match node.bounding_content_box() {
             Some(rect) => rect.size.width.to_px() as u32,
             None => self.NaturalWidth(),
@@ -860,7 +861,7 @@ impl HTMLImageElementMethods for HTMLImageElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-img-height
     fn Height(&self) -> u32 {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         match node.bounding_content_box() {
             Some(rect) => rect.size.height.to_px() as u32,
             None => self.NaturalHeight(),

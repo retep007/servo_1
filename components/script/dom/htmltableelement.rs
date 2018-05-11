@@ -26,9 +26,10 @@ use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use std::cell::Cell;
 use style::attr::{AttrValue, LengthOrPercentageOrAuto, parse_unsigned_integer};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTableElement {
+pub struct HTMLTableElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     border: Cell<Option<u32>>,
     cellspacing: Cell<Option<u32>>,
@@ -37,21 +38,21 @@ pub struct HTMLTableElement {
 
 #[allow(unrooted_must_root)]
 #[derive(JSTraceable, MallocSizeOf)]
-struct TableRowFilter {
-    sections: Vec<Dom<Node>>,
+struct TableRowFilter<TH: TypeHolderTrait> {
+    sections: Vec<Dom<Node<TH>>>,
 }
 
-impl CollectionFilter for TableRowFilter {
-    fn filter(&self, elem: &Element, root: &Node) -> bool {
+impl<TH: TypeHolderTrait> CollectionFilter for TableRowFilter<TH> {
+    fn filter(&self, elem: &Element, root: &Node<TH>) -> bool {
         elem.is::<HTMLTableRowElement>() &&
             (root.is_parent_of(elem.upcast())
                 || self.sections.iter().any(|ref section| section.is_parent_of(elem.upcast())))
     }
 }
 
-impl HTMLTableElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document)
-                     -> HTMLTableElement {
+impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>)
+                     -> HTMLTableElement<TH> {
         HTMLTableElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             border: Cell::new(None),
@@ -61,8 +62,8 @@ impl HTMLTableElement {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document)
-               -> DomRoot<HTMLTableElement> {
+    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>)
+               -> DomRoot<HTMLTableElement<TH>> {
         Node::reflect_node(Box::new(HTMLTableElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTableElementBinding::Wrap)
@@ -75,7 +76,7 @@ impl HTMLTableElement {
     // https://html.spec.whatwg.org/multipage/#dom-table-thead
     // https://html.spec.whatwg.org/multipage/#dom-table-tfoot
     fn get_first_section_of_type(&self, atom: &LocalName) -> Option<DomRoot<HTMLTableSectionElement>> {
-        self.upcast::<Node>()
+        self.upcast::<Node<TH>>()
             .child_elements()
             .find(|n| n.is::<HTMLTableSectionElement>() && n.local_name() == atom)
             .and_then(|n| n.downcast().map(DomRoot::from_ref))
@@ -97,7 +98,7 @@ impl HTMLTableElement {
 
         self.delete_first_section_of_type(atom);
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
 
         if let Some(section) = section {
             let reference_element = node.child_elements().find(reference_predicate);
@@ -132,13 +133,13 @@ impl HTMLTableElement {
     // https://html.spec.whatwg.org/multipage/#dom-table-deletetfoot
     fn delete_first_section_of_type(&self, atom: &LocalName) {
         if let Some(thead) = self.get_first_section_of_type(atom) {
-            thead.upcast::<Node>().remove_self();
+            thead.upcast::<Node<TH>>().remove_self();
         }
     }
 
     fn get_rows(&self) -> TableRowFilter {
         TableRowFilter {
-            sections: self.upcast::<Node>()
+            sections: self.upcast::<Node<TH>>()
                           .children()
                           .filter_map(|ref node|
                                 node.downcast::<HTMLTableSectionElement>().map(|_| Dom::from_ref(&**node)))
@@ -147,7 +148,7 @@ impl HTMLTableElement {
     }
 }
 
-impl HTMLTableElementMethods for HTMLTableElement {
+impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-rows
     fn Rows(&self) -> DomRoot<HTMLCollection> {
         let filter = self.get_rows();
@@ -156,17 +157,17 @@ impl HTMLTableElementMethods for HTMLTableElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-table-caption
     fn GetCaption(&self) -> Option<DomRoot<HTMLTableCaptionElement>> {
-        self.upcast::<Node>().children().filter_map(DomRoot::downcast).next()
+        self.upcast::<Node<TH>>().children().filter_map(DomRoot::downcast).next()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-caption
     fn SetCaption(&self, new_caption: Option<&HTMLTableCaptionElement>) {
         if let Some(ref caption) = self.GetCaption() {
-            caption.upcast::<Node>().remove_self();
+            caption.upcast::<Node<TH>>().remove_self();
         }
 
         if let Some(caption) = new_caption {
-            let node = self.upcast::<Node>();
+            let node = self.upcast::<Node<TH>>();
             node.InsertBefore(caption.upcast(), node.GetFirstChild().r())
                 .expect("Insertion failed");
         }
@@ -189,7 +190,7 @@ impl HTMLTableElementMethods for HTMLTableElement {
     // https://html.spec.whatwg.org/multipage/#dom-table-deletecaption
     fn DeleteCaption(&self) {
         if let Some(caption) = self.GetCaption() {
-            caption.upcast::<Node>().remove_self();
+            caption.upcast::<Node<TH>>().remove_self();
         }
     }
 
@@ -255,10 +256,10 @@ impl HTMLTableElementMethods for HTMLTableElement {
         #[derive(JSTraceable)]
         struct TBodiesFilter;
         impl CollectionFilter for TBodiesFilter {
-            fn filter(&self, elem: &Element, root: &Node) -> bool {
+            fn filter<TH>(&self, elem: &Element, root: &Node<TH>) -> bool {
                 elem.is::<HTMLTableSectionElement>() &&
                     elem.local_name() == &local_name!("tbody") &&
-                    elem.upcast::<Node>().GetParentNode().r() == Some(root)
+                    elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
             }
         }
 
@@ -275,13 +276,13 @@ impl HTMLTableElementMethods for HTMLTableElement {
         let tbody = HTMLTableSectionElement::new(local_name!("tbody"),
                                                  None,
                                                  &document_from_node(self));
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let last_tbody =
             node.rev_children()
                 .filter_map(DomRoot::downcast::<Element>)
                 .find(|n| n.is::<HTMLTableSectionElement>() && n.local_name() == &local_name!("tbody"));
         let reference_element =
-            last_tbody.and_then(|t| t.upcast::<Node>().GetNextSibling());
+            last_tbody.and_then(|t| t.upcast::<Node<TH>>().GetNextSibling());
 
         node.InsertBefore(tbody.upcast(), reference_element.r())
             .expect("Insertion failed");
@@ -300,21 +301,21 @@ impl HTMLTableElementMethods for HTMLTableElement {
         let new_row = HTMLTableRowElement::new(local_name!("tr"),
                                                None,
                                                &document_from_node(self));
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
 
         if number_of_row_elements == 0 {
             // append new row to last or new tbody in table
             if let Some(last_tbody) = node.rev_children()
                 .filter_map(DomRoot::downcast::<Element>)
                 .find(|n| n.is::<HTMLTableSectionElement>() && n.local_name() == &local_name!("tbody")) {
-                    last_tbody.upcast::<Node>().AppendChild(new_row.upcast::<Node>())
+                    last_tbody.upcast::<Node<TH>>().AppendChild(new_row.upcast::<Node<TH>>())
                                                .expect("InsertRow failed to append first row.");
                 } else {
                     let tbody = self.CreateTBody();
                     node.AppendChild(tbody.upcast())
                         .expect("InsertRow failed to append new tbody.");
 
-                    tbody.upcast::<Node>().AppendChild(new_row.upcast::<Node>())
+                    tbody.upcast::<Node<TH>>().AppendChild(new_row.upcast::<Node<TH>>())
                                           .expect("InsertRow failed to append first row.");
                 }
         } else if index == number_of_row_elements as i32 || index == -1 {
@@ -323,20 +324,20 @@ impl HTMLTableElementMethods for HTMLTableElement {
                                .expect("InsertRow failed to find last row in table.");
 
             let last_row_parent =
-                last_row.upcast::<Node>().GetParentNode()
+                last_row.upcast::<Node<TH>>().GetParentNode()
                         .expect("InsertRow failed to find parent of last row in table.");
 
-            last_row_parent.upcast::<Node>().AppendChild(new_row.upcast::<Node>())
+            last_row_parent.upcast::<Node<TH>>().AppendChild(new_row.upcast::<Node<TH>>())
                                             .expect("InsertRow failed to append last row.");
         } else {
             // insert new row before the index-th row in rows using the same parent
             let ith_row = rows.Item(index as u32)
                               .expect("InsertRow failed to find a row in table.");
 
-            let ith_row_parent = ith_row.upcast::<Node>().GetParentNode()
+            let ith_row_parent = ith_row.upcast::<Node<TH>>().GetParentNode()
                                         .expect("InsertRow failed to find parent of a row in table.");
 
-            ith_row_parent.upcast::<Node>().InsertBefore(new_row.upcast::<Node>(), Some(ith_row.upcast::<Node>()))
+            ith_row_parent.upcast::<Node<TH>>().InsertBefore(new_row.upcast::<Node<TH>>(), Some(ith_row.upcast::<Node<TH>>()))
                                            .expect("InsertRow failed to append row");
         }
 
@@ -355,7 +356,7 @@ impl HTMLTableElementMethods for HTMLTableElement {
             return Err(Error::IndexSize);
         }
         // Step 3.
-        DomRoot::upcast::<Node>(rows.Item(index as u32).unwrap()).remove_self();
+        DomRoot::upcast::<Node<TH>>(rows.Item(index as u32).unwrap()).remove_self();
         Ok(())
     }
 

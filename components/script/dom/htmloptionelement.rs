@@ -27,9 +27,10 @@ use html5ever::{LocalName, Prefix};
 use std::cell::Cell;
 use style::element_state::ElementState;
 use style::str::{split_html_space_chars, str_join};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOptionElement {
+pub struct HTMLOptionElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
 
     /// <https://html.spec.whatwg.org/multipage/#attr-option-selected>
@@ -39,10 +40,10 @@ pub struct HTMLOptionElement {
     dirtiness: Cell<bool>,
 }
 
-impl HTMLOptionElement {
+impl<TH: TypeHolderTrait> HTMLOptionElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLOptionElement {
+                     document: &Document<TH>) -> HTMLOptionElement<TH> {
         HTMLOptionElement {
             htmlelement:
                 HTMLElement::new_inherited_with_state(ElementState::IN_ENABLED_STATE,
@@ -55,7 +56,7 @@ impl HTMLOptionElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLOptionElement> {
+               document: &Document<TH>) -> DomRoot<HTMLOptionElement<TH>> {
         Node::reflect_node(Box::new(HTMLOptionElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLOptionElementBinding::Wrap)
@@ -70,7 +71,7 @@ impl HTMLOptionElement {
     }
 
     fn pick_if_selected_and_reset(&self) {
-        if let Some(select) = self.upcast::<Node>().ancestors()
+        if let Some(select) = self.upcast::<Node<TH>>().ancestors()
                 .filter_map(DomRoot::downcast::<HTMLSelectElement>)
                 .next() {
             if self.Selected() {
@@ -82,14 +83,14 @@ impl HTMLOptionElement {
 }
 
 // FIXME(ajeffrey): Provide a way of buffering DOMStrings other than using Strings
-fn collect_text(element: &Element, value: &mut String) {
+fn collect_text<TH: TypeHolderTrait>(element: &Element, value: &mut String) {
     let svg_script = *element.namespace() == ns!(svg) && element.local_name() == &local_name!("script");
     let html_script = element.is::<HTMLScriptElement>();
     if svg_script || html_script {
         return;
     }
 
-    for child in element.upcast::<Node>().children() {
+    for child in element.upcast::<Node<TH>>().children() {
         if child.is::<Text>() {
             let characterdata = child.downcast::<CharacterData>().unwrap();
             value.push_str(&characterdata.Data());
@@ -99,7 +100,7 @@ fn collect_text(element: &Element, value: &mut String) {
     }
 }
 
-impl HTMLOptionElementMethods for HTMLOptionElement {
+impl<TH> HTMLOptionElementMethods for HTMLOptionElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-option-disabled
     make_bool_getter!(Disabled, "disabled");
 
@@ -115,14 +116,14 @@ impl HTMLOptionElementMethods for HTMLOptionElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-option-text
     fn SetText(&self, value: DOMString) {
-        self.upcast::<Node>().SetTextContent(Some(value))
+        self.upcast::<Node<TH>>().SetTextContent(Some(value))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-option-form
     fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
-        let parent = self.upcast::<Node>().GetParentNode().and_then(|p|
+        let parent = self.upcast::<Node<TH>>().GetParentNode().and_then(|p|
             if p.is::<HTMLOptGroupElement>() {
-                p.upcast::<Node>().GetParentNode()
+                p.upcast::<Node<TH>>().GetParentNode()
             } else {
                 Some(p)
             }
@@ -178,7 +179,7 @@ impl HTMLOptionElementMethods for HTMLOptionElement {
     }
 }
 
-impl VirtualMethods for HTMLOptionElement {
+impl<TH> VirtualMethods for HTMLOptionElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -239,7 +240,7 @@ impl VirtualMethods for HTMLOptionElement {
             select.ask_for_reset();
         }
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let el = self.upcast::<Element>();
         if node.GetParentNode().is_some() {
             el.check_parent_disabled_state_for_option();

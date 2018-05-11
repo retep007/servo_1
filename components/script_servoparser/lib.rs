@@ -73,7 +73,7 @@ mod xml;
 pub struct ServoParser {
     reflector: Reflector,
     /// The document associated with this parser.
-    document: Dom<Document>,
+    document: Dom<Document<TH>>,
     /// Input received from network.
     #[ignore_malloc_size_of = "Defined in html5ever"]
     network_input: DomRefCell<BufferQueue>,
@@ -114,8 +114,8 @@ impl ServoParserTrait for ServoParser {
     }
 
     // https://html.spec.whatwg.org/multipage/#parsing-html-fragments
-    pub fn parse_html_fragment(context: &Element, input: DOMString) -> impl Iterator<Item=DomRoot<Node>> {
-        let context_node = context.upcast::<Node>();
+    pub fn parse_html_fragment(context: &Element, input: DOMString) -> impl Iterator<Item=DomRoot<Node<TH>>> {
+        let context_node = context.upcast::<Node<TH>>();
         let context_document = context_node.owner_doc();
         let window = context_document.window();
         let url = context_document.url();
@@ -161,7 +161,7 @@ impl ServoParserTrait for ServoParser {
         // Step 14.
         let root_element = document.GetDocumentElement().expect("no document element");
         FragmentParsingResult {
-            inner: root_element.upcast::<Node>().children(),
+            inner: root_element.upcast::<Node<TH>>().children(),
         }
     }
 

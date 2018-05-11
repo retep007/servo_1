@@ -16,21 +16,22 @@ use dom::node::Node;
 use dom_struct::dom_struct;
 use std::cell::Cell;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#interface-treewalker
 #[dom_struct]
-pub struct TreeWalker {
+pub struct TreeWalker<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    root_node: Dom<Node>,
-    current_node: MutDom<Node>,
+    root_node: Dom<Node<TH>>,
+    current_node: MutDom<Node<TH>>,
     what_to_show: u32,
     #[ignore_malloc_size_of = "function pointers and Rc<T> are hard"]
     filter: Filter,
     active: Cell<bool>,
 }
 
-impl TreeWalker {
-    fn new_inherited(root_node: &Node,
+impl<TH: TypeHolderTrait> TreeWalker<TH> {
+    fn new_inherited(root_node: &Node<TH>,
                          what_to_show: u32,
                          filter: Filter) -> TreeWalker {
         TreeWalker {
@@ -43,8 +44,8 @@ impl TreeWalker {
         }
     }
 
-    pub fn new_with_filter(document: &Document,
-                           root_node: &Node,
+    pub fn new_with_filter(document: &Document<TH>,
+                           root_node: &Node<TH>,
                            what_to_show: u32,
                            filter: Filter) -> DomRoot<TreeWalker> {
         reflect_dom_object(Box::new(TreeWalker::new_inherited(root_node, what_to_show, filter)),
@@ -52,8 +53,8 @@ impl TreeWalker {
                            TreeWalkerBinding::Wrap)
     }
 
-    pub fn new(document: &Document,
-               root_node: &Node,
+    pub fn new(document: &Document<TH>,
+               root_node: &Node<TH>,
                what_to_show: u32,
                node_filter: Option<Rc<NodeFilter>>) -> DomRoot<TreeWalker> {
         let filter = match node_filter {
@@ -64,9 +65,9 @@ impl TreeWalker {
     }
 }
 
-impl TreeWalkerMethods for TreeWalker {
+impl<TH: TypeHolderTrait> TreeWalkerMethods for TreeWalker<TH> {
     // https://dom.spec.whatwg.org/#dom-treewalker-root
-    fn Root(&self) -> DomRoot<Node> {
+    fn Root(&self) -> DomRoot<Node<TH>> {
         DomRoot::from_ref(&*self.root_node)
     }
 
@@ -85,7 +86,7 @@ impl TreeWalkerMethods for TreeWalker {
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-currentnode
-    fn CurrentNode(&self) -> DomRoot<Node> {
+    fn CurrentNode(&self) -> DomRoot<Node<TH>> {
         self.current_node.get()
     }
 
@@ -95,7 +96,7 @@ impl TreeWalkerMethods for TreeWalker {
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-parentnode
-    fn ParentNode(&self) -> Fallible<Option<DomRoot<Node>>> {
+    fn ParentNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>> {
         // "1. Let node be the value of the currentNode attribute."
         let mut node = self.current_node.get();
         // "2. While node is not null and is not root, run these substeps:"
@@ -119,35 +120,35 @@ impl TreeWalkerMethods for TreeWalker {
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-firstchild
-    fn FirstChild(&self) -> Fallible<Option<DomRoot<Node>>> {
+    fn FirstChild(&self) -> Fallible<Option<DomRoot<Node<TH>>>> {
         // "The firstChild() method must traverse children of type first."
         self.traverse_children(|node| node.GetFirstChild(),
                                |node| node.GetNextSibling())
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-lastchild
-    fn LastChild(&self) -> Fallible<Option<DomRoot<Node>>> {
+    fn LastChild(&self) -> Fallible<Option<DomRoot<Node<TH>>>> {
         // "The lastChild() method must traverse children of type last."
         self.traverse_children(|node| node.GetLastChild(),
                                |node| node.GetPreviousSibling())
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-previoussibling
-    fn PreviousSibling(&self) -> Fallible<Option<DomRoot<Node>>> {
+    fn PreviousSibling(&self) -> Fallible<Option<DomRoot<Node<TH>>>> {
         // "The nextSibling() method must traverse siblings of type next."
         self.traverse_siblings(|node| node.GetLastChild(),
                                |node| node.GetPreviousSibling())
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-nextsibling
-    fn NextSibling(&self) -> Fallible<Option<DomRoot<Node>>> {
+    fn NextSibling(&self) -> Fallible<Option<DomRoot<Node<TH>>>> {
         // "The previousSibling() method must traverse siblings of type previous."
         self.traverse_siblings(|node| node.GetFirstChild(),
                                |node| node.GetNextSibling())
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-previousnode
-    fn PreviousNode(&self) -> Fallible<Option<DomRoot<Node>>> {
+    fn PreviousNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>> {
         // "1. Let node be the value of the currentNode attribute."
         let mut node = self.current_node.get();
         // "2. While node is not root, run these substeps:"
@@ -204,7 +205,7 @@ impl TreeWalkerMethods for TreeWalker {
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-nextnode
-    fn NextNode(&self) -> Fallible<Option<DomRoot<Node>>> {
+    fn NextNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>> {
         // "1. Let node be the value of the currentNode attribute."
         let mut node = self.current_node.get();
         // "2. Let result be FILTER_ACCEPT."
@@ -254,14 +255,14 @@ impl TreeWalkerMethods for TreeWalker {
     }
 }
 
-impl TreeWalker {
+impl<TH: TypeHolderTrait> TreeWalker<TH> {
     // https://dom.spec.whatwg.org/#concept-traverse-children
     fn traverse_children<F, G>(&self,
                                next_child: F,
                                next_sibling: G)
-                               -> Fallible<Option<DomRoot<Node>>>
-        where F: Fn(&Node) -> Option<DomRoot<Node>>,
-              G: Fn(&Node) -> Option<DomRoot<Node>>
+                               -> Fallible<Option<DomRoot<Node<TH>>>>
+        where F: Fn(&Node) -> Option<DomRoot<Node<TH>>>,
+              G: Fn(&Node) -> Option<DomRoot<Node<TH>>>
     {
         // "To **traverse children** of type *type*, run these steps:"
         // "1. Let node be the value of the currentNode attribute."
@@ -331,9 +332,9 @@ impl TreeWalker {
     fn traverse_siblings<F, G>(&self,
                                next_child: F,
                                next_sibling: G)
-                               -> Fallible<Option<DomRoot<Node>>>
-        where F: Fn(&Node) -> Option<DomRoot<Node>>,
-              G: Fn(&Node) -> Option<DomRoot<Node>>
+                               -> Fallible<Option<DomRoot<Node<TH>>>>
+        where F: Fn(&Node) -> Option<DomRoot<Node<TH>>>,
+              G: Fn(&Node) -> Option<DomRoot<Node<TH>>>
     {
         // "To **traverse siblings** of type *type* run these steps:"
         // "1. Let node be the value of the currentNode attribute."
@@ -391,7 +392,7 @@ impl TreeWalker {
 
     // https://dom.spec.whatwg.org/#concept-tree-following
     fn first_following_node_not_following_root(&self, node: &Node)
-                                               -> Option<DomRoot<Node>> {
+                                               -> Option<DomRoot<Node<TH>>> {
         // "An object A is following an object B if A and B are in the same tree
         //  and A comes after B in tree order."
         match node.GetNextSibling() {
@@ -450,10 +451,10 @@ impl TreeWalker {
     }
 }
 
-impl<'a> Iterator for &'a TreeWalker {
-    type Item = DomRoot<Node>;
+impl<'a, TH: TypeHolderTrait> Iterator for &'a TreeWalker<TH> {
+    type Item = DomRoot<Node<TH>>;
 
-    fn next(&mut self) -> Option<DomRoot<Node>> {
+    fn next(&mut self) -> Option<DomRoot<Node<TH>>> {
         match self.NextNode() {
             Ok(node) => node,
             Err(_) =>
@@ -468,8 +469,8 @@ impl<'a> Iterator for &'a TreeWalker {
 }
 
 #[derive(JSTraceable)]
-pub enum Filter {
+pub enum Filter<TH: TypeHolderTrait> {
     None,
-    Native(fn (node: &Node) -> u16),
+    Native(fn (node: &Node<TH>) -> u16),
     Dom(Rc<NodeFilter>)
 }

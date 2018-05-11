@@ -15,10 +15,10 @@ use dom::window::Window;
 use dom_struct::dom_struct;
 use std::cell::Cell;
 use std::collections::HashSet;
-
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLBuffer {
+pub struct WebGLBuffer<TH: TypeHolderTrait> {
     webgl_object: WebGLObject,
     id: WebGLBufferId,
     /// The target to which this buffer was bound the first time
@@ -34,7 +34,7 @@ pub struct WebGLBuffer {
     usage: Cell<u32>,
 }
 
-impl WebGLBuffer {
+impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLBufferId)
                      -> WebGLBuffer {
@@ -51,7 +51,7 @@ impl WebGLBuffer {
         }
     }
 
-    pub fn maybe_new(window: &Window, renderer: WebGLMsgSender)
+    pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
                      -> Option<DomRoot<WebGLBuffer>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateBuffer(sender)).unwrap();
@@ -60,7 +60,7 @@ impl WebGLBuffer {
         result.map(|buffer_id| WebGLBuffer::new(window, renderer, buffer_id))
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLBufferId)
               -> DomRoot<WebGLBuffer> {
@@ -70,7 +70,7 @@ impl WebGLBuffer {
 }
 
 
-impl WebGLBuffer {
+impl<TH> WebGLBuffer<TH> {
     pub fn id(&self) -> WebGLBufferId {
         self.id
     }
@@ -168,7 +168,7 @@ impl WebGLBuffer {
     }
 }
 
-impl Drop for WebGLBuffer {
+impl<TH> Drop for WebGLBuffer<TH> {
     fn drop(&mut self) {
         self.delete();
     }

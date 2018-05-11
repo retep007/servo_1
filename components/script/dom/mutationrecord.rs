@@ -11,24 +11,25 @@ use dom::node::{Node, window_from_node};
 use dom::nodelist::NodeList;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Namespace};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MutationRecord {
+pub struct MutationRecord<TH: TypeHolderTrait> {
     reflector_: Reflector,
     record_type: DOMString,
-    target: Dom<Node>,
+    target: Dom<Node<TH>>,
     attribute_name: Option<DOMString>,
     attribute_namespace: Option<DOMString>,
     old_value: Option<DOMString>,
     added_nodes: MutNullableDom<NodeList>,
     removed_nodes: MutNullableDom<NodeList>,
-    next_sibling: Option<Dom<Node>>,
-    prev_sibling: Option<Dom<Node>>,
+    next_sibling: Option<Dom<Node<TH>>>,
+    prev_sibling: Option<Dom<Node<TH>>>,
 }
 
-impl MutationRecord {
+impl<TH: TypeHolderTrait> MutationRecord<TH> {
     #[allow(unrooted_must_root)]
-    pub fn attribute_mutated(target: &Node,
+    pub fn attribute_mutated(target: &Node<TH>,
                              attribute_name: &LocalName,
                              attribute_namespace: Option<&Namespace>,
                              old_value: Option<DOMString>) -> DomRoot<MutationRecord> {
@@ -43,7 +44,7 @@ impl MutationRecord {
         reflect_dom_object(record, &*window_from_node(target), MutationRecordBinding::Wrap)
     }
 
-    pub fn child_list_mutated(target: &Node,
+    pub fn child_list_mutated(target: &Node<TH>,
                               added_nodes: Option<&[&Node]>,
                               removed_nodes: Option<&[&Node]>,
                               next_sibling: Option<&Node>,
@@ -68,7 +69,7 @@ impl MutationRecord {
     }
 
     fn new_inherited(record_type: &str,
-                     target: &Node,
+                     target: &Node<TH>,
                      attribute_name: Option<DOMString>,
                      attribute_namespace: Option<DOMString>,
                      old_value: Option<DOMString>,
@@ -91,14 +92,14 @@ impl MutationRecord {
     }
 }
 
-impl MutationRecordMethods for MutationRecord {
+impl<TH: TypeHolderTrait> MutationRecordMethods for MutationRecord<TH> {
     // https://dom.spec.whatwg.org/#dom-mutationrecord-type
     fn Type(&self) -> DOMString {
         self.record_type.clone()
     }
 
     // https://dom.spec.whatwg.org/#dom-mutationrecord-target
-    fn Target(&self) -> DomRoot<Node> {
+    fn Target(&self) -> DomRoot<Node<TH>> {
         DomRoot::from_ref(&*self.target)
     }
 
@@ -134,12 +135,12 @@ impl MutationRecordMethods for MutationRecord {
     }
 
     // https://dom.spec.whatwg.org/#dom-mutationrecord-previoussibling
-    fn GetPreviousSibling(&self) -> Option<DomRoot<Node>> {
+    fn GetPreviousSibling(&self) -> Option<DomRoot<Node<TH>>> {
         self.prev_sibling.as_ref().map(|node| DomRoot::from_ref(&**node))
     }
 
     // https://dom.spec.whatwg.org/#dom-mutationrecord-previoussibling
-    fn GetNextSibling(&self) -> Option<DomRoot<Node>> {
+    fn GetNextSibling(&self) -> Option<DomRoot<Node<TH>>> {
         self.next_sibling.as_ref().map(|node| DomRoot::from_ref(&**node))
     }
 

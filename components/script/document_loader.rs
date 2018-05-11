@@ -14,6 +14,7 @@ use net_traits::{ResourceThreads, IpcSend};
 use net_traits::request::RequestInit;
 use servo_url::ServoUrl;
 use std::thread;
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Debug, JSTraceable, MallocSizeOf, PartialEq)]
 pub enum LoadType {
@@ -43,16 +44,16 @@ impl LoadType {
 /// that the owner is destroyed.
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct LoadBlocker {
+pub struct LoadBlocker<TH: TypeHolderTrait> {
     /// The document whose load event is blocked by this object existing.
-    doc: Dom<Document>,
+    doc: Dom<Document<TH>>,
     /// The load that is blocking the document's load event.
     load: Option<LoadType>,
 }
 
-impl LoadBlocker {
+impl<TH: TypeHolderTrait> LoadBlocker<TH> {
     /// Mark the document's load event as blocked on this new load.
-    pub fn new(doc: &Document, load: LoadType) -> LoadBlocker {
+    pub fn new(doc: &Document<TH>, load: LoadType) -> Self {
         doc.loader_mut().add_blocking_load(load.clone());
         LoadBlocker {
             doc: Dom::from_ref(doc),
@@ -74,7 +75,7 @@ impl LoadBlocker {
     }
 }
 
-impl Drop for LoadBlocker {
+impl<TH> Drop for LoadBlocker<TH> {
     fn drop(&mut self) {
         if !thread::panicking() {
             debug_assert!(self.load.is_none());

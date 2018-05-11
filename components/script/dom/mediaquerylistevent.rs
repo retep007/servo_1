@@ -17,19 +17,20 @@ use dom::window::Window;
 use dom_struct::dom_struct;
 use servo_atoms::Atom;
 use std::cell::Cell;
+use typeholder::TypeHolderTrait;
 
 // https://drafts.csswg.org/cssom-view/#dom-mediaquerylistevent-mediaquerylistevent
 #[dom_struct]
-pub struct MediaQueryListEvent {
+pub struct MediaQueryListEvent<TH: TypeHolderTrait> {
     event: Event,
     media: DOMString,
     matches: Cell<bool>
 }
 
-impl MediaQueryListEvent {
+impl<TH: TypeHolderTrait> MediaQueryListEvent<TH> {
     pub fn new_initialized(global: &GlobalScope,
                            media: DOMString,
-                           matches: bool) -> DomRoot<MediaQueryListEvent> {
+                           matches: bool) -> DomRoot<MediaQueryListEvent<TH>> {
         let ev = Box::new(MediaQueryListEvent {
             event: Event::new_inherited(),
             media: media,
@@ -40,7 +41,7 @@ impl MediaQueryListEvent {
 
     pub fn new(global: &GlobalScope, type_: Atom,
                bubbles: bool, cancelable: bool,
-               media: DOMString, matches: bool) -> DomRoot<MediaQueryListEvent> {
+               media: DOMString, matches: bool) -> DomRoot<MediaQueryListEvent<TH>> {
         let ev = MediaQueryListEvent::new_initialized(global, media, matches);
         {
             let event = ev.upcast::<Event>();
@@ -49,9 +50,9 @@ impl MediaQueryListEvent {
         ev
     }
 
-    pub fn Constructor(window: &Window, type_: DOMString,
+    pub fn Constructor(window: &Window<TH>, type_: DOMString,
                        init: &MediaQueryListEventInit)
-                       -> Fallible<DomRoot<MediaQueryListEvent>> {
+                       -> Fallible<DomRoot<MediaQueryListEvent<TH>>> {
         let global = window.upcast::<GlobalScope>();
         Ok(MediaQueryListEvent::new(global, Atom::from(type_),
                                     init.parent.bubbles, init.parent.cancelable,
@@ -59,7 +60,7 @@ impl MediaQueryListEvent {
     }
 }
 
-impl MediaQueryListEventMethods for MediaQueryListEvent {
+impl<TH> MediaQueryListEventMethods for MediaQueryListEvent<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylistevent-media
     fn Media(&self) -> DOMString {
         self.media.clone()

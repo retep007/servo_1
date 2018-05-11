@@ -28,6 +28,7 @@ use html5ever::{LocalName, Prefix};
 use std::cell::Cell;
 use std::default::Default;
 use style::element_state::ElementState;
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, JSTraceable, PartialEq)]
 #[derive(MallocSizeOf)]
@@ -39,16 +40,16 @@ enum ButtonType {
 }
 
 #[dom_struct]
-pub struct HTMLButtonElement {
+pub struct HTMLButtonElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     button_type: Cell<ButtonType>,
     form_owner: MutNullableDom<HTMLFormElement>,
 }
 
-impl HTMLButtonElement {
+impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLButtonElement {
+                     document: &Document) -> HTMLButtonElement<TH> {
         HTMLButtonElement {
             htmlelement:
                 HTMLElement::new_inherited_with_state(ElementState::IN_ENABLED_STATE,
@@ -68,7 +69,7 @@ impl HTMLButtonElement {
     }
 }
 
-impl HTMLButtonElementMethods for HTMLButtonElement {
+impl<TH> HTMLButtonElementMethods for HTMLButtonElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState> {
         let window = window_from_node(self);
@@ -143,7 +144,7 @@ impl HTMLButtonElementMethods for HTMLButtonElement {
     }
 }
 
-impl HTMLButtonElement {
+impl<TH> HTMLButtonElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#constructing-the-form-data-set>
     /// Steps range from 3.1 to 3.7 (specific to HTMLButtonElement)
     pub fn form_datum(&self, submitter: Option<FormSubmitter>) -> Option<FormDatum> {
@@ -176,7 +177,7 @@ impl HTMLButtonElement {
     }
 }
 
-impl VirtualMethods for HTMLButtonElement {
+impl<TH> VirtualMethods for HTMLButtonElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -233,7 +234,7 @@ impl VirtualMethods for HTMLButtonElement {
     fn unbind_from_tree(&self, context: &UnbindContext) {
         self.super_type().unwrap().unbind_from_tree(context);
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let el = self.upcast::<Element>();
         if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
             el.check_ancestors_disabled_state_for_form_control();
@@ -243,7 +244,7 @@ impl VirtualMethods for HTMLButtonElement {
     }
 }
 
-impl FormControl for HTMLButtonElement {
+impl<TH> FormControl for HTMLButtonElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
         self.form_owner.get()
     }
@@ -257,7 +258,7 @@ impl FormControl for HTMLButtonElement {
     }
 }
 
-impl Validatable for HTMLButtonElement {
+impl<TH> Validatable for HTMLButtonElement<TH> {
     fn is_instance_validatable(&self) -> bool {
         true
     }
@@ -268,7 +269,7 @@ impl Validatable for HTMLButtonElement {
     }
 }
 
-impl Activatable for HTMLButtonElement {
+impl<TH: TypeHolderTrait> Activatable for HTMLButtonElement<TH> {
     fn as_element(&self) -> &Element {
         self.upcast()
     }
@@ -313,7 +314,7 @@ impl Activatable for HTMLButtonElement {
     #[allow(unsafe_code)]
     fn implicit_submission(&self, ctrl_key: bool, shift_key: bool, alt_key: bool, meta_key: bool) {
         let doc = document_from_node(self);
-        let node = doc.upcast::<Node>();
+        let node = doc.upcast::<Node<TH>>();
         let owner = self.form_owner();
         if owner.is_none() || self.upcast::<Element>().click_in_progress() {
             return;

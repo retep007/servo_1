@@ -56,12 +56,12 @@ use style::str::split_html_space_chars;
 use task_source::TaskSource;
 use url::UrlQuery;
 use url::form_urlencoded::Serializer;
-
+use typeholder::TypeHolderTrait;
 #[derive(Clone, Copy, JSTraceable, MallocSizeOf, PartialEq)]
 pub struct GenerationId(u32);
 
 #[dom_struct]
-pub struct HTMLFormElement {
+pub struct HTMLFormElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     marked_for_reset: Cell<bool>,
     elements: DomOnceCell<HTMLFormControlsCollection>,
@@ -69,10 +69,10 @@ pub struct HTMLFormElement {
     controls: DomRefCell<Vec<Dom<Element>>>,
 }
 
-impl HTMLFormElement {
+impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLFormElement {
+                     document: &Document<TH>) -> HTMLFormElement<TH> {
         HTMLFormElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             marked_for_reset: Cell::new(false),
@@ -85,14 +85,14 @@ impl HTMLFormElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLFormElement> {
+               document: &Document<TH>) -> DomRoot<HTMLFormElement<TH>> {
         Node::reflect_node(Box::new(HTMLFormElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLFormElementBinding::Wrap)
     }
 }
 
-impl HTMLFormElementMethods for HTMLFormElement {
+impl<TH> HTMLFormElementMethods for HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-form-acceptcharset
     make_getter!(AcceptCharset, "accept-charset");
 
@@ -170,9 +170,9 @@ impl HTMLFormElementMethods for HTMLFormElement {
         struct ElementsFilter {
             form: DomRoot<HTMLFormElement>
         }
-        impl CollectionFilter for ElementsFilter {
-            fn filter<'a>(&self, elem: &'a Element, _root: &'a Node) -> bool {
-                let form_owner = match elem.upcast::<Node>().type_id() {
+        impl<TH> CollectionFilter for ElementsFilter<TH> {
+            fn filter<'a, TH>(&self, elem: &'a Element, _root: &'a Node) -> bool {
+                let form_owner = match elem.upcast::<Node<TH>>().type_id() {
                     NodeTypeId::Element(ElementTypeId::HTMLElement(t)) => {
                         match t {
                             HTMLElementTypeId::HTMLButtonElement => {
@@ -248,7 +248,7 @@ pub enum ResetFrom {
 }
 
 
-impl HTMLFormElement {
+impl<TH> HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#picking-an-encoding-for-the-form
     fn pick_encoding(&self) -> &'static Encoding {
         // Step 2
@@ -472,7 +472,7 @@ impl HTMLFormElement {
     /// Statitically validate the constraints of form elements
     /// <https://html.spec.whatwg.org/multipage/#statically-validate-the-constraints>
     fn static_validation(&self) -> Result<(), Vec<FormSubmittableElement>> {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         // FIXME(#3553): This is an incorrect way of getting controls owned by the
         //               form, refactor this when html5ever's form owner PR lands
         // Step 1-3
@@ -520,7 +520,7 @@ impl HTMLFormElement {
             if child.disabled_state() {
                 continue;
             }
-            let child = child.upcast::<Node>();
+            let child = child.upcast::<Node<TH>>();
 
             // Step 3.1: The field element has a datalist element ancestor.
             if child.ancestors()
@@ -636,7 +636,7 @@ impl HTMLFormElement {
 
         let controls = self.controls.borrow();
         for child in controls.iter() {
-            let child = child.upcast::<Node>();
+            let child = child.upcast::<Node<TH>>();
 
             match child.type_id() {
                 NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
@@ -664,7 +664,7 @@ impl HTMLFormElement {
 
     fn add_control<T: ?Sized + FormControl>(&self, control: &T) {
         let root = self.upcast::<Element>().root_element();
-        let root = root.r().upcast::<Node>();
+        let root = root.r().upcast::<Node<TH>>();
 
         let mut controls = self.controls.borrow_mut();
         controls.insert_pre_order(control.to_element(), root);
@@ -865,7 +865,7 @@ impl<'a> FormSubmitter<'a> {
     }
 }
 
-pub trait FormControl: DomObject {
+pub trait FormControl<TH: TypeHolderTrait>: DomObject {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>>;
 
     fn set_form_owner(&self, form: Option<&HTMLFormElement>);
@@ -882,7 +882,7 @@ pub trait FormControl: DomObject {
     // when the parser subsequently attempts to insert the element..'
     fn set_form_owner_from_parser(&self, form: &HTMLFormElement) {
         let elem = self.to_element();
-        let node = elem.upcast::<Node>();
+        let node = elem.upcast::<Node<TH>>();
         node.set_flag(NodeFlags::PARSER_ASSOCIATED_FORM_OWNER, true);
         form.add_control(self);
         self.set_form_owner(Some(form));
@@ -891,7 +891,7 @@ pub trait FormControl: DomObject {
     // https://html.spec.whatwg.org/multipage/#reset-the-form-owner
     fn reset_form_owner(&self) {
         let elem = self.to_element();
-        let node = elem.upcast::<Node>();
+        let node = elem.upcast::<Node<TH>>();
         let old_owner = self.form_owner();
         let has_form_id = elem.has_attribute(&local_name!("form"));
         let nearest_form_ancestor = node.ancestors()
@@ -945,7 +945,7 @@ pub trait FormControl: DomObject {
     fn register_if_necessary(&self) {
         let elem = self.to_element();
         let form_id = elem.get_string_attribute(&local_name!("form"));
-        let node = elem.upcast::<Node>();
+        let node = elem.upcast::<Node<TH>>();
 
         if self.is_listed() && !form_id.is_empty() && node.is_in_doc() {
             let doc = document_from_node(node);
@@ -958,7 +958,7 @@ pub trait FormControl: DomObject {
         let form_id = elem.get_string_attribute(&local_name!("form"));
 
         if self.is_listed() && !form_id.is_empty() {
-            let doc = document_from_node(elem.upcast::<Node>());
+            let doc = document_from_node(elem.upcast::<Node<TH>>());
             doc.unregister_form_id_listener(form_id, self);
         }
     }
@@ -966,7 +966,7 @@ pub trait FormControl: DomObject {
     // https://html.spec.whatwg.org/multipage/#association-of-controls-and-forms
     fn bind_form_control_to_tree(&self) {
         let elem = self.to_element();
-        let node = elem.upcast::<Node>();
+        let node = elem.upcast::<Node<TH>>();
 
         // https://html.spec.whatwg.org/multipage/#create-an-element-for-the-token
         // Part of step 12.
@@ -1035,7 +1035,7 @@ pub trait FormControl: DomObject {
     // fn satisfies_constraints(&self) -> bool;
 }
 
-impl VirtualMethods for HTMLFormElement {
+impl<TH> VirtualMethods for HTMLFormElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -1065,13 +1065,13 @@ impl VirtualMethods for HTMLFormElement {
     }
 }
 
-pub trait FormControlElementHelpers {
+pub trait FormControlElementHelpers<TH: TypeHolderTrait> {
     fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl>;
 }
 
-impl FormControlElementHelpers for Element {
+impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element {
     fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl> {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
 
         match node.type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLButtonElement)) => {

@@ -37,9 +37,10 @@ use std::ops::Range;
 use style::attr::AttrValue;
 use style::element_state::ElementState;
 use textinput::{Direction, KeyReaction, Lines, SelectionDirection, TextInput};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTextAreaElement {
+pub struct HTMLTextAreaElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     #[ignore_malloc_size_of = "#7193"]
     textinput: DomRefCell<TextInput<ScriptToConstellationChan>>,
@@ -110,10 +111,10 @@ static DEFAULT_COLS: u32 = 20;
 // https://html.spec.whatwg.org/multipage/#attr-textarea-rows-value
 static DEFAULT_ROWS: u32 = 2;
 
-impl HTMLTextAreaElement {
+impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLTextAreaElement {
+                     document: &Document<TH>) -> HTMLTextAreaElement<TH> {
         let chan = document.window().upcast::<GlobalScope>().script_to_constellation_chan().clone();
         HTMLTextAreaElement {
             htmlelement:
@@ -131,7 +132,7 @@ impl HTMLTextAreaElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLTextAreaElement> {
+               document: &Document<TH>) -> DomRoot<HTMLTextAreaElement<TH>> {
         Node::reflect_node(Box::new(HTMLTextAreaElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTextAreaElementBinding::Wrap)
@@ -145,7 +146,7 @@ impl HTMLTextAreaElement {
     }
 }
 
-impl TextControlElement for HTMLTextAreaElement {
+impl<TH> TextControlElement for HTMLTextAreaElement<TH> {
     fn selection_api_applies(&self) -> bool {
         true
     }
@@ -159,7 +160,7 @@ impl TextControlElement for HTMLTextAreaElement {
     }
 }
 
-impl HTMLTextAreaElementMethods for HTMLTextAreaElement {
+impl<TH> HTMLTextAreaElementMethods for HTMLTextAreaElement<TH> {
     // TODO A few of these attributes have default values and additional
     // constraints
 
@@ -223,12 +224,12 @@ impl HTMLTextAreaElementMethods for HTMLTextAreaElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea-defaultvalue
     fn DefaultValue(&self) -> DOMString {
-        self.upcast::<Node>().GetTextContent().unwrap()
+        self.upcast::<Node<TH>>().GetTextContent().unwrap()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea-defaultvalue
     fn SetDefaultValue(&self, value: DOMString) {
-        self.upcast::<Node>().SetTextContent(Some(value));
+        self.upcast::<Node<TH>>().SetTextContent(Some(value));
 
         // if the element's dirty value flag is false, then the element's
         // raw value must be set to the value of the element's textContent IDL attribute
@@ -260,7 +261,7 @@ impl HTMLTextAreaElementMethods for HTMLTextAreaElement {
             textinput.clear_selection_to_limit(Direction::Forward);
         }
 
-        self.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+        self.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
@@ -321,7 +322,7 @@ impl HTMLTextAreaElementMethods for HTMLTextAreaElement {
 }
 
 
-impl HTMLTextAreaElement {
+impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
     pub fn reset(&self) {
         // https://html.spec.whatwg.org/multipage/#the-textarea-element:concept-form-reset-control
         let mut textinput = self.textinput.borrow_mut();
@@ -336,7 +337,7 @@ impl HTMLTextAreaElement {
 }
 
 
-impl VirtualMethods for HTMLTextAreaElement {
+impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -411,7 +412,7 @@ impl VirtualMethods for HTMLTextAreaElement {
     fn unbind_from_tree(&self, context: &UnbindContext) {
         self.super_type().unwrap().unbind_from_tree(context);
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let el = self.upcast::<Element>();
         if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
             el.check_ancestors_disabled_state_for_form_control();
@@ -449,11 +450,11 @@ impl VirtualMethods for HTMLTextAreaElement {
                     KeyReaction::DispatchInput => {
                         self.value_dirty.set(true);
                         self.update_placeholder_shown_state();
-                        self.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+                        self.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
                         event.mark_as_handled();
                     }
                     KeyReaction::RedrawSelection => {
-                        self.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+                        self.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
                         event.mark_as_handled();
                     }
                     KeyReaction::Nothing => (),
@@ -480,7 +481,7 @@ impl VirtualMethods for HTMLTextAreaElement {
     }
 }
 
-impl FormControl for HTMLTextAreaElement {
+impl<TH> FormControl for HTMLTextAreaElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
         self.form_owner.get()
     }
@@ -495,4 +496,4 @@ impl FormControl for HTMLTextAreaElement {
 }
 
 
-impl Validatable for HTMLTextAreaElement {}
+impl<TH> Validatable for HTMLTextAreaElement<TH> {}

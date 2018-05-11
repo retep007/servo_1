@@ -9,14 +9,15 @@ use dom::bindings::root::{Dom, DomRoot};
 use dom::touch::Touch;
 use dom::window::Window;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TouchList {
+pub struct TouchList<TH: TypeHolderTrait> {
     reflector_: Reflector,
     touches: Vec<Dom<Touch>>,
 }
 
-impl TouchList {
+impl<TH: TypeHolderTrait> TouchList<TH> {
     fn new_inherited(touches: &[&Touch]) -> TouchList {
         TouchList {
             reflector_: Reflector::new(),
@@ -24,13 +25,13 @@ impl TouchList {
         }
     }
 
-    pub fn new(window: &Window, touches: &[&Touch]) -> DomRoot<TouchList> {
+    pub fn new(window: &Window<TH>, touches: &[&Touch]) -> DomRoot<TouchList> {
         reflect_dom_object(Box::new(TouchList::new_inherited(touches)),
                            window, TouchListBinding::Wrap)
     }
 }
 
-impl TouchListMethods for TouchList {
+impl<TH> TouchListMethods for TouchList<TH> {
     /// <https://w3c.github.io/touch-events/#widl-TouchList-length>
     fn Length(&self) -> u32 {
         self.touches.len() as u32

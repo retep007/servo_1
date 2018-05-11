@@ -40,22 +40,23 @@ use std::default::Default;
 use std::rc::Rc;
 use style::attr::AttrValue;
 use style::element_state::*;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLElement {
+pub struct HTMLElement<TH> {
     element: Element,
     style_decl: MutNullableDom<CSSStyleDeclaration>,
     dataset: MutNullableDom<DOMStringMap>,
 }
 
-impl HTMLElement {
+impl<TH: TypeHolderTrait> HTMLElement<TH> {
     pub fn new_inherited(tag_name: LocalName, prefix: Option<Prefix>,
-                         document: &Document) -> HTMLElement {
+                         document: &Document<TH>) -> HTMLElement {
         HTMLElement::new_inherited_with_state(ElementState::empty(), tag_name, prefix, document)
     }
 
     pub fn new_inherited_with_state(state: ElementState, tag_name: LocalName,
-                                    prefix: Option<Prefix>, document: &Document)
+                                    prefix: Option<Prefix>, document: &Document<TH>)
                                     -> HTMLElement {
         HTMLElement {
             element:
@@ -66,7 +67,7 @@ impl HTMLElement {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> DomRoot<HTMLElement> {
+    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> DomRoot<HTMLElement> {
         Node::reflect_node(Box::new(HTMLElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLElementBinding::Wrap)
@@ -79,7 +80,7 @@ impl HTMLElement {
 
     fn update_sequentially_focusable_status(&self) {
         let element = self.upcast::<Element>();
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         if element.has_attribute(&local_name!("tabindex")) {
             node.set_flag(NodeFlags::SEQUENTIALLY_FOCUSABLE, true);
         } else {
@@ -114,7 +115,7 @@ impl HTMLElement {
     }
 }
 
-impl HTMLElementMethods for HTMLElement {
+impl<TH> HTMLElementMethods for HTMLElement<TH> {
     // https://html.spec.whatwg.org/multipage/#the-style-attribute
     fn Style(&self) -> DomRoot<CSSStyleDeclaration> {
         self.style_decl.or_init(|| {
@@ -355,7 +356,7 @@ impl HTMLElementMethods for HTMLElement {
             return None;
         }
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let window = window_from_node(self);
         let (element, _) = window.offset_parent_query(node.to_trusted_node_address());
 
@@ -368,7 +369,7 @@ impl HTMLElementMethods for HTMLElement {
             return 0;
         }
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let window = window_from_node(self);
         let (_, rect) = window.offset_parent_query(node.to_trusted_node_address());
 
@@ -381,7 +382,7 @@ impl HTMLElementMethods for HTMLElement {
             return 0;
         }
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let window = window_from_node(self);
         let (_, rect) = window.offset_parent_query(node.to_trusted_node_address());
 
@@ -390,7 +391,7 @@ impl HTMLElementMethods for HTMLElement {
 
     // https://drafts.csswg.org/cssom-view/#dom-htmlelement-offsetwidth
     fn OffsetWidth(&self) -> i32 {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let window = window_from_node(self);
         let (_, rect) = window.offset_parent_query(node.to_trusted_node_address());
 
@@ -399,7 +400,7 @@ impl HTMLElementMethods for HTMLElement {
 
     // https://drafts.csswg.org/cssom-view/#dom-htmlelement-offsetheight
     fn OffsetHeight(&self) -> i32 {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let window = window_from_node(self);
         let (_, rect) = window.offset_parent_query(node.to_trusted_node_address());
 
@@ -408,7 +409,7 @@ impl HTMLElementMethods for HTMLElement {
 
     // https://html.spec.whatwg.org/multipage/#the-innertext-idl-attribute
     fn InnerText(&self) -> DOMString {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let window = window_from_node(node);
         let element = self.upcast::<Element>();
 
@@ -454,7 +455,7 @@ impl HTMLElementMethods for HTMLElement {
                     }
 
                     let br = HTMLBRElement::new(local_name!("br"), None, &document);
-                    fragment.upcast::<Node>().AppendChild(&br.upcast()).unwrap();
+                    fragment.upcast::<Node<TH>>().AppendChild(&br.upcast()).unwrap();
                 },
                 _ => {
                     text.push(ch);
@@ -467,17 +468,17 @@ impl HTMLElementMethods for HTMLElement {
         }
 
         // Step 7.
-        Node::replace_all(Some(fragment.upcast()), self.upcast::<Node>());
+        Node::replace_all(Some(fragment.upcast()), self.upcast::<Node<TH>>());
     }
 }
 
-fn append_text_node_to_fragment(
-    document: &Document,
+fn append_text_node_to_fragment<TH: TypeHolderTrait>(
+    document: &Document<TH>,
     fragment: &DocumentFragment,
     text: String
 ) {
     let text = Text::new(DOMString::from(text), document);
-    fragment.upcast::<Node>().AppendChild(&text.upcast()).unwrap();
+    fragment.upcast::<Node<TH>>().AppendChild(&text.upcast()).unwrap();
 }
 
 // https://html.spec.whatwg.org/multipage/#attr-data-*
@@ -544,7 +545,7 @@ fn to_camel_case(name: &str) -> Option<DOMString> {
     Some(DOMString::from(result))
 }
 
-impl HTMLElement {
+impl<TH: TypeHolderTrait> HTMLElement<TH> {
     pub fn set_custom_attr(&self, name: DOMString, value: DOMString) -> ErrorResult {
         if name.chars()
                .skip_while(|&ch| ch != '\u{2d}')
@@ -571,7 +572,7 @@ impl HTMLElement {
     // https://html.spec.whatwg.org/multipage/#category-label
     pub fn is_labelable_element(&self) -> bool {
         // Note: HTMLKeygenElement is omitted because Servo doesn't currently implement it
-        match self.upcast::<Node>().type_id() {
+        match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(type_id)) =>
                 match type_id {
                     HTMLElementTypeId::HTMLInputElement =>
@@ -596,7 +597,7 @@ impl HTMLElement {
             return true;
         }
 
-        match self.upcast::<Node>().type_id() {
+        match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(type_id)) =>
                 match type_id {
                     HTMLElementTypeId::HTMLButtonElement |
@@ -630,7 +631,7 @@ impl HTMLElement {
         // Traverse ancestors for implicitly associated <label> elements
         // https://html.spec.whatwg.org/multipage/#the-label-element:attr-label-for-4
         let ancestors =
-            self.upcast::<Node>()
+            self.upcast::<Node<TH>>()
                 .ancestors()
                 .filter_map(DomRoot::downcast::<HTMLElement>)
                 // If we reach a labelable element, we have a guarantee no ancestors above it
@@ -639,7 +640,7 @@ impl HTMLElement {
                 .filter_map(DomRoot::downcast::<HTMLLabelElement>)
                 .filter(|elem| !elem.upcast::<Element>().has_attribute(&local_name!("for")))
                 .filter(|elem| elem.first_labelable_descendant().r() == Some(self))
-                .map(DomRoot::upcast::<Node>);
+                .map(DomRoot::upcast::<Node<TH>>);
 
         let id = element.Id();
         let id = match &id as &str {
@@ -649,18 +650,18 @@ impl HTMLElement {
 
         // Traverse entire tree for <label> elements with `for` attribute matching `id`
         let root_element = element.root_element();
-        let root_node = root_element.upcast::<Node>();
+        let root_node = root_element.upcast::<Node<TH>>();
         let children = root_node.traverse_preorder()
                                 .filter_map(DomRoot::downcast::<Element>)
                                 .filter(|elem| elem.is::<HTMLLabelElement>())
                                 .filter(|elem| elem.get_string_attribute(&local_name!("for")) == id)
-                                .map(DomRoot::upcast::<Node>);
+                                .map(DomRoot::upcast::<Node<TH>>);
 
         NodeList::new_simple_list(&window, children.chain(ancestors))
     }
 }
 
-impl VirtualMethods for HTMLElement {
+impl<TH> VirtualMethods for HTMLElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<Element>() as &VirtualMethods)
     }

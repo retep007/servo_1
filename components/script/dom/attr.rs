@@ -23,10 +23,11 @@ use std::borrow::ToOwned;
 use std::cell::Ref;
 use std::mem;
 use style::attr::{AttrIdentifier, AttrValue};
+use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#interface-attr
 #[dom_struct]
-pub struct Attr {
+pub struct Attr<TH: TypeHolderTrait> {
     reflector_: Reflector,
     identifier: AttrIdentifier,
     value: DomRefCell<AttrValue>,
@@ -35,14 +36,14 @@ pub struct Attr {
     owner: MutNullableDom<Element>,
 }
 
-impl Attr {
+impl<TH: TypeHolderTrait> Attr<TH> {
     fn new_inherited(local_name: LocalName,
                      value: AttrValue,
                      name: LocalName,
                      namespace: Namespace,
                      prefix: Option<Prefix>,
                      owner: Option<&Element>)
-                     -> Attr {
+                     -> Self {
         Attr {
             reflector_: Reflector::new(),
             identifier: AttrIdentifier {
@@ -56,14 +57,14 @@ impl Attr {
         }
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                local_name: LocalName,
                value: AttrValue,
                name: LocalName,
                namespace: Namespace,
                prefix: Option<Prefix>,
-               owner: Option<&Element>)
-               -> DomRoot<Attr> {
+               owner: Option<&Element<TH>>)
+               -> DomRoot<Self> {
         reflect_dom_object(
             Box::new(Attr::new_inherited(
                 local_name,
@@ -94,7 +95,7 @@ impl Attr {
     }
 }
 
-impl AttrMethods for Attr {
+impl<TH> AttrMethods for Attr<TH> {
     // https://dom.spec.whatwg.org/#dom-attr-localname
     fn LocalName(&self) -> DOMString {
         // FIXME(ajeffrey): convert directly from LocalName to DOMString
@@ -176,8 +177,8 @@ impl AttrMethods for Attr {
 }
 
 
-impl Attr {
-    pub fn set_value(&self, mut value: AttrValue, owner: &Element) {
+impl<TH: TypeHolderTrait> Attr<TH> {
+    pub fn set_value(&self, mut value: AttrValue, owner: &Element<TH>) {
         let name = self.local_name().clone();
         let namespace = self.namespace().clone();
         let old_value = DOMString::from(&**self.value());
@@ -188,7 +189,7 @@ impl Attr {
             old_value: old_value.clone(),
         };
 
-        MutationObserver::queue_a_mutation_record(owner.upcast::<Node>(), mutation);
+        MutationObserver::queue_a_mutation_record(owner.upcast::<Node<TH>>(), mutation);
 
         if owner.get_custom_element_definition().is_some() {
             let reaction = CallbackReaction::AttributeChanged(name, Some(old_value), Some(new_value), namespace);
@@ -260,7 +261,7 @@ pub trait AttrHelpersForLayout {
 }
 
 #[allow(unsafe_code)]
-impl AttrHelpersForLayout for LayoutDom<Attr> {
+impl<TH> AttrHelpersForLayout for LayoutDom<Attr<TH>> {
     #[inline]
     unsafe fn value_forever(&self) -> &'static AttrValue {
         // This transmute is used to cheat the lifetime restriction.

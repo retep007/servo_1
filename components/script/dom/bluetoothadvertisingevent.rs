@@ -16,10 +16,11 @@ use dom::globalscope::GlobalScope;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use servo_atoms::Atom;
+use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothadvertisingevent
 #[dom_struct]
-pub struct BluetoothAdvertisingEvent {
+pub struct BluetoothAdvertisingEvent<TH> {
     event: Event,
     device: Dom<BluetoothDevice>,
     name: Option<DOMString>,
@@ -28,7 +29,7 @@ pub struct BluetoothAdvertisingEvent {
     rssi: Option<i8>,
 }
 
-impl BluetoothAdvertisingEvent {
+impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
     pub fn new_inherited(device: &BluetoothDevice,
                          name: Option<DOMString>,
                          appearance: Option<u16>,
@@ -74,7 +75,7 @@ impl BluetoothAdvertisingEvent {
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothadvertisingevent-bluetoothadvertisingevent
-    pub fn Constructor(window: &Window,
+    pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &BluetoothAdvertisingEventInit)
                        -> Fallible<DomRoot<BluetoothAdvertisingEvent>> {

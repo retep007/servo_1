@@ -120,6 +120,7 @@ use url::Position;
 use webdriver_handlers::jsval_to_webdriver;
 use webrender_api::{ExternalScrollId, DeviceIntPoint, DeviceUintSize, DocumentId};
 use webvr_traits::WebVRMsg;
+use typeholder::TypeHolderTrait;
 
 /// Current state of the window object
 #[derive(Clone, Copy, Debug, JSTraceable, MallocSizeOf, PartialEq)]
@@ -154,7 +155,7 @@ pub enum ReflowReason {
 }
 
 #[dom_struct]
-pub struct Window {
+pub struct Window<TH: TypeHolderTrait> {
     globalscope: GlobalScope,
     #[ignore_malloc_size_of = "trait objects are hard"]
     script_chan: MainThreadScriptChan,
@@ -176,7 +177,7 @@ pub struct Window {
     #[ignore_malloc_size_of = "channels are hard"]
     image_cache_chan: Sender<ImageCacheMsg>,
     window_proxy: MutNullableDom<WindowProxy>,
-    document: MutNullableDom<Document>,
+    document: MutNullableDom<Document<TH>>,
     location: MutNullableDom<Location>,
     history: MutNullableDom<History>,
     custom_element_registry: MutNullableDom<CustomElementRegistry>,
@@ -274,7 +275,7 @@ pub struct Window {
     /// initiated by layout during a reflow. They are stored in the script thread
     /// to ensure that the element can be marked dirty when the image data becomes
     /// available at some point in the future.
-    pending_layout_images: DomRefCell<HashMap<PendingImageId, Vec<Dom<Node>>>>,
+    pending_layout_images: DomRefCell<HashMap<PendingImageId, Vec<Dom<Node<TH>>>>>,
 
     /// Directory to store unminified scripts for this window if unminify-js
     /// opt is enabled.
@@ -292,7 +293,7 @@ pub struct Window {
     exists_mut_observer: Cell<bool>,
 }
 
-impl Window {
+impl<TH> Window<TH> {
     pub fn get_exists_mut_observer(&self) -> bool {
         self.exists_mut_observer.get()
     }
@@ -521,7 +522,7 @@ pub fn base64_atob(input: DOMString) -> Fallible<DOMString> {
     }
 }
 
-impl WindowMethods for Window {
+impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-alert
     fn Alert_(&self) {
         self.Alert(DOMString::new());
@@ -566,7 +567,7 @@ impl WindowMethods for Window {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-document-2
-    fn Document(&self) -> DomRoot<Document> {
+    fn Document(&self) -> DomRoot<Document<TH>> {
         self.document.get().expect("Document accessed before initialization.")
     }
 
@@ -1045,7 +1046,7 @@ impl WindowMethods for Window {
     }
 }
 
-impl Window {
+impl<TH: TypeHolderTrait> Window<TH> {
     // https://drafts.css-houdini.org/css-paint-api-1/#paint-worklet
     pub fn paint_worklet(&self) -> DomRoot<Worklet> {
         self.paint_worklet.or_init(|| self.new_paint_worklet())
@@ -1078,7 +1079,7 @@ impl Window {
         // We tear down the active document, which causes all the attached
         // nodes to dispose of their layout data. This messages the layout
         // thread, informing it that it can safely free the memory.
-        self.Document().upcast::<Node>().teardown();
+        self.Document().upcast::<Node<TH>>().teardown();
 
         // Clean up any active promises
         // https://github.com/servo/servo/issues/15318
@@ -1129,7 +1130,7 @@ impl Window {
         let body = self.Document().GetBody();
         let (x, y) = match body {
             Some(e) => {
-                let content_size = e.upcast::<Node>().bounding_content_box_or_zero();
+                let content_size = e.upcast::<Node<TH>>().bounding_content_box_or_zero();
                 let content_height = content_size.size.height.to_f64_px();
                 let content_width = content_size.size.width.to_f64_px();
                 (xfinite.min(content_width - width).max(0.0f64),
@@ -1261,7 +1262,7 @@ impl Window {
             reflow_info: Reflow {
                 page_clip_rect: self.page_clip_rect.get(),
             },
-            document: self.Document().upcast::<Node>().to_trusted_node_address(),
+            document: self.Document().upcast::<Node<TH>>().to_trusted_node_address(),
             stylesheets_changed,
             window_size,
             reflow_goal,
@@ -1429,7 +1430,7 @@ impl Window {
         self.layout_rpc.node_scroll_area().client_rect
     }
 
-    pub fn scroll_offset_query(&self, node: &Node) -> Vector2D<f32> {
+    pub fn scroll_offset_query(&self, node: &Node<TH>) -> Vector2D<f32> {
         if let Some(scroll_offset) = self.scroll_offsets
                                          .borrow()
                                          .get(&node.to_untrusted_node_address()) {
@@ -1441,7 +1442,7 @@ impl Window {
     // https://drafts.csswg.org/cssom-view/#element-scrolling-members
     pub fn scroll_node(
         &self,
-        node: &Node,
+        node: &Node<TH>,
         x_: f64,
         y_: f64,
         behavior: ScrollBehavior
@@ -1518,7 +1519,7 @@ impl Window {
     }
 
     #[allow(unsafe_code)]
-    pub fn init_document(&self, document: &Document) {
+    pub fn init_document(&self, document: &Document<TH>) {
         assert!(self.document.get().is_none());
         assert!(document.window() == self);
         self.document.set(Some(&document));
@@ -1635,7 +1636,7 @@ impl Window {
     }
 
     // https://html.spec.whatwg.org/multipage/#accessing-other-browsing-contexts
-    pub fn IndexedGetter(&self, _index: u32, _found: &mut bool) -> Option<DomRoot<Window>> {
+    pub fn IndexedGetter(&self, _index: u32, _found: &mut bool) -> Option<DomRoot<Window<TH>>> {
         None
     }
 
@@ -1929,7 +1930,7 @@ fn debug_reflow_events(id: PipelineId, reflow_goal: &ReflowGoal, reason: &Reflow
     println!("{}", debug_msg);
 }
 
-impl Window {
+impl<TH> Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-window-postmessage step 7.
     pub fn post_message(
         &self,

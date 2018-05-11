@@ -20,18 +20,19 @@ use servo_arc::Arc;
 use style::shared_lock::{Locked, ToCssWithGuard};
 use style::stylesheets::keyframes_rule::{KeyframesRule, Keyframe, KeyframeSelector};
 use style::values::KeyframesName;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSKeyframesRule {
+pub struct CSSKeyframesRule<TH: TypeHolderTrait> {
     cssrule: CSSRule,
     #[ignore_malloc_size_of = "Arc"]
     keyframesrule: Arc<Locked<KeyframesRule>>,
     rulelist: MutNullableDom<CSSRuleList>,
 }
 
-impl CSSKeyframesRule {
+impl<TH: TypeHolderTrait> CSSKeyframesRule<TH> {
     fn new_inherited(parent_stylesheet: &CSSStyleSheet, keyframesrule: Arc<Locked<KeyframesRule>>)
-                     -> CSSKeyframesRule {
+                     -> Self {
         CSSKeyframesRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
             keyframesrule: keyframesrule,
@@ -40,8 +41,8 @@ impl CSSKeyframesRule {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window, parent_stylesheet: &CSSStyleSheet,
-               keyframesrule: Arc<Locked<KeyframesRule>>) -> DomRoot<CSSKeyframesRule> {
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+               keyframesrule: Arc<Locked<KeyframesRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(CSSKeyframesRule::new_inherited(parent_stylesheet, keyframesrule)),
                            window,
                            CSSKeyframesRuleBinding::Wrap)
@@ -74,7 +75,7 @@ impl CSSKeyframesRule {
     }
 }
 
-impl CSSKeyframesRuleMethods for CSSKeyframesRule {
+impl<TH> CSSKeyframesRuleMethods for CSSKeyframesRule<TH> {
     // https://drafts.csswg.org/css-animations/#dom-csskeyframesrule-cssrules
     fn CssRules(&self) -> DomRoot<CSSRuleList> {
         self.rulelist()
@@ -128,7 +129,7 @@ impl CSSKeyframesRuleMethods for CSSKeyframesRule {
     }
 }
 
-impl SpecificCSSRule for CSSKeyframesRule {
+impl<TH> SpecificCSSRule for CSSKeyframesRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::KEYFRAMES_RULE

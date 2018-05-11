@@ -21,21 +21,22 @@ use dom::htmlselectelement::HTMLSelectElement;
 use dom::node::{document_from_node, Node};
 use dom::window::Window;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOptionsCollection {
+pub struct HTMLOptionsCollection<TH: TypeHolderTrait> {
     collection: HTMLCollection,
 }
 
-impl HTMLOptionsCollection {
-    fn new_inherited(select: &HTMLSelectElement, filter: Box<CollectionFilter + 'static>) -> HTMLOptionsCollection {
+impl<TH: TypeHolderTrait> HTMLOptionsCollection<TH> {
+    fn new_inherited(select: &HTMLSelectElement, filter: Box<CollectionFilter + 'static>) -> HTMLOptionsCollection<TH> {
         HTMLOptionsCollection {
             collection: HTMLCollection::new_inherited(select.upcast(), filter),
         }
     }
 
-    pub fn new(window: &Window, select: &HTMLSelectElement, filter: Box<CollectionFilter + 'static>)
-        -> DomRoot<HTMLOptionsCollection>
+    pub fn new(window: &Window<TH>, select: &HTMLSelectElement, filter: Box<CollectionFilter + 'static>)
+        -> DomRoot<HTMLOptionsCollection<TH>>
     {
         reflect_dom_object(Box::new(HTMLOptionsCollection::new_inherited(select, filter)),
                            window,
@@ -48,14 +49,14 @@ impl HTMLOptionsCollection {
 
         for _ in 0..count {
             let element = HTMLOptionElement::new(local_name!("option"), None, &document);
-            let node = element.upcast::<Node>();
+            let node = element.upcast::<Node<TH>>();
             root.AppendChild(node)?;
         };
         Ok(())
     }
 }
 
-impl HTMLOptionsCollectionMethods for HTMLOptionsCollection {
+impl<TH> HTMLOptionsCollectionMethods for HTMLOptionsCollection<TH> {
     // FIXME: This shouldn't need to be implemented here since HTMLCollection (the parent of
     // HTMLOptionsCollection) implements NamedGetter.
     // https://github.com/servo/servo/issues/5875
@@ -94,13 +95,13 @@ impl HTMLOptionsCollectionMethods for HTMLOptionsCollection {
             }
 
             // Step 5
-            let node = value.upcast::<Node>();
+            let node = value.upcast::<Node<TH>>();
             let root = self.upcast().root_node();
             if n >= 0 {
                 Node::pre_insert(node, &root, None).map(|_| ())
             } else {
                 let child = self.upcast().IndexedGetter(index).unwrap();
-                let child_node = child.upcast::<Node>();
+                let child_node = child.upcast::<Node<TH>>();
 
                 root.ReplaceChild(node, child_node).map(|_| ())
             }
@@ -147,7 +148,7 @@ impl HTMLOptionsCollectionMethods for HTMLOptionsCollection {
 
         if let Some(HTMLElementOrLong::HTMLElement(ref before_element)) = before {
             // Step 2
-            let before_node = before_element.upcast::<Node>();
+            let before_node = before_element.upcast::<Node<TH>>();
             if !root.is_ancestor_of(before_node) {
                 return Err(Error::NotFound);
             }
@@ -161,9 +162,9 @@ impl HTMLOptionsCollectionMethods for HTMLOptionsCollection {
         // Step 4
         let reference_node = before.and_then(|before| {
             match before {
-                HTMLElementOrLong::HTMLElement(element) => Some(DomRoot::upcast::<Node>(element)),
+                HTMLElementOrLong::HTMLElement(element) => Some(DomRoot::upcast::<Node<TH>>(element)),
                 HTMLElementOrLong::Long(index) => {
-                    self.upcast().IndexedGetter(index as u32).map(DomRoot::upcast::<Node>)
+                    self.upcast().IndexedGetter(index as u32).map(DomRoot::upcast::<Node<TH>>)
                 }
             }
         });

@@ -58,6 +58,7 @@ use task_source::performance_timeline::PerformanceTimelineTaskSource;
 use time::{Timespec, get_time};
 use timers::{IsInterval, OneshotTimerCallback, OneshotTimerHandle};
 use timers::{OneshotTimers, TimerCallback};
+use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
 pub struct AutoCloseWorker(
@@ -71,7 +72,7 @@ impl Drop for AutoCloseWorker {
 }
 
 #[dom_struct]
-pub struct GlobalScope {
+pub struct GlobalScope<TH: TypeHolderTrait> {
     eventtarget: EventTarget,
     crypto: MutNullableDom<Crypto>,
     next_worker_id: Cell<WorkerId>,
@@ -131,7 +132,7 @@ pub struct GlobalScope {
     list_auto_close_worker: DomRefCell<Vec<AutoCloseWorker>>,
 }
 
-impl GlobalScope {
+impl<TH: TypeHolderTrait> GlobalScope<TH> {
     pub fn new_inherited(
         pipeline_id: PipelineId,
         devtools_chan: Option<IpcSender<ScriptToDevtoolsControlMsg>>,
@@ -292,7 +293,7 @@ impl GlobalScope {
     /// Get the [base url](https://html.spec.whatwg.org/multipage/#api-base-url)
     /// for this global scope.
     pub fn api_base_url(&self) -> ServoUrl {
-        if let Some(window) = self.downcast::<Window>() {
+        if let Some(window) = self.downcast::<Window<TH>>() {
             // https://html.spec.whatwg.org/multipage/#script-settings-for-browsing-contexts:api-base-url
             return window.Document().base_url();
         }
@@ -309,7 +310,7 @@ impl GlobalScope {
 
     /// Get the URL for this global scope.
     pub fn get_url(&self) -> ServoUrl {
-        if let Some(window) = self.downcast::<Window>() {
+        if let Some(window) = self.downcast::<Window<TH>>() {
             return window.get_url();
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
@@ -324,7 +325,7 @@ impl GlobalScope {
 
     /// Extract a `Window`, panic if the global object is not a `Window`.
     pub fn as_window(&self) -> &Window {
-        self.downcast::<Window>().expect("expected a Window scope")
+        self.downcast::<Window<TH>>().expect("expected a Window scope")
     }
 
     /// <https://html.spec.whatwg.org/multipage/#report-the-error>
@@ -379,7 +380,7 @@ impl GlobalScope {
 
     /// `ScriptChan` to send messages to the event loop of this global scope.
     pub fn script_chan(&self) -> Box<ScriptChan + Send> {
-        if let Some(window) = self.downcast::<Window>() {
+        if let Some(window) = self.downcast::<Window<TH>>() {
             return MainThreadScriptChan(window.main_thread_script_chan().clone()).clone();
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
@@ -391,7 +392,7 @@ impl GlobalScope {
     /// `ScriptChan` to send messages to the networking task source of
     /// this of this global scope.
     pub fn networking_task_source(&self) -> NetworkingTaskSource {
-        if let Some(window) = self.downcast::<Window>() {
+        if let Some(window) = self.downcast::<Window<TH>>() {
             return window.networking_task_source();
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
@@ -497,7 +498,7 @@ impl GlobalScope {
     }
 
     fn timer_source(&self) -> TimerSource {
-        if self.is::<Window>() {
+        if self.is::<Window<TH>>() {
             return TimerSource::FromWindow(self.pipeline_id());
         }
         if self.is::<WorkerGlobalScope>() {
@@ -509,7 +510,7 @@ impl GlobalScope {
     /// Returns the task canceller of this global to ensure that everything is
     /// properly cancelled when the global scope is destroyed.
     pub fn task_canceller(&self) -> TaskCanceller {
-        if let Some(window) = self.downcast::<Window>() {
+        if let Some(window) = self.downcast::<Window<TH>>() {
             return window.task_canceller();
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
@@ -532,7 +533,7 @@ impl GlobalScope {
     /// event loop. Used for implementing web APIs that require blocking semantics
     /// without resorting to nested event loops.
     pub fn new_script_pair(&self) -> (Box<ScriptChan + Send>, Box<ScriptPort + Send>) {
-        if let Some(window) = self.downcast::<Window>() {
+        if let Some(window) = self.downcast::<Window<TH>>() {
             return window.new_script_pair();
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
@@ -549,7 +550,7 @@ impl GlobalScope {
     /// Process a single event as if it were the next event
     /// in the thread queue for this global scope.
     pub fn process_event(&self, msg: CommonScriptMsg) {
-        if self.is::<Window>() {
+        if self.is::<Window<TH>>() {
             return ScriptThread::process_event(msg);
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
@@ -561,7 +562,7 @@ impl GlobalScope {
     /// Channel to send messages to the file reading task source of
     /// this of this global scope.
     pub fn file_reading_task_source(&self) -> FileReadingTaskSource {
-        if let Some(window) = self.downcast::<Window>() {
+        if let Some(window) = self.downcast::<Window<TH>>() {
             return window.file_reading_task_source();
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
@@ -602,7 +603,7 @@ impl GlobalScope {
     }
 
     pub fn performance(&self) -> DomRoot<Performance> {
-        if let Some(window) = self.downcast::<Window>() {
+        if let Some(window) = self.downcast::<Window<TH>>() {
             return window.Performance();
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
@@ -614,7 +615,7 @@ impl GlobalScope {
     /// Channel to send messages to the performance timeline task source
     /// of this global scope.
     pub fn performance_timeline_task_source(&self) -> PerformanceTimelineTaskSource {
-        if let Some(window) = self.downcast::<Window>() {
+        if let Some(window) = self.downcast::<Window<TH>>() {
             return window.performance_timeline_task_source();
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope>() {

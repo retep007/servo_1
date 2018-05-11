@@ -15,16 +15,17 @@ use servo_url::ServoUrl;
 use xml5ever::buffer_queue::BufferQueue;
 use xml5ever::tokenizer::XmlTokenizer;
 use xml5ever::tree_builder::{Tracer as XmlTracer, XmlTreeBuilder};
+use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer {
+pub struct Tokenizer<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Defined in xml5ever"]
-    inner: XmlTokenizer<XmlTreeBuilder<Dom<Node>, Sink>>,
+    inner: XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink>>,
 }
 
-impl Tokenizer {
-    pub fn new(document: &Document, url: ServoUrl) -> Self {
+impl<TH: TypeHolderTrait> Tokenizer<TH> {
+    pub fn new(document: &Document<TH>, url: ServoUrl) -> Self {
         let sink = Sink {
             base_url: url,
             document: Dom::from_ref(document),
@@ -68,15 +69,15 @@ impl Tokenizer {
 }
 
 #[allow(unsafe_code)]
-unsafe impl JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom<Node>, Sink>> {
-    unsafe fn trace(&self, trc: *mut JSTracer) {
-        struct Tracer(*mut JSTracer);
+unsafe impl<TH: TypeHolderTrait> JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink>> {
+    unsafe fn trace<TH>(&self, trc: *mut JSTracer) {
+        struct Tracer<TH>(*mut JSTracer);
         let tracer = Tracer(trc);
 
-        impl XmlTracer for Tracer {
-            type Handle = Dom<Node>;
+        impl<TH> XmlTracer for Tracer<TH> {
+            type Handle = Dom<Node<TH>>;
             #[allow(unrooted_must_root)]
-            fn trace_handle(&self, node: &Dom<Node>) {
+            fn trace_handle(&self, node: &Dom<Node<TH>>) {
                 unsafe { node.trace(self.0); }
             }
         }

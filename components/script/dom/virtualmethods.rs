@@ -53,10 +53,11 @@ use dom::node::{ChildrenMutation, CloneChildrenFlag, Node, UnbindContext};
 use dom::svgsvgelement::SVGSVGElement;
 use html5ever::LocalName;
 use style::attr::AttrValue;
+use typeholder::TypeHolderTrait;
 
 /// Trait to allow DOM nodes to opt-in to overriding (or adding to) common
 /// behaviours. Replicates the effect of C++ virtual methods.
-pub trait VirtualMethods {
+pub trait VirtualMethods<TH: TypeHolderTrait> {
     /// Returns self as the superclass of the implementation for this trait,
     /// if any.
     fn super_type(&self) -> Option<&VirtualMethods>;
@@ -128,7 +129,7 @@ pub trait VirtualMethods {
     }
 
     /// <https://dom.spec.whatwg.org/#concept-node-clone-ext>
-    fn cloning_steps(&self, copy: &Node, maybe_doc: Option<&Document>,
+    fn cloning_steps(&self, copy: &Node<TH>, maybe_doc: Option<&Document>,
                      clone_children: CloneChildrenFlag) {
         if let Some(ref s) = self.super_type() {
             s.cloning_steps(copy, maybe_doc, clone_children);
@@ -148,7 +149,7 @@ pub trait VirtualMethods {
 /// method call on the trait object will invoke the corresponding method on the
 /// concrete type, propagating up the parent hierarchy unless otherwise
 /// interrupted.
-pub fn vtable_for(node: &Node) -> &VirtualMethods {
+pub fn vtable_for<TH: TypeHolderTrait>(node: &Node) -> &VirtualMethods<TH> {
     match node.type_id() {
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLAnchorElement)) => {
             node.downcast::<HTMLAnchorElement>().unwrap() as &VirtualMethods

@@ -20,9 +20,10 @@ use html5ever::{Namespace, LocalName};
 use microtask::Microtask;
 use script_thread::ScriptThread;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MutationObserver {
+pub struct MutationObserver<TH: TypeHolderTrait> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<MutationCallback>,
@@ -36,8 +37,8 @@ pub enum Mutation<'a> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct RegisteredObserver {
-    observer: DomRoot<MutationObserver>,
+pub struct RegisteredObserver<TH: TypeHolderTrait> {
+    observer: DomRoot<MutationObserver<TH>>,
     options: ObserverOptions,
 }
 
@@ -52,13 +53,13 @@ pub struct ObserverOptions {
     attribute_filter: Vec<DOMString>,
 }
 
-impl MutationObserver {
-    fn new(global: &Window, callback: Rc<MutationCallback>) -> DomRoot<MutationObserver> {
+impl<TH: TypeHolderTrait> MutationObserver<TH> {
+    fn new(global: &Window<TH>, callback: Rc<MutationCallback>) -> DomRoot<MutationObserver<TH>> {
         let boxed_observer = Box::new(MutationObserver::new_inherited(callback));
         reflect_dom_object(boxed_observer, global, MutationObserverBinding::Wrap)
     }
 
-    fn new_inherited(callback: Rc<MutationCallback>) -> MutationObserver {
+    fn new_inherited(callback: Rc<MutationCallback>) -> MutationObserver<TH> {
         MutationObserver {
             reflector_: Reflector::new(),
             callback: callback,
@@ -66,7 +67,7 @@ impl MutationObserver {
         }
     }
 
-    pub fn Constructor(global: &Window, callback: Rc<MutationCallback>) -> Fallible<DomRoot<MutationObserver>> {
+    pub fn Constructor(global: &Window<TH>, callback: Rc<MutationCallback>) -> Fallible<DomRoot<MutationObserver<TH>>> {
         global.set_exists_mut_observer();
         let observer = MutationObserver::new(global, callback);
         ScriptThread::add_mutation_observer(&*observer);
@@ -105,7 +106,7 @@ impl MutationObserver {
     }
 
     /// <https://dom.spec.whatwg.org/#queueing-a-mutation-record>
-    pub fn queue_a_mutation_record(target: &Node, attr_type: Mutation) {
+    pub fn queue_a_mutation_record(target: &Node<TH>, attr_type: Mutation) {
         if !target.global().as_window().get_exists_mut_observer() {
             return;
         }
@@ -185,9 +186,9 @@ impl MutationObserver {
 
 }
 
-impl MutationObserverMethods for MutationObserver {
+impl<TH> MutationObserverMethods for MutationObserver<TH> {
     /// <https://dom.spec.whatwg.org/#dom-mutationobserver-observe>
-    fn Observe(&self, target: &Node, options: &MutationObserverInit) -> Fallible<()> {
+    fn Observe(&self, target: &Node<TH>, options: &MutationObserverInit) -> Fallible<()> {
         let attribute_filter = options.attributeFilter.clone().unwrap_or(vec![]);
         let attribute_old_value = options.attributeOldValue.unwrap_or(false);
         let mut attributes = options.attributes.unwrap_or(false);

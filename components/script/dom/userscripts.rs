@@ -11,11 +11,11 @@ use servo_config::opts;
 use std::fs::{File, read_dir};
 use std::io::Read;
 use std::path::PathBuf;
+use typeholder::TypeHolderTrait;
 
-
-pub fn load_script(head: &HTMLHeadElement) {
+pub fn load_script<TH: TypeHolderTrait>(head: &HTMLHeadElement) {
     if let Some(ref path_str) = opts::get().userscripts {
-        let node = head.upcast::<Node>();
+        let node = head.upcast::<Node<TH>>();
         let doc = node.owner_doc();
         let win = doc.window();
         let cx = win.get_cx();

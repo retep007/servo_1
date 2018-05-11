@@ -67,6 +67,7 @@ use swapper::Swapper;
 use swapper::swapper;
 use task::TaskBox;
 use uuid::Uuid;
+use typeholder::TypeHolderTrait;
 
 // Magic numbers
 const WORKLET_THREAD_POOL_SIZE: u32 = 3;
@@ -74,15 +75,15 @@ const MIN_GC_THRESHOLD: u32 = 1_000_000;
 
 #[dom_struct]
 /// <https://drafts.css-houdini.org/worklets/#worklet>
-pub struct Worklet {
+pub struct Worklet<TH: TypeHolderTrait> {
     reflector: Reflector,
-    window: Dom<Window>,
+    window: Dom<Window<TH>>,
     worklet_id: WorkletId,
     global_type: WorkletGlobalScopeType,
 }
 
-impl Worklet {
-    fn new_inherited(window: &Window, global_type: WorkletGlobalScopeType) -> Worklet {
+impl<TH: TypeHolderTrait> Worklet<TH> {
+    fn new_inherited(window: &Window<TH>, global_type: WorkletGlobalScopeType) -> Worklet {
         Worklet {
             reflector: Reflector::new(),
             window: Dom::from_ref(window),
@@ -91,7 +92,7 @@ impl Worklet {
         }
     }
 
-    pub fn new(window: &Window, global_type: WorkletGlobalScopeType) -> DomRoot<Worklet> {
+    pub fn new(window: &Window<TH>, global_type: WorkletGlobalScopeType) -> DomRoot<Worklet> {
         debug!("Creating worklet {:?}.", global_type);
         reflect_dom_object(Box::new(Worklet::new_inherited(window, global_type)), window, Wrap)
     }
@@ -106,7 +107,7 @@ impl Worklet {
     }
 }
 
-impl WorkletMethods for Worklet {
+impl<TH> WorkletMethods for Worklet<TH> {
     #[allow(unrooted_must_root)]
     /// <https://drafts.css-houdini.org/worklets/#dom-worklet-addmodule>
     fn AddModule(&self, module_url: USVString, options: &WorkletOptions) -> Rc<Promise> {

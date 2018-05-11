@@ -18,15 +18,16 @@ use dom::window::Window;
 use dom_struct::dom_struct;
 use servo_atoms::Atom;
 use webvr_traits::{WebVRDisplayEvent, WebVRDisplayEventReason};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRDisplayEvent {
+pub struct VRDisplayEvent<TH: TypeHolderTrait> {
     event: Event,
     display: Dom<VRDisplay>,
     reason: Option<VRDisplayEventReason>
 }
 
-impl VRDisplayEvent {
+impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
     fn new_inherited(display: &VRDisplay,
                      reason: Option<VRDisplayEventReason>)
                      -> VRDisplayEvent {
@@ -93,7 +94,7 @@ impl VRDisplayEvent {
                             reason)
     }
 
-    pub fn Constructor(window: &Window,
+    pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &VRDisplayEventBinding::VRDisplayEventInit)
                        -> Fallible<DomRoot<VRDisplayEvent>> {

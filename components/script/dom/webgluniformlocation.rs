@@ -9,15 +9,16 @@ use dom::bindings::reflector::{Reflector, reflect_dom_object};
 use dom::bindings::root::DomRoot;
 use dom::window::Window;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLUniformLocation {
+pub struct WebGLUniformLocation<TH: TypeHolderTrait> {
     reflector_: Reflector,
     id: i32,
     program_id: WebGLProgramId,
 }
 
-impl WebGLUniformLocation {
+impl<TH: TypeHolderTrait> WebGLUniformLocation<TH> {
     fn new_inherited(id: i32,
                      program_id: WebGLProgramId)
                      -> WebGLUniformLocation {
@@ -28,7 +29,7 @@ impl WebGLUniformLocation {
         }
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                id: i32,
                program_id: WebGLProgramId)
                -> DomRoot<WebGLUniformLocation> {

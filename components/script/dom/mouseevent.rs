@@ -19,9 +19,10 @@ use euclid::Point2D;
 use servo_config::prefs::PREFS;
 use std::cell::Cell;
 use std::default::Default;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MouseEvent {
+pub struct MouseEvent<TH: TypeHolderTrait> {
     uievent: UIEvent,
     screen_x: Cell<i32>,
     screen_y: Cell<i32>,
@@ -36,7 +37,7 @@ pub struct MouseEvent {
     point_in_target: Cell<Option<Point2D<f32>>>
 }
 
-impl MouseEvent {
+impl<TH: TypeHolderTrait> MouseEvent<TH> {
     fn new_inherited() -> MouseEvent {
         MouseEvent {
             uievent: UIEvent::new_inherited(),
@@ -54,18 +55,18 @@ impl MouseEvent {
         }
     }
 
-    pub fn new_uninitialized(window: &Window) -> DomRoot<MouseEvent> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<MouseEvent> {
         reflect_dom_object(Box::new(MouseEvent::new_inherited()),
                            window,
                            MouseEventBinding::Wrap)
     }
 
     pub fn new(
-        window: &Window,
+        window: &Window<TH>,
         type_: DOMString,
         can_bubble: EventBubbles,
         cancelable: EventCancelable,
-        view: Option<&Window>,
+        view: Option<&Window<TH>>,
         detail: i32,
         screen_x: i32,
         screen_y: i32,
@@ -91,7 +92,7 @@ impl MouseEvent {
         ev
     }
 
-    pub fn Constructor(window: &Window,
+    pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &MouseEventBinding::MouseEventInit) -> Fallible<DomRoot<MouseEvent>> {
         let bubbles = EventBubbles::from(init.parent.parent.parent.bubbles);
@@ -116,7 +117,7 @@ impl MouseEvent {
     }
 }
 
-impl MouseEventMethods for MouseEvent {
+impl<TH: TypeHolderTrait> MouseEventMethods for MouseEvent<TH> {
     // https://w3c.github.io/uievents/#widl-MouseEvent-screenX
     fn ScreenX(&self) -> i32 {
         self.screen_x.get()
@@ -186,7 +187,7 @@ impl MouseEventMethods for MouseEvent {
         type_arg: DOMString,
         can_bubble_arg: bool,
         cancelable_arg: bool,
-        view_arg: Option<&Window>,
+        view_arg: Option<&Window<TH>>,
         detail_arg: i32,
         screen_x_arg: i32,
         screen_y_arg: i32,

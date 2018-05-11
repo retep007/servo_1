@@ -15,9 +15,10 @@ use dom::storage::Storage;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use servo_atoms::Atom;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct StorageEvent {
+pub struct StorageEvent<TH: TypeHolderTrait> {
     event: Event,
     key: Option<DOMString>,
     old_value: Option<DOMString>,
@@ -27,12 +28,12 @@ pub struct StorageEvent {
 }
 
 
-impl StorageEvent {
+impl<TH: TypeHolderTrait> StorageEvent<TH> {
     pub fn new_inherited(key: Option<DOMString>,
                          old_value: Option<DOMString>,
                          new_value: Option<DOMString>,
                          url: DOMString,
-                         storage_area: Option<&Storage>) -> StorageEvent {
+                         storage_area: Option<&Storage>) -> StorageEvent<TH> {
         StorageEvent {
             event: Event::new_inherited(),
             key: key,
@@ -43,14 +44,14 @@ impl StorageEvent {
         }
     }
 
-    pub fn new_uninitialized(window: &Window,
-                             url: DOMString) -> DomRoot<StorageEvent> {
+    pub fn new_uninitialized(window: &Window<TH>,
+                             url: DOMString) -> DomRoot<StorageEvent<TH>> {
         reflect_dom_object(Box::new(StorageEvent::new_inherited(None, None, None, url, None)),
                            window,
                            StorageEventBinding::Wrap)
     }
 
-    pub fn new(global: &Window,
+    pub fn new(global: &Window<TH>,
                type_: Atom,
                bubbles: EventBubbles,
                cancelable: EventCancelable,
@@ -58,7 +59,7 @@ impl StorageEvent {
                oldValue: Option<DOMString>,
                newValue: Option<DOMString>,
                url: DOMString,
-               storageArea: Option<&Storage>) -> DomRoot<StorageEvent> {
+               storageArea: Option<&Storage>) -> DomRoot<StorageEvent<TH>> {
         let ev = reflect_dom_object(
             Box::new(StorageEvent::new_inherited(key, oldValue, newValue, url, storageArea)),
             global,
@@ -71,9 +72,9 @@ impl StorageEvent {
         ev
     }
 
-    pub fn Constructor(global: &Window,
+    pub fn Constructor(global: &Window<TH>,
                        type_: DOMString,
-                       init: &StorageEventBinding::StorageEventInit) -> Fallible<DomRoot<StorageEvent>> {
+                       init: &StorageEventBinding::StorageEventInit) -> Fallible<DomRoot<StorageEvent<TH>>> {
         let key = init.key.clone();
         let oldValue = init.oldValue.clone();
         let newValue = init.newValue.clone();
@@ -89,7 +90,7 @@ impl StorageEvent {
     }
 }
 
-impl StorageEventMethods for StorageEvent {
+impl<TH> StorageEventMethods for StorageEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-storageevent-key
     fn GetKey(&self) -> Option<DOMString> {
         self.key.clone()

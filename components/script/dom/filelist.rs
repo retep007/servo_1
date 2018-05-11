@@ -10,17 +10,18 @@ use dom::file::File;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use std::slice::Iter;
+use typeholder::TypeHolderTrait;
 
 // https://w3c.github.io/FileAPI/#dfn-filelist
 #[dom_struct]
-pub struct FileList {
+pub struct FileList<TH: TypeHolderTrait> {
     reflector_: Reflector,
     list: Vec<Dom<File>>
 }
 
-impl FileList {
+impl<TH: TypeHolderTrait> FileList<TH> {
     #[allow(unrooted_must_root)]
-    fn new_inherited(files: Vec<Dom<File>>) -> FileList {
+    fn new_inherited(files: Vec<Dom<File>>) -> FileList<TH> {
         FileList {
             reflector_: Reflector::new(),
             list: files
@@ -28,7 +29,7 @@ impl FileList {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window, files: Vec<DomRoot<File>>) -> DomRoot<FileList> {
+    pub fn new(window: &Window<TH>, files: Vec<DomRoot<File>>) -> DomRoot<FileList<TH>> {
         reflect_dom_object(Box::new(FileList::new_inherited(files.iter().map(|r| Dom::from_ref(&**r)).collect())),
                            window,
                            FileListBinding::Wrap)
@@ -39,7 +40,7 @@ impl FileList {
     }
 }
 
-impl FileListMethods for FileList {
+impl<TH> FileListMethods for FileList<TH> {
     // https://w3c.github.io/FileAPI/#dfn-length
     fn Length(&self) -> u32 {
         self.list.len() as u32

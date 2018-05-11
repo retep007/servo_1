@@ -15,16 +15,17 @@ use dom::userscripts::load_script;
 use dom::virtualmethods::VirtualMethods;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLHeadElement {
+pub struct HTMLHeadElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement
 }
 
-impl HTMLHeadElement {
+impl<TH: TypeHolderTrait> HTMLHeadElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLHeadElement {
+                     document: &Document<TH>) -> HTMLHeadElement<TH> {
         HTMLHeadElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -33,7 +34,7 @@ impl HTMLHeadElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLHeadElement> {
+               document: &Document<TH>) -> DomRoot<HTMLHeadElement<TH>> {
         Node::reflect_node(Box::new(HTMLHeadElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLHeadElementBinding::Wrap)
@@ -47,7 +48,7 @@ impl HTMLHeadElement {
             return;
         }
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let candidates = node.traverse_preorder()
                              .filter_map(DomRoot::downcast::<Element>)
                              .filter(|elem| elem.is::<HTMLMetaElement>())
@@ -67,7 +68,7 @@ impl HTMLHeadElement {
     }
 }
 
-impl VirtualMethods for HTMLHeadElement {
+impl<TH> VirtualMethods for HTMLHeadElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }

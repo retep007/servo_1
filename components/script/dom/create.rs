@@ -83,11 +83,12 @@ use html5ever::{LocalName, Prefix, QualName};
 use js::jsapi::JSAutoCompartment;
 use script_thread::ScriptThread;
 use servo_config::prefs::PREFS;
+use typeholder::TypeHolderTrait;
 
-fn create_svg_element(name: QualName,
+fn create_svg_element<TH: TypeHolderTrait>(name: QualName,
                       prefix: Option<Prefix>,
                       document: &Document)
-                      -> DomRoot<Element> {
+                      -> DomRoot<Element<TH>> {
     assert_eq!(name.ns, ns!(svg));
 
     macro_rules! make(
@@ -113,13 +114,13 @@ fn create_svg_element(name: QualName,
 
 // https://dom.spec.whatwg.org/#concept-create-element
 #[allow(unsafe_code)]
-fn create_html_element(name: QualName,
+fn create_html_element<TH: TypeHolderTrait>(name: QualName,
                        prefix: Option<Prefix>,
                        is: Option<LocalName>,
-                       document: &Document,
+                       document: &Document<TH>,
                        creator: ElementCreator,
                        mode: CustomElementCreationMode)
-                       -> DomRoot<Element> {
+                       -> DomRoot<Element<TH>> {
     assert_eq!(name.ns, ns!(html));
 
     // Step 4
@@ -191,12 +192,12 @@ fn create_html_element(name: QualName,
     result
 }
 
-pub fn create_native_html_element(
+pub fn create_native_html_element<TH: TypeHolderTrait>(
     name: QualName,
     prefix: Option<Prefix>,
-    document: &Document,
+    document: &Document<TH>,
     creator: ElementCreator,
-) -> DomRoot<Element> {
+) -> DomRoot<Element<TH>> {
     assert_eq!(name.ns, ns!(html));
 
     macro_rules! make(
@@ -360,9 +361,9 @@ pub fn create_native_html_element(
     }
 }
 
-pub fn create_element(name: QualName,
+pub fn create_element<TH: TypeHolderTrait>(name: QualName,
                       is: Option<LocalName>,
-                      document: &Document,
+                      document: &Document<TH>,
                       creator: ElementCreator,
                       mode: CustomElementCreationMode)
                       -> DomRoot<Element> {

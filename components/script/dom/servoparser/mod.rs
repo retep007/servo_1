@@ -56,12 +56,13 @@ use dom::bindings::reflector::MutDomObject;
 use dom::bindings::root::StableTraceObject;
 use malloc_size_of::MallocSizeOf;
 use dom::bindings::trace::JSTraceable;
+use typeholder::TypeHolderTrait;
 
 mod async_html;
 mod html;
 mod xml;
 
-pub trait ServoParser: DomObject + MutDomObject + MallocSizeOf + JSTraceable {
+pub trait ServoParser<TH: TypeHolderTrait>: DomObject + MutDomObject + MallocSizeOf + JSTraceable {
     fn parser_is_not_active(&self) -> bool;
 
     fn script_nesting_level(&self) -> usize;
@@ -95,13 +96,13 @@ pub trait ServoParser: DomObject + MutDomObject + MallocSizeOf + JSTraceable {
     // https://html.spec.whatwg.org/multipage/#abort-a-parser
     fn abort(&self);
 
-    fn parse_html_document(document: &Document, input: DOMString, url: ServoUrl) where Self: Sized;
+    fn parse_html_document(document: &Document<TH>, input: DOMString, url: ServoUrl) where Self: Sized;
 
-    fn parse_html_fragment(context: &Element, input: DOMString) -> Box<Iterator<Item=DomRoot<Node>>> where Self: Sized;
+    fn parse_html_fragment(context: &Element, input: DOMString) -> Box<Iterator<Item=DomRoot<Node<TH>>>> where Self: Sized;
 
-    fn parse_html_script_input(document: &Document, url: ServoUrl, type_: &str) where Self: Sized;
+    fn parse_html_script_input(document: &Document<TH>, url: ServoUrl, type_: &str) where Self: Sized;
 
-    fn parse_xml_document(document: &Document, input: DOMString, url: ServoUrl) where Self: Sized;
+    fn parse_xml_document(document: &Document<TH>, input: DOMString, url: ServoUrl) where Self: Sized;
 
     fn push_string_input_chunk(&self, chunk: String);
 
@@ -109,7 +110,7 @@ pub trait ServoParser: DomObject + MutDomObject + MallocSizeOf + JSTraceable {
 
     fn get_aborted(&self) -> Cell<bool>;
 
-    fn get_document(&self) -> Dom<Document>;
+    fn get_document(&self) -> Dom<Document<TH>>;
 
     fn get_tokenizer(&self) -> DomRefCell<Tokenizer>;
 
@@ -146,18 +147,18 @@ impl ElementAttribute {
     }
 }
 
-struct FragmentParsingResult<I>
-    where I: Iterator<Item=DomRoot<Node>>
+struct FragmentParsingResult<I, TH: TypeHolderTrait>
+    where I: Iterator<Item=DomRoot<Node<TH>>>
 {
     inner: I,
 }
 
-impl<I> Iterator for FragmentParsingResult<I>
-    where I: Iterator<Item=DomRoot<Node>>
+impl<I, TH: TypeHolderTrait> Iterator for FragmentParsingResult<I, TH>
+    where I: Iterator<Item=DomRoot<Node<TH>>>
 {
-    type Item = DomRoot<Node>;
+    type Item = DomRoot<Node<TH>>;
 
-    fn next(&mut self) -> Option<DomRoot<Node>> {
+    fn next(&mut self) -> Option<DomRoot<Node<TH>>> {
         let next = self.inner.next()?;
         next.remove_self();
         Some(next)
@@ -227,7 +228,7 @@ impl Tokenizer {
 /// The context required for asynchronously fetching a document
 /// and parsing it progressively.
 #[derive(JSTraceable)]
-pub struct ParserContext {
+pub struct ParserContext<TH: TypeHolderTrait> {
     /// The parser that initiated the request.
     parser: Option<Trusted<Box<ServoParser>>>,
     /// Is this a synthesized document
@@ -238,7 +239,7 @@ pub struct ParserContext {
     url: ServoUrl,
 }
 
-impl ParserContext {
+impl<TH> ParserContext<TH> {
     pub fn new(id: PipelineId, url: ServoUrl) -> ParserContext {
         ParserContext {
             parser: None,
@@ -249,7 +250,7 @@ impl ParserContext {
     }
 }
 
-impl FetchResponseListener for ParserContext {
+impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
     fn process_request_body(&mut self) {}
 
     fn process_request_eof(&mut self) {}
@@ -299,10 +300,10 @@ impl FetchResponseListener for ParserContext {
                 parser.parse_sync();
 
                 let doc = &parser.get_document();
-                let doc_body = DomRoot::upcast::<Node>(doc.GetBody().unwrap());
+                let doc_body = DomRoot::upcast::<Node<TH>>(doc.GetBody().unwrap());
                 let img = HTMLImageElement::new(local_name!("img"), None, doc);
                 img.SetSrc(DOMString::from(self.url.to_string()));
-                doc_body.AppendChild(&DomRoot::upcast::<Node>(img)).expect("Appending failed");
+                doc_body.AppendChild(&DomRoot::upcast::<Node<TH>>(img)).expect("Appending failed");
 
             },
             Some(ContentType(Mime(TopLevel::Text, SubLevel::Plain, _))) => {
@@ -386,20 +387,20 @@ impl FetchResponseListener for ParserContext {
 
 impl PreInvoke for ParserContext {}
 
-pub struct FragmentContext<'a> {
-    pub context_elem: &'a Node,
-    pub form_elem: Option<&'a Node>,
+pub struct FragmentContext<'a, TH: TypeHolderTrait> {
+    pub context_elem: &'a Node<TH>,
+    pub form_elem: Option<&'a Node<TH>>,
 }
 
 #[allow(unrooted_must_root)]
-fn insert(parent: &Node, reference_child: Option<&Node>, child: NodeOrText<Dom<Node>>) {
+fn insert<TH: TypeHolderTrait>(parent: &Node<TH>, reference_child: Option<&Node<TH>>, child: NodeOrText<Dom<Node<TH>>>) {
     match child {
         NodeOrText::AppendNode(n) => {
             parent.InsertBefore(&n, reference_child).unwrap();
         },
         NodeOrText::AppendText(t) => {
             let text = reference_child
-                .and_then(Node::GetPreviousSibling)
+                .and_then(Node::<TH>::GetPreviousSibling)
                 .or_else(|| parent.GetLastChild())
                 .and_then(DomRoot::downcast::<Text>);
 
@@ -415,49 +416,49 @@ fn insert(parent: &Node, reference_child: Option<&Node>, child: NodeOrText<Dom<N
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Sink {
+pub struct Sink<TH: TypeHolderTrait> {
     base_url: ServoUrl,
-    document: Dom<Document>,
+    document: Dom<Document<TH>>,
     current_line: u64,
     script: MutNullableDom<HTMLScriptElement>,
     parsing_algorithm: ParsingAlgorithm,
 }
 
-impl Sink {
-    fn same_tree(&self, x: &Dom<Node>, y: &Dom<Node>) -> bool {
+impl<TH: TypeHolderTrait> Sink<TH> {
+    fn same_tree(&self, x: &Dom<Node<TH>>, y: &Dom<Node<TH>>) -> bool {
         let x = x.downcast::<Element>().expect("Element node expected");
         let y = y.downcast::<Element>().expect("Element node expected");
 
         x.is_in_same_home_subtree(y)
     }
 
-    fn has_parent_node(&self, node: &Dom<Node>) -> bool {
+    fn has_parent_node(&self, node: &Dom<Node<TH>>) -> bool {
          node.GetParentNode().is_some()
     }
 }
 
 #[allow(unrooted_must_root)]  // FIXME: really?
-impl TreeSink for Sink {
+impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
     type Output = Self;
     fn finish(self) -> Self { self }
 
-    type Handle = Dom<Node>;
+    type Handle = Dom<Node<TH>>;
 
-    fn get_document(&mut self) -> Dom<Node> {
+    fn get_document(&mut self) -> Dom<Node<TH>> {
         Dom::from_ref(self.document.upcast())
     }
 
-    fn get_template_contents(&mut self, target: &Dom<Node>) -> Dom<Node> {
+    fn get_template_contents(&mut self, target: &Dom<Node<TH>>) -> Dom<Node<TH>> {
         let template = target.downcast::<HTMLTemplateElement>()
             .expect("tried to get template contents of non-HTMLTemplateElement in HTML parsing");
         Dom::from_ref(template.Content().upcast())
     }
 
-    fn same_node(&self, x: &Dom<Node>, y: &Dom<Node>) -> bool {
+    fn same_node(&self, x: &Dom<Node<TH>>, y: &Dom<Node<TH>>) -> bool {
         x == y
     }
 
-    fn elem_name<'a>(&self, target: &'a Dom<Node>) -> ExpandedName<'a> {
+    fn elem_name<'a>(&self, target: &'a Dom<Node<TH>>) -> ExpandedName<'a> {
         let elem = target.downcast::<Element>()
             .expect("tried to get name of non-Element in HTML parsing");
         ExpandedName {
@@ -467,7 +468,7 @@ impl TreeSink for Sink {
     }
 
     fn create_element(&mut self, name: QualName, attrs: Vec<Attribute>, _flags: ElementFlags)
-            -> Dom<Node> {
+            -> Dom<Node<TH>> {
         let attrs = attrs
             .into_iter()
             .map(|attr| ElementAttribute::new(attr.name, DOMString::from(String::from(attr.value))))
@@ -482,12 +483,12 @@ impl TreeSink for Sink {
         Dom::from_ref(element.upcast())
     }
 
-    fn create_comment(&mut self, text: StrTendril) -> Dom<Node> {
+    fn create_comment(&mut self, text: StrTendril) -> Dom<Node<TH>> {
         let comment = Comment::new(DOMString::from(String::from(text)), &*self.document);
         Dom::from_ref(comment.upcast())
     }
 
-    fn create_pi(&mut self, target: StrTendril, data: StrTendril) -> Dom<Node> {
+    fn create_pi(&mut self, target: StrTendril, data: StrTendril) -> Dom<Node<TH>> {
         let doc = &*self.document;
         let pi = ProcessingInstruction::new(
             DOMString::from(String::from(target)), DOMString::from(String::from(data)),
@@ -495,7 +496,7 @@ impl TreeSink for Sink {
         Dom::from_ref(pi.upcast())
     }
 
-    fn associate_with_form(&mut self, target: &Dom<Node>, form: &Dom<Node>, nodes: (&Dom<Node>, Option<&Dom<Node>>)) {
+    fn associate_with_form(&mut self, target: &Dom<Node<TH>>, form: &Dom<Node<TH>>, nodes: (&Dom<Node<TH>>, Option<&Dom<Node<TH>>>)) {
         let (element, prev_element) = nodes;
         let tree_node = prev_element.map_or(element, |prev| {
             if self.has_parent_node(element) { element } else { prev }
@@ -520,8 +521,8 @@ impl TreeSink for Sink {
     }
 
     fn append_before_sibling(&mut self,
-            sibling: &Dom<Node>,
-            new_node: NodeOrText<Dom<Node>>) {
+            sibling: &Dom<Node<TH>>,
+            new_node: NodeOrText<Dom<Node<TH>>>) {
         let parent = sibling.GetParentNode()
             .expect("append_before_sibling called on node without parent");
 
@@ -541,15 +542,15 @@ impl TreeSink for Sink {
         self.document.set_quirks_mode(mode);
     }
 
-    fn append(&mut self, parent: &Dom<Node>, child: NodeOrText<Dom<Node>>) {
+    fn append(&mut self, parent: &Dom<Node<TH>>, child: NodeOrText<Dom<Node<TH>>>) {
         insert(&parent, None, child);
     }
 
     fn append_based_on_parent_node(
         &mut self,
-        elem: &Dom<Node>,
-        prev_elem: &Dom<Node>,
-        child: NodeOrText<Dom<Node>>,
+        elem: &Dom<Node<TH>>,
+        prev_elem: &Dom<Node<TH>>,
+        child: NodeOrText<Dom<Node<TH>>>,
     ) {
         if self.has_parent_node(elem) {
             self.append_before_sibling(elem, child);
@@ -564,10 +565,10 @@ impl TreeSink for Sink {
         let doctype = DocumentType::new(
             DOMString::from(String::from(name)), Some(DOMString::from(String::from(public_id))),
             Some(DOMString::from(String::from(system_id))), doc);
-        doc.upcast::<Node>().AppendChild(doctype.upcast()).expect("Appending failed");
+        doc.upcast::<Node<TH>>().AppendChild(doctype.upcast()).expect("Appending failed");
     }
 
-    fn add_attrs_if_missing(&mut self, target: &Dom<Node>, attrs: Vec<Attribute>) {
+    fn add_attrs_if_missing(&mut self, target: &Dom<Node<TH>>, attrs: Vec<Attribute>) {
         let elem = target.downcast::<Element>()
             .expect("tried to set attrs on non-Element in HTML parsing");
         for attr in attrs {
@@ -575,18 +576,18 @@ impl TreeSink for Sink {
         }
     }
 
-    fn remove_from_parent(&mut self, target: &Dom<Node>) {
+    fn remove_from_parent(&mut self, target: &Dom<Node<TH>>) {
         if let Some(ref parent) = target.GetParentNode() {
             parent.RemoveChild(&*target).unwrap();
         }
     }
 
-    fn mark_script_already_started(&mut self, node: &Dom<Node>) {
+    fn mark_script_already_started(&mut self, node: &Dom<Node<TH>>) {
         let script = node.downcast::<HTMLScriptElement>();
         script.map(|script| script.set_already_started(true));
     }
 
-    fn complete_script(&mut self, node: &Dom<Node>) -> NextParserState {
+    fn complete_script(&mut self, node: &Dom<Node<TH>>) -> NextParserState {
         if let Some(script) = node.downcast() {
             self.script.set(Some(script));
             NextParserState::Suspend
@@ -595,7 +596,7 @@ impl TreeSink for Sink {
         }
     }
 
-    fn reparent_children(&mut self, node: &Dom<Node>, new_parent: &Dom<Node>) {
+    fn reparent_children(&mut self, node: &Dom<Node<TH>>, new_parent: &Dom<Node<TH>>) {
         while let Some(ref child) = node.GetFirstChild() {
             new_parent.AppendChild(&child).unwrap();
         }
@@ -603,7 +604,7 @@ impl TreeSink for Sink {
 
     /// <https://html.spec.whatwg.org/multipage/#html-integration-point>
     /// Specifically, the <annotation-xml> cases.
-    fn is_mathml_annotation_xml_integration_point(&self, handle: &Dom<Node>) -> bool {
+    fn is_mathml_annotation_xml_integration_point(&self, handle: &Dom<Node<TH>>) -> bool {
         let elem = handle.downcast::<Element>().unwrap();
         elem.get_attribute(&ns!(), &local_name!("encoding")).map_or(false, |attr| {
             attr.value().eq_ignore_ascii_case("text/html")
@@ -615,17 +616,17 @@ impl TreeSink for Sink {
         self.current_line = line_number;
     }
 
-    fn pop(&mut self, node: &Dom<Node>) {
+    fn pop(&mut self, node: &Dom<Node<TH>>) {
         let node = DomRoot::from_ref(&**node);
         vtable_for(&node).pop();
     }
 }
 
 /// https://html.spec.whatwg.org/multipage/#create-an-element-for-the-token
-fn create_element_for_token(
+fn create_element_for_token<TH: TypeHolderTrait>(
     name: QualName,
     attrs: Vec<ElementAttribute>,
-    document: &Document,
+    document: &Document<TH>,
     creator: ElementCreator,
     parsing_algorithm: ParsingAlgorithm,
 ) -> DomRoot<Element> {

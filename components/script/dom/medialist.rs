@@ -19,16 +19,16 @@ use style::parser::ParserContext;
 use style::shared_lock::{SharedRwLock, Locked};
 use style::stylesheets::CssRuleType;
 use style_traits::{ParsingMode, ToCss};
-
+use typeholder::TypeHolderTrait;
 #[dom_struct]
-pub struct MediaList {
+pub struct MediaList<TH: TypeHolderTrait> {
     reflector_: Reflector,
     parent_stylesheet: Dom<CSSStyleSheet>,
     #[ignore_malloc_size_of = "Arc"]
     media_queries: Arc<Locked<StyleMediaList>>,
 }
 
-impl MediaList {
+impl<TH: TypeHolderTrait> MediaList<TH> {
     #[allow(unrooted_must_root)]
     pub fn new_inherited(parent_stylesheet: &CSSStyleSheet,
                          media_queries: Arc<Locked<StyleMediaList>>) -> MediaList {
@@ -40,7 +40,7 @@ impl MediaList {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
                media_queries: Arc<Locked<StyleMediaList>>)
         -> DomRoot<MediaList> {
         reflect_dom_object(Box::new(MediaList::new_inherited(parent_stylesheet, media_queries)),
@@ -53,7 +53,7 @@ impl MediaList {
     }
 }
 
-impl MediaListMethods for MediaList {
+impl<TH> MediaListMethods for MediaList<TH> {
     // https://drafts.csswg.org/cssom/#dom-medialist-mediatext
     fn MediaText(&self) -> DOMString {
         let guard = self.shared_lock().read();

@@ -13,15 +13,16 @@ use dom_struct::dom_struct;
 use servo_arc::Arc;
 use style::shared_lock::{Locked, ToCssWithGuard};
 use style::stylesheets::ImportRule;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSImportRule {
+pub struct CSSImportRule<TH: TypeHolderTrait> {
     cssrule: CSSRule,
     #[ignore_malloc_size_of = "Arc"]
     import_rule: Arc<Locked<ImportRule>>,
 }
 
-impl CSSImportRule {
+impl<TH: TypeHolderTrait> CSSImportRule<TH> {
     fn new_inherited(parent_stylesheet: &CSSStyleSheet,
                      import_rule: Arc<Locked<ImportRule>>)
                      -> Self {
@@ -32,7 +33,7 @@ impl CSSImportRule {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                parent_stylesheet: &CSSStyleSheet,
                import_rule: Arc<Locked<ImportRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(Self::new_inherited(parent_stylesheet, import_rule)),
@@ -41,7 +42,7 @@ impl CSSImportRule {
     }
 }
 
-impl SpecificCSSRule for CSSImportRule {
+impl<TH> SpecificCSSRule for CSSImportRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::IMPORT_RULE

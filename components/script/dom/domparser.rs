@@ -21,14 +21,15 @@ use dom::servoparser::ServoParser;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use script_traits::DocumentActivity;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMParser {
+pub struct DOMParser<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    window: Dom<Window>, // XXXjdm Document instead?
+    window: Dom<Window<TH>>, // XXXjdm Document instead?
 }
 
-impl DOMParser {
+impl<TH> DOMParser<TH> {
     fn new_inherited(window: &Window) -> DOMParser {
         DOMParser {
             reflector_: Reflector::new(),
@@ -47,12 +48,12 @@ impl DOMParser {
     }
 }
 
-impl DOMParserMethods for DOMParser {
+impl<TH: TypeHolderTrait> DOMParserMethods for DOMParser<TH> {
     // https://w3c.github.io/DOM-Parsing/#the-domparser-interface
     fn ParseFromString(&self,
                        s: DOMString,
                        ty: DOMParserBinding::SupportedType)
-                       -> Fallible<DomRoot<Document>> {
+                       -> Fallible<DomRoot<Document<TH>>> {
         let url = self.window.get_url();
         let content_type = ty.as_str().parse().expect("Supported type is not a MIME type");
         let doc = self.window.Document();

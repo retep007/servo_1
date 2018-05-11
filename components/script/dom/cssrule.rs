@@ -22,10 +22,10 @@ use dom_struct::dom_struct;
 use std::cell::Cell;
 use style::shared_lock::SharedRwLock;
 use style::stylesheets::CssRule as StyleCssRule;
-
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSRule {
+pub struct CSSRule<TH: TypeHolderTrait> {
     reflector_: Reflector,
     parent_stylesheet: Dom<CSSStyleSheet>,
 
@@ -35,9 +35,9 @@ pub struct CSSRule {
     parent_stylesheet_removed: Cell<bool>,
 }
 
-impl CSSRule {
+impl<TH: TypeHolderTrait> CSSRule<TH> {
     #[allow(unrooted_must_root)]
-    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet) -> CSSRule {
+    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet) -> Self {
         CSSRule {
             reflector_: Reflector::new(),
             parent_stylesheet: Dom::from_ref(parent_stylesheet),
@@ -71,8 +71,8 @@ impl CSSRule {
 
     // Given a StyleCssRule, create a new instance of a derived class of
     // CSSRule based on which rule it is
-    pub fn new_specific(window: &Window, parent_stylesheet: &CSSStyleSheet,
-                        rule: StyleCssRule) -> DomRoot<CSSRule> {
+    pub fn new_specific(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+                        rule: StyleCssRule) -> DomRoot<Self> {
         // be sure to update the match in as_specific when this is updated
         match rule {
             StyleCssRule::Import(s) => DomRoot::upcast(CSSImportRule::new(window, parent_stylesheet, s)),
@@ -114,7 +114,7 @@ impl CSSRule {
     }
 }
 
-impl CSSRuleMethods for CSSRule {
+impl<TH> CSSRuleMethods for CSSRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssrule-type
     fn Type(&self) -> u16 {
         self.as_specific().ty()

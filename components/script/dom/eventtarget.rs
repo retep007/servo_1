@@ -49,6 +49,7 @@ use std::mem;
 use std::ops::{Deref, DerefMut};
 use std::ptr;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
 pub enum CommonEventHandler {
@@ -281,12 +282,12 @@ impl EventListeners {
 }
 
 #[dom_struct]
-pub struct EventTarget {
+pub struct EventTarget<TH: TypeHolderTrait> {
     reflector_: Reflector,
     handlers: DomRefCell<HashMap<Atom, EventListeners, BuildHasherDefault<FnvHasher>>>,
 }
 
-impl EventTarget {
+impl<TH: TypeHolderTrait> EventTarget<TH> {
     pub fn new_inherited() -> EventTarget {
         EventTarget {
             reflector_: Reflector::new(),
@@ -316,7 +317,7 @@ impl EventTarget {
     pub fn dispatch_event_with_target(&self,
                                       target: &EventTarget,
                                       event: &Event) -> EventStatus {
-        if let Some(window) = target.global().downcast::<Window>() {
+        if let Some(window) = target.global().downcast::<Window<TH>>() {
             if window.has_document() {
                 assert!(window.Document().can_invoke_script());
             }
@@ -326,7 +327,7 @@ impl EventTarget {
     }
 
     pub fn dispatch_event(&self, event: &Event) -> EventStatus {
-        if let Some(window) = self.global().downcast::<Window>() {
+        if let Some(window) = self.global().downcast::<Window<TH>>() {
             if window.has_document() {
                 assert!(window.Document().can_invoke_script());
             }
@@ -402,7 +403,7 @@ impl EventTarget {
         let element = self.downcast::<Element>();
         let document = match element {
             Some(element) => document_from_node(element),
-            None => self.downcast::<Window>().unwrap().Document(),
+            None => self.downcast::<Window<TH>>().unwrap().Document(),
         };
 
         // Step 1.2
@@ -428,7 +429,7 @@ impl EventTarget {
                                                           b"colno\0" as *const u8 as *const c_char,
                                                           b"error\0" as *const u8 as *const c_char];
         // step 10
-        let is_error = ty == &atom!("error") && self.is::<Window>();
+        let is_error = ty == &atom!("error") && self.is::<Window<TH>>();
         let args = unsafe {
             if is_error {
                 &ERROR_ARG_NAMES[..]
@@ -658,7 +659,7 @@ impl EventTarget {
     }
 }
 
-impl EventTargetMethods for EventTarget {
+impl<TH> EventTargetMethods for EventTarget<TH> {
     // https://dom.spec.whatwg.org/#dom-eventtarget-addeventlistener
     fn AddEventListener(
         &self,
@@ -692,7 +693,7 @@ impl EventTargetMethods for EventTarget {
     }
 }
 
-impl VirtualMethods for EventTarget {
+impl<TH> VirtualMethods for EventTarget<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         None
     }

@@ -44,6 +44,7 @@ use std::ops::Deref;
 use std::ptr;
 use std::rc::Rc;
 use style::thread_state;
+use typeholder::TypeHolderTrait;
 
 /// A rooted value.
 #[allow(unrooted_must_root)]
@@ -466,10 +467,10 @@ impl <T> Clone for LayoutDom<T> {
     }
 }
 
-impl LayoutDom<Node> {
+impl<TH: TypeHolderTrait> LayoutDom<Node<TH>> {
     /// Create a new JS-owned value wrapped from an address known to be a
     /// `Node` pointer.
-    pub unsafe fn from_trusted_node_address(inner: TrustedNodeAddress) -> LayoutDom<Node> {
+    pub unsafe fn from_trusted_node_address<TH>(inner: TrustedNodeAddress) -> LayoutDom<Node<TH>> {
         debug_assert!(thread_state::get().is_layout());
         let TrustedNodeAddress(addr) = inner;
         LayoutDom {

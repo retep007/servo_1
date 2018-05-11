@@ -23,6 +23,7 @@ use std::collections::HashMap;
 use std::rc::Rc;
 use task_source::TaskSource;
 use task_source::dom_manipulation::DOMManipulationTaskSource;
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, Debug, JSTraceable, PartialEq)]
 pub enum JobType {
@@ -93,15 +94,15 @@ impl PartialEq for Job {
 
 #[must_root]
 #[derive(JSTraceable)]
-pub struct JobQueue(pub DomRefCell<HashMap<ServoUrl, Vec<Job>>>);
+pub struct JobQueue<TH: TypeHolderTrait>(pub DomRefCell<HashMap<ServoUrl, Vec<Job>>>);
 
-impl JobQueue {
-    pub fn new() -> JobQueue {
+impl<TH: TypeHolderTrait> JobQueue<TH> {
+    pub fn new() -> JobQueue<TH> {
         JobQueue(DomRefCell::new(HashMap::new()))
     }
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/ServiceWorker/#schedule-job-algorithm
-    pub fn schedule_job(&self, job: Job, script_thread: &ScriptThread) {
+    pub fn schedule_job(&self, job: Job, script_thread: &ScriptThread<TH>) {
         debug!("scheduling {:?} job", job.job_type);
         let mut queue_ref = self.0.borrow_mut();
         let job_queue = queue_ref.entry(job.scope_url.clone()).or_insert(vec![]);
@@ -130,7 +131,7 @@ impl JobQueue {
 
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/ServiceWorker/#run-job-algorithm
-    pub fn run_job(&self, scope_url: ServoUrl, script_thread: &ScriptThread) {
+    pub fn run_job(&self, scope_url: ServoUrl, script_thread: &ScriptThread<TH>) {
         debug!("running a job");
         let url = {
             let queue_ref = self.0.borrow();
@@ -151,7 +152,7 @@ impl JobQueue {
 
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/ServiceWorker/#register-algorithm
-    fn run_register(&self, job: &Job, scope_url: ServoUrl, script_thread: &ScriptThread) {
+    fn run_register(&self, job: &Job, scope_url: ServoUrl, script_thread: &ScriptThread<TH>) {
         debug!("running register job");
         let global = &*job.client.global();
         let pipeline_id = global.pipeline_id();
@@ -198,7 +199,7 @@ impl JobQueue {
 
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/ServiceWorker/#finish-job-algorithm
-    pub fn finish_job(&self, scope_url: ServoUrl, script_thread: &ScriptThread) {
+    pub fn finish_job(&self, scope_url: ServoUrl, script_thread: &ScriptThread<TH>) {
         debug!("finishing previous job");
         let run_job = if let Some(job_vec) = (*self.0.borrow_mut()).get_mut(&scope_url) {
             assert_eq!(job_vec.first().as_ref().unwrap().scope_url, scope_url);
@@ -216,7 +217,7 @@ impl JobQueue {
     }
 
     // https://w3c.github.io/ServiceWorker/#update-algorithm
-    fn update(&self, job: &Job, script_thread: &ScriptThread) {
+    fn update(&self, job: &Job, script_thread: &ScriptThread<TH>) {
         debug!("running update job");
 
         let global = &*job.client.global();
@@ -270,7 +271,7 @@ fn settle_job_promise(promise: &Promise, settle: SettleType) {
 }
 
 #[allow(unrooted_must_root)]
-fn queue_settle_promise_for_job(job: &Job, settle: SettleType, task_source: &DOMManipulationTaskSource) {
+fn queue_settle_promise_for_job<TH: TypeHolderTrait>(job: &Job, settle: SettleType, task_source: &DOMManipulationTaskSource<TH>) {
     let global = job.client.global();
     let promise = TrustedPromise::new(job.promise.clone());
     // FIXME(nox): Why are errors silenced here?
@@ -285,7 +286,7 @@ fn queue_settle_promise_for_job(job: &Job, settle: SettleType, task_source: &DOM
 
 // https://w3c.github.io/ServiceWorker/#reject-job-promise-algorithm
 // https://w3c.github.io/ServiceWorker/#resolve-job-promise-algorithm
-fn queue_settle_promise(job: &Job, settle: SettleType, task_source: &DOMManipulationTaskSource) {
+fn queue_settle_promise<TH: TypeHolderTrait>(job: &Job, settle: SettleType, task_source: &DOMManipulationTaskSource<TH>) {
     // Step 1
     queue_settle_promise_for_job(job, settle.clone(), task_source);
     // Step 2
@@ -294,10 +295,10 @@ fn queue_settle_promise(job: &Job, settle: SettleType, task_source: &DOMManipula
     }
 }
 
-fn reject_job_promise(job: &Job, err: Error, task_source: &DOMManipulationTaskSource) {
+fn reject_job_promise<TH>(job: &Job, err: Error, task_source: &DOMManipulationTaskSource<TH>) {
     queue_settle_promise(job, SettleType::Reject(err), task_source)
 }
 
-fn resolve_job_promise(job: &Job, reg: &ServiceWorkerRegistration, task_source: &DOMManipulationTaskSource) {
+fn resolve_job_promise<TH: TypeHolderTrait>(job: &Job, reg: &ServiceWorkerRegistration, task_source: &DOMManipulationTaskSource<TH>) {
     queue_settle_promise(job, SettleType::Resolve(Trusted::new(reg)), task_source)
 }

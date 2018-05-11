@@ -35,6 +35,7 @@ use style::stylesheets::{CssRules, ImportRule, Namespaces, Stylesheet, Styleshee
 use style::stylesheets::StylesheetLoader as StyleStylesheetLoader;
 use style::stylesheets::import_rule::ImportSheet;
 use style::values::CssUrl;
+use typeholder::TypeHolderTrait;
 
 pub trait StylesheetOwner {
     /// Returns whether this element was inserted by the parser (i.e., it should
@@ -63,7 +64,7 @@ pub enum StylesheetContextSource {
 }
 
 /// The context required for asynchronously loading an external stylesheet.
-pub struct StylesheetContext {
+pub struct StylesheetContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
     elem: Trusted<HTMLElement>,
     source: StylesheetContextSource,
@@ -72,16 +73,16 @@ pub struct StylesheetContext {
     /// The response body received to date.
     data: Vec<u8>,
     /// The node document for elem when the load was initiated.
-    document: Trusted<Document>,
+    document: Trusted<Document<TH>>,
     origin_clean: bool,
     /// A token which must match the generation id of the `HTMLLinkElement` for it to load the stylesheet.
     /// This is ignored for `HTMLStyleElement` and imports.
     request_generation_id: Option<RequestGenerationId>,
 }
 
-impl PreInvoke for StylesheetContext {}
+impl<TH> PreInvoke for StylesheetContext<TH> {}
 
-impl FetchResponseListener for StylesheetContext {
+impl<TH> FetchResponseListener for StylesheetContext<TH> {
     fn process_request_body(&mut self) {}
 
     fn process_request_eof(&mut self) {}

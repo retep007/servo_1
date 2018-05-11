@@ -16,20 +16,21 @@ use dom::radionodelist::RadioNodeList;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use std::iter;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFormControlsCollection {
+pub struct HTMLFormControlsCollection<TH: TypeHolderTrait> {
     collection: HTMLCollection,
 }
 
-impl HTMLFormControlsCollection {
-    fn new_inherited(root: &Node, filter: Box<CollectionFilter + 'static>) -> HTMLFormControlsCollection {
+impl<TH: TypeHolderTrait> HTMLFormControlsCollection<TH> {
+    fn new_inherited(root: &Node<TH>, filter: Box<CollectionFilter + 'static>) -> HTMLFormControlsCollection {
         HTMLFormControlsCollection {
             collection: HTMLCollection::new_inherited(root, filter)
         }
     }
 
-    pub fn new(window: &Window, root: &Node, filter: Box<CollectionFilter + 'static>)
+    pub fn new(window: &Window<TH>, root: &Node<TH>, filter: Box<CollectionFilter + 'static>)
         -> DomRoot<HTMLFormControlsCollection>
     {
         reflect_dom_object(Box::new(HTMLFormControlsCollection::new_inherited(root, filter)),
@@ -44,7 +45,7 @@ impl HTMLFormControlsCollection {
     }
 }
 
-impl HTMLFormControlsCollectionMethods for HTMLFormControlsCollection {
+impl<TH: TypeHolderTrait> HTMLFormControlsCollectionMethods for HTMLFormControlsCollection<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-htmlformcontrolscollection-nameditem
     fn NamedItem(&self, name: DOMString) -> Option<RadioNodeListOrElement> {
         // Step 1
@@ -64,7 +65,7 @@ impl HTMLFormControlsCollectionMethods for HTMLFormControlsCollection {
                 Some(RadioNodeListOrElement::Element(elem))
             } else {
                 // Step 4-5
-                let once = iter::once(DomRoot::upcast::<Node>(elem));
+                let once = iter::once(DomRoot::upcast::<Node<TH>>(elem));
                 let list = once.chain(peekable.map(DomRoot::upcast));
                 let global = self.global();
                 let window = global.as_window();

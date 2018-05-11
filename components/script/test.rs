@@ -29,6 +29,7 @@ pub mod size_of {
     use dom::node::Node;
     use dom::text::Text;
     use std::mem::size_of;
+    use typeholder::TypeHolderTrait;
 
     pub fn CharacterData() -> usize {
         size_of::<CharacterData>()
@@ -54,8 +55,8 @@ pub mod size_of {
         size_of::<HTMLSpanElement>()
     }
 
-    pub fn Node() -> usize {
-        size_of::<Node>()
+    pub fn Node<TH: TypeHolderTrait>() -> usize {
+        size_of::<Node<TH>>()
     }
 
     pub fn Text() -> usize {

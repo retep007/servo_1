@@ -27,17 +27,18 @@ use html5ever::tree_builder::{Tracer as HtmlTracer, TreeBuilder, TreeBuilderOpts
 use js::jsapi::JSTracer;
 use servo_url::ServoUrl;
 use std::io;
+use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer {
+pub struct Tokenizer<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Defined in html5ever"]
-    inner: HtmlTokenizer<TreeBuilder<Dom<Node>, Sink>>,
+    inner: HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink>>,
 }
 
-impl Tokenizer {
+impl<TH> Tokenizer<TH> {
     pub fn new(
-            document: &Document,
+            document: &Document<TH>,
             url: ServoUrl,
             fragment_context: Option<super::FragmentContext>,
             parsing_algorithm: ParsingAlgorithm)
@@ -98,15 +99,15 @@ impl Tokenizer {
 }
 
 #[allow(unsafe_code)]
-unsafe impl JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node>, Sink>> {
+unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink>> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
-        struct Tracer(*mut JSTracer);
+        struct Tracer<TH>(*mut JSTracer);
         let tracer = Tracer(trc);
 
-        impl HtmlTracer for Tracer {
-            type Handle = Dom<Node>;
+        impl<TH> HtmlTracer for Tracer<TH> {
+            type Handle = Dom<Node<TH>>;
             #[allow(unrooted_must_root)]
-            fn trace_handle(&self, node: &Dom<Node>) {
+            fn trace_handle(&self, node: &Dom<Node<TH>>) {
                 unsafe { node.trace(self.0); }
             }
         }
@@ -141,25 +142,25 @@ fn end_element<S: Serializer>(node: &Element, serializer: &mut S) -> io::Result<
 }
 
 
-enum SerializationCommand {
+enum SerializationCommand<TH: TypeHolderTrait> {
     OpenElement(DomRoot<Element>),
     CloseElement(DomRoot<Element>),
-    SerializeNonelement(DomRoot<Node>),
+    SerializeNonelement(DomRoot<Node<TH>>),
 }
 
-struct SerializationIterator {
+struct SerializationIterator<TH: TypeHolderTrait> {
     stack: Vec<SerializationCommand>,
 }
 
-fn rev_children_iter(n: &Node) -> impl Iterator<Item=DomRoot<Node>>{
+fn rev_children_iter<TH: TypeHolderTrait>(n: &Node<TH>) -> impl Iterator<Item=DomRoot<Node<TH>>>{
     match n.downcast::<HTMLTemplateElement>() {
-        Some(t) => t.Content().upcast::<Node>().rev_children(),
+        Some(t) => t.Content().upcast::<Node<TH>>().rev_children(),
         None => n.rev_children(),
     }
 }
 
-impl SerializationIterator {
-    fn new(node: &Node, skip_first: bool) -> SerializationIterator {
+impl<TH: TypeHolderTrait> SerializationIterator<TH> {
+    fn new(node: &Node<TH>, skip_first: bool) -> SerializationIterator {
         let mut ret = SerializationIterator {
             stack: vec![],
         };
@@ -181,7 +182,7 @@ impl SerializationIterator {
     }
 }
 
-impl Iterator for SerializationIterator {
+impl<TH: TypeHolderTrait> Iterator for SerializationIterator<TH> {
     type Item = SerializationCommand;
 
     fn next(&mut self) -> Option<SerializationCommand> {
@@ -189,7 +190,7 @@ impl Iterator for SerializationIterator {
 
         if let Some(SerializationCommand::OpenElement(ref e)) = res {
             self.stack.push(SerializationCommand::CloseElement(e.clone()));
-            for c in rev_children_iter(&*e.upcast::<Node>()) {
+            for c in rev_children_iter(&*e.upcast::<Node<TH>>()) {
                 self.push_node(&c);
             }
         }
@@ -198,7 +199,7 @@ impl Iterator for SerializationIterator {
     }
 }
 
-impl<'a> Serialize for &'a Node {
+impl<'a, TH: TypeHolderTrait> Serialize for &'a Node<TH> {
     fn serialize<S: Serializer>(&self, serializer: &mut S,
                                 traversal_scope: TraversalScope) -> io::Result<()> {
         let node = *self;

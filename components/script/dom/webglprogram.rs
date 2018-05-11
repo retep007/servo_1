@@ -17,9 +17,10 @@ use dom::webglshader::WebGLShader;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use std::cell::Cell;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLProgram {
+pub struct WebGLProgram<TH: TypeHolderTrait> {
     webgl_object: WebGLObject,
     id: WebGLProgramId,
     is_deleted: Cell<bool>,
@@ -71,7 +72,7 @@ fn map_dot_separated<F: Fn(&str, &mut String)>(s: &str, f: F) -> String {
     mapped
 }
 
-impl WebGLProgram {
+impl<TH: TypeHolderTrait> WebGLProgram<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLProgramId)
                      -> WebGLProgram {
@@ -87,7 +88,7 @@ impl WebGLProgram {
         }
     }
 
-    pub fn maybe_new(window: &Window, renderer: WebGLMsgSender)
+    pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
                      -> Option<DomRoot<WebGLProgram>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateProgram(sender)).unwrap();
@@ -96,7 +97,7 @@ impl WebGLProgram {
         result.map(|program_id| WebGLProgram::new(window, renderer, program_id))
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLProgramId)
                -> DomRoot<WebGLProgram> {
@@ -107,7 +108,7 @@ impl WebGLProgram {
 }
 
 
-impl WebGLProgram {
+impl<TH> WebGLProgram<TH> {
     pub fn id(&self) -> WebGLProgramId {
         self.id
     }
@@ -383,7 +384,7 @@ impl WebGLProgram {
     }
 }
 
-impl Drop for WebGLProgram {
+impl<TH> Drop for WebGLProgram<TH> {
     fn drop(&mut self) {
         self.delete();
     }

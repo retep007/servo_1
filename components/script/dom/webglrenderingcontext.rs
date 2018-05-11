@@ -63,6 +63,7 @@ use std::cmp;
 use std::iter::FromIterator;
 use std::ptr::NonNull;
 use webrender_api;
+use typeholder::TypeHolderTrait;
 
 type ImagePixelResult = Result<(Vec<u8>, Size2D<i32>, bool), ()>;
 pub const MAX_UNIFORM_AND_ATTRIBUTE_LEN: usize = 256;
@@ -169,7 +170,7 @@ impl TextureUnitBindings {
 
 
 #[dom_struct]
-pub struct WebGLRenderingContext {
+pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "Channels are hard"]
     webgl_sender: WebGLMsgSender,
@@ -202,9 +203,9 @@ pub struct WebGLRenderingContext {
     extension_manager: WebGLExtensions,
 }
 
-impl WebGLRenderingContext {
+impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
     pub fn new_inherited(
-        window: &Window,
+        window: &Window<TH>,
         canvas: &HTMLCanvasElement,
         webgl_version: WebGLVersion,
         size: Size2D<i32>,
@@ -255,7 +256,7 @@ impl WebGLRenderingContext {
 
     #[allow(unrooted_must_root)]
     pub fn new(
-        window: &Window,
+        window: &Window<TH>,
         canvas: &HTMLCanvasElement,
         webgl_version: WebGLVersion,
         size: Size2D<i32>,
@@ -456,7 +457,7 @@ impl WebGLRenderingContext {
     }
 
     fn mark_as_dirty(&self) {
-        self.canvas.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+        self.canvas.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
     }
 
     fn vertex_attrib(&self, indx: u32, x: f32, y: f32, z: f32, w: f32) {
@@ -1190,7 +1191,7 @@ impl WebGLRenderingContext {
     }
 }
 
-impl Drop for WebGLRenderingContext {
+impl<TH> Drop for WebGLRenderingContext<TH> {
     fn drop(&mut self) {
         self.webgl_sender.send_remove().unwrap();
     }
@@ -1209,7 +1210,7 @@ unsafe fn fallible_array_buffer_view_to_vec(
     }
 }
 
-impl WebGLRenderingContextMethods for WebGLRenderingContext {
+impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext<TH> {
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.1
     fn Canvas(&self) -> DomRoot<HTMLCanvasElement> {
         DomRoot::from_ref(&*self.canvas)
@@ -3410,7 +3411,7 @@ impl WebGLRenderingContextMethods for WebGLRenderingContext {
         };
 
         let pipeline_id = source.pipeline_id().ok_or(Error::InvalidState)?;
-        let document_id  = self.global().downcast::<Window>().ok_or(Error::InvalidState)?.webrender_document();
+        let document_id  = self.global().downcast::<Window<TH>>().ok_or(Error::InvalidState)?.webrender_document();
 
         texture.set_attached_to_dom();
 

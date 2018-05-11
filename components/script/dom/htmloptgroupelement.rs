@@ -16,16 +16,17 @@ use dom::virtualmethods::VirtualMethods;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use style::element_state::ElementState;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOptGroupElement {
+pub struct HTMLOptGroupElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement
 }
 
-impl HTMLOptGroupElement {
+impl<TH: TypeHolderTrait> HTMLOptGroupElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLOptGroupElement {
+                     document: &Document<TH>) -> HTMLOptGroupElement<TH> {
         HTMLOptGroupElement {
             htmlelement:
                 HTMLElement::new_inherited_with_state(ElementState::IN_ENABLED_STATE,
@@ -36,14 +37,14 @@ impl HTMLOptGroupElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLOptGroupElement> {
+               document: &Document<TH>) -> DomRoot<HTMLOptGroupElement<TH>> {
         Node::reflect_node(Box::new(HTMLOptGroupElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLOptGroupElementBinding::Wrap)
     }
 }
 
-impl HTMLOptGroupElementMethods for HTMLOptGroupElement {
+impl<TH> HTMLOptGroupElementMethods for HTMLOptGroupElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-optgroup-disabled
     make_bool_getter!(Disabled, "disabled");
 
@@ -51,7 +52,7 @@ impl HTMLOptGroupElementMethods for HTMLOptGroupElement {
     make_bool_setter!(SetDisabled, "disabled");
 }
 
-impl VirtualMethods for HTMLOptGroupElement {
+impl<TH> VirtualMethods for HTMLOptGroupElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -71,7 +72,7 @@ impl VirtualMethods for HTMLOptGroupElement {
                 let el = self.upcast::<Element>();
                 el.set_disabled_state(disabled_state);
                 el.set_enabled_state(!disabled_state);
-                let options = el.upcast::<Node>().children().filter(|child| {
+                let options = el.upcast::<Node<TH>>().children().filter(|child| {
                     child.is::<HTMLOptionElement>()
                 }).map(|child| DomRoot::from_ref(child.downcast::<HTMLOptionElement>().unwrap()));
                 if disabled_state {

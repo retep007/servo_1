@@ -31,10 +31,10 @@ use std::ffi::CStr;
 use std::str;
 use style::properties::longhands::{margin_bottom, margin_left, margin_right, margin_top};
 use uuid::Uuid;
-
+use typeholder::TypeHolderTrait;
 
 #[allow(unsafe_code)]
-pub fn handle_evaluate_js(global: &GlobalScope, eval: String, reply: IpcSender<EvaluateJSReply>) {
+pub fn handle_evaluate_js<TH: TypeHolderTrait>(global: &GlobalScope<TH>, eval: String, reply: IpcSender<EvaluateJSReply>) {
     // global.get_cx() returns a valid `JSContext` pointer, so this is safe.
     let result = unsafe {
         let cx = global.get_cx();
@@ -73,31 +73,31 @@ pub fn handle_evaluate_js(global: &GlobalScope, eval: String, reply: IpcSender<E
     reply.send(result).unwrap();
 }
 
-pub fn handle_get_root_node(documents: &Documents, pipeline: PipelineId, reply: IpcSender<Option<NodeInfo>>) {
+pub fn handle_get_root_node<TH: TypeHolderTrait>(documents: &Documents<TH>, pipeline: PipelineId, reply: IpcSender<Option<NodeInfo>>) {
     let info = documents.find_document(pipeline)
-        .map(|document| document.upcast::<Node>().summarize());
+        .map(|document| document.upcast::<Node<TH>>().summarize());
     reply.send(info).unwrap();
 }
 
-pub fn handle_get_document_element(documents: &Documents,
+pub fn handle_get_document_element<TH: TypeHolderTrait>(documents: &Documents<TH>,
                                    pipeline: PipelineId,
                                    reply: IpcSender<Option<NodeInfo>>) {
     let info = documents.find_document(pipeline)
         .and_then(|document| document.GetDocumentElement())
-        .map(|element| element.upcast::<Node>().summarize());
+        .map(|element| element.upcast::<Node<TH>>().summarize());
     reply.send(info).unwrap();
 }
 
-fn find_node_by_unique_id(documents: &Documents,
+fn find_node_by_unique_id<TH: TypeHolderTrait>(documents: &Documents<TH>,
                           pipeline: PipelineId,
                           node_id: &str)
-                          -> Option<DomRoot<Node>> {
+                          -> Option<DomRoot<Node<TH>>> {
     documents.find_document(pipeline).and_then(|document|
-        document.upcast::<Node>().traverse_preorder().find(|candidate| candidate.unique_id() == node_id)
+        document.upcast::<Node<TH>>().traverse_preorder().find(|candidate| candidate.unique_id() == node_id)
     )
 }
 
-pub fn handle_get_children(documents: &Documents,
+pub fn handle_get_children<TH: TypeHolderTrait>(documents: &Documents<TH>,
                            pipeline: PipelineId,
                            node_id: String,
                            reply: IpcSender<Option<Vec<NodeInfo>>>) {
@@ -113,7 +113,7 @@ pub fn handle_get_children(documents: &Documents,
     };
 }
 
-pub fn handle_get_layout(documents: &Documents,
+pub fn handle_get_layout<TH: TypeHolderTrait>(documents: &Documents,
                          pipeline: PipelineId,
                          node_id: String,
                          reply: IpcSender<Option<ComputedNodeLayout>>) {
@@ -154,7 +154,7 @@ pub fn handle_get_layout(documents: &Documents,
     })).unwrap();
 }
 
-fn determine_auto_margins(window: &Window, node: &Node) -> AutoMargins {
+fn determine_auto_margins<TH: TypeHolderTrait>(window: &Window<TH>, node: &Node) -> AutoMargins {
     let style = window.style_query(node.to_trusted_node_address()).unwrap();
     let margin = style.get_margin();
     AutoMargins {

@@ -29,6 +29,7 @@ use profile_traits::ipc::channel;
 use script_traits::ScriptMsg;
 use servo_url::ServoUrl;
 use std::cell::Cell;
+use typeholder::TypeHolderTrait;
 
 enum PushOrReplace {
     Push,
@@ -37,15 +38,15 @@ enum PushOrReplace {
 
 // https://html.spec.whatwg.org/multipage/#the-history-interface
 #[dom_struct]
-pub struct History {
+pub struct History<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    window: Dom<Window>,
+    window: Dom<Window<TH>>,
     state: Heap<JSVal>,
     state_id: Cell<Option<HistoryStateId>>,
 }
 
-impl History {
-    pub fn new_inherited(window: &Window) -> History {
+impl <TH: TypeHolderTrait> History<TH> {
+    pub fn new_inherited(window: &Window<TH>) -> History<TH> {
         let state = Heap::default();
         state.set(NullValue());
         History {
@@ -56,14 +57,14 @@ impl History {
         }
     }
 
-    pub fn new(window: &Window) -> DomRoot<History> {
+    pub fn new(window: &Window<TH>) -> DomRoot<History<TH>> {
         reflect_dom_object(Box::new(History::new_inherited(window)),
                            window,
                            HistoryBinding::Wrap)
     }
 }
 
-impl History {
+impl<TH> History<TH> {
     fn traverse_history(&self, direction: TraversalDirection) -> ErrorResult {
         if !self.window.Document().is_fully_active() {
             return Err(Error::Security);

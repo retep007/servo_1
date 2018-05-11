@@ -27,19 +27,20 @@ use style::attr::AttrValue;
 use style::media_queries::MediaList;
 use style::str::HTML_SPACE_CHARACTERS;
 use style::stylesheets::{Stylesheet, StylesheetContents, CssRule, CssRules, Origin, ViewportRule};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLMetaElement {
+pub struct HTMLMetaElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
     cssom_stylesheet: MutNullableDom<CSSStyleSheet>,
 }
 
-impl HTMLMetaElement {
+impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLMetaElement {
+                     document: &Document<TH>) -> HTMLMetaElement<TH> {
         HTMLMetaElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             stylesheet: DomRefCell::new(None),
@@ -50,7 +51,7 @@ impl HTMLMetaElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLMetaElement> {
+               document: &Document<TH>) -> DomRoot<HTMLMetaElement<TH>> {
         Node::reflect_node(Box::new(HTMLMetaElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLMetaElementBinding::Wrap)
@@ -136,7 +137,7 @@ impl HTMLMetaElement {
 
     /// <https://html.spec.whatwg.org/multipage/#meta-referrer>
     fn apply_referrer(&self) {
-        if let Some(parent) = self.upcast::<Node>().GetParentElement() {
+        if let Some(parent) = self.upcast::<Node<TH>>().GetParentElement() {
             if let Some(head) = parent.downcast::<HTMLHeadElement>() {
                 head.set_document_referrer();
             }
@@ -144,7 +145,7 @@ impl HTMLMetaElement {
     }
 }
 
-impl HTMLMetaElementMethods for HTMLMetaElement {
+impl<TH> HTMLMetaElementMethods for HTMLMetaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-meta-name
     make_getter!(Name, "name");
 
@@ -158,7 +159,7 @@ impl HTMLMetaElementMethods for HTMLMetaElement {
     make_setter!(SetContent, "content");
 }
 
-impl VirtualMethods for HTMLMetaElement {
+impl<TH> VirtualMethods for HTMLMetaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }

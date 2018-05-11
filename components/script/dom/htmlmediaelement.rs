@@ -48,11 +48,12 @@ use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 use task_source::TaskSource;
 use time::{self, Timespec, Duration};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 // FIXME(nox): A lot of tasks queued for this element should probably be in the
 // media element event task source.
-pub struct HTMLMediaElement {
+pub struct HTMLMediaElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-networkstate>
     network_state: Cell<NetworkState>,
@@ -105,11 +106,11 @@ enum ReadyState {
     HaveEnoughData = HTMLMediaElementConstants::HAVE_ENOUGH_DATA as u8,
 }
 
-impl HTMLMediaElement {
+impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
     pub fn new_inherited(
         tag_name: LocalName,
         prefix: Option<Prefix>,
-        document: &Document,
+        document: &Document<TH>,
     ) -> Self {
         Self {
             htmlelement: HTMLElement::new_inherited(tag_name, prefix, document),
@@ -130,7 +131,7 @@ impl HTMLMediaElement {
     }
 
     fn media_type_id(&self) -> HTMLMediaElementTypeId {
-        match self.upcast::<Node>().type_id() {
+        match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(
                 HTMLElementTypeId::HTMLMediaElement(media_type_id),
             )) => {
@@ -456,14 +457,14 @@ impl HTMLMediaElement {
             Attribute(String),
             Children(DomRoot<HTMLSourceElement>),
         }
-        fn mode(media: &HTMLMediaElement) -> Option<Mode> {
+        fn mode<TH>(media: &HTMLMediaElement) -> Option<Mode> {
             if media.src_object.get().is_some() {
                 return Some(Mode::Object);
             }
             if let Some(attr) = media.upcast::<Element>().get_attribute(&ns!(), &local_name!("src")) {
                 return Some(Mode::Attribute(attr.Value().into()));
             }
-            let source_child_element = media.upcast::<Node>()
+            let source_child_element = media.upcast::<Node<TH>>()
                 .children()
                 .filter_map(DomRoot::downcast::<HTMLSourceElement>)
                 .next();
@@ -940,7 +941,7 @@ impl VirtualMethods for HTMLMediaElement {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum MediaElementMicrotask {
+pub enum MediaElementMicrotask<TH: TypeHolderTrait> {
     ResourceSelectionTask {
         elem: DomRoot<HTMLMediaElement>,
         generation_id: u32,
@@ -951,7 +952,7 @@ pub enum MediaElementMicrotask {
     }
 }
 
-impl MicrotaskRunnable for MediaElementMicrotask {
+impl<TH: TypeHolderTrait> MicrotaskRunnable for MediaElementMicrotask<TH> {
     fn handler(&self) {
         match self {
             &MediaElementMicrotask::ResourceSelectionTask { ref elem, generation_id, ref base_url } => {
@@ -960,7 +961,7 @@ impl MicrotaskRunnable for MediaElementMicrotask {
                 }
             },
             &MediaElementMicrotask::PauseIfNotInDocumentTask { ref elem } => {
-                if !elem.upcast::<Node>().is_in_doc() {
+                if !elem.upcast::<Node<TH>>().is_in_doc() {
                     elem.internal_pause_steps();
                 }
             },

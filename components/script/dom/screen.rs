@@ -17,22 +17,23 @@ use profile_traits::ipc;
 use script_traits::ScriptMsg;
 use style_traits::CSSPixel;
 use webrender_api::DeviceUintSize;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Screen {
+pub struct Screen<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    window: Dom<Window>,
+    window: Dom<Window<TH>>,
 }
 
-impl Screen {
-    fn new_inherited(window: &Window) -> Screen {
+impl<TH: TypeHolderTrait> Screen<TH> {
+    fn new_inherited(window: &Window<TH>) -> Screen<TH> {
         Screen {
             reflector_: Reflector::new(),
             window: Dom::from_ref(&window),
         }
     }
 
-    pub fn new(window: &Window) -> DomRoot<Screen> {
+    pub fn new(window: &Window<TH>) -> DomRoot<Screen<TH>> {
         reflect_dom_object(Box::new(Screen::new_inherited(window)),
                            window,
                            ScreenBinding::Wrap)
@@ -57,7 +58,7 @@ impl Screen {
     }
 }
 
-impl ScreenMethods for Screen {
+impl<TH> ScreenMethods for Screen<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-screen-availwidth
     fn AvailWidth(&self) -> Finite<f64> {
         Finite::wrap(self.screen_avail_size().width as f64)

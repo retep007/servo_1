@@ -86,9 +86,10 @@ use js::rust::HandleObject;
 use js::rust::MutableHandleObject;
 use script_thread::ScriptThread;
 use std::ptr;
+use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#htmlconstructor
-pub unsafe fn html_constructor<T>(window: &Window, call_args: &CallArgs) -> Fallible<DomRoot<T>>
+pub unsafe fn html_constructor<T, TH: TypeHolderTrait>(window: &Window<TH>, call_args: &CallArgs) -> Fallible<DomRoot<T>>
                                   where T: DerivedFrom<Element> {
     let document = window.Document();
 

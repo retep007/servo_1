@@ -126,6 +126,7 @@ use url::percent_encoding::percent_decode;
 use webdriver_handlers;
 use webrender_api::DocumentId;
 use webvr_traits::{WebVREvent, WebVRMsg};
+use typeholder::TypeHolderTrait;
 
 pub type ImageCacheMsg = (PipelineId, PendingImageResponse);
 
@@ -321,22 +322,22 @@ impl OpaqueSender<CommonScriptMsg> for Sender<MainThreadScriptMsg> {
 /// The set of all documents managed by this script thread.
 #[derive(JSTraceable)]
 #[must_root]
-pub struct Documents {
-    map: HashMap<PipelineId, Dom<Document>>,
+pub struct Documents<TH: TypeHolderTrait> {
+    map: HashMap<PipelineId, Dom<Document<TH>>>,
 }
 
-impl Documents {
-    pub fn new() -> Documents {
+impl<TH: TypeHolderTrait> Documents<TH> {
+    pub fn new() -> Documents<TH> {
         Documents {
             map: HashMap::new(),
         }
     }
 
-    pub fn insert(&mut self, pipeline_id: PipelineId, doc: &Document) {
+    pub fn insert(&mut self, pipeline_id: PipelineId, doc: &Document<TH>) {
         self.map.insert(pipeline_id, Dom::from_ref(doc));
     }
 
-    pub fn remove(&mut self, pipeline_id: PipelineId) -> Option<DomRoot<Document>> {
+    pub fn remove(&mut self, pipeline_id: PipelineId) -> Option<DomRoot<Document<TH>>> {
         self.map.remove(&pipeline_id).map(|ref doc| DomRoot::from_ref(&**doc))
     }
 
@@ -344,7 +345,7 @@ impl Documents {
         self.map.is_empty()
     }
 
-    pub fn find_document(&self, pipeline_id: PipelineId) -> Option<DomRoot<Document>> {
+    pub fn find_document(&self, pipeline_id: PipelineId) -> Option<DomRoot<Document<TH>>> {
         self.map.get(&pipeline_id).map(|doc| DomRoot::from_ref(&**doc))
     }
 
@@ -352,7 +353,7 @@ impl Documents {
         self.map.len()
     }
 
-    pub fn find_window(&self, pipeline_id: PipelineId) -> Option<DomRoot<Window>> {
+    pub fn find_window(&self, pipeline_id: PipelineId) -> Option<DomRoot<Window<TH>>> {
         self.find_document(pipeline_id).map(|doc| DomRoot::from_ref(doc.window()))
     }
 
@@ -366,7 +367,7 @@ impl Documents {
         self.find_document(pipeline_id).and_then(|doc| doc.find_iframe(browsing_context_id))
     }
 
-    pub fn iter<'a>(&'a self) -> DocumentsIter<'a> {
+    pub fn iter<'a>(&'a self) -> DocumentsIter<'a, TH> {
         DocumentsIter {
             iter: self.map.iter(),
         }
@@ -374,14 +375,14 @@ impl Documents {
 }
 
 #[allow(unrooted_must_root)]
-pub struct DocumentsIter<'a> {
-    iter: hash_map::Iter<'a, PipelineId, Dom<Document>>,
+pub struct DocumentsIter<'a, TH: TypeHolderTrait> {
+    iter: hash_map::Iter<'a, PipelineId, Dom<Document<TH>>>,
 }
 
-impl<'a> Iterator for DocumentsIter<'a> {
-    type Item = (PipelineId, DomRoot<Document>);
+impl<'a, TH: TypeHolderTrait> Iterator for DocumentsIter<'a, TH> {
+    type Item = (PipelineId, DomRoot<Document<TH>>);
 
-    fn next(&mut self) -> Option<(PipelineId, DomRoot<Document>)> {
+    fn next(&mut self) -> Option<(PipelineId, DomRoot<Document<TH>>)> {
         self.iter.next().map(|(id, doc)| (*id, DomRoot::from_ref(&**doc)))
     }
 }
@@ -389,9 +390,9 @@ impl<'a> Iterator for DocumentsIter<'a> {
 #[derive(JSTraceable)]
 // ScriptThread instances are rooted on creation, so this is okay
 #[allow(unrooted_must_root)]
-pub struct ScriptThread {
+pub struct ScriptThread<TH: TypeHolderTrait> {
     /// The documents for pipelines managed by this thread
-    documents: DomRefCell<Documents>,
+    documents: DomRefCell<Documents<TH>>,
     /// The window proxies known by this thread
     /// TODO: this map grows, but never shrinks. Issue #15258.
     window_proxies: DomRefCell<HashMap<BrowsingContextId, Dom<WindowProxy>>>,
@@ -495,11 +496,11 @@ pub struct ScriptThread {
 
     /// A list of pipelines containing documents that finished loading all their blocking
     /// resources during a turn of the event loop.
-    docs_with_no_blocking_loads: DomRefCell<HashSet<Dom<Document>>>,
+    docs_with_no_blocking_loads: DomRefCell<HashSet<Dom<Document<TH>>>>,
 
     /// A list of nodes with in-progress CSS transitions, which roots them for the duration
     /// of the transition.
-    transitioning_nodes: DomRefCell<Vec<Dom<Node>>>,
+    transitioning_nodes: DomRefCell<Vec<Dom<Node<TH>>>>,
 
     /// <https://html.spec.whatwg.org/multipage/#custom-element-reactions-stack>
     custom_element_reaction_stack: CustomElementReactionStack,
@@ -512,23 +513,23 @@ pub struct ScriptThread {
 /// are no reachable, owning pointers to the DOM memory, so it never gets freed by default
 /// when the script thread fails. The ScriptMemoryFailsafe uses the destructor bomb pattern
 /// to forcibly tear down the JS compartments for pages associated with the failing ScriptThread.
-struct ScriptMemoryFailsafe<'a> {
-    owner: Option<&'a ScriptThread>,
+struct ScriptMemoryFailsafe<'a, TH: TypeHolderTrait> {
+    owner: Option<&'a ScriptThread<TH>>,
 }
 
-impl<'a> ScriptMemoryFailsafe<'a> {
+impl<'a, TH: TypeHolderTrait> ScriptMemoryFailsafe<'a, TH> {
     fn neuter(&mut self) {
         self.owner = None;
     }
 
-    fn new(owner: &'a ScriptThread) -> ScriptMemoryFailsafe<'a> {
+    fn new(owner: &'a ScriptThread<TH>) -> ScriptMemoryFailsafe<'a, TH> {
         ScriptMemoryFailsafe {
             owner: Some(owner),
         }
     }
 }
 
-impl<'a> Drop for ScriptMemoryFailsafe<'a> {
+impl<'a, TH> Drop for ScriptMemoryFailsafe<'a, TH> {
     #[allow(unrooted_must_root)]
     fn drop(&mut self) {
         if let Some(owner) = self.owner {
@@ -539,7 +540,7 @@ impl<'a> Drop for ScriptMemoryFailsafe<'a> {
     }
 }
 
-impl ScriptThreadFactory for ScriptThread {
+impl<TH> ScriptThreadFactory for ScriptThread<TH> {
     type Message = message::Msg;
 
     fn create(state: InitialScriptState,
@@ -590,7 +591,7 @@ impl ScriptThreadFactory for ScriptThread {
     }
 }
 
-impl ScriptThread {
+impl<TH: TypeHolderTrait> ScriptThread<TH> {
     pub unsafe fn note_newly_transitioning_nodes(nodes: Vec<UntrustedNodeAddress>) {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = &*root.get().unwrap();
@@ -632,7 +633,7 @@ impl ScriptThread {
         })
     }
 
-    pub fn mark_document_with_no_blocked_loads(doc: &Document) {
+    pub fn mark_document_with_no_blocked_loads(doc: &Document<TH>) {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = unsafe { &*root.get().unwrap() };
             script_thread.docs_with_no_blocking_loads
@@ -696,7 +697,7 @@ impl ScriptThread {
         });
     }
 
-    pub fn find_document(id: PipelineId) -> Option<DomRoot<Document>> {
+    pub fn find_document(id: PipelineId) -> Option<DomRoot<Document<TH>>> {
         SCRIPT_THREAD_ROOT.with(|root| root.get().and_then(|script_thread| {
             let script_thread = unsafe { &*script_thread };
             script_thread.documents.borrow().find_document(id)
@@ -798,7 +799,7 @@ impl ScriptThread {
     pub fn new(state: InitialScriptState,
                port: Receiver<MainThreadScriptMsg>,
                chan: Sender<MainThreadScriptMsg>)
-               -> ScriptThread {
+               -> ScriptThread<TH> {
         let runtime = unsafe { new_rt_and_cx() };
 
         unsafe {
@@ -1857,7 +1858,7 @@ impl ScriptThread {
         if let Some(document) = document {
             // We don't want to dispatch `mouseout` event pointing to non-existing element
             if let Some(target) = self.topmost_mouse_over_target.get() {
-                if target.upcast::<Node>().owner_doc() == document {
+                if target.upcast::<Node<TH>>().owner_doc() == document {
                     self.topmost_mouse_over_target.set(None);
                 }
             }
@@ -2139,7 +2140,7 @@ impl ScriptThread {
         );
 
         // Initialize the browsing context for the window.
-        let window_proxy = self.local_window_proxy(&window,
+        let window_proxy = self.local_window_proxy(window,
                                                    incomplete.browsing_context_id,
                                                    incomplete.top_level_browsing_context_id,
                                                    incomplete.parent_info);
@@ -2209,9 +2210,9 @@ impl ScriptThread {
         document.set_navigation_start(incomplete.navigation_start_precise);
 
         if is_html_document == IsHTMLDocument::NonHTMLDocument {
-            ServoParser::parse_xml_document(&document, parse_input, final_url);
+            TH::ServoParser::parse_xml_document(&document, parse_input, final_url);
         } else {
-            ServoParser::parse_html_document(&document, parse_input, final_url);
+            TH::ServoParser::parse_html_document(&document, parse_input, final_url);
         }
 
         if incomplete.activity == DocumentActivity::FullyActive {
@@ -2241,7 +2242,7 @@ impl ScriptThread {
     }
 
     /// Reflows non-incrementally, rebuilding the entire layout tree in the process.
-    fn rebuild_and_force_reflow(&self, document: &Document, reason: ReflowReason) {
+    fn rebuild_and_force_reflow(&self, document: &Document<TH>, reason: ReflowReason) {
         let window = window_from_node(&*document);
         document.dirty_all_nodes();
         window.reflow(ReflowGoal::Full, reason);
@@ -2289,7 +2290,7 @@ impl ScriptThread {
 
                 // Notify Constellation about the topmost anchor mouse over target.
                 if let Some(target) = self.topmost_mouse_over_target.get() {
-                    if let Some(anchor) = target.upcast::<Node>()
+                    if let Some(anchor) = target.upcast::<Node<TH>>()
                                                 .inclusive_ancestors()
                                                 .filter_map(DomRoot::downcast::<HTMLAnchorElement>)
                                                 .next() {
@@ -2311,7 +2312,7 @@ impl ScriptThread {
                 // We might have to reset the anchor state
                 if !state_already_changed {
                     if let Some(target) = prev_mouse_over_target {
-                        if let Some(_) = target.upcast::<Node>()
+                        if let Some(_) = target.upcast::<Node<TH>>()
                                                .inclusive_ancestors()
                                                .filter_map(DomRoot::downcast::<HTMLAnchorElement>)
                                                .next() {
@@ -2414,7 +2415,7 @@ impl ScriptThread {
         if is_javascript {
             let window = self.documents.borrow().find_window(parent_pipeline_id);
             if let Some(window) = window {
-                ScriptThread::eval_js_url(window.upcast::<GlobalScope>(), &mut load_data);
+                ScriptThread::<TH>::eval_js_url(window.upcast::<GlobalScope>(), &mut load_data);
             }
         }
 
@@ -2644,7 +2645,7 @@ impl ScriptThread {
     }
 }
 
-impl Drop for ScriptThread {
+impl<TH> Drop for ScriptThread<TH> {
     fn drop(&mut self) {
         SCRIPT_THREAD_ROOT.with(|root| {
             root.set(None);

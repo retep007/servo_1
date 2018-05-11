@@ -15,13 +15,14 @@ use dom::node::Node;
 use dom::nodelist::{NodeList, NodeListType};
 use dom::window::Window;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct RadioNodeList {
+pub struct RadioNodeList<TH: TypeHolderTrait> {
     node_list: NodeList,
 }
 
-impl RadioNodeList {
+impl<TH: TypeHolderTrait> RadioNodeList<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(list_type: NodeListType) -> RadioNodeList {
         RadioNodeList {
@@ -30,14 +31,14 @@ impl RadioNodeList {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window, list_type: NodeListType) -> DomRoot<RadioNodeList> {
+    pub fn new(window: &Window<TH>, list_type: NodeListType) -> DomRoot<RadioNodeList> {
         reflect_dom_object(Box::new(RadioNodeList::new_inherited(list_type)),
                            window,
                            RadioNodeListBinding::Wrap)
     }
 
-    pub fn new_simple_list<T>(window: &Window, iter: T) -> DomRoot<RadioNodeList>
-                              where T: Iterator<Item=DomRoot<Node>> {
+    pub fn new_simple_list<T>(window: &Window<TH>, iter: T) -> DomRoot<RadioNodeList>
+                              where T: Iterator<Item=DomRoot<Node<TH>>> {
         RadioNodeList::new(window, NodeListType::Simple(iter.map(|r| Dom::from_ref(&*r)).collect()))
     }
 
@@ -49,7 +50,7 @@ impl RadioNodeList {
     }
 }
 
-impl RadioNodeListMethods for RadioNodeList {
+impl<TH> RadioNodeListMethods for RadioNodeList<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-radionodelist-value
     fn Value(&self) -> DOMString {
         self.upcast::<NodeList>().as_simple_list().iter().filter_map(|node| {
@@ -100,7 +101,7 @@ impl RadioNodeListMethods for RadioNodeList {
     // https://github.com/servo/servo/issues/5875
     //
     // https://dom.spec.whatwg.org/#dom-nodelist-item
-    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Node>> {
+    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Node<TH>>> {
         self.node_list.IndexedGetter(index)
     }
 }

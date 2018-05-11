@@ -125,6 +125,7 @@ mod stylesheet_loader;
 mod task_source;
 pub mod test;
 pub mod textinput;
+pub mod typeholder;
 mod timers;
 mod unpremultiplytable;
 mod webdriver_handlers;

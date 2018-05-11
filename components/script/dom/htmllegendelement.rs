@@ -16,18 +16,19 @@ use dom::node::{Node, UnbindContext};
 use dom::virtualmethods::VirtualMethods;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLLegendElement {
+pub struct HTMLLegendElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     form_owner: MutNullableDom<HTMLFormElement>,
 }
 
-impl HTMLLegendElement {
+impl<TH: TypeHolderTrait> HTMLLegendElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document)
-                     -> HTMLLegendElement {
+                     document: &Document<TH>)
+                     -> HTMLLegendElement<TH> {
         HTMLLegendElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             form_owner: Default::default(),
@@ -37,15 +38,15 @@ impl HTMLLegendElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document)
-               -> DomRoot<HTMLLegendElement> {
+               document: &Document<TH>)
+               -> DomRoot<HTMLLegendElement<TH>> {
         Node::reflect_node(Box::new(HTMLLegendElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLLegendElementBinding::Wrap)
     }
 }
 
-impl VirtualMethods for HTMLLegendElement {
+impl<TH: TypeHolderTrait> VirtualMethods for HTMLLegendElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -61,7 +62,7 @@ impl VirtualMethods for HTMLLegendElement {
     fn unbind_from_tree(&self, context: &UnbindContext) {
         self.super_type().unwrap().unbind_from_tree(context);
 
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let el = self.upcast::<Element>();
         if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
             el.check_ancestors_disabled_state_for_form_control();
@@ -72,10 +73,10 @@ impl VirtualMethods for HTMLLegendElement {
 }
 
 
-impl HTMLLegendElementMethods for HTMLLegendElement {
+impl<TH: TypeHolderTrait> HTMLLegendElementMethods for HTMLLegendElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-legend-form
     fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
-        let parent = self.upcast::<Node>().GetParentElement()?;
+        let parent = self.upcast::<Node<TH>>().GetParentElement()?;
         if parent.is::<HTMLFieldSetElement>() {
             return self.form_owner();
         }
@@ -83,7 +84,7 @@ impl HTMLLegendElementMethods for HTMLLegendElement {
     }
 }
 
-impl FormControl for HTMLLegendElement {
+impl<TH> FormControl for HTMLLegendElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
         self.form_owner.get()
     }

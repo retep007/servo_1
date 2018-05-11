@@ -28,6 +28,7 @@ use std::ptr;
 use std::rc::Rc;
 use std::str;
 use url::form_urlencoded;
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, JSTraceable, MallocSizeOf)]
 pub enum BodyType {
@@ -147,7 +148,7 @@ fn run_json_data_algorithm(cx: *mut JSContext,
     }
 }
 
-fn run_blob_data_algorithm(root: &GlobalScope,
+fn run_blob_data_algorithm<TH: TypeHolderTrait>(root: &GlobalScope<TH>,
                            bytes: Vec<u8>,
                            mime: &[u8]) -> Fallible<FetchedData> {
     let mime_string = if let Ok(s) = String::from_utf8(mime.to_vec()) {
@@ -159,7 +160,7 @@ fn run_blob_data_algorithm(root: &GlobalScope,
     Ok(FetchedData::BlobData(blob))
 }
 
-fn run_form_data_algorithm(root: &GlobalScope, bytes: Vec<u8>, mime: &[u8]) -> Fallible<FetchedData> {
+fn run_form_data_algorithm<TH: TypeHolderTrait>(root: &GlobalScope<TH>, bytes: Vec<u8>, mime: &[u8]) -> Fallible<FetchedData> {
     let mime_str = if let Ok(s) = str::from_utf8(mime) {
         s
     } else {

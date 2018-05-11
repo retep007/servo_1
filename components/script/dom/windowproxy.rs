@@ -42,13 +42,14 @@ use msg::constellation_msg::PipelineId;
 use msg::constellation_msg::TopLevelBrowsingContextId;
 use std::cell::Cell;
 use std::ptr;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 // NOTE: the browsing context for a window is managed in two places:
 // here, in script, but also in the constellation. The constellation
 // manages the session history, which in script is accessed through
 // History objects, messaging the constellation.
-pub struct WindowProxy {
+pub struct WindowProxy<TH: TypeHolderTrait> {
     /// The JS WindowProxy object.
     /// Unlike other reflectors, we mutate this field because
     /// we have to brain-transplant the reflector when the WindowProxy
@@ -83,7 +84,7 @@ pub struct WindowProxy {
     parent: Option<Dom<WindowProxy>>,
 }
 
-impl WindowProxy {
+impl<TH: TypeHolderTrait> WindowProxy<TH> {
     pub fn new_inherited(browsing_context_id: BrowsingContextId,
                          top_level_browsing_context_id: TopLevelBrowsingContextId,
                          currently_active: Option<PipelineId>,
@@ -105,7 +106,7 @@ impl WindowProxy {
     }
 
     #[allow(unsafe_code)]
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                browsing_context_id: BrowsingContextId,
                top_level_browsing_context_id: TopLevelBrowsingContextId,
                frame_element: Option<&Element>,
@@ -302,14 +303,14 @@ impl WindowProxy {
 // This is only called from extern functions,
 // there's no use using the lifetimed handles here.
 #[allow(unsafe_code)]
-unsafe fn GetSubframeWindow(cx: *mut JSContext,
+unsafe fn GetSubframeWindow<TH: TypeHolderTrait>(cx: *mut JSContext,
                             proxy: RawHandleObject,
                             id: RawHandleId)
-                            -> Option<DomRoot<Window>> {
+                            -> Option<DomRoot<Window<TH>>> {
     let index = get_array_index_from_id(cx, Handle::from_raw(id));
     if let Some(index) = index {
         rooted!(in(cx) let target = GetProxyPrivate(*proxy).to_object());
-        let win = root_from_handleobject::<Window>(target.handle()).unwrap();
+        let win = root_from_handleobject::<Window<TH>>(target.handle()).unwrap();
         let mut found = false;
         return win.IndexedGetter(index, &mut found);
     }

@@ -15,28 +15,29 @@ use dom::element::Element;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use html5ever::LocalName;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct NamedNodeMap {
+pub struct NamedNodeMap<TH: TypeHolderTrait> {
     reflector_: Reflector,
     owner: Dom<Element>,
 }
 
-impl NamedNodeMap {
-    fn new_inherited(elem: &Element) -> NamedNodeMap {
+impl<TH: TypeHolderTrait> NamedNodeMap<TH> {
+    fn new_inherited(elem: &Element) -> NamedNodeMap<TH> {
         NamedNodeMap {
             reflector_: Reflector::new(),
             owner: Dom::from_ref(elem),
         }
     }
 
-    pub fn new(window: &Window, elem: &Element) -> DomRoot<NamedNodeMap> {
+    pub fn new(window: &Window<TH>, elem: &Element) -> DomRoot<NamedNodeMap<TH>> {
         reflect_dom_object(Box::new(NamedNodeMap::new_inherited(elem)),
                            window, NamedNodeMapBinding::Wrap)
     }
 }
 
-impl NamedNodeMapMethods for NamedNodeMap {
+impl<TH> NamedNodeMapMethods for NamedNodeMap<TH> {
     // https://dom.spec.whatwg.org/#dom-namednodemap-length
     fn Length(&self) -> u32 {
         self.owner.attrs().len() as u32

@@ -38,6 +38,7 @@ use servo_url::ServoUrl;
 use std::cell::Cell;
 use style::attr::{AttrValue, LengthOrPercentageOrAuto};
 use task_source::TaskSource;
+use typeholder::TypeHolderTrait;
 
 bitflags! {
     #[derive(JSTraceable, MallocSizeOf)]
@@ -65,7 +66,7 @@ enum ProcessingMode {
 }
 
 #[dom_struct]
-pub struct HTMLIFrameElement {
+pub struct HTMLIFrameElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     top_level_browsing_context_id: Cell<Option<TopLevelBrowsingContextId>>,
     browsing_context_id: Cell<Option<BrowsingContextId>>,
@@ -78,7 +79,7 @@ pub struct HTMLIFrameElement {
     visibility: Cell<bool>,
 }
 
-impl HTMLIFrameElement {
+impl<TH> HTMLIFrameElement<TH> {
     pub fn is_sandboxed(&self) -> bool {
         self.sandbox_allowance.get().is_some()
     }
@@ -279,7 +280,7 @@ impl HTMLIFrameElement {
             LoadBlocker::terminate(&mut blocker);
         }
 
-        self.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+        self.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
         let window = window_from_node(self);
         window.reflow(ReflowGoal::Full, ReflowReason::FramedContentChanged);
     }
@@ -369,7 +370,7 @@ pub trait HTMLIFrameElementLayoutMethods {
     fn get_height(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement> {
+impl<TH> HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement<TH>> {
     #[inline]
     #[allow(unsafe_code)]
     fn pipeline_id(&self) -> Option<PipelineId> {
@@ -410,7 +411,7 @@ impl HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement> {
     }
 }
 
-impl HTMLIFrameElementMethods for HTMLIFrameElement {
+impl<TH: TypeHolderTrait> HTMLIFrameElementMethods for HTMLIFrameElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-iframe-src
     make_url_getter!(Src, "src");
 
@@ -430,7 +431,7 @@ impl HTMLIFrameElementMethods for HTMLIFrameElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-iframe-contentdocument
     // https://html.spec.whatwg.org/multipage/#concept-bcc-content-document
-    fn GetContentDocument(&self) -> Option<DomRoot<Document>> {
+    fn GetContentDocument(&self) -> Option<DomRoot<Document<TH>>> {
         // Step 1.
         let pipeline_id = self.pipeline_id.get()?;
 
@@ -485,7 +486,7 @@ impl HTMLIFrameElementMethods for HTMLIFrameElement {
     }
 }
 
-impl VirtualMethods for HTMLIFrameElement {
+impl<TH: TypeHolderTrait> VirtualMethods for HTMLIFrameElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -519,7 +520,7 @@ impl VirtualMethods for HTMLIFrameElement {
                 // may be in a different script thread. Instread, we check to see if the parent
                 // is in a document tree and has a browsing context, which is what causes
                 // the child browsing context to be created.
-                if self.upcast::<Node>().is_in_doc_with_browsing_context() {
+                if self.upcast::<Node<TH>>().is_in_doc_with_browsing_context() {
                     debug!("iframe src set while in browsing context.");
                     self.process_the_iframe_attributes(ProcessingMode::NotFirstTime);
                 }
@@ -553,7 +554,7 @@ impl VirtualMethods for HTMLIFrameElement {
         // browsing context, set the element's nested browsing context
         // to the newly-created browsing context, and then process the
         // iframe attributes for the "first time"."
-        if self.upcast::<Node>().is_in_doc_with_browsing_context() {
+        if self.upcast::<Node<TH>>().is_in_doc_with_browsing_context() {
             debug!("iframe bound to browsing context.");
             debug_assert!(tree_in_doc, "is_in_doc_with_bc, but not tree_in_doc");
             self.create_nested_browsing_context();

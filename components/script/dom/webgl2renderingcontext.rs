@@ -38,16 +38,17 @@ use js::typedarray::ArrayBufferView;
 use offscreen_gl_context::GLContextAttributes;
 use script_layout_interface::HTMLCanvasDataSource;
 use std::ptr::NonNull;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGL2RenderingContext {
+pub struct WebGL2RenderingContext<TH: TypeHolderTrait> {
     reflector_: Reflector,
     base: Dom<WebGLRenderingContext>,
 }
 
-impl WebGL2RenderingContext {
+impl<TH: TypeHolderTrait> WebGL2RenderingContext<TH> {
     fn new_inherited(
-        window: &Window,
+        window: &Window<TH>,
         canvas: &HTMLCanvasElement,
         size: Size2D<i32>,
         attrs: GLContextAttributes
@@ -61,7 +62,7 @@ impl WebGL2RenderingContext {
 
     #[allow(unrooted_must_root)]
     pub fn new(
-        window: &Window,
+        window: &Window<TH>,
         canvas: &HTMLCanvasElement,
         size: Size2D<i32>,
         attrs: GLContextAttributes

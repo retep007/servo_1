@@ -16,9 +16,10 @@ use dom::globalscope::GlobalScope;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use servo_atoms::Atom;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct GamepadEvent {
+pub struct GamepadEvent<TH: TypeHolderTrait> {
     event: Event,
     gamepad: Dom<Gamepad>,
 }
@@ -28,8 +29,8 @@ pub enum GamepadEventType {
     Disconnected
 }
 
-impl GamepadEvent {
-    fn new_inherited(gamepad: &Gamepad) -> GamepadEvent {
+impl<TH: TypeHolderTrait> GamepadEvent<TH> {
+    fn new_inherited(gamepad: &Gamepad) -> GamepadEvent<TH> {
         GamepadEvent {
             event: Event::new_inherited(),
             gamepad: Dom::from_ref(gamepad),
@@ -53,7 +54,7 @@ impl GamepadEvent {
     }
 
     pub fn new_with_type(global: &GlobalScope, event_type: GamepadEventType, gamepad: &Gamepad)
-                         -> DomRoot<GamepadEvent> {
+                         -> DomRoot<GamepadEvent<TH>> {
         let name = match event_type {
             GamepadEventType::Connected => "gamepadconnected",
             GamepadEventType::Disconnected => "gamepaddisconnected"
@@ -67,10 +68,10 @@ impl GamepadEvent {
     }
 
     // https://w3c.github.io/gamepad/#gamepadevent-interface
-    pub fn Constructor(window: &Window,
+    pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &GamepadEventBinding::GamepadEventInit)
-                       -> Fallible<DomRoot<GamepadEvent>> {
+                       -> Fallible<DomRoot<GamepadEvent<TH>>> {
         Ok(GamepadEvent::new(&window.global(),
                              Atom::from(type_),
                              init.parent.bubbles,
@@ -79,7 +80,7 @@ impl GamepadEvent {
     }
 }
 
-impl GamepadEventMethods for GamepadEvent {
+impl<TH> GamepadEventMethods for GamepadEvent<TH> {
     // https://w3c.github.io/gamepad/#gamepadevent-interface
     fn Gamepad(&self) -> DomRoot<Gamepad> {
         DomRoot::from_ref(&*self.gamepad)

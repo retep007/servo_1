@@ -35,6 +35,7 @@ use std::collections::vec_deque::VecDeque;
 use std::sync::mpsc::{channel, Receiver, Sender};
 use std::thread;
 use style::context::QuirksMode as ServoQuirksMode;
+use typeholder::TypeHolderTrait;
 
 type ParseNodeId = usize;
 
@@ -167,20 +168,20 @@ fn create_buffer_queue(mut buffers: VecDeque<SendTendril<UTF8>>) -> BufferQueue 
 //
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer {
-    document: Dom<Document>,
+pub struct Tokenizer<TH: TypeHolderTrait> {
+    document: Dom<Document<TH>>,
     #[ignore_malloc_size_of = "Defined in std"]
     receiver: Receiver<ToTokenizerMsg>,
     #[ignore_malloc_size_of = "Defined in std"]
     html_tokenizer_sender: Sender<ToHtmlTokenizerMsg>,
     #[ignore_malloc_size_of = "Defined in std"]
-    nodes: HashMap<ParseNodeId, Dom<Node>>,
+    nodes: HashMap<ParseNodeId, Dom<Node<TH>>>,
     url: ServoUrl,
 }
 
-impl Tokenizer {
+impl<TH: TypeHolderTrait> Tokenizer<TH> {
     pub fn new(
-            document: &Document,
+            document: &Document<TH>,
             url: ServoUrl,
             fragment_context: Option<super::FragmentContext>)
             -> Self {
@@ -278,11 +279,11 @@ impl Tokenizer {
         self.html_tokenizer_sender.send(ToHtmlTokenizerMsg::SetPlainTextState).unwrap();
     }
 
-    fn insert_node(&mut self, id: ParseNodeId, node: Dom<Node>) {
+    fn insert_node(&mut self, id: ParseNodeId, node: Dom<Node<TH>>) {
         assert!(self.nodes.insert(id, node).is_none());
     }
 
-    fn get_node<'a>(&'a self, id: &ParseNodeId) -> &'a Dom<Node> {
+    fn get_node<'a>(&'a self, id: &ParseNodeId) -> &'a Dom<Node<TH>> {
         self.nodes.get(id).expect("Node not found!")
     }
 
@@ -327,7 +328,7 @@ impl Tokenizer {
 
     fn process_operation(&mut self, op: ParseOperation) {
         let document = DomRoot::from_ref(&**self.get_node(&0));
-        let document = document.downcast::<Document>().expect("Document node should be downcasted!");
+        let document = document.downcast::<Document<TH>>().expect("Document node should be downcasted!");
         match op {
             ParseOperation::GetTemplateContents { target, contents } => {
                 let target = DomRoot::from_ref(&**self.get_node(&target));
@@ -371,7 +372,7 @@ impl Tokenizer {
                     DOMString::from(String::from(name)), Some(DOMString::from(public_id)),
                     Some(DOMString::from(system_id)), document);
 
-                document.upcast::<Node>().AppendChild(doctype.upcast()).expect("Appending failed");
+                document.upcast::<Node<TH>>().AppendChild(doctype.upcast()).expect("Appending failed");
             }
             ParseOperation::AddAttrsIfMissing { target, attrs } => {
                 let elem = self.get_node(&target).downcast::<Element>()

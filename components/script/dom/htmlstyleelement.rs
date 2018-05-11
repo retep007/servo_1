@@ -26,9 +26,10 @@ use style::parser::ParserContext as CssParserContext;
 use style::stylesheets::{CssRuleType, Stylesheet, Origin};
 use style_traits::ParsingMode;
 use stylesheet_loader::{StylesheetLoader, StylesheetOwner};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLStyleElement {
+pub struct HTMLStyleElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
@@ -41,11 +42,11 @@ pub struct HTMLStyleElement {
     line_number: u64,
 }
 
-impl HTMLStyleElement {
+impl<TH: TypeHolderTrait> HTMLStyleElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document,
-                     creator: ElementCreator) -> HTMLStyleElement {
+                     document: &Document<TH>,
+                     creator: ElementCreator) -> HTMLStyleElement<TH> {
         HTMLStyleElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             stylesheet: DomRefCell::new(None),
@@ -61,15 +62,15 @@ impl HTMLStyleElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document,
-               creator: ElementCreator) -> DomRoot<HTMLStyleElement> {
+               document: &Document<TH>,
+               creator: ElementCreator) -> DomRoot<HTMLStyleElement<TH>> {
         Node::reflect_node(Box::new(HTMLStyleElement::new_inherited(local_name, prefix, document, creator)),
                            document,
                            HTMLStyleElementBinding::Wrap)
     }
 
     pub fn parse_own_css(&self) {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         let element = self.upcast::<Element>();
         assert!(node.is_in_doc());
 
@@ -142,7 +143,7 @@ impl HTMLStyleElement {
     }
 }
 
-impl VirtualMethods for HTMLStyleElement {
+impl<TH> VirtualMethods for HTMLStyleElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
@@ -155,7 +156,7 @@ impl VirtualMethods for HTMLStyleElement {
         // "The element is not on the stack of open elements of an HTML parser or XML parser,
         // and one of its child nodes is modified by a script."
         // TODO: Handle Text child contents being mutated.
-        if self.upcast::<Node>().is_in_doc() && !self.in_stack_of_open_elements.get() {
+        if self.upcast::<Node<TH>>().is_in_doc() && !self.in_stack_of_open_elements.get() {
             self.parse_own_css();
         }
     }
@@ -179,7 +180,7 @@ impl VirtualMethods for HTMLStyleElement {
         // Handles the case when:
         // "The element is popped off the stack of open elements of an HTML parser or XML parser."
         self.in_stack_of_open_elements.set(false);
-        if self.upcast::<Node>().is_in_doc() {
+        if self.upcast::<Node<TH>>().is_in_doc() {
             self.parse_own_css();
         }
     }
@@ -197,7 +198,7 @@ impl VirtualMethods for HTMLStyleElement {
     }
 }
 
-impl StylesheetOwner for HTMLStyleElement {
+impl<TH> StylesheetOwner for HTMLStyleElement<TH> {
     fn increment_pending_loads_count(&self) {
         self.pending_loads.set(self.pending_loads.get() + 1)
     }
@@ -234,7 +235,7 @@ impl StylesheetOwner for HTMLStyleElement {
 }
 
 
-impl HTMLStyleElementMethods for HTMLStyleElement {
+impl<TH> HTMLStyleElementMethods for HTMLStyleElement<TH> {
     // https://drafts.csswg.org/cssom/#dom-linkstyle-sheet
     fn GetSheet(&self) -> Option<DomRoot<DOMStyleSheet>> {
         self.get_cssom_stylesheet().map(DomRoot::upcast)

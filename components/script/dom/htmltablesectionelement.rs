@@ -19,23 +19,24 @@ use dom::virtualmethods::VirtualMethods;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use style::attr::AttrValue;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTableSectionElement {
+pub struct HTMLTableSectionElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
 }
 
-impl HTMLTableSectionElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document)
-                     -> HTMLTableSectionElement {
+impl<TH: TypeHolderTrait> HTMLTableSectionElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>)
+                     -> HTMLTableSectionElement<TH> {
         HTMLTableSectionElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
         }
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document)
-               -> DomRoot<HTMLTableSectionElement> {
+    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>)
+               -> DomRoot<HTMLTableSectionElement<TH>> {
         Node::reflect_node(Box::new(HTMLTableSectionElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTableSectionElementBinding::Wrap)
@@ -43,15 +44,15 @@ impl HTMLTableSectionElement {
 }
 
 #[derive(JSTraceable)]
-struct RowsFilter;
-impl CollectionFilter for RowsFilter {
-    fn filter(&self, elem: &Element, root: &Node) -> bool {
+struct RowsFilter<TH: TypeHolderTrait>;
+impl<TH: TypeHolderTrait> CollectionFilter for RowsFilter<TH> {
+    fn filter(&self, elem: &Element, root: &Node<TH>) -> bool {
         elem.is::<HTMLTableRowElement>() &&
-            elem.upcast::<Node>().GetParentNode().r() == Some(root)
+            elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
     }
 }
 
-impl HTMLTableSectionElementMethods for HTMLTableSectionElement {
+impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods for HTMLTableSectionElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tbody-rows
     fn Rows(&self) -> DomRoot<HTMLCollection> {
         HTMLCollection::create(&window_from_node(self), self.upcast(), Box::new(RowsFilter))
@@ -59,7 +60,7 @@ impl HTMLTableSectionElementMethods for HTMLTableSectionElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-tbody-insertrow
     fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLElement>> {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         node.insert_cell_or_row(
             index,
             || self.Rows(),
@@ -68,7 +69,7 @@ impl HTMLTableSectionElementMethods for HTMLTableSectionElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-tbody-deleterow
     fn DeleteRow(&self, index: i32) -> ErrorResult {
-        let node = self.upcast::<Node>();
+        let node = self.upcast::<Node<TH>>();
         node.delete_cell_or_row(
             index,
             || self.Rows(),
@@ -81,7 +82,7 @@ pub trait HTMLTableSectionElementLayoutHelpers {
 }
 
 #[allow(unsafe_code)]
-impl HTMLTableSectionElementLayoutHelpers for LayoutDom<HTMLTableSectionElement> {
+impl<TH> HTMLTableSectionElementLayoutHelpers for LayoutDom<HTMLTableSectionElement<TH>> {
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
             (&*self.upcast::<Element>().unsafe_get())
@@ -92,7 +93,7 @@ impl HTMLTableSectionElementLayoutHelpers for LayoutDom<HTMLTableSectionElement>
     }
 }
 
-impl VirtualMethods for HTMLTableSectionElement {
+impl<TH> VirtualMethods for HTMLTableSectionElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
