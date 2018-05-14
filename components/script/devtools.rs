@@ -113,7 +113,7 @@ pub fn handle_get_children<TH: TypeHolderTrait>(documents: &Documents<TH>,
     };
 }
 
-pub fn handle_get_layout<TH: TypeHolderTrait>(documents: &Documents,
+pub fn handle_get_layout<TH: TypeHolderTrait>(documents: &Documents<TH>,
                          pipeline: PipelineId,
                          node_id: String,
                          reply: IpcSender<Option<ComputedNodeLayout>>) {
@@ -154,7 +154,7 @@ pub fn handle_get_layout<TH: TypeHolderTrait>(documents: &Documents,
     })).unwrap();
 }
 
-fn determine_auto_margins<TH: TypeHolderTrait>(window: &Window<TH>, node: &Node) -> AutoMargins {
+fn determine_auto_margins<TH: TypeHolderTrait>(window: &Window<TH>, node: &Node<TH>) -> AutoMargins {
     let style = window.style_query(node.to_trusted_node_address()).unwrap();
     let margin = style.get_margin();
     AutoMargins {
@@ -207,7 +207,7 @@ pub fn handle_get_cached_messages(_pipeline_id: PipelineId,
     reply.send(messages).unwrap();
 }
 
-pub fn handle_modify_attribute(documents: &Documents,
+pub fn handle_modify_attribute<TH: TypeHolderTrait>(documents: &Documents<TH>,
                                pipeline: PipelineId,
                                node_id: String,
                                modifications: Vec<Modification>) {
@@ -229,11 +229,11 @@ pub fn handle_modify_attribute(documents: &Documents,
     }
 }
 
-pub fn handle_wants_live_notifications(global: &GlobalScope, send_notifications: bool) {
+pub fn handle_wants_live_notifications<TH: TypeHolderTrait>(global: &GlobalScope<TH>, send_notifications: bool) {
     global.set_devtools_wants_updates(send_notifications);
 }
 
-pub fn handle_set_timeline_markers(documents: &Documents,
+pub fn handle_set_timeline_markers<TH: TypeHolderTrait>(documents: &Documents<TH>,
                                    pipeline: PipelineId,
                                    marker_types: Vec<TimelineMarkerType>,
                                    reply: IpcSender<Option<TimelineMarker>>) {
@@ -243,7 +243,7 @@ pub fn handle_set_timeline_markers(documents: &Documents,
     }
 }
 
-pub fn handle_drop_timeline_markers(documents: &Documents,
+pub fn handle_drop_timeline_markers<TH: TypeHolderTrait>(documents: &Documents<TH>,
                                     pipeline: PipelineId,
                                     marker_types: Vec<TimelineMarkerType>) {
     if let Some(window) = documents.find_window(pipeline) {
@@ -251,7 +251,7 @@ pub fn handle_drop_timeline_markers(documents: &Documents,
     }
 }
 
-pub fn handle_request_animation_frame(documents: &Documents,
+pub fn handle_request_animation_frame<TH: TypeHolderTrait>(documents: &Documents<TH>,
                                       id: PipelineId,
                                       actor_name: String) {
     if let Some(doc) = documents.find_document(id) {
@@ -259,7 +259,7 @@ pub fn handle_request_animation_frame(documents: &Documents,
     }
 }
 
-pub fn handle_reload(documents: &Documents,
+pub fn handle_reload<TH: TypeHolderTrait>(documents: &Documents<TH>,
                      id: PipelineId) {
     if let Some(win) = documents.find_window(id) {
         win.Location().reload_without_origin_check();

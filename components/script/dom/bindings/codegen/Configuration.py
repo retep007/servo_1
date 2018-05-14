@@ -17,6 +17,7 @@ class Configuration:
         glbl = {}
         execfile(filename, glbl)
         config = glbl['DOMInterfaces']
+        self.genericStructs = glbl['GenericStructs']
 
         # Build descriptors for all the interfaces we have in the parse data.
         # This allows callers to specify a subset of interfaces by filtering
@@ -196,6 +197,11 @@ class Descriptor(DescriptorProvider):
 
         typeName = desc.get('nativeType', nativeTypeDefault)
 
+        self.isGeneric = False
+        self.nonGenericType = typeName
+        if typeName in config.genericStructs:
+            typeName = "%s<TH>" % typeName
+            self.isGeneric = True
         spiderMonkeyInterface = desc.get('spiderMonkeyInterface', False)
 
         # Callback and SpiderMonkey types do not use JS smart pointers, so we should not use the
@@ -204,7 +210,7 @@ class Descriptor(DescriptorProvider):
             self.returnType = 'Rc<%s>' % typeName
             self.argumentType = '&%s' % typeName
             self.nativeType = typeName
-            pathDefault = 'dom::types::%s' % typeName
+            pathDefault = 'dom::types::%s' % self.nonGenericType
         elif self.interface.isCallback():
             ty = 'dom::bindings::codegen::Bindings::%sBinding::%s' % (ifaceName, ifaceName)
             pathDefault = ty
@@ -218,7 +224,7 @@ class Descriptor(DescriptorProvider):
             if self.interface.isIteratorInterface():
                 pathDefault = 'dom::bindings::iterable::IterableIterator'
             else:
-                pathDefault = 'dom::types::%s' % MakeNativeName(typeName)
+                pathDefault = 'dom::types::%s' % MakeNativeName(self.nonGenericType)
 
         self.concreteType = typeName
         self.register = desc.get('register', True)

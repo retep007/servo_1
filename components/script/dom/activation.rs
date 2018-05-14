@@ -56,7 +56,7 @@ pub enum ActivationSource {
 }
 
 // https://html.spec.whatwg.org/multipage/#run-synthetic-click-activation-steps
-pub fn synthetic_click_activation(element: &Element,
+pub fn synthetic_click_activation<TH: TypeHolderTrait>(element: &Element<TH>,
                                   ctrl_key: bool,
                                   shift_key: bool,
                                   alt_key: bool,

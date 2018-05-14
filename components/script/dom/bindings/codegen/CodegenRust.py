@@ -2335,7 +2335,8 @@ def UnionTypes(descriptors, dictionaries, callbacks, typedefs, config):
         'js::jsapi::JSObject',
         'js::rust::MutableHandleValue',
         'js::jsval::JSVal',
-        'js::typedarray'
+        'js::typedarray',
+        'typeholder::TypeHolderTrait'
     ]
 
     # Now find all the things we'll need as arguments and return values because
@@ -2352,8 +2353,8 @@ def UnionTypes(descriptors, dictionaries, callbacks, typedefs, config):
         if name not in unionStructs:
             provider = descriptor or config.getDescriptorProvider()
             unionStructs[name] = CGList([
-                CGUnionStruct(t, provider),
-                CGUnionConversionStruct(t, provider)
+                CGUnionStruct(t, provider, config.genericStructs),
+                CGUnionConversionStruct(t, provider, config.genericStructs)
             ])
 
     # Sort unionStructs by key, retrieve value
@@ -2431,6 +2432,10 @@ class CGAbstractMethod(CGThing):
         self.extern = extern
         self.unsafe = extern or unsafe
         self.templateArgs = templateArgs
+        if descriptor and descriptor.isGeneric:
+            if self.templateArgs is None:
+                self.templateArgs = []
+            self.templateArgs.append('TH: TypeHolderTrait')
         self.pub = pub
         self.docs = docs
         self.catchPanic = self.extern and not doesNotPanic
@@ -2738,13 +2743,14 @@ class CGIDLInterface(CGThing):
     """
     Class for codegen of an implementation of the IDLInterface trait.
     """
-    def __init__(self, descriptor):
+    def __init__(self, descriptor, config):
         CGThing.__init__(self)
         self.descriptor = descriptor
+        self.config = config
 
     def define(self):
         interface = self.descriptor.interface
-        name = self.descriptor.concreteType
+        name = self.descriptor.nonGenericType
         if (interface.getUserData("hasConcreteDescendant", False) or
                 interface.getUserData("hasProxyDescendant", False)):
             depth = self.descriptor.prototypeDepth
@@ -4198,11 +4204,14 @@ class CGConstant(CGThing):
 
         return "pub const %s: %s = %s;\n" % (name, const_type, value)
 
-
-def getUnionTypeTemplateVars(type, descriptorProvider):
+def getUnionTypeTemplateVars(type, descriptorProvider, genericStructs):
+    isGeneric = False
     if type.isGeckoInterface():
         name = type.inner.identifier.name
         typeName = descriptorProvider.getDescriptor(name).returnType
+        if type.name in genericStructs:
+            isGeneric = True
+            typeName = "DomRoot<%s<TH>>" % name
     elif type.isEnum():
         name = type.inner.identifier.name
         typeName = name
@@ -4211,7 +4220,7 @@ def getUnionTypeTemplateVars(type, descriptorProvider):
         typeName = name
     elif type.isSequence() or type.isRecord():
         name = type.name
-        inner = getUnionTypeTemplateVars(innerContainerType(type), descriptorProvider)
+        inner = getUnionTypeTemplateVars(innerContainerType(type), descriptorProvider, genericStructs)
         typeName = wrapInNativeContainerType(type, CGGeneric(inner["typeName"])).define()
     elif type.isByteString():
         name = type.name
@@ -4250,17 +4259,19 @@ def getUnionTypeTemplateVars(type, descriptorProvider):
         "name": name,
         "typeName": typeName,
         "jsConversion": jsConversion,
+        "generic": isGeneric,
     }
 
 
 class CGUnionStruct(CGThing):
-    def __init__(self, type, descriptorProvider):
+    def __init__(self, type, descriptorProvider, genericStructs):
         assert not type.nullable()
         assert not type.hasNullableType
 
         CGThing.__init__(self)
         self.type = type
         self.descriptorProvider = descriptorProvider
+        self.genericStructs = genericStructs
 
     def membersNeedTracing(self):
         for t in self.type.flatMemberTypes:
@@ -4269,9 +4280,10 @@ class CGUnionStruct(CGThing):
         return False
 
     def define(self):
-        templateVars = map(lambda t: (getUnionTypeTemplateVars(t, self.descriptorProvider),
+        templateVars = map(lambda t: (getUnionTypeTemplateVars(t, self.descriptorProvider, self.genericStructs),
                                       type_needs_tracing(t)),
                            self.type.flatMemberTypes)
+        generics = filter(lambda (t, v): t["generic"] , templateVars)
         enumValues = [
             "    %s(%s)," % (v["name"], "RootedTraceableBox<%s>" % v["typeName"] if trace else v["typeName"])
             for (v, trace) in templateVars
@@ -4282,28 +4294,29 @@ class CGUnionStruct(CGThing):
         ]
         return ("""\
 #[derive(JSTraceable)]
-pub enum %s {
+pub enum %s%s {
 %s
 }
 
-impl ToJSValConvertible for %s {
+impl%s ToJSValConvertible for %s%s {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
 %s
         }
     }
 }
-""") % (self.type, "\n".join(enumValues), self.type, "\n".join(enumConversions))
+""") % (self.type, "<TH: TypeHolderTrait>" if len(generics) > 0 else "", "\n".join(enumValues), "<TH: TypeHolderTrait>" if len(generics) > 0 else "", self.type, "<TH>" if len(generics) > 0 else "", "\n".join(enumConversions))
 
 
 class CGUnionConversionStruct(CGThing):
-    def __init__(self, type, descriptorProvider):
+    def __init__(self, type, descriptorProvider, genericStructs):
         assert not type.nullable()
         assert not type.hasNullableType
 
         CGThing.__init__(self)
         self.type = type
         self.descriptorProvider = descriptorProvider
+        self.genericStructs = genericStructs
 
     def membersNeedTracing(self):
         for t in self.type.flatMemberTypes:
@@ -4444,18 +4457,18 @@ class CGUnionConversionStruct(CGThing):
             pre="unsafe fn from_jsval(cx: *mut JSContext,\n"
                 "                     value: HandleValue,\n"
                 "                     _option: ())\n"
-                "                     -> Result<ConversionResult<%s>, ()> {\n" % self.type,
+                "                     -> Result<ConversionResult<Self>, ()> {\n",
             post="\n}")
         return CGWrapper(
             CGIndenter(CGList([
                 CGGeneric("type Config = ();"),
                 method,
             ], "\n")),
-            pre="impl FromJSValConvertible for %s {\n" % self.type,
+            pre=("impl%s FromJSValConvertible for %s%s {\n" % ("<TH: TypeHolderTrait>" if self.isGeneric else "", self.type, "<TH>" if self.isGeneric else "")),
             post="\n}")
 
     def try_method(self, t):
-        templateVars = getUnionTypeTemplateVars(t, self.descriptorProvider)
+        templateVars = getUnionTypeTemplateVars(t, self.descriptorProvider, self.genericStructs)
         actualType = templateVars["typeName"]
         if type_needs_tracing(t):
             actualType = "RootedTraceableBox<%s>" % actualType
@@ -4469,6 +4482,10 @@ class CGUnionConversionStruct(CGThing):
             post="\n}")
 
     def define(self):
+        templateVars = map(lambda t: (getUnionTypeTemplateVars(t, self.descriptorProvider, self.genericStructs),
+                                      type_needs_tracing(t)),
+                           self.type.flatMemberTypes)
+        self.isGeneric = filter(lambda (t, v): t["generic"] , templateVars)
         from_jsval = self.from_jsval()
         methods = CGIndenter(CGList([
             self.try_method(t) for t in self.type.flatMemberTypes
@@ -4476,10 +4493,10 @@ class CGUnionConversionStruct(CGThing):
         return """
 %s
 
-impl %s {
+impl%s %s%s {
 %s
 }
-""" % (from_jsval.define(), self.type, methods.define())
+""" % (from_jsval.define(), "<TH: TypeHolderTrait>" if self.isGeneric else "", self.type, "<TH>" if self.isGeneric else "", methods.define())
 
 
 class ClassItem:
@@ -5940,6 +5957,7 @@ def generate_imports(config, cgthings, descriptors, callbacks=None, dictionaries
         'dom::bindings::weakref::WeakReferenceable',
         'dom::windowproxy::WindowProxy',
         'dom::globalscope::GlobalScope',
+        'typeholder::TypeHolderTrait',
         'mem::malloc_size_of_including_raw_self',
         'libc',
         'servo_config::prefs::PREFS',
@@ -6078,7 +6096,7 @@ class CGDescriptor(CGThing):
                                                name in unscopableNames], ",\n")),
                             CGGeneric("];\n")], "\n"))
             if descriptor.concrete or descriptor.hasDescendants():
-                cgThings.append(CGIDLInterface(descriptor))
+                cgThings.append(CGIDLInterface(descriptor, config))
 
             interfaceTrait = CGInterfaceTrait(descriptor)
             cgThings.append(interfaceTrait)
@@ -6475,19 +6493,18 @@ class CGBindingRoot(CGThing):
 
             cgthings.append(CGGeneric(template % substs))
 
-        # Do codegen for all the dictionaries.
+        # # Do codegen for all the dictionaries.
         cgthings.extend([CGDictionary(d, config.getDescriptorProvider())
                          for d in dictionaries])
 
-        # Do codegen for all the callbacks.
+        # # Do codegen for all the callbacks.
         cgthings.extend(CGList([CGCallbackFunction(c, config.getDescriptorProvider()),
                                 CGCallbackFunctionImpl(c)], "\n")
                         for c in mainCallbacks)
 
-        # Do codegen for all the descriptors
+        # # Do codegen for all the descriptors
         cgthings.extend([CGDescriptor(x, config, len(descriptors) == 1) for x in descriptors])
-
-        # Do codegen for all the callback interfaces.
+        # # Do codegen for all the callback interfaces.
         cgthings.extend(CGList([CGCallbackInterface(x),
                                 CGCallbackFunctionImpl(x.interface)], "\n")
                         for x in callbackDescriptors)
@@ -6676,6 +6693,7 @@ class CGCallback(CGClass):
                 realMethods.append(method)
             else:
                 realMethods.extend(self.getMethodImpls(method))
+        print name
         CGClass.__init__(self, name,
                          bases=[ClassBase(baseName)],
                          constructors=self.getConstructors(),
