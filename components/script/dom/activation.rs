@@ -12,6 +12,7 @@ use dom::mouseevent::MouseEvent;
 use dom::node::window_from_node;
 use dom::window::ReflowReason;
 use script_layout_interface::message::ReflowGoal;
+use typeholder::TypeHolderTrait;
 
 /// Trait for elements with defined activation behavior
 pub trait Activatable {

@@ -2093,10 +2093,6 @@ def DOMClass(descriptor):
     # padding.
     protoList.extend(['PrototypeList::ID::Last'] * (descriptor.config.maxProtoChainLength - len(protoList)))
     prototypeChainString = ', '.join(protoList)
-    if descriptor.concreteType == 'ServoParser':
-        mallocSizeOf = 'malloc_size_of_including_raw_self::<Box<%s>>' % descriptor.concreteType
-    else:
-        mallocSizeOf = 'malloc_size_of_including_raw_self::<%s>' % descriptor.concreteType
     if descriptor.isGlobal():
         globals_ = camel_to_upper_snake(descriptor.name)
     else:
@@ -2105,9 +2101,8 @@ def DOMClass(descriptor):
 DOMClass {
     interface_chain: [ %s ],
     type_id: %s,
-    malloc_size_of: %s as unsafe fn(&mut _, _) -> _,
     global: InterfaceObjectMap::Globals::%s,
-}""" % (prototypeChainString, DOMClassTypeId(descriptor), mallocSizeOf, globals_)
+}""" % (prototypeChainString, DOMClassTypeId(descriptor), globals_)
 
 
 class CGDOMJSClass(CGThing):
@@ -2138,6 +2133,12 @@ class CGDOMJSClass(CGThing):
             args["traceHook"] = "js::jsapi::JS_GlobalObjectTraceHook"
         elif self.descriptor.weakReferenceable:
             args["slots"] = "2"
+        args["malloc_generic"] = "<TH: TypeHolderTrait>" if self.descriptor.isGeneric else ""
+        if self.descriptor.concreteType == 'ServoParser':
+            mallocSizeOf = 'malloc_size_of_including_raw_self::<Box<%s>>' % self.descriptor.concreteType
+        else:
+            mallocSizeOf = 'malloc_size_of_including_raw_self::<%s>' % self.descriptor.concreteType
+        args["malloc_size"] = mallocSizeOf
         return """\
 static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     addProperty: None,
@@ -2164,7 +2165,13 @@ static Class: DOMJSClass = DOMJSClass {
         reserved: [0 as *mut _; 3],
     },
     dom_class: %(domClass)s
-};""" % args
+};
+
+#[inline]
+fn malloc_size%(malloc_generic)s(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+    %(malloc_size)s(ops, obj)
+}
+""" % args
 
 
 def str_to_const_array(s):
@@ -5685,6 +5692,15 @@ class CGInterfaceTrait(CGThing):
                 return False
             return reduce((lambda x, y: x or y[1] == '*mut JSContext'), arguments, False)
 
+        def contains_generic_ret_type():
+            for m in descriptor.interface.members:
+                if not m.isAttr() or m.isStatic() or not m.type.isGeckoInterface():
+                    continue
+                descript = descriptor.getDescriptor(
+                    m.type.unroll().inner.identifier.name)
+                if descript.isGeneric:
+                    return True
+            return False
         methods = []
         for name, arguments, rettype in members():
             arguments = list(arguments)
@@ -5692,10 +5708,10 @@ class CGInterfaceTrait(CGThing):
                 'unsafe ' if contains_unsafe_arg(arguments) else '',
                 name, fmt(arguments), rettype))
             )
-
+        print contains_generic_ret_type()
         if methods:
             self.cgRoot = CGWrapper(CGIndenter(CGList(methods, "")),
-                                    pre="pub trait %sMethods {\n" % descriptor.interface.identifier.name,
+                                    pre="pub trait %sMethods%s {\n" % (descriptor.interface.identifier.name, '<TH: TypeHolderTrait>' if contains_generic_ret_type() else ''),
                                     post="}")
         else:
             self.cgRoot = CGGeneric("")
@@ -5973,6 +5989,8 @@ def generate_imports(config, cgthings, descriptors, callbacks=None, dictionaries
         'std::rc::Rc',
         'std::default::Default',
         'std::ffi::CString',
+        'malloc_size_of::MallocSizeOfOps',
+        'std::os::raw::c_void'
     ], config)
 
 
@@ -6502,9 +6520,9 @@ class CGBindingRoot(CGThing):
                                 CGCallbackFunctionImpl(c)], "\n")
                         for c in mainCallbacks)
 
-        # # Do codegen for all the descriptors
+        # Do codegen for all the descriptors
         cgthings.extend([CGDescriptor(x, config, len(descriptors) == 1) for x in descriptors])
-        # # Do codegen for all the callback interfaces.
+        # Do codegen for all the callback interfaces.
         cgthings.extend(CGList([CGCallbackInterface(x),
                                 CGCallbackFunctionImpl(x.interface)], "\n")
                         for x in callbackDescriptors)
@@ -6693,7 +6711,6 @@ class CGCallback(CGClass):
                 realMethods.append(method)
             else:
                 realMethods.extend(self.getMethodImpls(method))
-        print name
         CGClass.__init__(self, name,
                          bases=[ClassBase(baseName)],
                          constructors=self.getConstructors(),
