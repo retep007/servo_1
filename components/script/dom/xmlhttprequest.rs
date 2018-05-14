@@ -29,7 +29,7 @@ use dom::headers::is_forbidden_header_name;
 use dom::htmlformelement::{encode_multipart_form_data, generate_boundary};
 use dom::node::Node;
 use dom::progressevent::ProgressEvent;
-use dom::servoparser::ServoParser;
+use script_traits::servoparser::ServoParser;
 use dom::urlsearchparams::URLSearchParams;
 use dom::window::Window;
 use dom::workerglobalscope::WorkerGlobalScope;
@@ -120,7 +120,7 @@ impl XHRProgress {
 }
 
 #[dom_struct]
-pub struct XMLHttpRequest {
+pub struct XMLHttpRequest<SP: ServoParser> {
     eventtarget: XMLHttpRequestEventTarget,
     ready_state: Cell<XMLHttpRequestState>,
     timeout: Cell<u32>,
@@ -831,7 +831,7 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
 pub type TrustedXHRAddress = Trusted<XMLHttpRequest>;
 
 
-impl XMLHttpRequest {
+impl<SP> XMLHttpRequest<SP> {
     fn change_ready_state(&self, rs: XMLHttpRequestState) {
         assert_ne!(self.ready_state.get(), rs);
         self.ready_state.set(rs);
@@ -1224,7 +1224,7 @@ impl XMLHttpRequest {
         let (decoded, _, _) = charset.decode(&response);
         let document = self.new_doc(IsHTMLDocument::HTMLDocument);
         // TODO: Disable scripting while parsing
-        ServoParser::parse_html_document(
+        SP::parse_html_document(
             &document,
             DOMString::from(decoded),
             wr.get_url());
@@ -1238,7 +1238,7 @@ impl XMLHttpRequest {
         let (decoded, _, _) = charset.decode(&response);
         let document = self.new_doc(IsHTMLDocument::NonHTMLDocument);
         // TODO: Disable scripting while parsing
-        ServoParser::parse_xml_document(
+        SP::parse_xml_document(
             &document,
             DOMString::from(decoded),
             wr.get_url());

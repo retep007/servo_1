@@ -4,12 +4,12 @@
 
 #![allow(unrooted_must_root)]
 
-use dom::bindings::root::{Dom, DomRoot};
-use dom::bindings::trace::JSTraceable;
-use dom::document::Document;
-use dom::htmlscriptelement::HTMLScriptElement;
-use dom::node::Node;
-use dom::servoparser::{ParsingAlgorithm, Sink};
+use script::dom::bindings::root::{Dom, DomRoot};
+use script::dom::bindings::trace::JSTraceable;
+use script::dom::document::Document;
+use script::dom::htmlscriptelement::HTMLScriptElement;
+use script::dom::node::Node;
+use servoparser::{ParsingAlgorithm, Sink};
 use js::jsapi::JSTracer;
 use servo_url::ServoUrl;
 use xml5ever::buffer_queue::BufferQueue;

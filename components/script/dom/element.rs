@@ -70,7 +70,7 @@ use dom::node::{NodeDamage, NodeFlags, UnbindContext};
 use dom::node::{document_from_node, window_from_node};
 use dom::nodelist::NodeList;
 use dom::promise::Promise;
-use dom::servoparser::ServoParser;
+use script_traits::servoparser::ServoParser;
 use dom::text::Text;
 use dom::validation::Validatable;
 use dom::virtualmethods::{VirtualMethods, vtable_for};
@@ -132,7 +132,7 @@ use xml5ever::serialize::TraversalScope::IncludeNode as XmlIncludeNode;
 // https://html.spec.whatwg.org/multipage/#selector-focus
 
 #[dom_struct]
-pub struct Element {
+pub struct Element<SP: ServoParser> {
     node: Node,
     local_name: LocalName,
     tag_name: TagName,
@@ -916,7 +916,7 @@ impl LayoutElementHelpers for LayoutDom<Element> {
     }
 }
 
-impl Element {
+impl<SP> Element<SP> {
     pub fn is_html_element(&self) -> bool {
         self.namespace == ns!(html)
     }
@@ -1536,7 +1536,7 @@ impl Element {
         // Steps 1-2.
         let context_document = document_from_node(self);
         // TODO(#11995): XML case.
-        let new_children = ServoParser::parse_html_fragment(self, markup);
+        let new_children = SP::parse_html_fragment(self, markup);
         // Step 3.
         let fragment = DocumentFragment::new(&context_document);
         // Step 4.

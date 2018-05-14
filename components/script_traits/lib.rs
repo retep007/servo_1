@@ -36,6 +36,7 @@ extern crate webrender_api;
 extern crate webvr_traits;
 
 mod script_msg;
+mod servoparser;
 pub mod webdriver_msg;
 
 use bluetooth_traits::BluetoothRequest;

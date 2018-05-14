@@ -54,7 +54,7 @@ use dom::performanceentry::PerformanceEntry;
 use dom::performancepainttiming::PerformancePaintTiming;
 use dom::serviceworker::TrustedServiceWorkerAddress;
 use dom::serviceworkerregistration::ServiceWorkerRegistration;
-use dom::servoparser::{ParserContext, ServoParser};
+use script_traits::servoparser::{ParserContext, ServoParser};
 use dom::transitionevent::TransitionEvent;
 use dom::uievent::UIEvent;
 use dom::window::{ReflowReason, Window};
@@ -389,7 +389,7 @@ impl<'a> Iterator for DocumentsIter<'a> {
 #[derive(JSTraceable)]
 // ScriptThread instances are rooted on creation, so this is okay
 #[allow(unrooted_must_root)]
-pub struct ScriptThread {
+pub struct ScriptThread<SP: ServoParser, PC: ParserContext> {
     /// The documents for pipelines managed by this thread
     documents: DomRefCell<Documents>,
     /// The window proxies known by this thread
@@ -398,7 +398,7 @@ pub struct ScriptThread {
     /// A list of data pertaining to loads that have not yet received a network response
     incomplete_loads: DomRefCell<Vec<InProgressLoad>>,
     /// A vector containing parser contexts which have not yet been fully processed
-    incomplete_parser_contexts: DomRefCell<Vec<(PipelineId, ParserContext)>>,
+    incomplete_parser_contexts: DomRefCell<Vec<(PipelineId, PC)>>,
     /// A map to store service worker registrations for a given origin
     registration_map: DomRefCell<HashMap<ServoUrl, Dom<ServiceWorkerRegistration>>>,
     /// A job queue for Service Workers keyed by their scope url
@@ -590,7 +590,7 @@ impl ScriptThreadFactory for ScriptThread {
     }
 }
 
-impl ScriptThread {
+impl<SP, PC> ScriptThread<SP, PC> {
     pub unsafe fn note_newly_transitioning_nodes(nodes: Vec<UntrustedNodeAddress>) {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = &*root.get().unwrap();
@@ -2209,9 +2209,9 @@ impl ScriptThread {
         document.set_navigation_start(incomplete.navigation_start_precise);
 
         if is_html_document == IsHTMLDocument::NonHTMLDocument {
-            ServoParser::parse_xml_document(&document, parse_input, final_url);
+            SP::parse_xml_document(&document, parse_input, final_url);
         } else {
-            ServoParser::parse_html_document(&document, parse_input, final_url);
+            SP::parse_html_document(&document, parse_input, final_url);
         }
 
         if incomplete.activity == DocumentActivity::FullyActive {
@@ -2515,7 +2515,7 @@ impl ScriptThread {
             .. RequestInit::default()
         };
 
-        let context = ParserContext::new(id, load_data.url);
+        let context = PC::new(id, load_data.url);
         self.incomplete_parser_contexts.borrow_mut().push((id, context));
 
         let cancel_chan = incomplete.canceller.initialize();
@@ -2562,7 +2562,7 @@ impl ScriptThread {
         self.incomplete_loads.borrow_mut().push(incomplete);
 
         let url = ServoUrl::parse("about:blank").unwrap();
-        let mut context = ParserContext::new(id, url.clone());
+        let mut context = PC::new(id, url.clone());
 
         let mut meta = Metadata::default(url);
         meta.set_content_type(Some(&mime!(Text / Html)));

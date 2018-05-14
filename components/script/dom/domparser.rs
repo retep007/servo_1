@@ -17,7 +17,7 @@ use dom::bindings::root::{Dom, DomRoot};
 use dom::bindings::str::DOMString;
 use dom::document::{Document, HasBrowsingContext, IsHTMLDocument};
 use dom::document::DocumentSource;
-use dom::servoparser::ServoParser;
+use script_traits::servoparser::ServoParser;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use script_traits::DocumentActivity;
@@ -47,7 +47,7 @@ impl DOMParser {
     }
 }
 
-impl DOMParserMethods for DOMParser {
+impl<SP> DOMParserMethods for DOMParser<SP> {
     // https://w3c.github.io/DOM-Parsing/#the-domparser-interface
     fn ParseFromString(&self,
                        s: DOMString,
@@ -72,7 +72,7 @@ impl DOMParserMethods for DOMParser {
                                              None,
                                              None,
                                              Default::default());
-                ServoParser::parse_html_document(&document, s, url);
+                SP::parse_html_document(&document, s, url);
                 document.set_ready_state(DocumentReadyState::Complete);
                 Ok(document)
             }
@@ -90,7 +90,7 @@ impl DOMParserMethods for DOMParser {
                                              None,
                                              None,
                                              Default::default());
-                ServoParser::parse_xml_document(&document, s, url);
+                SP::parse_xml_document(&document, s, url);
                 document.set_ready_state(DocumentReadyState::Complete);
                 Ok(document)
             }

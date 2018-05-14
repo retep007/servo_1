@@ -4,19 +4,19 @@
 
 #![allow(unrooted_must_root)]
 
-use dom::bindings::codegen::Bindings::HTMLTemplateElementBinding::HTMLTemplateElementMethods;
-use dom::bindings::inheritance::{Castable, CharacterDataTypeId, NodeTypeId};
-use dom::bindings::root::{Dom, DomRoot};
-use dom::bindings::trace::JSTraceable;
-use dom::characterdata::CharacterData;
-use dom::document::Document;
-use dom::documenttype::DocumentType;
-use dom::element::Element;
-use dom::htmlscriptelement::HTMLScriptElement;
-use dom::htmltemplateelement::HTMLTemplateElement;
-use dom::node::Node;
-use dom::processinginstruction::ProcessingInstruction;
-use dom::servoparser::{ParsingAlgorithm, Sink};
+use script::dom::bindings::codegen::Bindings::HTMLTemplateElementBinding::HTMLTemplateElementMethods;
+use script::dom::bindings::inheritance::{Castable, CharacterDataTypeId, NodeTypeId};
+use script::dom::bindings::root::{Dom, DomRoot};
+use script::dom::bindings::trace::JSTraceable;
+use script::dom::characterdata::CharacterData;
+use script::dom::document::Document;
+use script::dom::documenttype::DocumentType;
+use script::dom::element::Element;
+use script::dom::htmlscriptelement::HTMLScriptElement;
+use script::dom::htmltemplateelement::HTMLTemplateElement;
+use script::dom::node::Node;
+use script::dom::processinginstruction::ProcessingInstruction;
+use servoparser::{ParsingAlgorithm, Sink};
 use html5ever::QualName;
 use html5ever::buffer_queue::BufferQueue;
 use html5ever::serialize::{AttrRef, Serialize, Serializer};

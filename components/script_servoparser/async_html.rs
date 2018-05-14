@@ -4,22 +4,22 @@
 
 #![allow(unrooted_must_root)]
 
-use dom::bindings::codegen::Bindings::HTMLTemplateElementBinding::HTMLTemplateElementMethods;
-use dom::bindings::codegen::Bindings::NodeBinding::NodeMethods;
-use dom::bindings::inheritance::Castable;
-use dom::bindings::root::{Dom, DomRoot};
-use dom::bindings::str::DOMString;
-use dom::comment::Comment;
-use dom::document::Document;
-use dom::documenttype::DocumentType;
-use dom::element::{Element, ElementCreator};
-use dom::htmlformelement::{FormControlElementHelpers, HTMLFormElement};
-use dom::htmlscriptelement::HTMLScriptElement;
-use dom::htmltemplateelement::HTMLTemplateElement;
-use dom::node::Node;
-use dom::processinginstruction::ProcessingInstruction;
-use dom::servoparser::{ElementAttribute, create_element_for_token, ParsingAlgorithm};
-use dom::virtualmethods::vtable_for;
+use script::dom::bindings::codegen::Bindings::HTMLTemplateElementBinding::HTMLTemplateElementMethods;
+use script::dom::bindings::codegen::Bindings::NodeBinding::NodeMethods;
+use script::dom::bindings::inheritance::Castable;
+use script::dom::bindings::root::{Dom, DomRoot};
+use script::dom::bindings::str::DOMString;
+use script::dom::comment::Comment;
+use script::dom::document::Document;
+use script::dom::documenttype::DocumentType;
+use script::dom::element::{Element, ElementCreator};
+use script::dom::htmlformelement::{FormControlElementHelpers, HTMLFormElement};
+use script::dom::htmlscriptelement::HTMLScriptElement;
+use script::dom::htmltemplateelement::HTMLTemplateElement;
+use script::dom::node::Node;
+use script::dom::processinginstruction::ProcessingInstruction;
+use servoparser::{ElementAttribute, create_element_for_token, ParsingAlgorithm};
+use script::dom::virtualmethods::vtable_for;
 use html5ever::{Attribute as HtmlAttribute, ExpandedName, QualName};
 use html5ever::buffer_queue::BufferQueue;
 use html5ever::tendril::{SendTendril, StrTendril, Tendril};
