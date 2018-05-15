@@ -47,7 +47,7 @@ bitflags!{
 #[dom_struct]
 pub struct ValidityState<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    element: Dom<Element>,
+    element: Dom<Element<TH>>,
     state: ValidityStatus
 }
 

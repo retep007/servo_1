@@ -30,12 +30,13 @@ use std::sync::{Arc, Mutex};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::{Sender, channel};
 use task::TaskOnce;
+use typeholder::TypeHolderTrait;
 
 pub type TrustedWorkerAddress = Trusted<Worker>;
 
 // https://html.spec.whatwg.org/multipage/#worker
 #[dom_struct]
-pub struct Worker {
+pub struct Worker<TH: TypeHolderTrait> {
     eventtarget: EventTarget,
     #[ignore_malloc_size_of = "Defined in std"]
     /// Sender to the Receiver associated with the DedicatedWorkerGlobalScope
@@ -48,9 +49,9 @@ pub struct Worker {
     terminated: Cell<bool>,
 }
 
-impl Worker {
+impl<TH: TypeHolderTrait> Worker<TH> {
     fn new_inherited(sender: Sender<(TrustedWorkerAddress, WorkerScriptMsg)>,
-                     closing: Arc<AtomicBool>) -> Worker {
+                     closing: Arc<AtomicBool>) -> Worker<TH> {
         Worker {
             eventtarget: EventTarget::new_inherited(),
             sender: sender,
@@ -60,9 +61,9 @@ impl Worker {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                sender: Sender<(TrustedWorkerAddress, WorkerScriptMsg)>,
-               closing: Arc<AtomicBool>) -> DomRoot<Worker> {
+               closing: Arc<AtomicBool>) -> DomRoot<Worker<TH>> {
         reflect_dom_object(Box::new(Worker::new_inherited(sender, closing)),
                            global,
                            WorkerBinding::Wrap)
@@ -70,7 +71,7 @@ impl Worker {
 
     // https://html.spec.whatwg.org/multipage/#dom-worker
     #[allow(unsafe_code)]
-    pub fn Constructor(global: &GlobalScope, script_url: DOMString) -> Fallible<DomRoot<Worker>> {
+    pub fn Constructor(global: &GlobalScope<TH>, script_url: DOMString) -> Fallible<DomRoot<Worker<TH>>> {
         // Step 2-4.
         let worker_url = match global.api_base_url().join(&script_url) {
             Ok(url) => url,
@@ -142,7 +143,7 @@ impl Worker {
     }
 }
 
-impl WorkerMethods for Worker {
+impl<TH> WorkerMethods for Worker<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-worker-postmessage
     unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult {
@@ -178,7 +179,7 @@ impl WorkerMethods for Worker {
     event_handler!(error, GetOnerror, SetOnerror);
 }
 
-impl TaskOnce for SimpleWorkerErrorHandler<Worker> {
+impl<TH> TaskOnce for SimpleWorkerErrorHandler<Worker<TH>> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         Worker::dispatch_simple_error(self.addr);

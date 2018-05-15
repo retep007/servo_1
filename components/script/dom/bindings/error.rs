@@ -87,7 +87,7 @@ pub type Fallible<T> = Result<T, Error>;
 pub type ErrorResult = Fallible<()>;
 
 /// Set a pending exception for the given `result` on `cx`.
-pub unsafe fn throw_dom_exception(cx: *mut JSContext, global: &GlobalScope, result: Error) {
+pub unsafe fn throw_dom_exception(cx: *mut JSContext, global: &GlobalScope<TH>, result: Error) {
     let code = match result {
         Error::IndexSize => DOMErrorName::IndexSizeError,
         Error::NotFound => DOMErrorName::NotFoundError,
@@ -271,7 +271,7 @@ pub unsafe fn throw_invalid_this(cx: *mut JSContext, proto_id: u16) {
 
 impl Error {
     /// Convert this error value to a JS value, consuming it in the process.
-    pub unsafe fn to_jsval(self, cx: *mut JSContext, global: &GlobalScope, rval: MutableHandleValue) {
+    pub unsafe fn to_jsval(self, cx: *mut JSContext, global: &GlobalScope<TH>, rval: MutableHandleValue) {
         assert!(!JS_IsExceptionPending(cx));
         throw_dom_exception(cx, global, self);
         assert!(JS_IsExceptionPending(cx));

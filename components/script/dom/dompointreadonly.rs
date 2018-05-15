@@ -31,13 +31,13 @@ impl DOMPointReadOnly {
         }
     }
 
-    pub fn new(global: &GlobalScope, x: f64, y: f64, z: f64, w: f64) -> DomRoot<DOMPointReadOnly> {
+    pub fn new(global: &GlobalScope<TH>, x: f64, y: f64, z: f64, w: f64) -> DomRoot<DOMPointReadOnly> {
         reflect_dom_object(Box::new(DOMPointReadOnly::new_inherited(x, y, z, w)),
                            global,
                            Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        x: f64,
                        y: f64,
                        z: f64,

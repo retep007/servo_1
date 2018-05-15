@@ -102,12 +102,12 @@ impl FileReader {
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<FileReader> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<FileReader> {
         reflect_dom_object(Box::new(FileReader::new_inherited()),
                            global, FileReaderBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<FileReader>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<FileReader>> {
         Ok(FileReader::new(global))
     }
 

@@ -47,12 +47,12 @@ impl FormData {
         }
     }
 
-    pub fn new(form: Option<&HTMLFormElement>, global: &GlobalScope) -> DomRoot<FormData> {
+    pub fn new(form: Option<&HTMLFormElement>, global: &GlobalScope<TH>) -> DomRoot<FormData> {
         reflect_dom_object(Box::new(FormData::new_inherited(form)),
                            global, FormDataWrap)
     }
 
-    pub fn Constructor(global: &GlobalScope, form: Option<&HTMLFormElement>) -> Fallible<DomRoot<FormData>> {
+    pub fn Constructor(global: &GlobalScope<TH>, form: Option<&HTMLFormElement>) -> Fallible<DomRoot<FormData>> {
         // TODO: Construct form data set for form if it is supplied
         Ok(FormData::new(form, global))
     }

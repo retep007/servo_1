@@ -24,11 +24,11 @@ impl DOMPoint {
         }
     }
 
-    pub fn new(global: &GlobalScope, x: f64, y: f64, z: f64, w: f64) -> DomRoot<DOMPoint> {
+    pub fn new(global: &GlobalScope<TH>, x: f64, y: f64, z: f64, w: f64) -> DomRoot<DOMPoint> {
         reflect_dom_object(Box::new(DOMPoint::new_inherited(x, y, z, w)), global, Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        x: f64,
                        y: f64,
                        z: f64,
@@ -37,7 +37,7 @@ impl DOMPoint {
         Ok(DOMPoint::new(global, x, y, z, w))
     }
 
-    pub fn new_from_init(global: &GlobalScope, p: &DOMPointInit) -> DomRoot<DOMPoint> {
+    pub fn new_from_init(global: &GlobalScope<TH>, p: &DOMPointInit) -> DomRoot<DOMPoint> {
         DOMPoint::new(global, p.x, p.y, p.z, p.w)
     }
 }

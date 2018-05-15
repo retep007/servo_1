@@ -30,20 +30,20 @@ pub struct DOMParser<TH: TypeHolderTrait> {
 }
 
 impl<TH> DOMParser<TH> {
-    fn new_inherited(window: &Window) -> DOMParser {
+    fn new_inherited(window: &Window<TH>) -> DOMParser {
         DOMParser {
             reflector_: Reflector::new(),
             window: Dom::from_ref(window),
         }
     }
 
-    pub fn new(window: &Window) -> DomRoot<DOMParser> {
+    pub fn new(window: &Window<TH>) -> DomRoot<DOMParser> {
         reflect_dom_object(Box::new(DOMParser::new_inherited(window)),
                            window,
                            DOMParserBinding::Wrap)
     }
 
-    pub fn Constructor(window: &Window) -> Fallible<DomRoot<DOMParser>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<DOMParser>> {
         Ok(DOMParser::new(window))
     }
 }

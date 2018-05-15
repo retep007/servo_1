@@ -21,27 +21,28 @@ use dom::workletglobalscope::WorkletGlobalScopeType;
 use dom_struct::dom_struct;
 use script_thread::ScriptThread;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TestWorklet {
+pub struct TestWorklet<TH: TypeHolderTrait> {
     reflector: Reflector,
     worklet: Dom<Worklet>,
 }
 
-impl TestWorklet {
-    fn new_inherited(worklet: &Worklet) -> TestWorklet {
+impl<TH: TypeHolderTrait> TestWorklet<TH> {
+    fn new_inherited(worklet: &Worklet) -> TestWorklet<TH> {
         TestWorklet {
             reflector: Reflector::new(),
             worklet: Dom::from_ref(worklet),
         }
     }
 
-    fn new(window: &Window) -> DomRoot<TestWorklet> {
+    fn new(window: &Window<TH>) -> DomRoot<TestWorklet<TH>> {
         let worklet = Worklet::new(window, WorkletGlobalScopeType::Test);
         reflect_dom_object(Box::new(TestWorklet::new_inherited(&*worklet)), window, Wrap)
     }
 
-    pub fn Constructor(window: &Window) -> Fallible<DomRoot<TestWorklet>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<TestWorklet<TH>>> {
         Ok(TestWorklet::new(window))
     }
 }

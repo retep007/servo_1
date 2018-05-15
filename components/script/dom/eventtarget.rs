@@ -295,13 +295,13 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
         }
     }
 
-    fn new(global: &GlobalScope) -> DomRoot<EventTarget> {
+    fn new(global: &GlobalScope<TH>) -> DomRoot<EventTarget<TH>> {
         reflect_dom_object(Box::new(EventTarget::new_inherited()),
                            global,
                            Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<EventTarget>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<EventTarget<TH>>> {
         Ok(EventTarget::new(global))
     }
 
@@ -400,7 +400,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
                                   ty: &Atom)
                                   -> Option<CommonEventHandler> {
         // Step 1.1
-        let element = self.downcast::<Element>();
+        let element = self.downcast::<Element<TH>>();
         let document = match element {
             Some(element) => document_from_node(element),
             None => self.downcast::<Window<TH>>().unwrap().Document(),

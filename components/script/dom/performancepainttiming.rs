@@ -33,7 +33,7 @@ impl PerformancePaintTiming {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                metric_type: ProgressiveWebMetricType,
                start_time: u64) -> DomRoot<PerformancePaintTiming> {
         let entry = PerformancePaintTiming::new_inherited(metric_type, start_time);

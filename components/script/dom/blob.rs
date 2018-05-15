@@ -77,7 +77,7 @@ pub struct Blob {
 impl Blob {
     #[allow(unrooted_must_root)]
     pub fn new(
-            global: &GlobalScope, blob_impl: BlobImpl, typeString: String)
+            global: &GlobalScope<TH>, blob_impl: BlobImpl, typeString: String)
             -> DomRoot<Blob> {
         let boxed_blob = Box::new(Blob::new_inherited(blob_impl, typeString));
         reflect_dom_object(boxed_blob, global, BlobBinding::Wrap)
@@ -116,7 +116,7 @@ impl Blob {
     }
 
     // https://w3c.github.io/FileAPI/#constructorBlob
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        blobParts: Option<Vec<ArrayBufferOrArrayBufferViewOrBlobOrString>>,
                        blobPropertyBag: &BlobBinding::BlobPropertyBag)
                        -> Fallible<DomRoot<Blob>> {
@@ -301,7 +301,7 @@ impl Drop for Blob {
     }
 }
 
-fn read_file(global: &GlobalScope, id: Uuid) -> Result<Vec<u8>, ()> {
+fn read_file(global: &GlobalScope<TH>, id: Uuid) -> Result<Vec<u8>, ()> {
     let resource_threads = global.resource_threads();
     let (chan, recv) = ipc::channel(global.time_profiler_chan().clone()).map_err(|_|())?;
     let origin = get_blob_origin(&global.get_url());

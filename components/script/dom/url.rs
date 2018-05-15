@@ -42,7 +42,7 @@ impl URL {
         }
     }
 
-    pub fn new(global: &GlobalScope, url: ServoUrl) -> DomRoot<URL> {
+    pub fn new(global: &GlobalScope<TH>, url: ServoUrl) -> DomRoot<URL> {
         reflect_dom_object(Box::new(URL::new_inherited(url)),
                            global, URLBinding::Wrap)
     }
@@ -59,7 +59,7 @@ impl URL {
 
 impl URL {
     // https://url.spec.whatwg.org/#constructors
-    pub fn Constructor(global: &GlobalScope, url: USVString,
+    pub fn Constructor(global: &GlobalScope<TH>, url: USVString,
                        base: Option<USVString>)
                        -> Fallible<DomRoot<URL>> {
         let parsed_base = match base {
@@ -95,7 +95,7 @@ impl URL {
     }
 
     // https://w3c.github.io/FileAPI/#dfn-createObjectURL
-    pub fn CreateObjectURL(global: &GlobalScope, blob: &Blob) -> DOMString {
+    pub fn CreateObjectURL(global: &GlobalScope<TH>, blob: &Blob) -> DOMString {
         // XXX: Second field is an unicode-serialized Origin, it is a temporary workaround
         //      and should not be trusted. See issue https://github.com/servo/servo/issues/11722
         let origin = get_blob_origin(&global.get_url());
@@ -106,7 +106,7 @@ impl URL {
     }
 
     // https://w3c.github.io/FileAPI/#dfn-revokeObjectURL
-    pub fn RevokeObjectURL(global: &GlobalScope, url: DOMString) {
+    pub fn RevokeObjectURL(global: &GlobalScope<TH>, url: DOMString) {
         /*
             If the value provided for the url argument is not a Blob URL OR
             if the value provided for the url argument does not have an entry in the Blob URL Store,

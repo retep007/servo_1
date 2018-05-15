@@ -17,7 +17,7 @@ pub struct SVGElement {
 
 impl SVGElement {
     pub fn new_inherited_with_state(state: ElementState, tag_name: LocalName,
-                                    prefix: Option<Prefix>, document: &Document)
+                                    prefix: Option<Prefix>, document: &Document<TH>)
                                     -> SVGElement {
         SVGElement {
             element:
@@ -28,6 +28,6 @@ impl SVGElement {
 
 impl VirtualMethods for SVGElement {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<Element>() as &VirtualMethods)
+        Some(self.upcast::<Element<TH>>() as &VirtualMethods)
     }
 }

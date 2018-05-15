@@ -31,7 +31,7 @@ impl<TH: TypeHolderTrait> HTMLTitleElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLTitleElement> {
+               document: &Document<TH>) -> DomRoot<HTMLTitleElement> {
         Node::reflect_node(Box::new(HTMLTitleElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTitleElementBinding::Wrap)

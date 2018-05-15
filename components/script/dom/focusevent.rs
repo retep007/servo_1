@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct FocusEvent<TH: TypeHolderTrait> {
     uievent: UIEvent,
-    related_target: MutNullableDom<EventTarget>,
+    related_target: MutNullableDom<EventTarget<TH>>,
 }
 
 impl<TH: TypeHolderTrait> FocusEvent<TH> {
@@ -42,11 +42,11 @@ impl<TH: TypeHolderTrait> FocusEvent<TH> {
                type_: DOMString,
                can_bubble: EventBubbles,
                cancelable: EventCancelable,
-               view: Option<&Window>,
+               view: Option<&Window<TH>>,
                detail: i32,
                related_target: Option<&EventTarget>) -> DomRoot<FocusEvent<TH>> {
         let ev = FocusEvent::new_uninitialized(window);
-        ev.upcast::<UIEvent>().InitUIEvent(type_,
+        ev.upcast::<UIEvent<TH>>().InitUIEvent(type_,
                                            bool::from(can_bubble),
                                            bool::from(cancelable),
                                            view, detail);
@@ -72,7 +72,7 @@ impl<TH: TypeHolderTrait> FocusEvent<TH> {
 
 impl<TH> FocusEventMethods for FocusEvent<TH> {
     // https://w3c.github.io/uievents/#widl-FocusEvent-relatedTarget
-    fn GetRelatedTarget(&self) -> Option<DomRoot<EventTarget>> {
+    fn GetRelatedTarget(&self) -> Option<DomRoot<EventTarget<TH>>> {
         self.related_target.get()
     }
 

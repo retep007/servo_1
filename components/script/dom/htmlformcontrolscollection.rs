@@ -91,7 +91,7 @@ impl<TH: TypeHolderTrait> HTMLFormControlsCollectionMethods for HTMLFormControls
     // https://github.com/servo/servo/issues/5875
     //
     // https://dom.spec.whatwg.org/#dom-htmlcollection-item
-    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element>> {
+    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element<TH>>> {
         self.collection.IndexedGetter(index)
     }
 }

@@ -19,7 +19,7 @@ use style::str::HTML_SPACE_CHARACTERS;
 #[dom_struct]
 pub struct DOMTokenList {
     reflector_: Reflector,
-    element: Dom<Element>,
+    element: Dom<Element<TH>>,
     local_name: LocalName,
 }
 

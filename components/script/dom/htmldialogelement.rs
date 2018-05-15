@@ -25,7 +25,7 @@ pub struct HTMLDialogElement {
 impl HTMLDialogElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLDialogElement {
+                     document: &Document<TH>) -> HTMLDialogElement {
         HTMLDialogElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -36,7 +36,7 @@ impl HTMLDialogElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLDialogElement> {
+               document: &Document<TH>) -> DomRoot<HTMLDialogElement> {
         Node::reflect_node(Box::new(HTMLDialogElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLDialogElementBinding::Wrap)
@@ -63,8 +63,8 @@ impl HTMLDialogElementMethods for HTMLDialogElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-dialog-close
     fn Close(&self, return_value: Option<DOMString>) {
-        let element = self.upcast::<Element>();
-        let target = self.upcast::<EventTarget>();
+        let element = self.upcast::<Element<TH>>();
+        let target = self.upcast::<EventTarget<TH>>();
         let win = window_from_node(self);
 
         // Step 1 & 2

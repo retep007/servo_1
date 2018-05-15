@@ -36,13 +36,13 @@ impl URLSearchParams {
         }
     }
 
-    pub fn new(global: &GlobalScope, url: Option<&URL>) -> DomRoot<URLSearchParams> {
+    pub fn new(global: &GlobalScope<TH>, url: Option<&URL>) -> DomRoot<URLSearchParams> {
         reflect_dom_object(Box::new(URLSearchParams::new_inherited(url)), global,
                            URLSearchParamsWrap)
     }
 
     // https://url.spec.whatwg.org/#dom-urlsearchparams-urlsearchparams
-    pub fn Constructor(global: &GlobalScope, init: Option<USVStringOrURLSearchParams>) ->
+    pub fn Constructor(global: &GlobalScope<TH>, init: Option<USVStringOrURLSearchParams>) ->
                        Fallible<DomRoot<URLSearchParams>> {
         // Step 1.
         let query = URLSearchParams::new(global, None);

@@ -63,7 +63,7 @@
 //! use dom::htmlelement::HTMLElement;
 //! use dom::htmlinputelement::HTMLInputElement;
 //!
-//! if let Some(elem) = node.downcast::<Element> {
+//! if let Some(elem) = node.downcast::<Element<TH>> {
 //!     if elem.is::<HTMLInputElement>() {
 //!         return elem.upcast::<HTMLElement>();
 //!     }

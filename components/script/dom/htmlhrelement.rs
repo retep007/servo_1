@@ -22,7 +22,7 @@ pub struct HTMLHRElement {
 }
 
 impl HTMLHRElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLHRElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLHRElement {
         HTMLHRElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -31,7 +31,7 @@ impl HTMLHRElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLHRElement> {
+               document: &Document<TH>) -> DomRoot<HTMLHRElement> {
         Node::reflect_node(Box::new(HTMLHRElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLHRElementBinding::Wrap)
@@ -67,7 +67,7 @@ impl HTMLHRLayoutHelpers for LayoutDom<HTMLHRElement> {
     #[allow(unsafe_code)]
     fn get_color(&self) -> Option<RGBA> {
         unsafe {
-            (&*self.upcast::<Element>().unsafe_get())
+            (&*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("color"))
                 .and_then(AttrValue::as_color)
                 .cloned()
@@ -77,7 +77,7 @@ impl HTMLHRLayoutHelpers for LayoutDom<HTMLHRElement> {
     #[allow(unsafe_code)]
     fn get_width(&self) -> LengthOrPercentageOrAuto {
         unsafe {
-            (&*self.upcast::<Element>().unsafe_get())
+            (&*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("width"))
                 .map(AttrValue::as_dimension)
                 .cloned()

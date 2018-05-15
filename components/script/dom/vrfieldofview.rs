@@ -29,7 +29,7 @@ impl VRFieldOfView {
         }
     }
 
-    pub fn new(global: &GlobalScope, fov: WebVRFieldOfView) -> DomRoot<VRFieldOfView> {
+    pub fn new(global: &GlobalScope<TH>, fov: WebVRFieldOfView) -> DomRoot<VRFieldOfView> {
         reflect_dom_object(Box::new(VRFieldOfView::new_inherited(fov)),
                            global,
                            VRFieldOfViewBinding::Wrap)

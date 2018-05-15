@@ -47,7 +47,7 @@ impl<TH> TaskSource for UserInteractionTaskSource<TH> {
 
 impl<TH: TypeHolderTrait> UserInteractionTaskSource<TH> {
     pub fn queue_event(&self,
-                       target: &EventTarget,
+                       target: &EventTarget<TH>,
                        name: Atom,
                        bubbles: EventBubbles,
                        cancelable: EventCancelable,

@@ -33,7 +33,7 @@ impl<TH: TypeHolderTrait> BeforeUnloadEvent<TH> {
         }
     }
 
-    pub fn new_uninitialized(window: &Window) -> DomRoot<Self> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(BeforeUnloadEvent::new_inherited()),
                            window,
                            BeforeUnloadEventBinding::Wrap)

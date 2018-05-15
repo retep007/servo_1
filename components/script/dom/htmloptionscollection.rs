@@ -62,7 +62,7 @@ impl<TH> HTMLOptionsCollectionMethods for HTMLOptionsCollection<TH> {
     // https://github.com/servo/servo/issues/5875
     //
     // https://dom.spec.whatwg.org/#dom-htmlcollection-nameditem
-    fn NamedGetter(&self, name: DOMString) -> Option<DomRoot<Element>> {
+    fn NamedGetter(&self, name: DOMString) -> Option<DomRoot<Element<TH>>> {
         self.upcast().NamedItem(name)
     }
 
@@ -76,7 +76,7 @@ impl<TH> HTMLOptionsCollectionMethods for HTMLOptionsCollection<TH> {
     // https://github.com/servo/servo/issues/5875
     //
     // https://dom.spec.whatwg.org/#dom-htmlcollection-item
-    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element>> {
+    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element<TH>>> {
         self.upcast().IndexedGetter(index)
     }
 

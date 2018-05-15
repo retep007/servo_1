@@ -24,7 +24,7 @@ pub struct PromiseNativeHandler {
 }
 
 impl PromiseNativeHandler {
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                resolve: Option<Box<Callback>>,
                reject: Option<Box<Callback>>)
                -> DomRoot<PromiseNativeHandler> {

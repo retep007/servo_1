@@ -28,7 +28,7 @@ pub struct SVGSVGElement {
 impl SVGSVGElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> SVGSVGElement {
+                     document: &Document<TH>) -> SVGSVGElement {
         SVGSVGElement {
             svggraphicselement:
                 SVGGraphicsElement::new_inherited(local_name, prefix, document)
@@ -38,7 +38,7 @@ impl SVGSVGElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<SVGSVGElement> {
+               document: &Document<TH>) -> DomRoot<SVGSVGElement> {
         Node::reflect_node(Box::new(SVGSVGElement::new_inherited(local_name, prefix, document)),
                            document,
                            SVGSVGElementBinding::Wrap)
@@ -55,8 +55,8 @@ impl LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement> {
         unsafe {
             let SVG = &*self.unsafe_get();
 
-            let width_attr = SVG.upcast::<Element>().get_attr_for_layout(&ns!(), &local_name!("width"));
-            let height_attr = SVG.upcast::<Element>().get_attr_for_layout(&ns!(), &local_name!("height"));
+            let width_attr = SVG.upcast::<Element<TH>>().get_attr_for_layout(&ns!(), &local_name!("width"));
+            let height_attr = SVG.upcast::<Element<TH>>().get_attr_for_layout(&ns!(), &local_name!("height"));
             SVGSVGData {
                 width: width_attr.map_or(DEFAULT_WIDTH, |val| val.as_uint()),
                 height: height_attr.map_or(DEFAULT_HEIGHT, |val| val.as_uint()),

@@ -18,7 +18,7 @@ pub struct HTMLOListElement {
 impl HTMLOListElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLOListElement {
+                     document: &Document<TH>) -> HTMLOListElement {
         HTMLOListElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -27,7 +27,7 @@ impl HTMLOListElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLOListElement> {
+               document: &Document<TH>) -> DomRoot<HTMLOListElement> {
         Node::reflect_node(Box::new(HTMLOListElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLOListElementBinding::Wrap)

@@ -26,7 +26,7 @@ pub struct TransitionEvent<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> TransitionEvent<TH> {
-    fn new_inherited(init: &TransitionEventInit) -> TransitionEvent {
+    fn new_inherited(init: &TransitionEventInit) -> TransitionEvent<TH> {
         TransitionEvent {
             event: Event::new_inherited(),
             property_name: Atom::from(init.propertyName.clone()),
@@ -37,7 +37,7 @@ impl<TH: TypeHolderTrait> TransitionEvent<TH> {
 
     pub fn new(window: &Window<TH>,
                type_: Atom,
-               init: &TransitionEventInit) -> DomRoot<TransitionEvent> {
+               init: &TransitionEventInit) -> DomRoot<TransitionEvent<TH>> {
         let ev = reflect_dom_object(Box::new(TransitionEvent::new_inherited(init)),
                                     window,
                                     TransitionEventBinding::Wrap);
@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> TransitionEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &TransitionEventInit) -> Fallible<DomRoot<TransitionEvent>> {
+                       init: &TransitionEventInit) -> Fallible<DomRoot<TransitionEvent<TH>>> {
         Ok(TransitionEvent::new(window, Atom::from(type_), init))
     }
 }

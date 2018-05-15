@@ -47,7 +47,7 @@ pub struct DissimilarOriginWindow {
 impl DissimilarOriginWindow {
     #[allow(unsafe_code)]
     pub fn new(
-        global_to_clone_from: &GlobalScope,
+        global_to_clone_from: &GlobalScope<TH>,
         window_proxy: &WindowProxy,
     ) -> DomRoot<Self> {
         let cx = global_to_clone_from.get_cx();
@@ -75,7 +75,7 @@ impl DissimilarOriginWindow {
     }
 
     pub fn origin(&self) -> &MutableOrigin {
-        self.upcast::<GlobalScope>().origin()
+        self.upcast::<GlobalScope<TH>>().origin()
     }
 }
 

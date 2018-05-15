@@ -115,7 +115,7 @@ impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
         self.get_stylesheet().map(|sheet| {
             self.cssom_stylesheet.or_init(|| {
                 CSSStyleSheet::new(&window_from_node(self),
-                                   self.upcast::<Element>(),
+                                   self.upcast::<Element<TH>>(),
                                    "text/css".into(),
                                    None, // todo handle location
                                    None, // todo handle title
@@ -264,7 +264,7 @@ impl<TH> HTMLLinkElement<TH> {
             }
         };
 
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
 
         // Step 3
         let cors_setting = cors_setting_for_element(element);
@@ -308,7 +308,7 @@ impl<TH> HTMLLinkElement<TH> {
         match document.base_url().join(href) {
             Ok(url) => {
                 let event = ScriptMsg::NewFavicon(url.clone());
-                document.window().upcast::<GlobalScope>().script_to_constellation_chan().send(event).unwrap();
+                document.window().upcast::<GlobalScope<TH>>().script_to_constellation_chan().send(event).unwrap();
             }
             Err(e) => debug!("Parsing url {} failed: {}", href, e)
         }
@@ -367,7 +367,7 @@ impl<TH> HTMLLinkElementMethods for HTMLLinkElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-link-rel
     fn SetRel(&self, rel: DOMString) {
-        self.upcast::<Element>().set_tokenlist_attribute(&local_name!("rel"), rel);
+        self.upcast::<Element<TH>>().set_tokenlist_attribute(&local_name!("rel"), rel);
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-link-media
@@ -419,12 +419,12 @@ impl<TH> HTMLLinkElementMethods for HTMLLinkElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-link-crossorigin
     fn GetCrossOrigin(&self) -> Option<DOMString> {
-        reflect_cross_origin_attribute(self.upcast::<Element>())
+        reflect_cross_origin_attribute(self.upcast::<Element<TH>>())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-link-crossorigin
     fn SetCrossOrigin(&self, value: Option<DOMString>) {
-        set_cross_origin_attribute(self.upcast::<Element>(), value);
+        set_cross_origin_attribute(self.upcast::<Element<TH>>(), value);
     }
 
     // https://drafts.csswg.org/cssom/#dom-linkstyle-sheet

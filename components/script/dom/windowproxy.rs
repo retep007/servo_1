@@ -78,7 +78,7 @@ pub struct WindowProxy<TH: TypeHolderTrait> {
     discarded: Cell<bool>,
 
     /// The containing iframe element, if this is a same-origin iframe
-    frame_element: Option<Dom<Element>>,
+    frame_element: Option<Dom<Element<TH>>>,
 
     /// The parent browsing context's window proxy, if this is a nested browsing context
     parent: Option<Dom<WindowProxy>>,
@@ -88,9 +88,9 @@ impl<TH: TypeHolderTrait> WindowProxy<TH> {
     pub fn new_inherited(browsing_context_id: BrowsingContextId,
                          top_level_browsing_context_id: TopLevelBrowsingContextId,
                          currently_active: Option<PipelineId>,
-                         frame_element: Option<&Element>,
-                         parent: Option<&WindowProxy>)
-                         -> WindowProxy
+                         frame_element: Option<&Element<TH>>,
+                         parent: Option<&WindowProxy<TH>>)
+                         -> WindowProxy<TH>
     {
         let name = frame_element.map_or(DOMString::new(), |e| e.get_string_attribute(&local_name!("name")));
         WindowProxy {
@@ -109,9 +109,9 @@ impl<TH: TypeHolderTrait> WindowProxy<TH> {
     pub fn new(window: &Window<TH>,
                browsing_context_id: BrowsingContextId,
                top_level_browsing_context_id: TopLevelBrowsingContextId,
-               frame_element: Option<&Element>,
-               parent: Option<&WindowProxy>)
-               -> DomRoot<WindowProxy>
+               frame_element: Option<&Element<TH>>,
+               parent: Option<&WindowProxy<TH>>)
+               -> DomRoot<WindowProxy<TH>>
     {
         unsafe {
             let WindowProxyHandler(handler) = window.windowproxy_handler();
@@ -152,11 +152,11 @@ impl<TH: TypeHolderTrait> WindowProxy<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn new_dissimilar_origin(global_to_clone_from: &GlobalScope,
+    pub fn new_dissimilar_origin(global_to_clone_from: &GlobalScope<TH>,
                                  browsing_context_id: BrowsingContextId,
                                  top_level_browsing_context_id: TopLevelBrowsingContextId,
-                                 parent: Option<&WindowProxy>)
-                                 -> DomRoot<WindowProxy>
+                                 parent: Option<&WindowProxy<TH>>)
+                                 -> DomRoot<WindowProxy<TH>>
     {
         unsafe {
             let handler = CreateWrapperProxyHandler(&XORIGIN_PROXY_HANDLER);
@@ -214,15 +214,15 @@ impl<TH: TypeHolderTrait> WindowProxy<TH> {
         self.top_level_browsing_context_id
     }
 
-    pub fn frame_element(&self) -> Option<&Element> {
+    pub fn frame_element(&self) -> Option<&Element<TH>> {
         self.frame_element.r()
     }
 
-    pub fn parent(&self) -> Option<&WindowProxy> {
+    pub fn parent(&self) -> Option<&WindowProxy<TH>> {
         self.parent.r()
     }
 
-    pub fn top(&self) -> &WindowProxy {
+    pub fn top(&self) -> &WindowProxy<TH> {
         let mut result = self;
         while let Some(parent) = result.parent() {
             result = parent;
@@ -234,7 +234,7 @@ impl<TH: TypeHolderTrait> WindowProxy<TH> {
     /// Change the Window that this WindowProxy resolves to.
     // TODO: support setting the window proxy to a dummy value,
     // to handle the case when the active document is in another script thread.
-    fn set_window(&self, window: &GlobalScope, traps: &ProxyTraps) {
+    fn set_window(&self, window: &GlobalScope<TH>, traps: &ProxyTraps) {
         unsafe {
             debug!("Setting window of {:p}.", self);
             let handler = CreateWrapperProxyHandler(traps);
@@ -274,7 +274,7 @@ impl<TH: TypeHolderTrait> WindowProxy<TH> {
         }
     }
 
-    pub fn set_currently_active(&self, window: &Window) {
+    pub fn set_currently_active(&self, window: &Window<TH>) {
         let globalscope = window.upcast();
         self.set_window(&*globalscope, &PROXY_HANDLER);
         self.currently_active.set(Some(globalscope.pipeline_id()));

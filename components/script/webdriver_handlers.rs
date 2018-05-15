@@ -87,7 +87,7 @@ pub fn handle_execute_script<TH: TypeHolderTrait>(documents: &Documents<TH>,
     let result = unsafe {
         let cx = window.get_cx();
         rooted!(in(cx) let mut rval = UndefinedValue());
-        window.upcast::<GlobalScope>().evaluate_js_on_global_with_result(
+        window.upcast::<GlobalScope<TH>>().evaluate_js_on_global_with_result(
             &eval, rval.handle_mut());
         jsval_to_webdriver(cx, rval.handle())
     };
@@ -107,7 +107,7 @@ pub fn handle_execute_async_script<TH: TypeHolderTrait>(documents: &Documents<TH
     let cx = window.get_cx();
     window.set_webdriver_script_chan(Some(reply));
     rooted!(in(cx) let mut rval = UndefinedValue());
-    window.upcast::<GlobalScope>().evaluate_js_on_global_with_result(&eval, rval.handle_mut());
+    window.upcast::<GlobalScope<TH>>().evaluate_js_on_global_with_result(&eval, rval.handle_mut());
 }
 
 pub fn handle_get_browsing_context_id<TH: TypeHolderTrait>(documents: &Documents<TH>,
@@ -190,7 +190,7 @@ pub fn handle_get_cookies<TH: TypeHolderTrait>(documents: &Documents<TH>,
         Some(document) => {
             let url = document.url();
             let (sender, receiver) = ipc::channel().unwrap();
-            let _ = document.window().upcast::<GlobalScope>().resource_threads().send(
+            let _ = document.window().upcast::<GlobalScope<TH>>().resource_threads().send(
                 GetCookiesDataForUrl(url, sender, NonHTTP)
             );
             receiver.recv().unwrap()
@@ -210,7 +210,7 @@ pub fn handle_get_cookie<TH: TypeHolderTrait>(documents: &Documents<TH>,
         Some(document) => {
             let url = document.url();
             let (sender, receiver) = ipc::channel().unwrap();
-            let _ = document.window().upcast::<GlobalScope>().resource_threads().send(
+            let _ = document.window().upcast::<GlobalScope<TH>>().resource_threads().send(
                 GetCookiesDataForUrl(url, sender, NonHTTP)
             );
             receiver.recv().unwrap()
@@ -240,13 +240,13 @@ pub fn handle_add_cookie<TH: TypeHolderTrait>(documents: &Documents<TH>,
     reply.send(match (document.is_cookie_averse(), domain) {
         (true, _) => Err(WebDriverCookieError::InvalidDomain),
         (false, Some(ref domain)) if url.host_str().map(|x| { x == domain }).unwrap_or(false) => {
-            let _ = document.window().upcast::<GlobalScope>().resource_threads().send(
+            let _ = document.window().upcast::<GlobalScope<TH>>().resource_threads().send(
                 SetCookieForUrl(url, Serde(cookie), method)
             );
             Ok(())
         },
         (false, None) => {
-            let _ = document.window().upcast::<GlobalScope>().resource_threads().send(
+            let _ = document.window().upcast::<GlobalScope<TH>>().resource_threads().send(
                 SetCookieForUrl(url, Serde(cookie), method)
             );
             Ok(())
@@ -321,7 +321,7 @@ pub fn handle_get_name<TH: TypeHolderTrait>(documents: &Documents<TH>,
                        reply: IpcSender<Result<String, ()>>) {
     reply.send(match find_node_by_unique_id(documents, pipeline, node_id) {
         Some(node) => {
-            Ok(String::from(node.downcast::<Element>().unwrap().TagName()))
+            Ok(String::from(node.downcast::<Element<TH>>().unwrap().TagName()))
         },
         None => Err(())
     }).unwrap();
@@ -334,7 +334,7 @@ pub fn handle_get_attribute<TH: TypeHolderTrait>(documents: &Documents<TH>,
                             reply: IpcSender<Result<Option<String>, ()>>) {
     reply.send(match find_node_by_unique_id(documents, pipeline, node_id) {
         Some(node) => {
-            Ok(node.downcast::<Element>().unwrap().GetAttribute(DOMString::from(name))
+            Ok(node.downcast::<Element<TH>>().unwrap().GetAttribute(DOMString::from(name))
                .map(String::from))
         },
         None => Err(())
@@ -349,7 +349,7 @@ pub fn handle_get_css<TH: TypeHolderTrait>(documents: &Documents<TH>,
     reply.send(match find_node_by_unique_id(documents, pipeline, node_id) {
         Some(node) => {
             let window = window_from_node(&*node);
-            let elem = node.downcast::<Element>().unwrap();
+            let elem = node.downcast::<Element<TH>>().unwrap();
             Ok(String::from(
                 window.GetComputedStyle(&elem, None).GetPropertyValue(DOMString::from(name))))
         },
@@ -373,7 +373,7 @@ pub fn handle_is_enabled<TH: TypeHolderTrait>(documents: &Documents<TH>,
                          reply: IpcSender<Result<bool, ()>>) {
     reply.send(match find_node_by_unique_id(&documents, pipeline, element_id) {
         Some(ref node) => {
-            match node.downcast::<Element>() {
+            match node.downcast::<Element<TH>>() {
                 Some(elem) => Ok(elem.enabled_state()),
                 None => Err(())
             }

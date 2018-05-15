@@ -19,10 +19,11 @@ use script_thread::ScriptThread;
 use std::cell::Cell;
 use std::mem;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 /// A collection of microtasks in FIFO order.
 #[derive(Default, JSTraceable, MallocSizeOf)]
-pub struct MicrotaskQueue {
+pub struct MicrotaskQueue<TH: TypeHolderTrait> {
     /// The list of enqueued microtasks that will be invoked at the next microtask checkpoint.
     microtask_queue: DomRefCell<Vec<Microtask>>,
     /// <https://html.spec.whatwg.org/multipage/#performing-a-microtask-checkpoint>
@@ -50,7 +51,7 @@ pub struct EnqueuedPromiseCallback {
     pub pipeline: PipelineId,
 }
 
-impl MicrotaskQueue {
+impl<TH: TypeHolderTrait> MicrotaskQueue<TH> {
     /// Add a new microtask to this queue. It will be invoked as part of the next
     /// microtask checkpoint.
     pub fn enqueue(&self, job: Microtask) {
@@ -60,7 +61,7 @@ impl MicrotaskQueue {
     /// <https://html.spec.whatwg.org/multipage/#perform-a-microtask-checkpoint>
     /// Perform a microtask checkpoint, executing all queued microtasks until the queue is empty.
     pub fn checkpoint<F>(&self, target_provider: F)
-        where F: Fn(PipelineId) -> Option<DomRoot<GlobalScope>>
+        where F: Fn(PipelineId) -> Option<DomRoot<GlobalScope<TH>>>
     {
         if self.performing_a_microtask_checkpoint.get() {
             return;

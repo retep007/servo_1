@@ -353,7 +353,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         );
 
         // Step 7.
-        let event_status = event.upcast::<Event>().fire(self.upcast::<EventTarget>());
+        let event_status = event.upcast::<Event>().fire(self.upcast::<EventTarget<TH>>());
 
         // Step 8.
         self.in_error_reporting_mode.set(false);
@@ -632,7 +632,7 @@ fn timestamp_in_ms(time: Timespec) -> u64 {
 
 /// Returns the Rust global scope from a JS global object.
 #[allow(unsafe_code)]
-unsafe fn global_scope_from_global(global: *mut JSObject) -> DomRoot<GlobalScope> {
+unsafe fn global_scope_from_global(global: *mut JSObject) -> DomRoot<GlobalScope<TH>> {
     assert!(!global.is_null());
     let clasp = get_object_class(global);
     assert_ne!(((*clasp).flags & (JSCLASS_IS_DOMJSCLASS | JSCLASS_IS_GLOBAL)), 0);

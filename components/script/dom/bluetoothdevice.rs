@@ -62,7 +62,7 @@ impl BluetoothDevice {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                id: DOMString,
                name: Option<DOMString>,
                context: &Bluetooth)
@@ -184,7 +184,7 @@ impl BluetoothDevice {
                      BluetoothRequest::SetRepresentedToNull(service_ids, characteristic_ids, descriptor_ids));
 
         // Step 8.
-        self.upcast::<EventTarget>().fire_bubbling_event(atom!("gattserverdisconnected"));
+        self.upcast::<EventTarget<TH>>().fire_bubbling_event(atom!("gattserverdisconnected"));
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#garbage-collect-the-connection

@@ -18,7 +18,7 @@ pub struct HTMLModElement {
 impl HTMLModElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLModElement {
+                     document: &Document<TH>) -> HTMLModElement {
         HTMLModElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLModElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLModElement> {
+               document: &Document<TH>) -> DomRoot<HTMLModElement> {
         Node::reflect_node(Box::new(HTMLModElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLModElementBinding::Wrap)

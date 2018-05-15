@@ -30,7 +30,7 @@ pub struct ExtendableMessageEvent {
 }
 
 impl ExtendableMessageEvent {
-    pub fn new(global: &GlobalScope, type_: Atom,
+    pub fn new(global: &GlobalScope<TH>, type_: Atom,
                bubbles: bool, cancelable: bool,
                data: HandleValue, origin: DOMString, lastEventId: DOMString)
                -> DomRoot<ExtendableMessageEvent> {
@@ -54,7 +54,7 @@ impl ExtendableMessageEvent {
                        type_: DOMString,
                        init: RootedTraceableBox<ExtendableMessageEventBinding::ExtendableMessageEventInit>)
                        -> Fallible<DomRoot<ExtendableMessageEvent>> {
-        let global = worker.upcast::<GlobalScope>();
+        let global = worker.upcast::<GlobalScope<TH>>();
         let ev = ExtendableMessageEvent::new(global,
                                              Atom::from(type_),
                                              init.parent.parent.bubbles,
@@ -68,7 +68,7 @@ impl ExtendableMessageEvent {
 
 impl ExtendableMessageEvent {
     pub fn dispatch_jsval(target: &EventTarget,
-                          scope: &GlobalScope,
+                          scope: &GlobalScope<TH>,
                           message: HandleValue) {
         let Extendablemessageevent = ExtendableMessageEvent::new(
             scope, atom!("message"), false, false, message,

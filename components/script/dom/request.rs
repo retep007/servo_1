@@ -51,7 +51,7 @@ pub struct Request {
 }
 
 impl Request {
-    fn new_inherited(global: &GlobalScope,
+    fn new_inherited(global: &GlobalScope<TH>,
                      url: ServoUrl) -> Request {
         Request {
             reflector_: Reflector::new(),
@@ -64,14 +64,14 @@ impl Request {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                url: ServoUrl) -> DomRoot<Request> {
         reflect_dom_object(Box::new(Request::new_inherited(global, url)),
                            global, RequestBinding::Wrap)
     }
 
     // https://fetch.spec.whatwg.org/#dom-request
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        input: RequestInfo,
                        init: RootedTraceableBox<RequestInit>)
                        -> Fallible<DomRoot<Request>> {
@@ -404,7 +404,7 @@ impl Request {
 }
 
 impl Request {
-    fn from_net_request(global: &GlobalScope,
+    fn from_net_request(global: &GlobalScope<TH>,
                         net_request: NetTraitsRequest) -> DomRoot<Request> {
         let r = Request::new(global,
                              net_request.current_url());
@@ -437,7 +437,7 @@ impl Request {
     }
 }
 
-fn net_request_from_global(global: &GlobalScope,
+fn net_request_from_global(global: &GlobalScope<TH>,
                            url: ServoUrl) -> NetTraitsRequest {
     let origin = Origin::Origin(global.get_url().origin());
     let pipeline_id = global.pipeline_id();

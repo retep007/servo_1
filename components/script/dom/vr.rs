@@ -41,7 +41,7 @@ impl VR {
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<VR> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<VR> {
         let root = reflect_dom_object(Box::new(VR::new_inherited()), global, VRBinding::Wrap);
         root.register();
         root
@@ -198,7 +198,7 @@ impl VR {
 
     fn notify_display_event(&self, display: &VRDisplay, event: &WebVRDisplayEvent) {
         let event = VRDisplayEvent::new_from_webvr(&self.global(), &display, &event);
-        event.upcast::<Event>().fire(self.global().upcast::<EventTarget>());
+        event.upcast::<Event>().fire(self.global().upcast::<EventTarget<TH>>());
     }
 }
 

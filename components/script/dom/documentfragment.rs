@@ -34,13 +34,13 @@ impl<TH: TypeHolderTrait> DocumentFragment<TH> {
         }
     }
 
-    pub fn new(document: &Document) -> DomRoot<DocumentFragment<TH>> {
+    pub fn new(document: &Document<TH>) -> DomRoot<DocumentFragment<TH>> {
         Node::reflect_node(Box::new(DocumentFragment::new_inherited(document)),
                            document,
                            DocumentFragmentBinding::Wrap)
     }
 
-    pub fn Constructor(window: &Window) -> Fallible<DomRoot<DocumentFragment<TH>>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         let document = window.Document();
 
         Ok(DocumentFragment::new(&document))
@@ -55,10 +55,10 @@ impl<TH: TypeHolderTrait> DocumentFragmentMethods for DocumentFragment<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-nonelementparentnode-getelementbyid
-    fn GetElementById(&self, id: DOMString) -> Option<DomRoot<Element>> {
+    fn GetElementById(&self, id: DOMString) -> Option<DomRoot<Element<TH>>> {
         let node = self.upcast::<Node<TH>>();
         let id = Atom::from(id);
-        node.traverse_preorder().filter_map(DomRoot::downcast::<Element>).find(|descendant| {
+        node.traverse_preorder().filter_map(DomRoot::downcast::<Element<TH>>).find(|descendant| {
             match descendant.get_attribute(&ns!(), &local_name!("id")) {
                 None => false,
                 Some(attr) => *attr.value().as_atom() == id,
@@ -67,13 +67,13 @@ impl<TH: TypeHolderTrait> DocumentFragmentMethods for DocumentFragment<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-firstelementchild
-    fn GetFirstElementChild(&self) -> Option<DomRoot<Element>> {
+    fn GetFirstElementChild(&self) -> Option<DomRoot<Element<TH>>> {
         self.upcast::<Node<TH>>().child_elements().next()
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-lastelementchild
-    fn GetLastElementChild(&self) -> Option<DomRoot<Element>> {
-        self.upcast::<Node<TH>>().rev_children().filter_map(DomRoot::downcast::<Element>).next()
+    fn GetLastElementChild(&self) -> Option<DomRoot<Element<TH>>> {
+        self.upcast::<Node<TH>>().rev_children().filter_map(DomRoot::downcast::<Element<TH>>).next()
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-childelementcount
@@ -92,7 +92,7 @@ impl<TH: TypeHolderTrait> DocumentFragmentMethods for DocumentFragment<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
-    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element>>> {
+    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
         self.upcast::<Node<TH>>().query_selector(selectors)
     }
 

@@ -131,7 +131,7 @@ impl Bluetooth {
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<Bluetooth> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Bluetooth> {
         reflect_dom_object(Box::new(Bluetooth::new_inherited()),
                            global,
                            BluetoothBinding::Wrap)

@@ -16,7 +16,7 @@ pub struct HTMLEmbedElement {
 }
 
 impl HTMLEmbedElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLEmbedElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLEmbedElement {
         HTMLEmbedElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -25,7 +25,7 @@ impl HTMLEmbedElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLEmbedElement> {
+               document: &Document<TH>) -> DomRoot<HTMLEmbedElement> {
         Node::reflect_node(Box::new(HTMLEmbedElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLEmbedElementBinding::Wrap)

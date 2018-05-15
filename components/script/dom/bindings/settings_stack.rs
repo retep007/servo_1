@@ -24,7 +24,7 @@ enum StackEntryKind {
 #[allow(unrooted_must_root)]
 #[derive(JSTraceable)]
 struct StackEntry {
-    global: Dom<GlobalScope>,
+    global: Dom<GlobalScope<TH>>,
     kind: StackEntryKind,
 }
 
@@ -43,12 +43,12 @@ pub fn is_execution_stack_empty() -> bool {
 
 /// RAII struct that pushes and pops entries from the script settings stack.
 pub struct AutoEntryScript {
-    global: DomRoot<GlobalScope>,
+    global: DomRoot<GlobalScope<TH>>,
 }
 
 impl AutoEntryScript {
     /// <https://html.spec.whatwg.org/multipage/#prepare-to-run-script>
-    pub fn new(global: &GlobalScope) -> Self {
+    pub fn new(global: &GlobalScope<TH>) -> Self {
         STACK.with(|stack| {
             trace!("Prepare to run script with {:p}", global);
             let mut stack = stack.borrow_mut();
@@ -86,7 +86,7 @@ impl Drop for AutoEntryScript {
 /// Returns the ["entry"] global object.
 ///
 /// ["entry"]: https://html.spec.whatwg.org/multipage/#entry
-pub fn entry_global() -> DomRoot<GlobalScope> {
+pub fn entry_global() -> DomRoot<GlobalScope<TH>> {
     STACK.with(|stack| {
         stack.borrow()
              .iter()
@@ -103,7 +103,7 @@ pub struct AutoIncumbentScript {
 
 impl AutoIncumbentScript {
     /// <https://html.spec.whatwg.org/multipage/#prepare-to-run-a-callback>
-    pub fn new(global: &GlobalScope) -> Self {
+    pub fn new(global: &GlobalScope<TH>) -> Self {
         // Step 2-3.
         unsafe {
             let cx = Runtime::get();
@@ -151,7 +151,7 @@ impl Drop for AutoIncumbentScript {
 /// Returns the ["incumbent"] global object.
 ///
 /// ["incumbent"]: https://html.spec.whatwg.org/multipage/#incumbent
-pub fn incumbent_global() -> Option<DomRoot<GlobalScope>> {
+pub fn incumbent_global() -> Option<DomRoot<GlobalScope<TH>>> {
     // https://html.spec.whatwg.org/multipage/#incumbent-settings-object
 
     // Step 1, 3: See what the JS engine has to say. If we've got a scripted

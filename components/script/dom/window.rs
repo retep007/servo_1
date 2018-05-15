@@ -325,11 +325,11 @@ impl<TH> Window<TH> {
         self.js_runtime.borrow().as_ref().unwrap().cx()
     }
 
-    pub fn dom_manipulation_task_source(&self) -> DOMManipulationTaskSource {
+    pub fn dom_manipulation_task_source(&self) -> DOMManipulationTaskSource<TH> {
         self.dom_manipulation_task_source.clone()
     }
 
-    pub fn user_interaction_task_source(&self) -> UserInteractionTaskSource {
+    pub fn user_interaction_task_source(&self) -> UserInteractionTaskSource<TH> {
         self.user_interaction_task_source.clone()
     }
 
@@ -345,7 +345,7 @@ impl<TH> Window<TH> {
         self.file_reading_task_source.clone()
     }
 
-    pub fn performance_timeline_task_source(&self) -> PerformanceTimelineTaskSource {
+    pub fn performance_timeline_task_source(&self) -> PerformanceTimelineTaskSource<TH> {
         self.performance_timeline_task_source.clone()
     }
 
@@ -367,13 +367,13 @@ impl<TH> Window<TH> {
     }
 
     /// This can panic if it is called after the browsing context has been discarded
-    pub fn window_proxy(&self) -> DomRoot<WindowProxy> {
+    pub fn window_proxy(&self) -> DomRoot<WindowProxy<TH>> {
         self.window_proxy.get().unwrap()
     }
 
     /// Returns the window proxy if it has not been discarded.
     /// <https://html.spec.whatwg.org/multipage/#a-browsing-context-is-discarded>
-    pub fn undiscarded_window_proxy(&self) -> Option<DomRoot<WindowProxy>> {
+    pub fn undiscarded_window_proxy(&self) -> Option<DomRoot<WindowProxy<TH>>> {
         self.window_proxy.get()
             .and_then(|window_proxy| if window_proxy.is_browsing_context_discarded() {
                 None
@@ -413,7 +413,7 @@ impl<TH> Window<TH> {
         self.webvr_chan.clone()
     }
 
-    fn new_paint_worklet(&self) -> DomRoot<Worklet> {
+    fn new_paint_worklet(&self) -> DomRoot<Worklet<TH>> {
         debug!("Creating new paint worklet.");
         Worklet::new(self, WorkletGlobalScopeType::Paint)
     }
@@ -562,7 +562,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-window-close
     fn Close(&self) {
         self.main_thread_script_chan()
-            .send(MainThreadScriptMsg::ExitWindow(self.upcast::<GlobalScope>().pipeline_id()))
+            .send(MainThreadScriptMsg::ExitWindow(self.upcast::<GlobalScope<TH>>().pipeline_id()))
             .unwrap();
     }
 
@@ -572,37 +572,37 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-history
-    fn History(&self) -> DomRoot<History> {
+    fn History(&self) -> DomRoot<History<TH>> {
         self.history.or_init(|| History::new(self))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-window-customelements
-    fn CustomElements(&self) -> DomRoot<CustomElementRegistry> {
+    fn CustomElements(&self) -> DomRoot<CustomElementRegistry<TH>> {
         self.custom_element_registry.or_init(|| CustomElementRegistry::new(self))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location
-    fn Location(&self) -> DomRoot<Location> {
+    fn Location(&self) -> DomRoot<Location<TH>> {
         self.location.or_init(|| Location::new(self))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-sessionstorage
-    fn SessionStorage(&self) -> DomRoot<Storage> {
+    fn SessionStorage(&self) -> DomRoot<Storage<TH>> {
         self.session_storage.or_init(|| Storage::new(self, StorageType::Session))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-localstorage
-    fn LocalStorage(&self) -> DomRoot<Storage> {
+    fn LocalStorage(&self) -> DomRoot<Storage<TH>> {
         self.local_storage.or_init(|| Storage::new(self, StorageType::Local))
     }
 
     // https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-GlobalCrypto
     fn Crypto(&self) -> DomRoot<Crypto> {
-        self.upcast::<GlobalScope>().crypto()
+        self.upcast::<GlobalScope<TH>>().crypto()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-frameelement
-    fn GetFrameElement(&self) -> Option<DomRoot<Element>> {
+    fn GetFrameElement(&self) -> Option<DomRoot<Element<TH>>> {
         // Steps 1-3.
         let window_proxy = self.window_proxy.get()?;
 
@@ -628,7 +628,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-settimeout
     unsafe fn SetTimeout(&self, _cx: *mut JSContext, callback: Rc<Function>, timeout: i32,
                          args: Vec<HandleValue>) -> i32 {
-        self.upcast::<GlobalScope>().set_timeout_or_interval(
+        self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::FunctionTimerCallback(callback),
             args,
             timeout,
@@ -639,7 +639,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-settimeout
     unsafe fn SetTimeout_(&self, _cx: *mut JSContext, callback: DOMString,
                           timeout: i32, args: Vec<HandleValue>) -> i32 {
-        self.upcast::<GlobalScope>().set_timeout_or_interval(
+        self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::StringTimerCallback(callback),
             args,
             timeout,
@@ -648,14 +648,14 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-cleartimeout
     fn ClearTimeout(&self, handle: i32) {
-        self.upcast::<GlobalScope>().clear_timeout_or_interval(handle);
+        self.upcast::<GlobalScope<TH>>().clear_timeout_or_interval(handle);
     }
 
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-setinterval
     unsafe fn SetInterval(&self, _cx: *mut JSContext, callback: Rc<Function>,
                           timeout: i32, args: Vec<HandleValue>) -> i32 {
-        self.upcast::<GlobalScope>().set_timeout_or_interval(
+        self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::FunctionTimerCallback(callback),
             args,
             timeout,
@@ -666,7 +666,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-setinterval
     unsafe fn SetInterval_(&self, _cx: *mut JSContext, callback: DOMString,
                            timeout: i32, args: Vec<HandleValue>) -> i32 {
-        self.upcast::<GlobalScope>().set_timeout_or_interval(
+        self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::StringTimerCallback(callback),
             args,
             timeout,
@@ -679,22 +679,22 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-window
-    fn Window(&self) -> DomRoot<WindowProxy> {
+    fn Window(&self) -> DomRoot<WindowProxy<TH>> {
         self.window_proxy()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-self
-    fn Self_(&self) -> DomRoot<WindowProxy> {
+    fn Self_(&self) -> DomRoot<WindowProxy<TH>> {
         self.window_proxy()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-frames
-    fn Frames(&self) -> DomRoot<WindowProxy> {
+    fn Frames(&self) -> DomRoot<WindowProxy<TH>> {
         self.window_proxy()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-parent
-    fn GetParent(&self) -> Option<DomRoot<WindowProxy>> {
+    fn GetParent(&self) -> Option<DomRoot<WindowProxy<TH>>> {
         // Steps 1-3.
         let window_proxy = self.undiscarded_window_proxy()?;
 
@@ -707,7 +707,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-top
-    fn GetTop(&self) -> Option<DomRoot<WindowProxy>> {
+    fn GetTop(&self) -> Option<DomRoot<WindowProxy<TH>>> {
         // Steps 1-3.
         let window_proxy = self.undiscarded_window_proxy()?;
 
@@ -717,9 +717,9 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
 
     // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/
     // NavigationTiming/Overview.html#sec-window.performance-attribute
-    fn Performance(&self) -> DomRoot<Performance> {
+    fn Performance(&self) -> DomRoot<Performance<TH>> {
         self.performance.or_init(|| {
-            let global_scope = self.upcast::<GlobalScope>();
+            let global_scope = self.upcast::<GlobalScope<TH>>();
             Performance::new(global_scope, self.navigation_start.get(),
                              self.navigation_start_precise.get())
         })
@@ -732,7 +732,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     window_event_handlers!();
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Window/screen
-    fn Screen(&self) -> DomRoot<Screen> {
+    fn Screen(&self) -> DomRoot<Screen<TH>> {
         self.screen.or_init(|| Screen::new(self))
     }
 
@@ -834,8 +834,8 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
 
     // https://drafts.csswg.org/cssom/#dom-window-getcomputedstyle
     fn GetComputedStyle(&self,
-                        element: &Element,
-                        pseudo: Option<DOMString>) -> DomRoot<CSSStyleDeclaration> {
+                        element: &Element<TH>,
+                        pseudo: Option<DOMString>) -> DomRoot<CSSStyleDeclaration<TH>> {
         // Steps 1-4.
         let pseudo = match pseudo.map(|mut s| { s.make_ascii_lowercase(); s }) {
             Some(ref pseudo) if pseudo == ":before" || pseudo == "::before" =>
@@ -1004,7 +1004,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     }
 
     // https://drafts.csswg.org/cssom-view/#dom-window-matchmedia
-    fn MatchMedia(&self, query: DOMString) -> DomRoot<MediaQueryList> {
+    fn MatchMedia(&self, query: DOMString) -> DomRoot<MediaQueryList<TH>> {
         let mut input = ParserInput::new(&query);
         let mut parser = Parser::new(&mut input);
         let url = self.get_url();
@@ -1048,7 +1048,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
 
 impl<TH: TypeHolderTrait> Window<TH> {
     // https://drafts.css-houdini.org/css-paint-api-1/#paint-worklet
-    pub fn paint_worklet(&self) -> DomRoot<Worklet> {
+    pub fn paint_worklet(&self) -> DomRoot<Worklet<TH>> {
         self.paint_worklet.or_init(|| self.new_paint_worklet())
     }
 
@@ -1150,7 +1150,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
         //TODO Step 11
         //let document = self.Document();
         // Step 12
-        let global_scope = self.upcast::<GlobalScope>();
+        let global_scope = self.upcast::<GlobalScope<TH>>();
         let x = x.to_f32().unwrap_or(0.0f32);
         let y = y.to_f32().unwrap_or(0.0f32);
         self.update_viewport_for_scroll(x, y);
@@ -1167,7 +1167,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
                             y: f32,
                             scroll_id: ExternalScrollId,
                             _behavior: ScrollBehavior,
-                            _element: Option<&Element>) {
+                            _element: Option<&Element<TH>>) {
         // TODO Step 1
         // TODO(mrobinson, #18709): Add smooth scrolling support to WebRender so that we can
         // properly process ScrollBehavior here.
@@ -1232,7 +1232,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
         let for_display = reflow_goal == ReflowGoal::Full;
         if for_display && self.suppress_reflow.get() {
             debug!("Suppressing reflow pipeline {} for reason {:?} before FirstLoad or RefreshTick",
-                   self.upcast::<GlobalScope>().pipeline_id(), reason);
+                   self.upcast::<GlobalScope<TH>>().pipeline_id(), reason);
             return false;
         }
 
@@ -1249,7 +1249,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
 
         // On debug mode, print the reflow event information.
         if opts::get().relayout_event {
-            debug_reflow_events(self.upcast::<GlobalScope>().pipeline_id(), &reflow_goal, &reason);
+            debug_reflow_events(self.upcast::<GlobalScope<TH>>().pipeline_id(), &reflow_goal, &reason);
         }
 
         let document = self.Document();
@@ -1312,7 +1312,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
             if nodes.iter().find(|n| &***n as *const _ == &*node as *const _).is_none() {
                 let (responder, responder_listener) =
                     ProfiledIpc::channel(self.global().time_profiler_chan().clone()).unwrap();
-                let pipeline = self.upcast::<GlobalScope>().pipeline_id();
+                let pipeline = self.upcast::<GlobalScope<TH>>().pipeline_id();
                 let image_cache_chan = self.image_cache_chan.clone();
                 ROUTER.add_route(responder_listener.to_opaque(), Box::new(move |message| {
                     let _ = image_cache_chan.send((pipeline, message.to().unwrap()));
@@ -1479,7 +1479,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn offset_parent_query(&self, node: TrustedNodeAddress) -> (Option<DomRoot<Element>>, Rect<Au>) {
+    pub fn offset_parent_query(&self, node: TrustedNodeAddress) -> (Option<DomRoot<Element<TH>>>, Rect<Au>) {
         if !self.layout_reflow(QueryMsg::OffsetParentQuery(node)) {
             return (None, Rect::zero());
         }
@@ -1513,7 +1513,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn init_window_proxy(&self, window_proxy: &WindowProxy) {
+    pub fn init_window_proxy(&self, window_proxy: &WindowProxy<TH>) {
         assert!(self.window_proxy.get().is_none());
         self.window_proxy.set(Some(&window_proxy));
     }
@@ -1559,14 +1559,14 @@ impl<TH: TypeHolderTrait> Window<TH> {
                 }
         }
 
-        let pipeline_id = self.upcast::<GlobalScope>().pipeline_id();
+        let pipeline_id = self.upcast::<GlobalScope<TH>>().pipeline_id();
         self.main_thread_script_chan().send(
             MainThreadScriptMsg::Navigate(pipeline_id,
                 LoadData::new(url, Some(pipeline_id), referrer_policy, Some(doc.url())), replace)).unwrap();
     }
 
     pub fn handle_fire_timer(&self, timer_id: TimerEventId) {
-        self.upcast::<GlobalScope>().fire_timer(timer_id);
+        self.upcast::<GlobalScope<TH>>().fire_timer(timer_id);
         self.reflow(ReflowGoal::Full, ReflowReason::Timer);
     }
 
@@ -1642,7 +1642,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
 
     pub fn suspend(&self) {
         // Suspend timer events.
-        self.upcast::<GlobalScope>().suspend();
+        self.upcast::<GlobalScope<TH>>().suspend();
 
         // Set the window proxy to be a cross-origin window.
         if self.window_proxy().currently_active() == Some(self.global().pipeline_id()) {
@@ -1658,7 +1658,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
 
     pub fn resume(&self) {
         // Resume timer events.
-        self.upcast::<GlobalScope>().resume();
+        self.upcast::<GlobalScope<TH>>().resume();
 
         // Set the window proxy to be this object.
         self.window_proxy().set_currently_active(self);
@@ -1716,9 +1716,9 @@ impl<TH: TypeHolderTrait> Window<TH> {
     /// Slow down/speed up timers based on visibility.
     pub fn alter_resource_utilization(&self, visible: bool) {
         if visible {
-            self.upcast::<GlobalScope>().speed_up_timers();
+            self.upcast::<GlobalScope<TH>>().speed_up_timers();
         } else {
-            self.upcast::<GlobalScope>().slow_down_timers();
+            self.upcast::<GlobalScope<TH>>().slow_down_timers();
         }
     }
 
@@ -1734,7 +1734,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
     }
 
     fn send_to_constellation(&self, msg: ScriptMsg) {
-        self.upcast::<GlobalScope>()
+        self.upcast::<GlobalScope<TH>>()
             .script_to_constellation_chan()
             .send(msg)
             .unwrap();
@@ -1745,17 +1745,17 @@ impl<TH: TypeHolderTrait> Window<TH> {
     }
 }
 
-impl Window {
+impl<TH: TypeHolderTrait> Window<TH> {
     #[allow(unsafe_code)]
     pub fn new(
         runtime: Rc<Runtime>,
         script_chan: MainThreadScriptChan,
-        dom_manipulation_task_source: DOMManipulationTaskSource,
-        user_interaction_task_source: UserInteractionTaskSource,
+        dom_manipulation_task_source: DOMManipulationTaskSource<TH>,
+        user_interaction_task_source: UserInteractionTaskSource<TH>,
         networking_task_source: NetworkingTaskSource,
         history_traversal_task_source: HistoryTraversalTaskSource,
         file_reading_task_source: FileReadingTaskSource,
-        performance_timeline_task_source: PerformanceTimelineTaskSource,
+        performance_timeline_task_source: PerformanceTimelineTaskSource<TH>,
         image_cache_chan: Sender<ImageCacheMsg>,
         image_cache: Arc<ImageCache>,
         resource_threads: ResourceThreads,
@@ -1776,7 +1776,7 @@ impl Window {
         navigation_start_precise: u64,
         webgl_chan: Option<WebGLChan>,
         webvr_chan: Option<IpcSender<WebVRMsg>>,
-        microtask_queue: Rc<MicrotaskQueue>,
+        microtask_queue: Rc<MicrotaskQueue<TH>>,
         webrender_document: DocumentId,
     ) -> DomRoot<Self> {
         let layout_rpc: Box<LayoutRPC + Send> = {
@@ -1862,7 +1862,7 @@ impl Window {
     }
 
     pub fn pipeline_id(&self) -> Option<PipelineId> {
-        Some(self.upcast::<GlobalScope>().pipeline_id())
+        Some(self.upcast::<GlobalScope<TH>>().pipeline_id())
     }
 }
 

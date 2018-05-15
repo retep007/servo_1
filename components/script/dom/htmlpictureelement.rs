@@ -18,7 +18,7 @@ pub struct HTMLPictureElement {
 impl HTMLPictureElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLPictureElement {
+                     document: &Document<TH>) -> HTMLPictureElement {
         HTMLPictureElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLPictureElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLPictureElement> {
+               document: &Document<TH>) -> DomRoot<HTMLPictureElement> {
         Node::reflect_node(Box::new(HTMLPictureElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLPictureElementBinding::Wrap)

@@ -16,9 +16,9 @@ use std::default::Default;
 pub fn reflect_dom_object<T, U>(
         obj: Box<T>,
         global: &U,
-        wrap_fn: unsafe fn(*mut JSContext, &GlobalScope, Box<T>) -> DomRoot<T>)
+        wrap_fn: unsafe fn(*mut JSContext, &GlobalScope<TH>, Box<T>) -> DomRoot<T>)
         -> DomRoot<T>
-    where T: DomObject, U: DerivedFrom<GlobalScope>
+    where T: DomObject, U: DerivedFrom<GlobalScope<TH>>
 {
     let global_scope = global.upcast();
     unsafe {
@@ -79,7 +79,7 @@ pub trait DomObject: 'static {
     fn reflector(&self) -> &Reflector;
 
     /// Returns the global scope of the realm that the DomObject was created in.
-    fn global(&self) -> DomRoot<GlobalScope> where Self: Sized {
+    fn global(&self) -> DomRoot<GlobalScope<TH>> where Self: Sized {
         GlobalScope::from_reflector(self)
     }
 }

@@ -19,12 +19,12 @@ use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
 #[dom_struct]
 pub struct OESVertexArrayObject {
     reflector_: Reflector,
-    ctx: Dom<WebGLRenderingContext>,
+    ctx: Dom<WebGLRenderingContext<TH>>,
     bound_vao: MutNullableDom<WebGLVertexArrayObjectOES>,
 }
 
 impl OESVertexArrayObject {
-    fn new_inherited(ctx: &WebGLRenderingContext) -> OESVertexArrayObject {
+    fn new_inherited(ctx: &WebGLRenderingContext<TH>) -> OESVertexArrayObject {
         Self {
             reflector_: Reflector::new(),
             ctx: Dom::from_ref(ctx),
@@ -132,7 +132,7 @@ impl OESVertexArrayObjectMethods for OESVertexArrayObject {
 
 impl WebGLExtension for OESVertexArrayObject {
     type Extension = OESVertexArrayObject;
-    fn new(ctx: &WebGLRenderingContext) -> DomRoot<OESVertexArrayObject> {
+    fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESVertexArrayObject> {
         reflect_dom_object(Box::new(OESVertexArrayObject::new_inherited(ctx)),
                            &*ctx.global(),
                            OESVertexArrayObjectBinding::Wrap)

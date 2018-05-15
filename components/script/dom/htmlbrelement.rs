@@ -16,7 +16,7 @@ pub struct HTMLBRElement {
 }
 
 impl HTMLBRElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLBRElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLBRElement {
         HTMLBRElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -25,7 +25,7 @@ impl HTMLBRElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLBRElement> {
+               document: &Document<TH>) -> DomRoot<HTMLBRElement> {
         Node::reflect_node(Box::new(HTMLBRElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLBRElementBinding::Wrap)

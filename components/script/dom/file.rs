@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> File<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(global: &GlobalScope, blob_impl: BlobImpl,
+    pub fn new(global: &GlobalScope<TH>, blob_impl: BlobImpl,
                name: DOMString, modified: Option<i64>, typeString: &str) -> DomRoot<File> {
         reflect_dom_object(Box::new(File::new_inherited(blob_impl, name, modified, typeString)),
                            global,
@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> File<TH> {
     }
 
     // https://w3c.github.io/FileAPI/#file-constructor
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        fileBits: Vec<ArrayBufferOrArrayBufferViewOrBlobOrString>,
                        filename: DOMString,
                        filePropertyBag: &FileBinding::FilePropertyBag)

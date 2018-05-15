@@ -76,7 +76,7 @@ impl VRPose {
         }
     }
 
-    pub fn new(global: &GlobalScope, pose: &webvr::VRPose) -> DomRoot<VRPose> {
+    pub fn new(global: &GlobalScope<TH>, pose: &webvr::VRPose) -> DomRoot<VRPose> {
         let root = reflect_dom_object(Box::new(VRPose::new_inherited()),
                                       global,
                                       VRPoseBinding::Wrap);

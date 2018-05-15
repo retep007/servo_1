@@ -49,7 +49,7 @@ impl PerformanceObserver {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                callback: Rc<PerformanceObserverCallback>,
                entries: DOMPerformanceEntryList)
         -> DomRoot<PerformanceObserver> {
@@ -57,7 +57,7 @@ impl PerformanceObserver {
         reflect_dom_object(Box::new(observer), global, PerformanceObserverBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope, callback: Rc<PerformanceObserverCallback>)
+    pub fn Constructor(global: &GlobalScope<TH>, callback: Rc<PerformanceObserverCallback>)
         -> Fallible<DomRoot<PerformanceObserver>> {
         Ok(PerformanceObserver::new(global, callback, Vec::new()))
     }

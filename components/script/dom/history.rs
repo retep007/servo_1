@@ -70,7 +70,7 @@ impl<TH> History<TH> {
             return Err(Error::Security);
         }
         let msg = ScriptMsg::TraverseHistory(direction);
-        let _ = self.window.upcast::<GlobalScope>().script_to_constellation_chan().send(msg);
+        let _ = self.window.upcast::<GlobalScope<TH>>().script_to_constellation_chan().send(msg);
         Ok(())
     }
 
@@ -95,7 +95,7 @@ impl<TH> History<TH> {
             Some(state_id) => {
                 let (tx, rx) = ipc::channel(self.global().time_profiler_chan().clone()).unwrap();
                 let _ = self.window
-                    .upcast::<GlobalScope>()
+                    .upcast::<GlobalScope<TH>>()
                     .resource_threads()
                     .send(CoreResourceMsg::GetHistoryState(state_id, tx));
                 rx.recv().unwrap()
@@ -105,7 +105,7 @@ impl<TH> History<TH> {
 
         match serialized_data {
             Some(serialized_data) => {
-                let global_scope = self.window.upcast::<GlobalScope>();
+                let global_scope = self.window.upcast::<GlobalScope<TH>>();
                 rooted!(in(global_scope.get_cx()) let mut state = UndefinedValue());
                 StructuredCloneData::Vector(serialized_data).read(&global_scope, state.handle_mut());
                 self.state.set(state.get());
@@ -119,7 +119,7 @@ impl<TH> History<TH> {
         // Step 16.1
         if state_changed {
             PopStateEvent::dispatch_jsval(
-                self.window.upcast::<EventTarget>(),
+                self.window.upcast::<EventTarget<TH>>(),
                 &*self.window,
                 unsafe { self.state.handle() }
             );
@@ -134,13 +134,13 @@ impl<TH> History<TH> {
                 false,
                 old_url.into_string(),
                 url.into_string());
-            event.upcast::<Event>().fire(self.window.upcast::<EventTarget>());
+            event.upcast::<Event>().fire(self.window.upcast::<EventTarget<TH>>());
         }
     }
 
     pub fn remove_states(&self, states: Vec<HistoryStateId>) {
         let _ = self.window
-            .upcast::<GlobalScope>()
+            .upcast::<GlobalScope<TH>>()
             .resource_threads()
             .send(CoreResourceMsg::RemoveHistoryStates(states));
     }
@@ -211,7 +211,7 @@ impl<TH> History<TH> {
                 let state_id = HistoryStateId::new();
                 self.state_id.set(Some(state_id));
                 let msg = ScriptMsg::PushHistoryState(state_id, new_url.clone());
-                let _ = self.window.upcast::<GlobalScope>().script_to_constellation_chan().send(msg);
+                let _ = self.window.upcast::<GlobalScope<TH>>().script_to_constellation_chan().send(msg);
                 state_id
             },
             PushOrReplace::Replace => {
@@ -224,13 +224,13 @@ impl<TH> History<TH> {
                     },
                 };
                 let msg = ScriptMsg::ReplaceHistoryState(state_id, new_url.clone());
-                let _ = self.window.upcast::<GlobalScope>().script_to_constellation_chan().send(msg);
+                let _ = self.window.upcast::<GlobalScope<TH>>().script_to_constellation_chan().send(msg);
                 state_id
             },
         };
 
         let _ = self.window
-            .upcast::<GlobalScope>()
+            .upcast::<GlobalScope<TH>>()
             .resource_threads()
             .send(CoreResourceMsg::SetHistoryState(state_id, serialized_data.clone()));
 
@@ -242,7 +242,7 @@ impl<TH> History<TH> {
         document.set_url(new_url);
 
         // Step 11
-        let global_scope = self.window.upcast::<GlobalScope>();
+        let global_scope = self.window.upcast::<GlobalScope<TH>>();
         rooted!(in(cx) let mut state = UndefinedValue());
         StructuredCloneData::Vector(serialized_data).read(&global_scope, state.handle_mut());
 
@@ -274,7 +274,7 @@ impl HistoryMethods for History {
         let (sender, recv) =
             channel(self.global().time_profiler_chan().clone()).expect("Failed to create channel to send jsh length.");
         let msg = ScriptMsg::JointSessionHistoryLength(sender);
-        let _ = self.window.upcast::<GlobalScope>().script_to_constellation_chan().send(msg);
+        let _ = self.window.upcast::<GlobalScope<TH>>().script_to_constellation_chan().send(msg);
         Ok(recv.recv().unwrap())
     }
 

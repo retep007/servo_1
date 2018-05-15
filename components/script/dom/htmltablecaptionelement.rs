@@ -18,7 +18,7 @@ pub struct HTMLTableCaptionElement {
 impl HTMLTableCaptionElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLTableCaptionElement {
+                     document: &Document<TH>) -> HTMLTableCaptionElement {
         HTMLTableCaptionElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLTableCaptionElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLTableCaptionElement> {
+               document: &Document<TH>) -> DomRoot<HTMLTableCaptionElement> {
         Node::reflect_node(Box::new(HTMLTableCaptionElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTableCaptionElementBinding::Wrap)

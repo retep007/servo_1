@@ -78,7 +78,7 @@ pub fn synthetic_click_activation<TH: TypeHolderTrait>(element: &Element<TH>,
     // Step 4
     // https://html.spec.whatwg.org/multipage/#fire-a-synthetic-mouse-event
     let win = window_from_node(element);
-    let target = element.upcast::<EventTarget>();
+    let target = element.upcast::<EventTarget<TH>>();
     let mouse = MouseEvent::new(&win,
                                 DOMString::from("click"),
                                 EventBubbles::DoesNotBubble,

@@ -83,7 +83,7 @@ pub struct Worklet<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> Worklet<TH> {
-    fn new_inherited(window: &Window<TH>, global_type: WorkletGlobalScopeType) -> Worklet {
+    fn new_inherited(window: &Window<TH>, global_type: WorkletGlobalScopeType) -> Worklet<TH> {
         Worklet {
             reflector: Reflector::new(),
             window: Dom::from_ref(window),
@@ -92,7 +92,7 @@ impl<TH: TypeHolderTrait> Worklet<TH> {
         }
     }
 
-    pub fn new(window: &Window<TH>, global_type: WorkletGlobalScopeType) -> DomRoot<Worklet> {
+    pub fn new(window: &Window<TH>, global_type: WorkletGlobalScopeType) -> DomRoot<Worklet<TH>> {
         debug!("Creating worklet {:?}.", global_type);
         reflect_dom_object(Box::new(Worklet::new_inherited(window, global_type)), window, Wrap)
     }
@@ -128,7 +128,7 @@ impl<TH> WorkletMethods for Worklet<TH> {
 
         // Steps 6-12 in parallel.
         let pending_tasks_struct = PendingTasksStruct::new();
-        let global = self.window.upcast::<GlobalScope>();
+        let global = self.window.upcast::<GlobalScope<TH>>();
         let pool = ScriptThread::worklet_thread_pool();
 
         pool.fetch_and_invoke_a_worklet_script(global.pipeline_id(),

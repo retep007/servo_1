@@ -71,7 +71,7 @@ impl<TH: TypeHolderTrait> HTMLStyleElement<TH> {
 
     pub fn parse_own_css(&self) {
         let node = self.upcast::<Node<TH>>();
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         assert!(node.is_in_doc());
 
         let window = window_from_node(node);
@@ -133,7 +133,7 @@ impl<TH: TypeHolderTrait> HTMLStyleElement<TH> {
         self.get_stylesheet().map(|sheet| {
             self.cssom_stylesheet.or_init(|| {
                 CSSStyleSheet::new(&window_from_node(self),
-                                   self.upcast::<Element>(),
+                                   self.upcast::<Element<TH>>(),
                                    "text/css".into(),
                                    None, // todo handle location
                                    None, // todo handle title

@@ -124,7 +124,7 @@ impl CanvasContextState {
 }
 
 impl<TH: TypeHolderTrait> CanvasRenderingContext2D<TH> {
-    pub fn new_inherited(global: &GlobalScope,
+    pub fn new_inherited(global: &GlobalScope<TH>,
                          canvas: Option<&HTMLCanvasElement>,
                          image_cache: Arc<ImageCache>,
                          base_url: ServoUrl,
@@ -151,7 +151,7 @@ impl<TH: TypeHolderTrait> CanvasRenderingContext2D<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                canvas: &HTMLCanvasElement,
                size: Size2D<i32>)
                -> DomRoot<Self> {
@@ -544,7 +544,7 @@ impl<TH: TypeHolderTrait> CanvasRenderingContext2D<TH> {
                         Some(ref canvas) => &**canvas,
                     };
 
-                    let canvas_element = canvas.upcast::<Element>();
+                    let canvas_element = canvas.upcast::<Element<TH>>();
 
                     match canvas_element.style() {
                         Some(ref s) if canvas_element.has_css_layout_box() => Ok(s.get_color().color),

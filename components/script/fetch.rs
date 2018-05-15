@@ -119,7 +119,7 @@ fn request_init_from_request(request: NetTraitsRequest) -> NetTraitsRequestInit 
 
 // https://fetch.spec.whatwg.org/#fetch-method
 #[allow(unrooted_must_root)]
-pub fn Fetch(global: &GlobalScope, input: RequestInfo, init: RootedTraceableBox<RequestInit>) -> Rc<Promise> {
+pub fn Fetch(global: &GlobalScope<TH>, input: RequestInfo, init: RootedTraceableBox<RequestInit>) -> Rc<Promise> {
     let core_resource_thread = global.core_resource_thread();
 
     // Step 1

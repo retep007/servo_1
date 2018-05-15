@@ -342,14 +342,14 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
         // Fire image.onload and loadend
         if trigger_image_load {
             // TODO: https://html.spec.whatwg.org/multipage/#fire-a-progress-event-or-event
-            self.upcast::<EventTarget>().fire_event(atom!("load"));
-            self.upcast::<EventTarget>().fire_event(atom!("loadend"));
+            self.upcast::<EventTarget<TH>>().fire_event(atom!("load"));
+            self.upcast::<EventTarget<TH>>().fire_event(atom!("loadend"));
         }
 
         // Fire image.onerror
         if trigger_image_error {
-            self.upcast::<EventTarget>().fire_event(atom!("error"));
-            self.upcast::<EventTarget>().fire_event(atom!("loadend"));
+            self.upcast::<EventTarget<TH>>().fire_event(atom!("error"));
+            self.upcast::<EventTarget<TH>>().fire_event(atom!("loadend"));
         }
 
         // Trigger reflow
@@ -371,7 +371,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
 
     /// <https://html.spec.whatwg.org/multipage/#update-the-source-set>
     fn update_source_set(&self) -> Vec<DOMString> {
-        let elem = self.upcast::<Element>();
+        let elem = self.upcast::<Element<TH>>();
         // TODO: follow the algorithm
         let src = elem.get_string_attribute(&local_name!("src"));
         if src.is_empty() {
@@ -467,8 +467,8 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
                             current_request.source_url = None;
                             current_request.parsed_url = None;
                         }
-                        if this.upcast::<Element>().has_attribute(&local_name!("src")) {
-                            this.upcast::<EventTarget>().fire_event(atom!("error"));
+                        if this.upcast::<Element<TH>>().has_attribute(&local_name!("src")) {
+                            this.upcast::<EventTarget<TH>>().fire_event(atom!("error"));
                         }
                         // FIXME(nox): According to the spec, setting the current
                         // request to the broken state is done prior to queuing a
@@ -482,7 +482,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
             },
         };
         // Step 10.
-        let target = Trusted::new(self.upcast::<EventTarget>());
+        let target = Trusted::new(self.upcast::<EventTarget<TH>>());
         // FIXME(nox): Why are errors silenced here?
         let _ = task_source.queue(
             task!(fire_progress_event: move || {
@@ -521,8 +521,8 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
                                 this.current_request.borrow_mut();
                             current_request.source_url = Some(src.into());
                         }
-                        this.upcast::<EventTarget>().fire_event(atom!("error"));
-                        this.upcast::<EventTarget>().fire_event(atom!("loadend"));
+                        this.upcast::<EventTarget<TH>>().fire_event(atom!("error"));
+                        this.upcast::<EventTarget<TH>>().fire_event(atom!("loadend"));
 
                         // FIXME(nox): According to the spec, setting the current
                         // request to the broken state is done prior to queuing a
@@ -540,7 +540,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
     fn update_the_image_data(&self) {
         let document = document_from_node(self);
         let window = document.window();
-        let elem = self.upcast::<Element>();
+        let elem = self.upcast::<Element<TH>>();
         let src = elem.get_string_attribute(&local_name!("src"));
         let base_url = document.base_url();
 
@@ -592,7 +592,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
                                 current_request.source_url = Some(src.into());
                             }
                             // TODO: restart animation, if set.
-                            this.upcast::<EventTarget>().fire_event(atom!("load"));
+                            this.upcast::<EventTarget<TH>>().fire_event(atom!("load"));
                         }),
                         window.upcast(),
                     );
@@ -660,7 +660,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
         Ok(image)
     }
     pub fn areas(&self) -> Option<Vec<DomRoot<HTMLAreaElement>>> {
-        let elem = self.upcast::<Element>();
+        let elem = self.upcast::<Element<TH>>();
         let usemap_attr = elem.get_attribute(&ns!(), &local_name!("usemap"))?;
 
         let value = usemap_attr.value();
@@ -678,7 +678,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
         let useMapElements = document_from_node(self).upcast::<Node<TH>>()
                                 .traverse_preorder()
                                 .filter_map(DomRoot::downcast::<HTMLMapElement>)
-                                .find(|n| n.upcast::<Element>().get_string_attribute(&LocalName::from("name")) == last);
+                                .find(|n| n.upcast::<Element<TH>>().get_string_attribute(&LocalName::from("name")) == last);
 
         useMapElements.map(|mapElem| mapElem.get_area_elements())
     }
@@ -739,7 +739,7 @@ impl<TH> LayoutHTMLImageElementHelpers for LayoutDom<HTMLImageElement<TH>> {
     #[allow(unsafe_code)]
     fn get_width(&self) -> LengthOrPercentageOrAuto {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("width"))
                 .map(AttrValue::as_dimension)
                 .cloned()
@@ -750,7 +750,7 @@ impl<TH> LayoutHTMLImageElementHelpers for LayoutDom<HTMLImageElement<TH>> {
     #[allow(unsafe_code)]
     fn get_height(&self) -> LengthOrPercentageOrAuto {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("height"))
                 .map(AttrValue::as_dimension)
                 .cloned()
@@ -827,12 +827,12 @@ impl<TH: TypeHolderTrait> HTMLImageElementMethods for HTMLImageElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-img-crossOrigin
     fn GetCrossOrigin(&self) -> Option<DOMString> {
-        reflect_cross_origin_attribute(self.upcast::<Element>())
+        reflect_cross_origin_attribute(self.upcast::<Element<TH>>())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-img-crossOrigin
     fn SetCrossOrigin(&self, value: Option<DOMString>) {
-        set_cross_origin_attribute(self.upcast::<Element>(), value);
+        set_cross_origin_attribute(self.upcast::<Element<TH>>(), value);
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-img-usemap
@@ -895,7 +895,7 @@ impl<TH: TypeHolderTrait> HTMLImageElementMethods for HTMLImageElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-img-complete
     fn Complete(&self) -> bool {
-        let elem = self.upcast::<Element>();
+        let elem = self.upcast::<Element<TH>>();
         // TODO: take srcset into account
         if !elem.has_attribute(&local_name!("src")) {
             return true
@@ -963,7 +963,7 @@ impl VirtualMethods for HTMLImageElement {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }
 
-    fn adopting_steps(&self, old_doc: &Document) {
+    fn adopting_steps(&self, old_doc: &Document<TH>) {
         self.super_type().unwrap().adopting_steps(old_doc);
         self.update_the_image_data();
     }
@@ -1004,7 +1004,7 @@ impl VirtualMethods for HTMLImageElement {
 
        let point = Point2D::new(mouse_event.ClientX().to_f32().unwrap(),
                                 mouse_event.ClientY().to_f32().unwrap());
-       let bcr = self.upcast::<Element>().GetBoundingClientRect();
+       let bcr = self.upcast::<Element<TH>>().GetBoundingClientRect();
        let bcr_p = Point2D::new(bcr.X() as f32, bcr.Y() as f32);
 
        // Walk HTMLAreaElements
@@ -1032,7 +1032,7 @@ impl FormControl for HTMLImageElement {
     }
 
     fn to_element<'a>(&'a self) -> &'a Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 
     fn is_listed(&self) -> bool {

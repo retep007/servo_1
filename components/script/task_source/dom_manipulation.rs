@@ -47,7 +47,7 @@ impl<TH> TaskSource for DOMManipulationTaskSource<TH> {
 
 impl<TH: TypeHolderTrait> DOMManipulationTaskSource<TH> {
     pub fn queue_event(&self,
-                       target: &EventTarget,
+                       target: &EventTarget<TH>,
                        name: Atom,
                        bubbles: EventBubbles,
                        cancelable: EventCancelable,
@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> DOMManipulationTaskSource<TH> {
         let _ = self.queue(task, window.upcast());
     }
 
-    pub fn queue_simple_event(&self, target: &EventTarget, name: Atom, window: &Window<TH>) {
+    pub fn queue_simple_event(&self, target: &EventTarget<TH>, name: Atom, window: &Window<TH>) {
         let target = Trusted::new(target);
         let _ = self.queue(SimpleEventTask { target, name }, window.upcast());
     }

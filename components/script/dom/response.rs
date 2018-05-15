@@ -66,11 +66,11 @@ impl Response {
     }
 
     // https://fetch.spec.whatwg.org/#dom-response
-    pub fn new(global: &GlobalScope) -> DomRoot<Response> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Response> {
         reflect_dom_object(Box::new(Response::new_inherited()), global, ResponseBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope, body: Option<BodyInit>, init: &ResponseBinding::ResponseInit)
+    pub fn Constructor(global: &GlobalScope<TH>, body: Option<BodyInit>, init: &ResponseBinding::ResponseInit)
                        -> Fallible<DomRoot<Response>> {
         // Step 1
         if init.status < 200 || init.status > 599 {
@@ -138,7 +138,7 @@ impl Response {
     }
 
     // https://fetch.spec.whatwg.org/#dom-response-error
-    pub fn Error(global: &GlobalScope) -> DomRoot<Response> {
+    pub fn Error(global: &GlobalScope<TH>) -> DomRoot<Response> {
         let r = Response::new(global);
         *r.response_type.borrow_mut() = DOMResponseType::Error;
         r.Headers().set_guard(Guard::Immutable);
@@ -147,7 +147,7 @@ impl Response {
     }
 
     // https://fetch.spec.whatwg.org/#dom-response-redirect
-    pub fn Redirect(global: &GlobalScope, url: USVString, status: u16) -> Fallible<DomRoot<Response>> {
+    pub fn Redirect(global: &GlobalScope<TH>, url: USVString, status: u16) -> Fallible<DomRoot<Response>> {
         // Step 1
         let base_url = global.api_base_url();
         let parsed_url = base_url.join(&url.0);

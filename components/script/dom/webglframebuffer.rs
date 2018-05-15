@@ -22,14 +22,14 @@ use typeholder::TypeHolderTrait;
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
 enum WebGLFramebufferAttachment {
-    Renderbuffer(Dom<WebGLRenderbuffer>),
-    Texture { texture: Dom<WebGLTexture>, level: i32 },
+    Renderbuffer(Dom<WebGLRenderbuffer<TH>>),
+    Texture { texture: Dom<WebGLTexture<TH>>, level: i32 },
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
 pub enum WebGLFramebufferAttachmentRoot {
-    Renderbuffer(DomRoot<WebGLRenderbuffer>),
-    Texture(DomRoot<WebGLTexture>),
+    Renderbuffer(DomRoot<WebGLRenderbuffer<TH>>),
+    Texture(DomRoot<WebGLTexture<TH>>),
 }
 
 #[dom_struct]
@@ -55,7 +55,7 @@ pub struct WebGLFramebuffer<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLFramebufferId)
-                     -> WebGLFramebuffer {
+                     -> WebGLFramebuffer<TH> {
         WebGLFramebuffer {
             webgl_object: WebGLObject::new_inherited(),
             id: id,
@@ -72,7 +72,7 @@ impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
     }
 
     pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
-                     -> Option<DomRoot<WebGLFramebuffer>> {
+                     -> Option<DomRoot<WebGLFramebuffer<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateFramebuffer(sender)).unwrap();
 
@@ -83,7 +83,7 @@ impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
     pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLFramebufferId)
-               -> DomRoot<WebGLFramebuffer> {
+               -> DomRoot<WebGLFramebuffer<TH>> {
         reflect_dom_object(Box::new(WebGLFramebuffer::new_inherited(renderer, id)),
                            window,
                            WebGLFramebufferBinding::Wrap)
@@ -190,7 +190,7 @@ impl<TH> WebGLFramebuffer<TH> {
         return self.status.get();
     }
 
-    pub fn renderbuffer(&self, attachment: u32, rb: Option<&WebGLRenderbuffer>) -> WebGLResult<()> {
+    pub fn renderbuffer(&self, attachment: u32, rb: Option<&WebGLRenderbuffer<TH>>) -> WebGLResult<()> {
         let binding = match attachment {
             constants::COLOR_ATTACHMENT0 => &self.color,
             constants::DEPTH_ATTACHMENT => &self.depth,
@@ -239,7 +239,7 @@ impl<TH> WebGLFramebuffer<TH> {
         })
     }
 
-    pub fn texture2d(&self, attachment: u32, textarget: u32, texture: Option<&WebGLTexture>,
+    pub fn texture2d(&self, attachment: u32, textarget: u32, texture: Option<&WebGLTexture<TH>>,
                      level: i32) -> WebGLResult<()> {
         let binding = match attachment {
             constants::COLOR_ATTACHMENT0 => &self.color,
@@ -339,7 +339,7 @@ impl<TH> WebGLFramebuffer<TH> {
         }
     }
 
-    fn with_matching_textures<F>(&self, texture: &WebGLTexture, mut closure: F)
+    fn with_matching_textures<F>(&self, texture: &WebGLProgram<TH>, mut closure: F)
         where F: FnMut(&DomRefCell<Option<WebGLFramebufferAttachment>>)
     {
         let attachments = [&self.color,
@@ -362,27 +362,27 @@ impl<TH> WebGLFramebuffer<TH> {
         }
     }
 
-    pub fn detach_renderbuffer(&self, rb: &WebGLRenderbuffer) {
+    pub fn detach_renderbuffer(&self, rb: &WebGLRenderbuffer<TH>) {
         self.with_matching_renderbuffers(rb, |att| {
             *att.borrow_mut() = None;
             self.update_status();
         });
     }
 
-    pub fn detach_texture(&self, texture: &WebGLTexture) {
+    pub fn detach_texture(&self, texture: &WebGLTexture<TH>) {
         self.with_matching_textures(texture, |att| {
             *att.borrow_mut() = None;
             self.update_status();
         });
     }
 
-    pub fn invalidate_renderbuffer(&self, rb: &WebGLRenderbuffer) {
+    pub fn invalidate_renderbuffer(&self, rb: &WebGLRenderbuffer<TH>) {
         self.with_matching_renderbuffers(rb, |_att| {
             self.update_status();
         });
     }
 
-    pub fn invalidate_texture(&self, texture: &WebGLTexture) {
+    pub fn invalidate_texture(&self, texture: &WebGLTexture<TH>) {
         self.with_matching_textures(texture, |_att| {
             self.update_status();
         });

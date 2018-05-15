@@ -43,7 +43,7 @@ pub struct HTMLAnchorElement<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLAnchorElement<TH> {
+                     document: &Document<TH>) -> HTMLAnchorElement<TH> {
         HTMLAnchorElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLAnchorElement<TH>> {
+               document: &Document<TH>) -> DomRoot<HTMLAnchorElement<TH>> {
         Node::reflect_node(Box::new(HTMLAnchorElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLAnchorElementBinding::Wrap)
@@ -63,7 +63,7 @@ impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#concept-hyperlink-url-set
     fn set_url(&self) {
-        let attribute = self.upcast::<Element>().get_attribute(&ns!(), &local_name!("href"));
+        let attribute = self.upcast::<Element<TH>>().get_attribute(&ns!(), &local_name!("href"));
         *self.url.borrow_mut() = attribute.and_then(|attribute| {
             let document = document_from_node(self);
             document.base_url().join(&attribute.value()).ok()
@@ -84,7 +84,7 @@ impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#update-href
     fn update_href(&self, url: DOMString) {
-        self.upcast::<Element>().set_string_attribute(&local_name!("href"), url);
+        self.upcast::<Element<TH>>().set_string_attribute(&local_name!("href"), url);
     }
 }
 
@@ -117,7 +117,7 @@ impl<TH> HTMLAnchorElementMethods for HTMLAnchorElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-a-rel
     fn SetRel(&self, rel: DOMString) {
-        self.upcast::<Element>().set_tokenlist_attribute(&local_name!("rel"), rel);
+        self.upcast::<Element<TH>>().set_tokenlist_attribute(&local_name!("rel"), rel);
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-a-rellist
@@ -271,7 +271,7 @@ impl<TH> HTMLAnchorElementMethods for HTMLAnchorElement<TH> {
 
         USVString(match *self.url.borrow() {
             None => {
-                match self.upcast::<Element>().get_attribute(&ns!(), &local_name!("href")) {
+                match self.upcast::<Element<TH>>().get_attribute(&ns!(), &local_name!("href")) {
                     // Step 3.
                     None => String::new(),
                     // Step 4.
@@ -285,7 +285,7 @@ impl<TH> HTMLAnchorElementMethods for HTMLAnchorElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-hyperlink-href
     fn SetHref(&self, value: USVString) {
-        self.upcast::<Element>().set_string_attribute(&local_name!("href"),
+        self.upcast::<Element<TH>>().set_string_attribute(&local_name!("href"),
                                                       DOMString::from_string(value.0));
         self.set_url();
     }
@@ -513,7 +513,7 @@ impl<TH> HTMLAnchorElementMethods for HTMLAnchorElement<TH> {
 
 impl<TH> Activatable for HTMLAnchorElement<TH> {
     fn as_element(&self) -> &Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 
     fn is_instance_activatable(&self) -> bool {
@@ -522,7 +522,7 @@ impl<TH> Activatable for HTMLAnchorElement<TH> {
         // hyperlink"
         // https://html.spec.whatwg.org/multipage/#the-a-element
         // "The activation behaviour of a elements *that create hyperlinks*"
-        self.upcast::<Element>().has_attribute(&local_name!("href"))
+        self.upcast::<Element<TH>>().has_attribute(&local_name!("href"))
     }
 
 
@@ -544,10 +544,10 @@ impl<TH> Activatable for HTMLAnchorElement<TH> {
         }
         //TODO: Step 2. Check if browsing context is specified and act accordingly.
         //Step 3. Handle <img ismap/>.
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         let mouse_event = event.downcast::<MouseEvent>().unwrap();
         let mut ismap_suffix = None;
-        if let Some(element) = target.downcast::<Element>() {
+        if let Some(element) = target.downcast::<Element<TH>>() {
             if target.is::<HTMLImageElement>() && element.has_attribute(&local_name!("ismap")) {
                 let target_node = element.upcast::<Node<TH>>();
                 let rect = target_node.bounding_content_box_or_zero();

@@ -20,7 +20,7 @@ pub struct HTMLFrameSetElement {
 impl HTMLFrameSetElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLFrameSetElement {
+                     document: &Document<TH>) -> HTMLFrameSetElement {
         HTMLFrameSetElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -30,7 +30,7 @@ impl HTMLFrameSetElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLFrameSetElement> {
+               document: &Document<TH>) -> DomRoot<HTMLFrameSetElement> {
         Node::reflect_node(Box::new(HTMLFrameSetElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLFrameSetElementBinding::Wrap)

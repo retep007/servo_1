@@ -35,7 +35,7 @@ impl PerformanceEntry {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                name: DOMString,
                entry_type: DOMString,
                start_time: f64,

@@ -25,7 +25,7 @@ impl<TH: TypeHolderTrait> InputEvent<TH> {
                type_: DOMString,
                can_bubble: bool,
                cancelable: bool,
-               view: Option<&Window>,
+               view: Option<&Window<TH>>,
                detail: i32,
                data: Option<DOMString>,
                is_composing: bool) -> DomRoot<InputEvent<TH>> {

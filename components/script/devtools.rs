@@ -122,13 +122,13 @@ pub fn handle_get_layout<TH: TypeHolderTrait>(documents: &Documents<TH>,
         Some(found_node) => found_node
     };
 
-    let elem = node.downcast::<Element>().expect("should be getting layout of element");
+    let elem = node.downcast::<Element<TH>>().expect("should be getting layout of element");
     let rect = elem.GetBoundingClientRect();
     let width = rect.Width() as f32;
     let height = rect.Height() as f32;
 
     let window = window_from_node(&*node);
-    let elem = node.downcast::<Element>().expect("should be getting layout of element");
+    let elem = node.downcast::<Element<TH>>().expect("should be getting layout of element");
     let computed_style = window.GetComputedStyle(elem, None);
 
     reply.send(Some(ComputedNodeLayout {
@@ -216,7 +216,7 @@ pub fn handle_modify_attribute<TH: TypeHolderTrait>(documents: &Documents<TH>,
         Some(found_node) => found_node
     };
 
-    let elem = node.downcast::<Element>().expect("should be getting layout of element");
+    let elem = node.downcast::<Element<TH>>().expect("should be getting layout of element");
 
     for modification in modifications {
         match modification.newValue {

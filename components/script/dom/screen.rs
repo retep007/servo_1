@@ -41,7 +41,7 @@ impl<TH: TypeHolderTrait> Screen<TH> {
 
     fn screen_size(&self) -> TypedSize2D<u32, CSSPixel> {
         let (send, recv) = ipc::channel::<DeviceUintSize>(self.global().time_profiler_chan().clone()).unwrap();
-        self.window.upcast::<GlobalScope>()
+        self.window.upcast::<GlobalScope<TH>>()
             .script_to_constellation_chan().send(ScriptMsg::GetScreenSize(send)).unwrap();
         let dpr = self.window.device_pixel_ratio();
         let screen = recv.recv().unwrap_or(TypedSize2D::zero());
@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> Screen<TH> {
 
     fn screen_avail_size(&self) -> TypedSize2D<u32, CSSPixel> {
         let (send, recv) = ipc::channel::<DeviceUintSize>(self.global().time_profiler_chan().clone()).unwrap();
-        self.window.upcast::<GlobalScope>()
+        self.window.upcast::<GlobalScope<TH>>()
             .script_to_constellation_chan().send(ScriptMsg::GetScreenAvailSize(send)).unwrap();
         let dpr = self.window.device_pixel_ratio();
         let screen = recv.recv().unwrap_or(TypedSize2D::zero());

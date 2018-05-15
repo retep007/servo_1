@@ -21,7 +21,7 @@ pub struct HTMLLIElement {
 }
 
 impl HTMLLIElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLLIElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLLIElement {
         HTMLLIElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -30,7 +30,7 @@ impl HTMLLIElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLLIElement> {
+               document: &Document<TH>) -> DomRoot<HTMLLIElement> {
         Node::reflect_node(Box::new(HTMLLIElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLLIElementBinding::Wrap)

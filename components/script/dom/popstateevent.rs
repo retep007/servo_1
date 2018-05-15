@@ -37,7 +37,7 @@ impl<TH: TypeHolderTrait> PopStateEvent<TH> {
         }
     }
 
-    pub fn new_uninitialized(window: &Window) -> DomRoot<PopStateEvent<TH>> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<PopStateEvent<TH>> {
         reflect_dom_object(Box::new(PopStateEvent::new_inherited()),
                            window,
                            PopStateEventBinding::Wrap)

@@ -97,7 +97,7 @@ impl<TH> MediaQueryListMethods for MediaQueryList<TH> {
 
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylist-addlistener
     fn AddListener(&self, listener: Option<Rc<EventListener>>) {
-        self.upcast::<EventTarget>().add_event_listener(
+        self.upcast::<EventTarget<TH>>().add_event_listener(
             DOMString::from_string("change".to_owned()),
             listener,
             AddEventListenerOptions { parent: EventListenerOptions { capture: false } },
@@ -106,7 +106,7 @@ impl<TH> MediaQueryListMethods for MediaQueryList<TH> {
 
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylist-removelistener
     fn RemoveListener(&self, listener: Option<Rc<EventListener>>) {
-        self.upcast::<EventTarget>().remove_event_listener(
+        self.upcast::<EventTarget<TH>>().remove_event_listener(
             DOMString::from_string("change".to_owned()),
             listener,
             EventListenerOptions { capture: false },
@@ -150,7 +150,7 @@ impl<TH: TypeHolderTrait> WeakMediaQueryListVec<TH> {
                                                  false, false,
                                                  mql.Media(),
                                                  mql.Matches());
-            event.upcast::<Event>().fire(mql.upcast::<EventTarget>());
+            event.upcast::<Event>().fire(mql.upcast::<EventTarget<TH>>());
         }
     }
 }

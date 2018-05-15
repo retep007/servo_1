@@ -179,7 +179,7 @@ impl<TH> FetchResponseListener for StylesheetContext<TH> {
             successful = metadata.status.map_or(false, |(code, _)| code == 200);
         }
 
-        let owner = elem.upcast::<Element>().as_stylesheet_owner()
+        let owner = elem.upcast::<Element<TH>>().as_stylesheet_owner()
             .expect("Stylesheet not loaded by <style> or <link> element!");
         owner.set_origin_clean(self.origin_clean);
         if owner.parser_inserted() {
@@ -190,17 +190,17 @@ impl<TH> FetchResponseListener for StylesheetContext<TH> {
 
         if let Some(any_failed) = owner.load_finished(successful) {
             let event = if any_failed { atom!("error") } else { atom!("load") };
-            elem.upcast::<EventTarget>().fire_event(event);
+            elem.upcast::<EventTarget<TH>>().fire_event(event);
         }
     }
 }
 
-pub struct StylesheetLoader<'a> {
+pub struct StylesheetLoader<'a, TH: TypeHolderTrait> {
     elem: &'a HTMLElement,
 }
 
-impl<'a> StylesheetLoader<'a> {
-    pub fn for_element(element: &'a HTMLElement) -> Self {
+impl<'a, TH: TypeHolderTrait> StylesheetLoader<'a, TH> {
+    pub fn for_element(element: &'a HTMLElement<TH>) -> Self {
         StylesheetLoader {
             elem: element,
         }
@@ -236,7 +236,7 @@ impl<'a> StylesheetLoader<'a> {
         }));
 
 
-        let owner = self.elem.upcast::<Element>().as_stylesheet_owner()
+        let owner = self.elem.upcast::<Element<TH>>().as_stylesheet_owner()
             .expect("Stylesheet not loaded by <style> or <link> element!");
         let referrer_policy = owner.referrer_policy()
             .or_else(|| document.get_referrer_policy());

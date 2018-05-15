@@ -78,7 +78,7 @@ impl Drop for Promise {
 
 impl Promise {
     #[allow(unsafe_code)]
-    pub fn new(global: &GlobalScope) -> Rc<Promise> {
+    pub fn new(global: &GlobalScope<TH>) -> Rc<Promise> {
         let cx = global.get_cx();
         rooted!(in(cx) let mut obj = ptr::null_mut::<JSObject>());
         unsafe {
@@ -121,7 +121,7 @@ impl Promise {
 
     #[allow(unrooted_must_root, unsafe_code)]
     pub unsafe fn new_resolved(
-        global: &GlobalScope,
+        global: &GlobalScope<TH>,
         cx: *mut JSContext,
         value: HandleValue,
     ) -> Fallible<Rc<Promise>> {
@@ -133,7 +133,7 @@ impl Promise {
 
     #[allow(unrooted_must_root, unsafe_code)]
     pub unsafe fn new_rejected(
-        global: &GlobalScope,
+        global: &GlobalScope<TH>,
         cx: *mut JSContext,
         value: HandleValue,
     ) -> Fallible<Rc<Promise>> {

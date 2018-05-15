@@ -60,7 +60,7 @@ pub struct VRDisplay {
     frame_data: DomRefCell<WebVRFrameData>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     layer: DomRefCell<WebVRLayer>,
-    layer_ctx: MutNullableDom<WebGLRenderingContext>,
+    layer_ctx: MutNullableDom<WebGLRenderingContext<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     next_raf_id: Cell<u32>,
     /// List of request animation frame callbacks
@@ -89,7 +89,7 @@ enum VRFrameDataStatus {
 unsafe_no_jsmanaged_fields!(VRFrameDataStatus);
 
 impl VRDisplay {
-    fn new_inherited(global: &GlobalScope, display: WebVRDisplayData) -> VRDisplay {
+    fn new_inherited(global: &GlobalScope<TH>, display: WebVRDisplayData) -> VRDisplay {
         let stage = match display.stage_parameters {
             Some(ref params) => Some(VRStageParameters::new(params.clone(), &global)),
             None => None
@@ -122,7 +122,7 @@ impl VRDisplay {
         }
     }
 
-    pub fn new(global: &GlobalScope, display: WebVRDisplayData) -> DomRoot<VRDisplay> {
+    pub fn new(global: &GlobalScope<TH>, display: WebVRDisplayData) -> DomRoot<VRDisplay> {
         reflect_dom_object(Box::new(VRDisplay::new_inherited(&global, display)),
                            global,
                            VRDisplayBinding::Wrap)
@@ -481,7 +481,7 @@ impl VRDisplay {
     fn notify_event(&self, event: &WebVRDisplayEvent) {
         let root = DomRoot::from_ref(&*self);
         let event = VRDisplayEvent::new_from_webvr(&self.global(), &root, &event);
-        event.upcast::<Event>().fire(self.global().upcast::<EventTarget>());
+        event.upcast::<Event>().fire(self.global().upcast::<EventTarget<TH>>());
     }
 
     fn init_present(&self) {
@@ -630,7 +630,7 @@ fn parse_bounds(src: &Option<Vec<Finite<f32>>>, dst: &mut [f32; 4]) -> Result<()
     }
 }
 
-fn validate_layer(layer: &VRLayer) -> Result<(WebVRLayer, DomRoot<WebGLRenderingContext>), &'static str> {
+fn validate_layer(layer: &VRLayer) -> Result<(WebVRLayer, DomRoot<WebGLRenderingContext<TH>>), &'static str> {
     let ctx = layer.source.as_ref().map(|ref s| s.get_base_webgl_context()).unwrap_or(None);
     if let Some(ctx) = ctx {
         let mut data = WebVRLayer::default();

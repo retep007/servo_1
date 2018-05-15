@@ -296,7 +296,7 @@ impl<TH: TypeHolderTrait> HTMLScriptElement<TH> {
         self.parser_inserted.set(false);
 
         // Step 3.
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         let async = element.has_attribute(&local_name!("async"));
         // Note: confusingly, this is done if the element does *not* have an "async" attribute.
         if was_parser_inserted && !async {
@@ -566,7 +566,7 @@ impl<TH: TypeHolderTrait> HTMLScriptElement<TH> {
         let window = window_from_node(self);
         let line_number = if script.external { 1 } else { self.line_number as u32 };
         rooted!(in(window.get_cx()) let mut rval = UndefinedValue());
-        let global = window.upcast::<GlobalScope>();
+        let global = window.upcast::<GlobalScope<TH>>();
         global.evaluate_script_on_global_with_result(
             &script.text, script.url.as_str(), rval.handle_mut(), line_number);
     }
@@ -589,7 +589,7 @@ impl<TH: TypeHolderTrait> HTMLScriptElement<TH> {
     }
 
     pub fn is_javascript(&self) -> bool {
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         let type_attr = element.get_attribute(&ns!(), &local_name!("type"));
         let is_js = match type_attr.as_ref().map(|s| s.value()) {
             Some(ref s) if s.is_empty() => {
@@ -716,13 +716,13 @@ impl<TH: TypeHolderTrait> HTMLScriptElementMethods for HTMLScriptElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-script-async
     fn Async(&self) -> bool {
-        self.non_blocking.get() || self.upcast::<Element>().has_attribute(&local_name!("async"))
+        self.non_blocking.get() || self.upcast::<Element<TH>>().has_attribute(&local_name!("async"))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-script-async
     fn SetAsync(&self, value: bool) {
         self.non_blocking.set(false);
-        self.upcast::<Element>().set_bool_attribute(&local_name!("async"), value);
+        self.upcast::<Element<TH>>().set_bool_attribute(&local_name!("async"), value);
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-script-defer
@@ -747,12 +747,12 @@ impl<TH: TypeHolderTrait> HTMLScriptElementMethods for HTMLScriptElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-script-crossorigin
     fn GetCrossOrigin(&self) -> Option<DOMString> {
-        reflect_cross_origin_attribute(self.upcast::<Element>())
+        reflect_cross_origin_attribute(self.upcast::<Element<TH>>())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-script-crossorigin
     fn SetCrossOrigin(&self, value: Option<DOMString>) {
-        set_cross_origin_attribute(self.upcast::<Element>(), value);
+        set_cross_origin_attribute(self.upcast::<Element<TH>>(), value);
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-script-text

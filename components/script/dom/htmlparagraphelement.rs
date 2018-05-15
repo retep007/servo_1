@@ -18,7 +18,7 @@ pub struct HTMLParagraphElement {
 impl HTMLParagraphElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLParagraphElement {
+                     document: &Document<TH>) -> HTMLParagraphElement {
         HTMLParagraphElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLParagraphElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLParagraphElement> {
+               document: &Document<TH>) -> DomRoot<HTMLParagraphElement> {
         Node::reflect_node(Box::new(HTMLParagraphElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLParagraphElementBinding::Wrap)

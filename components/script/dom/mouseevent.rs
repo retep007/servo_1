@@ -33,7 +33,7 @@ pub struct MouseEvent<TH: TypeHolderTrait> {
     alt_key: Cell<bool>,
     meta_key: Cell<bool>,
     button: Cell<i16>,
-    related_target: MutNullableDom<EventTarget>,
+    related_target: MutNullableDom<EventTarget<TH>>,
     point_in_target: Cell<Option<Point2D<f32>>>
 }
 
@@ -164,7 +164,7 @@ impl<TH: TypeHolderTrait> MouseEventMethods for MouseEvent<TH> {
     }
 
     // https://w3c.github.io/uievents/#widl-MouseEvent-relatedTarget
-    fn GetRelatedTarget(&self) -> Option<DomRoot<EventTarget>> {
+    fn GetRelatedTarget(&self) -> Option<DomRoot<EventTarget<TH>>> {
         self.related_target.get()
     }
 
@@ -204,7 +204,7 @@ impl<TH: TypeHolderTrait> MouseEventMethods for MouseEvent<TH> {
             return;
         }
 
-        self.upcast::<UIEvent>()
+        self.upcast::<UIEvent<TH>>()
             .InitUIEvent(type_arg, can_bubble_arg, cancelable_arg, view_arg, detail_arg);
         self.screen_x.set(screen_x_arg);
         self.screen_y.set(screen_y_arg);

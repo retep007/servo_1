@@ -35,7 +35,7 @@ impl Crypto {
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<Crypto> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Crypto> {
         reflect_dom_object(Box::new(Crypto::new_inherited()), global, CryptoBinding::Wrap)
     }
 }

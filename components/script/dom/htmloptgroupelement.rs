@@ -69,7 +69,7 @@ impl<TH> VirtualMethods for HTMLOptGroupElement<TH> {
                     },
                     AttributeMutation::Removed => false,
                 };
-                let el = self.upcast::<Element>();
+                let el = self.upcast::<Element<TH>>();
                 el.set_disabled_state(disabled_state);
                 el.set_enabled_state(!disabled_state);
                 let options = el.upcast::<Node<TH>>().children().filter(|child| {
@@ -77,13 +77,13 @@ impl<TH> VirtualMethods for HTMLOptGroupElement<TH> {
                 }).map(|child| DomRoot::from_ref(child.downcast::<HTMLOptionElement>().unwrap()));
                 if disabled_state {
                     for option in options {
-                        let el = option.upcast::<Element>();
+                        let el = option.upcast::<Element<TH>>();
                         el.set_disabled_state(true);
                         el.set_enabled_state(false);
                     }
                 } else {
                     for option in options {
-                        let el = option.upcast::<Element>();
+                        let el = option.upcast::<Element<TH>>();
                         el.check_disabled_attribute();
                     }
                 }

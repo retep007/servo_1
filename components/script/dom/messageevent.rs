@@ -29,14 +29,14 @@ pub struct MessageEvent {
 }
 
 impl MessageEvent {
-    pub fn new_uninitialized(global: &GlobalScope) -> DomRoot<MessageEvent> {
+    pub fn new_uninitialized(global: &GlobalScope<TH>) -> DomRoot<MessageEvent> {
         MessageEvent::new_initialized(global,
                                       HandleValue::undefined(),
                                       DOMString::new(),
                                       DOMString::new())
     }
 
-    pub fn new_initialized(global: &GlobalScope,
+    pub fn new_initialized(global: &GlobalScope<TH>,
                            data: HandleValue,
                            origin: DOMString,
                            lastEventId: DOMString) -> DomRoot<MessageEvent> {
@@ -52,7 +52,7 @@ impl MessageEvent {
         ev
     }
 
-    pub fn new(global: &GlobalScope, type_: Atom,
+    pub fn new(global: &GlobalScope<TH>, type_: Atom,
                bubbles: bool, cancelable: bool,
                data: HandleValue, origin: DOMString, lastEventId: DOMString)
                -> DomRoot<MessageEvent> {
@@ -64,7 +64,7 @@ impl MessageEvent {
         ev
     }
 
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
                        init: RootedTraceableBox<MessageEventBinding::MessageEventInit>)
                        -> Fallible<DomRoot<MessageEvent>> {
@@ -81,7 +81,7 @@ impl MessageEvent {
 
 impl MessageEvent {
     pub fn dispatch_jsval(target: &EventTarget,
-                          scope: &GlobalScope,
+                          scope: &GlobalScope<TH>,
                           message: HandleValue) {
         let messageevent = MessageEvent::new(
             scope,

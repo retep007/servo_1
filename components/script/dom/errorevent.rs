@@ -44,13 +44,13 @@ impl ErrorEvent {
         }
     }
 
-    pub fn new_uninitialized(global: &GlobalScope) -> DomRoot<ErrorEvent> {
+    pub fn new_uninitialized(global: &GlobalScope<TH>) -> DomRoot<ErrorEvent> {
         reflect_dom_object(Box::new(ErrorEvent::new_inherited()),
                            global,
                            ErrorEventBinding::Wrap)
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                type_: Atom,
                bubbles: EventBubbles,
                cancelable: EventCancelable,
@@ -73,7 +73,7 @@ impl ErrorEvent {
         ev
     }
 
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
                        init: RootedTraceableBox<ErrorEventBinding::ErrorEventInit>)
                        -> Fallible<DomRoot<ErrorEvent>>{

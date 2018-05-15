@@ -22,7 +22,7 @@ pub struct WebGLActiveInfo<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> WebGLActiveInfo<TH> {
-    fn new_inherited(size: i32, ty: u32, name: DOMString) -> WebGLActiveInfo {
+    fn new_inherited(size: i32, ty: u32, name: DOMString) -> WebGLActiveInfo<TH> {
         WebGLActiveInfo {
             reflector_: Reflector::new(),
             size: size,
@@ -31,7 +31,7 @@ impl<TH: TypeHolderTrait> WebGLActiveInfo<TH> {
         }
     }
 
-    pub fn new(window: &Window<TH>, size: i32, ty: u32, name: DOMString) -> DomRoot<WebGLActiveInfo> {
+    pub fn new(window: &Window<TH>, size: i32, ty: u32, name: DOMString) -> DomRoot<WebGLActiveInfo<TH>> {
         reflect_dom_object(
             Box::new(WebGLActiveInfo::new_inherited(size, ty, name)),
             window,

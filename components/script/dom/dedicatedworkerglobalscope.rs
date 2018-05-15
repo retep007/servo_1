@@ -242,7 +242,7 @@ impl DedicatedWorkerGlobalScope {
             }
 
             let reporter_name = format!("dedicated-worker-reporter-{}", random::<u64>());
-            scope.upcast::<GlobalScope>().mem_profiler_chan().run_with_memory_reporting(|| {
+            scope.upcast::<GlobalScope<TH>>().mem_profiler_chan().run_with_memory_reporting(|| {
                 // https://html.spec.whatwg.org/multipage/#event-loop-processing-model
                 // Step 1
                 while let Ok(event) = global.receive_event() {
@@ -253,7 +253,7 @@ impl DedicatedWorkerGlobalScope {
                     global.handle_event(event);
                     // Step 6
                     let _ar = AutoWorkerReset::new(&global, worker.clone());
-                    global.upcast::<GlobalScope>().perform_a_microtask_checkpoint();
+                    global.upcast::<GlobalScope<TH>>().perform_a_microtask_checkpoint();
                 }
             }, reporter_name, parent_sender, CommonScriptMsg::CollectReports);
         }).expect("Thread spawning failed");
@@ -358,7 +358,7 @@ impl DedicatedWorkerGlobalScope {
     #[allow(unsafe_code)]
     pub fn forward_error_to_worker_object(&self, error_info: ErrorInfo) {
         let worker = self.worker.borrow().as_ref().unwrap().clone();
-        let pipeline_id = self.upcast::<GlobalScope>().pipeline_id();
+        let pipeline_id = self.upcast::<GlobalScope<TH>>().pipeline_id();
         let task = Box::new(task!(forward_error_to_worker_object: move || {
             let worker = worker.root();
             let global = worker.global();
@@ -376,7 +376,7 @@ impl DedicatedWorkerGlobalScope {
                 HandleValue::null(),
             );
             let event_status =
-                event.upcast::<Event>().fire(worker.upcast::<EventTarget>());
+                event.upcast::<Event>().fire(worker.upcast::<EventTarget<TH>>());
 
             // Step 2.
             if event_status == EventStatus::NotCanceled {
@@ -405,7 +405,7 @@ impl DedicatedWorkerGlobalScopeMethods for DedicatedWorkerGlobalScope {
     unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult {
         let data = StructuredCloneData::write(cx, message)?;
         let worker = self.worker.borrow().as_ref().unwrap().clone();
-        let pipeline_id = self.upcast::<GlobalScope>().pipeline_id();
+        let pipeline_id = self.upcast::<GlobalScope<TH>>().pipeline_id();
         let task = Box::new(task!(post_worker_message: move || {
             Worker::handle_message(worker, data);
         }));

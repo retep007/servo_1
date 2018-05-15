@@ -426,8 +426,8 @@ pub struct Sink<TH: TypeHolderTrait> {
 
 impl<TH: TypeHolderTrait> Sink<TH> {
     fn same_tree(&self, x: &Dom<Node<TH>>, y: &Dom<Node<TH>>) -> bool {
-        let x = x.downcast::<Element>().expect("Element node expected");
-        let y = y.downcast::<Element>().expect("Element node expected");
+        let x = x.downcast::<Element<TH>>().expect("Element node expected");
+        let y = y.downcast::<Element<TH>>().expect("Element node expected");
 
         x.is_in_same_home_subtree(y)
     }
@@ -459,7 +459,7 @@ impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
     }
 
     fn elem_name<'a>(&self, target: &'a Dom<Node<TH>>) -> ExpandedName<'a> {
-        let elem = target.downcast::<Element>()
+        let elem = target.downcast::<Element<TH>>()
             .expect("tried to get name of non-Element in HTML parsing");
         ExpandedName {
             ns: elem.namespace(),
@@ -509,7 +509,7 @@ impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
         let form = DomRoot::downcast::<HTMLFormElement>(DomRoot::from_ref(&**form))
             .expect("Owner must be a form element");
 
-        let elem = node.downcast::<Element>();
+        let elem = node.downcast::<Element<TH>>();
         let control = elem.and_then(|e| e.as_maybe_form_control());
 
         if let Some(control) = control {
@@ -569,7 +569,7 @@ impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
     }
 
     fn add_attrs_if_missing(&mut self, target: &Dom<Node<TH>>, attrs: Vec<Attribute>) {
-        let elem = target.downcast::<Element>()
+        let elem = target.downcast::<Element<TH>>()
             .expect("tried to set attrs on non-Element in HTML parsing");
         for attr in attrs {
             elem.set_attribute_from_parser(attr.name, DOMString::from(String::from(attr.value)), None);
@@ -605,7 +605,7 @@ impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
     /// <https://html.spec.whatwg.org/multipage/#html-integration-point>
     /// Specifically, the <annotation-xml> cases.
     fn is_mathml_annotation_xml_integration_point(&self, handle: &Dom<Node<TH>>) -> bool {
-        let elem = handle.downcast::<Element>().unwrap();
+        let elem = handle.downcast::<Element<TH>>().unwrap();
         elem.get_attribute(&ns!(), &local_name!("encoding")).map_or(false, |attr| {
             attr.value().eq_ignore_ascii_case("text/html")
                 || attr.value().eq_ignore_ascii_case("application/xhtml+xml")
@@ -629,7 +629,7 @@ fn create_element_for_token<TH: TypeHolderTrait>(
     document: &Document<TH>,
     creator: ElementCreator,
     parsing_algorithm: ParsingAlgorithm,
-) -> DomRoot<Element> {
+) -> DomRoot<Element<TH>> {
     // Step 3.
     let is = attrs.iter()
         .find(|attr| attr.name.local.eq_str_ignore_ascii_case("is"))
@@ -647,7 +647,7 @@ fn create_element_for_token<TH: TypeHolderTrait>(
         document.increment_throw_on_dynamic_markup_insertion_counter();
         // Step 6.2
         if is_execution_stack_empty() {
-            document.window().upcast::<GlobalScope>().perform_a_microtask_checkpoint();
+            document.window().upcast::<GlobalScope<TH>>().perform_a_microtask_checkpoint();
         }
         // Step 6.3
         ScriptThread::push_new_element_queue()

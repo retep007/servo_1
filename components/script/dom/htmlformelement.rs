@@ -66,7 +66,7 @@ pub struct HTMLFormElement<TH: TypeHolderTrait> {
     marked_for_reset: Cell<bool>,
     elements: DomOnceCell<HTMLFormControlsCollection>,
     generation_id: Cell<GenerationId>,
-    controls: DomRefCell<Vec<Dom<Element>>>,
+    controls: DomRefCell<Vec<Dom<Element<TH>>>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
@@ -229,7 +229,7 @@ impl<TH> HTMLFormElementMethods for HTMLFormElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-form-item
-    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element>> {
+    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element<TH>>> {
         let elements = self.Elements();
         elements.IndexedGetter(index)
     }
@@ -252,9 +252,9 @@ impl<TH> HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#picking-an-encoding-for-the-form
     fn pick_encoding(&self) -> &'static Encoding {
         // Step 2
-        if self.upcast::<Element>().has_attribute(&local_name!("accept-charset")) {
+        if self.upcast::<Element<TH>>().has_attribute(&local_name!("accept-charset")) {
             // Substep 1
-            let input = self.upcast::<Element>().get_string_attribute(&local_name!("accept-charset"));
+            let input = self.upcast::<Element<TH>>().get_string_attribute(&local_name!("accept-charset"));
 
             // Substep 2, 3, 4
             let mut candidate_encodings = split_html_space_chars(&*input)
@@ -303,13 +303,13 @@ impl<TH> HTMLFormElement<TH> {
         {
             if self.interactive_validation().is_err() {
                 // TODO: Implement event handlers on all form control elements
-                self.upcast::<EventTarget>().fire_event(atom!("invalid"));
+                self.upcast::<EventTarget<TH>>().fire_event(atom!("invalid"));
                 return;
             }
         }
         // Step 5
         if submit_method_flag == SubmittedFrom::NotFromForm {
-            let event = self.upcast::<EventTarget>()
+            let event = self.upcast::<EventTarget<TH>>()
                 .fire_bubbling_cancelable_event(atom!("submit"));
             if event.DefaultPrevented() {
                 return;
@@ -437,7 +437,7 @@ impl<TH> HTMLFormElement<TH> {
         self.generation_id.set(generation_id);
 
         // Step 2.
-        let pipeline_id = window.upcast::<GlobalScope>().pipeline_id();
+        let pipeline_id = window.upcast::<GlobalScope<TH>>().pipeline_id();
         let script_chan = window.main_thread_script_chan().clone();
         let this = Trusted::new(self);
         let task = task!(navigate_to_form_planned_navigation: move || {
@@ -477,7 +477,7 @@ impl<TH> HTMLFormElement<TH> {
         //               form, refactor this when html5ever's form owner PR lands
         // Step 1-3
         let invalid_controls = node.traverse_preorder().filter_map(|field| {
-            if let Some(el) = field.downcast::<Element>() {
+            if let Some(el) = field.downcast::<Element<TH>>() {
                 if el.disabled_state() {
                     None
                 } else {
@@ -628,7 +628,7 @@ impl<TH> HTMLFormElement<TH> {
             self.marked_for_reset.set(true);
         }
 
-        let event = self.upcast::<EventTarget>()
+        let event = self.upcast::<EventTarget<TH>>()
             .fire_bubbling_cancelable_event(atom!("reset"));
         if event.DefaultPrevented() {
             return;
@@ -663,7 +663,7 @@ impl<TH> HTMLFormElement<TH> {
     }
 
     fn add_control<T: ?Sized + FormControl>(&self, control: &T) {
-        let root = self.upcast::<Element>().root_element();
+        let root = self.upcast::<Element<TH>>().root_element();
         let root = root.r().upcast::<Node<TH>>();
 
         let mut controls = self.controls.borrow_mut();

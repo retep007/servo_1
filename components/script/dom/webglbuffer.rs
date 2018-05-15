@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
     }
 
     pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
-                     -> Option<DomRoot<WebGLBuffer>> {
+                     -> Option<DomRoot<WebGLBuffer<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateBuffer(sender)).unwrap();
 
@@ -63,7 +63,7 @@ impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
     pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLBufferId)
-              -> DomRoot<WebGLBuffer> {
+              -> DomRoot<WebGLBuffer<TH>> {
         reflect_dom_object(Box::new(WebGLBuffer::new_inherited(renderer, id)),
                            window, WebGLBufferBinding::Wrap)
     }

@@ -19,7 +19,7 @@ pub struct HTMLTimeElement<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> HTMLTimeElement<TH> {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLTimeElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLTimeElement<TH> {
         HTMLTimeElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
         }
@@ -28,7 +28,7 @@ impl<TH: TypeHolderTrait> HTMLTimeElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLTimeElement<TH>> {
+               document: &Document<TH>) -> DomRoot<HTMLTimeElement<TH>> {
         Node::reflect_node(Box::new(HTMLTimeElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTimeElementBinding::Wrap)

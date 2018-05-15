@@ -49,8 +49,8 @@ const DEFAULT_HEIGHT: u32 = 150;
 #[derive(Clone, JSTraceable, MallocSizeOf)]
 pub enum CanvasContext {
     Context2d(Dom<CanvasRenderingContext2D>),
-    WebGL(Dom<WebGLRenderingContext>),
-    WebGL2(Dom<WebGL2RenderingContext>),
+    WebGL(Dom<WebGLRenderingContext<TH>>),
+    WebGL2(Dom<WebGL2RenderingContext<TH>>),
 }
 
 #[dom_struct]
@@ -62,7 +62,7 @@ pub struct HTMLCanvasElement {
 impl HTMLCanvasElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLCanvasElement {
+                     document: &Document<TH>) -> HTMLCanvasElement {
         HTMLCanvasElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             context: DomRefCell::new(None),
@@ -72,7 +72,7 @@ impl HTMLCanvasElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLCanvasElement> {
+               document: &Document<TH>) -> DomRoot<HTMLCanvasElement> {
         Node::reflect_node(Box::new(HTMLCanvasElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLCanvasElementBinding::Wrap)
@@ -128,8 +128,8 @@ impl LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanvasElement> {
                 }
             };
 
-            let width_attr = canvas.upcast::<Element>().get_attr_for_layout(&ns!(), &local_name!("width"));
-            let height_attr = canvas.upcast::<Element>().get_attr_for_layout(&ns!(), &local_name!("height"));
+            let width_attr = canvas.upcast::<Element<TH>>().get_attr_for_layout(&ns!(), &local_name!("width"));
+            let height_attr = canvas.upcast::<Element<TH>>().get_attr_for_layout(&ns!(), &local_name!("height"));
             HTMLCanvasData {
                 source: source,
                 width: width_attr.map_or(DEFAULT_WIDTH, |val| val.as_uint()),
@@ -142,7 +142,7 @@ impl LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanvasElement> {
     #[allow(unsafe_code)]
     fn get_width(&self) -> LengthOrPercentageOrAuto {
         unsafe {
-            (&*self.upcast::<Element>().unsafe_get())
+            (&*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("width"))
                 .map(AttrValue::as_uint_px_dimension)
                 .unwrap_or(LengthOrPercentageOrAuto::Auto)
@@ -152,7 +152,7 @@ impl LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanvasElement> {
     #[allow(unsafe_code)]
     fn get_height(&self) -> LengthOrPercentageOrAuto {
         unsafe {
-            (&*self.upcast::<Element>().unsafe_get())
+            (&*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("height"))
                 .map(AttrValue::as_uint_px_dimension)
                 .unwrap_or(LengthOrPercentageOrAuto::Auto)
@@ -178,7 +178,7 @@ impl HTMLCanvasElement {
         if self.context.borrow().is_none() {
             let window = window_from_node(self);
             let size = self.get_size();
-            let context = CanvasRenderingContext2D::new(window.upcast::<GlobalScope>(), self, size);
+            let context = CanvasRenderingContext2D::new(window.upcast::<GlobalScope<TH>>(), self, size);
             *self.context.borrow_mut() = Some(CanvasContext::Context2d(Dom::from_ref(&*context)));
         }
 
@@ -192,7 +192,7 @@ impl HTMLCanvasElement {
         &self,
         cx: *mut JSContext,
         attrs: Option<HandleValue>
-    ) -> Option<DomRoot<WebGLRenderingContext>> {
+    ) -> Option<DomRoot<WebGLRenderingContext<TH>>> {
         if self.context.borrow().is_none() {
             let window = window_from_node(self);
             let size = self.get_size();
@@ -213,7 +213,7 @@ impl HTMLCanvasElement {
         &self,
         cx: *mut JSContext,
         attrs: Option<HandleValue>
-    ) -> Option<DomRoot<WebGL2RenderingContext>> {
+    ) -> Option<DomRoot<WebGL2RenderingContext<TH>>> {
         if !PREFS.is_webgl2_enabled() {
             return None
         }
@@ -234,7 +234,7 @@ impl HTMLCanvasElement {
     }
 
     /// Gets the base WebGLRenderingContext for WebGL or WebGL 2, if exists.
-    pub fn get_base_webgl_context(&self) -> Option<DomRoot<WebGLRenderingContext>> {
+    pub fn get_base_webgl_context(&self) -> Option<DomRoot<WebGLRenderingContext<TH>>> {
         match *self.context.borrow() {
             Some(CanvasContext::WebGL(ref context)) => Some(DomRoot::from_ref(&*context)),
             Some(CanvasContext::WebGL2(ref context)) => Some(context.base_context()),

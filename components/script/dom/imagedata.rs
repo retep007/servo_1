@@ -28,7 +28,7 @@ pub struct ImageData {
 
 impl ImageData {
     #[allow(unsafe_code)]
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                width: u32,
                height: u32,
                mut data: Option<Vec<u8>>)
@@ -50,7 +50,7 @@ impl ImageData {
     }
 
     #[allow(unsafe_code)]
-    unsafe fn new_with_jsobject(global: &GlobalScope,
+    unsafe fn new_with_jsobject(global: &GlobalScope<TH>,
                                 width: u32,
                                 mut opt_height: Option<u32>,
                                 opt_jsobject: Option<*mut JSObject>)
@@ -113,7 +113,7 @@ impl ImageData {
 
     // https://html.spec.whatwg.org/multipage/#pixel-manipulation:dom-imagedata-3
     #[allow(unsafe_code)]
-    pub fn Constructor(global: &GlobalScope, width: u32, height: u32) -> Fallible<DomRoot<Self>> {
+    pub fn Constructor(global: &GlobalScope<TH>, width: u32, height: u32) -> Fallible<DomRoot<Self>> {
         unsafe { Self::new_with_jsobject(global, width, Some(height), None) }
     }
 
@@ -121,7 +121,7 @@ impl ImageData {
     #[allow(unsafe_code)]
     #[allow(unused_variables)]
     pub unsafe fn Constructor_(cx: *mut JSContext,
-                               global: &GlobalScope,
+                               global: &GlobalScope<TH>,
                                jsobject: *mut JSObject,
                                width: u32,
                                opt_height: Option<u32>)

@@ -44,7 +44,7 @@ impl CanvasPattern {
             origin_clean: origin_clean,
         }
     }
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                surface_data: Vec<u8>,
                surface_size: Size2D<i32>,
                repeat: RepetitionStyle,

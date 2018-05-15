@@ -24,7 +24,7 @@ impl<TH: TypeHolderTrait> CompositionEvent<TH> {
                type_: DOMString,
                can_bubble: bool,
                cancelable: bool,
-               view: Option<&Window>,
+               view: Option<&Window<TH>>,
                detail: i32,
                data: DOMString) -> DomRoot<Self> {
         let ev = reflect_dom_object(Box::new(CompositionEvent {

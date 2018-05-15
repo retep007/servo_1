@@ -29,7 +29,7 @@ pub struct WebGLRenderbuffer<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> WebGLRenderbuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLRenderbufferId)
-                     -> WebGLRenderbuffer {
+                     -> WebGLRenderbuffer<TH> {
         WebGLRenderbuffer {
             webgl_object: WebGLObject::new_inherited(),
             id: id,
@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> WebGLRenderbuffer<TH> {
     }
 
     pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
-                     -> Option<DomRoot<WebGLRenderbuffer>> {
+                     -> Option<DomRoot<WebGLRenderbuffer<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateRenderbuffer(sender)).unwrap();
 
@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> WebGLRenderbuffer<TH> {
     pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLRenderbufferId)
-               -> DomRoot<WebGLRenderbuffer> {
+               -> DomRoot<WebGLRenderbuffer<TH>> {
         reflect_dom_object(Box::new(WebGLRenderbuffer::new_inherited(renderer, id)),
                            window,
                            WebGLRenderbufferBinding::Wrap)

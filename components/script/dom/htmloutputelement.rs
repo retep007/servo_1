@@ -27,7 +27,7 @@ pub struct HTMLOutputElement {
 impl HTMLOutputElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLOutputElement {
+                     document: &Document<TH>) -> HTMLOutputElement {
         HTMLOutputElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -38,7 +38,7 @@ impl HTMLOutputElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLOutputElement> {
+               document: &Document<TH>) -> DomRoot<HTMLOutputElement> {
         Node::reflect_node(Box::new(HTMLOutputElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLOutputElementBinding::Wrap)
@@ -89,6 +89,6 @@ impl FormControl for HTMLOutputElement {
     }
 
     fn to_element<'a>(&'a self) -> &'a Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 }

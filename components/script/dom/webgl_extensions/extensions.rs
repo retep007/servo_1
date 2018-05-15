@@ -132,7 +132,7 @@ impl WebGLExtensions {
                                 .collect()
     }
 
-    pub fn get_or_init_extension(&self, name: &str, ctx: &WebGLRenderingContext) -> Option<NonNull<JSObject>> {
+    pub fn get_or_init_extension(&self, name: &str, ctx: &WebGLRenderingContext<TH>) -> Option<NonNull<JSObject>> {
         let name = name.to_uppercase();
         self.extensions.borrow().get(&name).and_then(|extension| {
             if extension.is_supported(self) {
@@ -258,7 +258,7 @@ impl WebGLExtensions {
 #[derive(Eq, Hash, JSTraceable, MallocSizeOf, PartialEq)]
 struct TexFormatType(u32, u32);
 
-type WebGLQueryParameterFunc = Fn(*mut JSContext, &WebGLRenderingContext)
+type WebGLQueryParameterFunc = Fn(*mut JSContext, &WebGLRenderingContext<TH>)
                                -> Result<JSVal, WebGLError>;
 
 #[derive(MallocSizeOf)]

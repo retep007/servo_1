@@ -134,7 +134,7 @@ impl<TH> HTMLOptionElementMethods for HTMLOptionElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#attr-option-value
     fn Value(&self) -> DOMString {
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         let attr = &local_name!("value");
         if element.has_attribute(attr) {
             element.get_string_attribute(attr)
@@ -148,7 +148,7 @@ impl<TH> HTMLOptionElementMethods for HTMLOptionElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#attr-option-label
     fn Label(&self) -> DOMString {
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         let attr = &local_name!("label");
         if element.has_attribute(attr) {
             element.get_string_attribute(attr)
@@ -188,7 +188,7 @@ impl<TH> VirtualMethods for HTMLOptionElement<TH> {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
-                let el = self.upcast::<Element>();
+                let el = self.upcast::<Element<TH>>();
                 match mutation {
                     AttributeMutation::Set(_) => {
                         el.set_disabled_state(true);
@@ -226,7 +226,7 @@ impl<TH> VirtualMethods for HTMLOptionElement<TH> {
             s.bind_to_tree(tree_in_doc);
         }
 
-        self.upcast::<Element>().check_parent_disabled_state_for_option();
+        self.upcast::<Element<TH>>().check_parent_disabled_state_for_option();
 
         self.pick_if_selected_and_reset();
     }
@@ -241,7 +241,7 @@ impl<TH> VirtualMethods for HTMLOptionElement<TH> {
         }
 
         let node = self.upcast::<Node<TH>>();
-        let el = self.upcast::<Element>();
+        let el = self.upcast::<Element<TH>>();
         if node.GetParentNode().is_some() {
             el.check_parent_disabled_state_for_option();
         } else {

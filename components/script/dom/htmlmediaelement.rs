@@ -265,10 +265,10 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
 
                     this.fulfill_in_flight_play_promises(|| {
                         // Step 2.3.1.
-                        this.upcast::<EventTarget>().fire_event(atom!("timeupdate"));
+                        this.upcast::<EventTarget<TH>>().fire_event(atom!("timeupdate"));
 
                         // Step 2.3.2.
-                        this.upcast::<EventTarget>().fire_event(atom!("pause"));
+                        this.upcast::<EventTarget<TH>>().fire_event(atom!("pause"));
 
                         // Step 2.3.3.
                         // Done after running this closure in
@@ -304,7 +304,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
 
                 this.fulfill_in_flight_play_promises(|| {
                     // Step 2.1.
-                    this.upcast::<EventTarget>().fire_event(atom!("playing"));
+                    this.upcast::<EventTarget<TH>>().fire_event(atom!("playing"));
 
                     // Step 2.2.
                     // Done after running this closure in
@@ -348,7 +348,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
                     let _ = task_source.queue(
                         task!(media_reached_current_data: move || {
                             let this = this.root();
-                            this.upcast::<EventTarget>().fire_event(atom!("loadeddata"));
+                            this.upcast::<EventTarget<TH>>().fire_event(atom!("loadeddata"));
                             this.delay_load_event(false);
                         }),
                         window.upcast(),
@@ -461,7 +461,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
             if media.src_object.get().is_some() {
                 return Some(Mode::Object);
             }
-            if let Some(attr) = media.upcast::<Element>().get_attribute(&ns!(), &local_name!("src")) {
+            if let Some(attr) = media.upcast::<Element<TH>>().get_attribute(&ns!(), &local_name!("src")) {
                 return Some(Mode::Attribute(attr.Value().into()));
             }
             let source_child_element = media.upcast::<Node<TH>>()
@@ -657,7 +657,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
                     // FIXME(nox): Set show poster flag to true.
 
                     // Step 5.
-                    this.upcast::<EventTarget>().fire_event(atom!("error"));
+                    this.upcast::<EventTarget<TH>>().fire_event(atom!("error"));
 
                     // Step 6.
                     // Done after running this closure in
@@ -809,7 +809,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
     ///
     /// <https://html.spec.whatwg.org/multipage/#the-source-element:nodes-are-inserted>
     pub fn handle_source_child_insertion(&self) {
-        if self.upcast::<Element>().has_attribute(&local_name!("src")) {
+        if self.upcast::<Element<TH>>().has_attribute(&local_name!("src")) {
             return;
         }
         if self.network_state.get() != NetworkState::Empty {
@@ -1066,11 +1066,11 @@ impl FetchResponseListener for HTMLMediaElementContext {
         else if status.is_ok() {
             elem.change_ready_state(ReadyState::HaveEnoughData);
 
-            elem.upcast::<EventTarget>().fire_event(atom!("progress"));
+            elem.upcast::<EventTarget<TH>>().fire_event(atom!("progress"));
 
             elem.network_state.set(NetworkState::Idle);
 
-            elem.upcast::<EventTarget>().fire_event(atom!("suspend"));
+            elem.upcast::<EventTarget<TH>>().fire_event(atom!("suspend"));
         }
         // => "If the connection is interrupted after some media data has been received..."
         else if elem.ready_state.get() != ReadyState::HaveNothing {
@@ -1085,7 +1085,7 @@ impl FetchResponseListener for HTMLMediaElementContext {
             elem.delay_load_event(false);
 
             // Step 5
-            elem.upcast::<EventTarget>().fire_event(atom!("error"));
+            elem.upcast::<EventTarget<TH>>().fire_event(atom!("error"));
         } else {
             // => "If the media data cannot be fetched at all..."
             elem.queue_dedicated_media_source_failure_steps();

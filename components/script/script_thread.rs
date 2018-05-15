@@ -357,12 +357,12 @@ impl<TH: TypeHolderTrait> Documents<TH> {
         self.find_document(pipeline_id).map(|doc| DomRoot::from_ref(doc.window()))
     }
 
-    pub fn find_global(&self, pipeline_id: PipelineId) -> Option<DomRoot<GlobalScope>> {
+    pub fn find_global(&self, pipeline_id: PipelineId) -> Option<DomRoot<GlobalScope<TH>>> {
         self.find_window(pipeline_id).map(|window| DomRoot::from_ref(window.upcast()))
     }
 
     pub fn find_iframe(&self, pipeline_id: PipelineId, browsing_context_id: BrowsingContextId)
-                       -> Option<DomRoot<HTMLIFrameElement>>
+                       -> Option<DomRoot<HTMLIFrameElement<TH>>>
     {
         self.find_document(pipeline_id).and_then(|doc| doc.find_iframe(browsing_context_id))
     }
@@ -465,7 +465,7 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     js_runtime: Rc<Runtime>,
 
     /// The topmost element over the mouse.
-    topmost_mouse_over_target: MutNullableDom<Element>,
+    topmost_mouse_over_target: MutNullableDom<Element<TH>>,
 
     /// List of pipelines that have been owned and closed by this script thread.
     closed_pipelines: DomRefCell<HashSet<PipelineId>>,
@@ -617,7 +617,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         })
     }
 
-    pub fn add_mutation_observer(observer: &MutationObserver) {
+    pub fn add_mutation_observer(observer: &MutationObserver<TH>) {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = unsafe { &*root.get().unwrap() };
             script_thread.mutation_observers
@@ -626,7 +626,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         })
     }
 
-    pub fn get_mutation_observers() -> Vec<DomRoot<MutationObserver>> {
+    pub fn get_mutation_observers() -> Vec<DomRoot<MutationObserver<TH>>> {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = unsafe { &*root.get().unwrap() };
             script_thread.mutation_observers.borrow().iter().map(|o| DomRoot::from_ref(&**o)).collect()
@@ -650,7 +650,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     }
 
     pub fn page_headers_available(id: &PipelineId, metadata: Option<Metadata>)
-                                  -> Option<DomRoot<Box<ServoParser>>> {
+                                  -> Option<DomRoot<Box<ServoParser<TH>>>> {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = unsafe { &*root.get().unwrap() };
             script_thread.handle_page_headers_available(id, metadata)
@@ -704,7 +704,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         }))
     }
 
-    pub fn find_window_proxy(id: BrowsingContextId) -> Option<DomRoot<WindowProxy>> {
+    pub fn find_window_proxy(id: BrowsingContextId) -> Option<DomRoot<WindowProxy<TH>>> {
         SCRIPT_THREAD_ROOT.with(|root| root.get().and_then(|script_thread| {
             let script_thread = unsafe { &*script_thread };
             script_thread.window_proxies.borrow().get(&id)
@@ -766,9 +766,9 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         })
     }
 
-    pub fn enqueue_callback_reaction(element: &Element,
-                                     reaction: CallbackReaction,
-                                     definition: Option<Rc<CustomElementDefinition>>) {
+    pub fn enqueue_callback_reaction(element: &Element<TH>,
+                                     reaction: CallbackReaction<TH>,
+                                     definition: Option<Rc<CustomElementDefinition<TH>>>) {
         SCRIPT_THREAD_ROOT.with(|root| {
             if let Some(script_thread) = root.get() {
                 let script_thread = unsafe { &*script_thread };
@@ -777,7 +777,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         })
     }
 
-    pub fn enqueue_upgrade_reaction(element: &Element, definition: Rc<CustomElementDefinition>) {
+    pub fn enqueue_upgrade_reaction(element: &Element<TH>, definition: Rc<CustomElementDefinition<TH>>) {
         SCRIPT_THREAD_ROOT.with(|root| {
             if let Some(script_thread) = root.get() {
                 let script_thread = unsafe { &*script_thread };
@@ -1722,7 +1722,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     /// We have received notification that the response associated with a load has completed.
     /// Kick off the document and frame tree creation process using the result.
     fn handle_page_headers_available(&self, id: &PipelineId,
-                                     metadata: Option<Metadata>) -> Option<DomRoot<Box<ServoParser>>> {
+                                     metadata: Option<Metadata>) -> Option<DomRoot<Box<ServoParser<TH>>>> {
         let idx = self.incomplete_loads.borrow().iter().position(|load| { load.pipeline_id == *id });
         // The matching in progress load structure may not exist if
         // the pipeline exited before the page load completed.
@@ -1787,15 +1787,15 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         let _ = self.chan.0.send(MainThreadScriptMsg::DispatchJobQueue { scope_url });
     }
 
-    pub fn dom_manipulation_task_source(&self, pipeline_id: PipelineId) -> DOMManipulationTaskSource {
+    pub fn dom_manipulation_task_source(&self, pipeline_id: PipelineId) -> DOMManipulationTaskSource<TH> {
         DOMManipulationTaskSource(self.dom_manipulation_task_sender.clone(), pipeline_id)
     }
 
-    pub fn performance_timeline_task_source(&self, pipeline_id: PipelineId) -> PerformanceTimelineTaskSource {
+    pub fn performance_timeline_task_source(&self, pipeline_id: PipelineId) -> PerformanceTimelineTaskSource<TH> {
         PerformanceTimelineTaskSource(self.performance_timeline_task_sender.clone(), pipeline_id)
     }
 
-    pub fn user_interaction_task_source(&self, pipeline_id: PipelineId) -> UserInteractionTaskSource {
+    pub fn user_interaction_task_source(&self, pipeline_id: PipelineId) -> UserInteractionTaskSource<TH> {
         UserInteractionTaskSource(self.user_interaction_task_sender.clone(), pipeline_id)
     }
 
@@ -1927,7 +1927,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         // Not quite the right thing - see #13865.
         node.dirty(NodeDamage::NodeStyleDamaged);
 
-        if let Some(el) = node.downcast::<Element>() {
+        if let Some(el) = node.downcast::<Element<TH>>() {
             if !el.has_css_layout_box() {
                 return;
             }
@@ -2014,10 +2014,10 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     // construct a new dissimilar-origin browsing context, add it
     // to the `window_proxies` map, and return it.
     fn remote_window_proxy(&self,
-                           global_to_clone: &GlobalScope,
+                           global_to_clone: &GlobalScope<TH>,
                            top_level_browsing_context_id: TopLevelBrowsingContextId,
                            pipeline_id: PipelineId)
-                           -> Option<DomRoot<WindowProxy>>
+                           -> Option<DomRoot<WindowProxy<TH>>>
     {
         let browsing_context_id = self.ask_constellation_for_browsing_context_id(pipeline_id)?;
         if let Some(window_proxy) = self.window_proxies.borrow().get(&browsing_context_id) {
@@ -2041,11 +2041,11 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     // construct a new similar-origin browsing context, add it
     // to the `window_proxies` map, and return it.
     fn local_window_proxy(&self,
-                          window: &Window,
+                          window: &Window<TH>,
                           browsing_context_id: BrowsingContextId,
                           top_level_browsing_context_id: TopLevelBrowsingContextId,
                           parent_info: Option<PipelineId>)
-                          -> DomRoot<WindowProxy>
+                          -> DomRoot<WindowProxy<TH>>
     {
         if let Some(window_proxy) = self.window_proxies.borrow().get(&browsing_context_id) {
             window_proxy.set_currently_active(&*window);
@@ -2072,7 +2072,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
 
     /// The entry point to document loading. Defines bindings, sets up the window and document
     /// objects, parses HTML and CSS, and kicks off initial layout.
-    fn load(&self, metadata: Metadata, incomplete: InProgressLoad) -> DomRoot<Box<ServoParser>> {
+    fn load(&self, metadata: Metadata, incomplete: InProgressLoad) -> DomRoot<Box<ServoParser<TH>>> {
         let final_url = metadata.final_url.clone();
         {
             // send the final url to the layout thread.
@@ -2294,7 +2294,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
                                                 .inclusive_ancestors()
                                                 .filter_map(DomRoot::downcast::<HTMLAnchorElement>)
                                                 .next() {
-                        let status = anchor.upcast::<Element>()
+                        let status = anchor.upcast::<Element<TH>>()
                                            .get_attribute(&ns!(), &local_name!("href"))
                                            .and_then(|href| {
                                                let value = href.value();
@@ -2415,7 +2415,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         if is_javascript {
             let window = self.documents.borrow().find_window(parent_pipeline_id);
             if let Some(window) = window {
-                ScriptThread::<TH>::eval_js_url(window.upcast::<GlobalScope>(), &mut load_data);
+                ScriptThread::<TH>::eval_js_url(window.upcast::<GlobalScope<TH>>(), &mut load_data);
             }
         }
 
@@ -2434,7 +2434,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         }
     }
 
-    pub fn eval_js_url(global_scope: &GlobalScope, load_data: &mut LoadData) {
+    pub fn eval_js_url(global_scope: &GlobalScope<TH>, load_data: &mut LoadData) {
         // Turn javascript: URL into JS code to eval, according to the steps in
         // https://html.spec.whatwg.org/multipage/#javascript-protocol
 
@@ -2626,7 +2626,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
                            metric_value: u64) {
         let window = self.documents.borrow().find_window(pipeline_id);
         if let Some(window) = window {
-            let entry = PerformancePaintTiming::new(&window.upcast::<GlobalScope>(),
+            let entry = PerformancePaintTiming::new(&window.upcast::<GlobalScope<TH>>(),
                                                     metric_type, metric_value);
             window.Performance().queue_entry(&entry.upcast::<PerformanceEntry>(),
                                              true /* buffer performance entry */);

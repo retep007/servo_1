@@ -20,14 +20,14 @@ pub struct TestBindingIterable {
 }
 
 impl TestBindingIterable {
-    fn new(global: &GlobalScope) -> DomRoot<TestBindingIterable> {
+    fn new(global: &GlobalScope<TH>) -> DomRoot<TestBindingIterable> {
         reflect_dom_object(Box::new(TestBindingIterable {
             reflector: Reflector::new(),
             vals: DomRefCell::new(vec![]),
         }), global, TestBindingIterableBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<TestBindingIterable>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBindingIterable>> {
         Ok(TestBindingIterable::new(global))
     }
 }

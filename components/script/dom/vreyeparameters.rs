@@ -39,7 +39,7 @@ impl VREyeParameters {
     }
 
     #[allow(unsafe_code)]
-    pub fn new(parameters: WebVREyeParameters, global: &GlobalScope) -> DomRoot<VREyeParameters> {
+    pub fn new(parameters: WebVREyeParameters, global: &GlobalScope<TH>) -> DomRoot<VREyeParameters> {
         let fov = VRFieldOfView::new(&global, parameters.field_of_view.clone());
 
         let cx = global.get_cx();

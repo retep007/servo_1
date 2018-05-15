@@ -26,8 +26,8 @@ pub struct WebGLProgram<TH: TypeHolderTrait> {
     is_deleted: Cell<bool>,
     link_called: Cell<bool>,
     linked: Cell<bool>,
-    fragment_shader: MutNullableDom<WebGLShader>,
-    vertex_shader: MutNullableDom<WebGLShader>,
+    fragment_shader: MutNullableDom<WebGLShader<TH>>,
+    vertex_shader: MutNullableDom<WebGLShader<TH>>,
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
     renderer: WebGLMsgSender,
 }
@@ -75,7 +75,7 @@ fn map_dot_separated<F: Fn(&str, &mut String)>(s: &str, f: F) -> String {
 impl<TH: TypeHolderTrait> WebGLProgram<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLProgramId)
-                     -> WebGLProgram {
+                     -> WebGLProgram<TH> {
         WebGLProgram {
             webgl_object: WebGLObject::new_inherited(),
             id: id,
@@ -89,7 +89,7 @@ impl<TH: TypeHolderTrait> WebGLProgram<TH> {
     }
 
     pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
-                     -> Option<DomRoot<WebGLProgram>> {
+                     -> Option<DomRoot<WebGLProgram<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateProgram(sender)).unwrap();
 
@@ -100,7 +100,7 @@ impl<TH: TypeHolderTrait> WebGLProgram<TH> {
     pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLProgramId)
-               -> DomRoot<WebGLProgram> {
+               -> DomRoot<WebGLProgram<TH>> {
         reflect_dom_object(Box::new(WebGLProgram::new_inherited(renderer, id)),
                            window,
                            WebGLProgramBinding::Wrap)
@@ -183,7 +183,7 @@ impl<TH> WebGLProgram<TH> {
     }
 
     /// glAttachShader
-    pub fn attach_shader(&self, shader: &WebGLShader) -> WebGLResult<()> {
+    pub fn attach_shader(&self, shader: &WebGLShader<TH>) -> WebGLResult<()> {
         if self.is_deleted() || shader.is_deleted() {
             return Err(WebGLError::InvalidOperation);
         }
@@ -211,7 +211,7 @@ impl<TH> WebGLProgram<TH> {
     }
 
     /// glDetachShader
-    pub fn detach_shader(&self, shader: &WebGLShader) -> WebGLResult<()> {
+    pub fn detach_shader(&self, shader: &WebGLShader<TH>) -> WebGLResult<()> {
         if self.is_deleted() {
             return Err(WebGLError::InvalidOperation);
         }
@@ -262,7 +262,7 @@ impl<TH> WebGLProgram<TH> {
         Ok(())
     }
 
-    pub fn get_active_uniform(&self, index: u32) -> WebGLResult<DomRoot<WebGLActiveInfo>> {
+    pub fn get_active_uniform(&self, index: u32) -> WebGLResult<DomRoot<WebGLActiveInfo<TH>>> {
         if self.is_deleted() {
             return Err(WebGLError::InvalidValue);
         }
@@ -278,7 +278,7 @@ impl<TH> WebGLProgram<TH> {
     }
 
     /// glGetActiveAttrib
-    pub fn get_active_attrib(&self, index: u32) -> WebGLResult<DomRoot<WebGLActiveInfo>> {
+    pub fn get_active_attrib(&self, index: u32) -> WebGLResult<DomRoot<WebGLActiveInfo<TH>>> {
         if self.is_deleted() {
             return Err(WebGLError::InvalidValue);
         }
@@ -370,7 +370,7 @@ impl<TH> WebGLProgram<TH> {
         receiver.recv().unwrap()
     }
 
-    pub fn attached_shaders(&self) -> WebGLResult<Vec<DomRoot<WebGLShader>>> {
+    pub fn attached_shaders(&self) -> WebGLResult<Vec<DomRoot<WebGLShader<TH>>>> {
         if self.is_deleted.get() {
             return Err(WebGLError::InvalidValue);
         }

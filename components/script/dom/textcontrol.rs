@@ -19,7 +19,7 @@ use script_traits::ScriptToConstellationChan;
 use textinput::{SelectionDirection, SelectionState, TextInput};
 use typeholder::TypeHolderTrait;
 
-pub trait TextControlElement<TH: TypeHolderTrait>: DerivedFrom<EventTarget> + DerivedFrom<Node<TH>> {
+pub trait TextControlElement<TH: TypeHolderTrait>: DerivedFrom<EventTarget<TH>> + DerivedFrom<Node<TH>> {
     fn selection_api_applies(&self) -> bool;
     fn has_selectable_text(&self) -> bool;
     fn set_dirty_value_flag(&self, value: bool);
@@ -285,7 +285,7 @@ impl<'a, E: TextControlElement, TH: TypeHolderTrait> TextControlSelection<'a, E,
         if textinput.selection_state() != original_selection_state {
             let window = window_from_node(self.element);
             window.user_interaction_task_source().queue_event(
-                &self.element.upcast::<EventTarget>(),
+                &self.element.upcast::<EventTarget<TH>>(),
                 atom!("select"),
                 EventBubbles::Bubbles,
                 EventCancelable::NotCancelable,

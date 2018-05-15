@@ -243,20 +243,20 @@ impl<TH: TypeHolderTrait> Element<TH> {
                   document: &Document<TH>,
                   creator: ElementCreator,
                   mode: CustomElementCreationMode)
-                  -> DomRoot<Element> {
+                  -> DomRoot<Element<TH>> {
         create_element(name, is, document, creator, mode)
     }
 
     pub fn new_inherited(local_name: LocalName,
                          namespace: Namespace, prefix: Option<Prefix>,
-                         document: &Document) -> Element {
+                         document: &Document<TH>) -> Element {
         Element::new_inherited_with_state(ElementState::empty(), local_name,
                                           namespace, prefix, document)
     }
 
     pub fn new_inherited_with_state(state: ElementState, local_name: LocalName,
                                     namespace: Namespace, prefix: Option<Prefix>,
-                                    document: &Document)
+                                    document: &Document<TH>)
                                     -> Element {
         Element {
             node: Node::new_inherited(document),
@@ -281,7 +281,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     pub fn new(local_name: LocalName,
                namespace: Namespace,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<Element> {
+               document: &Document<TH>) -> DomRoot<Element<TH>> {
         Node::reflect_node(
             Box::new(Element::new_inherited(local_name, namespace, prefix, document)),
             document,
@@ -848,7 +848,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
             let mut current_node = Some(self.upcast::<Node<TH>>());
             while let Some(node) = current_node {
                 current_node = node.parent_node_ref();
-                match node.downcast::<Element>().map(|el| el.unsafe_get()) {
+                match node.downcast::<Element<TH>>().map(|el| el.unsafe_get()) {
                     Some(elem) => {
                         if let Some(attr) = (*elem).get_attr_val_for_layout(&ns!(xml), &local_name!("lang")) {
                             return attr.to_owned();
@@ -1052,7 +1052,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         }
     }
 
-    pub fn root_element(&self) -> DomRoot<Element> {
+    pub fn root_element(&self) -> DomRoot<Element<TH>> {
         if self.node.is_in_doc() {
             self.upcast::<Node<TH>>()
                 .owner_doc()
@@ -1070,7 +1070,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     // https://dom.spec.whatwg.org/#locate-a-namespace-prefix
     pub fn lookup_prefix(&self, namespace: Namespace) -> Option<DOMString> {
         for node in self.upcast::<Node<TH>>().inclusive_ancestors() {
-            let element = node.downcast::<Element>()?;
+            let element = node.downcast::<Element<TH>>()?;
             // Step 1.
             if *element.namespace() == namespace {
                 if let Some(prefix) = element.GetPrefix() {
@@ -1454,7 +1454,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#insert-adjacent
-    pub fn insert_adjacent(&self, where_: AdjacentPosition, node: &Node)
+    pub fn insert_adjacent(&self, where_: AdjacentPosition, node: &Node<TH>)
                            -> Fallible<Option<DomRoot<Node<TH>>>> {
         let self_node = self.upcast::<Node<TH>>();
         match where_ {
@@ -1570,9 +1570,9 @@ impl<TH: TypeHolderTrait> Element<TH> {
 
     // https://html.spec.whatwg.org/multipage/#home-subtree
     pub fn is_in_same_home_subtree<T>(&self, other: &T) -> bool
-        where T: DerivedFrom<Element> + DomObject
+        where T: DerivedFrom<Element<TH>> + DomObject
     {
-        let other = other.upcast::<Element>();
+        let other = other.upcast::<Element<TH>>();
         self.root_element() == other.root_element()
     }
 }
@@ -2196,12 +2196,12 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-nondocumenttypechildnode-previouselementsibling
-    fn GetPreviousElementSibling(&self) -> Option<DomRoot<Element>> {
+    fn GetPreviousElementSibling(&self) -> Option<DomRoot<Element<TH>>> {
         self.upcast::<Node<TH>>().preceding_siblings().filter_map(DomRoot::downcast).next()
     }
 
     // https://dom.spec.whatwg.org/#dom-nondocumenttypechildnode-nextelementsibling
-    fn GetNextElementSibling(&self) -> Option<DomRoot<Element>> {
+    fn GetNextElementSibling(&self) -> Option<DomRoot<Element<TH>>> {
         self.upcast::<Node<TH>>().following_siblings().filter_map(DomRoot::downcast).next()
     }
 
@@ -2212,13 +2212,13 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-firstelementchild
-    fn GetFirstElementChild(&self) -> Option<DomRoot<Element>> {
+    fn GetFirstElementChild(&self) -> Option<DomRoot<Element<TH>>> {
         self.upcast::<Node<TH>>().child_elements().next()
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-lastelementchild
-    fn GetLastElementChild(&self) -> Option<DomRoot<Element>> {
-        self.upcast::<Node<TH>>().rev_children().filter_map(DomRoot::downcast::<Element>).next()
+    fn GetLastElementChild(&self) -> Option<DomRoot<Element<TH>>> {
+        self.upcast::<Node<TH>>().rev_children().filter_map(DomRoot::downcast::<Element<TH>>).next()
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-childelementcount
@@ -2237,7 +2237,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
-    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element>>> {
+    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
         let root = self.upcast::<Node<TH>>();
         root.query_selector(selectors)
     }
@@ -2288,7 +2288,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-closest
-    fn Closest(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element>>> {
+    fn Closest(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
         let selectors =
             match SelectorParser::parse_author_origin_no_namespace(&selectors) {
                 Err(_) => return Err(Error::Syntax),
@@ -2305,7 +2305,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
 
     // https://dom.spec.whatwg.org/#dom-element-insertadjacentelement
     fn InsertAdjacentElement(&self, where_: DOMString, element: &Element)
-                             -> Fallible<Option<DomRoot<Element>>> {
+                             -> Fallible<Option<DomRoot<Element<TH>>>> {
         let where_ = where_.parse::<AdjacentPosition>()?;
         let inserted_node = self.insert_adjacent(where_, element.upcast())?;
         Ok(inserted_node.map(|node| DomRoot::downcast(node).unwrap()))
@@ -2345,7 +2345,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
 
         // Step 2.
         let context = Element::fragment_parsing_context(
-            &context.owner_doc(), context.downcast::<Element>());
+            &context.owner_doc(), context.downcast::<Element<TH>>());
 
         // Step 3.
         let fragment = context.parse_fragment(text)?;
@@ -2554,7 +2554,7 @@ impl<TH> VirtualMethods for Element<TH> {
             if flags.intersects(ElementSelectorFlags::HAS_SLOW_SELECTOR_LATER_SIBLINGS) {
                 if let Some(next_child) = mutation.next_child() {
                     for child in next_child.inclusively_following_siblings() {
-                        if child.is::<Element>() {
+                        if child.is::<Element<TH>>() {
                             child.dirty(NodeDamage::OtherNodeDamage);
                         }
                     }
@@ -2568,7 +2568,7 @@ impl<TH> VirtualMethods for Element<TH> {
         }
     }
 
-    fn adopting_steps(&self, old_doc: &Document) {
+    fn adopting_steps(&self, old_doc: &Document<TH>) {
         self.super_type().unwrap().adopting_steps(old_doc);
 
         if document_from_node(self).is_html_document() != old_doc.is_html_document() {
@@ -2584,7 +2584,7 @@ impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
         ::selectors::OpaqueElement::new(self.reflector().get_jsobject().get())
     }
 
-    fn parent_element(&self) -> Option<DomRoot<Element>> {
+    fn parent_element(&self) -> Option<DomRoot<Element<TH>>> {
         self.upcast::<Node<TH>>().GetParentElement()
     }
 
@@ -2604,19 +2604,19 @@ impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
         false
     }
 
-    fn first_child_element(&self) -> Option<DomRoot<Element>> {
+    fn first_child_element(&self) -> Option<DomRoot<Element<TH>>> {
         self.node.child_elements().next()
     }
 
-    fn last_child_element(&self) -> Option<DomRoot<Element>> {
+    fn last_child_element(&self) -> Option<DomRoot<Element<TH>>> {
         self.node.rev_children().filter_map(DomRoot::downcast).next()
     }
 
-    fn prev_sibling_element(&self) -> Option<DomRoot<Element>> {
+    fn prev_sibling_element(&self) -> Option<DomRoot<Element<TH>>> {
         self.node.preceding_siblings().filter_map(DomRoot::downcast).next()
     }
 
-    fn next_sibling_element(&self) -> Option<DomRoot<Element>> {
+    fn next_sibling_element(&self) -> Option<DomRoot<Element<TH>>> {
         self.node.following_siblings().filter_map(DomRoot::downcast).next()
     }
 
@@ -2647,7 +2647,7 @@ impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
     }
 
     fn is_empty(&self) -> bool {
-        self.node.children().all(|node| !node.is::<Element>() && match node.downcast::<Text>() {
+        self.node.children().all(|node| !node.is::<Element<TH>>() && match node.downcast::<Text>() {
             None => true,
             Some(text) => text.upcast::<CharacterData>().data().is_empty()
         })
@@ -2832,13 +2832,13 @@ impl<TH> Element<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#nearest-activatable-element
-    pub fn nearest_activable_element(&self) -> Option<DomRoot<Element>> {
+    pub fn nearest_activable_element(&self) -> Option<DomRoot<Element<TH>>> {
         match self.as_maybe_activatable() {
             Some(el) => Some(DomRoot::from_ref(el.as_element())),
             None => {
                 let node = self.upcast::<Node<TH>>();
                 for node in node.ancestors() {
-                    if let Some(node) = node.downcast::<Element>() {
+                    if let Some(node) = node.downcast::<Element<TH>>() {
                         if node.as_maybe_activatable().is_some() {
                             return Some(DomRoot::from_ref(node));
                         }
@@ -2898,7 +2898,7 @@ impl<TH> Element<TH> {
     // https://html.spec.whatwg.org/multipage/#language
     pub fn get_lang(&self) -> String {
         self.upcast::<Node<TH>>().inclusive_ancestors().filter_map(|node| {
-            node.downcast::<Element>().and_then(|el| {
+            node.downcast::<Element<TH>>().and_then(|el| {
                 el.get_attribute(&ns!(xml), &local_name!("lang")).or_else(|| {
                     el.get_attribute(&ns!(), &local_name!("lang"))
                 }).map(|attr| String::from(attr.Value()))
@@ -3026,7 +3026,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
             if !ancestor.is::<HTMLFieldSetElement>() {
                 continue;
             }
-            if !ancestor.downcast::<Element>().unwrap().disabled_state() {
+            if !ancestor.downcast::<Element<TH>>().unwrap().disabled_state() {
                 continue;
             }
             if ancestor.is_parent_of(node) {
@@ -3053,7 +3053,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         let node = self.upcast::<Node<TH>>();
         if let Some(ref parent) = node.GetParentNode() {
             if parent.is::<HTMLOptGroupElement>() &&
-               parent.downcast::<Element>().unwrap().disabled_state() {
+               parent.downcast::<Element<TH>>().unwrap().disabled_state() {
                 self.set_disabled_state(true);
                 self.set_enabled_state(false);
             }
@@ -3130,13 +3130,13 @@ impl TagName {
 }
 
 pub struct ElementPerformFullscreenEnter {
-    element: Trusted<Element>,
+    element: Trusted<Element<TH>>,
     promise: TrustedPromise,
     error: bool,
 }
 
 impl ElementPerformFullscreenEnter {
-    pub fn new(element: Trusted<Element>, promise: TrustedPromise, error: bool) -> Box<ElementPerformFullscreenEnter> {
+    pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise, error: bool) -> Box<ElementPerformFullscreenEnter> {
         Box::new(ElementPerformFullscreenEnter {
             element: element,
             promise: promise,
@@ -3154,7 +3154,7 @@ impl TaskOnce for ElementPerformFullscreenEnter {
 
         // Step 7.1
         if self.error || !element.fullscreen_element_ready_check() {
-            document.upcast::<EventTarget>().fire_event(atom!("fullscreenerror"));
+            document.upcast::<EventTarget<TH>>().fire_event(atom!("fullscreenerror"));
             promise.reject_error(Error::Type(String::from("fullscreen is not connected")));
             return
         }
@@ -3166,7 +3166,7 @@ impl TaskOnce for ElementPerformFullscreenEnter {
         document.window().reflow(ReflowGoal::Full, ReflowReason::ElementStateChanged);
 
         // Step 7.6
-        document.upcast::<EventTarget>().fire_event(atom!("fullscreenchange"));
+        document.upcast::<EventTarget<TH>>().fire_event(atom!("fullscreenchange"));
 
         // Step 7.7
         promise.resolve_native(&());
@@ -3174,12 +3174,12 @@ impl TaskOnce for ElementPerformFullscreenEnter {
 }
 
 pub struct ElementPerformFullscreenExit {
-    element: Trusted<Element>,
+    element: Trusted<Element<TH>>,
     promise: TrustedPromise,
 }
 
 impl ElementPerformFullscreenExit {
-    pub fn new(element: Trusted<Element>, promise: TrustedPromise) -> Box<ElementPerformFullscreenExit> {
+    pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise) -> Box<ElementPerformFullscreenExit> {
         Box::new(ElementPerformFullscreenExit {
             element: element,
             promise: promise,
@@ -3201,7 +3201,7 @@ impl TaskOnce for ElementPerformFullscreenExit {
         document.set_fullscreen_element(None);
 
         // Step 9.8
-        document.upcast::<EventTarget>().fire_event(atom!("fullscreenchange"));
+        document.upcast::<EventTarget<TH>>().fire_event(atom!("fullscreenchange"));
 
         // Step 9.10
         self.promise.root().resolve_native(&());

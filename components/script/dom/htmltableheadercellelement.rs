@@ -18,7 +18,7 @@ pub struct HTMLTableHeaderCellElement {
 impl HTMLTableHeaderCellElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLTableHeaderCellElement {
+                     document: &Document<TH>) -> HTMLTableHeaderCellElement {
         HTMLTableHeaderCellElement {
             htmltablecellelement:
                 HTMLTableCellElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLTableHeaderCellElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLTableHeaderCellElement> {
+               document: &Document<TH>) -> DomRoot<HTMLTableHeaderCellElement> {
         Node::reflect_node(Box::new(HTMLTableHeaderCellElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTableHeaderCellElementBinding::Wrap)

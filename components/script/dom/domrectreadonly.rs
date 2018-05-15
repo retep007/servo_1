@@ -30,8 +30,7 @@ impl DOMRectReadOnly {
         }
     }
 
-    pub fn new(global: &GlobalScope,
-               x: f64,
+    pub fn new(global: &GlobalScope<TH>,               x: f64,
                y: f64,
                width: f64,
                height: f64)
@@ -41,8 +40,7 @@ impl DOMRectReadOnly {
                            Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope,
-                       x: f64,
+    pub fn Constructor(global: &GlobalScope<TH>,                       x: f64,
                        y: f64,
                        width: f64,
                        height: f64)

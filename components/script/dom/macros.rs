@@ -8,7 +8,7 @@ macro_rules! make_getter(
         fn $attr(&self) -> DOMString {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.get_string_attribute(&local_name!($htmlname))
         }
     );
@@ -20,7 +20,7 @@ macro_rules! make_bool_getter(
         fn $attr(&self) -> bool {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.has_attribute(&local_name!($htmlname))
         }
     );
@@ -39,7 +39,7 @@ macro_rules! make_limited_int_setter(
                 value
             };
 
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.set_int_attribute(&local_name!($htmlname), value);
             Ok(())
         }
@@ -53,7 +53,7 @@ macro_rules! make_int_setter(
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
 
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.set_int_attribute(&local_name!($htmlname), value)
         }
     );
@@ -68,7 +68,7 @@ macro_rules! make_int_getter(
         fn $attr(&self) -> i32 {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.get_int_attribute(&local_name!($htmlname), $default)
         }
     );
@@ -84,7 +84,7 @@ macro_rules! make_uint_getter(
         fn $attr(&self) -> u32 {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.get_uint_attribute(&local_name!($htmlname), $default)
         }
     );
@@ -99,7 +99,7 @@ macro_rules! make_url_getter(
         fn $attr(&self) -> DOMString {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.get_url_attribute(&local_name!($htmlname))
         }
     );
@@ -111,7 +111,7 @@ macro_rules! make_form_action_getter(
         fn $attr(&self) -> DOMString {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             let doc = ::dom::node::document_from_node(self);
             let attr = element.get_attribute(&ns!(), &local_name!($htmlname));
             let value = attr.as_ref().map(|attr| attr.value());
@@ -133,7 +133,7 @@ macro_rules! make_enumerated_getter(
         fn $attr(&self) -> DOMString {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             let mut val = element.get_string_attribute(&local_name!($htmlname));
             val.make_ascii_lowercase();
             // https://html.spec.whatwg.org/multipage/#attr-fs-method
@@ -153,7 +153,7 @@ macro_rules! make_setter(
         fn $attr(&self, value: DOMString) {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.set_string_attribute(&local_name!($htmlname), value)
         }
     );
@@ -165,7 +165,7 @@ macro_rules! make_bool_setter(
         fn $attr(&self, value: bool) {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.set_bool_attribute(&local_name!($htmlname), value)
         }
     );
@@ -177,7 +177,7 @@ macro_rules! make_url_setter(
         fn $attr(&self, value: DOMString) {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.set_url_attribute(&local_name!($htmlname), value);
         }
     );
@@ -195,7 +195,7 @@ macro_rules! make_uint_setter(
             } else {
                 value
             };
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.set_uint_attribute(&local_name!($htmlname), value)
         }
     );
@@ -218,7 +218,7 @@ macro_rules! make_limited_uint_setter(
             } else {
                 value
             };
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.set_uint_attribute(&local_name!($htmlname), value);
             Ok(())
         }
@@ -234,7 +234,7 @@ macro_rules! make_atomic_setter(
         fn $attr(&self, value: DOMString) {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             element.set_atomic_attribute(&local_name!($htmlname), value)
         }
     );
@@ -247,7 +247,7 @@ macro_rules! make_legacy_color_setter(
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
             use style::attr::AttrValue;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             let value = AttrValue::from_legacy_color(value.into());
             element.set_attribute(&local_name!($htmlname), value)
         }
@@ -260,7 +260,7 @@ macro_rules! make_dimension_setter(
         fn $attr(&self, value: DOMString) {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             let value = AttrValue::from_dimension(value.into());
             element.set_attribute(&local_name!($htmlname), value)
         }
@@ -273,7 +273,7 @@ macro_rules! make_nonzero_dimension_setter(
         fn $attr(&self, value: DOMString) {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
-            let element = self.upcast::<Element>();
+            let element = self.upcast::<Element<TH>>();
             let value = AttrValue::from_nonzero_dimension(value.into());
             element.set_attribute(&local_name!($htmlname), value)
         }
@@ -318,14 +318,14 @@ macro_rules! define_event_handler(
         fn $getter(&self) -> Option<::std::rc::Rc<$handler>> {
             use dom::bindings::inheritance::Castable;
             use dom::eventtarget::EventTarget;
-            let eventtarget = self.upcast::<EventTarget>();
+            let eventtarget = self.upcast::<EventTarget<TH>>();
             eventtarget.get_event_handler_common(stringify!($event_type))
         }
 
         fn $setter(&self, listener: Option<::std::rc::Rc<$handler>>) {
             use dom::bindings::inheritance::Castable;
             use dom::eventtarget::EventTarget;
-            let eventtarget = self.upcast::<EventTarget>();
+            let eventtarget = self.upcast::<EventTarget<TH>>();
             eventtarget.$setter_fn(stringify!($event_type), listener)
         }
     )

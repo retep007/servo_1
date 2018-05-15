@@ -26,6 +26,7 @@ use std::cmp::{self, Ord, Ordering};
 use std::collections::HashMap;
 use std::default::Default;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, JSTraceable, MallocSizeOf, Ord, PartialEq, PartialOrd)]
 pub struct OneshotTimerHandle(i32);
@@ -55,7 +56,7 @@ pub struct OneshotTimers {
 }
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
-struct OneshotTimer {
+struct OneshotTimer<TH: TypeHolderTrait> {
     handle: OneshotTimerHandle,
     source: TimerSource,
     callback: OneshotTimerCallback,
@@ -66,16 +67,16 @@ struct OneshotTimer {
 // A replacement trait would have a method such as
 //     `invoke<T: DomObject>(self: Box<Self>, this: &T, js_timers: &JsTimers);`.
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum OneshotTimerCallback {
+pub enum OneshotTimerCallback<TH: TypeHolderTrait> {
     XhrTimeout(XHRTimeoutCallback),
     EventSourceTimeout(EventSourceTimeoutCallback),
-    JsTimer(JsTimerTask),
+    JsTimer(JsTimerTask<TH>),
     TestBindingCallback(TestBindingCallback),
     FakeRequestAnimationFrame(FakeRequestAnimationFrameCallback),
 }
 
-impl OneshotTimerCallback {
-    fn invoke<T: DomObject>(self, this: &T, js_timers: &JsTimers) {
+impl<TH: TypeHolderTrait> OneshotTimerCallback<TH> {
+    fn invoke<T: DomObject>(self, this: &T, js_timers: &JsTimers<TH>) {
         match self {
             OneshotTimerCallback::XhrTimeout(callback) => callback.invoke(),
             OneshotTimerCallback::EventSourceTimeout(callback) => callback.invoke(),
@@ -86,8 +87,8 @@ impl OneshotTimerCallback {
     }
 }
 
-impl Ord for OneshotTimer {
-    fn cmp(&self, other: &OneshotTimer) -> Ordering {
+impl<TH> Ord for OneshotTimer<TH> {
+    fn cmp(&self, other: &OneshotTimer<TH>) -> Ordering {
         match self.scheduled_for.cmp(&other.scheduled_for).reverse() {
             Ordering::Equal => self.handle.cmp(&other.handle).reverse(),
             res => res
@@ -95,20 +96,20 @@ impl Ord for OneshotTimer {
     }
 }
 
-impl PartialOrd for OneshotTimer {
-    fn partial_cmp(&self, other: &OneshotTimer) -> Option<Ordering> {
+impl<TH> PartialOrd for OneshotTimer<TH> {
+    fn partial_cmp(&self, other: &OneshotTimer<TH>) -> Option<Ordering> {
         Some(self.cmp(other))
     }
 }
 
-impl Eq for OneshotTimer {}
-impl PartialEq for OneshotTimer {
-    fn eq(&self, other: &OneshotTimer) -> bool {
-        self as *const OneshotTimer == other as *const OneshotTimer
+impl<TH> Eq for OneshotTimer<TH> {}
+impl<TH> PartialEq for OneshotTimer<TH> {
+    fn eq(&self, other: &OneshotTimer<TH>) -> bool {
+        self as *const OneshotTimer<TH> == other as *const OneshotTimer<TH>
     }
 }
 
-impl OneshotTimers {
+impl<TH: TypeHolderTrait> OneshotTimers<TH> {
     pub fn new(timer_event_chan: IpcSender<TimerEvent>,
                scheduler_chan: IpcSender<TimerSchedulerMsg>)
                -> OneshotTimers {
@@ -125,7 +126,7 @@ impl OneshotTimers {
     }
 
     pub fn schedule_callback(&self,
-                             callback: OneshotTimerCallback,
+                             callback: OneshotTimerCallback<TH>,
                              duration: MsDuration,
                              source: TimerSource)
                              -> OneshotTimerHandle {
@@ -172,7 +173,7 @@ impl OneshotTimers {
         }
     }
 
-    pub fn fire_timer(&self, id: TimerEventId, global: &GlobalScope) {
+    pub fn fire_timer(&self, id: TimerEventId, global: &GlobalScope<TH>) {
         let expected_id = self.expected_event_id.get();
         if expected_id != id {
             debug!("ignoring timer fire event {:?} (expected {:?})", id, expected_id);
@@ -281,7 +282,7 @@ impl OneshotTimers {
     }
 
     pub fn set_timeout_or_interval(&self,
-                               global: &GlobalScope,
+                               global: &GlobalScope<TH>,
                                callback: TimerCallback,
                                arguments: Vec<HandleValue>,
                                timeout: i32,
@@ -296,7 +297,7 @@ impl OneshotTimers {
                                                source)
     }
 
-    pub fn clear_timeout_or_interval(&self, global: &GlobalScope, handle: i32) {
+    pub fn clear_timeout_or_interval(&self, global: &GlobalScope<TH>, handle: i32) {
         self.js_timers.clear_timeout_or_interval(global, handle)
     }
 }
@@ -305,7 +306,7 @@ impl OneshotTimers {
 pub struct JsTimerHandle(i32);
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
-pub struct JsTimers {
+pub struct JsTimers<TH: TypeHolderTrait> {
     next_timer_handle: Cell<JsTimerHandle>,
     active_timers: DomRefCell<HashMap<JsTimerHandle, JsTimerEntry>>,
     /// The nesting level of the currently executing timer task or 0.
@@ -324,7 +325,7 @@ struct JsTimerEntry {
 //      to the function when calling it)
 // TODO: Handle rooting during invocation when movable GC is turned on
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct JsTimerTask {
+pub struct JsTimerTask<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
     handle: JsTimerHandle,
     source: TimerSource,
@@ -357,8 +358,8 @@ enum InternalTimerCallback {
         Rc<Box<[Heap<JSVal>]>>),
 }
 
-impl JsTimers {
-    pub fn new() -> JsTimers {
+impl<TH: TypeHolderTrait> JsTimers<TH> {
+    pub fn new() -> JsTimers<TH> {
         JsTimers {
             next_timer_handle: Cell::new(JsTimerHandle(1)),
             active_timers: DomRefCell::new(HashMap::new()),
@@ -369,7 +370,7 @@ impl JsTimers {
 
     // see https://html.spec.whatwg.org/multipage/#timer-initialisation-steps
     pub fn set_timeout_or_interval(&self,
-                               global: &GlobalScope,
+                               global: &GlobalScope<TH>,
                                callback: TimerCallback,
                                arguments: Vec<HandleValue>,
                                timeout: i32,
@@ -419,7 +420,7 @@ impl JsTimers {
         new_handle
     }
 
-    pub fn clear_timeout_or_interval(&self, global: &GlobalScope, handle: i32) {
+    pub fn clear_timeout_or_interval(&self, global: &GlobalScope<TH>, handle: i32) {
         let mut active_timers = self.active_timers.borrow_mut();
 
         if let Some(entry) = active_timers.remove(&JsTimerHandle(handle)) {
@@ -446,7 +447,7 @@ impl JsTimers {
     }
 
     // see https://html.spec.whatwg.org/multipage/#timer-initialisation-steps
-    fn initialize_and_schedule(&self, global: &GlobalScope, mut task: JsTimerTask) {
+    fn initialize_and_schedule(&self, global: &GlobalScope<TH>, mut task: JsTimerTask<TH>) {
         let handle = task.handle;
         let mut active_timers = self.active_timers.borrow_mut();
 
@@ -481,9 +482,9 @@ fn clamp_duration(nesting_level: u32, unclamped: MsDuration) -> MsDuration {
     cmp::max(Length::new(lower_bound), unclamped)
 }
 
-impl JsTimerTask {
+impl<TH: TypeHolderTrait> JsTimerTask<TH> {
     // see https://html.spec.whatwg.org/multipage/#timer-initialisation-steps
-    pub fn invoke<T: DomObject>(self, this: &T, timers: &JsTimers) {
+    pub fn invoke<T: DomObject>(self, this: &T, timers: &JsTimers<TH>) {
         // step 4.1 can be ignored, because we proactively prevent execution
         // of this task when its scheduled execution is canceled.
 

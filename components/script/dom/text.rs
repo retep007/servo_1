@@ -25,7 +25,7 @@ pub struct Text<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> Text<TH> {
-    fn new_inherited(text: DOMString, document: &Document) -> Text<TH> {
+    fn new_inherited(text: DOMString, document: &Document<TH>) -> Text<TH> {
         Text {
             characterdata: CharacterData::new_inherited(text, document)
         }

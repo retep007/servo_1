@@ -33,13 +33,13 @@ impl CloseEvent {
         }
     }
 
-    pub fn new_uninitialized(global: &GlobalScope) -> DomRoot<CloseEvent> {
+    pub fn new_uninitialized(global: &GlobalScope<TH>) -> DomRoot<CloseEvent> {
         reflect_dom_object(Box::new(CloseEvent::new_inherited(false, 0, DOMString::new())),
                            global,
                            CloseEventBinding::Wrap)
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                type_: Atom,
                bubbles: EventBubbles,
                cancelable: EventCancelable,
@@ -58,7 +58,7 @@ impl CloseEvent {
         ev
     }
 
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
                        init: &CloseEventBinding::CloseEventInit)
                        -> Fallible<DomRoot<CloseEvent>> {

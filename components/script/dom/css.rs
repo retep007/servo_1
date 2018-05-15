@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> CSS<TH> {
     }
 
     /// <https://drafts.css-houdini.org/css-paint-api-1/#paint-worklet>
-    pub fn PaintWorklet(win: &Window) -> DomRoot<Worklet> {
+    pub fn PaintWorklet(win: &Window<TH>) -> DomRoot<Worklet<TH>> {
         win.paint_worklet()
     }
 }

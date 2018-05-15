@@ -33,7 +33,7 @@ impl<TH: TypeHolderTrait> HTMLSourceElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLSourceElement<TH>> {
+               document: &Document<TH>) -> DomRoot<HTMLSourceElement<TH>> {
         Node::reflect_node(Box::new(HTMLSourceElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLSourceElementBinding::Wrap)

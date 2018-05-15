@@ -321,8 +321,8 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
         let x = self.get_node(&x);
         let y = self.get_node(&y);
 
-        let x = x.downcast::<Element>().expect("Element node expected");
-        let y = y.downcast::<Element>().expect("Element node expected");
+        let x = x.downcast::<Element<TH>>().expect("Element node expected");
+        let y = y.downcast::<Element<TH>>().expect("Element node expected");
         x.is_in_same_home_subtree(y)
     }
 
@@ -375,7 +375,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
                 document.upcast::<Node<TH>>().AppendChild(doctype.upcast()).expect("Appending failed");
             }
             ParseOperation::AddAttrsIfMissing { target, attrs } => {
-                let elem = self.get_node(&target).downcast::<Element>()
+                let elem = self.get_node(&target).downcast::<Element<TH>>()
                     .expect("tried to set attrs on non-Element in HTML parsing");
                 for attr in attrs {
                     elem.set_attribute_from_parser(attr.name, DOMString::from(attr.value), None);
@@ -410,7 +410,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
                     .expect("Owner must be a form element");
 
                 let node = self.get_node(&target);
-                let elem = node.downcast::<Element>();
+                let elem = node.downcast::<Element<TH>>();
                 let control = elem.and_then(|e| e.as_maybe_form_control());
 
                 if let Some(control) = control {

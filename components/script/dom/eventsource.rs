@@ -105,7 +105,7 @@ impl EventSourceContext {
                 let event_source = event_source.root();
                 if event_source.ready_state.get() != ReadyState::Closed {
                     event_source.ready_state.set(ReadyState::Open);
-                    event_source.upcast::<EventTarget>().fire_event(atom!("open"));
+                    event_source.upcast::<EventTarget<TH>>().fire_event(atom!("open"));
                 }
             }),
             &global,
@@ -126,7 +126,7 @@ impl EventSourceContext {
                 let event_source = event_source.root();
                 if event_source.ready_state.get() != ReadyState::Closed {
                     event_source.ready_state.set(ReadyState::Closed);
-                    event_source.upcast::<EventTarget>().fire_event(atom!("error"));
+                    event_source.upcast::<EventTarget<TH>>().fire_event(atom!("error"));
                 }
             }),
             &global,
@@ -158,7 +158,7 @@ impl EventSourceContext {
                 event_source.ready_state.set(ReadyState::Connecting);
 
                 // Step 1.3.
-                event_source.upcast::<EventTarget>().fire_event(atom!("error"));
+                event_source.upcast::<EventTarget<TH>>().fire_event(atom!("error"));
 
                 // Step 2.
                 let duration = Length::new(event_source.reconnection_time.get());
@@ -413,7 +413,7 @@ impl EventSource {
         }
     }
 
-    fn new(global: &GlobalScope, url: ServoUrl, with_credentials: bool) -> DomRoot<EventSource> {
+    fn new(global: &GlobalScope<TH>, url: ServoUrl, with_credentials: bool) -> DomRoot<EventSource> {
         reflect_dom_object(Box::new(EventSource::new_inherited(url, with_credentials)),
                            global,
                            Wrap)
@@ -423,7 +423,7 @@ impl EventSource {
         self.request.borrow().clone().unwrap()
     }
 
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        url: DOMString,
                        event_source_init: &EventSourceInit) -> Fallible<DomRoot<EventSource>> {
         // TODO: Step 2 relevant settings object

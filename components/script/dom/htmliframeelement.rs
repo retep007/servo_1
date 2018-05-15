@@ -87,7 +87,7 @@ impl<TH> HTMLIFrameElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#otherwise-steps-for-iframe-or-frame-elements>,
     /// step 1.
     fn get_url(&self) -> ServoUrl {
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         element.get_attribute(&ns!(), &local_name!("src")).and_then(|src| {
             let url = src.value();
             if url.is_empty() {
@@ -152,7 +152,7 @@ impl<TH> HTMLIFrameElement<TH> {
         let new_pipeline_id = PipelineId::new();
         self.pending_pipeline_id.set(Some(new_pipeline_id));
 
-        let global_scope = window.upcast::<GlobalScope>();
+        let global_scope = window.upcast::<GlobalScope<TH>>();
         let load_info = IFrameLoadInfo {
             parent_pipeline_id: global_scope.pipeline_id(),
             browsing_context_id: browsing_context_id,
@@ -210,7 +210,7 @@ impl<TH> HTMLIFrameElement<TH> {
         let window = window_from_node(self);
 
         // https://github.com/whatwg/html/issues/490
-        if mode == ProcessingMode::FirstTime && !self.upcast::<Element>().has_attribute(&local_name!("src")) {
+        if mode == ProcessingMode::FirstTime && !self.upcast::<Element<TH>>().has_attribute(&local_name!("src")) {
             let this = Trusted::new(self);
             let pipeline_id = self.pipeline_id().unwrap();
             // FIXME(nox): Why are errors silenced here?
@@ -228,7 +228,7 @@ impl<TH> HTMLIFrameElement<TH> {
         // TODO: check ancestor browsing contexts for same URL
 
         let creator_pipeline_id = if url.as_str() == "about:blank" {
-            Some(window.upcast::<GlobalScope>().pipeline_id())
+            Some(window.upcast::<GlobalScope<TH>>().pipeline_id())
         } else {
             None
         };
@@ -247,7 +247,7 @@ impl<TH> HTMLIFrameElement<TH> {
         let url = ServoUrl::parse("about:blank").unwrap();
         let document = document_from_node(self);
         let window = window_from_node(self);
-        let pipeline_id = Some(window.upcast::<GlobalScope>().pipeline_id());
+        let pipeline_id = Some(window.upcast::<GlobalScope<TH>>().pipeline_id());
         let load_data = LoadData::new(url, pipeline_id, document.get_referrer_policy(), Some(document.url().clone()));
         let browsing_context_id = BrowsingContextId::new();
         let top_level_browsing_context_id = window.window_proxy().top_level_browsing_context_id();
@@ -287,7 +287,7 @@ impl<TH> HTMLIFrameElement<TH> {
 
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLIFrameElement {
+                     document: &Document<TH>) -> HTMLIFrameElement {
         HTMLIFrameElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             browsing_context_id: Cell::new(None),
@@ -305,7 +305,7 @@ impl<TH> HTMLIFrameElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLIFrameElement> {
+               document: &Document<TH>) -> DomRoot<HTMLIFrameElement> {
         Node::reflect_node(Box::new(HTMLIFrameElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLIFrameElementBinding::Wrap)
@@ -335,7 +335,7 @@ impl<TH> HTMLIFrameElement<TH> {
     pub fn set_visible(&self, visible: bool) {
         let msg = ScriptMsg::SetVisible(visible);
         let window = window_from_node(self);
-        window.upcast::<GlobalScope>().script_to_constellation_chan().send(msg).unwrap();
+        window.upcast::<GlobalScope<TH>>().script_to_constellation_chan().send(msg).unwrap();
     }
 
     /// https://html.spec.whatwg.org/multipage/#iframe-load-event-steps steps 1-4
@@ -351,7 +351,7 @@ impl<TH> HTMLIFrameElement<TH> {
         // TODO Step 3 - set child document  `mut iframe load` flag
 
         // Step 4
-        self.upcast::<EventTarget>().fire_event(atom!("load"));
+        self.upcast::<EventTarget<TH>>().fire_event(atom!("load"));
 
         let mut blocker = self.load_blocker.borrow_mut();
         LoadBlocker::terminate(&mut blocker);
@@ -391,7 +391,7 @@ impl<TH> HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement<TH>> {
     #[allow(unsafe_code)]
     fn get_width(&self) -> LengthOrPercentageOrAuto {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("width"))
                 .map(AttrValue::as_dimension)
                 .cloned()
@@ -402,7 +402,7 @@ impl<TH> HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement<TH>> {
     #[allow(unsafe_code)]
     fn get_height(&self) -> LengthOrPercentageOrAuto {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("height"))
                 .map(AttrValue::as_dimension)
                 .cloned()
@@ -420,7 +420,7 @@ impl<TH: TypeHolderTrait> HTMLIFrameElementMethods for HTMLIFrameElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-iframe-sandbox
     fn Sandbox(&self) -> DomRoot<DOMTokenList> {
-        self.sandbox.or_init(|| DOMTokenList::new(self.upcast::<Element>(), &local_name!("sandbox")))
+        self.sandbox.or_init(|| DOMTokenList::new(self.upcast::<Element<TH>>(), &local_name!("sandbox")))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-iframe-contentwindow
@@ -581,7 +581,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLIFrameElement<TH> {
         debug!("Unbinding frame {}.", browsing_context_id);
 
         let msg = ScriptMsg::RemoveIFrame(browsing_context_id, sender);
-        window.upcast::<GlobalScope>().script_to_constellation_chan().send(msg).unwrap();
+        window.upcast::<GlobalScope<TH>>().script_to_constellation_chan().send(msg).unwrap();
         let exited_pipeline_ids = receiver.recv().unwrap();
 
         // The spec for discarding is synchronous,

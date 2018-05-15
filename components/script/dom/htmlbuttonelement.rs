@@ -49,7 +49,7 @@ pub struct HTMLButtonElement<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLButtonElement<TH> {
+                     document: &Document<TH>) -> HTMLButtonElement<TH> {
         HTMLButtonElement {
             htmlelement:
                 HTMLElement::new_inherited_with_state(ElementState::IN_ENABLED_STATE,
@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLButtonElement> {
+               document: &Document<TH>) -> DomRoot<HTMLButtonElement> {
         Node::reflect_node(Box::new(HTMLButtonElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLButtonElementBinding::Wrap)
@@ -186,7 +186,7 @@ impl<TH> VirtualMethods for HTMLButtonElement<TH> {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
-                let el = self.upcast::<Element>();
+                let el = self.upcast::<Element<TH>>();
                 match mutation {
                     AttributeMutation::Set(Some(_)) => {}
                     AttributeMutation::Set(None) => {
@@ -228,14 +228,14 @@ impl<TH> VirtualMethods for HTMLButtonElement<TH> {
             s.bind_to_tree(tree_in_doc);
         }
 
-        self.upcast::<Element>().check_ancestors_disabled_state_for_form_control();
+        self.upcast::<Element<TH>>().check_ancestors_disabled_state_for_form_control();
     }
 
     fn unbind_from_tree(&self, context: &UnbindContext) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         let node = self.upcast::<Node<TH>>();
-        let el = self.upcast::<Element>();
+        let el = self.upcast::<Element<TH>>();
         if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
             el.check_ancestors_disabled_state_for_form_control();
         } else {
@@ -254,7 +254,7 @@ impl<TH> FormControl for HTMLButtonElement<TH> {
     }
 
     fn to_element<'a>(&'a self) -> &'a Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 }
 
@@ -276,7 +276,7 @@ impl<TH: TypeHolderTrait> Activatable for HTMLButtonElement<TH> {
 
     fn is_instance_activatable(&self) -> bool {
         //https://html.spec.whatwg.org/multipage/#the-button-element
-        !self.upcast::<Element>().disabled_state()
+        !self.upcast::<Element<TH>>().disabled_state()
     }
 
     // https://html.spec.whatwg.org/multipage/#run-pre-click-activation-steps
@@ -316,7 +316,7 @@ impl<TH: TypeHolderTrait> Activatable for HTMLButtonElement<TH> {
         let doc = document_from_node(self);
         let node = doc.upcast::<Node<TH>>();
         let owner = self.form_owner();
-        if owner.is_none() || self.upcast::<Element>().click_in_progress() {
+        if owner.is_none() || self.upcast::<Element<TH>>().click_in_progress() {
             return;
         }
         node.query_selector_iter(DOMString::from("button[type=submit]")).unwrap()

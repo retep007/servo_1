@@ -35,13 +35,12 @@ impl CustomEvent {
         }
     }
 
-    pub fn new_uninitialized(global: &GlobalScope) -> DomRoot<CustomEvent> {
+    pub fn new_uninitialized(global: &GlobalScope<TH>) -> DomRoot<CustomEvent> {
         reflect_dom_object(Box::new(CustomEvent::new_inherited()),
                            global,
                            CustomEventBinding::Wrap)
     }
-    pub fn new(global: &GlobalScope,
-               type_: Atom,
+    pub fn new(global: &GlobalScope<TH>,               type_: Atom,
                bubbles: bool,
                cancelable: bool,
                detail: HandleValue)
@@ -52,8 +51,7 @@ impl CustomEvent {
     }
 
     #[allow(unsafe_code)]
-    pub fn Constructor(global: &GlobalScope,
-                       type_: DOMString,
+    pub fn Constructor(global: &GlobalScope<TH>,                       type_: DOMString,
                        init: RootedTraceableBox<CustomEventBinding::CustomEventInit>)
                        -> Fallible<DomRoot<CustomEvent>> {
         Ok(CustomEvent::new(global,

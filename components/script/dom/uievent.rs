@@ -27,7 +27,7 @@ pub struct UIEvent<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> UIEvent<TH> {
-    pub fn new_inherited() -> UIEvent {
+    pub fn new_inherited() -> UIEvent<TH> {
         UIEvent {
             event: Event::new_inherited(),
             view: Default::default(),
@@ -35,7 +35,7 @@ impl<TH: TypeHolderTrait> UIEvent<TH> {
         }
     }
 
-    pub fn new_uninitialized(window: &Window) -> DomRoot<UIEvent> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<UIEvent<TH>> {
         reflect_dom_object(Box::new(UIEvent::new_inherited()),
                            window,
                            UIEventBinding::Wrap)
@@ -45,8 +45,8 @@ impl<TH: TypeHolderTrait> UIEvent<TH> {
                type_: DOMString,
                can_bubble: EventBubbles,
                cancelable: EventCancelable,
-               view: Option<&Window>,
-               detail: i32) -> DomRoot<UIEvent> {
+               view: Option<&Window<TH>>,
+               detail: i32) -> DomRoot<UIEvent<TH>> {
         let ev = UIEvent::new_uninitialized(window);
         ev.InitUIEvent(type_, bool::from(can_bubble), bool::from(cancelable), view, detail);
         ev
@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> UIEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &UIEventBinding::UIEventInit) -> Fallible<DomRoot<UIEvent>> {
+                       init: &UIEventBinding::UIEventInit) -> Fallible<DomRoot<UIEvent<TH>>> {
         let bubbles = EventBubbles::from(init.parent.bubbles);
         let cancelable = EventCancelable::from(init.parent.cancelable);
         let event = UIEvent::new(window,

@@ -56,14 +56,14 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLLegendElement<TH> {
             s.bind_to_tree(tree_in_doc);
         }
 
-        self.upcast::<Element>().check_ancestors_disabled_state_for_form_control();
+        self.upcast::<Element<TH>>().check_ancestors_disabled_state_for_form_control();
     }
 
     fn unbind_from_tree(&self, context: &UnbindContext) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         let node = self.upcast::<Node<TH>>();
-        let el = self.upcast::<Element>();
+        let el = self.upcast::<Element<TH>>();
         if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
             el.check_ancestors_disabled_state_for_form_control();
         } else {
@@ -94,6 +94,6 @@ impl<TH> FormControl for HTMLLegendElement<TH> {
     }
 
     fn to_element<'a>(&'a self) -> &'a Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 }

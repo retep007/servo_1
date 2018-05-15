@@ -104,7 +104,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
     /// Steps 10.1, 10.2
     #[allow(unsafe_code)]
     fn check_prototype(&self, constructor: HandleObject, prototype: MutableHandleValue) -> ErrorResult {
-        let global_scope = self.window.upcast::<GlobalScope>();
+        let global_scope = self.window.upcast::<GlobalScope<TH>>();
         unsafe {
             // Step 10.1
             if !JS_GetProperty(global_scope.get_cx(),
@@ -309,7 +309,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistryMethods for CustomElementRegistry
         let document = self.window.Document();
 
         // Steps 14-15
-        for candidate in document.upcast::<Node<TH>>().traverse_preorder().filter_map(DomRoot::downcast::<Element>) {
+        for candidate in document.upcast::<Node<TH>>().traverse_preorder().filter_map(DomRoot::downcast::<Element<TH>>) {
             let is = candidate.get_is();
             if *candidate.local_name() == local_name &&
                 *candidate.namespace() == ns!(html) &&
@@ -342,7 +342,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistryMethods for CustomElementRegistry
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-whendefined>
     #[allow(unrooted_must_root)]
     fn WhenDefined(&self, name: DOMString) -> Rc<Promise> {
-        let global_scope = self.window.upcast::<GlobalScope>();
+        let global_scope = self.window.upcast::<GlobalScope<TH>>();
         let name = LocalName::from(&*name);
 
         // Step 1
@@ -391,7 +391,7 @@ pub struct LifecycleCallbacks {
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
 pub enum ConstructionStackEntry {
-    Element(DomRoot<Element>),
+    Element(DomRoot<Element<TH>>),
     AlreadyConstructedMarker,
 }
 
@@ -436,7 +436,7 @@ impl<TH: TypeHolderTrait> CustomElementDefinition<TH> {
 
     /// https://dom.spec.whatwg.org/#concept-create-element Step 6.1
     #[allow(unsafe_code)]
-    pub fn create_element(&self, document: &Document<TH>, prefix: Option<Prefix>) -> Fallible<DomRoot<Element>> {
+    pub fn create_element(&self, document: &Document<TH>, prefix: Option<Prefix>) -> Fallible<DomRoot<Element<TH>>> {
         let window = document.window();
         let cx = window.get_cx();
         // Step 2
@@ -452,7 +452,7 @@ impl<TH: TypeHolderTrait> CustomElementDefinition<TH> {
         }
 
         rooted!(in(cx) let element_val = ObjectValue(element.get()));
-        let element: DomRoot<Element> = match unsafe { DomRoot::from_jsval(cx, element_val.handle(), ()) } {
+        let element: DomRoot<Element<TH>> = match unsafe { DomRoot::from_jsval(cx, element_val.handle(), ()) } {
             Ok(ConversionResult::Success(element)) => element,
             Ok(ConversionResult::Failure(..)) =>
                 return Err(Error::Type("Constructor did not return a DOM node".to_owned())),
@@ -801,7 +801,7 @@ impl<TH> ElementQueue<TH> {
         self.queue.borrow_mut().clear();
     }
 
-    fn next_element(&self) -> Option<DomRoot<Element>> {
+    fn next_element(&self) -> Option<DomRoot<Element<TH>>> {
         self.queue.borrow_mut().pop_front().as_ref().map(Dom::deref).map(DomRoot::from_ref)
     }
 

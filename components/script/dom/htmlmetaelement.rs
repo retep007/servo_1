@@ -65,7 +65,7 @@ impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
         self.get_stylesheet().map(|sheet| {
             self.cssom_stylesheet.or_init(|| {
                 CSSStyleSheet::new(&window_from_node(self),
-                                   self.upcast::<Element>(),
+                                   self.upcast::<Element<TH>>(),
                                    "text/css".into(),
                                    None, // todo handle location
                                    None, // todo handle title
@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
     }
 
     fn process_attributes(&self) {
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         if let Some(name) = element.get_attribute(&ns!(), &local_name!("name")).r() {
             let name = name.value().to_ascii_lowercase();
             let name = name.trim_matches(HTML_SPACE_CHARACTERS);
@@ -94,7 +94,7 @@ impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
         if !PREFS.get("layout.viewport.enabled").as_boolean().unwrap_or(false) {
             return;
         }
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         if let Some(content) = element.get_attribute(&ns!(), &local_name!("content")).r() {
             let content = content.value();
             if !content.is_empty() {
@@ -124,7 +124,7 @@ impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
     }
 
     fn process_referrer_attribute(&self) {
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         if let Some(name) = element.get_attribute(&ns!(), &local_name!("name")).r() {
             let name = name.value().to_ascii_lowercase();
             let name = name.trim_matches(HTML_SPACE_CHARACTERS);

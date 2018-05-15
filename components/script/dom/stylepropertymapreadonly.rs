@@ -33,7 +33,7 @@ impl StylePropertyMapReadOnly {
         }
     }
 
-    pub fn from_iter<Entries>(global: &GlobalScope, entries: Entries) -> DomRoot<StylePropertyMapReadOnly> where
+    pub fn from_iter<Entries>(global: &GlobalScope<TH>, entries: Entries) -> DomRoot<StylePropertyMapReadOnly> where
         Entries: IntoIterator<Item=(Atom, String)>,
     {
         let mut keys = Vec::new();

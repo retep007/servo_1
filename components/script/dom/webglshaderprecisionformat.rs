@@ -22,7 +22,7 @@ pub struct WebGLShaderPrecisionFormat<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> WebGLShaderPrecisionFormat<TH> {
-    fn new_inherited(range_min: i32, range_max: i32, precision: i32) -> WebGLShaderPrecisionFormat {
+    fn new_inherited(range_min: i32, range_max: i32, precision: i32) -> WebGLShaderPrecisionFormat<TH> {
         WebGLShaderPrecisionFormat {
             reflector_: Reflector::new(),
             range_min: range_min,
@@ -34,7 +34,7 @@ impl<TH: TypeHolderTrait> WebGLShaderPrecisionFormat<TH> {
     pub fn new(window: &Window<TH>,
                range_min: i32,
                range_max: i32,
-               precision: i32) -> DomRoot<WebGLShaderPrecisionFormat> {
+               precision: i32) -> DomRoot<WebGLShaderPrecisionFormat<TH>> {
         reflect_dom_object(
             Box::new(WebGLShaderPrecisionFormat::new_inherited(range_min, range_max, precision)),
             window,

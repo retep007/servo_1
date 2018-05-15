@@ -21,8 +21,8 @@ pub struct WebGLVertexArrayObjectOES {
     id: WebGLVertexArrayId,
     ever_bound: Cell<bool>,
     is_deleted: Cell<bool>,
-    bound_attrib_buffers: DomRefCell<HashMap<u32, Dom<WebGLBuffer>>>,
-    bound_buffer_element_array: MutNullableDom<WebGLBuffer>,
+    bound_attrib_buffers: DomRefCell<HashMap<u32, Dom<WebGLBuffer<TH>>>>,
+    bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>>,
 }
 
 impl WebGLVertexArrayObjectOES {
@@ -37,7 +37,7 @@ impl WebGLVertexArrayObjectOES {
         }
     }
 
-    pub fn new(global: &GlobalScope, id: WebGLVertexArrayId) -> DomRoot<WebGLVertexArrayObjectOES> {
+    pub fn new(global: &GlobalScope<TH>, id: WebGLVertexArrayId) -> DomRoot<WebGLVertexArrayObjectOES> {
         reflect_dom_object(Box::new(WebGLVertexArrayObjectOES::new_inherited(id)),
                            global,
                            WebGLVertexArrayObjectOESBinding::Wrap)
@@ -63,11 +63,11 @@ impl WebGLVertexArrayObjectOES {
         self.ever_bound.set(true);
     }
 
-    pub fn borrow_bound_attrib_buffers(&self) -> Ref<HashMap<u32, Dom<WebGLBuffer>>> {
+    pub fn borrow_bound_attrib_buffers(&self) -> Ref<HashMap<u32, Dom<WebGLBuffer<TH>>>> {
         self.bound_attrib_buffers.borrow()
     }
 
-    pub fn bound_attrib_buffers(&self) -> Vec<DomRoot<WebGLBuffer>> {
+    pub fn bound_attrib_buffers(&self) -> Vec<DomRoot<WebGLBuffer<TH>>> {
         self.bound_attrib_buffers.borrow().iter().map(|(_, b)| DomRoot::from_ref(&**b)).collect()
     }
 
@@ -75,11 +75,11 @@ impl WebGLVertexArrayObjectOES {
         *self.bound_attrib_buffers.borrow_mut() = HashMap::from_iter(iter.map(|(k,v)| (k, Dom::from_ref(v))));
     }
 
-    pub fn bound_buffer_element_array(&self) -> Option<DomRoot<WebGLBuffer>> {
+    pub fn bound_buffer_element_array(&self) -> Option<DomRoot<WebGLBuffer<TH>>> {
         self.bound_buffer_element_array.get()
     }
 
-    pub fn set_bound_buffer_element_array(&self, buffer: Option<&WebGLBuffer>) {
+    pub fn set_bound_buffer_element_array(&self, buffer: Option<&WebGLBuffer<TH>>) {
         self.bound_buffer_element_array.set(buffer);
     }
 }

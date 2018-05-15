@@ -50,7 +50,7 @@ impl BluetoothCharacteristicProperties {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                broadcast: bool,
                read: bool,
                writeWithoutResponse: bool,

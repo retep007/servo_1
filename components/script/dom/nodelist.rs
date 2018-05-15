@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> NodeList<TH> {
         NodeList::new(window, NodeListType::Children(ChildrenList::new(node)))
     }
 
-    pub fn empty(window: &Window) -> DomRoot<NodeList<TH>> {
+    pub fn empty(window: &Window<TH>) -> DomRoot<NodeList<TH>> {
         NodeList::new(window, NodeListType::Simple(vec![]))
     }
 }

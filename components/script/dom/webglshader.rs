@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> WebGLShader<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLShaderId,
                      shader_type: u32)
-                     -> WebGLShader {
+                     -> WebGLShader<TH> {
         GLSLANG_INITIALIZATION.call_once(|| ::mozangle::shaders::initialize().unwrap());
         WebGLShader {
             webgl_object: WebGLObject::new_inherited(),
@@ -66,7 +66,7 @@ impl<TH: TypeHolderTrait> WebGLShader<TH> {
     pub fn maybe_new(window: &Window<TH>,
                      renderer: WebGLMsgSender,
                      shader_type: u32)
-                     -> Option<DomRoot<WebGLShader>> {
+                     -> Option<DomRoot<WebGLShader<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateShader(shader_type, sender)).unwrap();
 
@@ -78,7 +78,7 @@ impl<TH: TypeHolderTrait> WebGLShader<TH> {
                renderer: WebGLMsgSender,
                id: WebGLShaderId,
                shader_type: u32)
-               -> DomRoot<WebGLShader> {
+               -> DomRoot<WebGLShader<TH>> {
         reflect_dom_object(Box::new(WebGLShader::new_inherited(renderer, id, shader_type)),
                            window,
                            WebGLShaderBinding::Wrap)

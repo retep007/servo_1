@@ -16,7 +16,7 @@ pub struct HTMLTrackElement {
 }
 
 impl HTMLTrackElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLTrackElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLTrackElement {
         HTMLTrackElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -25,7 +25,7 @@ impl HTMLTrackElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLTrackElement> {
+               document: &Document<TH>) -> DomRoot<HTMLTrackElement> {
         Node::reflect_node(Box::new(HTMLTrackElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTrackElementBinding::Wrap)

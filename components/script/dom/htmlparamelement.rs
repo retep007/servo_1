@@ -18,7 +18,7 @@ pub struct HTMLParamElement {
 impl HTMLParamElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLParamElement {
+                     document: &Document<TH>) -> HTMLParamElement {
         HTMLParamElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLParamElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLParamElement> {
+               document: &Document<TH>) -> DomRoot<HTMLParamElement> {
         Node::reflect_node(Box::new(HTMLParamElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLParamElementBinding::Wrap)

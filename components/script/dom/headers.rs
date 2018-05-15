@@ -44,12 +44,12 @@ impl Headers {
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<Headers> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Headers> {
         reflect_dom_object(Box::new(Headers::new_inherited()), global, HeadersWrap)
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers
-    pub fn Constructor(global: &GlobalScope, init: Option<HeadersInit>)
+    pub fn Constructor(global: &GlobalScope<TH>, init: Option<HeadersInit>)
                        -> Fallible<DomRoot<Headers>> {
         let dom_headers_new = Headers::new(global);
         dom_headers_new.fill(init)?;
@@ -206,13 +206,13 @@ impl Headers {
         }
     }
 
-    pub fn for_request(global: &GlobalScope) -> DomRoot<Headers> {
+    pub fn for_request(global: &GlobalScope<TH>) -> DomRoot<Headers> {
         let headers_for_request = Headers::new(global);
         headers_for_request.guard.set(Guard::Request);
         headers_for_request
     }
 
-    pub fn for_response(global: &GlobalScope) -> DomRoot<Headers> {
+    pub fn for_response(global: &GlobalScope<TH>) -> DomRoot<Headers> {
         let headers_for_response = Headers::new(global);
         headers_for_response.guard.set(Guard::Response);
         headers_for_response

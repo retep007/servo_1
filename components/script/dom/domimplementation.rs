@@ -36,14 +36,14 @@ pub struct DOMImplementation<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> DOMImplementation<TH> {
-    fn new_inherited(document: &Document) -> DOMImplementation<TH> {
+    fn new_inherited(document: &Document<TH>) -> DOMImplementation<TH> {
         DOMImplementation {
             reflector_: Reflector::new(),
             document: Dom::from_ref(document),
         }
     }
 
-    pub fn new(document: &Document) -> DomRoot<DOMImplementation<TH>> {
+    pub fn new(document: &Document<TH>) -> DomRoot<DOMImplementation<TH>> {
         let window = document.window();
         reflect_dom_object(Box::new(DOMImplementation::new_inherited(document)),
                            window,

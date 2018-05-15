@@ -33,7 +33,7 @@ pub fn load_script<TH: TypeHolderTrait>(head: &HTMLHeadElement) {
             let mut contents = vec![];
             f.read_to_end(&mut contents).unwrap();
             let script_text = String::from_utf8_lossy(&contents);
-            win.upcast::<GlobalScope>().evaluate_js_on_global_with_result(&script_text, rval.handle_mut());
+            win.upcast::<GlobalScope<TH>>().evaluate_js_on_global_with_result(&script_text, rval.handle_mut());
         }
     }
 }

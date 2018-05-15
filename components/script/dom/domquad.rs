@@ -38,8 +38,7 @@ impl DOMQuad {
         }
     }
 
-    pub fn new(global: &GlobalScope,
-               p1: &DOMPoint,
+    pub fn new(global: &GlobalScope<TH>,               p1: &DOMPoint,
                p2: &DOMPoint,
                p3: &DOMPoint,
                p4: &DOMPoint) -> DomRoot<DOMQuad> {
@@ -48,8 +47,7 @@ impl DOMQuad {
                            Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope,
-                       p1: &DOMPointInit,
+    pub fn Constructor(global: &GlobalScope<TH>,                       p1: &DOMPointInit,
                        p2: &DOMPointInit,
                        p3: &DOMPointInit,
                        p4: &DOMPointInit)
@@ -62,7 +60,7 @@ impl DOMQuad {
     }
 
     // https://drafts.fxtf.org/geometry/#dom-domquad-fromrect
-    pub fn FromRect(global: &GlobalScope, other: &DOMRectInit) -> DomRoot<DOMQuad> {
+    pub fn FromRect(global: &GlobalScope<TH>,other: &DOMRectInit) -> DomRoot<DOMQuad> {
         DOMQuad::new(global,
                      &*DOMPoint::new(global, other.x, other.y, 0f64, 1f64),
                      &*DOMPoint::new(global, other.x + other.width, other.y, 0f64, 1f64),
@@ -71,7 +69,7 @@ impl DOMQuad {
     }
 
     // https://drafts.fxtf.org/geometry/#dom-domquad-fromquad
-    pub fn FromQuad(global: &GlobalScope, other: &DOMQuadInit) -> DomRoot<DOMQuad> {
+    pub fn FromQuad(global: &GlobalScope<TH>,other: &DOMQuadInit) -> DomRoot<DOMQuad> {
         DOMQuad::new(global,
                      &DOMPoint::new_from_init(global, &other.p1),
                      &DOMPoint::new_from_init(global, &other.p2),

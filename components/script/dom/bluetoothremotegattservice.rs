@@ -44,7 +44,7 @@ impl BluetoothRemoteGATTService {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                device: &BluetoothDevice,
                uuid: DOMString,
                isPrimary: bool,

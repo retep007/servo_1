@@ -36,11 +36,11 @@ pub mod size_of {
     }
 
     pub fn Element() -> usize {
-        size_of::<Element>()
+        size_of::<Element<TH>>()
     }
 
     pub fn EventTarget() -> usize {
-        size_of::<EventTarget>()
+        size_of::<EventTarget<TH>>()
     }
 
     pub fn HTMLDivElement() -> usize {

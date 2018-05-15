@@ -74,12 +74,12 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 
     fn is_body_or_frameset(&self) -> bool {
-        let eventtarget = self.upcast::<EventTarget>();
+        let eventtarget = self.upcast::<EventTarget<TH>>();
         eventtarget.is::<HTMLBodyElement>() || eventtarget.is::<HTMLFrameSetElement>()
     }
 
     fn update_sequentially_focusable_status(&self) {
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         let node = self.upcast::<Node<TH>>();
         if element.has_attribute(&local_name!("tabindex")) {
             node.set_flag(NodeFlags::SEQUENTIALLY_FOCUSABLE, true);
@@ -163,7 +163,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 None
             }
         } else {
-            self.upcast::<EventTarget>().get_event_handler_common("load")
+            self.upcast::<EventTarget<TH>>().get_event_handler_common("load")
         }
     }
 
@@ -175,7 +175,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 document.window().SetOnload(listener)
             }
         } else {
-            self.upcast::<EventTarget>().set_event_handler_common("load", listener)
+            self.upcast::<EventTarget<TH>>().set_event_handler_common("load", listener)
         }
     }
 
@@ -189,7 +189,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 None
             }
         } else {
-            self.upcast::<EventTarget>().get_event_handler_common("resize")
+            self.upcast::<EventTarget<TH>>().get_event_handler_common("resize")
         }
     }
 
@@ -201,7 +201,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 document.window().SetOnresize(listener);
             }
         } else {
-            self.upcast::<EventTarget>().set_event_handler_common("resize", listener)
+            self.upcast::<EventTarget<TH>>().set_event_handler_common("resize", listener)
         }
     }
 
@@ -215,7 +215,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 None
             }
         } else {
-            self.upcast::<EventTarget>().get_event_handler_common("blur")
+            self.upcast::<EventTarget<TH>>().get_event_handler_common("blur")
         }
     }
 
@@ -227,7 +227,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 document.window().SetOnblur(listener)
             }
         } else {
-            self.upcast::<EventTarget>().set_event_handler_common("blur", listener)
+            self.upcast::<EventTarget<TH>>().set_event_handler_common("blur", listener)
         }
     }
 
@@ -241,7 +241,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 None
             }
         } else {
-            self.upcast::<EventTarget>().get_event_handler_common("focus")
+            self.upcast::<EventTarget<TH>>().get_event_handler_common("focus")
         }
     }
 
@@ -253,7 +253,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 document.window().SetOnfocus(listener)
             }
         } else {
-            self.upcast::<EventTarget>().set_event_handler_common("focus", listener)
+            self.upcast::<EventTarget<TH>>().set_event_handler_common("focus", listener)
         }
     }
 
@@ -267,7 +267,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 None
             }
         } else {
-            self.upcast::<EventTarget>().get_event_handler_common("scroll")
+            self.upcast::<EventTarget<TH>>().get_event_handler_common("scroll")
         }
     }
 
@@ -279,7 +279,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
                 document.window().SetOnscroll(listener)
             }
         } else {
-            self.upcast::<EventTarget>().set_event_handler_common("scroll", listener)
+            self.upcast::<EventTarget<TH>>().set_event_handler_common("scroll", listener)
         }
     }
 
@@ -317,8 +317,8 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-click
     fn Click(&self) {
-        if !self.upcast::<Element>().disabled_state() {
-            synthetic_click_activation(self.upcast::<Element>(),
+        if !self.upcast::<Element<TH>>().disabled_state() {
+            synthetic_click_activation(self.upcast::<Element<TH>>(),
                                        false,
                                        false,
                                        false,
@@ -340,7 +340,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-blur
     fn Blur(&self) {
         // TODO: Run the unfocusing steps.
-        if !self.upcast::<Element>().focus_state() {
+        if !self.upcast::<Element<TH>>().focus_state() {
             return;
         }
         // https://html.spec.whatwg.org/multipage/#unfocusing-steps
@@ -351,7 +351,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
     }
 
     // https://drafts.csswg.org/cssom-view/#dom-htmlelement-offsetparent
-    fn GetOffsetParent(&self) -> Option<DomRoot<Element>> {
+    fn GetOffsetParent(&self) -> Option<DomRoot<Element<TH>>> {
         if self.is::<HTMLBodyElement>() || self.is::<HTMLHtmlElement>() {
             return None;
         }
@@ -411,7 +411,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
     fn InnerText(&self) -> DOMString {
         let node = self.upcast::<Node<TH>>();
         let window = window_from_node(node);
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
 
         // Step 1.
         let element_not_rendered = !node.is_in_doc() || !element.has_css_layout_box();
@@ -552,13 +552,13 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
                .nth(1).map_or(false, |ch| ch >= 'a' && ch <= 'z') {
             return Err(Error::Syntax);
         }
-        self.upcast::<Element>().set_custom_attribute(to_snake_case(name), value)
+        self.upcast::<Element<TH>>().set_custom_attribute(to_snake_case(name), value)
     }
 
     pub fn get_custom_attr(&self, local_name: DOMString) -> Option<DOMString> {
         // FIXME(ajeffrey): Convert directly from DOMString to LocalName
         let local_name = LocalName::from(to_snake_case(local_name));
-        self.upcast::<Element>().get_attribute(&ns!(), &local_name).map(|attr| {
+        self.upcast::<Element<TH>>().get_attribute(&ns!(), &local_name).map(|attr| {
             DOMString::from(&**attr.value()) // FIXME(ajeffrey): Convert directly from AttrValue to DOMString
         })
     }
@@ -566,7 +566,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     pub fn delete_custom_attr(&self, local_name: DOMString) {
         // FIXME(ajeffrey): Convert directly from DOMString to LocalName
         let local_name = LocalName::from(to_snake_case(local_name));
-        self.upcast::<Element>().remove_attribute(&ns!(), &local_name);
+        self.upcast::<Element<TH>>().remove_attribute(&ns!(), &local_name);
     }
 
     // https://html.spec.whatwg.org/multipage/#category-label
@@ -593,7 +593,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     pub fn is_listed_element(&self) -> bool {
         // Servo does not implement HTMLKeygenElement
         // https://github.com/servo/servo/issues/2782
-        if self.upcast::<Element>().local_name() == &local_name!("keygen") {
+        if self.upcast::<Element<TH>>().local_name() == &local_name!("keygen") {
             return true;
         }
 
@@ -614,7 +614,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 
     pub fn supported_prop_names_custom_attr(&self) -> Vec<DOMString> {
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         element.attrs().iter().filter_map(|attr| {
             let raw_name = attr.local_name();
             to_camel_case(&raw_name)
@@ -625,7 +625,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     pub fn labels(&self) -> DomRoot<NodeList> {
         debug_assert!(self.is_labelable_element());
 
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
         let window = window_from_node(element);
 
         // Traverse ancestors for implicitly associated <label> elements
@@ -638,7 +638,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
                 // will be a label for this HTMLElement
                 .take_while(|elem| !elem.is_labelable_element())
                 .filter_map(DomRoot::downcast::<HTMLLabelElement>)
-                .filter(|elem| !elem.upcast::<Element>().has_attribute(&local_name!("for")))
+                .filter(|elem| !elem.upcast::<Element<TH>>().has_attribute(&local_name!("for")))
                 .filter(|elem| elem.first_labelable_descendant().r() == Some(self))
                 .map(DomRoot::upcast::<Node<TH>>);
 
@@ -652,7 +652,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
         let root_element = element.root_element();
         let root_node = root_element.upcast::<Node<TH>>();
         let children = root_node.traverse_preorder()
-                                .filter_map(DomRoot::downcast::<Element>)
+                                .filter_map(DomRoot::downcast::<Element<TH>>)
                                 .filter(|elem| elem.is::<HTMLLabelElement>())
                                 .filter(|elem| elem.get_string_attribute(&local_name!("for")) == id)
                                 .map(DomRoot::upcast::<Node<TH>>);
@@ -663,14 +663,14 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
 
 impl<TH> VirtualMethods for HTMLElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<Element>() as &VirtualMethods)
+        Some(self.upcast::<Element<TH>>() as &VirtualMethods)
     }
 
     fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match (attr.local_name(), mutation) {
             (name, AttributeMutation::Set(_)) if name.starts_with("on") => {
-                let evtarget = self.upcast::<EventTarget>();
+                let evtarget = self.upcast::<EventTarget<TH>>();
                 let source_line = 1; //TODO(#9604) get current JS execution line
                 evtarget.set_event_handler_uncompiled(window_from_node(self).get_url(),
                                                       source_line,

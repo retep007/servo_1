@@ -18,7 +18,7 @@ pub struct HTMLPreElement {
 impl HTMLPreElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLPreElement {
+                     document: &Document<TH>) -> HTMLPreElement {
         HTMLPreElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLPreElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLPreElement> {
+               document: &Document<TH>) -> DomRoot<HTMLPreElement> {
         Node::reflect_node(Box::new(HTMLPreElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLPreElementBinding::Wrap)

@@ -22,12 +22,12 @@ impl FileReaderSync {
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<FileReaderSync> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<FileReaderSync> {
         reflect_dom_object(Box::new(FileReaderSync::new_inherited()),
                            global, FileReaderSyncBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<FileReaderSync>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<FileReaderSync>> {
         Ok(FileReaderSync::new(global))
     }
 }

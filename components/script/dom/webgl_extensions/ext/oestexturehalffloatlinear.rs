@@ -25,7 +25,7 @@ impl OESTextureHalfFloatLinear {
 
 impl WebGLExtension for OESTextureHalfFloatLinear {
     type Extension = OESTextureHalfFloatLinear;
-    fn new(ctx: &WebGLRenderingContext) -> DomRoot<OESTextureHalfFloatLinear> {
+    fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESTextureHalfFloatLinear> {
         reflect_dom_object(Box::new(OESTextureHalfFloatLinear::new_inherited()),
                            &*ctx.global(),
                            OESTextureHalfFloatLinearBinding::Wrap)

@@ -129,7 +129,7 @@ impl<TH: TypeHolderTrait> HTMLSelectElement<TH> {
                 opt.set_selectedness(false);
                 last_selected = Some(DomRoot::from_ref(&opt));
             }
-            let element = opt.upcast::<Element>();
+            let element = opt.upcast::<Element<TH>>();
             if first_enabled.is_none() && !element.disabled_state() {
                 first_enabled = Some(DomRoot::from_ref(&opt));
             }
@@ -151,7 +151,7 @@ impl<TH: TypeHolderTrait> HTMLSelectElement<TH> {
             return;
         }
         for opt in self.list_of_options() {
-            let element = opt.upcast::<Element>();
+            let element = opt.upcast::<Element<TH>>();
             if opt.Selected() && element.enabled_state() {
                 data_set.push(FormDatum {
                     ty: self.Type(),
@@ -263,12 +263,12 @@ impl<TH> HTMLSelectElementMethods for HTMLSelectElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-select-item
-    fn Item(&self, index: u32) -> Option<DomRoot<Element>> {
+    fn Item(&self, index: u32) -> Option<DomRoot<Element<TH>>> {
         self.Options().upcast().Item(index)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-select-item
-    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element>> {
+    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element<TH>>> {
         self.Options().IndexedGetter(index)
     }
 
@@ -284,7 +284,7 @@ impl<TH> HTMLSelectElementMethods for HTMLSelectElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-select-remove
     fn Remove(&self) {
-        self.upcast::<Element>().Remove()
+        self.upcast::<Element<TH>>().Remove()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-select-value
@@ -350,7 +350,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLSelectElement<TH> {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
-                let el = self.upcast::<Element>();
+                let el = self.upcast::<Element<TH>>();
                 match mutation {
                     AttributeMutation::Set(_) => {
                         el.set_disabled_state(true);
@@ -375,14 +375,14 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLSelectElement<TH> {
             s.bind_to_tree(tree_in_doc);
         }
 
-        self.upcast::<Element>().check_ancestors_disabled_state_for_form_control();
+        self.upcast::<Element<TH>>().check_ancestors_disabled_state_for_form_control();
     }
 
     fn unbind_from_tree(&self, context: &UnbindContext) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         let node = self.upcast::<Node<TH>>();
-        let el = self.upcast::<Element>();
+        let el = self.upcast::<Element<TH>>();
         if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
             el.check_ancestors_disabled_state_for_form_control();
         } else {
@@ -408,7 +408,7 @@ impl FormControl for HTMLSelectElement {
     }
 
     fn to_element<'a>(&'a self) -> &'a Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 }
 

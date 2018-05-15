@@ -60,7 +60,7 @@ impl BluetoothRemoteGATTCharacteristic {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                service: &BluetoothRemoteGATTService,
                uuid: DOMString,
                properties: &BluetoothCharacteristicProperties,
@@ -285,7 +285,7 @@ impl AsyncBluetoothListener for BluetoothRemoteGATTCharacteristic {
                 *self.value.borrow_mut() = Some(value.clone());
 
                 // Step 5.5.3.
-                self.upcast::<EventTarget>().fire_bubbling_event(atom!("characteristicvaluechanged"));
+                self.upcast::<EventTarget<TH>>().fire_bubbling_event(atom!("characteristicvaluechanged"));
 
                 // Step 5.5.4.
                 promise.resolve_native(&value);

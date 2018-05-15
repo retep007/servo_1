@@ -38,13 +38,13 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                type_: Atom,
                bubbles: bool,
                cancelable: bool,
                display: &VRDisplay,
                reason: Option<VRDisplayEventReason>)
-               -> DomRoot<VRDisplayEvent> {
+               -> DomRoot<VRDisplayEvent<TH>> {
         let ev = reflect_dom_object(
             Box::new(VRDisplayEvent::new_inherited(&display, reason)),
             global,
@@ -57,10 +57,10 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
         ev
     }
 
-    pub fn new_from_webvr(global: &GlobalScope,
+    pub fn new_from_webvr(global: &GlobalScope<TH>,
                           display: &VRDisplay,
                           event: &WebVRDisplayEvent)
-                          -> DomRoot<VRDisplayEvent> {
+                          -> DomRoot<VRDisplayEvent<TH>> {
         let (name, reason) = match *event {
             WebVRDisplayEvent::Connect(_) => ("vrdisplayconnect", None),
             WebVRDisplayEvent::Disconnect(_) => ("vrdisplaydisconnect", None),
@@ -97,7 +97,7 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &VRDisplayEventBinding::VRDisplayEventInit)
-                       -> Fallible<DomRoot<VRDisplayEvent>> {
+                       -> Fallible<DomRoot<VRDisplayEvent<TH>>> {
         Ok(VRDisplayEvent::new(&window.global(),
                             Atom::from(type_),
                             init.parent.bubbles,

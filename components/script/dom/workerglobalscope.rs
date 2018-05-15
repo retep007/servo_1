@@ -49,7 +49,7 @@ use task_source::performance_timeline::PerformanceTimelineTaskSource;
 use time::precise_time_ns;
 use timers::{IsInterval, TimerCallback};
 
-pub fn prepare_workerscope_init(global: &GlobalScope,
+pub fn prepare_workerscope_init(global: &GlobalScope<TH>,
                                 devtools_sender: Option<IpcSender<DevtoolScriptControlMsg>>) -> WorkerGlobalScopeInit {
     let init = WorkerGlobalScopeInit {
             resource_threads: global.resource_threads().clone(),
@@ -202,14 +202,14 @@ impl WorkerGlobalScopeMethods for WorkerGlobalScope {
 
         rooted!(in(self.runtime.cx()) let mut rval = UndefinedValue());
         for url in urls {
-            let global_scope = self.upcast::<GlobalScope>();
+            let global_scope = self.upcast::<GlobalScope<TH>>();
             let request = NetRequestInit {
                 url: url.clone(),
                 destination: Destination::Script,
                 credentials_mode: CredentialsMode::Include,
                 use_url_credentials: true,
                 origin: global_scope.origin().immutable().clone(),
-                pipeline_id: Some(self.upcast::<GlobalScope>().pipeline_id()),
+                pipeline_id: Some(self.upcast::<GlobalScope<TH>>().pipeline_id()),
                 referrer_url: None,
                 referrer_policy: None,
                 .. NetRequestInit::default()
@@ -246,7 +246,7 @@ impl WorkerGlobalScopeMethods for WorkerGlobalScope {
 
     // https://html.spec.whatwg.org/multipage/#dfn-Crypto
     fn Crypto(&self) -> DomRoot<Crypto> {
-        self.upcast::<GlobalScope>().crypto()
+        self.upcast::<GlobalScope<TH>>().crypto()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-windowbase64-btoa
@@ -263,7 +263,7 @@ impl WorkerGlobalScopeMethods for WorkerGlobalScope {
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-settimeout
     unsafe fn SetTimeout(&self, _cx: *mut JSContext, callback: Rc<Function>,
                          timeout: i32, args: Vec<HandleValue>) -> i32 {
-        self.upcast::<GlobalScope>().set_timeout_or_interval(
+        self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::FunctionTimerCallback(callback),
             args,
             timeout,
@@ -274,7 +274,7 @@ impl WorkerGlobalScopeMethods for WorkerGlobalScope {
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-settimeout
     unsafe fn SetTimeout_(&self, _cx: *mut JSContext, callback: DOMString,
                           timeout: i32, args: Vec<HandleValue>) -> i32 {
-        self.upcast::<GlobalScope>().set_timeout_or_interval(
+        self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::StringTimerCallback(callback),
             args,
             timeout,
@@ -283,14 +283,14 @@ impl WorkerGlobalScopeMethods for WorkerGlobalScope {
 
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-cleartimeout
     fn ClearTimeout(&self, handle: i32) {
-        self.upcast::<GlobalScope>().clear_timeout_or_interval(handle);
+        self.upcast::<GlobalScope<TH>>().clear_timeout_or_interval(handle);
     }
 
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-setinterval
     unsafe fn SetInterval(&self, _cx: *mut JSContext, callback: Rc<Function>,
                           timeout: i32, args: Vec<HandleValue>) -> i32 {
-        self.upcast::<GlobalScope>().set_timeout_or_interval(
+        self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::FunctionTimerCallback(callback),
             args,
             timeout,
@@ -301,7 +301,7 @@ impl WorkerGlobalScopeMethods for WorkerGlobalScope {
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-setinterval
     unsafe fn SetInterval_(&self, _cx: *mut JSContext, callback: DOMString,
                            timeout: i32, args: Vec<HandleValue>) -> i32 {
-        self.upcast::<GlobalScope>().set_timeout_or_interval(
+        self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::StringTimerCallback(callback),
             args,
             timeout,
@@ -320,9 +320,9 @@ impl WorkerGlobalScopeMethods for WorkerGlobalScope {
     }
 
     // https://w3c.github.io/hr-time/#the-performance-attribute
-    fn Performance(&self) -> DomRoot<Performance> {
+    fn Performance(&self) -> DomRoot<Performance<TH>> {
         self.performance.or_init(|| {
-            let global_scope = self.upcast::<GlobalScope>();
+            let global_scope = self.upcast::<GlobalScope<TH>>();
             Performance::new(global_scope,
                              0 /* navigation start is not used in workers */,
                              self.navigation_start_precise)
@@ -331,7 +331,7 @@ impl WorkerGlobalScopeMethods for WorkerGlobalScope {
 
     // https://html.spec.whatwg.org/multipage/#dom-origin
     fn Origin(&self) -> USVString {
-        USVString(self.upcast::<GlobalScope>().origin().immutable().ascii_serialization())
+        USVString(self.upcast::<GlobalScope<TH>>().origin().immutable().ascii_serialization())
     }
 }
 
@@ -381,7 +381,7 @@ impl WorkerGlobalScope {
         NetworkingTaskSource(self.script_chan(), self.pipeline_id())
     }
 
-    pub fn performance_timeline_task_source(&self) -> PerformanceTimelineTaskSource {
+    pub fn performance_timeline_task_source(&self) -> PerformanceTimelineTaskSource<TH> {
         PerformanceTimelineTaskSource(self.script_chan(), self.pipeline_id())
     }
 
@@ -411,7 +411,7 @@ impl WorkerGlobalScope {
     }
 
     pub fn handle_fire_timer(&self, timer_id: TimerEventId) {
-        self.upcast::<GlobalScope>().fire_timer(timer_id);
+        self.upcast::<GlobalScope<TH>>().fire_timer(timer_id);
     }
 
     pub fn close(&self) {

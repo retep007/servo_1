@@ -62,22 +62,22 @@ impl TestBinding {
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<TestBinding> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<TestBinding> {
         reflect_dom_object(Box::new(TestBinding::new_inherited()),
                            global, TestBindingBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<TestBinding>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBinding>> {
         Ok(TestBinding::new(global))
     }
 
     #[allow(unused_variables)]
-    pub fn Constructor_(global: &GlobalScope, nums: Vec<f64>) -> Fallible<DomRoot<TestBinding>> {
+    pub fn Constructor_(global: &GlobalScope<TH>, nums: Vec<f64>) -> Fallible<DomRoot<TestBinding>> {
         Ok(TestBinding::new(global))
     }
 
     #[allow(unused_variables)]
-    pub fn Constructor__(global: &GlobalScope, num: f64) -> Fallible<DomRoot<TestBinding>> {
+    pub fn Constructor__(global: &GlobalScope<TH>, num: f64) -> Fallible<DomRoot<TestBinding>> {
         Ok(TestBinding::new(global))
     }
 }
@@ -228,10 +228,10 @@ impl TestBindingMethods for TestBinding {
         Some(HTMLElementOrLong::Long(0))
     }
     fn SetUnionAttributeNullable(&self, _: Option<HTMLElementOrLong>) {}
-    fn GetUnion2AttributeNullable(&self) -> Option<EventOrString> {
+    fn GetUnion2AttributeNullable(&self) -> Option<EventOrString<TH>> {
         Some(EventOrString::String(DOMString::new()))
     }
-    fn SetUnion2AttributeNullable(&self, _: Option<EventOrString>) {}
+    fn SetUnion2AttributeNullable(&self, _: Option<EventOrString<TH>>) {}
     fn GetUnion3AttributeNullable(&self) -> Option<BlobOrBoolean> {
         Some(BlobOrBoolean::Boolean(true))
     }
@@ -331,7 +331,7 @@ impl TestBindingMethods for TestBinding {
     fn ReceiveNullableUnion(&self) -> Option<HTMLElementOrLong> {
         Some(HTMLElementOrLong::Long(0))
     }
-    fn ReceiveNullableUnion2(&self) -> Option<EventOrString> {
+    fn ReceiveNullableUnion2(&self) -> Option<EventOrString<TH>> {
         Some(EventOrString::String(DOMString::new()))
     }
     fn ReceiveNullableUnion3(&self) -> Option<StringOrLongSequence> {
@@ -498,7 +498,7 @@ impl TestBindingMethods for TestBinding {
     unsafe fn PassNullableObject(&self, _: *mut JSContext, _: *mut JSObject) {}
     fn PassNullableTypedArray(&self, _: CustomAutoRooterGuard<Option<typedarray::Int8Array>>) { }
     fn PassNullableUnion(&self, _: Option<HTMLElementOrLong>) {}
-    fn PassNullableUnion2(&self, _: Option<EventOrString>) {}
+    fn PassNullableUnion2(&self, _: Option<EventOrString<TH>>) {}
     fn PassNullableUnion3(&self, _: Option<StringOrLongSequence>) {}
     fn PassNullableUnion4(&self, _: Option<LongSequenceOrBoolean>) {}
     fn PassNullableUnion5(&self, _: Option<UnsignedLongOrBoolean>) {}
@@ -526,7 +526,7 @@ impl TestBindingMethods for TestBinding {
     fn PassOptionalEnum(&self, _: Option<TestEnum>) {}
     fn PassOptionalInterface(&self, _: Option<&Blob>) {}
     fn PassOptionalUnion(&self, _: Option<HTMLElementOrLong>) {}
-    fn PassOptionalUnion2(&self, _: Option<EventOrString>) {}
+    fn PassOptionalUnion2(&self, _: Option<EventOrString<TH>>) {}
     fn PassOptionalUnion3(&self, _: Option<StringOrLongSequence>) {}
     fn PassOptionalUnion4(&self, _: Option<LongSequenceOrBoolean>) {}
     fn PassOptionalUnion5(&self, _: Option<UnsignedLongOrBoolean>) {}
@@ -560,7 +560,7 @@ impl TestBindingMethods for TestBinding {
     #[allow(unsafe_code)]
     unsafe fn PassOptionalNullableObject(&self, _: *mut JSContext, _: Option<*mut JSObject>) {}
     fn PassOptionalNullableUnion(&self, _: Option<Option<HTMLElementOrLong>>) {}
-    fn PassOptionalNullableUnion2(&self, _: Option<Option<EventOrString>>) {}
+    fn PassOptionalNullableUnion2(&self, _: Option<Option<EventOrString<TH>>>) {}
     fn PassOptionalNullableUnion3(&self, _: Option<Option<StringOrLongSequence>>) {}
     fn PassOptionalNullableUnion4(&self, _: Option<Option<LongSequenceOrBoolean>>) {}
     fn PassOptionalNullableUnion5(&self, _: Option<Option<UnsignedLongOrBoolean>>) {}
@@ -604,7 +604,7 @@ impl TestBindingMethods for TestBinding {
     #[allow(unsafe_code)]
     unsafe fn PassOptionalNullableObjectWithDefault(&self, _: *mut JSContext, _: *mut JSObject) {}
     fn PassOptionalNullableUnionWithDefault(&self, _: Option<HTMLElementOrLong>) {}
-    fn PassOptionalNullableUnion2WithDefault(&self, _: Option<EventOrString>) {}
+    fn PassOptionalNullableUnion2WithDefault(&self, _: Option<EventOrString<TH>>) {}
     // fn PassOptionalNullableCallbackFunctionWithDefault(self, _: Option<Function>) {}
     fn PassOptionalNullableCallbackInterfaceWithDefault(&self, _: Option<Rc<EventListener>>) {}
     #[allow(unsafe_code)]
@@ -649,7 +649,7 @@ impl TestBindingMethods for TestBinding {
     fn PassVariadicEnum(&self, _: Vec<TestEnum>) {}
     fn PassVariadicInterface(&self, _: &[&Blob]) {}
     fn PassVariadicUnion(&self, _: Vec<HTMLElementOrLong>) {}
-    fn PassVariadicUnion2(&self, _: Vec<EventOrString>) {}
+    fn PassVariadicUnion2(&self, _: Vec<EventOrString<TH>>) {}
     fn PassVariadicUnion3(&self, _: Vec<BlobOrString>) {}
     fn PassVariadicUnion4(&self, _: Vec<BlobOrBoolean>) {}
     fn PassVariadicUnion5(&self, _: Vec<StringOrUnsignedLong>) {}
@@ -804,26 +804,26 @@ impl TestBindingMethods for TestBinding {
 
     fn Panic(&self) { panic!("explicit panic from script") }
 
-    fn EntryGlobal(&self) -> DomRoot<GlobalScope> {
+    fn EntryGlobal(&self) -> DomRoot<GlobalScope<TH>> {
         GlobalScope::entry()
     }
-    fn IncumbentGlobal(&self) -> DomRoot<GlobalScope> {
+    fn IncumbentGlobal(&self) -> DomRoot<GlobalScope<TH>> {
         GlobalScope::incumbent().unwrap()
     }
 }
 
 impl TestBinding {
-    pub fn BooleanAttributeStatic(_: &GlobalScope) -> bool { false }
-    pub fn SetBooleanAttributeStatic(_: &GlobalScope, _: bool) {}
-    pub fn ReceiveVoidStatic(_: &GlobalScope) {}
-    pub fn PrefControlledStaticAttributeDisabled(_: &GlobalScope) -> bool { false }
-    pub fn PrefControlledStaticAttributeEnabled(_: &GlobalScope) -> bool { false }
-    pub fn PrefControlledStaticMethodDisabled(_: &GlobalScope) {}
-    pub fn PrefControlledStaticMethodEnabled(_: &GlobalScope) {}
-    pub fn FuncControlledStaticAttributeDisabled(_: &GlobalScope) -> bool { false }
-    pub fn FuncControlledStaticAttributeEnabled(_: &GlobalScope) -> bool { false }
-    pub fn FuncControlledStaticMethodDisabled(_: &GlobalScope) {}
-    pub fn FuncControlledStaticMethodEnabled(_: &GlobalScope) {}
+    pub fn BooleanAttributeStatic(_: &GlobalScope<TH>) -> bool { false }
+    pub fn SetBooleanAttributeStatic(_: &GlobalScope<TH>, _: bool) {}
+    pub fn ReceiveVoidStatic(_: &GlobalScope<TH>) {}
+    pub fn PrefControlledStaticAttributeDisabled(_: &GlobalScope<TH>) -> bool { false }
+    pub fn PrefControlledStaticAttributeEnabled(_: &GlobalScope<TH>) -> bool { false }
+    pub fn PrefControlledStaticMethodDisabled(_: &GlobalScope<TH>) {}
+    pub fn PrefControlledStaticMethodEnabled(_: &GlobalScope<TH>) {}
+    pub fn FuncControlledStaticAttributeDisabled(_: &GlobalScope<TH>) -> bool { false }
+    pub fn FuncControlledStaticAttributeEnabled(_: &GlobalScope<TH>) -> bool { false }
+    pub fn FuncControlledStaticMethodDisabled(_: &GlobalScope<TH>) {}
+    pub fn FuncControlledStaticMethodEnabled(_: &GlobalScope<TH>) {}
 }
 
 #[allow(unsafe_code)]

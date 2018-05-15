@@ -46,7 +46,7 @@ impl VRFrameData {
     }
 
     #[allow(unsafe_code)]
-    fn new(global: &GlobalScope) -> DomRoot<VRFrameData> {
+    fn new(global: &GlobalScope<TH>) -> DomRoot<VRFrameData> {
         let matrix = [1.0, 0.0, 0.0, 0.0,
                       0.0, 1.0, 0.0, 0.0,
                       0.0, 0.0, 1.0, 0.0,
@@ -65,7 +65,7 @@ impl VRFrameData {
         root
     }
 
-    pub fn Constructor(window: &Window) -> Fallible<DomRoot<VRFrameData>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<VRFrameData>> {
         Ok(VRFrameData::new(&window.global()))
     }
 }

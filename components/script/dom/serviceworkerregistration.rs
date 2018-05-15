@@ -39,7 +39,7 @@ impl ServiceWorkerRegistration {
         }
     }
     #[allow(unrooted_must_root)]
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                script_url: &ServoUrl,
                scope: ServoUrl) -> DomRoot<ServiceWorkerRegistration> {
         let active_worker = ServiceWorker::install_serviceworker(global, script_url.clone(), scope.clone(), true);
@@ -59,7 +59,7 @@ impl ServiceWorkerRegistration {
         self.uninstalling.set(flag)
     }
 
-    pub fn create_scope_things(global: &GlobalScope, script_url: ServoUrl) -> ScopeThings {
+    pub fn create_scope_things(global: &GlobalScope<TH>, script_url: ServoUrl) -> ScopeThings {
         let worker_load_origin = WorkerScriptLoadOrigin {
             referrer_url: None,
             referrer_policy: None,

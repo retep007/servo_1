@@ -97,7 +97,7 @@ pub struct CommonTexImage2DValidator<'a> {
 }
 
 pub struct CommonTexImage2DValidatorResult {
-    pub texture: DomRoot<WebGLTexture>,
+    pub texture: DomRoot<WebGLTexture<TH>>,
     pub target: TexImageTarget,
     pub level: u32,
     pub internal_format: TexFormat,
@@ -270,7 +270,7 @@ pub struct TexImage2DValidatorResult {
     pub height: u32,
     pub level: u32,
     pub border: u32,
-    pub texture: DomRoot<WebGLTexture>,
+    pub texture: DomRoot<WebGLTexture<TH>>,
     pub target: TexImageTarget,
     pub format: TexFormat,
     pub data_type: TexDataType,

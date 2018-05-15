@@ -28,7 +28,7 @@ impl CSSStyleValue {
         }
     }
 
-    pub fn new(global: &GlobalScope, value: String) -> DomRoot<CSSStyleValue> {
+    pub fn new(global: &GlobalScope<TH>, value: String) -> DomRoot<CSSStyleValue> {
         reflect_dom_object(Box::new(CSSStyleValue::new_inherited(value)), global, Wrap)
     }
 }

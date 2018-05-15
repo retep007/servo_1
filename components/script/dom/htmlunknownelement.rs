@@ -18,7 +18,7 @@ pub struct HTMLUnknownElement {
 impl HTMLUnknownElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLUnknownElement {
+                     document: &Document<TH>) -> HTMLUnknownElement {
         HTMLUnknownElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLUnknownElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLUnknownElement> {
+               document: &Document<TH>) -> DomRoot<HTMLUnknownElement> {
         Node::reflect_node(Box::new(HTMLUnknownElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLUnknownElementBinding::Wrap)

@@ -28,7 +28,7 @@ pub struct HTMLDetailsElement {
 impl HTMLDetailsElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLDetailsElement {
+                     document: &Document<TH>) -> HTMLDetailsElement {
         HTMLDetailsElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -39,7 +39,7 @@ impl HTMLDetailsElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLDetailsElement> {
+               document: &Document<TH>) -> DomRoot<HTMLDetailsElement> {
         Node::reflect_node(Box::new(HTMLDetailsElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLDetailsElementBinding::Wrap)
@@ -73,7 +73,7 @@ impl VirtualMethods for HTMLDetailsElement {
                 task!(details_notification_task_steps: move || {
                     let this = this.root();
                     if counter == this.toggle_counter.get() {
-                        this.upcast::<EventTarget>().fire_event(atom!("toggle"));
+                        this.upcast::<EventTarget<TH>>().fire_event(atom!("toggle"));
                     }
                 }),
                 window.upcast(),

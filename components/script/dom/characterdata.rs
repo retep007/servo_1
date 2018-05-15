@@ -41,7 +41,7 @@ impl<TH: TypeHolderTrait> CharacterData<TH> {
         }
     }
 
-    pub fn clone_with_data(&self, data: DOMString, document: &Document) -> DomRoot<Node<TH>> {
+    pub fn clone_with_data(&self, data: DOMString, document: &Document<TH>) -> DomRoot<Node<TH>> {
         match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::CharacterData(CharacterDataTypeId::Comment) => {
                 DomRoot::upcast(Comment::new(data, &document))
@@ -238,12 +238,12 @@ impl<TH: TypeHolderTrait> CharacterDataMethods for CharacterData<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-nondocumenttypechildnode-previouselementsibling
-    fn GetPreviousElementSibling(&self) -> Option<DomRoot<Element>> {
+    fn GetPreviousElementSibling(&self) -> Option<DomRoot<Element<TH>>> {
         self.upcast::<Node<TH>>().preceding_siblings().filter_map(DomRoot::downcast).next()
     }
 
     // https://dom.spec.whatwg.org/#dom-nondocumenttypechildnode-nextelementsibling
-    fn GetNextElementSibling(&self) -> Option<DomRoot<Element>> {
+    fn GetNextElementSibling(&self) -> Option<DomRoot<Element<TH>>> {
         self.upcast::<Node<TH>>().following_siblings().filter_map(DomRoot::downcast).next()
     }
 }

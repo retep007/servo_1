@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct CSSStyleSheet<TH: TypeHolderTrait> {
     stylesheet: StyleSheet,
-    owner: Dom<Element>,
+    owner: Dom<Element<TH>>,
     rulelist: MutNullableDom<CSSRuleList>,
     #[ignore_malloc_size_of = "Arc"]
     style_stylesheet: Arc<StyleStyleSheet>,

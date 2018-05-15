@@ -122,7 +122,7 @@ pub trait VirtualMethods<TH: TypeHolderTrait> {
     }
 
     /// <https://dom.spec.whatwg.org/#concept-node-adopt-ext>
-    fn adopting_steps(&self, old_doc: &Document) {
+    fn adopting_steps(&self, old_doc: &Document<TH>) {
         if let Some(ref s) = self.super_type() {
             s.adopting_steps(old_doc);
         }
@@ -149,7 +149,7 @@ pub trait VirtualMethods<TH: TypeHolderTrait> {
 /// method call on the trait object will invoke the corresponding method on the
 /// concrete type, propagating up the parent hierarchy unless otherwise
 /// interrupted.
-pub fn vtable_for<TH: TypeHolderTrait>(node: &Node) -> &VirtualMethods<TH> {
+pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
     match node.type_id() {
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLAnchorElement)) => {
             node.downcast::<HTMLAnchorElement>().unwrap() as &VirtualMethods
@@ -262,7 +262,7 @@ pub fn vtable_for<TH: TypeHolderTrait>(node: &Node) -> &VirtualMethods<TH> {
             node.downcast::<SVGSVGElement>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::Element) => {
-            node.downcast::<Element>().unwrap() as &VirtualMethods
+            node.downcast::<Element<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(_) => {
             node.downcast::<HTMLElement>().unwrap() as &VirtualMethods

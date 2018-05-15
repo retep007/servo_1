@@ -17,12 +17,12 @@ pub struct SVGGraphicsElement {
 
 impl SVGGraphicsElement {
     pub fn new_inherited(tag_name: LocalName, prefix: Option<Prefix>,
-                         document: &Document) -> SVGGraphicsElement {
+                         document: &Document<TH>) -> SVGGraphicsElement {
         SVGGraphicsElement::new_inherited_with_state(ElementState::empty(), tag_name, prefix, document)
     }
 
     pub fn new_inherited_with_state(state: ElementState, tag_name: LocalName,
-                                    prefix: Option<Prefix>, document: &Document)
+                                    prefix: Option<Prefix>, document: &Document<TH>)
                                     -> SVGGraphicsElement {
         SVGGraphicsElement {
             svgelement:

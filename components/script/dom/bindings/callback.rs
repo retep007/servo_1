@@ -53,7 +53,7 @@ pub struct CallbackObject {
     ///
     /// ["callback context"]: https://heycam.github.io/webidl/#dfn-callback-context
     /// [sometimes]: https://github.com/whatwg/html/issues/2248
-    incumbent: Option<Dom<GlobalScope>>
+    incumbent: Option<Dom<GlobalScope<TH>>>
 }
 
 impl Default for CallbackObject {
@@ -223,7 +223,7 @@ pub fn wrap_call_this_object<T: DomObject>(cx: *mut JSContext,
 pub struct CallSetup {
     /// The global for reporting exceptions. This is the global object of the
     /// (possibly wrapped) callback object.
-    exception_global: DomRoot<GlobalScope>,
+    exception_global: DomRoot<GlobalScope<TH>>,
     /// The `JSContext` used for the call.
     cx: *mut JSContext,
     /// The compartment we were in before the call.

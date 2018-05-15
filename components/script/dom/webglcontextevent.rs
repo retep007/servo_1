@@ -36,14 +36,14 @@ impl<TH> WebGLContextEventMethods for WebGLContextEvent<TH> {
 }
 
 impl<TH: TypeHolderTrait> WebGLContextEvent<TH> {
-    pub fn new_inherited(status_message: DOMString) -> WebGLContextEvent {
+    pub fn new_inherited(status_message: DOMString) -> WebGLContextEvent<TH> {
         WebGLContextEvent {
             event: Event::new_inherited(),
             status_message: status_message,
         }
     }
 
-    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<WebGLContextEvent> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<WebGLContextEvent<TH>> {
         // according to https://www.khronos.org/registry/webgl/specs/1.0/#5.15 this is
         // additional information or the empty string if no additional information is
         // available.
@@ -58,7 +58,7 @@ impl<TH: TypeHolderTrait> WebGLContextEvent<TH> {
                type_: Atom,
                bubbles: EventBubbles,
                cancelable: EventCancelable,
-               status_message: DOMString) -> DomRoot<WebGLContextEvent> {
+               status_message: DOMString) -> DomRoot<WebGLContextEvent<TH>> {
         let event = reflect_dom_object(
                         Box::new(WebGLContextEvent::new_inherited(status_message)),
                         window,
@@ -74,7 +74,7 @@ impl<TH: TypeHolderTrait> WebGLContextEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &WebGLContextEventInit) -> Fallible<DomRoot<WebGLContextEvent>> {
+                       init: &WebGLContextEventInit) -> Fallible<DomRoot<WebGLContextEvent<TH>>> {
         let status_message = match init.statusMessage.as_ref() {
             Some(message) => message.clone(),
             None => DOMString::new(),

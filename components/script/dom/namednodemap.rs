@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct NamedNodeMap<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    owner: Dom<Element>,
+    owner: Dom<Element<TH>>,
 }
 
 impl<TH: TypeHolderTrait> NamedNodeMap<TH> {

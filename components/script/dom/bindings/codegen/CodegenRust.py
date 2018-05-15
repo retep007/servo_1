@@ -2757,11 +2757,11 @@ class CGIDLInterface(CGThing):
 
     def define(self):
         interface = self.descriptor.interface
-        name = self.descriptor.nonGenericType
+        name = self.descriptor.concreteType
         if (interface.getUserData("hasConcreteDescendant", False) or
                 interface.getUserData("hasProxyDescendant", False)):
             depth = self.descriptor.prototypeDepth
-            check = "class.interface_chain[%s] == PrototypeList::ID::%s" % (depth, name)
+            check = "class.interface_chain[%s] == PrototypeList::ID::%s" % (depth, self.descriptor.nonGenericType)
         elif self.descriptor.proxy:
             check = "class as *const _ == &Class as *const _"
         else:
@@ -2784,19 +2784,19 @@ class CGIDLInterface(CGThing):
     """ % {'check': check, 'name': name}
 
         return s + """\
-impl IDLInterface for %(name)s {
+impl%(generic)s IDLInterface for %(name)s {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         %(check)s
     }
 }
 
-impl PartialEq for %(name)s {
+impl%(generic)s PartialEq for %(name)s {
     fn eq(&self, other: &%(name)s) -> bool {
         self as *const %(name)s == &*other
     }
 }
-""" % {'check': check, 'name': name}
+""" % {'check': check, 'name': name, 'generic': '<TH: TypeHolderTrait>' if self.descriptor.isGeneric else ''}
 
 
 class CGAbstractExternMethod(CGAbstractMethod):
@@ -3327,7 +3327,7 @@ class CGCallGenerator(CGThing):
 
         if isFallible:
             if static:
-                glob = "global.upcast::<GlobalScope>()"
+                glob = "global.upcast::<GlobalScope<TH>>()"
             else:
                 glob = "&this.global()"
 
@@ -5529,12 +5529,12 @@ let global = DomRoot::downcast::<dom::types::%s>(global).unwrap();
 // so we can do the spec's object-identity checks.
 rooted!(in(cx) let new_target = UnwrapObject(args.new_target().to_object(), 1));
 if new_target.is_null() {
-    throw_dom_exception(cx, global.upcast::<GlobalScope>(), Error::Type("new.target is null".to_owned()));
+    throw_dom_exception(cx, global.upcast::<GlobalScope<TH>>(), Error::Type("new.target is null".to_owned()));
     return false;
 }
 
 if args.callee() == new_target.get() {
-    throw_dom_exception(cx, global.upcast::<GlobalScope>(),
+    throw_dom_exception(cx, global.upcast::<GlobalScope<TH>>(),
         Error::Type("new.target must not be the active function object".to_owned()));
     return false;
 }
@@ -5575,7 +5575,7 @@ let result: Result<DomRoot<%s>, Error> = html_constructor(&global, &args);
 let result = match result {
     Ok(result) => result,
     Err(e) => {
-        throw_dom_exception(cx, global.upcast::<GlobalScope>(), e);
+        throw_dom_exception(cx, global.upcast::<GlobalScope<TH>>(), e);
         return false;
     },
 };
@@ -5713,10 +5713,11 @@ class CGInterfaceTrait(CGThing):
                         # arguments = method_arguments(descriptor, rettype, arguments)
                         # rettype = return_type(descriptor, rettype, infallible)
                         for argument in arguments:
-                            descript = descriptor.getDescriptor(
-                                argument.type.inner.identifier.name)
-                            if descript.isGeneric:
-                                return True
+                            if False:
+                                descript = descriptor.getDescriptor(
+                                    argument.type.inner.identifier.name)
+                                if descript.isGeneric:
+                                    return True
             return False
 
         methods = []
@@ -5728,7 +5729,7 @@ class CGInterfaceTrait(CGThing):
             )
         if methods:
             self.cgRoot = CGWrapper(CGIndenter(CGList(methods, "")),
-                                    pre="pub trait %sMethods%s {\n" % (descriptor.interface.identifier.name, '<TH: TypeHolderTrait>' if contains_generic_ret_type() else ''),
+                                    pre="pub trait %sMethods%s {\n" % (descriptor.interface.identifier.name, '<TH: TypeHolderTrait>' if contains_generic_ret_type() or contains_generic_arg_type() else ''),
                                     post="}")
         else:
             self.cgRoot = CGGeneric("")

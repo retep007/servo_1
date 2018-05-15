@@ -51,7 +51,7 @@ impl DOMException {
         }
     }
 
-    pub fn new(global: &GlobalScope, code: DOMErrorName) -> DomRoot<DOMException> {
+    pub fn new(global: &GlobalScope<TH>, code: DOMErrorName) -> DomRoot<DOMException> {
         reflect_dom_object(Box::new(DOMException::new_inherited(code)),
                            global,
                            DOMExceptionBinding::Wrap)

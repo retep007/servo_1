@@ -14,7 +14,7 @@ pub trait WebGLExtension: Sized where Self::Extension: DomObject + JSTraceable {
     type Extension;
 
     /// Creates the DOM object of the WebGL extension.
-    fn new(ctx: &WebGLRenderingContext) -> DomRoot<Self::Extension>;
+    fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<Self::Extension>;
 
     /// Returns which WebGL spec is this extension written against.
     fn spec() -> WebGLExtensionSpec;

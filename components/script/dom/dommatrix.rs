@@ -22,7 +22,7 @@ pub struct DOMMatrix {
 
 impl DOMMatrix {
     #[allow(unrooted_must_root)]
-    pub fn new(global: &GlobalScope, is2D: bool, matrix: Transform3D<f64>) -> DomRoot<Self> {
+    pub fn new(global: &GlobalScope<TH>, is2D: bool, matrix: Transform3D<f64>) -> DomRoot<Self> {
         let dommatrix = Self::new_inherited(is2D, matrix);
         reflect_dom_object(Box::new(dommatrix), global, Wrap)
     }
@@ -34,12 +34,12 @@ impl DOMMatrix {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-dommatrix
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<Self>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<Self>> {
         Self::Constructor_(global, vec![1.0, 0.0, 0.0, 1.0, 0.0, 0.0])
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-dommatrix-numbersequence
-    pub fn Constructor_(global: &GlobalScope, entries: Vec<f64>) -> Fallible<DomRoot<Self>> {
+    pub fn Constructor_(global: &GlobalScope<TH>, entries: Vec<f64>) -> Fallible<DomRoot<Self>> {
         entries_to_matrix(&entries[..])
             .map(|(is2D, matrix)| {
                 Self::new(global, is2D, matrix)
@@ -47,20 +47,20 @@ impl DOMMatrix {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-frommatrix
-    pub fn FromMatrix(global: &GlobalScope, other: &DOMMatrixInit) -> Fallible<DomRoot<Self>> {
+    pub fn FromMatrix(global: &GlobalScope<TH>, other: &DOMMatrixInit) -> Fallible<DomRoot<Self>> {
         dommatrixinit_to_matrix(&other)
             .map(|(is2D, matrix)| {
                 Self::new(global, is2D, matrix)
             })
     }
 
-    pub fn from_readonly(global: &GlobalScope, ro: &DOMMatrixReadOnly) -> DomRoot<Self> {
+    pub fn from_readonly(global: &GlobalScope<TH>, ro: &DOMMatrixReadOnly) -> DomRoot<Self> {
         Self::new(global, ro.is_2d(), ro.matrix().clone())
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-fromfloat32array
     pub fn FromFloat32Array(
-        global: &GlobalScope,
+        global: &GlobalScope<TH>,
         array: CustomAutoRooterGuard<Float32Array>,
     ) -> Fallible<DomRoot<DOMMatrix>> {
         let vec: Vec<f64> = array.to_vec().iter().map(|&x| x as f64).collect();
@@ -69,7 +69,7 @@ impl DOMMatrix {
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-fromfloat64array
     pub fn FromFloat64Array(
-        global: &GlobalScope,
+        global: &GlobalScope<TH>,
         array: CustomAutoRooterGuard<Float64Array>,
     ) -> Fallible<DomRoot<DOMMatrix>> {
         let vec: Vec<f64> = array.to_vec();

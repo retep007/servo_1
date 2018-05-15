@@ -30,8 +30,8 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct Event<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    current_target: MutNullableDom<EventTarget>,
-    target: MutNullableDom<EventTarget>,
+    current_target: MutNullableDom<EventTarget<TH>>,
+    target: MutNullableDom<EventTarget<TH>>,
     type_: DomRefCell<Atom>,
     phase: Cell<EventPhase>,
     canceled: Cell<EventDefault>,
@@ -65,13 +65,13 @@ impl<TH: TypeHolderTrait> Event<TH> {
         }
     }
 
-    pub fn new_uninitialized(global: &GlobalScope) -> DomRoot<Event<TH>> {
+    pub fn new_uninitialized(global: &GlobalScope<TH>) -> DomRoot<Event<TH>> {
         reflect_dom_object(Box::new(Event::new_inherited()),
                            global,
                            EventBinding::Wrap)
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                type_: Atom,
                bubbles: EventBubbles,
                cancelable: EventCancelable) -> DomRoot<Event> {
@@ -80,7 +80,7 @@ impl<TH: TypeHolderTrait> Event<TH> {
         event
     }
 
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
                        init: &EventBinding::EventInit) -> Fallible<DomRoot<Event<TH>>> {
         let bubbles = EventBubbles::from(init.bubbles);
@@ -138,7 +138,7 @@ impl<TH: TypeHolderTrait> Event<TH> {
         // Step 4.
         if let Some(target_node) = target.downcast::<Node<TH>>() {
             for ancestor in target_node.ancestors() {
-                event_path.push(Dom::from_ref(ancestor.upcast::<EventTarget>()));
+                event_path.push(Dom::from_ref(ancestor.upcast::<EventTarget<TH>>()));
             }
             let top_most_ancestor_or_target =
                 DomRoot::from_ref(event_path.r().last().cloned().unwrap_or(target));
@@ -234,12 +234,12 @@ impl<TH> EventMethods for Event<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-event-target
-    fn GetTarget(&self) -> Option<DomRoot<EventTarget>> {
+    fn GetTarget(&self) -> Option<DomRoot<EventTarget<TH>>> {
         self.target.get()
     }
 
     // https://dom.spec.whatwg.org/#dom-event-currenttarget
-    fn GetCurrentTarget(&self) -> Option<DomRoot<EventTarget>> {
+    fn GetCurrentTarget(&self) -> Option<DomRoot<EventTarget<TH>>> {
         self.current_target.get()
     }
 
@@ -383,7 +383,7 @@ pub enum EventStatus {
 
 // https://dom.spec.whatwg.org/#concept-event-fire
 pub struct EventTask {
-    pub target: Trusted<EventTarget>,
+    pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
     pub bubbles: EventBubbles,
     pub cancelable: EventCancelable,
@@ -400,7 +400,7 @@ impl TaskOnce for EventTask {
 
 // https://html.spec.whatwg.org/multipage/#fire-a-simple-event
 pub struct SimpleEventTask {
-    pub target: Trusted<EventTarget>,
+    pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
 }
 
@@ -469,7 +469,7 @@ fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event, target: &EventTarge
 }
 
 // https://dom.spec.whatwg.org/#concept-event-listener-invoke
-fn invoke(window: Option<&Window>,
+fn invoke(window: Option<&Window<TH>>,
           object: &EventTarget,
           event: &Event,
           specific_listener_phase: Option<ListenerPhase>) {
@@ -489,7 +489,7 @@ fn invoke(window: Option<&Window>,
 }
 
 // https://dom.spec.whatwg.org/#concept-event-listener-inner-invoke
-fn inner_invoke(window: Option<&Window>,
+fn inner_invoke(window: Option<&Window<TH>>,
                 object: &EventTarget,
                 event: &Event,
                 listeners: &[CompiledEventListener])

@@ -61,7 +61,7 @@ pub struct HTMLCollection<TH: TypeHolderTrait> {
     // the length of the collection, and a cursor into the collection.
     // FIXME: make the cached cursor element a weak pointer
     cached_version: Cell<u64>,
-    cached_cursor_element: MutNullableDom<Element>,
+    cached_cursor_element: MutNullableDom<Element<TH>>,
     cached_cursor_index: Cell<OptionU32>,
     cached_length: Cell<OptionU32>,
 }
@@ -82,7 +82,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     }
 
     /// Returns a collection which is always empty.
-    pub fn always_empty(window: &Window<TH>, root: &Node) -> DomRoot<Self> {
+    pub fn always_empty(window: &Window<TH>, root: &Node<TH>) -> DomRoot<Self> {
         #[derive(JSTraceable)]
         struct NoFilter;
         impl CollectionFilter for NoFilter {
@@ -118,7 +118,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         }
     }
 
-    fn set_cached_cursor(&self, index: u32, element: Option<DomRoot<Element>>) -> Option<DomRoot<Element>> {
+    fn set_cached_cursor(&self, index: u32, element: Option<DomRoot<Element<TH>>>) -> Option<DomRoot<Element<TH>>> {
         if let Some(element) = element {
             self.cached_cursor_index.set(OptionU32::some(index));
             self.cached_cursor_element.set(Some(&element));
@@ -136,7 +136,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             #[derive(JSTraceable, MallocSizeOf)]
             struct AllFilter;
             impl CollectionFilter for AllFilter {
-                fn filter(&self, _elem: &Element, _root: &Node) -> bool {
+                fn filter(&self, _elem: &Element, _root: &Node<TH>) -> bool {
                     true
                 }
             }
@@ -188,7 +188,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             qname: QualName
         }
         impl CollectionFilter for TagNameNSFilter {
-            fn filter(&self, elem: &Element, _root: &Node) -> bool {
+            fn filter(&self, elem: &Element, _root: &Node<TH>) -> bool {
                     ((self.qname.ns == namespace_url!("*")) || (self.qname.ns == *elem.namespace())) &&
                     ((self.qname.local == local_name!("*")) || (self.qname.local == *elem.local_name()))
             }
@@ -212,7 +212,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             classes: Vec<Atom>
         }
         impl CollectionFilter for ClassNameFilter {
-            fn filter(&self, elem: &Element, _root: &Node) -> bool {
+            fn filter(&self, elem: &Element, _root: &Node<TH>) -> bool {
                 let case_sensitivity = document_from_node(elem)
                     .quirks_mode()
                     .classes_and_ids_case_sensitivity();
@@ -225,30 +225,30 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         HTMLCollection::create(window, root, Box::new(filter))
     }
 
-    pub fn children(window: &Window<TH>, root: &Node) -> DomRoot<HTMLCollection> {
+    pub fn children(window: &Window<TH>, root: &Node<TH>) -> DomRoot<HTMLCollection> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct ElementChildFilter;
         impl CollectionFilter for ElementChildFilter {
-            fn filter(&self, elem: &Element, root: &Node) -> bool {
+            fn filter(&self, elem: &Element, root: &Node<TH>) -> bool {
                 root.is_parent_of(elem.upcast())
             }
         }
         HTMLCollection::create(window, root, Box::new(ElementChildFilter))
     }
 
-    pub fn elements_iter_after<'a>(&'a self, after: &'a Node) -> impl Iterator<Item=DomRoot<Element>> + 'a {
+    pub fn elements_iter_after<'a>(&'a self, after: &'a Node) -> impl Iterator<Item=DomRoot<Element<TH>>> + 'a {
         // Iterate forwards from a node.
         after.following_nodes(&self.root)
             .filter_map(DomRoot::downcast)
             .filter(move |element| self.filter.filter(&element, &self.root))
     }
 
-    pub fn elements_iter<'a>(&'a self) -> impl Iterator<Item=DomRoot<Element>> + 'a {
+    pub fn elements_iter<'a>(&'a self) -> impl Iterator<Item=DomRoot<Element<TH>>> + 'a {
         // Iterate forwards from the root.
         self.elements_iter_after(&*self.root)
     }
 
-    pub fn elements_iter_before<'a>(&'a self, before: &'a Node) -> impl Iterator<Item=DomRoot<Element>> + 'a {
+    pub fn elements_iter_before<'a>(&'a self, before: &'a Node) -> impl Iterator<Item=DomRoot<Element<TH>>> + 'a {
         // Iterate backwards from a node.
         before.preceding_nodes(&self.root)
             .filter_map(DomRoot::downcast)
@@ -277,7 +277,7 @@ impl<TH: TypeHolderTrait> HTMLCollectionMethods for HTMLCollection<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-htmlcollection-item
-    fn Item(&self, index: u32) -> Option<DomRoot<Element>> {
+    fn Item(&self, index: u32) -> Option<DomRoot<Element<TH>>> {
         self.validate_cache();
 
         if let Some(element) = self.cached_cursor_element.get() {
@@ -314,7 +314,7 @@ impl<TH: TypeHolderTrait> HTMLCollectionMethods for HTMLCollection<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-htmlcollection-nameditem
-    fn NamedItem(&self, key: DOMString) -> Option<DomRoot<Element>> {
+    fn NamedItem(&self, key: DOMString) -> Option<DomRoot<Element<TH>>> {
         // Step 1.
         if key.is_empty() {
             return None;
@@ -328,12 +328,12 @@ impl<TH: TypeHolderTrait> HTMLCollectionMethods for HTMLCollection<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-htmlcollection-item
-    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element>> {
+    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element<TH>>> {
         self.Item(index)
     }
 
     // check-tidy: no specs after this line
-    fn NamedGetter(&self, name: DOMString) -> Option<DomRoot<Element>> {
+    fn NamedGetter(&self, name: DOMString) -> Option<DomRoot<Element<TH>>> {
         self.NamedItem(name)
     }
 

@@ -20,7 +20,7 @@ pub struct HTMLMeterElement {
 impl HTMLMeterElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLMeterElement {
+                     document: &Document<TH>) -> HTMLMeterElement {
         HTMLMeterElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -29,7 +29,7 @@ impl HTMLMeterElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLMeterElement> {
+               document: &Document<TH>) -> DomRoot<HTMLMeterElement> {
         Node::reflect_node(Box::new(HTMLMeterElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLMeterElementBinding::Wrap)

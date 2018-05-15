@@ -21,7 +21,7 @@ pub struct WebGLUniformLocation<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> WebGLUniformLocation<TH> {
     fn new_inherited(id: i32,
                      program_id: WebGLProgramId)
-                     -> WebGLUniformLocation {
+                     -> WebGLUniformLocation<TH> {
         WebGLUniformLocation {
             reflector_: Reflector::new(),
             id: id,
@@ -32,7 +32,7 @@ impl<TH: TypeHolderTrait> WebGLUniformLocation<TH> {
     pub fn new(window: &Window<TH>,
                id: i32,
                program_id: WebGLProgramId)
-               -> DomRoot<WebGLUniformLocation> {
+               -> DomRoot<WebGLUniformLocation<TH>> {
         reflect_dom_object(Box::new(WebGLUniformLocation::new_inherited(id, program_id)),
                            window,
                            WebGLUniformLocationBinding::Wrap)

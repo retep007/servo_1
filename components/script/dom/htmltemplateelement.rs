@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTemplateElement<TH> {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#template-adopting-steps>
-    fn adopting_steps(&self, old_doc: &Document) {
+    fn adopting_steps(&self, old_doc: &Document<TH>) {
         self.super_type().unwrap().adopting_steps(old_doc);
         // Step 1.
         let doc = document_from_node(self).appropriate_template_contents_owner_document();

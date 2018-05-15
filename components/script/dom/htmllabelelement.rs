@@ -49,7 +49,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
 
 impl<TH> Activatable for HTMLLabelElement<TH> {
     fn as_element(&self) -> &Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 
     fn is_instance_activatable(&self) -> bool {
@@ -68,7 +68,7 @@ impl<TH> Activatable for HTMLLabelElement<TH> {
     // https://html.spec.whatwg.org/multipage/#run-post-click-activation-steps
     fn activation_behavior(&self, _event: &Event, _target: &EventTarget) {
         if let Some(e) = self.GetControl() {
-            let elem = e.upcast::<Element>();
+            let elem = e.upcast::<Element<TH>>();
             synthetic_click_activation(elem,
                                        false,
                                        false,
@@ -105,7 +105,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElementMethods for HTMLLabelElement<TH> {
             return None;
         }
 
-        let for_attr = match self.upcast::<Element>().get_attribute(&ns!(), &local_name!("for")) {
+        let for_attr = match self.upcast::<Element<TH>>().get_attribute(&ns!(), &local_name!("for")) {
             Some(for_attr) => for_attr,
             None => return self.first_labelable_descendant(),
         };
@@ -154,7 +154,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
 
 impl<TH> FormControl for HTMLLabelElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
-        self.GetControl().map(DomRoot::upcast::<Element>).and_then(|elem| {
+        self.GetControl().map(DomRoot::upcast::<Element<TH>>).and_then(|elem| {
             elem.as_maybe_form_control().and_then(|control| control.form_owner())
         })
     }
@@ -165,6 +165,6 @@ impl<TH> FormControl for HTMLLabelElement<TH> {
     }
 
     fn to_element<'a>(&'a self) -> &'a Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 }

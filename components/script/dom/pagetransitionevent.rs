@@ -31,7 +31,7 @@ impl<TH: TypeHolderTrait> PageTransitionEvent<TH> {
         }
     }
 
-    pub fn new_uninitialized(window: &Window) -> DomRoot<PageTransitionEvent> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<PageTransitionEvent> {
         reflect_dom_object(Box::new(PageTransitionEvent::new_inherited()),
                            window,
                            PageTransitionEventBinding::Wrap)

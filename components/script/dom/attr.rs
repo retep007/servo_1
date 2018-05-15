@@ -33,7 +33,7 @@ pub struct Attr<TH: TypeHolderTrait> {
     value: DomRefCell<AttrValue>,
 
     /// the element that owns this attribute.
-    owner: MutNullableDom<Element>,
+    owner: MutNullableDom<Element<TH>>,
 }
 
 impl<TH: TypeHolderTrait> Attr<TH> {
@@ -166,7 +166,7 @@ impl<TH> AttrMethods for Attr<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-attr-ownerelement
-    fn GetOwnerElement(&self) -> Option<DomRoot<Element>> {
+    fn GetOwnerElement(&self) -> Option<DomRoot<Element<TH>>> {
         self.owner()
     }
 
@@ -237,7 +237,7 @@ impl<TH: TypeHolderTrait> Attr<TH> {
         self.owner.set(owner);
     }
 
-    pub fn owner(&self) -> Option<DomRoot<Element>> {
+    pub fn owner(&self) -> Option<DomRoot<Element<TH>>> {
         self.owner.get()
     }
 

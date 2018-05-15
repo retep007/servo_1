@@ -120,7 +120,7 @@ pub struct Performance<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> Performance<TH> {
-    fn new_inherited(global: &GlobalScope,
+    fn new_inherited(global: &GlobalScope<TH>,
                      navigation_start: u64,
                      navigation_start_precise: u64) -> Performance {
         Performance {
@@ -139,7 +139,7 @@ impl<TH: TypeHolderTrait> Performance<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                navigation_start: u64,
                navigation_start_precise: u64) -> DomRoot<Performance> {
         reflect_dom_object(

@@ -37,7 +37,7 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                type_: Atom,
                bubbles: bool,
                cancelable: bool,
@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
         ev
     }
 
-    pub fn new_with_type(global: &GlobalScope, event_type: GamepadEventType, gamepad: &Gamepad)
+    pub fn new_with_type(global: &GlobalScope<TH>, event_type: GamepadEventType, gamepad: &Gamepad)
                          -> DomRoot<GamepadEvent<TH>> {
         let name = match event_type {
             GamepadEventType::Connected => "gamepadconnected",

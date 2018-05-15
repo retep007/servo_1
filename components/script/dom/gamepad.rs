@@ -68,7 +68,7 @@ impl Gamepad {
     }
 
     #[allow(unsafe_code)]
-    pub fn new_from_vr(global: &GlobalScope,
+    pub fn new_from_vr(global: &GlobalScope<TH>,
                        index: i32,
                        data: &WebVRGamepadData,
                        state: &WebVRGamepadState) -> DomRoot<Gamepad> {
@@ -204,6 +204,6 @@ impl Gamepad {
 
     pub fn notify_event(&self, event_type: GamepadEventType) {
         let event = GamepadEvent::new_with_type(&self.global(), event_type, &self);
-        event.upcast::<Event>().fire(self.global().as_window().upcast::<EventTarget>());
+        event.upcast::<Event>().fire(self.global().as_window().upcast::<EventTarget<TH>>());
     }
 }

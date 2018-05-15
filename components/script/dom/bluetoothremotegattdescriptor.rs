@@ -48,7 +48,7 @@ impl BluetoothRemoteGATTDescriptor {
         }
     }
 
-    pub fn new(global: &GlobalScope,
+    pub fn new(global: &GlobalScope<TH>,
                characteristic: &BluetoothRemoteGATTCharacteristic,
                uuid: DOMString,
                instanceID: String)

@@ -25,7 +25,7 @@ impl OESTextureFloat {
 
 impl WebGLExtension for OESTextureFloat {
     type Extension = OESTextureFloat;
-    fn new(ctx: &WebGLRenderingContext) -> DomRoot<OESTextureFloat> {
+    fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESTextureFloat> {
         reflect_dom_object(Box::new(OESTextureFloat::new_inherited()),
                            &*ctx.global(),
                            OESTextureFloatBinding::Wrap)

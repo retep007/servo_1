@@ -18,7 +18,7 @@ pub struct HTMLDirectoryElement {
 impl HTMLDirectoryElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLDirectoryElement {
+                     document: &Document<TH>) -> HTMLDirectoryElement {
         HTMLDirectoryElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLDirectoryElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLDirectoryElement> {
+               document: &Document<TH>) -> DomRoot<HTMLDirectoryElement> {
         Node::reflect_node(Box::new(HTMLDirectoryElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLDirectoryElementBinding::Wrap)

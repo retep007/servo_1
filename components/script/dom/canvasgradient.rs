@@ -39,7 +39,7 @@ impl CanvasGradient {
         }
     }
 
-    pub fn new(global: &GlobalScope, style: CanvasGradientStyle) -> DomRoot<CanvasGradient> {
+    pub fn new(global: &GlobalScope<TH>, style: CanvasGradientStyle) -> DomRoot<CanvasGradient> {
         reflect_dom_object(Box::new(CanvasGradient::new_inherited(style)),
                            global,
                            CanvasGradientBinding::Wrap)

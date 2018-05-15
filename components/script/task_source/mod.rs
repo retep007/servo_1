@@ -22,7 +22,7 @@ pub trait TaskSource {
     where
         T: TaskOnce + 'static;
 
-    fn queue<T>(&self, task: T, global: &GlobalScope) -> Result<(), ()>
+    fn queue<T>(&self, task: T, global: &GlobalScope<TH>) -> Result<(), ()>
     where
         T: TaskOnce + 'static,
     {

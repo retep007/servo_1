@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
         }
     }
 
-    pub fn new_uninitialized(window: &Window) -> DomRoot<KeyboardEvent<TH>> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<KeyboardEvent<TH>> {
         reflect_dom_object(Box::new(KeyboardEvent::new_inherited()),
                            window,
                            KeyboardEventBinding::Wrap)
@@ -70,7 +70,7 @@ impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
                type_: DOMString,
                can_bubble: bool,
                cancelable: bool,
-               view: Option<&Window>,
+               view: Option<&Window<TH>>,
                _detail: i32,
                ch: Option<char>,
                key: Option<Key>,
@@ -773,7 +773,7 @@ impl<TH: TypeHolderTrait> KeyboardEventMethods for KeyboardEvent<TH> {
             return;
         }
 
-        self.upcast::<UIEvent>()
+        self.upcast::<UIEvent<TH>>()
             .InitUIEvent(type_arg, can_bubble_arg, cancelable_arg, view_arg, 0);
         *self.key_string.borrow_mut() = key_arg;
         self.location.set(location_arg);

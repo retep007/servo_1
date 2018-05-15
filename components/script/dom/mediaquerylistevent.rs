@@ -28,7 +28,7 @@ pub struct MediaQueryListEvent<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> MediaQueryListEvent<TH> {
-    pub fn new_initialized(global: &GlobalScope,
+    pub fn new_initialized(global: &GlobalScope<TH>,
                            media: DOMString,
                            matches: bool) -> DomRoot<MediaQueryListEvent<TH>> {
         let ev = Box::new(MediaQueryListEvent {
@@ -39,7 +39,7 @@ impl<TH: TypeHolderTrait> MediaQueryListEvent<TH> {
         reflect_dom_object(ev, global, MediaQueryListEventBinding::Wrap)
     }
 
-    pub fn new(global: &GlobalScope, type_: Atom,
+    pub fn new(global: &GlobalScope<TH>, type_: Atom,
                bubbles: bool, cancelable: bool,
                media: DOMString, matches: bool) -> DomRoot<MediaQueryListEvent<TH>> {
         let ev = MediaQueryListEvent::new_initialized(global, media, matches);
@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> MediaQueryListEvent<TH> {
     pub fn Constructor(window: &Window<TH>, type_: DOMString,
                        init: &MediaQueryListEventInit)
                        -> Fallible<DomRoot<MediaQueryListEvent<TH>>> {
-        let global = window.upcast::<GlobalScope>();
+        let global = window.upcast::<GlobalScope<TH>>();
         Ok(MediaQueryListEvent::new(global, Atom::from(type_),
                                     init.parent.bubbles, init.parent.cancelable,
                                     init.media.clone(), init.matches))

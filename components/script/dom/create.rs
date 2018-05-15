@@ -87,7 +87,7 @@ use typeholder::TypeHolderTrait;
 
 fn create_svg_element<TH: TypeHolderTrait>(name: QualName,
                       prefix: Option<Prefix>,
-                      document: &Document)
+                      document: &Document<TH>)
                       -> DomRoot<Element<TH>> {
     assert_eq!(name.ns, ns!(svg));
 
@@ -130,7 +130,7 @@ fn create_html_element<TH: TypeHolderTrait>(name: QualName,
         if definition.is_autonomous() {
             match mode {
                 CustomElementCreationMode::Asynchronous => {
-                    let result = DomRoot::upcast::<Element>(
+                    let result = DomRoot::upcast::<Element<TH>>(
                         HTMLElement::new(name.local.clone(), prefix.clone(), document));
                     result.set_custom_element_state(CustomElementState::Undefined);
                     ScriptThread::enqueue_upgrade_reaction(&*result, definition);
@@ -156,7 +156,7 @@ fn create_html_element<TH: TypeHolderTrait>(name: QualName,
                             }
 
                             // Step 6.1.2
-                            let element = DomRoot::upcast::<Element>(
+                            let element = DomRoot::upcast::<Element<TH>>(
                                 HTMLUnknownElement::new(local_name, prefix, document));
                             element.set_custom_element_state(CustomElementState::Failed);
                             element
@@ -366,7 +366,7 @@ pub fn create_element<TH: TypeHolderTrait>(name: QualName,
                       document: &Document<TH>,
                       creator: ElementCreator,
                       mode: CustomElementCreationMode)
-                      -> DomRoot<Element> {
+                      -> DomRoot<Element<TH>> {
     let prefix = name.prefix.clone();
     match name.ns {
         ns!(html)   => create_html_element(name, prefix, is, document, creator, mode),

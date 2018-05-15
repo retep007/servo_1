@@ -79,7 +79,7 @@ impl LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     unsafe fn selection_for_layout(self) -> Option<Range<usize>> {
-        if !(*self.unsafe_get()).upcast::<Element>().focus_state() {
+        if !(*self.unsafe_get()).upcast::<Element<TH>>().focus_state() {
             return None;
         }
         let textinput = (*self.unsafe_get()).textinput.borrow_for_layout();
@@ -89,7 +89,7 @@ impl LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement> {
     #[allow(unsafe_code)]
     fn get_cols(self) -> u32 {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("cols"))
                 .map_or(DEFAULT_COLS, AttrValue::as_uint)
         }
@@ -98,7 +98,7 @@ impl LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement> {
     #[allow(unsafe_code)]
     fn get_rows(self) -> u32 {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("rows"))
                 .map_or(DEFAULT_ROWS, AttrValue::as_uint)
         }
@@ -115,7 +115,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLTextAreaElement<TH> {
-        let chan = document.window().upcast::<GlobalScope>().script_to_constellation_chan().clone();
+        let chan = document.window().upcast::<GlobalScope<TH>>().script_to_constellation_chan().clone();
         HTMLTextAreaElement {
             htmlelement:
                 HTMLElement::new_inherited_with_state(ElementState::IN_ENABLED_STATE |
@@ -141,7 +141,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
     fn update_placeholder_shown_state(&self) {
         let has_placeholder = !self.placeholder.borrow().is_empty();
         let has_value = !self.textinput.borrow().is_empty();
-        let el = self.upcast::<Element>();
+        let el = self.upcast::<Element<TH>>();
         el.set_placeholder_shown_state(has_placeholder && !has_value);
     }
 }
@@ -346,7 +346,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match *attr.local_name() {
             local_name!("disabled") => {
-                let el = self.upcast::<Element>();
+                let el = self.upcast::<Element<TH>>();
                 match mutation {
                     AttributeMutation::Set(_) => {
                         el.set_disabled_state(true);
@@ -376,7 +376,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
                 self.update_placeholder_shown_state();
             },
             local_name!("readonly") => {
-                let el = self.upcast::<Element>();
+                let el = self.upcast::<Element<TH>>();
                 match mutation {
                     AttributeMutation::Set(_) => {
                         el.set_read_write_state(false);
@@ -398,7 +398,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
             s.bind_to_tree(tree_in_doc);
         }
 
-        self.upcast::<Element>().check_ancestors_disabled_state_for_form_control();
+        self.upcast::<Element<TH>>().check_ancestors_disabled_state_for_form_control();
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -413,7 +413,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
         self.super_type().unwrap().unbind_from_tree(context);
 
         let node = self.upcast::<Node<TH>>();
-        let el = self.upcast::<Element>();
+        let el = self.upcast::<Element<TH>>();
         if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
             el.check_ancestors_disabled_state_for_form_control();
         } else {
@@ -491,7 +491,7 @@ impl<TH> FormControl for HTMLTextAreaElement<TH> {
     }
 
     fn to_element<'a>(&'a self) -> &'a Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 }
 

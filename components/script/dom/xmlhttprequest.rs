@@ -164,7 +164,7 @@ pub struct XMLHttpRequest<TH: TypeHolderTrait> {
 }
 
 impl<TH> XMLHttpRequest<TH> {
-    fn new_inherited(global: &GlobalScope) -> XMLHttpRequest<TH> {
+    fn new_inherited(global: &GlobalScope<TH>) -> XMLHttpRequest<TH> {
         //TODO - update this when referrer policy implemented for workers
         let (referrer_url, referrer_policy) = if let Some(window) = global.downcast::<Window<TH>>() {
             let document = window.Document();
@@ -209,14 +209,14 @@ impl<TH> XMLHttpRequest<TH> {
             canceller: DomRefCell::new(Default::default()),
         }
     }
-    pub fn new(global: &GlobalScope) -> DomRoot<XMLHttpRequest<TH>> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<XMLHttpRequest<TH>> {
         reflect_dom_object(Box::new(XMLHttpRequest::new_inherited(global)),
                            global,
                            XMLHttpRequestBinding::Wrap)
     }
 
     // https://xhr.spec.whatwg.org/#constructors
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<XMLHttpRequest<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<XMLHttpRequest<TH>>> {
         Ok(XMLHttpRequest::new(global))
     }
 
@@ -226,7 +226,7 @@ impl<TH> XMLHttpRequest<TH> {
 
     fn initiate_async_xhr(context: Arc<Mutex<XHRContext>>,
                           task_source: NetworkingTaskSource,
-                          global: &GlobalScope,
+                          global: &GlobalScope<TH>,
                           init: RequestInit,
                           cancellation_chan: ipc::IpcReceiver<()>) {
         impl FetchResponseListener for XHRContext {
@@ -490,12 +490,12 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
     }
 
     // https://xhr.spec.whatwg.org/#the-upload-attribute
-    fn Upload(&self) -> DomRoot<XMLHttpRequestUpload> {
+    fn Upload(&self) -> DomRoot<XMLHttpRequestUpload<TH>> {
         DomRoot::from_ref(&*self.upload)
     }
 
     // https://xhr.spec.whatwg.org/#the-send()-method
-    fn Send(&self, data: Option<DocumentOrBodyInit>) -> ErrorResult {
+    fn Send(&self, data: Option<DocumentOrBodyInit<TH>>) -> ErrorResult {
         // Step 1, 2
         if self.ready_state.get() != XMLHttpRequestState::Opened || self.send_flag.get() {
             return Err(Error::InvalidState);
@@ -563,7 +563,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
 
         // Step 5
         //TODO - set referrer_policy/referrer_url in request
-        let has_handlers = self.upload.upcast::<EventTarget>().has_handlers();
+        let has_handlers = self.upload.upcast::<EventTarget<TH>>().has_handlers();
         let credentials_mode = if self.with_credentials.get() {
             CredentialsMode::Include
         } else {
@@ -832,7 +832,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
 pub type TrustedXHRAddress<TH> = Trusted<XMLHttpRequest<TH>>;
 
 
-impl<TH> XMLHttpRequest<TH> {
+impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
     fn change_ready_state(&self, rs: XMLHttpRequestState) {
         assert_ne!(self.ready_state.get(), rs);
         self.ready_state.set(rs);
@@ -1310,7 +1310,7 @@ impl<TH> XMLHttpRequest<TH> {
 
     fn fetch(&self,
               init: RequestInit,
-              global: &GlobalScope) -> ErrorResult {
+              global: &GlobalScope<TH>) -> ErrorResult {
         let xhr = Trusted::new(self);
 
         let context = Arc::new(Mutex::new(XHRContext {

@@ -33,7 +33,7 @@ pub struct TreeWalker<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> TreeWalker<TH> {
     fn new_inherited(root_node: &Node<TH>,
                          what_to_show: u32,
-                         filter: Filter) -> TreeWalker {
+                         filter: Filter) -> TreeWalker<TH> {
         TreeWalker {
             reflector_: Reflector::new(),
             root_node: Dom::from_ref(root_node),
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
     pub fn new_with_filter(document: &Document<TH>,
                            root_node: &Node<TH>,
                            what_to_show: u32,
-                           filter: Filter) -> DomRoot<TreeWalker> {
+                           filter: Filter) -> DomRoot<TreeWalker<TH>> {
         reflect_dom_object(Box::new(TreeWalker::new_inherited(root_node, what_to_show, filter)),
                            document.window(),
                            TreeWalkerBinding::Wrap)
@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
     pub fn new(document: &Document<TH>,
                root_node: &Node<TH>,
                what_to_show: u32,
-               node_filter: Option<Rc<NodeFilter>>) -> DomRoot<TreeWalker> {
+               node_filter: Option<Rc<NodeFilter>>) -> DomRoot<TreeWalker<TH>> {
         let filter = match node_filter {
             None => Filter::None,
             Some(jsfilter) => Filter::Dom(jsfilter)
@@ -91,7 +91,7 @@ impl<TH: TypeHolderTrait> TreeWalkerMethods for TreeWalker<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-currentnode
-    fn SetCurrentNode(&self, node: &Node) {
+    fn SetCurrentNode(&self, node: &Node<TH>) {
         self.current_node.set(node);
     }
 
@@ -261,8 +261,8 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
                                next_child: F,
                                next_sibling: G)
                                -> Fallible<Option<DomRoot<Node<TH>>>>
-        where F: Fn(&Node) -> Option<DomRoot<Node<TH>>>,
-              G: Fn(&Node) -> Option<DomRoot<Node<TH>>>
+        where F: Fn(&Node<TH>) -> Option<DomRoot<Node<TH>>>,
+              G: Fn(&Node<TH>) -> Option<DomRoot<Node<TH>>>
     {
         // "To **traverse children** of type *type*, run these steps:"
         // "1. Let node be the value of the currentNode attribute."
@@ -333,8 +333,8 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
                                next_child: F,
                                next_sibling: G)
                                -> Fallible<Option<DomRoot<Node<TH>>>>
-        where F: Fn(&Node) -> Option<DomRoot<Node<TH>>>,
-              G: Fn(&Node) -> Option<DomRoot<Node<TH>>>
+        where F: Fn(&Node<TH>) -> Option<DomRoot<Node<TH>>>,
+              G: Fn(&Node<TH>) -> Option<DomRoot<Node<TH>>>
     {
         // "To **traverse siblings** of type *type* run these steps:"
         // "1. Let node be the value of the currentNode attribute."
@@ -391,7 +391,7 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
     }
 
     // https://dom.spec.whatwg.org/#concept-tree-following
-    fn first_following_node_not_following_root(&self, node: &Node)
+    fn first_following_node_not_following_root(&self, node: &Node<TH>)
                                                -> Option<DomRoot<Node<TH>>> {
         // "An object A is following an object B if A and B are in the same tree
         //  and A comes after B in tree order."
@@ -414,7 +414,7 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
     }
 
     // https://dom.spec.whatwg.org/#concept-node-filter
-    fn accept_node(&self, node: &Node) -> Fallible<u16> {
+    fn accept_node(&self, node: &Node<TH>) -> Fallible<u16> {
         // Step 1.
         if self.active.get() {
             return Err(Error::InvalidState);
@@ -442,11 +442,11 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
         }
     }
 
-    fn is_root_node(&self, node: &Node) -> bool {
+    fn is_root_node(&self, node: &Node<TH>) -> bool {
         Dom::from_ref(node) == self.root_node
     }
 
-    fn is_current_node(&self, node: &Node) -> bool {
+    fn is_current_node(&self, node: &Node<TH>) -> bool {
         node == &*self.current_node.get()
     }
 }

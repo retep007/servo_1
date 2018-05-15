@@ -28,7 +28,7 @@ impl PerformanceObserverEntryList {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(global: &GlobalScope, entries: PerformanceEntryList)
+    pub fn new(global: &GlobalScope<TH>, entries: PerformanceEntryList)
         -> DomRoot<PerformanceObserverEntryList> {
         let observer_entry_list = PerformanceObserverEntryList::new_inherited(entries);
         reflect_dom_object(Box::new(observer_entry_list), global, PerformanceObserverEntryListBinding::Wrap)

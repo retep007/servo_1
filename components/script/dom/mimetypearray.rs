@@ -23,7 +23,7 @@ impl MimeTypeArray {
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<MimeTypeArray> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<MimeTypeArray> {
         reflect_dom_object(Box::new(MimeTypeArray::new_inherited()),
                            global,
                            MimeTypeArrayBinding::Wrap)

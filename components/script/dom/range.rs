@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
         }
     }
 
-    pub fn new_with_doc(document: &Document) -> DomRoot<Range> {
+    pub fn new_with_doc(document: &Document<TH>) -> DomRoot<Range<TH>> {
         let root = document.upcast();
         Range::new(document, root, 0, root, 0)
     }
@@ -58,7 +58,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     pub fn new(document: &Document<TH>,
                start_container: &Node<TH>, start_offset: u32,
                end_container: &Node<TH>, end_offset: u32)
-               -> DomRoot<Range> {
+               -> DomRoot<Range<TH>> {
         let range = reflect_dom_object(
             Box::new(Range::new_inherited(
                 start_container, start_offset, end_container, end_offset
@@ -74,13 +74,13 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range
-    pub fn Constructor(window: &Window) -> Fallible<DomRoot<Range>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<Range<TH>>> {
         let document = window.Document();
         Ok(Range::new_with_doc(&document))
     }
 
     // https://dom.spec.whatwg.org/#contained
-    fn contains(&self, node: &Node) -> bool {
+    fn contains(&self, node: &Node<TH>) -> bool {
         match (bp_position(node, 0, &self.StartContainer(), self.StartOffset()),
                bp_position(node, node.len(), &self.EndContainer(), self.EndOffset())) {
             (Some(Ordering::Greater), Some(Ordering::Less)) => true,
@@ -89,7 +89,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#partially-contained
-    fn partially_contains(&self, node: &Node) -> bool {
+    fn partially_contains(&self, node: &Node<TH>) -> bool {
         self.StartContainer().inclusive_ancestors().any(|n| &*n == node) !=
             self.EndContainer().inclusive_ancestors().any(|n| &*n == node)
     }
@@ -272,25 +272,25 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setstartbefore
-    fn SetStartBefore(&self, node: &Node) -> ErrorResult {
+    fn SetStartBefore(&self, node: &Node<TH>) -> ErrorResult {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetStart(&parent, node.index())
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setstartafter
-    fn SetStartAfter(&self, node: &Node) -> ErrorResult {
+    fn SetStartAfter(&self, node: &Node<TH>) -> ErrorResult {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetStart(&parent, node.index() + 1)
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setendbefore
-    fn SetEndBefore(&self, node: &Node) -> ErrorResult {
+    fn SetEndBefore(&self, node: &Node<TH>) -> ErrorResult {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetEnd(&parent, node.index())
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setendafter
-    fn SetEndAfter(&self, node: &Node) -> ErrorResult {
+    fn SetEndAfter(&self, node: &Node<TH>) -> ErrorResult {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetEnd(&parent, node.index() + 1)
     }
@@ -305,7 +305,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-selectnode
-    fn SelectNode(&self, node: &Node) -> ErrorResult {
+    fn SelectNode(&self, node: &Node<TH>) -> ErrorResult {
         // Steps 1, 2.
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         // Step 3.
@@ -318,7 +318,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-selectnodecontents
-    fn SelectNodeContents(&self, node: &Node) -> ErrorResult {
+    fn SelectNodeContents(&self, node: &Node<TH>) -> ErrorResult {
         if node.is_doctype() {
             // Step 1.
             return Err(Error::InvalidNodeType);
@@ -370,7 +370,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-clonerange
-    fn CloneRange(&self) -> DomRoot<Range> {
+    fn CloneRange(&self) -> DomRoot<Range<TH>> {
         let start_node = self.StartContainer();
         let owner_doc = start_node.owner_doc();
         Range::new(&owner_doc, &start_node, self.StartOffset(),
@@ -403,7 +403,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-intersectsnode
-    fn IntersectsNode(&self, node: &Node) -> bool {
+    fn IntersectsNode(&self, node: &Node<TH>) -> bool {
         let start_node = self.StartContainer();
         let start_node_root = self.StartContainer().inclusive_ancestors().last().unwrap();
         let node_root = node.inclusive_ancestors().last().unwrap();
@@ -661,7 +661,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-insertnode
     // https://dom.spec.whatwg.org/#concept-range-insert
-    fn InsertNode(&self, node: &Node) -> ErrorResult {
+    fn InsertNode(&self, node: &Node<TH>) -> ErrorResult {
         let start_node = self.StartContainer();
         let start_offset = self.StartOffset();
 
@@ -786,7 +786,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
             (DomRoot::from_ref(&*start_node), start_offset)
         } else {
             // Step 6.
-            fn compute_reference<TH>(start_node: &Node<TH>, end_node: &Node) -> (DomRoot<Node<TH>>, u32) {
+            fn compute_reference<TH>(start_node: &Node<TH>, end_node: &Node<TH>) -> (DomRoot<Node<TH>>, u32) {
                 let mut reference_node = DomRoot::from_ref(start_node);
                 while let Some(parent) = reference_node.GetParentNode() {
                     if parent.is_inclusive_ancestor_of(end_node) {
@@ -824,7 +824,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-surroundcontents
-    fn SurroundContents(&self, new_parent: &Node) -> ErrorResult {
+    fn SurroundContents(&self, new_parent: &Node<TH>) -> ErrorResult {
         // Step 1.
         let start = self.StartContainer();
         let end = self.EndContainer();
@@ -908,7 +908,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         let owner_doc = node.owner_doc();
         let element = match node.type_id() {
             NodeTypeId::Document(_) | NodeTypeId::DocumentFragment => None,
-            NodeTypeId::Element(_) => Some(DomRoot::downcast::<Element>(node).unwrap()),
+            NodeTypeId::Element(_) => Some(DomRoot::downcast::<Element<TH>>(node).unwrap()),
             NodeTypeId::CharacterData(CharacterDataTypeId::Comment) |
             NodeTypeId::CharacterData(CharacterDataTypeId::Text) => node.GetParentElement(),
             NodeTypeId::CharacterData(CharacterDataTypeId::ProcessingInstruction) |
@@ -1045,7 +1045,7 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
 
     /// Used for steps 2-3. when removing a node.
     /// <https://dom.spec.whatwg.org/#concept-node-remove>
-    pub fn drain_to_parent(&self, context: &UnbindContext, child: &Node) {
+    pub fn drain_to_parent(&self, context: &UnbindContext, child: &Node<TH>) {
         if self.is_empty() {
             return;
         }
@@ -1160,7 +1160,7 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
     /// <https://dom.spec.whatwg.org/#concept-text-split>
     pub fn move_to_following_text_sibling_above(&self,
                                                 node: &Node<TH>, offset: u32,
-                                                sibling: &Node) {
+                                                sibling: &Node<TH>) {
         unsafe {
             let sibling_ranges = &mut *sibling.ranges().cell.get();
 
@@ -1234,13 +1234,13 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
         }
     }
 
-    fn push(&self, ref_: WeakRef<Range>) {
+    fn push(&self, ref_: WeakRef<Range<TH>>) {
         unsafe {
             (*self.cell.get()).push(ref_);
         }
     }
 
-    fn remove(&self, range: &Range) -> WeakRef<Range> {
+    fn remove(&self, range: &Range) -> WeakRef<Range<TH>> {
         unsafe {
             let ranges = &mut *self.cell.get();
             let position = ranges.iter().position(|ref_| {

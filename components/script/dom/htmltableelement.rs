@@ -89,9 +89,9 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
                                     section: Option<&HTMLTableSectionElement>,
                                     reference_predicate: P)
                                     -> ErrorResult
-                                    where P: FnMut(&DomRoot<Element>) -> bool {
+                                    where P: FnMut(&DomRoot<Element<TH>>) -> bool {
         if let Some(e) = section {
-            if e.upcast::<Element>().local_name() != atom {
+            if e.upcast::<Element<TH>>().local_name() != atom {
                 return Err(Error::HierarchyRequest)
             }
         }
@@ -279,7 +279,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
         let node = self.upcast::<Node<TH>>();
         let last_tbody =
             node.rev_children()
-                .filter_map(DomRoot::downcast::<Element>)
+                .filter_map(DomRoot::downcast::<Element<TH>>)
                 .find(|n| n.is::<HTMLTableSectionElement>() && n.local_name() == &local_name!("tbody"));
         let reference_element =
             last_tbody.and_then(|t| t.upcast::<Node<TH>>().GetNextSibling());
@@ -306,7 +306,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
         if number_of_row_elements == 0 {
             // append new row to last or new tbody in table
             if let Some(last_tbody) = node.rev_children()
-                .filter_map(DomRoot::downcast::<Element>)
+                .filter_map(DomRoot::downcast::<Element<TH>>)
                 .find(|n| n.is::<HTMLTableSectionElement>() && n.local_name() == &local_name!("tbody")) {
                     last_tbody.upcast::<Node<TH>>().AppendChild(new_row.upcast::<Node<TH>>())
                                                .expect("InsertRow failed to append first row.");
@@ -384,7 +384,7 @@ impl HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement> {
     #[allow(unsafe_code)]
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("bgcolor"))
                 .and_then(AttrValue::as_color)
                 .cloned()
@@ -408,7 +408,7 @@ impl HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement> {
     #[allow(unsafe_code)]
     fn get_width(&self) -> LengthOrPercentageOrAuto {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("width"))
                 .map(AttrValue::as_dimension)
                 .cloned()

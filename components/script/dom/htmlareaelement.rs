@@ -221,7 +221,7 @@ pub struct HTMLAreaElement {
 }
 
 impl HTMLAreaElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLAreaElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLAreaElement {
         HTMLAreaElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             rel_list: Default::default(),
@@ -231,14 +231,14 @@ impl HTMLAreaElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLAreaElement> {
+               document: &Document<TH>) -> DomRoot<HTMLAreaElement> {
         Node::reflect_node(Box::new(HTMLAreaElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLAreaElementBinding::Wrap)
     }
 
     pub fn get_shape_from_coords(&self) -> Option<Area> {
-       let elem = self.upcast::<Element>();
+       let elem = self.upcast::<Element<TH>>();
        let shape = elem.get_string_attribute(&"shape".into());
        let shp: Shape = match_ignore_ascii_case! { &shape,
            "circle" => Shape::Circle,
@@ -283,7 +283,7 @@ impl HTMLAreaElementMethods for HTMLAreaElement {
 impl Activatable for HTMLAreaElement {
     // https://html.spec.whatwg.org/multipage/#the-area-element:activation-behaviour
     fn as_element(&self) -> &Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 
     fn is_instance_activatable(&self) -> bool {
@@ -313,6 +313,6 @@ impl Activatable for HTMLAreaElement {
             true => Some(ReferrerPolicy::NoReferrer),
             false => None,
         };
-        follow_hyperlink(self.upcast::<Element>(), None, referrer_policy);
+        follow_hyperlink(self.upcast::<Element<TH>>(), None, referrer_policy);
     }
 }

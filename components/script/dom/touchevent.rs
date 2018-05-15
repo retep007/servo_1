@@ -20,9 +20,9 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct TouchEvent<TH: TypeHolderTrait> {
     uievent: UIEvent,
-    touches: MutDom<TouchList>,
-    target_touches: MutDom<TouchList>,
-    changed_touches: MutDom<TouchList>,
+    touches: MutDom<TouchList<TH>>,
+    target_touches: MutDom<TouchList<TH>>,
+    changed_touches: MutDom<TouchList<TH>>,
     alt_key: Cell<bool>,
     meta_key: Cell<bool>,
     ctrl_key: Cell<bool>,
@@ -30,8 +30,8 @@ pub struct TouchEvent<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> TouchEvent<TH> {
-    fn new_inherited(touches: &TouchList,
-                     changed_touches: &TouchList,
+    fn new_inherited(touches: &TouchList<TH>,
+                     changed_touches: &TouchList<TH>,
                      target_touches: &TouchList) -> TouchEvent {
         TouchEvent {
             uievent: UIEvent::new_inherited(),
@@ -46,9 +46,9 @@ impl<TH: TypeHolderTrait> TouchEvent<TH> {
     }
 
     pub fn new_uninitialized(window: &Window<TH>,
-                     touches: &TouchList,
-                     changed_touches: &TouchList,
-                     target_touches: &TouchList) -> DomRoot<TouchEvent> {
+                     touches: &TouchList<TH>,
+                     changed_touches: &TouchList<TH>,
+                     target_touches: &TouchList) -> DomRoot<TouchEvent<TH>> {
         reflect_dom_object(Box::new(TouchEvent::new_inherited(touches, changed_touches, target_touches)),
                            window,
                            TouchEventBinding::Wrap)
@@ -58,17 +58,17 @@ impl<TH: TypeHolderTrait> TouchEvent<TH> {
                type_: DOMString,
                can_bubble: EventBubbles,
                cancelable: EventCancelable,
-               view: Option<&Window>,
+               view: Option<&Window<TH>>,
                detail: i32,
-               touches: &TouchList,
-               changed_touches: &TouchList,
-               target_touches: &TouchList,
+               touches: &TouchList<TH>,
+               changed_touches: &TouchList<TH>,
+               target_touches: &TouchList<TH>,
                ctrl_key: bool,
                alt_key: bool,
                shift_key: bool,
-               meta_key: bool) -> DomRoot<TouchEvent> {
+               meta_key: bool) -> DomRoot<TouchEvent<TH>> {
         let ev = TouchEvent::new_uninitialized(window, touches, changed_touches, target_touches);
-        ev.upcast::<UIEvent>().InitUIEvent(type_,
+        ev.upcast::<UIEvent<TH>>().InitUIEvent(type_,
                                            bool::from(can_bubble),
                                            bool::from(cancelable),
                                            view, detail);
@@ -102,17 +102,17 @@ impl<'a> TouchEventMethods for &'a TouchEvent {
     }
 
     /// <https://w3c.github.io/touch-events/#widl-TouchEventInit-touches>
-    fn Touches(&self) -> DomRoot<TouchList> {
+    fn Touches(&self) -> DomRoot<TouchList<TH>> {
         self.touches.get()
     }
 
     /// <https://w3c.github.io/touch-events/#widl-TouchEvent-targetTouches>
-    fn TargetTouches(&self) -> DomRoot<TouchList> {
+    fn TargetTouches(&self) -> DomRoot<TouchList<TH>> {
         self.target_touches.get()
     }
 
     /// <https://w3c.github.io/touch-events/#widl-TouchEvent-changedTouches>
-    fn ChangedTouches(&self) -> DomRoot<TouchList> {
+    fn ChangedTouches(&self) -> DomRoot<TouchList<TH>> {
         self.changed_touches.get()
     }
 

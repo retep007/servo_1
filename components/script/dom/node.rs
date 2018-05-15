@@ -320,8 +320,8 @@ impl<TH> Node<TH> {
         UntrustedNodeAddress(self.reflector().get_jsobject().get() as *const c_void)
     }
 
-    pub fn as_custom_element(&self) -> Option<DomRoot<Element>> {
-        self.downcast::<Element>()
+    pub fn as_custom_element(&self) -> Option<DomRoot<Element<TH>>> {
+        self.downcast::<Element<TH>>()
             .and_then(|element| if element.get_custom_element_definition().is_some() {
                 Some(DomRoot::from_ref(element))
             } else {
@@ -379,7 +379,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
 
     /// Returns true if this node is before `other` in the same connected DOM
     /// tree.
-    pub fn is_before(&self, other: &Node) -> bool {
+    pub fn is_before(&self, other: &Node<TH>) -> bool {
         let cmp = other.CompareDocumentPosition(self);
         if cmp & NodeConstants::DOCUMENT_POSITION_DISCONNECTED != 0 {
             return false;
@@ -519,9 +519,9 @@ impl<TH: TypeHolderTrait> Node<TH> {
 
         match self.type_id() {
             NodeTypeId::CharacterData(CharacterDataTypeId::Text) =>
-                self.parent_node.get().unwrap().downcast::<Element>().unwrap().restyle(damage),
+                self.parent_node.get().unwrap().downcast::<Element<TH>>().unwrap().restyle(damage),
             NodeTypeId::Element(_) =>
-                self.downcast::<Element>().unwrap().restyle(damage),
+                self.downcast::<Element<TH>>().unwrap().restyle(damage),
             _ => {},
         };
     }
@@ -550,11 +550,11 @@ impl<TH: TypeHolderTrait> Node<TH> {
         }
     }
 
-    pub fn is_inclusive_ancestor_of(&self, parent: &Node) -> bool {
+    pub fn is_inclusive_ancestor_of(&self, parent: &Node<TH>) -> bool {
         self == parent || self.is_ancestor_of(parent)
     }
 
-    pub fn is_ancestor_of(&self, parent: &Node) -> bool {
+    pub fn is_ancestor_of(&self, parent: &Node<TH>) -> bool {
         parent.ancestors().any(|ancestor| &*ancestor == self)
     }
 
@@ -572,14 +572,14 @@ impl<TH: TypeHolderTrait> Node<TH> {
         }
     }
 
-    pub fn following_nodes(&self, root: &Node) -> FollowingNodeIterator {
+    pub fn following_nodes(&self, root: &Node<TH>) -> FollowingNodeIterator {
         FollowingNodeIterator {
             current: Some(DomRoot::from_ref(self)),
             root: DomRoot::from_ref(root),
         }
     }
 
-    pub fn preceding_nodes(&self, root: &Node) -> PrecedingNodeIterator {
+    pub fn preceding_nodes(&self, root: &Node<TH>) -> PrecedingNodeIterator {
         PrecedingNodeIterator {
             current: Some(DomRoot::from_ref(self)),
             root: DomRoot::from_ref(root),
@@ -593,7 +593,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
         }
     }
 
-    pub fn is_parent_of(&self, child: &Node) -> bool {
+    pub fn is_parent_of(&self, child: &Node<TH>) -> bool {
         child.parent_node.get().map_or(false, |parent| &*parent == self)
     }
 
@@ -638,7 +638,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
         let scroll_area = window.scroll_area_query(self.to_trusted_node_address());
 
         match (document != window.Document(), is_body_element, document.quirks_mode(),
-               html_element.r() == self.downcast::<Element>()) {
+               html_element.r() == self.downcast::<Element<TH>>()) {
             // Step 2 && Step 5
             (true, _, _, _) | (_, false, QuirksMode::Quirks, true) => Rect::zero(),
             // Step 6 && Step 7
@@ -753,7 +753,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
-    pub fn query_selector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element>>> {
+    pub fn query_selector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
         // Step 1.
         match SelectorParser::parse_author_origin_no_namespace(&selectors) {
             // Step 2.
@@ -842,7 +842,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
         }
     }
 
-    pub fn child_elements(&self) -> impl Iterator<Item=DomRoot<Element>> {
+    pub fn child_elements(&self) -> impl Iterator<Item=DomRoot<Element<TH>>> {
         self.children().filter_map(DomRoot::downcast as fn(_) -> _).peekable()
     }
 
@@ -927,7 +927,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
             -1 => {
                 let last_child = self.upcast::<Node<TH>>().GetLastChild();
                 match last_child.and_then(|node| node.inclusively_preceding_siblings()
-                                                     .filter_map(DomRoot::downcast::<Element>)
+                                                     .filter_map(DomRoot::downcast::<Element<TH>>)
                                                      .filter(|elem| is_delete_type(elem))
                                                      .next()) {
                     Some(element) => element,
@@ -1043,7 +1043,7 @@ impl<TH: TypeHolderTrait> LayoutNodeHelpers<TH> for LayoutDom<Node<TH>> {
     #[inline]
     #[allow(unsafe_code)]
     unsafe fn is_element_for_layout(&self) -> bool {
-        (*self.unsafe_get()).is::<Element>()
+        (*self.unsafe_get()).is::<Element<TH>>()
     }
 
     #[inline]
@@ -1287,14 +1287,14 @@ impl<TH: TypeHolderTrait> Iterator for PrecedingNodeIterator<TH> {
 }
 
 struct SimpleNodeIterator<I, TH: TypeHolderTrait>
-    where I: Fn(&Node) -> Option<DomRoot<Node<TH>>>
+    where I: Fn(&Node<TH>) -> Option<DomRoot<Node<TH>>>
 {
     current: Option<DomRoot<Node<TH>>>,
     next_node: I,
 }
 
 impl<I, TH: TypeHolderTrait> Iterator for SimpleNodeIterator<I, TH>
-    where I: Fn(&Node) -> Option<DomRoot<Node<TH>>>
+    where I: Fn(&Node<TH>) -> Option<DomRoot<Node<TH>>>
 {
     type Item = DomRoot<Node<TH>>;
 
@@ -1311,7 +1311,7 @@ pub struct TreeIterator<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> TreeIterator<TH> {
-    fn new(root: &Node) -> TreeIterator {
+    fn new(root: &Node<TH>) -> TreeIterator {
         TreeIterator {
             current: Some(DomRoot::from_ref(root)),
             depth: 0,
@@ -1370,7 +1370,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     pub fn reflect_node<N>(
             node: Box<N>,
             document: &Document<TH>,
-            wrap_fn: unsafe extern "Rust" fn(*mut JSContext, &GlobalScope, Box<N>) -> DomRoot<N>)
+            wrap_fn: unsafe extern "Rust" fn(*mut JSContext, &GlobalScope<TH>, Box<N>) -> DomRoot<N>)
             -> DomRoot<N>
         where N: DerivedFrom<Node<TH>> + DomObject
     {
@@ -1531,7 +1531,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
                         Some(child) => {
                             if parent.children()
                                      .take_while(|c| &**c != child)
-                                     .any(|c| c.is::<Element>())
+                                     .any(|c| c.is::<Element<TH>>())
                             {
                                 return Err(Error::HierarchyRequest);
                             }
@@ -1638,7 +1638,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
             // Step 7.1.
             parent.add_child(*kid, child);
             // Step 7.7.
-            for descendant in kid.traverse_preorder().filter_map(DomRoot::downcast::<Element>) {
+            for descendant in kid.traverse_preorder().filter_map(DomRoot::downcast::<Element<TH>>) {
                 // Step 7.7.2.
                 if descendant.is_connected() {
                     if descendant.get_custom_element_definition().is_some() {
@@ -1666,7 +1666,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#concept-node-replace-all
-    pub fn replace_all(node: Option<&Node>, parent: &Node) {
+    pub fn replace_all(node: Option<&Node>, parent: &Node<TH>) {
         // Step 1.
         if let Some(node) = node {
             Node::adopt(node, &*parent.owner_doc());
@@ -1709,7 +1709,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#concept-node-pre-remove
-    fn pre_remove(child: &Node<TH>, parent: &Node) -> Fallible<DomRoot<Node<TH>>> {
+    fn pre_remove(child: &Node<TH>, parent: &Node<TH>) -> Fallible<DomRoot<Node<TH>>> {
         // Step 1.
         match child.GetParentNode() {
             Some(ref node) if &**node != parent => return Err(Error::NotFound),
@@ -1816,7 +1816,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
                 DomRoot::upcast::<Node<TH>>(document)
             },
             NodeTypeId::Element(..) => {
-                let element = node.downcast::<Element>().unwrap();
+                let element = node.downcast::<Element<TH>>().unwrap();
                 let name = QualName {
                     prefix: element.prefix().as_ref().map(|p| Prefix::from(&**p)),
                     ns: element.namespace().clone(),
@@ -1847,8 +1847,8 @@ impl<TH: TypeHolderTrait> Node<TH> {
                 copy_doc.set_quirks_mode(node_doc.quirks_mode());
             },
             NodeTypeId::Element(..) => {
-                let node_elem = node.downcast::<Element>().unwrap();
-                let copy_elem = copy.downcast::<Element>().unwrap();
+                let node_elem = node.downcast::<Element<TH>>().unwrap();
+                let copy_elem = copy.downcast::<Element<TH>>().unwrap();
 
                 for attr in node_elem.attrs().iter() {
                     copy_elem.push_new_attribute(attr.local_name().clone(),
@@ -1904,7 +1904,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     pub fn locate_namespace(node: &Node<TH>, prefix: Option<DOMString>) -> Namespace {
         match node.type_id() {
             NodeTypeId::Element(_) => {
-                node.downcast::<Element>().unwrap().locate_namespace(prefix)
+                node.downcast::<Element<TH>>().unwrap().locate_namespace(prefix)
             },
             NodeTypeId::Document(_) => {
                 node.downcast::<Document<TH>>().unwrap()
@@ -1945,7 +1945,7 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
     fn NodeName(&self) -> DOMString {
         match self.type_id() {
             NodeTypeId::Element(..) => {
-                self.downcast::<Element>().unwrap().TagName()
+                self.downcast::<Element<TH>>().unwrap().TagName()
             }
             NodeTypeId::CharacterData(CharacterDataTypeId::Text) => DOMString::from("#text"),
             NodeTypeId::CharacterData(CharacterDataTypeId::ProcessingInstruction) => {
@@ -1987,7 +1987,7 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-node-parentelement
-    fn GetParentElement(&self) -> Option<DomRoot<Element>> {
+    fn GetParentElement(&self) -> Option<DomRoot<Element<TH>>> {
         self.GetParentNode().and_then(DomRoot::downcast)
     }
 
@@ -2087,12 +2087,12 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-node-appendchild
-    fn AppendChild(&self, node: &Node) -> Fallible<DomRoot<Node<TH>>> {
+    fn AppendChild(&self, node: &Node<TH>) -> Fallible<DomRoot<Node<TH>>> {
         Node::pre_insert(node, self, None)
     }
 
     // https://dom.spec.whatwg.org/#concept-node-replace
-    fn ReplaceChild(&self, node: &Node<TH>, child: &Node) -> Fallible<DomRoot<Node<TH>>> {
+    fn ReplaceChild(&self, node: &Node<TH>, child: &Node<TH>) -> Fallible<DomRoot<Node<TH>>> {
         // Step 1.
         match self.type_id() {
             NodeTypeId::Document(_) |
@@ -2169,7 +2169,7 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
                     }
                     if self.children()
                            .take_while(|c| &**c != child)
-                           .any(|c| c.is::<Element>())
+                           .any(|c| c.is::<Element<TH>>())
                     {
                         return Err(Error::HierarchyRequest);
                     }
@@ -2234,7 +2234,7 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-node-removechild
-    fn RemoveChild(&self, node: &Node)
+    fn RemoveChild(&self, node: &Node<TH>)
                        -> Fallible<DomRoot<Node<TH>>> {
         Node::pre_remove(node, self)
     }
@@ -2276,35 +2276,35 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
 
     // https://dom.spec.whatwg.org/#dom-node-isequalnode
     fn IsEqualNode(&self, maybe_node: Option<&Node>) -> bool {
-        fn is_equal_doctype<TH>(node: &Node<TH>, other: &Node) -> bool {
+        fn is_equal_doctype<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
             let doctype = node.downcast::<DocumentType>().unwrap();
             let other_doctype = other.downcast::<DocumentType>().unwrap();
             (*doctype.name() == *other_doctype.name()) &&
             (*doctype.public_id() == *other_doctype.public_id()) &&
             (*doctype.system_id() == *other_doctype.system_id())
         }
-        fn is_equal_element<TH>(node: &Node<TH>, other: &Node) -> bool {
-            let element = node.downcast::<Element>().unwrap();
-            let other_element = other.downcast::<Element>().unwrap();
+        fn is_equal_element<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
+            let element = node.downcast::<Element<TH>>().unwrap();
+            let other_element = other.downcast::<Element<TH>>().unwrap();
             (*element.namespace() == *other_element.namespace()) &&
             (*element.prefix() == *other_element.prefix()) &&
             (*element.local_name() == *other_element.local_name()) &&
             (element.attrs().len() == other_element.attrs().len())
         }
-        fn is_equal_processinginstruction<TH>(node: &Node<TH>, other: &Node) -> bool {
+        fn is_equal_processinginstruction<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
             let pi = node.downcast::<ProcessingInstruction>().unwrap();
             let other_pi = other.downcast::<ProcessingInstruction>().unwrap();
             (*pi.target() == *other_pi.target()) &&
             (*pi.upcast::<CharacterData>().data() == *other_pi.upcast::<CharacterData>().data())
         }
-        fn is_equal_characterdata<TH>(node: &Node<TH>, other: &Node) -> bool {
+        fn is_equal_characterdata<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
             let characterdata = node.downcast::<CharacterData>().unwrap();
             let other_characterdata = other.downcast::<CharacterData>().unwrap();
             *characterdata.data() == *other_characterdata.data()
         }
-        fn is_equal_element_attrs<TH>(node: &Node<TH>, other: &Node) -> bool {
-            let element = node.downcast::<Element>().unwrap();
-            let other_element = other.downcast::<Element>().unwrap();
+        fn is_equal_element_attrs<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
+            let element = node.downcast::<Element<TH>>().unwrap();
+            let other_element = other.downcast::<Element<TH>>().unwrap();
             assert!(element.attrs().len() == other_element.attrs().len());
             element.attrs().iter().all(|attr| {
                 other_element.attrs().iter().any(|other_attr| {
@@ -2314,7 +2314,7 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
                 })
             })
         }
-        fn is_equal_node<TH>(this: &Node<TH>, node: &Node) -> bool {
+        fn is_equal_node<TH>(this: &Node<TH>, node: &Node<TH>) -> bool {
             // Step 2.
             if this.NodeType() != node.NodeType() {
                 return false;
@@ -2364,7 +2364,7 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-node-comparedocumentposition
-    fn CompareDocumentPosition(&self, other: &Node) -> u16 {
+    fn CompareDocumentPosition(&self, other: &Node<TH>) -> u16 {
         // step 1.
         if self == other {
             return 0
@@ -2452,7 +2452,7 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
         // Step 2.
         match self.type_id() {
             NodeTypeId::Element(..) => {
-                self.downcast::<Element>().unwrap().lookup_prefix(namespace)
+                self.downcast::<Element<TH>>().unwrap().lookup_prefix(namespace)
             },
             NodeTypeId::Document(_) => {
                 self.downcast::<Document<TH>>().unwrap().GetDocumentElement().and_then(|element| {
@@ -2500,7 +2500,7 @@ pub fn window_from_node<TH: TypeHolderTrait, T: DerivedFrom<Node<TH>> + DomObjec
 
 impl<TH> VirtualMethods for Node<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<EventTarget>() as &VirtualMethods)
+        Some(self.upcast::<EventTarget<TH>>() as &VirtualMethods)
     }
 
     fn children_changed(&self, mutation: &ChildrenMutation) {
@@ -2622,22 +2622,22 @@ impl<'a, TH: TypeHolderTrait> ChildrenMutation<'a, TH> {
             // Add/remove at start of container: Return the first following element.
             ChildrenMutation::Prepend { next, .. } |
             ChildrenMutation::Replace { prev: None, next: Some(next), .. } => {
-                next.inclusively_following_siblings().filter(|node| node.is::<Element>()).next()
+                next.inclusively_following_siblings().filter(|node| node.is::<Element<TH>>()).next()
             }
             // Add/remove at end of container: Return the last preceding element.
             ChildrenMutation::Append { prev, .. } |
             ChildrenMutation::Replace { prev: Some(prev), next: None, .. } => {
-                prev.inclusively_preceding_siblings().filter(|node| node.is::<Element>()).next()
+                prev.inclusively_preceding_siblings().filter(|node| node.is::<Element<TH>>()).next()
             }
             // Insert or replace in the middle:
             ChildrenMutation::Insert { prev, next, .. } |
             ChildrenMutation::Replace { prev: Some(prev), next: Some(next), .. } => {
-                if prev.inclusively_preceding_siblings().all(|node| !node.is::<Element>()) {
+                if prev.inclusively_preceding_siblings().all(|node| !node.is::<Element<TH>>()) {
                     // Before the first element: Return the first following element.
-                    next.inclusively_following_siblings().filter(|node| node.is::<Element>()).next()
-                } else if next.inclusively_following_siblings().all(|node| !node.is::<Element>()) {
+                    next.inclusively_following_siblings().filter(|node| node.is::<Element<TH>>()).next()
+                } else if next.inclusively_following_siblings().all(|node| !node.is::<Element<TH>>()) {
                     // After the last element: Return the last preceding element.
-                    prev.inclusively_preceding_siblings().filter(|node| node.is::<Element>()).next()
+                    prev.inclusively_preceding_siblings().filter(|node| node.is::<Element<TH>>()).next()
                 } else {
                     None
                 }
@@ -2778,7 +2778,7 @@ impl Into<LayoutElementType> for ElementTypeId {
 /// Helper trait to insert an element into vector whose elements
 /// are maintained in tree order
 pub trait VecPreOrderInsertionHelper<T> {
-    fn insert_pre_order(&mut self, elem: &T, tree_root: &Node);
+    fn insert_pre_order(&mut self, elem: &T, tree_root: &Node<TH>);
 }
 
 impl<T, TH: TypeHolderTrait> VecPreOrderInsertionHelper<T> for Vec<Dom<T>>
@@ -2793,7 +2793,7 @@ impl<T, TH: TypeHolderTrait> VecPreOrderInsertionHelper<T> for Vec<Dom<T>>
     /// performing a [preorder traversal](https://dom.spec.whatwg.org/#concept-tree-order) of the tree root's children,
     /// and increasing the destination index in the array every time a node in the array is encountered during
     /// the traversal.
-    fn insert_pre_order(&mut self, elem: &T, tree_root: &Node) {
+    fn insert_pre_order(&mut self, elem: &T, tree_root: &Node<TH>) {
         if self.is_empty() {
             self.push(Dom::from_ref(elem));
             return;

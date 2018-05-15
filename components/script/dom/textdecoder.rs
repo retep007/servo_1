@@ -46,7 +46,7 @@ impl TextDecoder {
         Err(Error::Range("The given encoding is not supported.".to_owned()))
     }
 
-    pub fn new(global: &GlobalScope, encoding: &'static Encoding, fatal: bool, ignoreBOM: bool)
+    pub fn new(global: &GlobalScope<TH>, encoding: &'static Encoding, fatal: bool, ignoreBOM: bool)
             -> DomRoot<TextDecoder> {
         reflect_dom_object(Box::new(TextDecoder::new_inherited(encoding, fatal, ignoreBOM)),
                            global,
@@ -54,7 +54,7 @@ impl TextDecoder {
     }
 
     /// <https://encoding.spec.whatwg.org/#dom-textdecoder>
-    pub fn Constructor(global: &GlobalScope,
+    pub fn Constructor(global: &GlobalScope<TH>,
                        label: DOMString,
                        options: &TextDecoderBinding::TextDecoderOptions)
                             -> Fallible<DomRoot<TextDecoder>> {

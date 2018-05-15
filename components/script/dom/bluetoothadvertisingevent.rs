@@ -46,8 +46,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope,
-               type_: Atom,
+    pub fn new(global: &GlobalScope<TH>,               type_: Atom,
                bubbles: EventBubbles,
                cancelable: EventCancelable,
                device: &BluetoothDevice,
@@ -79,7 +78,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
                        type_: DOMString,
                        init: &BluetoothAdvertisingEventInit)
                        -> Fallible<DomRoot<BluetoothAdvertisingEvent>> {
-        let global = window.upcast::<GlobalScope>();
+        let global = window.upcast::<GlobalScope<TH>>();
         let device = init.device.r();
         let name = init.name.clone();
         let appearance = init.appearance.clone();

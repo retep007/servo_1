@@ -18,7 +18,7 @@ pub struct HTMLTableColElement {
 impl HTMLTableColElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLTableColElement {
+                     document: &Document<TH>) -> HTMLTableColElement {
         HTMLTableColElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +28,7 @@ impl HTMLTableColElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLTableColElement> {
+               document: &Document<TH>) -> DomRoot<HTMLTableColElement> {
         Node::reflect_node(Box::new(HTMLTableColElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTableColElementBinding::Wrap)

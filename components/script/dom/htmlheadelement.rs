@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> HTMLHeadElement<TH> {
 
         let node = self.upcast::<Node<TH>>();
         let candidates = node.traverse_preorder()
-                             .filter_map(DomRoot::downcast::<Element>)
+                             .filter_map(DomRoot::downcast::<Element<TH>>)
                              .filter(|elem| elem.is::<HTMLMetaElement>())
                              .filter(|elem| elem.get_string_attribute(&local_name!("name")) == "referrer")
                              .filter(|elem| elem.get_attribute(&ns!(), &local_name!("content")).is_some());

@@ -210,7 +210,7 @@ impl ServiceWorkerGlobalScope {
 
             global.dispatch_activate();
             let reporter_name = format!("service-worker-reporter-{}", random::<u64>());
-            scope.upcast::<GlobalScope>().mem_profiler_chan().run_with_memory_reporting(|| {
+            scope.upcast::<GlobalScope<TH>>().mem_profiler_chan().run_with_memory_reporting(|| {
                 // https://html.spec.whatwg.org/multipage/#event-loop-processing-model
                 // Step 1
                 while let Ok(event) = global.receive_event() {
@@ -219,7 +219,7 @@ impl ServiceWorkerGlobalScope {
                         break;
                     }
                     // Step 6
-                    global.upcast::<GlobalScope>().perform_a_microtask_checkpoint();
+                    global.upcast::<GlobalScope<TH>>().perform_a_microtask_checkpoint();
                 }
             }, reporter_name, scope.script_chan(), CommonScriptMsg::CollectReports);
         }).expect("Thread spawning failed");
@@ -269,7 +269,7 @@ impl ServiceWorkerGlobalScope {
                 // TODO XXXcreativcoder This will eventually use a FetchEvent interface to fire event
                 // when we have the Request and Response dom api's implemented
                 // https://slightlyoff.github.io/ServiceWorker/spec/service_worker_1/index.html#fetch-event-section
-                self.upcast::<EventTarget>().fire_event(atom!("fetch"));
+                self.upcast::<EventTarget<TH>>().fire_event(atom!("fetch"));
                 let _ = mediator.response_chan.send(None);
             }
         }
@@ -315,7 +315,7 @@ impl ServiceWorkerGlobalScope {
     fn dispatch_activate(&self) {
         let event = ExtendableEvent::new(self, atom!("activate"), false, false);
         let event = (&*event).upcast::<Event>();
-        self.upcast::<EventTarget>().dispatch_event(event);
+        self.upcast::<EventTarget<TH>>().dispatch_event(event);
     }
 }
 

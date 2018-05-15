@@ -34,7 +34,7 @@ pub struct HTMLObjectElement {
 impl HTMLObjectElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLObjectElement {
+                     document: &Document<TH>) -> HTMLObjectElement {
         HTMLObjectElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -46,7 +46,7 @@ impl HTMLObjectElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLObjectElement> {
+               document: &Document<TH>) -> DomRoot<HTMLObjectElement> {
         Node::reflect_node(Box::new(HTMLObjectElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLObjectElementBinding::Wrap)
@@ -61,7 +61,7 @@ impl<'a> ProcessDataURL for &'a HTMLObjectElement {
     // Makes the local `data` member match the status of the `data` attribute and starts
     /// prefetching the image. This method must be called after `data` is changed.
     fn process_data_url(&self) {
-        let elem = self.upcast::<Element>();
+        let elem = self.upcast::<Element<TH>>();
 
         // TODO: support other values
         match (elem.get_attribute(&ns!(), &local_name!("type")),
@@ -135,6 +135,6 @@ impl FormControl for HTMLObjectElement {
     }
 
     fn to_element<'a>(&'a self) -> &'a Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 }

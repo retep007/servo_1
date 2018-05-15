@@ -143,8 +143,8 @@ fn end_element<S: Serializer>(node: &Element, serializer: &mut S) -> io::Result<
 
 
 enum SerializationCommand<TH: TypeHolderTrait> {
-    OpenElement(DomRoot<Element>),
-    CloseElement(DomRoot<Element>),
+    OpenElement(DomRoot<Element<TH>>),
+    CloseElement(DomRoot<Element<TH>>),
     SerializeNonelement(DomRoot<Node<TH>>),
 }
 
@@ -174,8 +174,8 @@ impl<TH: TypeHolderTrait> SerializationIterator<TH> {
         ret
     }
 
-    fn push_node(&mut self, n: &Node) {
-        match n.downcast::<Element>() {
+    fn push_node(&mut self, n: &Node<TH>) {
+        match n.downcast::<Element<TH>>() {
             Some(e) => self.stack.push(SerializationCommand::OpenElement(DomRoot::from_ref(e))),
             None => self.stack.push(SerializationCommand::SerializeNonelement(DomRoot::from_ref(n))),
         }

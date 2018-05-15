@@ -31,7 +31,7 @@ pub struct HTMLFieldSetElement<TH: TypeHolderTrait> {
 impl<TH> HTMLFieldSetElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLFieldSetElement<TH> {
+                     document: &Document<TH>) -> HTMLFieldSetElement<TH> {
         HTMLFieldSetElement {
             htmlelement:
                 HTMLElement::new_inherited_with_state(ElementState::IN_ENABLED_STATE,
@@ -43,7 +43,7 @@ impl<TH> HTMLFieldSetElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLFieldSetElement<TH>> {
+               document: &Document<TH>) -> DomRoot<HTMLFieldSetElement<TH>> {
         Node::reflect_node(Box::new(HTMLFieldSetElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLFieldSetElementBinding::Wrap)
@@ -102,7 +102,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLFieldSetElement<TH> {
                     AttributeMutation::Removed => false,
                 };
                 let node = self.upcast::<Node<TH>>();
-                let el = self.upcast::<Element>();
+                let el = self.upcast::<Element<TH>>();
                 el.set_disabled_state(disabled_state);
                 el.set_enabled_state(!disabled_state);
                 let mut found_legend = false;
@@ -139,13 +139,13 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLFieldSetElement<TH> {
                 });
                 if disabled_state {
                     for field in fields {
-                        let el = field.downcast::<Element>().unwrap();
+                        let el = field.downcast::<Element<TH>>().unwrap();
                         el.set_disabled_state(true);
                         el.set_enabled_state(false);
                     }
                 } else {
                     for field in fields {
-                        let el = field.downcast::<Element>().unwrap();
+                        let el = field.downcast::<Element<TH>>().unwrap();
                         el.check_disabled_attribute();
                         el.check_ancestors_disabled_state_for_form_control();
                     }
@@ -169,6 +169,6 @@ impl<TH> FormControl for HTMLFieldSetElement<TH> {
     }
 
     fn to_element<'a>(&'a self) -> &'a Element {
-        self.upcast::<Element>()
+        self.upcast::<Element<TH>>()
     }
 }

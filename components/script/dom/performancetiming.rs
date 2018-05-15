@@ -23,7 +23,7 @@ pub struct PerformanceTiming<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> PerformanceTiming<TH> {
     fn new_inherited(nav_start: u64,
                      nav_start_precise: u64,
-                     document: &Document)
+                     document: &Document<TH>)
                          -> PerformanceTiming<TH> {
         PerformanceTiming {
             reflector_: Reflector::new(),

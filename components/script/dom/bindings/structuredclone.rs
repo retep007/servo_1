@@ -237,7 +237,7 @@ impl StructuredCloneData {
     /// Reads a structured clone.
     ///
     /// Panics if `JS_ReadStructuredClone` fails.
-    fn read_clone(global: &GlobalScope,
+    fn read_clone(global: &GlobalScope<TH>,
                   data: *mut u64,
                   nbytes: size_t,
                   rval: MutableHandleValue) {
@@ -256,7 +256,7 @@ impl StructuredCloneData {
     }
 
     /// Thunk for the actual `read_clone` method. Resolves proper variant for read_clone.
-    pub fn read(self, global: &GlobalScope, rval: MutableHandleValue) {
+    pub fn read(self, global: &GlobalScope<TH>, rval: MutableHandleValue) {
         match self {
             StructuredCloneData::Vector(mut vec_msg) => {
                 let nbytes = vec_msg.len();

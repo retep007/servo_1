@@ -14,18 +14,18 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct TouchList<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    touches: Vec<Dom<Touch>>,
+    touches: Vec<Dom<Touch<TH>>>,
 }
 
 impl<TH: TypeHolderTrait> TouchList<TH> {
-    fn new_inherited(touches: &[&Touch]) -> TouchList {
+    fn new_inherited(touches: &[&Touch]) -> TouchList<TH> {
         TouchList {
             reflector_: Reflector::new(),
             touches: touches.iter().map(|touch| Dom::from_ref(*touch)).collect(),
         }
     }
 
-    pub fn new(window: &Window<TH>, touches: &[&Touch]) -> DomRoot<TouchList> {
+    pub fn new(window: &Window<TH>, touches: &[&Touch]) -> DomRoot<TouchList<TH>> {
         reflect_dom_object(Box::new(TouchList::new_inherited(touches)),
                            window, TouchListBinding::Wrap)
     }
@@ -38,12 +38,12 @@ impl<TH> TouchListMethods for TouchList<TH> {
     }
 
     /// <https://w3c.github.io/touch-events/#widl-TouchList-item-getter-Touch-unsigned-long-index>
-    fn Item(&self, index: u32) -> Option<DomRoot<Touch>> {
+    fn Item(&self, index: u32) -> Option<DomRoot<Touch<TH>>> {
         self.touches.get(index as usize).map(|js| DomRoot::from_ref(&**js))
     }
 
     /// <https://w3c.github.io/touch-events/#widl-TouchList-item-getter-Touch-unsigned-long-index>
-    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Touch>> {
+    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Touch<TH>>> {
         self.Item(index)
     }
 }

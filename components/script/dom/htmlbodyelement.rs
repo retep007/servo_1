@@ -34,7 +34,7 @@ pub struct HTMLBodyElement<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document)
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>)
                      -> HTMLBodyElement<TH> {
         HTMLBodyElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document)
+    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>)
                -> DomRoot<HTMLBodyElement<TH>> {
         Node::reflect_node(Box::new(HTMLBodyElement::new_inherited(local_name, prefix, document)),
                            document,
@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
     /// <https://drafts.csswg.org/cssom-view/#the-html-body-element>
     pub fn is_the_html_body_element(&self) -> bool {
         let self_node = self.upcast::<Node<TH>>();
-        let root_elem = self.upcast::<Element>().root_element();
+        let root_elem = self.upcast::<Element<TH>>().root_element();
         let root_node = root_elem.upcast::<Node<TH>>();
         root_node.is_parent_of(self_node) &&
             self_node.preceding_siblings().all(|n| !n.is::<HTMLBodyElement>())
@@ -82,7 +82,7 @@ impl<TH> HTMLBodyElementMethods for HTMLBodyElement<TH> {
             &document_from_node(self).base_url(),
             input.into(),
         );
-        self.upcast::<Element>().set_attribute(&local_name!("background"), value);
+        self.upcast::<Element<TH>>().set_attribute(&local_name!("background"), value);
     }
 
     // https://html.spec.whatwg.org/multipage/#windoweventhandlers
@@ -99,7 +99,7 @@ impl<TH> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
     #[allow(unsafe_code)]
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("bgcolor"))
                 .and_then(AttrValue::as_color)
                 .cloned()
@@ -109,7 +109,7 @@ impl<TH> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
     #[allow(unsafe_code)]
     fn get_color(&self) -> Option<RGBA> {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("text"))
                 .and_then(AttrValue::as_color)
                 .cloned()
@@ -119,7 +119,7 @@ impl<TH> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
     #[allow(unsafe_code)]
     fn get_background(&self) -> Option<ServoUrl> {
         unsafe {
-            (*self.upcast::<Element>().unsafe_get())
+            (*self.upcast::<Element<TH>>().unsafe_get())
                 .get_attr_for_layout(&ns!(), &local_name!("background"))
                 .and_then(AttrValue::as_resolved_url)
                 .cloned()
@@ -153,7 +153,7 @@ impl<TH> VirtualMethods for HTMLBodyElement<TH> {
         let document = window.Document();
         document.set_reflow_timeout(time::precise_time_ns() + INITIAL_REFLOW_DELAY);
         let event = ScriptMsg::HeadParsed;
-        window.upcast::<GlobalScope>().script_to_constellation_chan().send(event).unwrap();
+        window.upcast::<GlobalScope<TH>>().script_to_constellation_chan().send(event).unwrap();
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -186,7 +186,7 @@ impl<TH> VirtualMethods for HTMLBodyElement<TH> {
                     &local_name!("onpopstate") | &local_name!("onstorage") |
                     &local_name!("onresize") | &local_name!("onunload") | &local_name!("onerror")
                       => {
-                          let evtarget = window.upcast::<EventTarget>(); // forwarded event
+                          let evtarget = window.upcast::<EventTarget<TH>>(); // forwarded event
                           let source_line = 1; //TODO(#9604) obtain current JS execution line
                           evtarget.set_event_handler_uncompiled(window.get_url(),
                                                                 source_line,

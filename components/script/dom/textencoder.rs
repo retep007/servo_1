@@ -27,14 +27,14 @@ impl TextEncoder {
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<TextEncoder> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<TextEncoder> {
         reflect_dom_object(Box::new(TextEncoder::new_inherited()),
                            global,
                            TextEncoderBinding::Wrap)
     }
 
     // https://encoding.spec.whatwg.org/#dom-textencoder
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<TextEncoder>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TextEncoder>> {
         Ok(TextEncoder::new(global))
     }
 }

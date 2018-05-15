@@ -19,7 +19,7 @@ pub struct HTMLDivElement {
 impl HTMLDivElement {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLDivElement {
+                     document: &Document<TH>) -> HTMLDivElement {
         HTMLDivElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -28,7 +28,7 @@ impl HTMLDivElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLDivElement> {
+               document: &Document<TH>) -> DomRoot<HTMLDivElement> {
         Node::reflect_node(Box::new(HTMLDivElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLDivElementBinding::Wrap)
