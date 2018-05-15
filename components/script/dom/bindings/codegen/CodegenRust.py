@@ -5711,14 +5711,12 @@ class CGInterfaceTrait(CGThing):
                     infallible = 'infallible' in descriptor.getExtendedAttributes(m)
                     for idx, (rettype, arguments) in enumerate(m.signatures()):
                         # arguments = method_arguments(descriptor, rettype, arguments)
-                        rettype = return_type(descriptor, rettype, infallible)
-                        if name == 'AttachShader':
-
-                            for argument in arguments:
-                                descript = descriptor.getDescriptor(
-                                    argument.type.inner.identifier.name)
-                                if descript.isGeneric:
-                                    return True
+                        # rettype = return_type(descriptor, rettype, infallible)
+                        for argument in arguments:
+                            descript = descriptor.getDescriptor(
+                                argument.type.inner.identifier.name)
+                            if descript.isGeneric:
+                                return True
             return False
 
         methods = []
