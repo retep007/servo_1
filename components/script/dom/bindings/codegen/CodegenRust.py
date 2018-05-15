@@ -5701,6 +5701,26 @@ class CGInterfaceTrait(CGThing):
                 if descript.isGeneric:
                     return True
             return False
+
+        def contains_generic_arg_type():
+            for m in descriptor.interface.members:
+                if (m.isMethod() and not m.isStatic() and
+                        not m.isMaplikeOrSetlikeOrIterableMethod() and
+                        (not m.isIdentifierLess() or m.isStringifier())):
+                    name = CGSpecializedMethod.makeNativeName(descriptor, m)
+                    infallible = 'infallible' in descriptor.getExtendedAttributes(m)
+                    for idx, (rettype, arguments) in enumerate(m.signatures()):
+                        # arguments = method_arguments(descriptor, rettype, arguments)
+                        rettype = return_type(descriptor, rettype, infallible)
+                        if name == 'AttachShader':
+
+                            for argument in arguments:
+                                descript = descriptor.getDescriptor(
+                                    argument.type.inner.identifier.name)
+                                if descript.isGeneric:
+                                    return True
+            return False
+
         methods = []
         for name, arguments, rettype in members():
             arguments = list(arguments)
@@ -5708,7 +5728,6 @@ class CGInterfaceTrait(CGThing):
                 'unsafe ' if contains_unsafe_arg(arguments) else '',
                 name, fmt(arguments), rettype))
             )
-        print contains_generic_ret_type()
         if methods:
             self.cgRoot = CGWrapper(CGIndenter(CGList(methods, "")),
                                     pre="pub trait %sMethods%s {\n" % (descriptor.interface.identifier.name, '<TH: TypeHolderTrait>' if contains_generic_ret_type() else ''),
@@ -6051,7 +6070,6 @@ class CGDescriptor(CGThing):
 
                 if (not m.isStatic() and not descriptor.interface.isCallback()):
                     cgThings.append(CGMemberJITInfo(descriptor, m))
-
         if descriptor.concrete:
             cgThings.append(CGClassFinalizeHook(descriptor))
             cgThings.append(CGClassTraceHook(descriptor))
