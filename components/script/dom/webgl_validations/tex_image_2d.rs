@@ -87,7 +87,7 @@ fn log2(n: u32) -> u32 {
 }
 
 pub struct CommonTexImage2DValidator<'a> {
-    context: &'a WebGLRenderingContext,
+    context: &'a WebGLRenderingContext<TH>,
     target: u32,
     level: i32,
     internal_format: u32,
@@ -217,7 +217,7 @@ impl<'a> WebGLValidator for CommonTexImage2DValidator<'a> {
 }
 
 impl<'a> CommonTexImage2DValidator<'a> {
-    pub fn new(context: &'a WebGLRenderingContext,
+    pub fn new(context: &'a WebGLRenderingContext<TH>,
                target: u32, level: i32,
                internal_format: u32,
                width: i32, height: i32,
@@ -242,7 +242,7 @@ pub struct TexImage2DValidator<'a> {
 
 impl<'a> TexImage2DValidator<'a> {
     // TODO: Move data validation logic here.
-    pub fn new(context: &'a WebGLRenderingContext,
+    pub fn new(context: &'a WebGLRenderingContext<TH>,
                target: u32,
                level: i32,
                internal_format: u32,

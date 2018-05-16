@@ -64,7 +64,7 @@ pub struct GenerationId(u32);
 pub struct HTMLFormElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     marked_for_reset: Cell<bool>,
-    elements: DomOnceCell<HTMLFormControlsCollection>,
+    elements: DomOnceCell<HTMLFormControlsCollection<TH>>,
     generation_id: Cell<GenerationId>,
     controls: DomRefCell<Vec<Dom<Element<TH>>>>,
 }
@@ -165,10 +165,10 @@ impl<TH> HTMLFormElementMethods for HTMLFormElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-form-elements
-    fn Elements(&self) -> DomRoot<HTMLFormControlsCollection> {
+    fn Elements(&self) -> DomRoot<HTMLFormControlsCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ElementsFilter {
-            form: DomRoot<HTMLFormElement>
+        struct ElementsFilter<TH> {
+            form: DomRoot<HTMLFormElement<TH>>
         }
         impl<TH> CollectionFilter for ElementsFilter<TH> {
             fn filter<'a, TH>(&self, elem: &'a Element, _root: &'a Node) -> bool {
@@ -176,13 +176,13 @@ impl<TH> HTMLFormElementMethods for HTMLFormElement<TH> {
                     NodeTypeId::Element(ElementTypeId::HTMLElement(t)) => {
                         match t {
                             HTMLElementTypeId::HTMLButtonElement => {
-                                elem.downcast::<HTMLButtonElement>().unwrap().form_owner()
+                                elem.downcast::<HTMLButtonElement<TH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLFieldSetElement => {
-                                elem.downcast::<HTMLFieldSetElement>().unwrap().form_owner()
+                                elem.downcast::<HTMLFieldSetElement<TH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLInputElement => {
-                                let input_elem = elem.downcast::<HTMLInputElement>().unwrap();
+                                let input_elem = elem.downcast::<HTMLInputElement<TH>>().unwrap();
                                 if input_elem.input_type() == InputType::Image {
                                     return false;
                                 }
@@ -195,13 +195,13 @@ impl<TH> HTMLFormElementMethods for HTMLFormElement<TH> {
                                 elem.downcast::<HTMLOutputElement>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLSelectElement => {
-                                elem.downcast::<HTMLSelectElement>().unwrap().form_owner()
+                                elem.downcast::<HTMLSelectElement<TH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLTextAreaElement => {
-                                elem.downcast::<HTMLTextAreaElement>().unwrap().form_owner()
+                                elem.downcast::<HTMLTextAreaElement<TH>>().unwrap().form_owner()
                             }
                             _ => {
-                                debug_assert!(!elem.downcast::<HTMLElement>().unwrap().is_listed_element() ||
+                                debug_assert!(!elem.downcast::<HTMLElement<TH>>().unwrap().is_listed_element() ||
                                               elem.local_name() == &local_name!("keygen"));
                                 return false;
                             }
@@ -524,18 +524,18 @@ impl<TH> HTMLFormElement<TH> {
 
             // Step 3.1: The field element has a datalist element ancestor.
             if child.ancestors()
-                    .any(|a| DomRoot::downcast::<HTMLDataListElement>(a).is_some()) {
+                    .any(|a| DomRoot::downcast::<HTMLDataListElement<TH>>(a).is_some()) {
                 continue;
             }
             if let NodeTypeId::Element(ElementTypeId::HTMLElement(element)) = child.type_id() {
                 match element {
                     HTMLElementTypeId::HTMLInputElement => {
-                        let input = child.downcast::<HTMLInputElement>().unwrap();
+                        let input = child.downcast::<HTMLInputElement<TH>>().unwrap();
 
                         data_set.append(&mut input.form_datums(submitter));
                     }
                     HTMLElementTypeId::HTMLButtonElement => {
-                        let button = child.downcast::<HTMLButtonElement>().unwrap();
+                        let button = child.downcast::<HTMLButtonElement<TH>>().unwrap();
                         if let Some(datum) = button.form_datum(submitter) {
                             data_set.push(datum);
                         }
@@ -545,11 +545,11 @@ impl<TH> HTMLFormElement<TH> {
                         ()
                     }
                     HTMLElementTypeId::HTMLSelectElement => {
-                        let select = child.downcast::<HTMLSelectElement>().unwrap();
+                        let select = child.downcast::<HTMLSelectElement<TH>>().unwrap();
                         select.push_form_data(&mut data_set);
                     }
                     HTMLElementTypeId::HTMLTextAreaElement => {
-                        let textarea = child.downcast::<HTMLTextAreaElement>().unwrap();
+                        let textarea = child.downcast::<HTMLTextAreaElement<TH>>().unwrap();
                         let name = textarea.Name();
                         if !name.is_empty() {
                             data_set.push(FormDatum {
@@ -640,7 +640,7 @@ impl<TH> HTMLFormElement<TH> {
 
             match child.type_id() {
                 NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
-                    child.downcast::<HTMLInputElement>().unwrap().reset();
+                    child.downcast::<HTMLInputElement<TH>>().unwrap().reset();
                 }
                 // TODO HTMLKeygenElement unimplemented
                 //NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLKeygenElement)) => {
@@ -648,10 +648,10 @@ impl<TH> HTMLFormElement<TH> {
                 //    {}
                 //}
                 NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLSelectElement)) => {
-                    child.downcast::<HTMLSelectElement>().unwrap().reset();
+                    child.downcast::<HTMLSelectElement<TH>>().unwrap().reset();
                 }
                 NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLTextAreaElement)) => {
-                    child.downcast::<HTMLTextAreaElement>().unwrap().reset();
+                    child.downcast::<HTMLTextAreaElement<TH>>().unwrap().reset();
                 }
                 NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLOutputElement)) => {
                     // Unimplemented
@@ -681,7 +681,7 @@ impl<TH> HTMLFormElement<TH> {
 #[derive(Clone, JSTraceable, MallocSizeOf)]
 pub enum FormDatumValue {
     #[allow(dead_code)]
-    File(DomRoot<File>),
+    File(DomRoot<File<TH>>),
     String(DOMString)
 }
 
@@ -722,17 +722,17 @@ pub enum FormMethod {
 #[derive(MallocSizeOf)]
 #[allow(dead_code)]
 pub enum FormSubmittableElement {
-    ButtonElement(DomRoot<HTMLButtonElement>),
-    InputElement(DomRoot<HTMLInputElement>),
+    ButtonElement(DomRoot<HTMLButtonElement<TH>>),
+    InputElement(DomRoot<HTMLInputElement<TH>>),
     // TODO: HTMLKeygenElement unimplemented
     // KeygenElement(&'a HTMLKeygenElement),
     ObjectElement(DomRoot<HTMLObjectElement>),
-    SelectElement(DomRoot<HTMLSelectElement>),
-    TextAreaElement(DomRoot<HTMLTextAreaElement>),
+    SelectElement(DomRoot<HTMLSelectElement<TH>>),
+    TextAreaElement(DomRoot<HTMLTextAreaElement<TH>>),
 }
 
 impl FormSubmittableElement {
-    fn as_event_target(&self) -> &EventTarget {
+    fn as_event_target(&self) -> &EventTarget<TH> {
         match *self {
             FormSubmittableElement::ButtonElement(ref button) => button.upcast(),
             FormSubmittableElement::InputElement(ref input) => input.upcast(),
@@ -742,20 +742,20 @@ impl FormSubmittableElement {
         }
     }
 
-    fn from_element(element: &Element) -> FormSubmittableElement {
-        if let Some(input) = element.downcast::<HTMLInputElement>() {
+    fn from_element(element: &Element<TH>) -> FormSubmittableElement {
+        if let Some(input) = element.downcast::<HTMLInputElement<TH>>() {
             FormSubmittableElement::InputElement(DomRoot::from_ref(&input))
         }
-        else if let Some(input) = element.downcast::<HTMLButtonElement>() {
+        else if let Some(input) = element.downcast::<HTMLButtonElement<TH>>() {
             FormSubmittableElement::ButtonElement(DomRoot::from_ref(&input))
         }
         else if let Some(input) = element.downcast::<HTMLObjectElement>() {
             FormSubmittableElement::ObjectElement(DomRoot::from_ref(&input))
         }
-        else if let Some(input) = element.downcast::<HTMLSelectElement>() {
+        else if let Some(input) = element.downcast::<HTMLSelectElement<TH>>() {
             FormSubmittableElement::SelectElement(DomRoot::from_ref(&input))
         }
-        else if let Some(input) = element.downcast::<HTMLTextAreaElement>() {
+        else if let Some(input) = element.downcast::<HTMLTextAreaElement<TH>>() {
             FormSubmittableElement::TextAreaElement(DomRoot::from_ref(&input))
         } else {
             unreachable!()
@@ -848,7 +848,7 @@ impl<'a> FormSubmitter<'a> {
         }
     }
 
-    fn no_validate(&self, _form_owner: &HTMLFormElement) -> bool {
+    fn no_validate(&self, _form_owner: &HTMLFormElement<TH>) -> bool {
         match *self {
             FormSubmitter::FormElement(form) => form.NoValidate(),
             FormSubmitter::InputElement(input_element) => {
@@ -866,9 +866,9 @@ impl<'a> FormSubmitter<'a> {
 }
 
 pub trait FormControl<TH: TypeHolderTrait>: DomObject {
-    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>>;
+    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>>;
 
-    fn set_form_owner(&self, form: Option<&HTMLFormElement>);
+    fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>);
 
     fn to_element<'a>(&'a self) -> &'a Element;
 
@@ -880,7 +880,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
     // Part of step 12.
     // '..suppress the running of the reset the form owner algorithm
     // when the parser subsequently attempts to insert the element..'
-    fn set_form_owner_from_parser(&self, form: &HTMLFormElement) {
+    fn set_form_owner_from_parser(&self, form: &HTMLFormElement<TH>) {
         let elem = self.to_element();
         let node = elem.upcast::<Node<TH>>();
         node.set_flag(NodeFlags::PARSER_ASSOCIATED_FORM_OWNER, true);
@@ -895,7 +895,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
         let old_owner = self.form_owner();
         let has_form_id = elem.has_attribute(&local_name!("form"));
         let nearest_form_ancestor = node.ancestors()
-                                        .filter_map(DomRoot::downcast::<HTMLFormElement>)
+                                        .filter_map(DomRoot::downcast::<HTMLFormElement<TH>>)
                                         .next();
 
         // Step 1
@@ -909,7 +909,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
             // Step 3
             let doc = document_from_node(node);
             let form_id = elem.get_string_attribute(&local_name!("form"));
-            doc.GetElementById(form_id).and_then(DomRoot::downcast::<HTMLFormElement>)
+            doc.GetElementById(form_id).and_then(DomRoot::downcast::<HTMLFormElement<TH>>)
         } else {
             // Step 4
             nearest_form_ancestor
@@ -1006,7 +1006,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
                                             owner: OwnerFn)
                                             -> DOMString
         where InputFn: Fn(&Self) -> DOMString,
-              OwnerFn: Fn(&HTMLFormElement) -> DOMString, Self: Sized
+              OwnerFn: Fn(&HTMLFormElement<TH>) -> DOMString, Self: Sized
     {
         if self.to_element().has_attribute(attr) {
             input(self)
@@ -1021,7 +1021,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
                                             owner: OwnerFn)
                                             -> bool
         where InputFn: Fn(&Self) -> bool,
-              OwnerFn: Fn(&HTMLFormElement) -> bool, Self: Sized
+              OwnerFn: Fn(&HTMLFormElement<TH>) -> bool, Self: Sized
     {
         if self.to_element().has_attribute(attr) {
             input(self)
@@ -1037,7 +1037,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
 
 impl<TH> VirtualMethods for HTMLFormElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -1066,43 +1066,43 @@ impl<TH> VirtualMethods for HTMLFormElement<TH> {
 }
 
 pub trait FormControlElementHelpers<TH: TypeHolderTrait> {
-    fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl>;
+    fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH>>;
 }
 
 impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element {
-    fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl> {
+    fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH>> {
         let node = self.upcast::<Node<TH>>();
 
         match node.type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLButtonElement)) => {
-                Some(self.downcast::<HTMLButtonElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLButtonElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLFieldSetElement)) => {
-                Some(self.downcast::<HTMLFieldSetElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLFieldSetElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLImageElement)) => {
-                Some(self.downcast::<HTMLImageElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLImageElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
-                Some(self.downcast::<HTMLInputElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLInputElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLLabelElement)) => {
-                Some(self.downcast::<HTMLLabelElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLLabelElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLLegendElement)) => {
-                Some(self.downcast::<HTMLLegendElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLLegendElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLObjectElement)) => {
-                Some(self.downcast::<HTMLObjectElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLObjectElement>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLOutputElement)) => {
-                Some(self.downcast::<HTMLOutputElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLOutputElement>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLSelectElement)) => {
-                Some(self.downcast::<HTMLSelectElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLSelectElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLTextAreaElement)) => {
-                Some(self.downcast::<HTMLTextAreaElement>().unwrap() as &FormControl)
+                Some(self.downcast::<HTMLTextAreaElement<TH>>().unwrap() as &FormControl<TH>)
             },
             _ => {
                 None

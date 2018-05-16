@@ -29,7 +29,7 @@ pub struct FormData {
 }
 
 impl FormData {
-    fn new_inherited(opt_form: Option<&HTMLFormElement>) -> FormData {
+    fn new_inherited(opt_form: Option<&HTMLFormElement<TH>>) -> FormData {
         let mut hashmap: HashMap<LocalName, Vec<FormDatum>> = HashMap::new();
 
         if let Some(form) = opt_form {
@@ -47,12 +47,12 @@ impl FormData {
         }
     }
 
-    pub fn new(form: Option<&HTMLFormElement>, global: &GlobalScope<TH>) -> DomRoot<FormData> {
+    pub fn new(form: Option<&HTMLFormElement<TH>>, global: &GlobalScope<TH>) -> DomRoot<FormData> {
         reflect_dom_object(Box::new(FormData::new_inherited(form)),
                            global, FormDataWrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>, form: Option<&HTMLFormElement>) -> Fallible<DomRoot<FormData>> {
+    pub fn Constructor(global: &GlobalScope<TH>, form: Option<&HTMLFormElement<TH>>) -> Fallible<DomRoot<FormData>> {
         // TODO: Construct form data set for form if it is supplied
         Ok(FormData::new(form, global))
     }
@@ -148,10 +148,10 @@ impl FormDataMethods for FormData {
 impl FormData {
     // https://xhr.spec.whatwg.org/#create-an-entry
     // Steps 3-4.
-    fn create_an_entry(&self, blob: &Blob, opt_filename: Option<USVString>) -> DomRoot<File> {
+    fn create_an_entry(&self, blob: &Blob, opt_filename: Option<USVString>) -> DomRoot<File<TH>> {
         let name = match opt_filename {
             Some(filename) => DOMString::from(filename.0),
-            None if blob.downcast::<File>().is_none() => DOMString::from("blob"),
+            None if blob.downcast::<File<TH>>().is_none() => DOMString::from("blob"),
             None => DOMString::from(""),
         };
 

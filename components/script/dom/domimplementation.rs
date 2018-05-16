@@ -58,7 +58,7 @@ impl<TH: TypeHolderTrait> DOMImplementationMethods for DOMImplementation<TH> {
                           qualified_name: DOMString,
                           pubid: DOMString,
                           sysid: DOMString)
-                          -> Fallible<DomRoot<DocumentType>> {
+                          -> Fallible<DomRoot<DocumentType<TH>>> {
         validate_qualified_name(&qualified_name)?;
         Ok(DocumentType::new(qualified_name, Some(pubid), Some(sysid), &self.document))
     }
@@ -67,8 +67,8 @@ impl<TH: TypeHolderTrait> DOMImplementationMethods for DOMImplementation<TH> {
     fn CreateDocument(&self,
                       maybe_namespace: Option<DOMString>,
                       qname: DOMString,
-                      maybe_doctype: Option<&DocumentType>)
-                      -> Fallible<DomRoot<XMLDocument>> {
+                      maybe_doctype: Option<&DocumentType<TH>>)
+                      -> Fallible<DomRoot<XMLDocument<TH>>> {
         let win = self.document.window();
         let loader = DocumentLoader::new(&self.document.loader());
         let namespace = namespace_from_domstring(maybe_namespace.to_owned());

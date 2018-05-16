@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> FocusEvent<TH> {
                cancelable: EventCancelable,
                view: Option<&Window<TH>>,
                detail: i32,
-               related_target: Option<&EventTarget>) -> DomRoot<FocusEvent<TH>> {
+               related_target: Option<&EventTarget<TH>>) -> DomRoot<FocusEvent<TH>> {
         let ev = FocusEvent::new_uninitialized(window);
         ev.upcast::<UIEvent<TH>>().InitUIEvent(type_,
                                            bool::from(can_bubble),

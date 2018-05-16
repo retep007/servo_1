@@ -28,7 +28,7 @@ impl<TH: TypeHolderTrait> StyleSheetList<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, document: Dom<Document<TH>>) -> DomRoot<StyleSheetList> {
+    pub fn new(window: &Window<TH>, document: Dom<Document<TH>>) -> DomRoot<StyleSheetList<TH>> {
         reflect_dom_object(Box::new(StyleSheetList::new_inherited(document)),
                            window, StyleSheetListBinding::Wrap)
     }
@@ -41,14 +41,14 @@ impl<TH> StyleSheetListMethods for StyleSheetList<TH> {
     }
 
     // https://drafts.csswg.org/cssom/#dom-stylesheetlist-item
-    fn Item(&self, index: u32) -> Option<DomRoot<StyleSheet>> {
+    fn Item(&self, index: u32) -> Option<DomRoot<StyleSheet<TH>>> {
         // XXXManishearth this  doesn't handle the origin clean flag and is a
         // cors vulnerability
         self.document.stylesheet_at(index as usize).map(DomRoot::upcast)
     }
 
     // check-tidy: no specs after this line
-    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<StyleSheet>> {
+    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<StyleSheet<TH>>> {
         self.Item(index)
     }
 }

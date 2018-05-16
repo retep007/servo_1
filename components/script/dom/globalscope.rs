@@ -324,7 +324,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
     }
 
     /// Extract a `Window`, panic if the global object is not a `Window`.
-    pub fn as_window(&self) -> &Window {
+    pub fn as_window(&self) -> &Window<TH> {
         self.downcast::<Window<TH>>().expect("expected a Window scope")
     }
 
@@ -353,7 +353,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         );
 
         // Step 7.
-        let event_status = event.upcast::<Event>().fire(self.upcast::<EventTarget<TH>>());
+        let event_status = event.upcast::<Event<TH>>().fire(self.upcast::<EventTarget<TH>>());
 
         // Step 8.
         self.in_error_reporting_mode.set(false);
@@ -602,7 +602,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         incumbent_global()
     }
 
-    pub fn performance(&self) -> DomRoot<Performance> {
+    pub fn performance(&self) -> DomRoot<Performance<TH>> {
         if let Some(window) = self.downcast::<Window<TH>>() {
             return window.Performance();
         }

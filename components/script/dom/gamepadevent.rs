@@ -42,12 +42,12 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
                bubbles: bool,
                cancelable: bool,
                gamepad: &Gamepad)
-               -> DomRoot<GamepadEvent> {
+               -> DomRoot<GamepadEvent<TH>> {
         let ev = reflect_dom_object(
             Box::new(GamepadEvent::new_inherited(&gamepad)), global, GamepadEventBinding::Wrap
         );
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bubbles, cancelable);
         }
         ev

@@ -37,7 +37,7 @@ pub struct WebGLBuffer<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLBufferId)
-                     -> WebGLBuffer {
+                     -> WebGLBuffer<TH> {
         WebGLBuffer {
             webgl_object: WebGLObject::new_inherited(),
             id: id,

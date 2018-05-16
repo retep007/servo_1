@@ -287,7 +287,7 @@ impl<TH> HTMLIFrameElement<TH> {
 
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLIFrameElement {
+                     document: &Document<TH>) -> HTMLIFrameElement<TH> {
         HTMLIFrameElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             browsing_context_id: Cell::new(None),
@@ -305,7 +305,7 @@ impl<TH> HTMLIFrameElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLIFrameElement> {
+               document: &Document<TH>) -> DomRoot<HTMLIFrameElement<TH>> {
         Node::reflect_node(Box::new(HTMLIFrameElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLIFrameElementBinding::Wrap)
@@ -424,7 +424,7 @@ impl<TH: TypeHolderTrait> HTMLIFrameElementMethods for HTMLIFrameElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-iframe-contentwindow
-    fn GetContentWindow(&self) -> Option<DomRoot<WindowProxy>> {
+    fn GetContentWindow(&self) -> Option<DomRoot<WindowProxy<TH>>> {
         self.browsing_context_id.get()
             .and_then(|browsing_context_id| ScriptThread::find_window_proxy(browsing_context_id))
     }
@@ -488,10 +488,10 @@ impl<TH: TypeHolderTrait> HTMLIFrameElementMethods for HTMLIFrameElement<TH> {
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLIFrameElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("sandbox") => {

@@ -28,11 +28,11 @@ pub struct CSSStyleRule<TH: TypeHolderTrait> {
     cssrule: CSSRule,
     #[ignore_malloc_size_of = "Arc"]
     stylerule: Arc<Locked<StyleRule>>,
-    style_decl: MutNullableDom<CSSStyleDeclaration>,
+    style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
 }
 
 impl<TH: TypeHolderTrait> CSSStyleRule<TH> {
-    fn new_inherited(parent_stylesheet: &CSSStyleSheet, stylerule: Arc<Locked<StyleRule>>)
+    fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, stylerule: Arc<Locked<StyleRule>>)
                      -> Self {
         CSSStyleRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> CSSStyleRule<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
                stylerule: Arc<Locked<StyleRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(CSSStyleRule::new_inherited(parent_stylesheet, stylerule)),
                            window,
@@ -64,7 +64,7 @@ impl<TH> SpecificCSSRule for CSSStyleRule<TH> {
 
 impl<TH> CSSStyleRuleMethods for CSSStyleRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssstylerule-style
-    fn Style(&self) -> DomRoot<CSSStyleDeclaration> {
+    fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {
             let guard = self.cssrule.shared_lock().read();
             CSSStyleDeclaration::new(

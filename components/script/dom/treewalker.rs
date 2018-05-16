@@ -33,7 +33,7 @@ pub struct TreeWalker<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> TreeWalker<TH> {
     fn new_inherited(root_node: &Node<TH>,
                          what_to_show: u32,
-                         filter: Filter) -> TreeWalker<TH> {
+                         filter: Filter<TH>) -> TreeWalker<TH> {
         TreeWalker {
             reflector_: Reflector::new(),
             root_node: Dom::from_ref(root_node),
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
     pub fn new_with_filter(document: &Document<TH>,
                            root_node: &Node<TH>,
                            what_to_show: u32,
-                           filter: Filter) -> DomRoot<TreeWalker<TH>> {
+                           filter: Filter<TH>) -> DomRoot<TreeWalker<TH>> {
         reflect_dom_object(Box::new(TreeWalker::new_inherited(root_node, what_to_show, filter)),
                            document.window(),
                            TreeWalkerBinding::Wrap)

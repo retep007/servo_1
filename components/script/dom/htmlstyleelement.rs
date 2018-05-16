@@ -33,7 +33,7 @@ pub struct HTMLStyleElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
-    cssom_stylesheet: MutNullableDom<CSSStyleSheet>,
+    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
     /// <https://html.spec.whatwg.org/multipage/#a-style-sheet-that-is-blocking-scripts>
     parser_inserted: Cell<bool>,
     in_stack_of_open_elements: Cell<bool>,
@@ -129,7 +129,7 @@ impl<TH: TypeHolderTrait> HTMLStyleElement<TH> {
         self.stylesheet.borrow().clone()
     }
 
-    pub fn get_cssom_stylesheet(&self) -> Option<DomRoot<CSSStyleSheet>> {
+    pub fn get_cssom_stylesheet(&self) -> Option<DomRoot<CSSStyleSheet<TH>>> {
         self.get_stylesheet().map(|sheet| {
             self.cssom_stylesheet.or_init(|| {
                 CSSStyleSheet::new(&window_from_node(self),
@@ -145,10 +145,10 @@ impl<TH: TypeHolderTrait> HTMLStyleElement<TH> {
 
 impl<TH> VirtualMethods for HTMLStyleElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn children_changed(&self, mutation: &ChildrenMutation) {
+    fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
         self.super_type().unwrap().children_changed(mutation);
 
         // https://html.spec.whatwg.org/multipage/#update-a-style-block
@@ -237,7 +237,7 @@ impl<TH> StylesheetOwner for HTMLStyleElement<TH> {
 
 impl<TH> HTMLStyleElementMethods for HTMLStyleElement<TH> {
     // https://drafts.csswg.org/cssom/#dom-linkstyle-sheet
-    fn GetSheet(&self) -> Option<DomRoot<DOMStyleSheet>> {
+    fn GetSheet(&self) -> Option<DomRoot<DOMStyleSheet<TH>>> {
         self.get_cssom_stylesheet().map(DomRoot::upcast)
     }
 }

@@ -58,7 +58,7 @@ impl MessageEvent {
                -> DomRoot<MessageEvent> {
         let ev = MessageEvent::new_initialized(global, data, origin, lastEventId);
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bubbles, cancelable);
         }
         ev
@@ -80,7 +80,7 @@ impl MessageEvent {
 }
 
 impl MessageEvent {
-    pub fn dispatch_jsval(target: &EventTarget,
+    pub fn dispatch_jsval(target: &EventTarget<TH>,
                           scope: &GlobalScope<TH>,
                           message: HandleValue) {
         let messageevent = MessageEvent::new(
@@ -91,7 +91,7 @@ impl MessageEvent {
             message,
             DOMString::new(),
             DOMString::new());
-        messageevent.upcast::<Event>().fire(target);
+        messageevent.upcast::<Event<TH>>().fire(target);
     }
 }
 

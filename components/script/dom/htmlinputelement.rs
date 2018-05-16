@@ -219,8 +219,8 @@ pub struct HTMLInputElement<TH: TypeHolderTrait> {
     // https://html.spec.whatwg.org/multipage/#concept-input-value-dirty-flag
     value_dirty: Cell<bool>,
 
-    filelist: MutNullableDom<FileList>,
-    form_owner: MutNullableDom<HTMLFormElement>,
+    filelist: MutNullableDom<FileList<TH>>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
 #[derive(JSTraceable)]
@@ -230,7 +230,7 @@ struct InputActivationState {
     indeterminate: bool,
     checked: bool,
     checked_changed: bool,
-    checked_radio: Option<Dom<HTMLInputElement>>,
+    checked_radio: Option<Dom<HTMLInputElement<TH>>>,
     // In case mutability changed
     was_mutable: bool,
     // In case the type changed
@@ -343,7 +343,7 @@ impl<TH> LayoutHTMLInputElementHelpers for LayoutDom<HTMLInputElement<TH>> {
     #[allow(unsafe_code)]
     unsafe fn value_for_layout(self) -> String {
         #[allow(unsafe_code)]
-        unsafe fn get_raw_attr_value(input: LayoutDom<HTMLInputElement>, default: &str) -> String {
+        unsafe fn get_raw_attr_value<TH>(input: LayoutDom<HTMLInputElement<TH>>, default: &str) -> String {
             let elem = input.upcast::<Element<TH>>();
             let value = (*elem.unsafe_get())
                 .get_attr_val_for_layout(&ns!(), &local_name!("value"))
@@ -490,12 +490,12 @@ impl<TH: TypeHolderTrait> HTMLInputElementMethods for HTMLInputElement<TH> {
     make_bool_setter!(SetDisabled, "disabled");
 
     // https://html.spec.whatwg.org/multipage/#dom-fae-form
-    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-input-files
-    fn GetFiles(&self) -> Option<DomRoot<FileList>> {
+    fn GetFiles(&self) -> Option<DomRoot<FileList<TH>>> {
         match self.filelist.get() {
             Some(ref fl) => Some(fl.clone()),
             None => None,
@@ -727,12 +727,12 @@ impl<TH: TypeHolderTrait> HTMLInputElementMethods for HTMLInputElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
-    fn Labels(&self) -> DomRoot<NodeList> {
+    fn Labels(&self) -> DomRoot<NodeList<TH>> {
         if self.input_type() == InputType::Hidden {
             let window = window_from_node(self);
             NodeList::empty(&window)
         } else {
-            self.upcast::<HTMLElement>().labels()
+            self.upcast::<HTMLElement<TH>>().labels()
         }
     }
 
@@ -800,7 +800,7 @@ impl<TH: TypeHolderTrait> HTMLInputElementMethods for HTMLInputElement<TH> {
 
 
 #[allow(unsafe_code)]
-fn broadcast_radio_checked<TH: TypeHolderTrait>(broadcaster: &HTMLInputElement, group: Option<&Atom>) {
+fn broadcast_radio_checked<TH: TypeHolderTrait>(broadcaster: &HTMLInputElement<TH>, group: Option<&Atom>) {
     match group {
         None | Some(&atom!("")) => {
             // Radio input elements with a missing or empty name are alone in their
@@ -815,10 +815,10 @@ fn broadcast_radio_checked<TH: TypeHolderTrait>(broadcaster: &HTMLInputElement, 
     let doc = document_from_node(broadcaster);
 
     // This function is a workaround for lifetime constraint difficulties.
-    fn do_broadcast<TH>(doc_node: &Node<TH>, broadcaster: &HTMLInputElement,
-                        owner: Option<&HTMLFormElement>, group: Option<&Atom>) {
+    fn do_broadcast<TH>(doc_node: &Node<TH>, broadcaster: &HTMLInputElement<TH>,
+                        owner: Option<&HTMLFormElement<TH>>, group: Option<&Atom>) {
         let iter = doc_node.query_selector_iter(DOMString::from("input[type=radio]")).unwrap()
-                .filter_map(DomRoot::downcast::<HTMLInputElement>)
+                .filter_map(DomRoot::downcast::<HTMLInputElement<TH>>)
                 .filter(|r| in_same_group(&r, owner, group) && broadcaster != &**r);
         for ref r in iter {
             if r.Checked() {
@@ -831,7 +831,7 @@ fn broadcast_radio_checked<TH: TypeHolderTrait>(broadcaster: &HTMLInputElement, 
 }
 
 // https://html.spec.whatwg.org/multipage/#radio-button-group
-fn in_same_group(other: &HTMLInputElement, owner: Option<&HTMLFormElement>,
+fn in_same_group(other: &HTMLInputElement<TH>, owner: Option<&HTMLFormElement<TH>>,
                  group: Option<&Atom>) -> bool {
     other.input_type() == InputType::Radio &&
     // TODO Both a and b are in the same home subtree.
@@ -987,7 +987,7 @@ impl<TH: TypeHolderTrait> HTMLInputElement<TH> {
         let origin = get_blob_origin(&window.get_url());
         let resource_threads = window.upcast::<GlobalScope<TH>>().resource_threads();
 
-        let mut files: Vec<DomRoot<File>> = vec![];
+        let mut files: Vec<DomRoot<File<TH>>> = vec![];
         let mut error = None;
 
         let filter = filter_from_accept(&self.Accept());
@@ -1117,10 +1117,10 @@ impl<TH: TypeHolderTrait> HTMLInputElement<TH> {
 
 impl<TH> VirtualMethods for HTMLInputElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
@@ -1338,14 +1338,14 @@ impl<TH> VirtualMethods for HTMLInputElement<TH> {
 
         let node = self.upcast::<Node<TH>>();
         let el = self.upcast::<Element<TH>>();
-        if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
+        if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement<TH>>()) {
             el.check_ancestors_disabled_state_for_form_control();
         } else {
             el.check_disabled_attribute();
         }
     }
 
-    fn handle_event(&self, event: &Event) {
+    fn handle_event(&self, event: &Event<TH>) {
         if let Some(s) = self.super_type() {
             s.handle_event(event);
         }
@@ -1360,7 +1360,7 @@ impl<TH> VirtualMethods for HTMLInputElement<TH> {
             if self.input_type().is_textual_or_password() &&
                 // Check if we display a placeholder. Layout doesn't know about this.
                 !self.textinput.borrow().is_empty() {
-                    if let Some(mouse_event) = event.downcast::<MouseEvent>() {
+                    if let Some(mouse_event) = event.downcast::<MouseEvent<TH>>() {
                         // dispatch_key_event (document.rs) triggers a click event when releasing
                         // the space key. There's no nice way to catch this so let's use this for
                         // now.
@@ -1381,7 +1381,7 @@ impl<TH> VirtualMethods for HTMLInputElement<TH> {
                 }
         } else if event.type_() == atom!("keydown") && !event.DefaultPrevented() &&
             self.input_type().is_textual_or_password() {
-                if let Some(keyevent) = event.downcast::<KeyboardEvent>() {
+                if let Some(keyevent) = event.downcast::<KeyboardEvent<TH>>() {
                     // This can't be inlined, as holding on to textinput.borrow_mut()
                     // during self.implicit_submission will cause a panic.
                     let action = self.textinput.borrow_mut().handle_keydown(keyevent);
@@ -1421,11 +1421,11 @@ impl<TH> VirtualMethods for HTMLInputElement<TH> {
 }
 
 impl<TH> FormControl for HTMLInputElement<TH> {
-    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
 
-    fn set_form_owner(&self, form: Option<&HTMLFormElement>) {
+    fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>) {
         self.form_owner.set(form);
     }
 
@@ -1446,7 +1446,7 @@ impl<TH> Validatable for HTMLInputElement<TH> {
 }
 
 impl<TH: TypeHolderTrait> Activatable for HTMLInputElement<TH> {
-    fn as_element(&self) -> &Element {
+    fn as_element(&self) -> &Element<TH> {
         self.upcast()
     }
 
@@ -1498,7 +1498,7 @@ impl<TH: TypeHolderTrait> Activatable for HTMLInputElement<TH> {
                     // Safe since we only manipulate the DOM tree after finding an element
                     let checked_member = doc_node.query_selector_iter(DOMString::from("input[type=radio]"))
                             .unwrap()
-                            .filter_map(DomRoot::downcast::<HTMLInputElement>)
+                            .filter_map(DomRoot::downcast::<HTMLInputElement<TH>>)
                             .find(|r| {
                                 in_same_group(&*r, owner.r(), group.as_ref()) &&
                                 r.Checked()
@@ -1559,7 +1559,7 @@ impl<TH: TypeHolderTrait> Activatable for HTMLInputElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#run-post-click-activation-steps
-    fn activation_behavior(&self, _event: &Event, _target: &EventTarget) {
+    fn activation_behavior(&self, _event: &Event<TH>, _target: &EventTarget<TH>) {
         let ty = self.input_type();
         if self.activation_state.borrow().old_type != ty || !self.is_mutable() {
             // Type changed or input is immutable, abandon ship
@@ -1613,7 +1613,7 @@ impl<TH: TypeHolderTrait> Activatable for HTMLInputElement<TH> {
         }
         let submit_button;
         submit_button = node.query_selector_iter(DOMString::from("input[type=submit]")).unwrap()
-            .filter_map(DomRoot::downcast::<HTMLInputElement>)
+            .filter_map(DomRoot::downcast::<HTMLInputElement<TH>>)
             .find(|r| r.form_owner() == owner);
         match submit_button {
             Some(ref button) => {
@@ -1628,7 +1628,7 @@ impl<TH: TypeHolderTrait> Activatable for HTMLInputElement<TH> {
             }
             None => {
                 let inputs = node.query_selector_iter(DOMString::from("input")).unwrap()
-                    .filter_map(DomRoot::downcast::<HTMLInputElement>)
+                    .filter_map(DomRoot::downcast::<HTMLInputElement<TH>>)
                     .filter(|input| {
                         input.form_owner() == owner && match input.input_type() {
                             InputType::Text | InputType::Search | InputType::Url | InputType::Tel

@@ -54,10 +54,10 @@ impl<TH> HTMLOptGroupElementMethods for HTMLOptGroupElement<TH> {
 
 impl<TH> VirtualMethods for HTMLOptGroupElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
@@ -73,8 +73,8 @@ impl<TH> VirtualMethods for HTMLOptGroupElement<TH> {
                 el.set_disabled_state(disabled_state);
                 el.set_enabled_state(!disabled_state);
                 let options = el.upcast::<Node<TH>>().children().filter(|child| {
-                    child.is::<HTMLOptionElement>()
-                }).map(|child| DomRoot::from_ref(child.downcast::<HTMLOptionElement>().unwrap()));
+                    child.is::<HTMLOptionElement<TH>>()
+                }).map(|child| DomRoot::from_ref(child.downcast::<HTMLOptionElement<TH>>().unwrap()));
                 if disabled_state {
                     for option in options {
                         let el = option.upcast::<Element<TH>>();

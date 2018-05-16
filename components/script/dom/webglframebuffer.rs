@@ -316,7 +316,7 @@ impl<TH> WebGLFramebuffer<TH> {
         Ok(())
     }
 
-    fn with_matching_renderbuffers<F>(&self, rb: &WebGLRenderbuffer, mut closure: F)
+    fn with_matching_renderbuffers<F>(&self, rb: &WebGLRenderbuffer<TH>, mut closure: F)
         where F: FnMut(&DomRefCell<Option<WebGLFramebufferAttachment>>)
     {
         let attachments = [&self.color,

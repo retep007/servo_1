@@ -53,7 +53,7 @@ pub struct HTMLLinkElement<TH: TypeHolderTrait> {
     rel_list: MutNullableDom<DOMTokenList>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
-    cssom_stylesheet: MutNullableDom<CSSStyleSheet>,
+    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
 
     /// <https://html.spec.whatwg.org/multipage/#a-style-sheet-that-is-blocking-scripts>
     parser_inserted: Cell<bool>,
@@ -111,7 +111,7 @@ impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
         self.stylesheet.borrow().clone()
     }
 
-    pub fn get_cssom_stylesheet(&self) -> Option<DomRoot<CSSStyleSheet>> {
+    pub fn get_cssom_stylesheet(&self) -> Option<DomRoot<CSSStyleSheet<TH>>> {
         self.get_stylesheet().map(|sheet| {
             self.cssom_stylesheet.or_init(|| {
                 CSSStyleSheet::new(&window_from_node(self),
@@ -136,7 +136,7 @@ impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
     }
 }
 
-fn get_attr(element: &Element, local_name: &LocalName) -> Option<String> {
+fn get_attr(element: &Element<TH>, local_name: &LocalName) -> Option<String> {
     let elem = element.get_attribute(&ns!(), local_name);
     elem.map(|e| {
         let value = e.value();
@@ -169,10 +169,10 @@ fn is_favicon(value: &Option<String>) -> bool {
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLLinkElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         if !self.upcast::<Node<TH>>().is_in_doc() || mutation.is_removal() {
             return;
@@ -428,7 +428,7 @@ impl<TH> HTMLLinkElementMethods for HTMLLinkElement<TH> {
     }
 
     // https://drafts.csswg.org/cssom/#dom-linkstyle-sheet
-    fn GetSheet(&self) -> Option<DomRoot<DOMStyleSheet>> {
+    fn GetSheet(&self) -> Option<DomRoot<DOMStyleSheet<TH>>> {
         self.get_cssom_stylesheet().map(DomRoot::upcast)
     }
 }

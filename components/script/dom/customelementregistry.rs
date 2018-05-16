@@ -60,7 +60,7 @@ pub struct CustomElementRegistry<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
-    fn new_inherited(window: &Window<TH>) -> CustomElementRegistry {
+    fn new_inherited(window: &Window<TH>) -> CustomElementRegistry<TH> {
         CustomElementRegistry {
             reflector_: Reflector::new(),
             window: Dom::from_ref(window),
@@ -460,7 +460,7 @@ impl<TH: TypeHolderTrait> CustomElementDefinition<TH> {
         };
 
         // Step 3
-        if !element.is::<HTMLElement>() {
+        if !element.is::<HTMLElement<TH>>() {
             return Err(Error::Type("Constructor did not return a DOM node".to_owned()));
         }
 
@@ -602,7 +602,7 @@ pub enum CustomElementReaction<TH: TypeHolderTrait> {
 impl<TH> CustomElementReaction<TH> {
     /// <https://html.spec.whatwg.org/multipage/#invoke-custom-element-reactions>
     #[allow(unsafe_code)]
-    pub fn invoke(&self, element: &Element) {
+    pub fn invoke(&self, element: &Element<TH>) {
         // Step 2.1
         match *self {
             CustomElementReaction::Upgrade(ref definition) => upgrade_element(definition.clone(), element),
@@ -633,7 +633,7 @@ enum BackupElementQueueFlag {
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
 pub struct CustomElementReactionStack<TH: TypeHolderTrait> {
-    stack: DomRefCell<Vec<ElementQueue>>,
+    stack: DomRefCell<Vec<ElementQueue<TH>>>,
     backup_queue: ElementQueue,
     processing_backup_element_queue: Cell<BackupElementQueueFlag>,
 }
@@ -675,7 +675,7 @@ impl<TH: TypeHolderTrait> CustomElementReactionStack<TH> {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#enqueue-an-element-on-the-appropriate-element-queue>
-    pub fn enqueue_element(&self, element: &Element) {
+    pub fn enqueue_element(&self, element: &Element<TH>) {
         if let Some(current_queue) = self.stack.borrow().last() {
             // Step 2
             current_queue.append_element(element);
@@ -699,7 +699,7 @@ impl<TH: TypeHolderTrait> CustomElementReactionStack<TH> {
     /// <https://html.spec.whatwg.org/multipage/#enqueue-a-custom-element-callback-reaction>
     #[allow(unsafe_code)]
     pub fn enqueue_callback_reaction(&self,
-                                     element: &Element,
+                                     element: &Element<TH>,
                                      reaction: CallbackReaction,
                                      definition: Option<Rc<CustomElementDefinition<TH>>>) {
         // Step 1
@@ -770,7 +770,7 @@ impl<TH: TypeHolderTrait> CustomElementReactionStack<TH> {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#enqueue-a-custom-element-upgrade-reaction>
-    pub fn enqueue_upgrade_reaction(&self, element: &Element, definition: Rc<CustomElementDefinition<TH>>) {
+    pub fn enqueue_upgrade_reaction(&self, element: &Element<TH>, definition: Rc<CustomElementDefinition<TH>>) {
         // Step 1
         element.push_upgrade_reaction(definition);
         // Step 2
@@ -786,7 +786,7 @@ struct ElementQueue<TH: TypeHolderTrait> {
 }
 
 impl<TH> ElementQueue<TH> {
-    fn new() -> ElementQueue {
+    fn new() -> ElementQueue<TH> {
         ElementQueue {
             queue: Default::default(),
         }
@@ -805,7 +805,7 @@ impl<TH> ElementQueue<TH> {
         self.queue.borrow_mut().pop_front().as_ref().map(Dom::deref).map(DomRoot::from_ref)
     }
 
-    fn append_element(&self, element: &Element) {
+    fn append_element(&self, element: &Element<TH>) {
         self.queue.borrow_mut().push_back(Dom::from_ref(element));
     }
 }

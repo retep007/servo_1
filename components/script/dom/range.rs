@@ -42,7 +42,7 @@ pub struct Range<TH: TypeHolderTrait> {
 
 impl<TH: TypeHolderTrait> Range<TH> {
     fn new_inherited(start_container: &Node<TH>, start_offset: u32,
-                     end_container: &Node<TH>, end_offset: u32) -> Range {
+                     end_container: &Node<TH>, end_offset: u32) -> Range<TH> {
         Range {
             reflector_: Reflector::new(),
             start: BoundaryPoint::new(start_container, start_offset),
@@ -333,7 +333,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-compareboundarypoints
-    fn CompareBoundaryPoints(&self, how: u16, other: &Range)
+    fn CompareBoundaryPoints(&self, how: u16, other: &Range<TH>)
                              -> Fallible<i16> {
         if how > RangeConstants::END_TO_START {
             // Step 1.
@@ -429,7 +429,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-clonecontents
     // https://dom.spec.whatwg.org/#concept-range-clone
-    fn CloneContents(&self) -> Fallible<DomRoot<DocumentFragment>> {
+    fn CloneContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         // Step 3.
         let start_node = self.StartContainer();
         let start_offset = self.StartOffset();
@@ -445,7 +445,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         }
 
         if end_node == start_node {
-            if let Some(cdata) = start_node.downcast::<CharacterData>() {
+            if let Some(cdata) = start_node.downcast::<CharacterData<TH>>() {
                 // Steps 4.1-2.
                 let data = cdata.SubstringData(start_offset, end_offset - start_offset).unwrap();
                 let clone = cdata.clone_with_data(data, &start_node.owner_doc());
@@ -462,7 +462,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
         if let Some(child) = first_contained_child {
             // Step 13.
-            if let Some(cdata) = child.downcast::<CharacterData>() {
+            if let Some(cdata) = child.downcast::<CharacterData<TH>>() {
                 assert!(child == start_node);
                 // Steps 13.1-2.
                 let data = cdata.SubstringData(start_offset, start_node.len() - start_offset).unwrap();
@@ -497,7 +497,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
         if let Some(child) = last_contained_child {
             // Step 16.
-            if let Some(cdata) = child.downcast::<CharacterData>() {
+            if let Some(cdata) = child.downcast::<CharacterData<TH>>() {
                 assert!(child == end_node);
                 // Steps 16.1-2.
                 let data = cdata.SubstringData(0, end_offset).unwrap();
@@ -528,7 +528,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-extractcontents
     // https://dom.spec.whatwg.org/#concept-range-extract
-    fn ExtractContents(&self) -> Fallible<DomRoot<DocumentFragment>> {
+    fn ExtractContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         // Step 3.
         let start_node = self.StartContainer();
         let start_offset = self.StartOffset();
@@ -544,12 +544,12 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         }
 
         if end_node == start_node {
-            if let Some(end_data) = end_node.downcast::<CharacterData>() {
+            if let Some(end_data) = end_node.downcast::<CharacterData<TH>>() {
                 // Step 4.1.
                 let clone = end_node.CloneNode(true);
                 // Step 4.2.
                 let text = end_data.SubstringData(start_offset, end_offset - start_offset);
-                clone.downcast::<CharacterData>().unwrap().SetData(text.unwrap());
+                clone.downcast::<CharacterData<TH>>().unwrap().SetData(text.unwrap());
                 // Step 4.3.
                 fragment.upcast::<Node<TH>>().AppendChild(&clone)?;
                 // Step 4.4.
@@ -579,14 +579,14 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         };
 
         if let Some(child) = first_contained_child {
-            if let Some(start_data) = child.downcast::<CharacterData>() {
+            if let Some(start_data) = child.downcast::<CharacterData<TH>>() {
                 assert!(child == start_node);
                 // Step 15.1.
                 let clone = start_node.CloneNode(true);
                 // Step 15.2.
                 let text = start_data.SubstringData(start_offset,
                                                     start_node.len() - start_offset);
-                clone.downcast::<CharacterData>().unwrap().SetData(text.unwrap());
+                clone.downcast::<CharacterData<TH>>().unwrap().SetData(text.unwrap());
                 // Step 15.3.
                 fragment.upcast::<Node<TH>>().AppendChild(&clone)?;
                 // Step 15.4.
@@ -617,13 +617,13 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         }
 
         if let Some(child) = last_contained_child {
-            if let Some(end_data) = child.downcast::<CharacterData>() {
+            if let Some(end_data) = child.downcast::<CharacterData<TH>>() {
                 assert!(child == end_node);
                 // Step 18.1.
                 let clone = end_node.CloneNode(true);
                 // Step 18.2.
                 let text = end_data.SubstringData(0, end_offset);
-                clone.downcast::<CharacterData>().unwrap().SetData(text.unwrap());
+                clone.downcast::<CharacterData<TH>>().unwrap().SetData(text.unwrap());
                 // Step 18.3.
                 fragment.upcast::<Node<TH>>().AppendChild(&clone)?;
                 // Step 18.4.
@@ -701,7 +701,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         // Step 7.
         let split_text;
         let reference_node =
-            match start_node.downcast::<Text>() {
+            match start_node.downcast::<Text<TH>>() {
                 Some(text) => {
                     split_text = text.SplitText(start_offset)?;
                     let new_reference = DomRoot::upcast::<Node<TH>>(split_text);
@@ -758,7 +758,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
         // Step 3.
         if start_node == end_node {
-            if let Some(text) = start_node.downcast::<CharacterData>() {
+            if let Some(text) = start_node.downcast::<CharacterData<TH>>() {
                 return text.ReplaceData(start_offset,
                                         end_offset - start_offset,
                                         DOMString::new());
@@ -801,7 +801,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         };
 
         // Step 7.
-        if let Some(text) = start_node.downcast::<CharacterData>() {
+        if let Some(text) = start_node.downcast::<CharacterData<TH>>() {
             text.ReplaceData(start_offset,
                              start_node.len() - start_offset,
                              DOMString::new()).unwrap();
@@ -813,7 +813,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         }
 
         // Step 9.
-        if let Some(text) = end_node.downcast::<CharacterData>() {
+        if let Some(text) = end_node.downcast::<CharacterData<TH>>() {
             text.ReplaceData(0, end_offset, DOMString::new()).unwrap();
         }
 
@@ -829,8 +829,8 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         let start = self.StartContainer();
         let end = self.EndContainer();
 
-        if start.inclusive_ancestors().any(|n| !n.is_inclusive_ancestor_of(&end) && !n.is::<Text>()) ||
-           end.inclusive_ancestors().any(|n| !n.is_inclusive_ancestor_of(&start) && !n.is::<Text>()) {
+        if start.inclusive_ancestors().any(|n| !n.is_inclusive_ancestor_of(&end) && !n.is::<Text<TH>>()) ||
+           end.inclusive_ancestors().any(|n| !n.is_inclusive_ancestor_of(&start) && !n.is::<Text<TH>>()) {
              return Err(Error::InvalidState);
         }
 
@@ -866,8 +866,8 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         // Step 1.
         let mut s = DOMString::new();
 
-        if let Some(text_node) = start_node.downcast::<Text>() {
-            let char_data = text_node.upcast::<CharacterData>();
+        if let Some(text_node) = start_node.downcast::<Text<TH>>() {
+            let char_data = text_node.upcast::<CharacterData<TH>>();
 
             // Step 2.
             if start_node == end_node {
@@ -883,17 +883,17 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
         // Step 4.
         let ancestor = self.CommonAncestorContainer();
         let mut iter = start_node.following_nodes(&ancestor)
-                                 .filter_map(DomRoot::downcast::<Text>);
+                                 .filter_map(DomRoot::downcast::<Text<TH>>);
 
         while let Some(child) = iter.next() {
             if self.contains(child.upcast()) {
-                s.push_str(&*child.upcast::<CharacterData>().Data());
+                s.push_str(&*child.upcast::<CharacterData<TH>>().Data());
             }
         }
 
         // Step 5.
-        if let Some(text_node) = end_node.downcast::<Text>() {
-            let char_data = text_node.upcast::<CharacterData>();
+        if let Some(text_node) = end_node.downcast::<Text<TH>>() {
+            let char_data = text_node.upcast::<CharacterData<TH>>();
             s.push_str(&*char_data.SubstringData(0, self.EndOffset()).unwrap());
         }
 
@@ -902,7 +902,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dvcs.w3.org/hg/innerhtml/raw-file/tip/index.html#extensions-to-the-range-interface
-    fn CreateContextualFragment(&self, fragment: DOMString) -> Fallible<DomRoot<DocumentFragment>> {
+    fn CreateContextualFragment(&self, fragment: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         // Step 1.
         let node = self.StartContainer();
         let owner_doc = node.owner_doc();
@@ -923,7 +923,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
         // Step 4.
         for node in fragment_node.upcast::<Node<TH>>().traverse_preorder() {
-            if let Some(script) = node.downcast::<HTMLScriptElement>() {
+            if let Some(script) = node.downcast::<HTMLScriptElement<TH>>() {
                 script.set_already_started(false);
                 script.set_parser_inserted(false);
             }
@@ -1240,7 +1240,7 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
         }
     }
 
-    fn remove(&self, range: &Range) -> WeakRef<Range<TH>> {
+    fn remove(&self, range: &Range<TH>) -> WeakRef<Range<TH>> {
         unsafe {
             let ranges = &mut *self.cell.get();
             let position = ranges.iter().position(|ref_| {

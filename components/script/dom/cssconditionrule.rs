@@ -20,14 +20,14 @@ pub struct CSSConditionRule {
 }
 
 impl CSSConditionRule {
-    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet,
+    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
                          rules: Arc<Locked<StyleCssRules>>) -> CSSConditionRule {
         CSSConditionRule {
             cssgroupingrule: CSSGroupingRule::new_inherited(parent_stylesheet, rules),
         }
     }
 
-    pub fn parent_stylesheet(&self) -> &CSSStyleSheet {
+    pub fn parent_stylesheet(&self) -> &CSSStyleSheet<TH> {
         self.cssgroupingrule.parent_stylesheet()
     }
 
@@ -39,9 +39,9 @@ impl CSSConditionRule {
 impl CSSConditionRuleMethods for CSSConditionRule {
     /// <https://drafts.csswg.org/css-conditional-3/#dom-cssconditionrule-conditiontext>
     fn ConditionText(&self) -> DOMString {
-        if let Some(rule) = self.downcast::<CSSMediaRule>() {
+        if let Some(rule) = self.downcast::<CSSMediaRule<TH>>() {
             rule.get_condition_text()
-        } else if let Some(rule) = self.downcast::<CSSSupportsRule>() {
+        } else if let Some(rule) = self.downcast::<CSSSupportsRule<TH>>() {
             rule.get_condition_text()
         } else {
             unreachable!()
@@ -50,9 +50,9 @@ impl CSSConditionRuleMethods for CSSConditionRule {
 
     /// <https://drafts.csswg.org/css-conditional-3/#dom-cssconditionrule-conditiontext>
     fn SetConditionText(&self, text: DOMString) {
-        if let Some(rule) = self.downcast::<CSSMediaRule>() {
+        if let Some(rule) = self.downcast::<CSSMediaRule<TH>>() {
             rule.set_condition_text(text)
-        } else if let Some(rule) = self.downcast::<CSSSupportsRule>() {
+        } else if let Some(rule) = self.downcast::<CSSSupportsRule<TH>>() {
             rule.set_condition_text(text)
         } else {
             unreachable!()

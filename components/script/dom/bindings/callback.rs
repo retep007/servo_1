@@ -119,7 +119,7 @@ pub trait CallbackContainer {
     /// incumbent global when calling the callback.
     ///
     /// ["callback context"]: https://heycam.github.io/webidl/#dfn-callback-context
-    fn incumbent(&self) -> Option<&GlobalScope> {
+    fn incumbent(&self) -> Option<&GlobalScope<TH>> {
         self.callback_holder().incumbent.as_ref().map(Dom::deref)
     }
 }

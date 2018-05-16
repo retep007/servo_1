@@ -176,17 +176,17 @@ pub struct Window<TH: TypeHolderTrait> {
     image_cache: Arc<ImageCache>,
     #[ignore_malloc_size_of = "channels are hard"]
     image_cache_chan: Sender<ImageCacheMsg>,
-    window_proxy: MutNullableDom<WindowProxy>,
+    window_proxy: MutNullableDom<WindowProxy<TH>>,
     document: MutNullableDom<Document<TH>>,
-    location: MutNullableDom<Location>,
-    history: MutNullableDom<History>,
-    custom_element_registry: MutNullableDom<CustomElementRegistry>,
-    performance: MutNullableDom<Performance>,
+    location: MutNullableDom<Location<TH>>,
+    history: MutNullableDom<History<TH>>,
+    custom_element_registry: MutNullableDom<CustomElementRegistry<TH>>,
+    performance: MutNullableDom<Performance<TH>>,
     navigation_start: Cell<u64>,
     navigation_start_precise: Cell<u64>,
-    screen: MutNullableDom<Screen>,
-    session_storage: MutNullableDom<Storage>,
-    local_storage: MutNullableDom<Storage>,
+    screen: MutNullableDom<Screen<TH>>,
+    session_storage: MutNullableDom<Storage<TH>>,
+    local_storage: MutNullableDom<Storage<TH>>,
     status: DomRefCell<DOMString>,
 
     /// For sending timeline markers. Will be ignored if
@@ -282,9 +282,9 @@ pub struct Window<TH: TypeHolderTrait> {
     unminified_js_dir: DomRefCell<Option<String>>,
 
     /// Worklets
-    test_worklet: MutNullableDom<Worklet>,
+    test_worklet: MutNullableDom<Worklet<TH>>,
     /// <https://drafts.css-houdini.org/css-paint-api-1/#paint-worklet>
-    paint_worklet: MutNullableDom<Worklet>,
+    paint_worklet: MutNullableDom<Worklet<TH>>,
     /// The Webrender Document id associated with this window.
     #[ignore_malloc_size_of = "defined in webrender_api"]
     webrender_document: DocumentId,

@@ -23,7 +23,7 @@ pub struct CSSImportRule<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> CSSImportRule<TH> {
-    fn new_inherited(parent_stylesheet: &CSSStyleSheet,
+    fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
                      import_rule: Arc<Locked<ImportRule>>)
                      -> Self {
         CSSImportRule {
@@ -34,7 +34,7 @@ impl<TH: TypeHolderTrait> CSSImportRule<TH> {
 
     #[allow(unrooted_must_root)]
     pub fn new(window: &Window<TH>,
-               parent_stylesheet: &CSSStyleSheet,
+               parent_stylesheet: &CSSStyleSheet<TH>,
                import_rule: Arc<Locked<ImportRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(Self::new_inherited(parent_stylesheet, import_rule)),
                            window,

@@ -121,7 +121,7 @@ pub fn handle_get_browsing_context_id<TH: TypeHolderTrait>(documents: &Documents
         },
         WebDriverFrameId::Element(x) => {
             find_node_by_unique_id(documents, pipeline, x)
-                .and_then(|node| node.downcast::<HTMLIFrameElement>().and_then(|elem| elem.browsing_context_id()))
+                .and_then(|node| node.downcast::<HTMLIFrameElement<TH>>().and_then(|elem| elem.browsing_context_id()))
                 .ok_or(())
         },
         WebDriverFrameId::Parent => {
@@ -160,7 +160,7 @@ pub fn handle_focus_element<TH: TypeHolderTrait>(documents: &Documents<TH>,
                             reply: IpcSender<Result<(), ()>>) {
     reply.send(match find_node_by_unique_id(documents, pipeline, element_id) {
         Some(ref node) => {
-            match node.downcast::<HTMLElement>() {
+            match node.downcast::<HTMLElement<TH>>() {
                 Some(ref elem) => {
                     // Need a way to find if this actually succeeded
                     elem.Focus();
@@ -272,7 +272,7 @@ pub fn handle_get_rect<TH: TypeHolderTrait>(documents: &Documents<TH>,
     reply.send(match find_node_by_unique_id(documents, pipeline, element_id) {
         Some(elem) => {
             // https://w3c.github.io/webdriver/webdriver-spec.html#dfn-calculate-the-absolute-position
-            match elem.downcast::<HTMLElement>() {
+            match elem.downcast::<HTMLElement<TH>>() {
                 Some(html_elem) => {
                     // Step 1
                     let mut x = 0;
@@ -282,7 +282,7 @@ pub fn handle_get_rect<TH: TypeHolderTrait>(documents: &Documents<TH>,
 
                     // Step 2
                     while let Some(element) = offset_parent {
-                        offset_parent = match element.downcast::<HTMLElement>() {
+                        offset_parent = match element.downcast::<HTMLElement<TH>>() {
                             Some(elem) => {
                                 x += elem.OffsetLeft();
                                 y += elem.OffsetTop();
@@ -388,13 +388,13 @@ pub fn handle_is_selected<TH: TypeHolderTrait>(documents: &Documents<TH>,
                           reply: IpcSender<Result<bool, ()>>) {
     reply.send(match find_node_by_unique_id(documents, pipeline, element_id) {
         Some(ref node) => {
-            if let Some(input_element) = node.downcast::<HTMLInputElement>() {
+            if let Some(input_element) = node.downcast::<HTMLInputElement<TH>>() {
                 Ok(input_element.Checked())
             }
-            else if let Some(option_element) = node.downcast::<HTMLOptionElement>() {
+            else if let Some(option_element) = node.downcast::<HTMLOptionElement<TH>>() {
                 Ok(option_element.Selected())
             }
-            else if node.is::<HTMLElement>() {
+            else if node.is::<HTMLElement<TH>>() {
                 Ok(false) // regular elements are not selectable
             } else {
                 Err(())

@@ -150,7 +150,7 @@ impl<TH: TypeHolderTrait> WeakMediaQueryListVec<TH> {
                                                  false, false,
                                                  mql.Media(),
                                                  mql.Matches());
-            event.upcast::<Event>().fire(mql.upcast::<EventTarget<TH>>());
+            event.upcast::<Event<TH>>().fire(mql.upcast::<EventTarget<TH>>());
         }
     }
 }

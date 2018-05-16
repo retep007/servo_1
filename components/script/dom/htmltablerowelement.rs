@@ -29,7 +29,7 @@ use typeholder::TypeHolderTrait;
 #[derive(JSTraceable)]
 struct CellsFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter for CellsFilter<TH> {
-    fn filter(&self, elem: &Element, root: &Node<TH>) -> bool {
+    fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
         (elem.is::<HTMLTableHeaderCellElement>() || elem.is::<HTMLTableDataCellElement>()) &&
             elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
     }
@@ -38,7 +38,7 @@ impl<TH: TypeHolderTrait> CollectionFilter for CellsFilter<TH> {
 #[dom_struct]
 pub struct HTMLTableRowElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
-    cells: MutNullableDom<HTMLCollection>,
+    cells: MutNullableDom<HTMLCollection<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLTableRowElement<TH> {
@@ -60,9 +60,9 @@ impl<TH: TypeHolderTrait> HTMLTableRowElement<TH> {
 
     /// Determine the index for this `HTMLTableRowElement` within the given
     /// `HTMLCollection`. Returns `-1` if not found within collection.
-    fn row_index(&self, collection: DomRoot<HTMLCollection>) -> i32 {
+    fn row_index(&self, collection: DomRoot<HTMLCollection<TH>>) -> i32 {
         collection.elements_iter()
-                  .position(|elem| (&elem as &Element) == self.upcast())
+                  .position(|elem| (&elem as &Element<TH>) == self.upcast())
                   .map_or(-1, |i| i as i32)
     }
 }
@@ -75,7 +75,7 @@ impl<TH> HTMLTableRowElementMethods for HTMLTableRowElement<TH> {
     make_legacy_color_setter!(SetBgColor, "bgcolor");
 
     // https://html.spec.whatwg.org/multipage/#dom-tr-cells
-    fn Cells(&self) -> DomRoot<HTMLCollection> {
+    fn Cells(&self) -> DomRoot<HTMLCollection<TH>> {
         self.cells.or_init(|| {
             let window = window_from_node(self);
             let filter = Box::new(CellsFilter);
@@ -84,7 +84,7 @@ impl<TH> HTMLTableRowElementMethods for HTMLTableRowElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tr-insertcell
-    fn InsertCell(&self, index: i32) -> Fallible<DomRoot<HTMLElement>> {
+    fn InsertCell(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>> {
         let node = self.upcast::<Node<TH>>();
         node.insert_cell_or_row(
             index,
@@ -107,17 +107,17 @@ impl<TH> HTMLTableRowElementMethods for HTMLTableRowElement<TH> {
             Some(parent) => parent,
             None => return -1,
         };
-        if let Some(table) = parent.downcast::<HTMLTableElement>() {
+        if let Some(table) = parent.downcast::<HTMLTableElement<TH>>() {
             return self.row_index(table.Rows());
         }
-        if !parent.is::<HTMLTableSectionElement>() {
+        if !parent.is::<HTMLTableSectionElement<TH>>() {
             return -1;
         }
         let grandparent = match parent.upcast::<Node<TH>>().GetParentNode() {
             Some(parent) => parent,
             None => return -1,
         };
-        grandparent.downcast::<HTMLTableElement>()
+        grandparent.downcast::<HTMLTableElement<TH>>()
                    .map_or(-1, |table| self.row_index(table.Rows()))
     }
 
@@ -127,9 +127,9 @@ impl<TH> HTMLTableRowElementMethods for HTMLTableRowElement<TH> {
             Some(parent) => parent,
             None => return -1,
         };
-        let collection = if let Some(table) = parent.downcast::<HTMLTableElement>() {
+        let collection = if let Some(table) = parent.downcast::<HTMLTableElement<TH>>() {
             table.Rows()
-        } else if let Some(table_section) = parent.downcast::<HTMLTableSectionElement>() {
+        } else if let Some(table_section) = parent.downcast::<HTMLTableSectionElement<TH>>() {
             table_section.Rows()
         } else {
             return -1;
@@ -156,7 +156,7 @@ impl<TH> HTMLTableRowElementLayoutHelpers for LayoutDom<HTMLTableRowElement<TH>>
 
 impl<TH> VirtualMethods for HTMLTableRowElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn parse_plain_attribute(&self, local_name: &LocalName, value: DOMString) -> AttrValue {

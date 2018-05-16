@@ -27,13 +27,13 @@ pub struct MutationObserver<TH: TypeHolderTrait> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<MutationCallback>,
-    record_queue: DomRefCell<Vec<DomRoot<MutationRecord>>>,
+    record_queue: DomRefCell<Vec<DomRoot<MutationRecord<TH>>>>,
 }
 
 pub enum Mutation<'a> {
     Attribute { name: LocalName, namespace: Namespace, old_value: DOMString },
     ChildList { added: Option<&'a [&'a Node]>, removed: Option<&'a [&'a Node]>,
-                prev: Option<&'a Node>, next: Option<&'a Node> },
+                prev: Option<&'a Node<TH>>, next: Option<&'a Node<TH>> },
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
         // TODO: steps 3-4 (slots)
         // Step 5
         for mo in &notify_list {
-            let queue: Vec<DomRoot<MutationRecord>> = mo.record_queue.borrow().clone();
+            let queue: Vec<DomRoot<MutationRecord<TH>>> = mo.record_queue.borrow().clone();
             mo.record_queue.borrow_mut().clear();
             // TODO: Step 5.3 Remove all transient registered observers whose observer is mo.
             if !queue.is_empty() {
@@ -111,7 +111,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
             return;
         }
         // Step 1
-        let mut interestedObservers: Vec<(DomRoot<MutationObserver>, Option<DOMString>)> = vec![];
+        let mut interestedObservers: Vec<(DomRoot<MutationObserver<TH>>, Option<DOMString>)> = vec![];
         // Step 2 & 3
         for node in target.inclusive_ancestors() {
             for registered in &*node.registered_mutation_observers() {

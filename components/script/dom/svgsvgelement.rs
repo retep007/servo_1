@@ -70,7 +70,7 @@ impl VirtualMethods for SVGSVGElement {
         Some(self.upcast::<SVGGraphicsElement>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
     }
 

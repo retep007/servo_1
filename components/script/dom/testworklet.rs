@@ -26,11 +26,11 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct TestWorklet<TH: TypeHolderTrait> {
     reflector: Reflector,
-    worklet: Dom<Worklet>,
+    worklet: Dom<Worklet<TH>>,
 }
 
 impl<TH: TypeHolderTrait> TestWorklet<TH> {
-    fn new_inherited(worklet: &Worklet) -> TestWorklet<TH> {
+    fn new_inherited(worklet: &Worklet<TH>) -> TestWorklet<TH> {
         TestWorklet {
             reflector: Reflector::new(),
             worklet: Dom::from_ref(worklet),

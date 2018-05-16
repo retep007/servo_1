@@ -24,7 +24,7 @@ pub struct HTMLDataListElement<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> HTMLDataListElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLDataListElement {
+                     document: &Document<TH>) -> HTMLDataListElement<TH> {
         HTMLDataListElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -34,7 +34,7 @@ impl<TH: TypeHolderTrait> HTMLDataListElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLDataListElement> {
+               document: &Document<TH>) -> DomRoot<HTMLDataListElement<TH>> {
         Node::reflect_node(Box::new(HTMLDataListElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLDataListElementBinding::Wrap)
@@ -43,12 +43,12 @@ impl<TH: TypeHolderTrait> HTMLDataListElement<TH> {
 
 impl<TH: TypeHolderTrait> HTMLDataListElementMethods for HTMLDataListElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-datalist-options
-    fn Options(&self) -> DomRoot<HTMLCollection> {
+    fn Options(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct HTMLDataListOptionsFilter<TH>;
         impl<TH> CollectionFilter for HTMLDataListOptionsFilter<TH> {
-            fn filter(&self, elem: &Element, _root: &Node<TH>) -> bool {
-                elem.is::<HTMLOptionElement>()
+            fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+                elem.is::<HTMLOptionElement<TH>>()
             }
         }
         let filter = Box::new(HTMLDataListOptionsFilter);

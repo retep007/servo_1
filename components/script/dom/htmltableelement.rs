@@ -33,7 +33,7 @@ pub struct HTMLTableElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     border: Cell<Option<u32>>,
     cellspacing: Cell<Option<u32>>,
-    tbodies: MutNullableDom<HTMLCollection>,
+    tbodies: MutNullableDom<HTMLCollection<TH>>,
 }
 
 #[allow(unrooted_must_root)]
@@ -43,8 +43,8 @@ struct TableRowFilter<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> CollectionFilter for TableRowFilter<TH> {
-    fn filter(&self, elem: &Element, root: &Node<TH>) -> bool {
-        elem.is::<HTMLTableRowElement>() &&
+    fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
+        elem.is::<HTMLTableRowElement<TH>>() &&
             (root.is_parent_of(elem.upcast())
                 || self.sections.iter().any(|ref section| section.is_parent_of(elem.upcast())))
     }
@@ -75,10 +75,10 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-table-thead
     // https://html.spec.whatwg.org/multipage/#dom-table-tfoot
-    fn get_first_section_of_type(&self, atom: &LocalName) -> Option<DomRoot<HTMLTableSectionElement>> {
+    fn get_first_section_of_type(&self, atom: &LocalName) -> Option<DomRoot<HTMLTableSectionElement<TH>>> {
         self.upcast::<Node<TH>>()
             .child_elements()
-            .find(|n| n.is::<HTMLTableSectionElement>() && n.local_name() == atom)
+            .find(|n| n.is::<HTMLTableSectionElement<TH>>() && n.local_name() == atom)
             .and_then(|n| n.downcast().map(DomRoot::from_ref))
     }
 
@@ -86,7 +86,7 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-tfoot
     fn set_first_section_of_type<P>(&self,
                                     atom: &LocalName,
-                                    section: Option<&HTMLTableSectionElement>,
+                                    section: Option<&HTMLTableSectionElement<TH>>,
                                     reference_predicate: P)
                                     -> ErrorResult
                                     where P: FnMut(&DomRoot<Element<TH>>) -> bool {
@@ -112,7 +112,7 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-table-createthead
     // https://html.spec.whatwg.org/multipage/#dom-table-createtfoot
-    fn create_section_of_type(&self, atom: &LocalName) -> DomRoot<HTMLTableSectionElement> {
+    fn create_section_of_type(&self, atom: &LocalName) -> DomRoot<HTMLTableSectionElement<TH>> {
         if let Some(section) = self.get_first_section_of_type(atom) {
             return section
         }
@@ -137,12 +137,12 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
         }
     }
 
-    fn get_rows(&self) -> TableRowFilter {
+    fn get_rows(&self) -> TableRowFilter<TH> {
         TableRowFilter {
             sections: self.upcast::<Node<TH>>()
                           .children()
                           .filter_map(|ref node|
-                                node.downcast::<HTMLTableSectionElement>().map(|_| Dom::from_ref(&**node)))
+                                node.downcast::<HTMLTableSectionElement<TH>>().map(|_| Dom::from_ref(&**node)))
                           .collect()
         }
     }
@@ -150,7 +150,7 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
 
 impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-rows
-    fn Rows(&self) -> DomRoot<HTMLCollection> {
+    fn Rows(&self) -> DomRoot<HTMLCollection<TH>> {
         let filter = self.get_rows();
         HTMLCollection::new(&window_from_node(self), self.upcast(), Box::new(filter))
     }
@@ -196,19 +196,19 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
 
 
     // https://html.spec.whatwg.org/multipage/#dom-table-thead
-    fn GetTHead(&self) -> Option<DomRoot<HTMLTableSectionElement>> {
+    fn GetTHead(&self) -> Option<DomRoot<HTMLTableSectionElement<TH>>> {
         self.get_first_section_of_type(&local_name!("thead"))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-thead
-    fn SetTHead(&self, thead: Option<&HTMLTableSectionElement>) -> ErrorResult {
+    fn SetTHead(&self, thead: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult {
         self.set_first_section_of_type(&local_name!("thead"), thead, |n| {
             !n.is::<HTMLTableCaptionElement>() && !n.is::<HTMLTableColElement>()
         })
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-createthead
-    fn CreateTHead(&self) -> DomRoot<HTMLTableSectionElement> {
+    fn CreateTHead(&self) -> DomRoot<HTMLTableSectionElement<TH>> {
         self.create_section_of_type(&local_name!("thead"))
     }
 
@@ -218,18 +218,18 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-tfoot
-    fn GetTFoot(&self) -> Option<DomRoot<HTMLTableSectionElement>> {
+    fn GetTFoot(&self) -> Option<DomRoot<HTMLTableSectionElement<TH>>> {
         self.get_first_section_of_type(&local_name!("tfoot"))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-tfoot
-    fn SetTFoot(&self, tfoot: Option<&HTMLTableSectionElement>) -> ErrorResult {
+    fn SetTFoot(&self, tfoot: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult {
         self.set_first_section_of_type(&local_name!("tfoot"), tfoot, |n| {
             if n.is::<HTMLTableCaptionElement>() || n.is::<HTMLTableColElement>() {
                 return false;
             }
 
-            if n.is::<HTMLTableSectionElement>() {
+            if n.is::<HTMLTableSectionElement<TH>>() {
                 let name = n.local_name();
                 if name == &local_name!("thead") || name == &local_name!("tbody") {
                     return false;
@@ -242,7 +242,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-createtfoot
-    fn CreateTFoot(&self) -> DomRoot<HTMLTableSectionElement> {
+    fn CreateTFoot(&self) -> DomRoot<HTMLTableSectionElement<TH>> {
         self.create_section_of_type(&local_name!("tfoot"))
     }
 
@@ -252,12 +252,12 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-tbodies
-    fn TBodies(&self) -> DomRoot<HTMLCollection> {
+    fn TBodies(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable)]
         struct TBodiesFilter;
         impl CollectionFilter for TBodiesFilter {
-            fn filter<TH>(&self, elem: &Element, root: &Node<TH>) -> bool {
-                elem.is::<HTMLTableSectionElement>() &&
+            fn filter<TH>(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
+                elem.is::<HTMLTableSectionElement<TH>>() &&
                     elem.local_name() == &local_name!("tbody") &&
                     elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
             }
@@ -272,7 +272,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
 
 
     // https://html.spec.whatwg.org/multipage/#dom-table-createtbody
-    fn CreateTBody(&self) -> DomRoot<HTMLTableSectionElement> {
+    fn CreateTBody(&self) -> DomRoot<HTMLTableSectionElement<TH>> {
         let tbody = HTMLTableSectionElement::new(local_name!("tbody"),
                                                  None,
                                                  &document_from_node(self));
@@ -280,7 +280,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
         let last_tbody =
             node.rev_children()
                 .filter_map(DomRoot::downcast::<Element<TH>>)
-                .find(|n| n.is::<HTMLTableSectionElement>() && n.local_name() == &local_name!("tbody"));
+                .find(|n| n.is::<HTMLTableSectionElement<TH>>() && n.local_name() == &local_name!("tbody"));
         let reference_element =
             last_tbody.and_then(|t| t.upcast::<Node<TH>>().GetNextSibling());
 
@@ -290,7 +290,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-insertrow
-    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLTableRowElement>> {
+    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLTableRowElement<TH>>> {
         let rows = self.Rows();
         let number_of_row_elements = rows.Length();
 
@@ -307,7 +307,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
             // append new row to last or new tbody in table
             if let Some(last_tbody) = node.rev_children()
                 .filter_map(DomRoot::downcast::<Element<TH>>)
-                .find(|n| n.is::<HTMLTableSectionElement>() && n.local_name() == &local_name!("tbody")) {
+                .find(|n| n.is::<HTMLTableSectionElement<TH>>() && n.local_name() == &local_name!("tbody")) {
                     last_tbody.upcast::<Node<TH>>().AppendChild(new_row.upcast::<Node<TH>>())
                                                .expect("InsertRow failed to append first row.");
                 } else {
@@ -380,7 +380,7 @@ pub trait HTMLTableElementLayoutHelpers {
     fn get_width(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement> {
+impl HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement<TH>> {
     #[allow(unsafe_code)]
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
@@ -419,10 +419,10 @@ impl HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement> {
 
 impl VirtualMethods for HTMLTableElement {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match *attr.local_name() {
             local_name!("border") => {

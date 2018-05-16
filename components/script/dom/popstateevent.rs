@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> PopStateEvent<TH> {
         let ev = PopStateEvent::new_uninitialized(window);
         ev.state.set(state.get());
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bubbles, cancelable);
         }
         ev
@@ -69,11 +69,11 @@ impl<TH: TypeHolderTrait> PopStateEvent<TH> {
                               init.state.handle()))
     }
 
-    pub fn dispatch_jsval(target: &EventTarget,
+    pub fn dispatch_jsval(target: &EventTarget<TH>,
                           window: &Window<TH>,
                           state: HandleValue) {
         let event = PopStateEvent::new(window, atom!("popstate"), true, false, state);
-        event.upcast::<Event>().fire(target);
+        event.upcast::<Event<TH>>().fire(target);
     }
 }
 

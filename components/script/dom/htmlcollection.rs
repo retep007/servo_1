@@ -121,7 +121,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     fn set_cached_cursor(&self, index: u32, element: Option<DomRoot<Element<TH>>>) -> Option<DomRoot<Element<TH>>> {
         if let Some(element) = element {
             self.cached_cursor_index.set(OptionU32::some(index));
-            self.cached_cursor_element.set(Some(&element));
+            self.cached_cursor_element.set(Some(&element<TH>));
             Some(element)
         } else {
             None
@@ -136,7 +136,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             #[derive(JSTraceable, MallocSizeOf)]
             struct AllFilter;
             impl CollectionFilter for AllFilter {
-                fn filter(&self, _elem: &Element, _root: &Node<TH>) -> bool {
+                fn filter(&self, _elem: &Element<TH>, _root: &Node<TH>) -> bool {
                     true
                 }
             }
@@ -149,7 +149,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             ascii_lower_qualified_name: LocalName,
         }
         impl<TH> CollectionFilter for HtmlDocumentFilter<TH> {
-            fn filter(&self, elem: &Element, root: &Node<TH>) -> bool {
+            fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
                 if root.is_in_html_doc() && elem.namespace() == &ns!(html) {    // case 2
                     HTMLCollection::match_element(elem, &self.ascii_lower_qualified_name)
                 } else {    // case 2 and 3
@@ -165,7 +165,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         HTMLCollection::create(window, root, Box::new(filter))
     }
 
-    fn match_element(elem: &Element, qualified_name: &LocalName) -> bool {
+    fn match_element(elem: &Element<TH>, qualified_name: &LocalName) -> bool {
         match elem.prefix().as_ref() {
             None => elem.local_name() == qualified_name,
             Some(prefix) => qualified_name.starts_with(&**prefix) &&
@@ -182,13 +182,13 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         HTMLCollection::by_qual_tag_name(window, root, qname)
     }
 
-    pub fn by_qual_tag_name(window: &Window<TH>, root: &Node<TH>, qname: QualName) -> DomRoot<HTMLCollection> {
+    pub fn by_qual_tag_name(window: &Window<TH>, root: &Node<TH>, qname: QualName) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct TagNameNSFilter {
             qname: QualName
         }
         impl CollectionFilter for TagNameNSFilter {
-            fn filter(&self, elem: &Element, _root: &Node<TH>) -> bool {
+            fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                     ((self.qname.ns == namespace_url!("*")) || (self.qname.ns == *elem.namespace())) &&
                     ((self.qname.local == local_name!("*")) || (self.qname.local == *elem.local_name()))
             }
@@ -212,7 +212,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             classes: Vec<Atom>
         }
         impl CollectionFilter for ClassNameFilter {
-            fn filter(&self, elem: &Element, _root: &Node<TH>) -> bool {
+            fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                 let case_sensitivity = document_from_node(elem)
                     .quirks_mode()
                     .classes_and_ids_case_sensitivity();
@@ -225,11 +225,11 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         HTMLCollection::create(window, root, Box::new(filter))
     }
 
-    pub fn children(window: &Window<TH>, root: &Node<TH>) -> DomRoot<HTMLCollection> {
+    pub fn children(window: &Window<TH>, root: &Node<TH>) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct ElementChildFilter;
         impl CollectionFilter for ElementChildFilter {
-            fn filter(&self, elem: &Element, root: &Node<TH>) -> bool {
+            fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
                 root.is_parent_of(elem.upcast())
             }
         }

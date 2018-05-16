@@ -29,13 +29,13 @@ pub struct HTMLOptionsCollection<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> HTMLOptionsCollection<TH> {
-    fn new_inherited(select: &HTMLSelectElement, filter: Box<CollectionFilter + 'static>) -> HTMLOptionsCollection<TH> {
+    fn new_inherited(select: &HTMLSelectElement<TH>, filter: Box<CollectionFilter + 'static>) -> HTMLOptionsCollection<TH> {
         HTMLOptionsCollection {
             collection: HTMLCollection::new_inherited(select.upcast(), filter),
         }
     }
 
-    pub fn new(window: &Window<TH>, select: &HTMLSelectElement, filter: Box<CollectionFilter + 'static>)
+    pub fn new(window: &Window<TH>, select: &HTMLSelectElement<TH>, filter: Box<CollectionFilter + 'static>)
         -> DomRoot<HTMLOptionsCollection<TH>>
     {
         reflect_dom_object(Box::new(HTMLOptionsCollection::new_inherited(select, filter)),
@@ -81,7 +81,7 @@ impl<TH> HTMLOptionsCollectionMethods for HTMLOptionsCollection<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-htmloptionscollection-setter
-    fn IndexedSetter(&self, index: u32, value: Option<&HTMLOptionElement>) -> ErrorResult {
+    fn IndexedSetter(&self, index: u32, value: Option<&HTMLOptionElement<TH>>) -> ErrorResult {
         if let Some(value) = value {
             // Step 2
             let length = self.upcast().Length();
@@ -191,7 +191,7 @@ impl<TH> HTMLOptionsCollectionMethods for HTMLOptionsCollection<TH> {
     fn SelectedIndex(&self) -> i32 {
         self.upcast()
             .root_node()
-            .downcast::<HTMLSelectElement>()
+            .downcast::<HTMLSelectElement<TH>>()
             .expect("HTMLOptionsCollection not rooted on a HTMLSelectElement")
             .SelectedIndex()
     }
@@ -200,7 +200,7 @@ impl<TH> HTMLOptionsCollectionMethods for HTMLOptionsCollection<TH> {
     fn SetSelectedIndex(&self, index: i32) {
         self.upcast()
             .root_node()
-            .downcast::<HTMLSelectElement>()
+            .downcast::<HTMLSelectElement<TH>>()
             .expect("HTMLOptionsCollection not rooted on a HTMLSelectElement")
             .SetSelectedIndex(index)
     }

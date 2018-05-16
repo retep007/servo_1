@@ -81,7 +81,7 @@ pub struct WindowProxy<TH: TypeHolderTrait> {
     frame_element: Option<Dom<Element<TH>>>,
 
     /// The parent browsing context's window proxy, if this is a nested browsing context
-    parent: Option<Dom<WindowProxy>>,
+    parent: Option<Dom<WindowProxy<TH>>>,
 }
 
 impl<TH: TypeHolderTrait> WindowProxy<TH> {

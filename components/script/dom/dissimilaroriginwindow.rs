@@ -38,7 +38,7 @@ pub struct DissimilarOriginWindow {
     globalscope: GlobalScope,
 
     /// The window proxy for this window.
-    window_proxy: Dom<WindowProxy>,
+    window_proxy: Dom<WindowProxy<TH>>,
 
     /// The location of this window, initialized lazily.
     location: MutNullableDom<DissimilarOriginLocation>,
@@ -48,7 +48,7 @@ impl DissimilarOriginWindow {
     #[allow(unsafe_code)]
     pub fn new(
         global_to_clone_from: &GlobalScope<TH>,
-        window_proxy: &WindowProxy,
+        window_proxy: &WindowProxy<TH>,
     ) -> DomRoot<Self> {
         let cx = global_to_clone_from.get_cx();
         // Any timer events fired on this window are ignored.
@@ -81,22 +81,22 @@ impl DissimilarOriginWindow {
 
 impl DissimilarOriginWindowMethods for DissimilarOriginWindow {
     // https://html.spec.whatwg.org/multipage/#dom-window
-    fn Window(&self) -> DomRoot<WindowProxy> {
+    fn Window(&self) -> DomRoot<WindowProxy<TH>> {
         DomRoot::from_ref(&*self.window_proxy)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-self
-    fn Self_(&self) -> DomRoot<WindowProxy> {
+    fn Self_(&self) -> DomRoot<WindowProxy<TH>> {
         DomRoot::from_ref(&*self.window_proxy)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-frames
-    fn Frames(&self) -> DomRoot<WindowProxy> {
+    fn Frames(&self) -> DomRoot<WindowProxy<TH>> {
         DomRoot::from_ref(&*self.window_proxy)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-parent
-    fn GetParent(&self) -> Option<DomRoot<WindowProxy>> {
+    fn GetParent(&self) -> Option<DomRoot<WindowProxy<TH>>> {
         // Steps 1-3.
         if self.window_proxy.is_browsing_context_discarded() {
             return None;
@@ -110,7 +110,7 @@ impl DissimilarOriginWindowMethods for DissimilarOriginWindow {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-top
-    fn GetTop(&self) -> Option<DomRoot<WindowProxy>> {
+    fn GetTop(&self) -> Option<DomRoot<WindowProxy<TH>>> {
         // Steps 1-3.
         if self.window_proxy.is_browsing_context_discarded() {
             return None;

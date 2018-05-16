@@ -22,7 +22,7 @@ use std::rc::Rc;
 #[dom_struct]
 pub struct ServiceWorkerContainer {
     eventtarget: EventTarget,
-    controller: MutNullableDom<ServiceWorker>,
+    controller: MutNullableDom<ServiceWorker<TH>>,
     client: Dom<Client>
 }
 
@@ -45,7 +45,7 @@ impl ServiceWorkerContainer {
 
 impl ServiceWorkerContainerMethods for ServiceWorkerContainer {
     // https://w3c.github.io/ServiceWorker/#service-worker-container-controller-attribute
-    fn GetController(&self) -> Option<DomRoot<ServiceWorker>> {
+    fn GetController(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.client.get_controller()
     }
 

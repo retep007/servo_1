@@ -16,7 +16,7 @@ use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
 /// handle the different WebGL extensions in a common list.
 pub trait WebGLExtensionWrapper: JSTraceable + MallocSizeOf {
     fn instance_or_init(&self,
-                        ctx: &WebGLRenderingContext,
+                        ctx: &WebGLRenderingContext<TH>,
                         ext: &WebGLExtensions)
                         -> NonNull<JSObject>;
     fn spec(&self) -> WebGLExtensionSpec;
@@ -47,7 +47,7 @@ impl<T> WebGLExtensionWrapper for TypedWebGLExtensionWrapper<T>
                               where T: WebGLExtension + JSTraceable + MallocSizeOf + 'static {
     #[allow(unsafe_code)]
     fn instance_or_init(&self,
-                        ctx: &WebGLRenderingContext,
+                        ctx: &WebGLRenderingContext<TH>,
                         ext: &WebGLExtensions)
                         -> NonNull<JSObject> {
         let mut enabled = true;

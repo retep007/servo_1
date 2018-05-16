@@ -63,11 +63,11 @@ impl<TH> StyleSheetMethods for StyleSheet<TH> {
 
     // https://drafts.csswg.org/cssom/#dom-stylesheet-disabled
     fn Disabled(&self) -> bool {
-        self.downcast::<CSSStyleSheet>().unwrap().disabled()
+        self.downcast::<CSSStyleSheet<TH>>().unwrap().disabled()
     }
 
     // https://drafts.csswg.org/cssom/#dom-stylesheet-disabled
     fn SetDisabled(&self, disabled: bool) {
-        self.downcast::<CSSStyleSheet>().unwrap().set_disabled(disabled)
+        self.downcast::<CSSStyleSheet<TH>>().unwrap().set_disabled(disabled)
     }
 }

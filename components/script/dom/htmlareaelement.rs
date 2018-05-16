@@ -260,7 +260,7 @@ impl HTMLAreaElement {
 
 impl VirtualMethods for HTMLAreaElement {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -282,7 +282,7 @@ impl HTMLAreaElementMethods for HTMLAreaElement {
 
 impl Activatable for HTMLAreaElement {
     // https://html.spec.whatwg.org/multipage/#the-area-element:activation-behaviour
-    fn as_element(&self) -> &Element {
+    fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()
     }
 
@@ -300,7 +300,7 @@ impl Activatable for HTMLAreaElement {
                            _alt_key: bool, _meta_key: bool) {
     }
 
-    fn activation_behavior(&self, _event: &Event, _target: &EventTarget) {
+    fn activation_behavior(&self, _event: &Event<TH>, _target: &EventTarget<TH>) {
         // Step 1
         let doc = document_from_node(self);
         if !doc.is_fully_active() {

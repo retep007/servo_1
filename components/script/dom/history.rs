@@ -134,7 +134,7 @@ impl<TH> History<TH> {
                 false,
                 old_url.into_string(),
                 url.into_string());
-            event.upcast::<Event>().fire(self.window.upcast::<EventTarget<TH>>());
+            event.upcast::<Event<TH>>().fire(self.window.upcast::<EventTarget<TH>>());
         }
     }
 

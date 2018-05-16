@@ -53,7 +53,7 @@ pub struct ValidityState<TH: TypeHolderTrait> {
 
 
 impl<TH: TypeHolderTrait> ValidityState<TH> {
-    fn new_inherited(element: &Element) -> ValidityState {
+    fn new_inherited(element: &Element<TH>) -> ValidityState<TH> {
         ValidityState {
             reflector_: Reflector::new(),
             element: Dom::from_ref(element),
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> ValidityState<TH> {
         }
     }
 
-    pub fn new(window: &Window<TH>, element: &Element) -> DomRoot<ValidityState> {
+    pub fn new(window: &Window<TH>, element: &Element<TH>) -> DomRoot<ValidityState<TH>> {
         reflect_dom_object(Box::new(ValidityState::new_inherited(element)),
                            window,
                            ValidityStateBinding::Wrap)

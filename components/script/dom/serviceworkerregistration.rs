@@ -20,15 +20,15 @@ use std::cell::Cell;
 #[dom_struct]
 pub struct ServiceWorkerRegistration {
     eventtarget: EventTarget,
-    active: Option<Dom<ServiceWorker>>,
-    installing: Option<Dom<ServiceWorker>>,
-    waiting: Option<Dom<ServiceWorker>>,
+    active: Option<Dom<ServiceWorker<TH>>>,
+    installing: Option<Dom<ServiceWorker<TH>>>,
+    waiting: Option<Dom<ServiceWorker<TH>>>,
     scope: ServoUrl,
     uninstalling: Cell<bool>
 }
 
 impl ServiceWorkerRegistration {
-    fn new_inherited(active_sw: &ServiceWorker, scope: ServoUrl) -> ServiceWorkerRegistration {
+    fn new_inherited(active_sw: &ServiceWorker<TH>, scope: ServoUrl) -> ServiceWorkerRegistration {
         ServiceWorkerRegistration {
             eventtarget: EventTarget::new_inherited(),
             active: Some(Dom::from_ref(active_sw)),
@@ -47,7 +47,7 @@ impl ServiceWorkerRegistration {
         reflect_dom_object(Box::new(ServiceWorkerRegistration::new_inherited(&*active_worker, scope)), global, Wrap)
     }
 
-    pub fn get_installed(&self) -> &ServiceWorker {
+    pub fn get_installed(&self) -> &ServiceWorker<TH> {
         self.active.as_ref().unwrap()
     }
 
@@ -79,7 +79,7 @@ impl ServiceWorkerRegistration {
     }
 
     // https://w3c.github.io/ServiceWorker/#get-newest-worker-algorithm
-    pub fn get_newest_worker(&self) -> Option<DomRoot<ServiceWorker>> {
+    pub fn get_newest_worker(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         if self.installing.as_ref().is_some() {
             self.installing.as_ref().map(|sw| DomRoot::from_ref(&**sw))
         } else if self.waiting.as_ref().is_some() {
@@ -105,17 +105,17 @@ pub fn longest_prefix_match(stored_scope: &ServoUrl, potential_match: &ServoUrl)
 
 impl ServiceWorkerRegistrationMethods for ServiceWorkerRegistration {
     // https://w3c.github.io/ServiceWorker/#service-worker-registration-installing-attribute
-    fn GetInstalling(&self) -> Option<DomRoot<ServiceWorker>> {
+    fn GetInstalling(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.installing.as_ref().map(|sw| DomRoot::from_ref(&**sw))
     }
 
     // https://w3c.github.io/ServiceWorker/#service-worker-registration-active-attribute
-    fn GetActive(&self) -> Option<DomRoot<ServiceWorker>> {
+    fn GetActive(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.active.as_ref().map(|sw| DomRoot::from_ref(&**sw))
     }
 
     // https://w3c.github.io/ServiceWorker/#service-worker-registration-waiting-attribute
-    fn GetWaiting(&self) -> Option<DomRoot<ServiceWorker>> {
+    fn GetWaiting(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.waiting.as_ref().map(|sw| DomRoot::from_ref(&**sw))
     }
 

@@ -70,7 +70,7 @@ pub struct HTMLMediaElement<TH: TypeHolderTrait> {
     /// Reset to false every time the load algorithm is invoked.
     fired_loadeddata_event: Cell<bool>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-error>
-    error: MutNullableDom<MediaError>,
+    error: MutNullableDom<MediaError<TH>>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-paused>
     paused: Cell<bool>,
     /// <https://html.spec.whatwg.org/multipage/#attr-media-autoplay>
@@ -447,17 +447,17 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#concept-media-load-algorithm
-    fn resource_selection_algorithm_sync(&self, base_url: ServoUrl) {
+    fn resource_selection_algorithm_sync<TH>(&self, base_url: ServoUrl) {
         // Step 5.
         // FIXME(nox): Maybe populate the list of pending text tracks.
 
         // Step 6.
-        enum Mode {
+        enum Mode<TH> {
             Object,
             Attribute(String),
-            Children(DomRoot<HTMLSourceElement>),
+            Children(DomRoot<HTMLSourceElement<TH>>),
         }
-        fn mode<TH>(media: &HTMLMediaElement) -> Option<Mode> {
+        fn mode<TH>(media: &HTMLMediaElement<TH>) -> Option<Mode> {
             if media.src_object.get().is_some() {
                 return Some(Mode::Object);
             }
@@ -466,7 +466,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
             }
             let source_child_element = media.upcast::<Node<TH>>()
                 .children()
-                .filter_map(DomRoot::downcast::<HTMLSourceElement>)
+                .filter_map(DomRoot::downcast::<HTMLSourceElement<TH>>)
                 .next();
             if let Some(element) = source_child_element {
                 return Some(Mode::Children(element));
@@ -880,7 +880,7 @@ impl HTMLMediaElementMethods for HTMLMediaElement {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-media-error
-    fn GetError(&self) -> Option<DomRoot<MediaError>> {
+    fn GetError(&self) -> Option<DomRoot<MediaError<TH>>> {
         self.error.get()
     }
 
@@ -911,10 +911,10 @@ impl HTMLMediaElementMethods for HTMLMediaElement {
 
 impl VirtualMethods for HTMLMediaElement {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
 
         match attr.local_name() {
@@ -943,12 +943,12 @@ impl VirtualMethods for HTMLMediaElement {
 #[derive(JSTraceable, MallocSizeOf)]
 pub enum MediaElementMicrotask<TH: TypeHolderTrait> {
     ResourceSelectionTask {
-        elem: DomRoot<HTMLMediaElement>,
+        elem: DomRoot<HTMLMediaElement<TH>>,
         generation_id: u32,
         base_url: ServoUrl,
     },
     PauseIfNotInDocumentTask {
-        elem: DomRoot<HTMLMediaElement>,
+        elem: DomRoot<HTMLMediaElement<TH>>,
     }
 }
 
@@ -976,7 +976,7 @@ enum Resource {
 
 struct HTMLMediaElementContext {
     /// The element that initiated the request.
-    elem: Trusted<HTMLMediaElement>,
+    elem: Trusted<HTMLMediaElement<TH>>,
     /// The response body received to date.
     data: Vec<u8>,
     /// The response metadata received to date.
@@ -1101,7 +1101,7 @@ impl PreInvoke for HTMLMediaElementContext {
 }
 
 impl HTMLMediaElementContext {
-    fn new(elem: &HTMLMediaElement) -> HTMLMediaElementContext {
+    fn new(elem: &HTMLMediaElement<TH>) -> HTMLMediaElementContext {
         HTMLMediaElementContext {
             elem: Trusted::new(elem),
             data: vec![],
@@ -1113,7 +1113,7 @@ impl HTMLMediaElementContext {
         }
     }
 
-    fn check_metadata(&mut self, elem: &HTMLMediaElement) {
+    fn check_metadata(&mut self, elem: &HTMLMediaElement<TH>) {
         if audio_video_metadata::get_format_from_slice(&self.data).is_ok() {
             // Step 6.
             elem.change_ready_state(ReadyState::HaveMetadata);

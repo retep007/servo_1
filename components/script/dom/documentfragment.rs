@@ -49,7 +49,7 @@ impl<TH: TypeHolderTrait> DocumentFragment<TH> {
 
 impl<TH: TypeHolderTrait> DocumentFragmentMethods for DocumentFragment<TH> {
     // https://dom.spec.whatwg.org/#dom-parentnode-children
-    fn Children(&self) -> DomRoot<HTMLCollection> {
+    fn Children(&self) -> DomRoot<HTMLCollection<TH>> {
         let window = window_from_node(self);
         HTMLCollection::children(&window, self.upcast())
     }
@@ -97,7 +97,7 @@ impl<TH: TypeHolderTrait> DocumentFragmentMethods for DocumentFragment<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
-    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList>> {
+    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>> {
         self.upcast::<Node<TH>>().query_selector_all(selectors)
     }
 }

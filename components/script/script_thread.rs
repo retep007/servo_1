@@ -395,7 +395,7 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     documents: DomRefCell<Documents<TH>>,
     /// The window proxies known by this thread
     /// TODO: this map grows, but never shrinks. Issue #15258.
-    window_proxies: DomRefCell<HashMap<BrowsingContextId, Dom<WindowProxy>>>,
+    window_proxies: DomRefCell<HashMap<BrowsingContextId, Dom<WindowProxy<TH>>>>,
     /// A list of data pertaining to loads that have not yet received a network response
     incomplete_loads: DomRefCell<Vec<InProgressLoad>>,
     /// A vector containing parser contexts which have not yet been fully processed
@@ -483,7 +483,7 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     mutation_observer_compound_microtask_queued: Cell<bool>,
 
     /// The unit of related similar-origin browsing contexts' list of MutationObserver objects
-    mutation_observers: DomRefCell<Vec<Dom<MutationObserver>>>,
+    mutation_observers: DomRefCell<Vec<Dom<MutationObserver<TH>>>>,
 
     /// A handle to the WebGL thread
     webgl_chan: Option<WebGLPipeline>,
@@ -1946,7 +1946,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         let transition_event = TransitionEvent::new(&window,
                                                     atom!("transitionend"),
                                                     &init);
-        transition_event.upcast::<Event>().fire(node.upcast());
+        transition_event.upcast::<Event<TH>>().fire(node.upcast());
     }
 
     /// Handles a Web font being loaded. Does nothing if the page no longer exists.
@@ -2292,7 +2292,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
                 if let Some(target) = self.topmost_mouse_over_target.get() {
                     if let Some(anchor) = target.upcast::<Node<TH>>()
                                                 .inclusive_ancestors()
-                                                .filter_map(DomRoot::downcast::<HTMLAnchorElement>)
+                                                .filter_map(DomRoot::downcast::<HTMLAnchorElement<TH>>)
                                                 .next() {
                         let status = anchor.upcast::<Element<TH>>()
                                            .get_attribute(&ns!(), &local_name!("href"))
@@ -2314,7 +2314,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
                     if let Some(target) = prev_mouse_over_target {
                         if let Some(_) = target.upcast::<Node<TH>>()
                                                .inclusive_ancestors()
-                                               .filter_map(DomRoot::downcast::<HTMLAnchorElement>)
+                                               .filter_map(DomRoot::downcast::<HTMLAnchorElement<TH>>)
                                                .next() {
                             let event = ScriptMsg::NodeStatus(None);
                             self.script_sender.send((pipeline_id, event)).unwrap();
@@ -2487,7 +2487,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
                                        DOMString::from("resize"), EventBubbles::DoesNotBubble,
                                        EventCancelable::NotCancelable, Some(&window),
                                        0i32);
-            uievent.upcast::<Event>().fire(window.upcast());
+            uievent.upcast::<Event<TH>>().fire(window.upcast());
         }
 
         // https://html.spec.whatwg.org/multipage/#event-loop-processing-model

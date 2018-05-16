@@ -21,11 +21,11 @@ pub struct CSSGroupingRule {
     cssrule: CSSRule,
     #[ignore_malloc_size_of = "Arc"]
     rules: Arc<Locked<StyleCssRules>>,
-    rulelist: MutNullableDom<CSSRuleList>,
+    rulelist: MutNullableDom<CSSRuleList<TH>>,
 }
 
 impl CSSGroupingRule {
-    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet,
+    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
                          rules: Arc<Locked<StyleCssRules>>) -> CSSGroupingRule {
         CSSGroupingRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
@@ -34,14 +34,14 @@ impl CSSGroupingRule {
         }
     }
 
-    fn rulelist(&self) -> DomRoot<CSSRuleList> {
-        let parent_stylesheet = self.upcast::<CSSRule>().parent_stylesheet();
+    fn rulelist(&self) -> DomRoot<CSSRuleList<TH>> {
+        let parent_stylesheet = self.upcast::<CSSRule<TH>>().parent_stylesheet();
         self.rulelist.or_init(|| CSSRuleList::new(self.global().as_window(),
                                                   parent_stylesheet,
                                                   RulesSource::Rules(self.rules.clone())))
     }
 
-    pub fn parent_stylesheet(&self) -> &CSSStyleSheet {
+    pub fn parent_stylesheet(&self) -> &CSSStyleSheet<TH> {
         self.cssrule.parent_stylesheet()
     }
 
@@ -52,7 +52,7 @@ impl CSSGroupingRule {
 
 impl CSSGroupingRuleMethods for CSSGroupingRule {
     // https://drafts.csswg.org/cssom/#dom-cssgroupingrule-cssrules
-    fn CssRules(&self) -> DomRoot<CSSRuleList> {
+    fn CssRules(&self) -> DomRoot<CSSRuleList<TH>> {
         // XXXManishearth check origin clean flag
         self.rulelist()
     }

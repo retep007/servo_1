@@ -481,7 +481,7 @@ impl VRDisplay {
     fn notify_event(&self, event: &WebVRDisplayEvent) {
         let root = DomRoot::from_ref(&*self);
         let event = VRDisplayEvent::new_from_webvr(&self.global(), &root, &event);
-        event.upcast::<Event>().fire(self.global().upcast::<EventTarget<TH>>());
+        event.upcast::<Event<TH>>().fire(self.global().upcast::<EventTarget<TH>>());
     }
 
     fn init_present(&self) {

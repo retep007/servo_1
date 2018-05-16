@@ -83,7 +83,7 @@ impl<TH: TypeHolderTrait> UIEventMethods for UIEvent<TH> {
                    cancelable: bool,
                    view: Option<&Window<TH>>,
                    detail: i32) {
-        let event = self.upcast::<Event>();
+        let event = self.upcast::<Event<TH>>();
         if event.dispatching() {
             return;
         }

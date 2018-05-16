@@ -90,7 +90,7 @@ impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
 
 impl<TH> VirtualMethods for HTMLAnchorElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -512,7 +512,7 @@ impl<TH> HTMLAnchorElementMethods for HTMLAnchorElement<TH> {
 }
 
 impl<TH> Activatable for HTMLAnchorElement<TH> {
-    fn as_element(&self) -> &Element {
+    fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()
     }
 
@@ -536,7 +536,7 @@ impl<TH> Activatable for HTMLAnchorElement<TH> {
     }
 
     //https://html.spec.whatwg.org/multipage/#the-a-element:activation-behaviour
-    fn activation_behavior(&self, event: &Event, target: &EventTarget) {
+    fn activation_behavior(&self, event: &Event<TH>, target: &EventTarget<TH>) {
         //Step 1. If the node document is not fully active, abort.
         let doc = document_from_node(self);
         if !doc.is_fully_active() {
@@ -545,10 +545,10 @@ impl<TH> Activatable for HTMLAnchorElement<TH> {
         //TODO: Step 2. Check if browsing context is specified and act accordingly.
         //Step 3. Handle <img ismap/>.
         let element = self.upcast::<Element<TH>>();
-        let mouse_event = event.downcast::<MouseEvent>().unwrap();
+        let mouse_event = event.downcast::<MouseEvent<TH>>().unwrap();
         let mut ismap_suffix = None;
         if let Some(element) = target.downcast::<Element<TH>>() {
-            if target.is::<HTMLImageElement>() && element.has_attribute(&local_name!("ismap")) {
+            if target.is::<HTMLImageElement<TH>>() && element.has_attribute(&local_name!("ismap")) {
                 let target_node = element.upcast::<Node<TH>>();
                 let rect = target_node.bounding_content_box_or_zero();
                 ismap_suffix = Some(
@@ -581,7 +581,7 @@ fn is_current_browsing_context(target: DOMString) -> bool {
 }
 
 /// <https://html.spec.whatwg.org/multipage/#following-hyperlinks-2>
-pub fn follow_hyperlink(subject: &Element, hyperlink_suffix: Option<String>, referrer_policy: Option<ReferrerPolicy>) {
+pub fn follow_hyperlink(subject: &Element<TH>, hyperlink_suffix: Option<String>, referrer_policy: Option<ReferrerPolicy>) {
     // Step 1: replace.
     // Step 2: source browsing context.
     // Step 3: target browsing context.

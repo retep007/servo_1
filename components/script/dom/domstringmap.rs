@@ -15,18 +15,18 @@ use dom_struct::dom_struct;
 #[dom_struct]
 pub struct DOMStringMap {
     reflector_: Reflector,
-    element: Dom<HTMLElement>,
+    element: Dom<HTMLElement<TH>>,
 }
 
 impl DOMStringMap {
-    fn new_inherited(element: &HTMLElement) -> DOMStringMap {
+    fn new_inherited(element: &HTMLElement<TH>) -> DOMStringMap {
         DOMStringMap {
             reflector_: Reflector::new(),
             element: Dom::from_ref(element),
         }
     }
 
-    pub fn new(element: &HTMLElement) -> DomRoot<DOMStringMap> {
+    pub fn new(element: &HTMLElement<TH>) -> DomRoot<DOMStringMap> {
         let window = window_from_node(element);
         reflect_dom_object(Box::new(DOMStringMap::new_inherited(element)),
                            &*window,

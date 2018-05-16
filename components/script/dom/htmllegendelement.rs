@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct HTMLLegendElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
-    form_owner: MutNullableDom<HTMLFormElement>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLLegendElement<TH> {
@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> HTMLLegendElement<TH> {
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLLegendElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn bind_to_tree(&self, tree_in_doc: bool) {
@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLLegendElement<TH> {
 
         let node = self.upcast::<Node<TH>>();
         let el = self.upcast::<Element<TH>>();
-        if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
+        if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement<TH>>()) {
             el.check_ancestors_disabled_state_for_form_control();
         } else {
             el.check_disabled_attribute();
@@ -75,9 +75,9 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLLegendElement<TH> {
 
 impl<TH: TypeHolderTrait> HTMLLegendElementMethods for HTMLLegendElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-legend-form
-    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         let parent = self.upcast::<Node<TH>>().GetParentElement()?;
-        if parent.is::<HTMLFieldSetElement>() {
+        if parent.is::<HTMLFieldSetElement<TH>>() {
             return self.form_owner();
         }
         None
@@ -85,11 +85,11 @@ impl<TH: TypeHolderTrait> HTMLLegendElementMethods for HTMLLegendElement<TH> {
 }
 
 impl<TH> FormControl for HTMLLegendElement<TH> {
-    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
 
-    fn set_form_owner(&self, form: Option<&HTMLFormElement>) {
+    fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>) {
         self.form_owner.set(form);
     }
 

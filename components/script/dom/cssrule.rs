@@ -27,7 +27,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct CSSRule<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    parent_stylesheet: Dom<CSSStyleSheet>,
+    parent_stylesheet: Dom<CSSStyleSheet<TH>>,
 
     /// Whether the parentStyleSheet attribute should return null.
     /// We keep parent_stylesheet in that case because insertRule needs it
@@ -37,7 +37,7 @@ pub struct CSSRule<TH: TypeHolderTrait> {
 
 impl<TH: TypeHolderTrait> CSSRule<TH> {
     #[allow(unrooted_must_root)]
-    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet) -> Self {
+    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>) -> Self {
         CSSRule {
             reflector_: Reflector::new(),
             parent_stylesheet: Dom::from_ref(parent_stylesheet),
@@ -46,23 +46,23 @@ impl<TH: TypeHolderTrait> CSSRule<TH> {
     }
 
     pub fn as_specific(&self) -> &SpecificCSSRule {
-        if let Some(rule) = self.downcast::<CSSStyleRule>() {
+        if let Some(rule) = self.downcast::<CSSStyleRule<TH>>() {
             rule as &SpecificCSSRule
-        } else if let Some(rule) = self.downcast::<CSSFontFaceRule>() {
+        } else if let Some(rule) = self.downcast::<CSSFontFaceRule<TH>>() {
             rule as &SpecificCSSRule
-        } else if let Some(rule) = self.downcast::<CSSKeyframesRule>() {
+        } else if let Some(rule) = self.downcast::<CSSKeyframesRule<TH>>() {
             rule as &SpecificCSSRule
-        } else if let Some(rule) = self.downcast::<CSSMediaRule>() {
+        } else if let Some(rule) = self.downcast::<CSSMediaRule<TH>>() {
             rule as &SpecificCSSRule
-        } else if let Some(rule) = self.downcast::<CSSNamespaceRule>() {
+        } else if let Some(rule) = self.downcast::<CSSNamespaceRule<TH>>() {
             rule as &SpecificCSSRule
-        } else if let Some(rule) = self.downcast::<CSSViewportRule>() {
+        } else if let Some(rule) = self.downcast::<CSSViewportRule<TH>>() {
             rule as &SpecificCSSRule
-        } else if let Some(rule) = self.downcast::<CSSKeyframeRule>() {
+        } else if let Some(rule) = self.downcast::<CSSKeyframeRule<TH>>() {
             rule as &SpecificCSSRule
-        } else if let Some(rule) = self.downcast::<CSSImportRule>() {
+        } else if let Some(rule) = self.downcast::<CSSImportRule<TH>>() {
             rule as &SpecificCSSRule
-        } else if let Some(rule) = self.downcast::<CSSSupportsRule>() {
+        } else if let Some(rule) = self.downcast::<CSSSupportsRule<TH>>() {
             rule as &SpecificCSSRule
         } else {
             unreachable!()
@@ -71,7 +71,7 @@ impl<TH: TypeHolderTrait> CSSRule<TH> {
 
     // Given a StyleCssRule, create a new instance of a derived class of
     // CSSRule based on which rule it is
-    pub fn new_specific(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+    pub fn new_specific(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
                         rule: StyleCssRule) -> DomRoot<Self> {
         // be sure to update the match in as_specific when this is updated
         match rule {
@@ -105,7 +105,7 @@ impl<TH: TypeHolderTrait> CSSRule<TH> {
         self.as_specific().deparent_children();
     }
 
-    pub fn parent_stylesheet(&self) -> &CSSStyleSheet {
+    pub fn parent_stylesheet(&self) -> &CSSStyleSheet<TH> {
         &self.parent_stylesheet
     }
 
@@ -121,7 +121,7 @@ impl<TH> CSSRuleMethods for CSSRule<TH> {
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssrule-parentstylesheet
-    fn GetParentStyleSheet(&self) -> Option<DomRoot<CSSStyleSheet>> {
+    fn GetParentStyleSheet(&self) -> Option<DomRoot<CSSStyleSheet<TH>>> {
         if self.parent_stylesheet_removed.get() {
             None
         } else {

@@ -112,7 +112,7 @@ struct PerformanceObserver {
 #[dom_struct]
 pub struct Performance<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    timing: Option<Dom<PerformanceTiming>>,
+    timing: Option<Dom<PerformanceTiming<TH>>>,
     entries: DomRefCell<PerformanceEntryList>,
     observers: DomRefCell<Vec<PerformanceObserver>>,
     pending_notification_observers_task: Cell<bool>,
@@ -122,7 +122,7 @@ pub struct Performance<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> Performance<TH> {
     fn new_inherited(global: &GlobalScope<TH>,
                      navigation_start: u64,
-                     navigation_start_precise: u64) -> Performance {
+                     navigation_start_precise: u64) -> Performance<TH> {
         Performance {
             reflector_: Reflector::new(),
             timing: if global.is::<Window<TH>>() {
@@ -141,7 +141,7 @@ impl<TH: TypeHolderTrait> Performance<TH> {
 
     pub fn new(global: &GlobalScope<TH>,
                navigation_start: u64,
-               navigation_start_precise: u64) -> DomRoot<Performance> {
+               navigation_start_precise: u64) -> DomRoot<Performance<TH>> {
         reflect_dom_object(
             Box::new(Performance::new_inherited(global, navigation_start, navigation_start_precise)),
             global,
@@ -260,7 +260,7 @@ impl<TH: TypeHolderTrait> Performance<TH> {
 
 impl<TH: TypeHolderTrait> PerformanceMethods for Performance<TH> {
     // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html#performance-timing-attribute
-    fn Timing(&self) -> DomRoot<PerformanceTiming> {
+    fn Timing(&self) -> DomRoot<PerformanceTiming<TH>> {
         match self.timing {
             Some(ref timing) => DomRoot::from_ref(&*timing),
             None => unreachable!("Are we trying to expose Performance.timing in workers?"),

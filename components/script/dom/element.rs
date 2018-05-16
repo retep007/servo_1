@@ -139,12 +139,12 @@ pub struct Element<TH: TypeHolderTrait> {
     tag_name: TagName,
     namespace: Namespace,
     prefix: DomRefCell<Option<Prefix>>,
-    attrs: DomRefCell<Vec<Dom<Attr>>>,
+    attrs: DomRefCell<Vec<Dom<Attr<TH>>>>,
     id_attribute: DomRefCell<Option<Atom>>,
     is: DomRefCell<Option<LocalName>>,
     #[ignore_malloc_size_of = "Arc"]
     style_attribute: DomRefCell<Option<Arc<Locked<PropertyDeclarationBlock>>>>,
-    attr_list: MutNullableDom<NamedNodeMap>,
+    attr_list: MutNullableDom<NamedNodeMap<TH>>,
     class_list: MutNullableDom<DOMTokenList>,
     state: Cell<ElementState>,
     /// These flags are set by the style system to indicate the that certain
@@ -249,7 +249,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
 
     pub fn new_inherited(local_name: LocalName,
                          namespace: Namespace, prefix: Option<Prefix>,
-                         document: &Document<TH>) -> Element {
+                         document: &Document<TH>) -> Element<TH> {
         Element::new_inherited_with_state(ElementState::empty(), local_name,
                                           namespace, prefix, document)
     }
@@ -257,7 +257,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     pub fn new_inherited_with_state(state: ElementState, local_name: LocalName,
                                     namespace: Namespace, prefix: Option<Prefix>,
                                     document: &Document<TH>)
-                                    -> Element {
+                                    -> Element<TH> {
         Element {
             node: Node::new_inherited(document),
             local_name: local_name,
@@ -419,7 +419,7 @@ pub trait RawLayoutElementHelpers {
 #[inline]
 #[allow(unsafe_code)]
 pub unsafe fn get_attr_for_layout<'a>(elem: &'a Element, namespace: &Namespace, name: &LocalName)
-                                      -> Option<LayoutDom<Attr>> {
+                                      -> Option<LayoutDom<Attr<TH>>> {
     // cast to point to T in RefCell<T> directly
     let attrs = elem.attrs.borrow_for_layout();
     attrs.iter().find(|attr| {
@@ -522,15 +522,15 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
         let document = self.upcast::<Node<TH>>().owner_doc_for_layout();
         let shared_lock = document.style_shared_lock();
 
-        let bgcolor = if let Some(this) = self.downcast::<HTMLBodyElement>() {
+        let bgcolor = if let Some(this) = self.downcast::<HTMLBodyElement<TH>>() {
             this.get_background_color()
-        } else if let Some(this) = self.downcast::<HTMLTableElement>() {
+        } else if let Some(this) = self.downcast::<HTMLTableElement<TH>>() {
             this.get_background_color()
-        } else if let Some(this) = self.downcast::<HTMLTableCellElement>() {
+        } else if let Some(this) = self.downcast::<HTMLTableCellElement<TH>>() {
             this.get_background_color()
-        } else if let Some(this) = self.downcast::<HTMLTableRowElement>() {
+        } else if let Some(this) = self.downcast::<HTMLTableRowElement<TH>>() {
             this.get_background_color()
-        } else if let Some(this) = self.downcast::<HTMLTableSectionElement>() {
+        } else if let Some(this) = self.downcast::<HTMLTableSectionElement<TH>>() {
             this.get_background_color()
         } else {
             None
@@ -543,7 +543,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
             ));
         }
 
-        let background = if let Some(this) = self.downcast::<HTMLBodyElement>() {
+        let background = if let Some(this) = self.downcast::<HTMLBodyElement<TH>>() {
             this.get_background()
         } else {
             None
@@ -560,7 +560,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
 
         let color = if let Some(this) = self.downcast::<HTMLFontElement>() {
             this.get_color()
-        } else if let Some(this) = self.downcast::<HTMLBodyElement>() {
+        } else if let Some(this) = self.downcast::<HTMLBodyElement<TH>>() {
             // https://html.spec.whatwg.org/multipage/#the-page:the-body-element-20
             this.get_color()
         } else if let Some(this) = self.downcast::<HTMLHRElement>() {
@@ -606,7 +606,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
             ))
         }
 
-        let cellspacing = if let Some(this) = self.downcast::<HTMLTableElement>() {
+        let cellspacing = if let Some(this) = self.downcast::<HTMLTableElement<TH>>() {
             this.get_cellspacing()
         } else {
             None
@@ -626,7 +626,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
         }
 
 
-        let size = if let Some(this) = self.downcast::<HTMLInputElement>() {
+        let size = if let Some(this) = self.downcast::<HTMLInputElement<TH>>() {
             // FIXME(pcwalton): More use of atoms, please!
             match (*self.unsafe_get()).get_attr_val_for_layout(&ns!(), &local_name!("type")) {
                 // Not text entry widget
@@ -656,13 +656,13 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
                     specified::LengthOrPercentageOrAuto::Length(value))));
         }
 
-        let width = if let Some(this) = self.downcast::<HTMLIFrameElement>() {
+        let width = if let Some(this) = self.downcast::<HTMLIFrameElement<TH>>() {
             this.get_width()
-        } else if let Some(this) = self.downcast::<HTMLImageElement>() {
+        } else if let Some(this) = self.downcast::<HTMLImageElement<TH>>() {
             this.get_width()
-        } else if let Some(this) = self.downcast::<HTMLTableElement>() {
+        } else if let Some(this) = self.downcast::<HTMLTableElement<TH>>() {
             this.get_width()
-        } else if let Some(this) = self.downcast::<HTMLTableCellElement>() {
+        } else if let Some(this) = self.downcast::<HTMLTableCellElement<TH>>() {
             this.get_width()
         } else if let Some(this) = self.downcast::<HTMLHRElement>() {
             // https://html.spec.whatwg.org/multipage/#the-hr-element-2:attr-hr-width
@@ -693,9 +693,9 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
         }
 
 
-        let height = if let Some(this) = self.downcast::<HTMLIFrameElement>() {
+        let height = if let Some(this) = self.downcast::<HTMLIFrameElement<TH>>() {
             this.get_height()
-        } else if let Some(this) = self.downcast::<HTMLImageElement>() {
+        } else if let Some(this) = self.downcast::<HTMLImageElement<TH>>() {
             this.get_height()
         } else if let Some(this) = self.downcast::<HTMLCanvasElement>() {
             this.get_height()
@@ -722,7 +722,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
         }
 
 
-        let cols = if let Some(this) = self.downcast::<HTMLTextAreaElement>() {
+        let cols = if let Some(this) = self.downcast::<HTMLTextAreaElement<TH>>() {
             match this.get_cols() {
                 0 => None,
                 c => Some(c as i32),
@@ -743,7 +743,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
                 PropertyDeclaration::Width(specified::LengthOrPercentageOrAuto::Length(value))));
         }
 
-        let rows = if let Some(this) = self.downcast::<HTMLTextAreaElement>() {
+        let rows = if let Some(this) = self.downcast::<HTMLTextAreaElement<TH>>() {
             match this.get_rows() {
                 0 => None,
                 r => Some(r as i32),
@@ -763,7 +763,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
         }
 
 
-        let border = if let Some(this) = self.downcast::<HTMLTableElement>() {
+        let border = if let Some(this) = self.downcast::<HTMLTableElement<TH>>() {
             this.get_border()
         } else {
             None
@@ -788,7 +788,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
 
     #[allow(unsafe_code)]
     unsafe fn get_colspan(self) -> u32 {
-        if let Some(this) = self.downcast::<HTMLTableCellElement>() {
+        if let Some(this) = self.downcast::<HTMLTableCellElement<TH>>() {
             this.get_colspan().unwrap_or(1)
         } else {
             // Don't panic since `display` can cause this to be called on arbitrary
@@ -799,7 +799,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
 
     #[allow(unsafe_code)]
     unsafe fn get_rowspan(self) -> u32 {
-        if let Some(this) = self.downcast::<HTMLTableCellElement>() {
+        if let Some(this) = self.downcast::<HTMLTableCellElement<TH>>() {
             this.get_rowspan().unwrap_or(1)
         } else {
             // Don't panic since `display` can cause this to be called on arbitrary
@@ -870,7 +870,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
     #[allow(unsafe_code)]
     fn get_checked_state_for_layout(&self) -> bool {
         // TODO option and menuitem can also have a checked state.
-        match self.downcast::<HTMLInputElement>() {
+        match self.downcast::<HTMLInputElement<TH>>() {
             Some(input) => unsafe {
                 input.checked_state_for_layout()
             },
@@ -882,7 +882,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
     #[allow(unsafe_code)]
     fn get_indeterminate_state_for_layout(&self) -> bool {
         // TODO progress elements can also be matched with :indeterminate
-        match self.downcast::<HTMLInputElement>() {
+        match self.downcast::<HTMLInputElement<TH>>() {
             Some(input) => unsafe {
                 input.indeterminate_state_for_layout()
             },
@@ -949,7 +949,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         *self.prefix.borrow_mut() = prefix;
     }
 
-    pub fn attrs(&self) -> Ref<[Dom<Attr>]> {
+    pub fn attrs(&self) -> Ref<[Dom<Attr<TH>>]> {
         Ref::map(self.attrs.borrow(), |attrs| &**attrs)
     }
 
@@ -1095,9 +1095,9 @@ impl<TH: TypeHolderTrait> Element<TH> {
             return None;
         }
 
-        if let Some(input) = self.downcast::<HTMLInputElement>() {
+        if let Some(input) = self.downcast::<HTMLInputElement<TH>>() {
             input.input_type().as_ime_type()
-        } else if self.is::<HTMLTextAreaElement>() {
+        } else if self.is::<HTMLTextAreaElement<TH>>() {
             Some(InputMethodType::Text)
         } else {
             // Other focusable elements that are not input fields.
@@ -1161,7 +1161,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         self.push_attribute(&attr);
     }
 
-    pub fn push_attribute(&self, attr: &Attr) {
+    pub fn push_attribute(&self, attr: &Attr<TH>) {
         let name = attr.local_name().clone();
         let namespace = attr.namespace().clone();
         let value = DOMString::from(&**attr.value());
@@ -1186,7 +1186,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         }
     }
 
-    pub fn get_attribute(&self, namespace: &Namespace, local_name: &LocalName) -> Option<DomRoot<Attr>> {
+    pub fn get_attribute(&self, namespace: &Namespace, local_name: &LocalName) -> Option<DomRoot<Attr<TH>>> {
         self.attrs
             .borrow()
             .iter()
@@ -1195,7 +1195,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#concept-element-attributes-get-by-name
-    pub fn get_attribute_by_name(&self, name: DOMString) -> Option<DomRoot<Attr>> {
+    pub fn get_attribute_by_name(&self, name: DOMString) -> Option<DomRoot<Attr<TH>>> {
         let name = &self.parsed_name(name);
         self.attrs.borrow().iter().find(|a| a.name() == name).map(|js| DomRoot::from_ref(&**js))
     }
@@ -1263,7 +1263,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
                                        namespace: Namespace,
                                        prefix: Option<Prefix>,
                                        find: F)
-        where F: Fn(&Attr) -> bool
+        where F: Fn(&Attr<TH>) -> bool
     {
         let attr = self.attrs
                        .borrow()
@@ -1289,18 +1289,18 @@ impl<TH: TypeHolderTrait> Element<TH> {
         }
     }
 
-    pub fn remove_attribute(&self, namespace: &Namespace, local_name: &LocalName) -> Option<DomRoot<Attr>> {
+    pub fn remove_attribute(&self, namespace: &Namespace, local_name: &LocalName) -> Option<DomRoot<Attr<TH>>> {
         self.remove_first_matching_attribute(|attr| {
             attr.namespace() == namespace && attr.local_name() == local_name
         })
     }
 
-    pub fn remove_attribute_by_name(&self, name: &LocalName) -> Option<DomRoot<Attr>> {
+    pub fn remove_attribute_by_name(&self, name: &LocalName) -> Option<DomRoot<Attr<TH>>> {
         self.remove_first_matching_attribute(|attr| attr.name() == name)
     }
 
-    fn remove_first_matching_attribute<F>(&self, find: F) -> Option<DomRoot<Attr>>
-        where F: Fn(&Attr) -> bool {
+    fn remove_first_matching_attribute<F>(&self, find: F) -> Option<DomRoot<Attr<TH>>>
+        where F: Fn(&Attr<TH>) -> bool {
         let idx = self.attrs.borrow().iter().position(|attr| find(&attr));
         idx.map(|idx| {
             let attr = DomRoot::from_ref(&*(*self.attrs.borrow())[idx]);
@@ -1448,7 +1448,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         self.set_attribute(local_name, AttrValue::UInt(value.to_string(), value));
     }
 
-    pub fn will_mutate_attr(&self, attr: &Attr) {
+    pub fn will_mutate_attr(&self, attr: &Attr<TH>) {
         let node = self.upcast::<Node<TH>>();
         node.owner_doc().element_attr_will_change(self, attr);
     }
@@ -1513,7 +1513,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         }
 
         // Step 9
-        if doc.GetBody().r() == self.downcast::<HTMLElement>() &&
+        if doc.GetBody().r() == self.downcast::<HTMLElement<TH>>() &&
            doc.quirks_mode() == QuirksMode::Quirks &&
            !self.potentially_scrollable() {
                win.scroll(x, y, behavior);
@@ -1533,7 +1533,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 
     // https://w3c.github.io/DOM-Parsing/#parsing
-    pub fn parse_fragment(&self, markup: DOMString) -> Fallible<DomRoot<DocumentFragment>> {
+    pub fn parse_fragment(&self, markup: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         // Steps 1-2.
         let context_document = document_from_node(self);
         // TODO(#11995): XML case.
@@ -1638,7 +1638,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-attributes
-    fn Attributes(&self) -> DomRoot<NamedNodeMap> {
+    fn Attributes(&self) -> DomRoot<NamedNodeMap<TH>> {
         self.attr_list.or_init(|| NamedNodeMap::new(&window_from_node(self), self))
     }
 
@@ -1668,7 +1668,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-getattributenode
-    fn GetAttributeNode(&self, name: DOMString) -> Option<DomRoot<Attr>> {
+    fn GetAttributeNode(&self, name: DOMString) -> Option<DomRoot<Attr<TH>>> {
         self.get_attribute_by_name(name)
     }
 
@@ -1676,7 +1676,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     fn GetAttributeNodeNS(&self,
                           namespace: Option<DOMString>,
                           local_name: DOMString)
-                          -> Option<DomRoot<Attr>> {
+                          -> Option<DomRoot<Attr<TH>>> {
         let namespace = &namespace_from_domstring(namespace);
         self.get_attribute(namespace, &LocalName::from(local_name))
     }
@@ -1715,7 +1715,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-setattributenode
-    fn SetAttributeNode(&self, attr: &Attr) -> Fallible<Option<DomRoot<Attr>>> {
+    fn SetAttributeNode(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>> {
         // Step 1.
         if let Some(owner) = attr.GetOwnerElement() {
             if &*owner != self {
@@ -1777,7 +1777,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-setattributenodens
-    fn SetAttributeNodeNS(&self, attr: &Attr) -> Fallible<Option<DomRoot<Attr>>> {
+    fn SetAttributeNodeNS(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>> {
         self.SetAttributeNode(attr)
     }
 
@@ -1795,7 +1795,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-removeattributenode
-    fn RemoveAttributeNode(&self, attr: &Attr) -> Fallible<DomRoot<Attr>> {
+    fn RemoveAttributeNode(&self, attr: &Attr<TH>) -> Fallible<DomRoot<Attr<TH>>> {
         self.remove_first_matching_attribute(|a| a == attr)
             .ok_or(Error::NotFound)
     }
@@ -1811,7 +1811,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-getelementsbytagname
-    fn GetElementsByTagName(&self, localname: DOMString) -> DomRoot<HTMLCollection> {
+    fn GetElementsByTagName(&self, localname: DOMString) -> DomRoot<HTMLCollection<TH>> {
         let window = window_from_node(self);
         HTMLCollection::by_qualified_name(&window, self.upcast(), LocalName::from(&*localname))
     }
@@ -1820,13 +1820,13 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     fn GetElementsByTagNameNS(&self,
                               maybe_ns: Option<DOMString>,
                               localname: DOMString)
-                              -> DomRoot<HTMLCollection> {
+                              -> DomRoot<HTMLCollection<TH>> {
         let window = window_from_node(self);
         HTMLCollection::by_tag_name_ns(&window, self.upcast(), localname, maybe_ns)
     }
 
     // https://dom.spec.whatwg.org/#dom-element-getelementsbyclassname
-    fn GetElementsByClassName(&self, classes: DOMString) -> DomRoot<HTMLCollection> {
+    fn GetElementsByClassName(&self, classes: DOMString) -> DomRoot<HTMLCollection<TH>> {
         let window = window_from_node(self);
         HTMLCollection::by_class_name(&window, self.upcast(), classes)
     }
@@ -1925,7 +1925,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
         }
 
         // Step 7
-        if doc.GetBody().r() == self.downcast::<HTMLElement>() &&
+        if doc.GetBody().r() == self.downcast::<HTMLElement<TH>>() &&
            doc.quirks_mode() == QuirksMode::Quirks &&
            !self.potentially_scrollable() {
                return win.ScrollY() as f64;
@@ -1975,7 +1975,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
         }
 
         // Step 9
-        if doc.GetBody().r() == self.downcast::<HTMLElement>() &&
+        if doc.GetBody().r() == self.downcast::<HTMLElement<TH>>() &&
            doc.quirks_mode() == QuirksMode::Quirks &&
            !self.potentially_scrollable() {
                win.scroll(win.ScrollX() as f64, y, behavior);
@@ -2023,7 +2023,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
         }
 
         // Step 7
-        if doc.GetBody().r() == self.downcast::<HTMLElement>() &&
+        if doc.GetBody().r() == self.downcast::<HTMLElement<TH>>() &&
            doc.quirks_mode() == QuirksMode::Quirks &&
            !self.potentially_scrollable() {
                return win.ScrollX() as f64;
@@ -2074,7 +2074,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
         }
 
         // Step 9
-        if doc.GetBody().r() == self.downcast::<HTMLElement>() &&
+        if doc.GetBody().r() == self.downcast::<HTMLElement<TH>>() &&
            doc.quirks_mode() == QuirksMode::Quirks &&
            !self.potentially_scrollable() {
                win.scroll(x, win.ScrollY() as f64, behavior);
@@ -2141,7 +2141,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
         let frag = self.parse_fragment(value)?;
         // Step 2.
         // https://github.com/w3c/DOM-Parsing/issues/1
-        let target = if let Some(template) = self.downcast::<HTMLTemplateElement>() {
+        let target = if let Some(template) = self.downcast::<HTMLTemplateElement<TH>>() {
             DomRoot::upcast(template.Content())
         } else {
             DomRoot::from_ref(self.upcast())
@@ -2206,7 +2206,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-children
-    fn Children(&self) -> DomRoot<HTMLCollection> {
+    fn Children(&self) -> DomRoot<HTMLCollection<TH>> {
         let window = window_from_node(self);
         HTMLCollection::children(&window, self.upcast())
     }
@@ -2243,7 +2243,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
-    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList>> {
+    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>> {
         let root = self.upcast::<Node<TH>>();
         root.query_selector_all(selectors)
     }
@@ -2304,7 +2304,7 @@ impl<TH: TypeHolderTrait> ElementMethods for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-insertadjacentelement
-    fn InsertAdjacentElement(&self, where_: DOMString, element: &Element)
+    fn InsertAdjacentElement(&self, where_: DOMString, element: &Element<TH>)
                              -> Fallible<Option<DomRoot<Element<TH>>>> {
         let where_ = where_.parse::<AdjacentPosition>()?;
         let inserted_node = self.insert_adjacent(where_, element.upcast())?;
@@ -2388,7 +2388,7 @@ impl<TH> VirtualMethods for Element<TH> {
         Some(self.upcast::<Node<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_affects_presentational_hints(&self, attr: &Attr) -> bool {
+    fn attribute_affects_presentational_hints(&self, attr: &Attr<TH>) -> bool {
         // FIXME: This should be more fine-grained, not all elements care about these.
         if attr.local_name() == &local_name!("width") ||
            attr.local_name() == &local_name!("height") {
@@ -2398,7 +2398,7 @@ impl<TH> VirtualMethods for Element<TH> {
         self.super_type().unwrap().attribute_affects_presentational_hints(attr)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         let node = self.upcast::<Node<TH>>();
         let doc = node.owner_doc();
@@ -2541,7 +2541,7 @@ impl<TH> VirtualMethods for Element<TH> {
         doc.decrement_dom_count();
     }
 
-    fn children_changed(&self, mutation: &ChildrenMutation) {
+    fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
         if let Some(ref s) = self.super_type() {
             s.children_changed(mutation);
         }
@@ -2647,9 +2647,9 @@ impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
     }
 
     fn is_empty(&self) -> bool {
-        self.node.children().all(|node| !node.is::<Element<TH>>() && match node.downcast::<Text>() {
+        self.node.children().all(|node| !node.is::<Element<TH>>() && match node.downcast::<Text<TH>>() {
             None => true,
-            Some(text) => text.upcast::<CharacterData>().data().is_empty()
+            Some(text) => text.upcast::<CharacterData<TH>>().data().is_empty()
         })
     }
 
@@ -2677,7 +2677,7 @@ impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
             NonTSPseudoClass::Visited => false,
 
             NonTSPseudoClass::ServoNonZeroBorder => {
-                match self.downcast::<HTMLTableElement>() {
+                match self.downcast::<HTMLTableElement<TH>>() {
                     None => false,
                     Some(this) => {
                         match this.get_border() {
@@ -2753,19 +2753,19 @@ impl<TH> Element<TH> {
     pub fn as_maybe_activatable(&self) -> Option<&Activatable> {
         let element = match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
-                let element = self.downcast::<HTMLInputElement>().unwrap();
+                let element = self.downcast::<HTMLInputElement<TH>>().unwrap();
                 Some(element as &Activatable)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLButtonElement)) => {
-                let element = self.downcast::<HTMLButtonElement>().unwrap();
+                let element = self.downcast::<HTMLButtonElement<TH>>().unwrap();
                 Some(element as &Activatable)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLAnchorElement)) => {
-                let element = self.downcast::<HTMLAnchorElement>().unwrap();
+                let element = self.downcast::<HTMLAnchorElement<TH>>().unwrap();
                 Some(element as &Activatable)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLLabelElement)) => {
-                let element = self.downcast::<HTMLLabelElement>().unwrap();
+                let element = self.downcast::<HTMLLabelElement<TH>>().unwrap();
                 Some(element as &Activatable)
             },
             _ => {
@@ -2782,11 +2782,11 @@ impl<TH> Element<TH> {
     }
 
     pub fn as_stylesheet_owner(&self) -> Option<&StylesheetOwner> {
-        if let Some(s) = self.downcast::<HTMLStyleElement>() {
+        if let Some(s) = self.downcast::<HTMLStyleElement<TH>>() {
             return Some(s as &StylesheetOwner)
         }
 
-        if let Some(l) = self.downcast::<HTMLLinkElement>() {
+        if let Some(l) = self.downcast::<HTMLLinkElement<TH>>() {
             return Some(l as &StylesheetOwner)
         }
 
@@ -2797,11 +2797,11 @@ impl<TH> Element<TH> {
     pub fn as_maybe_validatable(&self) -> Option<&Validatable> {
         let element = match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
-                let element = self.downcast::<HTMLInputElement>().unwrap();
+                let element = self.downcast::<HTMLInputElement<TH>>().unwrap();
                 Some(element as &Validatable)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLButtonElement)) => {
-                let element = self.downcast::<HTMLButtonElement>().unwrap();
+                let element = self.downcast::<HTMLButtonElement<TH>>().unwrap();
                 Some(element as &Validatable)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLObjectElement)) => {
@@ -2809,11 +2809,11 @@ impl<TH> Element<TH> {
                 Some(element as &Validatable)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLSelectElement)) => {
-                let element = self.downcast::<HTMLSelectElement>().unwrap();
+                let element = self.downcast::<HTMLSelectElement<TH>>().unwrap();
                 Some(element as &Validatable)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLTextAreaElement)) => {
-                let element = self.downcast::<HTMLTextAreaElement>().unwrap();
+                let element = self.downcast::<HTMLTextAreaElement<TH>>().unwrap();
                 Some(element as &Validatable)
             },
             _ => {
@@ -2855,7 +2855,7 @@ impl<TH> Element<TH> {
     ///
     /// Use an element's synthetic click activation (or handle_event) for any script-triggered clicks.
     /// If the spec says otherwise, check with Manishearth first
-    pub fn authentic_click_activation(&self, event: &Event) {
+    pub fn authentic_click_activation(&self, event: &Event<TH>) {
         // Not explicitly part of the spec, however this helps enforce the invariants
         // required to save state between pre-activation and post-activation
         // since we cannot nest authentic clicks (unlike synthetic click activation, where
@@ -3023,7 +3023,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
             return;
         }
         for ancestor in node.ancestors() {
-            if !ancestor.is::<HTMLFieldSetElement>() {
+            if !ancestor.is::<HTMLFieldSetElement<TH>>() {
                 continue;
             }
             if !ancestor.downcast::<Element<TH>>().unwrap().disabled_state() {
@@ -3034,7 +3034,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
                 self.set_enabled_state(false);
                 return;
             }
-            if let Some(ref legend) = ancestor.children().find(|n| n.is::<HTMLLegendElement>()) {
+            if let Some(ref legend) = ancestor.children().find(|n| n.is::<HTMLLegendElement<TH>>()) {
                 // XXXabinader: should we save previous ancestor to avoid this iteration?
                 if node.ancestors().any(|ancestor| ancestor == *legend) {
                     continue;
@@ -3052,7 +3052,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         }
         let node = self.upcast::<Node<TH>>();
         if let Some(ref parent) = node.GetParentNode() {
-            if parent.is::<HTMLOptGroupElement>() &&
+            if parent.is::<HTMLOptGroupElement<TH>>() &&
                parent.downcast::<Element<TH>>().unwrap().disabled_state() {
                 self.set_disabled_state(true);
                 self.set_enabled_state(false);
@@ -3162,7 +3162,7 @@ impl TaskOnce for ElementPerformFullscreenEnter {
         // TODO Step 7.2-4
         // Step 7.5
         element.set_fullscreen_state(true);
-        document.set_fullscreen_element(Some(&element));
+        document.set_fullscreen_element(Some(&element<TH>));
         document.window().reflow(ReflowGoal::Full, ReflowReason::ElementStateChanged);
 
         // Step 7.6
@@ -3208,7 +3208,7 @@ impl TaskOnce for ElementPerformFullscreenExit {
     }
 }
 
-pub fn reflect_cross_origin_attribute(element: &Element) -> Option<DOMString> {
+pub fn reflect_cross_origin_attribute(element: &Element<TH>) -> Option<DOMString> {
     let attr = element.get_attribute(&ns!(), &local_name!("crossorigin"));
 
     if let Some(mut val) = attr.map(|v| v.Value()) {
@@ -3221,7 +3221,7 @@ pub fn reflect_cross_origin_attribute(element: &Element) -> Option<DOMString> {
     None
 }
 
-pub fn set_cross_origin_attribute(element: &Element, value: Option<DOMString>) {
+pub fn set_cross_origin_attribute(element: &Element<TH>, value: Option<DOMString>) {
     match value {
         Some(val) => element.set_string_attribute(&local_name!("crossorigin"), val),
         None => {
@@ -3230,7 +3230,7 @@ pub fn set_cross_origin_attribute(element: &Element, value: Option<DOMString>) {
     }
 }
 
-pub fn cors_setting_for_element(element: &Element) -> Option<CorsSettings> {
+pub fn cors_setting_for_element(element: &Element<TH>) -> Option<CorsSettings> {
     reflect_cross_origin_attribute(element).map_or(None, |attr| {
         match &*attr {
             "anonymous" => Some(CorsSettings::Anonymous),

@@ -37,7 +37,7 @@ pub struct CSSStyleDeclaration<TH: TypeHolderTrait> {
 #[must_root]
 pub enum CSSStyleOwner<TH: TypeHolderTrait> {
     Element(Dom<Element<TH>>),
-    CSSRule(Dom<CSSRule>,
+    CSSRule(Dom<CSSRule<TH>>,
             #[ignore_malloc_size_of = "Arc"]
             Arc<Locked<PropertyDeclarationBlock>>),
 }

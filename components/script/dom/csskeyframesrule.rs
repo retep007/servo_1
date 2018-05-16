@@ -27,11 +27,11 @@ pub struct CSSKeyframesRule<TH: TypeHolderTrait> {
     cssrule: CSSRule,
     #[ignore_malloc_size_of = "Arc"]
     keyframesrule: Arc<Locked<KeyframesRule>>,
-    rulelist: MutNullableDom<CSSRuleList>,
+    rulelist: MutNullableDom<CSSRuleList<TH>>,
 }
 
 impl<TH: TypeHolderTrait> CSSKeyframesRule<TH> {
-    fn new_inherited(parent_stylesheet: &CSSStyleSheet, keyframesrule: Arc<Locked<KeyframesRule>>)
+    fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, keyframesrule: Arc<Locked<KeyframesRule>>)
                      -> Self {
         CSSKeyframesRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
@@ -41,16 +41,16 @@ impl<TH: TypeHolderTrait> CSSKeyframesRule<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
                keyframesrule: Arc<Locked<KeyframesRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(CSSKeyframesRule::new_inherited(parent_stylesheet, keyframesrule)),
                            window,
                            CSSKeyframesRuleBinding::Wrap)
     }
 
-    fn rulelist(&self) -> DomRoot<CSSRuleList> {
+    fn rulelist(&self) -> DomRoot<CSSRuleList<TH>> {
         self.rulelist.or_init(|| {
-            let parent_stylesheet = &self.upcast::<CSSRule>().parent_stylesheet();
+            let parent_stylesheet = &self.upcast::<CSSRule<TH>>().parent_stylesheet();
             CSSRuleList::new(self.global().as_window(),
                              parent_stylesheet,
                              RulesSource::Keyframes(self.keyframesrule.clone()))
@@ -77,7 +77,7 @@ impl<TH: TypeHolderTrait> CSSKeyframesRule<TH> {
 
 impl<TH> CSSKeyframesRuleMethods for CSSKeyframesRule<TH> {
     // https://drafts.csswg.org/css-animations/#dom-csskeyframesrule-cssrules
-    fn CssRules(&self) -> DomRoot<CSSRuleList> {
+    fn CssRules(&self) -> DomRoot<CSSRuleList<TH>> {
         self.rulelist()
     }
 
@@ -105,7 +105,7 @@ impl<TH> CSSKeyframesRuleMethods for CSSKeyframesRule<TH> {
     }
 
     // https://drafts.csswg.org/css-animations/#dom-csskeyframesrule-findrule
-    fn FindRule(&self, selector: DOMString) -> Option<DomRoot<CSSKeyframeRule>> {
+    fn FindRule(&self, selector: DOMString) -> Option<DomRoot<CSSKeyframeRule<TH>>> {
         self.find_rule(&selector).and_then(|idx| {
             self.rulelist().item(idx as u32)
         }).and_then(DomRoot::downcast)

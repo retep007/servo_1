@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 pub struct CSSStyleSheet<TH: TypeHolderTrait> {
     stylesheet: StyleSheet,
     owner: Dom<Element<TH>>,
-    rulelist: MutNullableDom<CSSRuleList>,
+    rulelist: MutNullableDom<CSSRuleList<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     style_stylesheet: Arc<StyleStyleSheet>,
     origin_clean: Cell<bool>,
@@ -51,13 +51,13 @@ impl<TH: TypeHolderTrait> CSSStyleSheet<TH> {
                type_: DOMString,
                href: Option<DOMString>,
                title: Option<DOMString>,
-               stylesheet: Arc<StyleStyleSheet>) -> DomRoot<CSSStyleSheet> {
+               stylesheet: Arc<StyleStyleSheet>) -> DomRoot<CSSStyleSheet<TH>> {
         reflect_dom_object(Box::new(CSSStyleSheet::new_inherited(owner, type_, href, title, stylesheet)),
                            window,
                            CSSStyleSheetBinding::Wrap)
     }
 
-    fn rulelist(&self) -> DomRoot<CSSRuleList> {
+    fn rulelist(&self) -> DomRoot<CSSRuleList<TH>> {
         self.rulelist.or_init(|| {
             let rules = self.style_stylesheet.contents.rules.clone();
             CSSRuleList::new(
@@ -93,7 +93,7 @@ impl<TH: TypeHolderTrait> CSSStyleSheet<TH> {
 
 impl<TH> CSSStyleSheetMethods for CSSStyleSheet<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-cssrules
-    fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList>> {
+    fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList<TH>>> {
         if !self.origin_clean.get() {
             return Err(Error::Security);
         }

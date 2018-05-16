@@ -231,7 +231,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
         tokenizer
     }
 
-    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement>> {
+    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         let mut send_tendrils = VecDeque::new();
         while let Some(str) = input.pop_front() {
             send_tendrils.push_back(SendTendril::from(str));
@@ -332,7 +332,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
         match op {
             ParseOperation::GetTemplateContents { target, contents } => {
                 let target = DomRoot::from_ref(&**self.get_node(&target));
-                let template = target.downcast::<HTMLTemplateElement>().expect(
+                let template = target.downcast::<HTMLTemplateElement<TH>>().expect(
                     "Tried to extract contents from non-template element while parsing");
                 self.insert_node(contents, Dom::from_ref(template.Content().upcast()));
             }
@@ -387,7 +387,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
                 }
             }
             ParseOperation::MarkScriptAlreadyStarted { node } => {
-                let script = self.get_node(&node).downcast::<HTMLScriptElement>();
+                let script = self.get_node(&node).downcast::<HTMLScriptElement<TH>>();
                 script.map(|script| script.set_already_started(true));
             }
             ParseOperation::ReparentChildren { parent, new_parent } => {
@@ -406,7 +406,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
                     return;
                 }
                 let form = self.get_node(&form);
-                let form = DomRoot::downcast::<HTMLFormElement>(DomRoot::from_ref(&**form))
+                let form = DomRoot::downcast::<HTMLFormElement<TH>>(DomRoot::from_ref(&**form))
                     .expect("Owner must be a form element");
 
                 let node = self.get_node(&target);

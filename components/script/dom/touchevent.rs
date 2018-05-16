@@ -32,7 +32,7 @@ pub struct TouchEvent<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> TouchEvent<TH> {
     fn new_inherited(touches: &TouchList<TH>,
                      changed_touches: &TouchList<TH>,
-                     target_touches: &TouchList) -> TouchEvent {
+                     target_touches: &TouchList<TH>) -> TouchEvent<TH> {
         TouchEvent {
             uievent: UIEvent::new_inherited(),
             touches: MutDom::new(touches),
@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> TouchEvent<TH> {
     pub fn new_uninitialized(window: &Window<TH>,
                      touches: &TouchList<TH>,
                      changed_touches: &TouchList<TH>,
-                     target_touches: &TouchList) -> DomRoot<TouchEvent<TH>> {
+                     target_touches: &TouchList<TH>) -> DomRoot<TouchEvent<TH>> {
         reflect_dom_object(Box::new(TouchEvent::new_inherited(touches, changed_touches, target_touches)),
                            window,
                            TouchEventBinding::Wrap)

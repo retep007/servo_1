@@ -26,7 +26,7 @@ pub struct Touch<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> Touch<TH> {
-    fn new_inherited(identifier: i32, target: &EventTarget,
+    fn new_inherited(identifier: i32, target: &EventTarget<TH>,
                      screen_x: Finite<f64>, screen_y: Finite<f64>,
                      client_x: Finite<f64>, client_y: Finite<f64>,
                      page_x: Finite<f64>, page_y: Finite<f64>) -> Touch<TH> {
@@ -43,7 +43,7 @@ impl<TH: TypeHolderTrait> Touch<TH> {
         }
     }
 
-    pub fn new(window: &Window<TH>, identifier: i32, target: &EventTarget,
+    pub fn new(window: &Window<TH>, identifier: i32, target: &EventTarget<TH>,
               screen_x: Finite<f64>, screen_y: Finite<f64>,
               client_x: Finite<f64>, client_y: Finite<f64>,
               page_x: Finite<f64>, page_y: Finite<f64>) -> DomRoot<Touch<TH>> {

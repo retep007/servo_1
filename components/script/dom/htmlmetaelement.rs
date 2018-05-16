@@ -34,7 +34,7 @@ pub struct HTMLMetaElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
-    cssom_stylesheet: MutNullableDom<CSSStyleSheet>,
+    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
         self.stylesheet.borrow().clone()
     }
 
-    pub fn get_cssom_stylesheet(&self) -> Option<DomRoot<CSSStyleSheet>> {
+    pub fn get_cssom_stylesheet(&self) -> Option<DomRoot<CSSStyleSheet<TH>>> {
         self.get_stylesheet().map(|sheet| {
             self.cssom_stylesheet.or_init(|| {
                 CSSStyleSheet::new(&window_from_node(self),
@@ -138,7 +138,7 @@ impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#meta-referrer>
     fn apply_referrer(&self) {
         if let Some(parent) = self.upcast::<Node<TH>>().GetParentElement() {
-            if let Some(head) = parent.downcast::<HTMLHeadElement>() {
+            if let Some(head) = parent.downcast::<HTMLHeadElement<TH>>() {
                 head.set_document_referrer();
             }
         }
@@ -161,7 +161,7 @@ impl<TH> HTMLMetaElementMethods for HTMLMetaElement<TH> {
 
 impl<TH> VirtualMethods for HTMLMetaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn bind_to_tree(&self, tree_in_doc: bool) {
@@ -181,7 +181,7 @@ impl<TH> VirtualMethods for HTMLMetaElement<TH> {
         }
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         if let Some(s) = self.super_type() {
             s.attribute_mutated(attr, mutation);
         }

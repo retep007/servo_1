@@ -45,19 +45,19 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct HTMLElement<TH> {
     element: Element,
-    style_decl: MutNullableDom<CSSStyleDeclaration>,
+    style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
     dataset: MutNullableDom<DOMStringMap>,
 }
 
 impl<TH: TypeHolderTrait> HTMLElement<TH> {
     pub fn new_inherited(tag_name: LocalName, prefix: Option<Prefix>,
-                         document: &Document<TH>) -> HTMLElement {
+                         document: &Document<TH>) -> HTMLElement<TH> {
         HTMLElement::new_inherited_with_state(ElementState::empty(), tag_name, prefix, document)
     }
 
     pub fn new_inherited_with_state(state: ElementState, tag_name: LocalName,
                                     prefix: Option<Prefix>, document: &Document<TH>)
-                                    -> HTMLElement {
+                                    -> HTMLElement<TH> {
         HTMLElement {
             element:
                 Element::new_inherited_with_state(state, tag_name, ns!(html), prefix, document),
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> DomRoot<HTMLElement> {
+    pub fn new(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> DomRoot<HTMLElement<TH>> {
         Node::reflect_node(Box::new(HTMLElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLElementBinding::Wrap)
@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
 
     fn is_body_or_frameset(&self) -> bool {
         let eventtarget = self.upcast::<EventTarget<TH>>();
-        eventtarget.is::<HTMLBodyElement>() || eventtarget.is::<HTMLFrameSetElement>()
+        eventtarget.is::<HTMLBodyElement<TH>>() || eventtarget.is::<HTMLFrameSetElement>()
     }
 
     fn update_sequentially_focusable_status(&self) {
@@ -117,7 +117,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
 
 impl<TH> HTMLElementMethods for HTMLElement<TH> {
     // https://html.spec.whatwg.org/multipage/#the-style-attribute
-    fn Style(&self) -> DomRoot<CSSStyleDeclaration> {
+    fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {
             let global = window_from_node(self);
             CSSStyleDeclaration::new(&global,
@@ -352,7 +352,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
 
     // https://drafts.csswg.org/cssom-view/#dom-htmlelement-offsetparent
     fn GetOffsetParent(&self) -> Option<DomRoot<Element<TH>>> {
-        if self.is::<HTMLBodyElement>() || self.is::<HTMLHtmlElement>() {
+        if self.is::<HTMLBodyElement<TH>>() || self.is::<HTMLHtmlElement>() {
             return None;
         }
 
@@ -365,7 +365,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
 
     // https://drafts.csswg.org/cssom-view/#dom-htmlelement-offsettop
     fn OffsetTop(&self) -> i32 {
-        if self.is::<HTMLBodyElement>() {
+        if self.is::<HTMLBodyElement<TH>>() {
             return 0;
         }
 
@@ -378,7 +378,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
 
     // https://drafts.csswg.org/cssom-view/#dom-htmlelement-offsetleft
     fn OffsetLeft(&self) -> i32 {
-        if self.is::<HTMLBodyElement>() {
+        if self.is::<HTMLBodyElement<TH>>() {
             return 0;
         }
 
@@ -474,7 +474,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
 
 fn append_text_node_to_fragment<TH: TypeHolderTrait>(
     document: &Document<TH>,
-    fragment: &DocumentFragment,
+    fragment: &DocumentFragment<TH>,
     text: String
 ) {
     let text = Text::new(DOMString::from(text), document);
@@ -576,7 +576,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
             NodeTypeId::Element(ElementTypeId::HTMLElement(type_id)) =>
                 match type_id {
                     HTMLElementTypeId::HTMLInputElement =>
-                        self.downcast::<HTMLInputElement>().unwrap().input_type() != InputType::Hidden,
+                        self.downcast::<HTMLInputElement<TH>>().unwrap().input_type() != InputType::Hidden,
                     HTMLElementTypeId::HTMLButtonElement |
                         HTMLElementTypeId::HTMLMeterElement |
                         HTMLElementTypeId::HTMLOutputElement |
@@ -622,7 +622,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
-    pub fn labels(&self) -> DomRoot<NodeList> {
+    pub fn labels(&self) -> DomRoot<NodeList<TH>> {
         debug_assert!(self.is_labelable_element());
 
         let element = self.upcast::<Element<TH>>();
@@ -633,11 +633,11 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
         let ancestors =
             self.upcast::<Node<TH>>()
                 .ancestors()
-                .filter_map(DomRoot::downcast::<HTMLElement>)
+                .filter_map(DomRoot::downcast::<HTMLElement<TH>>)
                 // If we reach a labelable element, we have a guarantee no ancestors above it
                 // will be a label for this HTMLElement
                 .take_while(|elem| !elem.is_labelable_element())
-                .filter_map(DomRoot::downcast::<HTMLLabelElement>)
+                .filter_map(DomRoot::downcast::<HTMLLabelElement<TH>>)
                 .filter(|elem| !elem.upcast::<Element<TH>>().has_attribute(&local_name!("for")))
                 .filter(|elem| elem.first_labelable_descendant().r() == Some(self))
                 .map(DomRoot::upcast::<Node<TH>>);
@@ -653,7 +653,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
         let root_node = root_element.upcast::<Node<TH>>();
         let children = root_node.traverse_preorder()
                                 .filter_map(DomRoot::downcast::<Element<TH>>)
-                                .filter(|elem| elem.is::<HTMLLabelElement>())
+                                .filter(|elem| elem.is::<HTMLLabelElement<TH>>())
                                 .filter(|elem| elem.get_string_attribute(&local_name!("for")) == id)
                                 .map(DomRoot::upcast::<Node<TH>>);
 
@@ -666,7 +666,7 @@ impl<TH> VirtualMethods for HTMLElement<TH> {
         Some(self.upcast::<Element<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match (attr.local_name(), mutation) {
             (name, AttributeMutation::Set(_)) if name.starts_with("on") => {

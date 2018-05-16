@@ -23,15 +23,15 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct MediaList<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    parent_stylesheet: Dom<CSSStyleSheet>,
+    parent_stylesheet: Dom<CSSStyleSheet<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     media_queries: Arc<Locked<StyleMediaList>>,
 }
 
 impl<TH: TypeHolderTrait> MediaList<TH> {
     #[allow(unrooted_must_root)]
-    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet,
-                         media_queries: Arc<Locked<StyleMediaList>>) -> MediaList {
+    pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
+                         media_queries: Arc<Locked<StyleMediaList>>) -> MediaList<TH> {
         MediaList {
             parent_stylesheet: Dom::from_ref(parent_stylesheet),
             reflector_: Reflector::new(),
@@ -40,9 +40,9 @@ impl<TH: TypeHolderTrait> MediaList<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
                media_queries: Arc<Locked<StyleMediaList>>)
-        -> DomRoot<MediaList> {
+        -> DomRoot<MediaList<TH>> {
         reflect_dom_object(Box::new(MediaList::new_inherited(parent_stylesheet, media_queries)),
                            window,
                            MediaListBinding::Wrap)

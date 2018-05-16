@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> Attr<TH> {
                      name: LocalName,
                      namespace: Namespace,
                      prefix: Option<Prefix>,
-                     owner: Option<&Element>)
+                     owner: Option<&Element<TH>>)
                      -> Self {
         Attr {
             reflector_: Reflector::new(),
@@ -224,7 +224,7 @@ impl<TH: TypeHolderTrait> Attr<TH> {
 
     /// Sets the owner element. Should be called after the attribute is added
     /// or removed from its older parent.
-    pub fn set_owner(&self, owner: Option<&Element>) {
+    pub fn set_owner(&self, owner: Option<&Element<TH>>) {
         let ns = &self.identifier.namespace;
         match (self.owner(), owner) {
             (Some(old), None) => {

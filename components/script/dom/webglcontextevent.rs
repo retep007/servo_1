@@ -65,7 +65,7 @@ impl<TH: TypeHolderTrait> WebGLContextEvent<TH> {
                         WebGLContextEventBinding::Wrap);
 
         {
-            let parent = event.upcast::<Event>();
+            let parent = event.upcast::<Event<TH>>();
             parent.init_event(type_, bool::from(bubbles), bool::from(cancelable));
         }
 

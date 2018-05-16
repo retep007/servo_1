@@ -28,7 +28,7 @@ pub trait Activatable {
     fn canceled_activation(&self);
 
     // https://html.spec.whatwg.org/multipage/#run-post-click-activation-steps
-    fn activation_behavior(&self, event: &Event, target: &EventTarget);
+    fn activation_behavior(&self, event: &Event<TH>, target: &EventTarget<TH>);
 
     // https://html.spec.whatwg.org/multipage/#implicit-submission
     fn implicit_submission(&self, ctrl_key: bool, shift_key: bool, alt_key: bool, meta_key: bool);
@@ -96,7 +96,7 @@ pub fn synthetic_click_activation<TH: TypeHolderTrait>(element: &Element<TH>,
                                 0,
                                 None,
                                 None);
-    let event = mouse.upcast::<Event>();
+    let event = mouse.upcast::<Event<TH>>();
     if source == ActivationSource::FromClick {
         event.set_trusted(false);
     }

@@ -44,7 +44,7 @@ impl ProgressEvent {
                                     global,
                                     ProgressEventBinding::Wrap);
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bool::from(can_bubble), bool::from(cancelable));
         }
         ev

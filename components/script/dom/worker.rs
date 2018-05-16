@@ -32,7 +32,7 @@ use std::sync::mpsc::{Sender, channel};
 use task::TaskOnce;
 use typeholder::TypeHolderTrait;
 
-pub type TrustedWorkerAddress = Trusted<Worker>;
+pub type TrustedWorkerAddress = Trusted<Worker<TH>>;
 
 // https://html.spec.whatwg.org/multipage/#worker
 #[dom_struct]

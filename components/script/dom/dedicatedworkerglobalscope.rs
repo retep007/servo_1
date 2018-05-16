@@ -376,7 +376,7 @@ impl DedicatedWorkerGlobalScope {
                 HandleValue::null(),
             );
             let event_status =
-                event.upcast::<Event>().fire(worker.upcast::<EventTarget<TH>>());
+                event.upcast::<Event<TH>>().fire(worker.upcast::<EventTarget<TH>>());
 
             // Step 2.
             if event_status == EventStatus::NotCanceled {

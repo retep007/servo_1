@@ -69,13 +69,13 @@ impl<TH: TypeHolderTrait> HTMLTableCellElementMethods for HTMLTableCellElement<T
         let self_node = self.upcast::<Node<TH>>();
 
         let parent_children = match self_node.GetParentNode() {
-            Some(ref parent_node) if parent_node.is::<HTMLTableRowElement>() => {
+            Some(ref parent_node) if parent_node.is::<HTMLTableRowElement<TH>>() => {
                 parent_node.children()
             },
             _ => return -1,
         };
 
-        parent_children.filter(|c| c.is::<HTMLTableCellElement>())
+        parent_children.filter(|c| c.is::<HTMLTableCellElement<TH>>())
                        .position(|c| &*c == self_node)
                        .map_or(-1, |p| p as i32)
     }
@@ -129,7 +129,7 @@ impl<TH> HTMLTableCellElementLayoutHelpers for LayoutDom<HTMLTableCellElement<TH
 
 impl<TH> VirtualMethods for HTMLTableCellElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn parse_plain_attribute(&self, local_name: &LocalName, value: DOMString) -> AttrValue {

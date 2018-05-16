@@ -23,7 +23,7 @@ pub struct CSSFontFaceRule<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> CSSFontFaceRule<TH> {
-    fn new_inherited(parent_stylesheet: &CSSStyleSheet, fontfacerule: Arc<Locked<FontFaceRule>>)
+    fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, fontfacerule: Arc<Locked<FontFaceRule>>)
                      -> Self {
         CSSFontFaceRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
@@ -32,7 +32,7 @@ impl<TH: TypeHolderTrait> CSSFontFaceRule<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
                fontfacerule: Arc<Locked<FontFaceRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(CSSFontFaceRule::new_inherited(parent_stylesheet, fontfacerule)),
                            window,

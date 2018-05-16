@@ -28,11 +28,11 @@ pub struct CSSMediaRule<TH: TypeHolderTrait> {
     cssconditionrule: CSSConditionRule,
     #[ignore_malloc_size_of = "Arc"]
     mediarule: Arc<Locked<MediaRule>>,
-    medialist: MutNullableDom<MediaList>,
+    medialist: MutNullableDom<MediaList<TH>>,
 }
 
 impl<TH: TypeHolderTrait> CSSMediaRule<TH> {
-    fn new_inherited(parent_stylesheet: &CSSStyleSheet, mediarule: Arc<Locked<MediaRule>>)
+    fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, mediarule: Arc<Locked<MediaRule>>)
                      -> Self {
         let guard = parent_stylesheet.shared_lock().read();
         let list = mediarule.read_with(&guard).rules.clone();
@@ -44,14 +44,14 @@ impl<TH: TypeHolderTrait> CSSMediaRule<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
                mediarule: Arc<Locked<MediaRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(CSSMediaRule::new_inherited(parent_stylesheet, mediarule)),
                            window,
                            CSSMediaRuleBinding::Wrap)
     }
 
-    fn medialist(&self) -> DomRoot<MediaList> {
+    fn medialist(&self) -> DomRoot<MediaList<TH>> {
         self.medialist.or_init(|| {
             let guard = self.cssconditionrule.shared_lock().read();
             MediaList::new(self.global().as_window(),
@@ -109,7 +109,7 @@ impl<TH> SpecificCSSRule for CSSMediaRule<TH> {
 
 impl CSSMediaRuleMethods for CSSMediaRule {
     // https://drafts.csswg.org/cssom/#dom-cssgroupingrule-media
-    fn Media(&self) -> DomRoot<MediaList> {
+    fn Media(&self) -> DomRoot<MediaList<TH>> {
         self.medialist()
     }
 }

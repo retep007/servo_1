@@ -29,7 +29,7 @@ pub struct CSSSupportsRule<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> CSSSupportsRule<TH> {
-    fn new_inherited(parent_stylesheet: &CSSStyleSheet, supportsrule: Arc<Locked<SupportsRule>>)
+    fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, supportsrule: Arc<Locked<SupportsRule>>)
                      -> Self {
         let guard = parent_stylesheet.shared_lock().read();
         let list = supportsrule.read_with(&guard).rules.clone();
@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> CSSSupportsRule<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
                supportsrule: Arc<Locked<SupportsRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(CSSSupportsRule::new_inherited(parent_stylesheet, supportsrule)),
                            window,

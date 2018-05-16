@@ -22,7 +22,7 @@ pub struct HTMLTemplateElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
 
     /// <https://html.spec.whatwg.org/multipage/#template-contents>
-    contents: MutNullableDom<DocumentFragment>,
+    contents: MutNullableDom<DocumentFragment<TH>>,
 }
 
 impl<TH> HTMLTemplateElement<TH> {
@@ -48,7 +48,7 @@ impl<TH> HTMLTemplateElement<TH> {
 
 impl<TH> HTMLTemplateElementMethods for HTMLTemplateElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#dom-template-content>
-    fn Content(&self) -> DomRoot<DocumentFragment> {
+    fn Content(&self) -> DomRoot<DocumentFragment<TH>> {
         self.contents.or_init(|| {
             let doc = document_from_node(self);
             doc.appropriate_template_contents_owner_document().CreateDocumentFragment()
@@ -58,7 +58,7 @@ impl<TH> HTMLTemplateElementMethods for HTMLTemplateElement<TH> {
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLTemplateElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     /// <https://html.spec.whatwg.org/multipage/#template-adopting-steps>
@@ -78,7 +78,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTemplateElement<TH> {
             // Step 1.
             return;
         }
-        let copy = copy.downcast::<HTMLTemplateElement>().unwrap();
+        let copy = copy.downcast::<HTMLTemplateElement<TH>>().unwrap();
         // Steps 2-3.
         let copy_contents = DomRoot::upcast::<Node<TH>>(copy.Content());
         let copy_contents_doc = copy_contents.owner_doc();

@@ -41,7 +41,7 @@ impl ExtendableEvent {
             ExtendableEventBinding::Wrap
         );
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bubbles, cancelable);
         }
         ev

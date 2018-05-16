@@ -190,7 +190,7 @@ impl<TH: TypeHolderTrait> ChildrenList<TH> {
         Some(last_visited)
     }
 
-    pub fn children_changed(&self, mutation: &ChildrenMutation) {
+    pub fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
         fn prepend<TH>(list: &ChildrenList, added: &[&Node<TH>], next: &Node<TH>) {
             let len = added.len() as u32;
             if len == 0u32 {

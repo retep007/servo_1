@@ -47,7 +47,7 @@ pub struct HTMLTextAreaElement<TH: TypeHolderTrait> {
     placeholder: DomRefCell<DOMString>,
     // https://html.spec.whatwg.org/multipage/#concept-textarea-dirty
     value_dirty: Cell<bool>,
-    form_owner: MutNullableDom<HTMLFormElement>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
 pub trait LayoutHTMLTextAreaElementHelpers {
@@ -61,7 +61,7 @@ pub trait LayoutHTMLTextAreaElementHelpers {
     fn get_rows(self) -> u32;
 }
 
-impl LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement> {
+impl LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement<TH>> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     unsafe fn value_for_layout(self) -> String {
@@ -177,7 +177,7 @@ impl<TH> HTMLTextAreaElementMethods for HTMLTextAreaElement<TH> {
     make_bool_setter!(SetDisabled, "disabled");
 
     // https://html.spec.whatwg.org/multipage/#dom-fae-form
-    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner()
     }
 
@@ -265,8 +265,8 @@ impl<TH> HTMLTextAreaElementMethods for HTMLTextAreaElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
-    fn Labels(&self) -> DomRoot<NodeList> {
-        self.upcast::<HTMLElement>().labels()
+    fn Labels(&self) -> DomRoot<NodeList<TH>> {
+        self.upcast::<HTMLElement<TH>>().labels()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-select
@@ -339,10 +339,10 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match *attr.local_name() {
             local_name!("disabled") => {
@@ -414,14 +414,14 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
 
         let node = self.upcast::<Node<TH>>();
         let el = self.upcast::<Element<TH>>();
-        if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
+        if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement<TH>>()) {
             el.check_ancestors_disabled_state_for_form_control();
         } else {
             el.check_disabled_attribute();
         }
     }
 
-    fn children_changed(&self, mutation: &ChildrenMutation) {
+    fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
         if let Some(ref s) = self.super_type() {
             s.children_changed(mutation);
         }
@@ -431,7 +431,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
     }
 
     // copied and modified from htmlinputelement.rs
-    fn handle_event(&self, event: &Event) {
+    fn handle_event(&self, event: &Event<TH>) {
         if let Some(s) = self.super_type() {
             s.handle_event(event);
         }
@@ -441,7 +441,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
 
             document_from_node(self).request_focus(self.upcast());
         } else if event.type_() == atom!("keydown") && !event.DefaultPrevented() {
-            if let Some(kevent) = event.downcast::<KeyboardEvent>() {
+            if let Some(kevent) = event.downcast::<KeyboardEvent<TH>>() {
                 // This can't be inlined, as holding on to textinput.borrow_mut()
                 // during self.implicit_submission will cause a panic.
                 let action = self.textinput.borrow_mut().handle_keydown(kevent);
@@ -482,11 +482,11 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
 }
 
 impl<TH> FormControl for HTMLTextAreaElement<TH> {
-    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
 
-    fn set_form_owner(&self, form: Option<&HTMLFormElement>) {
+    fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>) {
         self.form_owner.set(form);
     }
 

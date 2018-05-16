@@ -59,14 +59,14 @@ pub trait StylesheetOwner {
 
 pub enum StylesheetContextSource {
     // NB: `media` is just an option so we avoid cloning it.
-    LinkElement { media: Option<MediaList>, },
+    LinkElement { media: Option<MediaList<TH>>, },
     Import(Arc<Stylesheet>),
 }
 
 /// The context required for asynchronously loading an external stylesheet.
 pub struct StylesheetContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
-    elem: Trusted<HTMLElement>,
+    elem: Trusted<HTMLElement<TH>>,
     source: StylesheetContextSource,
     url: ServoUrl,
     metadata: Option<Metadata>,
@@ -136,7 +136,7 @@ impl<TH> FetchResponseListener for StylesheetContext<TH> {
             let loader = StylesheetLoader::for_element(&elem);
             match self.source {
                 StylesheetContextSource::LinkElement { ref mut media } => {
-                    let link = elem.downcast::<HTMLLinkElement>().unwrap();
+                    let link = elem.downcast::<HTMLLinkElement<TH>>().unwrap();
                     // We must first check whether the generations of the context and the element match up,
                     // else we risk applying the wrong stylesheet when responses come out-of-order.
                     let is_stylesheet_load_applicable =
@@ -212,7 +212,7 @@ impl<'a> StylesheetLoader<'a> {
                 cors_setting: Option<CorsSettings>,
                 integrity_metadata: String) {
         let document = document_from_node(self.elem);
-        let gen = self.elem.downcast::<HTMLLinkElement>()
+        let gen = self.elem.downcast::<HTMLLinkElement<TH>>()
                            .map(HTMLLinkElement::get_request_generation_id);
         let context = ::std::sync::Arc::new(Mutex::new(StylesheetContext {
             elem: Trusted::new(&*self.elem),
@@ -281,7 +281,7 @@ impl<'a> StyleStylesheetLoader for StylesheetLoader<'a> {
         source_location: SourceLocation,
         context: &ParserContext,
         lock: &SharedRwLock,
-        media: Arc<Locked<MediaList>>,
+        media: Arc<Locked<MediaList<TH>>>,
     ) -> Arc<Locked<ImportRule>> {
         let sheet = Arc::new(Stylesheet {
             contents: StylesheetContents {

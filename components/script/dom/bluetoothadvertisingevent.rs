@@ -35,7 +35,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
                          appearance: Option<u16>,
                          tx_power: Option<i8>,
                          rssi: Option<i8>)
-                         -> BluetoothAdvertisingEvent {
+                         -> BluetoothAdvertisingEvent<TH> {
         BluetoothAdvertisingEvent {
             event: Event::new_inherited(),
             device: Dom::from_ref(device),
@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
                appearance: Option<u16>,
                txPower: Option<i8>,
                rssi: Option<i8>)
-               -> DomRoot<BluetoothAdvertisingEvent> {
+               -> DomRoot<BluetoothAdvertisingEvent<TH>> {
         let ev = reflect_dom_object(
             Box::new(BluetoothAdvertisingEvent::new_inherited(
                 device,
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
             BluetoothAdvertisingEventBinding::Wrap
         );
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bool::from(bubbles), bool::from(cancelable));
         }
         ev
@@ -77,7 +77,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &BluetoothAdvertisingEventInit)
-                       -> Fallible<DomRoot<BluetoothAdvertisingEvent>> {
+                       -> Fallible<DomRoot<BluetoothAdvertisingEvent<TH>>> {
         let global = window.upcast::<GlobalScope<TH>>();
         let device = init.device.r();
         let name = init.name.clone();

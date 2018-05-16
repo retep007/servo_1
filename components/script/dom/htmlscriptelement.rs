@@ -141,7 +141,7 @@ pub type ScriptResult = Result<ClassicScript, NetworkError>;
 /// The context required for asynchronously loading an external script source.
 struct ScriptContext {
     /// The element that initiated the request.
-    elem: Trusted<HTMLScriptElement>,
+    elem: Trusted<HTMLScriptElement<TH>>,
     /// The kind of external script.
     kind: ExternalScriptKind,
     /// The (fallback) character encoding argument to the "fetch a classic
@@ -648,10 +648,10 @@ impl<TH: TypeHolderTrait> HTMLScriptElement<TH> {
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLScriptElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match *attr.local_name() {
             local_name!("src") => {
@@ -665,7 +665,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLScriptElement<TH> {
         }
     }
 
-    fn children_changed(&self, mutation: &ChildrenMutation) {
+    fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
         if let Some(ref s) = self.super_type() {
             s.children_changed(mutation);
         }
@@ -692,7 +692,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLScriptElement<TH> {
 
         // https://html.spec.whatwg.org/multipage/#already-started
         if self.already_started.get() {
-            copy.downcast::<HTMLScriptElement>().unwrap().set_already_started(true);
+            copy.downcast::<HTMLScriptElement<TH>>().unwrap().set_already_started(true);
         }
     }
 }

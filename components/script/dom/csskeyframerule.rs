@@ -22,11 +22,11 @@ pub struct CSSKeyframeRule<TH: TypeHolderTrait> {
     cssrule: CSSRule,
     #[ignore_malloc_size_of = "Arc"]
     keyframerule: Arc<Locked<Keyframe>>,
-    style_decl: MutNullableDom<CSSStyleDeclaration>,
+    style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
 }
 
 impl<TH: TypeHolderTrait> CSSKeyframeRule<TH> {
-    fn new_inherited(parent_stylesheet: &CSSStyleSheet, keyframerule: Arc<Locked<Keyframe>>)
+    fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, keyframerule: Arc<Locked<Keyframe>>)
                      -> Self {
         CSSKeyframeRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
@@ -36,8 +36,8 @@ impl<TH: TypeHolderTrait> CSSKeyframeRule<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
-               keyframerule: Arc<Locked<Keyframe>>) -> DomRoot<CSSKeyframeRule> {
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
+               keyframerule: Arc<Locked<Keyframe>>) -> DomRoot<CSSKeyframeRule<TH>> {
         reflect_dom_object(Box::new(CSSKeyframeRule::new_inherited(parent_stylesheet, keyframerule)),
                            window,
                            CSSKeyframeRuleBinding::Wrap)
@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> CSSKeyframeRule<TH> {
 
 impl<TH> CSSKeyframeRuleMethods for CSSKeyframeRule<TH> {
     // https://drafts.csswg.org/css-animations/#dom-csskeyframerule-style
-    fn Style(&self) -> DomRoot<CSSStyleDeclaration> {
+    fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {
             let guard = self.cssrule.shared_lock().read();
             CSSStyleDeclaration::new(

@@ -61,7 +61,7 @@ impl ErrorEvent {
                error: HandleValue) -> DomRoot<ErrorEvent> {
         let ev = ErrorEvent::new_uninitialized(global);
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bool::from(bubbles),
                              bool::from(cancelable));
             *ev.message.borrow_mut() = message;

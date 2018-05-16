@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct HTMLFieldSetElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
-    form_owner: MutNullableDom<HTMLFormElement>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
 impl<TH> HTMLFieldSetElement<TH> {
@@ -52,12 +52,12 @@ impl<TH> HTMLFieldSetElement<TH> {
 
 impl<TH> HTMLFieldSetElementMethods for HTMLFieldSetElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-fieldset-elements
-    fn Elements(&self) -> DomRoot<HTMLCollection> {
+    fn Elements(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ElementsFilter;
-        impl CollectionFilter for ElementsFilter {
+        struct ElementsFilter<TH>;
+        impl<TH> CollectionFilter for ElementsFilter<TH> {
             fn filter<'a>(&self, elem: &'a Element, _root: &'a Node) -> bool {
-                elem.downcast::<HTMLElement>()
+                elem.downcast::<HTMLElement<TH>>()
                     .map_or(false, HTMLElement::is_listed_element)
             }
         }
@@ -67,7 +67,7 @@ impl<TH> HTMLFieldSetElementMethods for HTMLFieldSetElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
-    fn Validity(&self) -> DomRoot<ValidityState> {
+    fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
         ValidityState::new(&window, self.upcast())
     }
@@ -79,17 +79,17 @@ impl<TH> HTMLFieldSetElementMethods for HTMLFieldSetElement<TH> {
     make_bool_setter!(SetDisabled, "disabled");
 
     // https://html.spec.whatwg.org/multipage/#dom-fae-form
-    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner()
     }
 }
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLFieldSetElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
@@ -109,7 +109,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLFieldSetElement<TH> {
                 let children = node.children().filter(|node| {
                     if found_legend {
                         true
-                    } else if node.is::<HTMLLegendElement>() {
+                    } else if node.is::<HTMLLegendElement<TH>>() {
                         found_legend = true;
                         false
                     } else {
@@ -160,11 +160,11 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLFieldSetElement<TH> {
 }
 
 impl<TH> FormControl for HTMLFieldSetElement<TH> {
-    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
 
-    fn set_form_owner(&self, form: Option<&HTMLFormElement>) {
+    fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>) {
         self.form_owner.set(form);
     }
 

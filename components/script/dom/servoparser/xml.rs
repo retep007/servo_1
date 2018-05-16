@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
         }
     }
 
-    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement>> {
+    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         if !input.is_empty() {
             while let Some(chunk) = input.pop_front() {
                 self.inner.feed(chunk);

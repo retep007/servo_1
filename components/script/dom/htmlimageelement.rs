@@ -124,7 +124,7 @@ pub struct HTMLImageElement<TH: TypeHolderTrait> {
     image_request: Cell<ImageRequestPhase>,
     current_request: DomRefCell<ImageRequest>,
     pending_request: DomRefCell<ImageRequest>,
-    form_owner: MutNullableDom<HTMLFormElement>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
     generation: Cell<u32>,
 }
 
@@ -191,9 +191,9 @@ impl PreInvoke for ImageContext {}
 impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
     /// Update the current image with a valid URL.
     fn fetch_image(&self, img_url: &ServoUrl) {
-        fn add_cache_listener_for_element(image_cache: Arc<ImageCache>,
+        fn add_cache_listener_for_element<TH>(image_cache: Arc<ImageCache>,
                                           id: PendingImageId,
-                                          elem: &HTMLImageElement) {
+                                          elem: &HTMLImageElement<TH>) {
             let trusted_node = Trusted::new(elem);
             let (responder_sender, responder_receiver) = ipc::channel().unwrap();
 
@@ -497,7 +497,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
                     0,
                     0,
                 );
-                event.upcast::<Event>().fire(&target);
+                event.upcast::<Event<TH>>().fire(&target);
             }),
             window.upcast(),
         );
@@ -609,7 +609,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
         ScriptThread::await_stable_state(Microtask::ImageElement(task));
     }
 
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLImageElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLImageElement<TH> {
         HTMLImageElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             image_request: Cell::new(ImageRequestPhase::Current),
@@ -677,7 +677,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
 
         let useMapElements = document_from_node(self).upcast::<Node<TH>>()
                                 .traverse_preorder()
-                                .filter_map(DomRoot::downcast::<HTMLMapElement>)
+                                .filter_map(DomRoot::downcast::<HTMLMapElement<TH>>)
                                 .find(|n| n.upcast::<Element<TH>>().get_string_attribute(&LocalName::from("name")) == last);
 
         useMapElements.map(|mapElem| mapElem.get_area_elements())
@@ -695,7 +695,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
 #[derive(JSTraceable, MallocSizeOf)]
 pub enum ImageElementMicrotask {
     StableStateUpdateImageDataTask {
-        elem: DomRoot<HTMLImageElement>,
+        elem: DomRoot<HTMLImageElement<TH>>,
         generation: u32,
     }
 }
@@ -960,7 +960,7 @@ impl<TH: TypeHolderTrait> HTMLImageElementMethods for HTMLImageElement<TH> {
 
 impl VirtualMethods for HTMLImageElement {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn adopting_steps(&self, old_doc: &Document<TH>) {
@@ -968,7 +968,7 @@ impl VirtualMethods for HTMLImageElement {
         self.update_the_image_data();
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("src") => self.update_the_image_data(),
@@ -985,7 +985,7 @@ impl VirtualMethods for HTMLImageElement {
         }
     }
 
-    fn handle_event(&self, event: &Event) {
+    fn handle_event(&self, event: &Event<TH>) {
         if event.type_() != atom!("click") {
             return
         }
@@ -997,7 +997,7 @@ impl VirtualMethods for HTMLImageElement {
        };
 
        // Fetch click coordinates
-       let mouse_event = match event.downcast::<MouseEvent>() {
+       let mouse_event = match event.downcast::<MouseEvent<TH>>() {
            Some(x) => x,
            None => return,
        };
@@ -1023,11 +1023,11 @@ impl VirtualMethods for HTMLImageElement {
 }
 
 impl FormControl for HTMLImageElement {
-    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
 
-    fn set_form_owner(&self, form: Option<&HTMLFormElement>) {
+    fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>) {
         self.form_owner.set(form);
     }
 
@@ -1040,7 +1040,7 @@ impl FormControl for HTMLImageElement {
     }
 }
 
-fn image_dimension_setter(element: &Element, attr: LocalName, value: u32) {
+fn image_dimension_setter(element: &Element<TH>, attr: LocalName, value: u32) {
     // This setter is a bit weird: the IDL type is unsigned long, but it's parsed as
     // a dimension for rendering.
     let value = if value > UNSIGNED_LONG_MAX {

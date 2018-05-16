@@ -46,20 +46,20 @@ impl<TH: TypeHolderTrait> HTMLTableSectionElement<TH> {
 #[derive(JSTraceable)]
 struct RowsFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter for RowsFilter<TH> {
-    fn filter(&self, elem: &Element, root: &Node<TH>) -> bool {
-        elem.is::<HTMLTableRowElement>() &&
+    fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
+        elem.is::<HTMLTableRowElement<TH>>() &&
             elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
     }
 }
 
 impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods for HTMLTableSectionElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tbody-rows
-    fn Rows(&self) -> DomRoot<HTMLCollection> {
+    fn Rows(&self) -> DomRoot<HTMLCollection<TH>> {
         HTMLCollection::create(&window_from_node(self), self.upcast(), Box::new(RowsFilter))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tbody-insertrow
-    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLElement>> {
+    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>> {
         let node = self.upcast::<Node<TH>>();
         node.insert_cell_or_row(
             index,
@@ -73,7 +73,7 @@ impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods for HTMLTableSectionEle
         node.delete_cell_or_row(
             index,
             || self.Rows(),
-            |n| n.is::<HTMLTableRowElement>())
+            |n| n.is::<HTMLTableRowElement<TH>>())
     }
 }
 
@@ -95,7 +95,7 @@ impl<TH> HTMLTableSectionElementLayoutHelpers for LayoutDom<HTMLTableSectionElem
 
 impl<TH> VirtualMethods for HTMLTableSectionElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn parse_plain_attribute(&self, local_name: &LocalName, value: DOMString) -> AttrValue {

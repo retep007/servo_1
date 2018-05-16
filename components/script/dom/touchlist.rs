@@ -18,14 +18,14 @@ pub struct TouchList<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> TouchList<TH> {
-    fn new_inherited(touches: &[&Touch]) -> TouchList<TH> {
+    fn new_inherited(touches: &[&Touch<TH>]) -> TouchList<TH> {
         TouchList {
             reflector_: Reflector::new(),
             touches: touches.iter().map(|touch| Dom::from_ref(*touch)).collect(),
         }
     }
 
-    pub fn new(window: &Window<TH>, touches: &[&Touch]) -> DomRoot<TouchList<TH>> {
+    pub fn new(window: &Window<TH>, touches: &[&Touch<TH>]) -> DomRoot<TouchList<TH>> {
         reflect_dom_object(Box::new(TouchList::new_inherited(touches)),
                            window, TouchListBinding::Wrap)
     }

@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> TextMethods for Text<TH> {
     // https://dom.spec.whatwg.org/#dom-text-splittext
     // https://dom.spec.whatwg.org/#concept-text-split
     fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text<TH>>> {
-        let cdata = self.upcast::<CharacterData>();
+        let cdata = self.upcast::<CharacterData<TH>>();
         // Step 1.
         let length = cdata.Length();
         if offset > length {
@@ -80,13 +80,13 @@ impl<TH: TypeHolderTrait> TextMethods for Text<TH> {
     // https://dom.spec.whatwg.org/#dom-text-wholetext
     fn WholeText(&self) -> DOMString {
         let first = self.upcast::<Node<TH>>().inclusively_preceding_siblings()
-                                         .take_while(|node| node.is::<Text>())
+                                         .take_while(|node| node.is::<Text<TH>>())
                                          .last().unwrap();
         let nodes = first.inclusively_following_siblings()
-                         .take_while(|node| node.is::<Text>());
+                         .take_while(|node| node.is::<Text<TH>>());
         let mut text = String::new();
         for ref node in nodes {
-            let cdata = node.downcast::<CharacterData>().unwrap();
+            let cdata = node.downcast::<CharacterData<TH>>().unwrap();
             text.push_str(&cdata.data());
         }
         DOMString::from(text)

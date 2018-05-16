@@ -48,7 +48,7 @@ const DEFAULT_HEIGHT: u32 = 150;
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
 pub enum CanvasContext {
-    Context2d(Dom<CanvasRenderingContext2D>),
+    Context2d(Dom<CanvasRenderingContext2D<TH>>),
     WebGL(Dom<WebGLRenderingContext<TH>>),
     WebGL2(Dom<WebGL2RenderingContext<TH>>),
 }
@@ -174,7 +174,7 @@ impl LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanvasElement> {
 
 
 impl HTMLCanvasElement {
-    pub fn get_or_init_2d_context(&self) -> Option<DomRoot<CanvasRenderingContext2D>> {
+    pub fn get_or_init_2d_context(&self) -> Option<DomRoot<CanvasRenderingContext2D<TH>>> {
         if self.context.borrow().is_none() {
             let window = window_from_node(self);
             let size = self.get_size();
@@ -394,10 +394,10 @@ impl HTMLCanvasElementMethods for HTMLCanvasElement {
 
 impl VirtualMethods for HTMLCanvasElement {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("width") | &local_name!("height") => self.recreate_contexts(),

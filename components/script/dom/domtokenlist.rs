@@ -24,7 +24,7 @@ pub struct DOMTokenList {
 }
 
 impl DOMTokenList {
-    pub fn new_inherited(element: &Element, local_name: LocalName) -> DOMTokenList {
+    pub fn new_inherited(element: &Element<TH>, local_name: LocalName) -> DOMTokenList {
         DOMTokenList {
             reflector_: Reflector::new(),
             element: Dom::from_ref(element),
@@ -32,14 +32,14 @@ impl DOMTokenList {
         }
     }
 
-    pub fn new(element: &Element, local_name: &LocalName) -> DomRoot<DOMTokenList> {
+    pub fn new(element: &Element<TH>, local_name: &LocalName) -> DomRoot<DOMTokenList> {
         let window = window_from_node(element);
         reflect_dom_object(Box::new(DOMTokenList::new_inherited(element, local_name.clone())),
                            &*window,
                            DOMTokenListBinding::Wrap)
     }
 
-    fn attribute(&self) -> Option<DomRoot<Attr>> {
+    fn attribute(&self) -> Option<DomRoot<Attr<TH>>> {
         self.element.get_attribute(&ns!(), &self.local_name)
     }
 

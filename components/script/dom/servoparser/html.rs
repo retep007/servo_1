@@ -78,7 +78,7 @@ impl<TH> Tokenizer<TH> {
         }
     }
 
-    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement>> {
+    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         match self.inner.feed(input) {
             TokenizerResult::Done => Ok(()),
             TokenizerResult::Script(script) => Err(DomRoot::from_ref(script.downcast().unwrap())),
@@ -118,7 +118,7 @@ unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<N
     }
 }
 
-fn start_element<S: Serializer>(node: &Element, serializer: &mut S) -> io::Result<()> {
+fn start_element<S: Serializer>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
     let name = QualName::new(None, node.namespace().clone(),
                              node.local_name().clone());
     let attrs = node.attrs().iter().map(|attr| {
@@ -135,7 +135,7 @@ fn start_element<S: Serializer>(node: &Element, serializer: &mut S) -> io::Resul
     Ok(())
 }
 
-fn end_element<S: Serializer>(node: &Element, serializer: &mut S) -> io::Result<()> {
+fn end_element<S: Serializer>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
     let name = QualName::new(None, node.namespace().clone(),
                              node.local_name().clone());
     serializer.end_elem(name)
@@ -153,7 +153,7 @@ struct SerializationIterator<TH: TypeHolderTrait> {
 }
 
 fn rev_children_iter<TH: TypeHolderTrait>(n: &Node<TH>) -> impl Iterator<Item=DomRoot<Node<TH>>>{
-    match n.downcast::<HTMLTemplateElement>() {
+    match n.downcast::<HTMLTemplateElement<TH>>() {
         Some(t) => t.Content().upcast::<Node<TH>>().rev_children(),
         None => n.rev_children(),
     }
@@ -220,23 +220,23 @@ impl<'a, TH: TypeHolderTrait> Serialize for &'a Node<TH> {
                 SerializationCommand::SerializeNonelement(n) => {
                     match n.type_id() {
                         NodeTypeId::DocumentType => {
-                            let doctype = n.downcast::<DocumentType>().unwrap();
+                            let doctype = n.downcast::<DocumentType<TH>>().unwrap();
                             serializer.write_doctype(&doctype.name())?;
                         },
 
                         NodeTypeId::CharacterData(CharacterDataTypeId::Text) => {
-                            let cdata = n.downcast::<CharacterData>().unwrap();
+                            let cdata = n.downcast::<CharacterData<TH>>().unwrap();
                             serializer.write_text(&cdata.data())?;
                         },
 
                         NodeTypeId::CharacterData(CharacterDataTypeId::Comment) => {
-                            let cdata = n.downcast::<CharacterData>().unwrap();
+                            let cdata = n.downcast::<CharacterData<TH>>().unwrap();
                             serializer.write_comment(&cdata.data())?;
                         },
 
                         NodeTypeId::CharacterData(CharacterDataTypeId::ProcessingInstruction) => {
                             let pi = n.downcast::<ProcessingInstruction>().unwrap();
-                            let data = pi.upcast::<CharacterData>().data();
+                            let data = pi.upcast::<CharacterData<TH>>().data();
                             serializer.write_processing_instruction(&pi.target(), &data)?;
                         },
 

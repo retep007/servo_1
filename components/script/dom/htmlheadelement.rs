@@ -51,7 +51,7 @@ impl<TH: TypeHolderTrait> HTMLHeadElement<TH> {
         let node = self.upcast::<Node<TH>>();
         let candidates = node.traverse_preorder()
                              .filter_map(DomRoot::downcast::<Element<TH>>)
-                             .filter(|elem| elem.is::<HTMLMetaElement>())
+                             .filter(|elem| elem.is::<HTMLMetaElement<TH>>())
                              .filter(|elem| elem.get_string_attribute(&local_name!("name")) == "referrer")
                              .filter(|elem| elem.get_attribute(&ns!(), &local_name!("content")).is_some());
 
@@ -70,7 +70,7 @@ impl<TH: TypeHolderTrait> HTMLHeadElement<TH> {
 
 impl<TH> VirtualMethods for HTMLHeadElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
     fn bind_to_tree(&self, tree_in_doc: bool) {
         if let Some(ref s) = self.super_type() {

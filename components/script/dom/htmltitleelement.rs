@@ -31,7 +31,7 @@ impl<TH: TypeHolderTrait> HTMLTitleElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLTitleElement> {
+               document: &Document<TH>) -> DomRoot<HTMLTitleElement<TH>> {
         Node::reflect_node(Box::new(HTMLTitleElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTitleElementBinding::Wrap)
@@ -52,10 +52,10 @@ impl<TH: TypeHolderTrait> HTMLTitleElementMethods for HTMLTitleElement<TH> {
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLTitleElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn children_changed(&self, mutation: &ChildrenMutation) {
+    fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
         if let Some(ref s) = self.super_type() {
             s.children_changed(mutation);
         }

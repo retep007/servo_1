@@ -30,7 +30,7 @@ pub struct VRDisplayEvent<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
     fn new_inherited(display: &VRDisplay,
                      reason: Option<VRDisplayEventReason>)
-                     -> VRDisplayEvent {
+                     -> VRDisplayEvent<TH> {
         VRDisplayEvent {
             event: Event::new_inherited(),
             display: Dom::from_ref(display),
@@ -51,7 +51,7 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
             VRDisplayEventBinding::Wrap
         );
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bubbles, cancelable);
         }
         ev

@@ -17,7 +17,7 @@ use uuid::Uuid;
 #[dom_struct]
 pub struct Client {
     reflector_: Reflector,
-    active_worker: MutNullableDom<ServiceWorker>,
+    active_worker: MutNullableDom<ServiceWorker<TH>>,
     url: ServoUrl,
     frame_type: FrameType,
     #[ignore_malloc_size_of = "Defined in uuid"]
@@ -45,11 +45,11 @@ impl Client {
         self.url.clone()
     }
 
-    pub fn get_controller(&self) -> Option<DomRoot<ServiceWorker>> {
+    pub fn get_controller(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.active_worker.get()
     }
 
-    pub fn set_controller(&self, worker: &ServiceWorker) {
+    pub fn set_controller(&self, worker: &ServiceWorker<TH>) {
         self.active_worker.set(Some(worker));
     }
 }

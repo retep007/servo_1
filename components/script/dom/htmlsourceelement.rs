@@ -42,14 +42,14 @@ impl<TH: TypeHolderTrait> HTMLSourceElement<TH> {
 
 impl<TH> VirtualMethods for HTMLSourceElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     /// <https://html.spec.whatwg.org/multipage/#the-source-element:nodes-are-inserted>
     fn bind_to_tree(&self, tree_in_doc: bool) {
         self.super_type().unwrap().bind_to_tree(tree_in_doc);
         let parent = self.upcast::<Node<TH>>().GetParentNode().unwrap();
-        if let Some(media) = parent.downcast::<HTMLMediaElement>() {
+        if let Some(media) = parent.downcast::<HTMLMediaElement<TH>>() {
             media.handle_source_child_insertion();
         }
     }

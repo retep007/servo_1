@@ -38,7 +38,7 @@ impl HTMLMeterElement {
 
 impl HTMLMeterElementMethods for HTMLMeterElement {
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
-    fn Labels(&self) -> DomRoot<NodeList> {
-        self.upcast::<HTMLElement>().labels()
+    fn Labels(&self) -> DomRoot<NodeList<TH>> {
+        self.upcast::<HTMLElement<TH>>().labels()
     }
 }

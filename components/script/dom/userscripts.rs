@@ -13,7 +13,7 @@ use std::io::Read;
 use std::path::PathBuf;
 use typeholder::TypeHolderTrait;
 
-pub fn load_script<TH: TypeHolderTrait>(head: &HTMLHeadElement) {
+pub fn load_script<TH: TypeHolderTrait>(head: &HTMLHeadElement<TH>) {
     if let Some(ref path_str) = opts::get().userscripts {
         let node = head.upcast::<Node<TH>>();
         let doc = node.owner_doc();

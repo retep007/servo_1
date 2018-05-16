@@ -102,7 +102,7 @@ impl InlineEventListener {
     /// Get a compiled representation of this event handler, compiling it from its
     /// raw source if necessary.
     /// <https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler>
-    fn get_compiled_handler(&mut self, owner: &EventTarget, ty: &Atom)
+    fn get_compiled_handler(&mut self, owner: &EventTarget<TH>, ty: &Atom)
                             -> Option<CommonEventHandler> {
         match mem::replace(self, InlineEventListener::Null) {
             InlineEventListener::Null => None,
@@ -128,7 +128,7 @@ enum EventListenerType {
 }
 
 impl EventListenerType {
-    fn get_compiled_listener(&mut self, owner: &EventTarget, ty: &Atom)
+    fn get_compiled_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom)
                              -> Option<CompiledEventListener> {
         match self {
             &mut EventListenerType::Inline(ref mut inline) =>
@@ -152,7 +152,7 @@ impl CompiledEventListener {
     // https://html.spec.whatwg.org/multipage/#the-event-handler-processing-algorithm
     pub fn call_or_handle_event<T: DomObject>(&self,
                                               object: &T,
-                                              event: &Event,
+                                              event: &Event<TH>,
                                               exception_handle: ExceptionHandling) {
         // Step 3
         match *self {
@@ -176,7 +176,7 @@ impl CompiledEventListener {
                             if let Ok(return_value) = return_value {
                                 rooted!(in(cx) let return_value = return_value);
                                 if return_value.handle().is_boolean() && return_value.handle().to_boolean() == true {
-                                    event.upcast::<Event>().PreventDefault();
+                                    event.upcast::<Event<TH>>().PreventDefault();
                                 }
                             }
                             return;
@@ -187,11 +187,11 @@ impl CompiledEventListener {
                     }
 
                     CommonEventHandler::BeforeUnloadEventHandler(ref handler) => {
-                        if let Some(event) = event.downcast::<BeforeUnloadEvent>() {
+                        if let Some(event) = event.downcast::<BeforeUnloadEvent<TH>>() {
                             let rv = event.ReturnValue();
 
                             if let Ok(value) = handler.Call_(object,
-                                                             event.upcast::<Event>(),
+                                                             event.upcast::<Event<TH>>(),
                                                              exception_handle) {
                                 match value {
                                     Some(value) => {
@@ -200,7 +200,7 @@ impl CompiledEventListener {
                                         }
                                     }
                                     None => {
-                                        event.upcast::<Event>().PreventDefault();
+                                        event.upcast::<Event<TH>>().PreventDefault();
                                     }
                                 }
                             }
@@ -255,7 +255,7 @@ impl DerefMut for EventListeners {
 
 impl EventListeners {
     // https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler
-    fn get_inline_listener(&mut self, owner: &EventTarget, ty: &Atom) -> Option<CommonEventHandler> {
+    fn get_inline_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom) -> Option<CommonEventHandler> {
         for entry in &mut self.0 {
             if let EventListenerType::Inline(ref mut inline) = entry.listener {
                 // Step 1.1-1.8 and Step 2
@@ -268,7 +268,7 @@ impl EventListeners {
     }
 
     // https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler
-    fn get_listeners(&mut self, phase: Option<ListenerPhase>, owner: &EventTarget, ty: &Atom)
+    fn get_listeners(&mut self, phase: Option<ListenerPhase>, owner: &EventTarget<TH>, ty: &Atom)
                      -> Vec<CompiledEventListener> {
         self.0.iter_mut().filter_map(|entry| {
             if phase.is_none() || Some(entry.phase) == phase {
@@ -288,7 +288,7 @@ pub struct EventTarget<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> EventTarget<TH> {
-    pub fn new_inherited() -> EventTarget {
+    pub fn new_inherited() -> EventTarget<TH> {
         EventTarget {
             reflector_: Reflector::new(),
             handlers: DomRefCell::new(Default::default()),
@@ -315,8 +315,8 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     pub fn dispatch_event_with_target(&self,
-                                      target: &EventTarget,
-                                      event: &Event) -> EventStatus {
+                                      target: &EventTarget<TH>,
+                                      event: &Event<TH>) -> EventStatus {
         if let Some(window) = target.global().downcast::<Window<TH>>() {
             if window.has_document() {
                 assert!(window.Document().can_invoke_script());
@@ -326,7 +326,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
         event.dispatch(self, Some(target))
     }
 
-    pub fn dispatch_event(&self, event: &Event) -> EventStatus {
+    pub fn dispatch_event(&self, event: &Event<TH>) -> EventStatus {
         if let Some(window) = self.global().downcast::<Window<TH>>() {
             if window.has_document() {
                 assert!(window.Document().can_invoke_script());
@@ -561,28 +561,28 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     // https://dom.spec.whatwg.org/#concept-event-fire
-    pub fn fire_event(&self, name: Atom) -> DomRoot<Event> {
+    pub fn fire_event(&self, name: Atom) -> DomRoot<Event<TH>> {
         self.fire_event_with_params(name,
                                     EventBubbles::DoesNotBubble,
                                     EventCancelable::NotCancelable)
     }
 
     // https://dom.spec.whatwg.org/#concept-event-fire
-    pub fn fire_bubbling_event(&self, name: Atom) -> DomRoot<Event> {
+    pub fn fire_bubbling_event(&self, name: Atom) -> DomRoot<Event<TH>> {
         self.fire_event_with_params(name,
                                     EventBubbles::Bubbles,
                                     EventCancelable::NotCancelable)
     }
 
     // https://dom.spec.whatwg.org/#concept-event-fire
-    pub fn fire_cancelable_event(&self, name: Atom) -> DomRoot<Event> {
+    pub fn fire_cancelable_event(&self, name: Atom) -> DomRoot<Event<TH>> {
         self.fire_event_with_params(name,
                                     EventBubbles::DoesNotBubble,
                                     EventCancelable::Cancelable)
     }
 
     // https://dom.spec.whatwg.org/#concept-event-fire
-    pub fn fire_bubbling_cancelable_event(&self, name: Atom) -> DomRoot<Event> {
+    pub fn fire_bubbling_cancelable_event(&self, name: Atom) -> DomRoot<Event<TH>> {
         self.fire_event_with_params(name,
                                     EventBubbles::Bubbles,
                                     EventCancelable::Cancelable)
@@ -593,7 +593,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
                                   name: Atom,
                                   bubbles: EventBubbles,
                                   cancelable: EventCancelable)
-                                  -> DomRoot<Event> {
+                                  -> DomRoot<Event<TH>> {
         let event = Event::new(&self.global(), name, bubbles, cancelable);
         event.fire(self);
         event
@@ -681,7 +681,7 @@ impl<TH> EventTargetMethods for EventTarget<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-eventtarget-dispatchevent
-    fn DispatchEvent(&self, event: &Event) -> Fallible<bool> {
+    fn DispatchEvent(&self, event: &Event<TH>) -> Fallible<bool> {
         if event.dispatching() || !event.initialized() {
             return Err(Error::InvalidState);
         }

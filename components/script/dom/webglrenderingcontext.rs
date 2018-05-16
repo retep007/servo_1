@@ -271,7 +271,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
                                                    EventBubbles::DoesNotBubble,
                                                    EventCancelable::Cancelable,
                                                    DOMString::from(msg));
-                event.upcast::<Event>().fire(canvas.upcast());
+                event.upcast::<Event<TH>>().fire(canvas.upcast());
                 None
             }
         }

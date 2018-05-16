@@ -32,7 +32,7 @@ pub mod size_of {
     use typeholder::TypeHolderTrait;
 
     pub fn CharacterData() -> usize {
-        size_of::<CharacterData>()
+        size_of::<CharacterData<TH>>()
     }
 
     pub fn Element() -> usize {
@@ -48,7 +48,7 @@ pub mod size_of {
     }
 
     pub fn HTMLElement() -> usize {
-        size_of::<HTMLElement>()
+        size_of::<HTMLElement<TH>>()
     }
 
     pub fn HTMLSpanElement() -> usize {
@@ -60,7 +60,7 @@ pub mod size_of {
     }
 
     pub fn Text() -> usize {
-        size_of::<Text>()
+        size_of::<Text<TH>>()
     }
 }
 

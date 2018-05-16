@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> CharacterData<TH> {
         // If this is a Text node, we might need to re-parse (say, if our parent
         // is a <style> element.) We don't need to if this is a Comment or
         // ProcessingInstruction.
-        if self.is::<Text>() {
+        if self.is::<Text<TH>>() {
             if let Some(parent_node) = node.GetParentNode() {
                 let mutation = ChildrenMutation::ChangeText;
                 vtable_for(&parent_node).children_changed(&mutation);
@@ -254,7 +254,7 @@ pub trait LayoutCharacterDataHelpers {
 }
 
 #[allow(unsafe_code)]
-impl LayoutCharacterDataHelpers for LayoutDom<CharacterData> {
+impl LayoutCharacterDataHelpers for LayoutDom<CharacterData<TH>> {
     #[inline]
     unsafe fn data_for_layout(&self) -> &str {
         &(*self.unsafe_get()).data.borrow_for_layout()

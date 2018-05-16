@@ -126,7 +126,7 @@ pub struct XMLHttpRequest<TH: TypeHolderTrait> {
     ready_state: Cell<XMLHttpRequestState>,
     timeout: Cell<u32>,
     with_credentials: Cell<bool>,
-    upload: Dom<XMLHttpRequestUpload>,
+    upload: Dom<XMLHttpRequestUpload<TH>>,
     response_url: DomRefCell<String>,
     status: Cell<u16>,
     status_text: DomRefCell<ByteString>,
@@ -1040,7 +1040,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
         } else {
             self.upcast()
         };
-        progressevent.upcast::<Event>().fire(target);
+        progressevent.upcast::<Event<TH>>().fire(target);
     }
 
     fn dispatch_upload_progress_event(&self, type_: Atom, partial_load: Option<u64>) {

@@ -45,7 +45,7 @@ impl<TH: TypeHolderTrait> BeforeUnloadEvent<TH> {
                cancelable: EventCancelable) -> DomRoot<Self> {
         let ev = BeforeUnloadEvent::new_uninitialized(window);
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bool::from(bubbles),
                              bool::from(cancelable));
         }

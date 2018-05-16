@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
 }
 
 impl<TH> Activatable for HTMLLabelElement<TH> {
-    fn as_element(&self) -> &Element {
+    fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()
     }
 
@@ -66,7 +66,7 @@ impl<TH> Activatable for HTMLLabelElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#run-post-click-activation-steps
-    fn activation_behavior(&self, _event: &Event, _target: &EventTarget) {
+    fn activation_behavior(&self, _event: &Event<TH>, _target: &EventTarget<TH>) {
         if let Some(e) = self.GetControl() {
             let elem = e.upcast::<Element<TH>>();
             synthetic_click_activation(elem,
@@ -89,7 +89,7 @@ impl<TH> Activatable for HTMLLabelElement<TH> {
 
 impl<TH: TypeHolderTrait> HTMLLabelElementMethods for HTMLLabelElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-fae-form
-    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner()
     }
 
@@ -100,7 +100,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElementMethods for HTMLLabelElement<TH> {
     make_atomic_setter!(SetHtmlFor, "for");
 
     // https://html.spec.whatwg.org/multipage/#dom-label-control
-    fn GetControl(&self) -> Option<DomRoot<HTMLElement>> {
+    fn GetControl(&self) -> Option<DomRoot<HTMLElement<TH>>> {
         if !self.upcast::<Node<TH>>().is_in_doc() {
             return None;
         }
@@ -112,7 +112,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElementMethods for HTMLLabelElement<TH> {
 
         let for_value = for_attr.value();
         document_from_node(self).get_element_by_id(for_value.as_atom())
-                                .and_then(DomRoot::downcast::<HTMLElement>)
+                                .and_then(DomRoot::downcast::<HTMLElement<TH>>)
                                 .into_iter()
                                 .filter(|e| e.is_labelable_element())
                                 .next()
@@ -121,7 +121,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElementMethods for HTMLLabelElement<TH> {
 
 impl<TH> VirtualMethods for HTMLLabelElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -131,7 +131,7 @@ impl<TH> VirtualMethods for HTMLLabelElement<TH> {
         }
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("form") => {
@@ -143,23 +143,23 @@ impl<TH> VirtualMethods for HTMLLabelElement<TH> {
 }
 
 impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
-    pub fn first_labelable_descendant(&self) -> Option<DomRoot<HTMLElement>> {
+    pub fn first_labelable_descendant(&self) -> Option<DomRoot<HTMLElement<TH>>> {
         self.upcast::<Node<TH>>()
             .traverse_preorder()
-            .filter_map(DomRoot::downcast::<HTMLElement>)
+            .filter_map(DomRoot::downcast::<HTMLElement<TH>>)
             .filter(|elem| elem.is_labelable_element())
             .next()
     }
 }
 
 impl<TH> FormControl for HTMLLabelElement<TH> {
-    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.GetControl().map(DomRoot::upcast::<Element<TH>>).and_then(|elem| {
             elem.as_maybe_form_control().and_then(|control| control.form_owner())
         })
     }
 
-    fn set_form_owner(&self, _: Option<&HTMLFormElement>) {
+    fn set_form_owner(&self, _: Option<&HTMLFormElement<TH>>) {
         // Label is a special case for form owner, it reflects its control's
         // form owner. Therefore it doesn't hold form owner itself.
     }

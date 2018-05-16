@@ -37,7 +37,7 @@ pub struct ServiceWorker<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> ServiceWorker<TH> {
     fn new_inherited(script_url: &str,
                      skip_waiting: bool,
-                     scope_url: ServoUrl) -> ServiceWorker {
+                     scope_url: ServoUrl) -> ServiceWorker<TH> {
         ServiceWorker {
             eventtarget: EventTarget::new_inherited(),
             script_url: DomRefCell::new(String::from(script_url)),
@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> ServiceWorker<TH> {
     pub fn install_serviceworker(global: &GlobalScope<TH>,
                                  script_url: ServoUrl,
                                  scope_url: ServoUrl,
-                                 skip_waiting: bool) -> DomRoot<ServiceWorker> {
+                                 skip_waiting: bool) -> DomRoot<ServiceWorker<TH>> {
         reflect_dom_object(
             Box::new(ServiceWorker::new_inherited(
                 script_url.as_str(), skip_waiting, scope_url

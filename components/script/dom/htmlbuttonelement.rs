@@ -43,7 +43,7 @@ enum ButtonType {
 pub struct HTMLButtonElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement,
     button_type: Cell<ButtonType>,
-    form_owner: MutNullableDom<HTMLFormElement>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLButtonElement> {
+               document: &Document<TH>) -> DomRoot<HTMLButtonElement<TH>> {
         Node::reflect_node(Box::new(HTMLButtonElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLButtonElementBinding::Wrap)
@@ -71,7 +71,7 @@ impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
 
 impl<TH> HTMLButtonElementMethods for HTMLButtonElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
-    fn Validity(&self) -> DomRoot<ValidityState> {
+    fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
         ValidityState::new(&window, self.upcast())
     }
@@ -83,7 +83,7 @@ impl<TH> HTMLButtonElementMethods for HTMLButtonElement<TH> {
     make_bool_setter!(SetDisabled, "disabled");
 
     // https://html.spec.whatwg.org/multipage/#dom-fae-form
-    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner()
     }
 
@@ -139,8 +139,8 @@ impl<TH> HTMLButtonElementMethods for HTMLButtonElement<TH> {
     make_setter!(SetValue, "value");
 
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
-    fn Labels(&self) -> DomRoot<NodeList> {
-        self.upcast::<HTMLElement>().labels()
+    fn Labels(&self) -> DomRoot<NodeList<TH>> {
+        self.upcast::<HTMLElement<TH>>().labels()
     }
 }
 
@@ -179,10 +179,10 @@ impl<TH> HTMLButtonElement<TH> {
 
 impl<TH> VirtualMethods for HTMLButtonElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
@@ -236,7 +236,7 @@ impl<TH> VirtualMethods for HTMLButtonElement<TH> {
 
         let node = self.upcast::<Node<TH>>();
         let el = self.upcast::<Element<TH>>();
-        if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement>()) {
+        if node.ancestors().any(|ancestor| ancestor.is::<HTMLFieldSetElement<TH>>()) {
             el.check_ancestors_disabled_state_for_form_control();
         } else {
             el.check_disabled_attribute();
@@ -245,11 +245,11 @@ impl<TH> VirtualMethods for HTMLButtonElement<TH> {
 }
 
 impl<TH> FormControl for HTMLButtonElement<TH> {
-    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
 
-    fn set_form_owner(&self, form: Option<&HTMLFormElement>) {
+    fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>) {
         self.form_owner.set(form);
     }
 
@@ -270,7 +270,7 @@ impl<TH> Validatable for HTMLButtonElement<TH> {
 }
 
 impl<TH: TypeHolderTrait> Activatable for HTMLButtonElement<TH> {
-    fn as_element(&self) -> &Element {
+    fn as_element(&self) -> &Element<TH> {
         self.upcast()
     }
 
@@ -289,7 +289,7 @@ impl<TH: TypeHolderTrait> Activatable for HTMLButtonElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#run-post-click-activation-steps
-    fn activation_behavior(&self, _event: &Event, _target: &EventTarget) {
+    fn activation_behavior(&self, _event: &Event<TH>, _target: &EventTarget<TH>) {
         let ty = self.button_type.get();
         match ty {
             //https://html.spec.whatwg.org/multipage/#attr-button-type-submit-state
@@ -320,7 +320,7 @@ impl<TH: TypeHolderTrait> Activatable for HTMLButtonElement<TH> {
             return;
         }
         node.query_selector_iter(DOMString::from("button[type=submit]")).unwrap()
-            .filter_map(DomRoot::downcast::<HTMLButtonElement>)
+            .filter_map(DomRoot::downcast::<HTMLButtonElement<TH>>)
             .find(|r| r.form_owner() == owner)
             .map(|s| synthetic_click_activation(s.as_element(),
                                                 ctrl_key,

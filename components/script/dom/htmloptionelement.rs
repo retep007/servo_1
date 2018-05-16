@@ -72,7 +72,7 @@ impl<TH: TypeHolderTrait> HTMLOptionElement<TH> {
 
     fn pick_if_selected_and_reset(&self) {
         if let Some(select) = self.upcast::<Node<TH>>().ancestors()
-                .filter_map(DomRoot::downcast::<HTMLSelectElement>)
+                .filter_map(DomRoot::downcast::<HTMLSelectElement<TH>>)
                 .next() {
             if self.Selected() {
                 select.pick_option(self);
@@ -83,16 +83,16 @@ impl<TH: TypeHolderTrait> HTMLOptionElement<TH> {
 }
 
 // FIXME(ajeffrey): Provide a way of buffering DOMStrings other than using Strings
-fn collect_text<TH: TypeHolderTrait>(element: &Element, value: &mut String) {
+fn collect_text<TH: TypeHolderTrait>(element: &Element<TH>, value: &mut String) {
     let svg_script = *element.namespace() == ns!(svg) && element.local_name() == &local_name!("script");
-    let html_script = element.is::<HTMLScriptElement>();
+    let html_script = element.is::<HTMLScriptElement<TH>>();
     if svg_script || html_script {
         return;
     }
 
     for child in element.upcast::<Node<TH>>().children() {
-        if child.is::<Text>() {
-            let characterdata = child.downcast::<CharacterData>().unwrap();
+        if child.is::<Text<TH>>() {
+            let characterdata = child.downcast::<CharacterData<TH>>().unwrap();
             value.push_str(&characterdata.Data());
         } else if let Some(element_child) = child.downcast() {
             collect_text(element_child, value);
@@ -120,16 +120,16 @@ impl<TH> HTMLOptionElementMethods for HTMLOptionElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-option-form
-    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         let parent = self.upcast::<Node<TH>>().GetParentNode().and_then(|p|
-            if p.is::<HTMLOptGroupElement>() {
+            if p.is::<HTMLOptGroupElement<TH>>() {
                 p.upcast::<Node<TH>>().GetParentNode()
             } else {
                 Some(p)
             }
         );
 
-        parent.and_then(|p| p.downcast::<HTMLSelectElement>().and_then(|s| s.GetForm()))
+        parent.and_then(|p| p.downcast::<HTMLSelectElement<TH>>().and_then(|s| s.GetForm()))
     }
 
     // https://html.spec.whatwg.org/multipage/#attr-option-value
@@ -181,10 +181,10 @@ impl<TH> HTMLOptionElementMethods for HTMLOptionElement<TH> {
 
 impl<TH> VirtualMethods for HTMLOptionElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
@@ -235,7 +235,7 @@ impl<TH> VirtualMethods for HTMLOptionElement<TH> {
         self.super_type().unwrap().unbind_from_tree(context);
 
         if let Some(select) = context.parent.inclusive_ancestors()
-                .filter_map(DomRoot::downcast::<HTMLSelectElement>)
+                .filter_map(DomRoot::downcast::<HTMLSelectElement<TH>>)
                 .next() {
             select.ask_for_reset();
         }

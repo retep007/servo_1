@@ -16,12 +16,12 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct FileList<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    list: Vec<Dom<File>>
+    list: Vec<Dom<File<TH>>>
 }
 
 impl<TH: TypeHolderTrait> FileList<TH> {
     #[allow(unrooted_must_root)]
-    fn new_inherited(files: Vec<Dom<File>>) -> FileList<TH> {
+    fn new_inherited(files: Vec<Dom<File<TH>>>) -> FileList<TH> {
         FileList {
             reflector_: Reflector::new(),
             list: files
@@ -29,13 +29,13 @@ impl<TH: TypeHolderTrait> FileList<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, files: Vec<DomRoot<File>>) -> DomRoot<FileList<TH>> {
+    pub fn new(window: &Window<TH>, files: Vec<DomRoot<File<TH>>>) -> DomRoot<FileList<TH>> {
         reflect_dom_object(Box::new(FileList::new_inherited(files.iter().map(|r| Dom::from_ref(&**r)).collect())),
                            window,
                            FileListBinding::Wrap)
     }
 
-    pub fn iter_files(&self) -> Iter<Dom<File>> {
+    pub fn iter_files(&self) -> Iter<Dom<File<TH>>> {
         self.list.iter()
     }
 }
@@ -47,7 +47,7 @@ impl<TH> FileListMethods for FileList<TH> {
     }
 
     // https://w3c.github.io/FileAPI/#dfn-item
-    fn Item(&self, index: u32) -> Option<DomRoot<File>> {
+    fn Item(&self, index: u32) -> Option<DomRoot<File<TH>>> {
         if (index as usize) < self.list.len() {
             Some(DomRoot::from_ref(&*(self.list[index as usize])))
         } else {
@@ -56,7 +56,7 @@ impl<TH> FileListMethods for FileList<TH> {
     }
 
     // check-tidy: no specs after this line
-    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<File>> {
+    fn IndexedGetter(&self, index: u32) -> Option<DomRoot<File<TH>>> {
         self.Item(index)
     }
 }

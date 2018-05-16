@@ -42,7 +42,7 @@ impl ExtendableMessageEvent {
         });
         let ev = reflect_dom_object(ev, global, ExtendableMessageEventBinding::Wrap);
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bubbles, cancelable);
         }
         ev.data.set(data.get());
@@ -67,13 +67,13 @@ impl ExtendableMessageEvent {
 }
 
 impl ExtendableMessageEvent {
-    pub fn dispatch_jsval(target: &EventTarget,
+    pub fn dispatch_jsval(target: &EventTarget<TH>,
                           scope: &GlobalScope<TH>,
                           message: HandleValue) {
         let Extendablemessageevent = ExtendableMessageEvent::new(
             scope, atom!("message"), false, false, message,
             DOMString::new(), DOMString::new());
-        Extendablemessageevent.upcast::<Event>().fire(target);
+        Extendablemessageevent.upcast::<Event<TH>>().fire(target);
     }
 }
 

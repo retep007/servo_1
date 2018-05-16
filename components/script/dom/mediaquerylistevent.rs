@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> MediaQueryListEvent<TH> {
                media: DOMString, matches: bool) -> DomRoot<MediaQueryListEvent<TH>> {
         let ev = MediaQueryListEvent::new_initialized(global, media, matches);
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bubbles, cancelable);
         }
         ev
@@ -73,6 +73,6 @@ impl<TH> MediaQueryListEventMethods for MediaQueryListEvent<TH> {
 
     // https://dom.spec.whatwg.org/#dom-event-istrusted
     fn IsTrusted(&self) -> bool {
-        self.upcast::<Event>().IsTrusted()
+        self.upcast::<Event<TH>>().IsTrusted()
     }
 }

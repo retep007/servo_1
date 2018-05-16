@@ -24,7 +24,7 @@ pub struct CSSNamespaceRule<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> CSSNamespaceRule<TH> {
-    fn new_inherited(parent_stylesheet: &CSSStyleSheet, namespacerule: Arc<Locked<NamespaceRule>>)
+    fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, namespacerule: Arc<Locked<NamespaceRule>>)
                      -> Self {
         CSSNamespaceRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
@@ -33,7 +33,7 @@ impl<TH: TypeHolderTrait> CSSNamespaceRule<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
                namespacerule: Arc<Locked<NamespaceRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(CSSNamespaceRule::new_inherited(parent_stylesheet, namespacerule)),
                            window,

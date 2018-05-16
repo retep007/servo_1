@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
         let root_elem = self.upcast::<Element<TH>>().root_element();
         let root_node = root_elem.upcast::<Node<TH>>();
         root_node.is_parent_of(self_node) &&
-            self_node.preceding_siblings().all(|n| !n.is::<HTMLBodyElement>())
+            self_node.preceding_siblings().all(|n| !n.is::<HTMLBodyElement<TH>>())
     }
 
 }
@@ -129,10 +129,10 @@ impl<TH> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
 
 impl<TH> VirtualMethods for HTMLBodyElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_affects_presentational_hints(&self, attr: &Attr) -> bool {
+    fn attribute_affects_presentational_hints(&self, attr: &Attr<TH>) -> bool {
         if attr.local_name() == &local_name!("bgcolor") {
             return true;
         }
@@ -170,7 +170,7 @@ impl<TH> VirtualMethods for HTMLBodyElement<TH> {
         }
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         let do_super_mutate = match (attr.local_name(), mutation) {
             (name, AttributeMutation::Set(_)) if name.starts_with("on") => {
                 let window = window_from_node(self);

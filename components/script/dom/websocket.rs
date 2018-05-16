@@ -70,7 +70,7 @@ mod close_code {
 }
 
 pub fn close_the_websocket_connection(
-    address: Trusted<WebSocket>,
+    address: Trusted<WebSocket<TH>>,
     task_source: &NetworkingTaskSource,
     canceller: &TaskCanceller,
     code: Option<u16>,
@@ -86,7 +86,7 @@ pub fn close_the_websocket_connection(
 }
 
 pub fn fail_the_websocket_connection(
-    address: Trusted<WebSocket>,
+    address: Trusted<WebSocket<TH>>,
     task_source: &NetworkingTaskSource,
     canceller: &TaskCanceller,
 ) {
@@ -493,7 +493,7 @@ impl<TH: TypeHolderTrait> TaskOnce for CloseTask<TH> {
                                           clean_close,
                                           code,
                                           reason);
-        close_event.upcast::<Event>().fire(ws.upcast());
+        close_event.upcast::<Event<TH>>().fire(ws.upcast());
     }
 }
 

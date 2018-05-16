@@ -38,7 +38,7 @@ pub struct MouseEvent<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> MouseEvent<TH> {
-    fn new_inherited() -> MouseEvent {
+    fn new_inherited() -> MouseEvent<TH> {
         MouseEvent {
             uievent: UIEvent::new_inherited(),
             screen_x: Cell::new(0),
@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> MouseEvent<TH> {
         }
     }
 
-    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<MouseEvent> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<MouseEvent<TH>> {
         reflect_dom_object(Box::new(MouseEvent::new_inherited()),
                            window,
                            MouseEventBinding::Wrap)
@@ -77,9 +77,9 @@ impl<TH: TypeHolderTrait> MouseEvent<TH> {
         shift_key: bool,
         meta_key: bool,
         button: i16,
-        related_target: Option<&EventTarget>,
+        related_target: Option<&EventTarget<TH>>,
         point_in_target: Option<Point2D<f32>>
-    ) -> DomRoot<MouseEvent> {
+    ) -> DomRoot<MouseEvent<TH>> {
         let ev = MouseEvent::new_uninitialized(window);
         ev.InitMouseEvent(
             type_, bool::from(can_bubble), bool::from(cancelable),
@@ -94,7 +94,7 @@ impl<TH: TypeHolderTrait> MouseEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &MouseEventBinding::MouseEventInit) -> Fallible<DomRoot<MouseEvent>> {
+                       init: &MouseEventBinding::MouseEventInit) -> Fallible<DomRoot<MouseEvent<TH>>> {
         let bubbles = EventBubbles::from(init.parent.parent.parent.bubbles);
         let cancelable = EventCancelable::from(init.parent.parent.parent.cancelable);
         let event = MouseEvent::new(
@@ -198,9 +198,9 @@ impl<TH: TypeHolderTrait> MouseEventMethods for MouseEvent<TH> {
         shift_key_arg: bool,
         meta_key_arg: bool,
         button_arg: i16,
-        related_target_arg: Option<&EventTarget>,
+        related_target_arg: Option<&EventTarget<TH>>,
     ) {
-        if self.upcast::<Event>().dispatching() {
+        if self.upcast::<Event<TH>>().dispatching() {
             return;
         }
 

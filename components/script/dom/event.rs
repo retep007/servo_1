@@ -74,7 +74,7 @@ impl<TH: TypeHolderTrait> Event<TH> {
     pub fn new(global: &GlobalScope<TH>,
                type_: Atom,
                bubbles: EventBubbles,
-               cancelable: EventCancelable) -> DomRoot<Event> {
+               cancelable: EventCancelable) -> DomRoot<Event<TH>> {
         let event = Event::new_uninitialized(global);
         event.init_event(type_, bool::from(bubbles), bool::from(cancelable));
         event
@@ -106,8 +106,8 @@ impl<TH: TypeHolderTrait> Event<TH> {
 
     // https://dom.spec.whatwg.org/#concept-event-dispatch
     pub fn dispatch(&self,
-                    target: &EventTarget,
-                    target_override: Option<&EventTarget>)
+                    target: &EventTarget<TH>,
+                    target_override: Option<&EventTarget<TH>>)
                     -> EventStatus {
         assert!(!self.dispatching());
         assert!(self.initialized());
@@ -216,7 +216,7 @@ impl<TH: TypeHolderTrait> Event<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#fire-a-simple-event
-    pub fn fire(&self, target: &EventTarget) -> EventStatus {
+    pub fn fire(&self, target: &EventTarget<TH>) -> EventStatus {
         self.set_trusted(true);
         target.dispatch_event(self)
     }
@@ -413,7 +413,7 @@ impl TaskOnce for SimpleEventTask {
 
 // See dispatch_event.
 // https://dom.spec.whatwg.org/#concept-event-dispatch
-fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event, target: &EventTarget, event_path: &[&EventTarget]) {
+fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event<TH>, target: &EventTarget<TH>, event_path: &[&EventTarget]) {
     assert!(!event.stop_propagation.get());
     assert!(!event.stop_immediate.get());
 
@@ -470,8 +470,8 @@ fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event, target: &EventTarge
 
 // https://dom.spec.whatwg.org/#concept-event-listener-invoke
 fn invoke(window: Option<&Window<TH>>,
-          object: &EventTarget,
-          event: &Event,
+          object: &EventTarget<TH>,
+          event: &Event<TH>,
           specific_listener_phase: Option<ListenerPhase>) {
     // Step 1.
     assert!(!event.stop_propagation.get());
@@ -490,8 +490,8 @@ fn invoke(window: Option<&Window<TH>>,
 
 // https://dom.spec.whatwg.org/#concept-event-listener-inner-invoke
 fn inner_invoke(window: Option<&Window<TH>>,
-                object: &EventTarget,
-                event: &Event,
+                object: &EventTarget<TH>,
+                event: &Event<TH>,
                 listeners: &[CompiledEventListener])
                 -> bool {
     // Step 1.

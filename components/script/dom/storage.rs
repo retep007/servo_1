@@ -183,7 +183,7 @@ impl<TH> Storage<TH> {
                     DOMString::from(url.into_string()),
                     Some(&this),
                 );
-                event.upcast::<Event>().fire(global.upcast());
+                event.upcast::<Event<TH>>().fire(global.upcast());
             }),
             global.upcast(),
         ).unwrap();

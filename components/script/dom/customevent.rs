@@ -66,7 +66,7 @@ impl CustomEvent {
                          can_bubble: bool,
                          cancelable: bool,
                          detail: HandleValue) {
-        let event = self.upcast::<Event>();
+        let event = self.upcast::<Event<TH>>();
         if event.dispatching() {
             return;
         }

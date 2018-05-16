@@ -23,7 +23,7 @@ pub struct CSSViewportRule<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> CSSViewportRule<TH> {
-    fn new_inherited(parent_stylesheet: &CSSStyleSheet, viewportrule: Arc<Locked<ViewportRule>>) -> CSSViewportRule {
+    fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, viewportrule: Arc<Locked<ViewportRule>>) -> CSSViewportRule<TH> {
         CSSViewportRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
             viewportrule: viewportrule,
@@ -31,7 +31,7 @@ impl<TH: TypeHolderTrait> CSSViewportRule<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet,
+    pub fn new(window: &Window<TH>, parent_stylesheet: &CSSStyleSheet<TH>,
                viewportrule: Arc<Locked<ViewportRule>>) -> DomRoot<Self> {
         reflect_dom_object(Box::new(CSSViewportRule::new_inherited(parent_stylesheet, viewportrule)),
                            window,

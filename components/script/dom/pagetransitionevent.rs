@@ -31,7 +31,7 @@ impl<TH: TypeHolderTrait> PageTransitionEvent<TH> {
         }
     }
 
-    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<PageTransitionEvent> {
+    pub fn new_uninitialized(window: &Window<TH>) -> DomRoot<PageTransitionEvent<TH>> {
         reflect_dom_object(Box::new(PageTransitionEvent::new_inherited()),
                            window,
                            PageTransitionEventBinding::Wrap)
@@ -42,11 +42,11 @@ impl<TH: TypeHolderTrait> PageTransitionEvent<TH> {
                bubbles: bool,
                cancelable: bool,
                persisted: bool)
-               -> DomRoot<PageTransitionEvent> {
+               -> DomRoot<PageTransitionEvent<TH>> {
         let ev = PageTransitionEvent::new_uninitialized(window);
         ev.persisted.set(persisted);
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_, bubbles, cancelable);
         }
         ev
@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> PageTransitionEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &PageTransitionEventBinding::PageTransitionEventInit)
-                       -> Fallible<DomRoot<PageTransitionEvent>> {
+                       -> Fallible<DomRoot<PageTransitionEvent<TH>>> {
         Ok(PageTransitionEvent::new(window,
                               Atom::from(type_),
                               init.parent.bubbles,

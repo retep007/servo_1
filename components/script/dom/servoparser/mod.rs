@@ -83,7 +83,7 @@ pub trait ServoParser<TH: TypeHolderTrait>: DomObject + MutDomObject + MallocSiz
     ///     ^
     ///     insertion point
     /// ```
-    fn resume_with_pending_parsing_blocking_script(&self, script: &HTMLScriptElement, result: ScriptResult);
+    fn resume_with_pending_parsing_blocking_script(&self, script: &HTMLScriptElement<TH>, result: ScriptResult);
 
     fn can_write(&self) -> bool;
 
@@ -98,7 +98,7 @@ pub trait ServoParser<TH: TypeHolderTrait>: DomObject + MutDomObject + MallocSiz
 
     fn parse_html_document(document: &Document<TH>, input: DOMString, url: ServoUrl) where Self: Sized;
 
-    fn parse_html_fragment(context: &Element, input: DOMString) -> Box<Iterator<Item=DomRoot<Node<TH>>>> where Self: Sized;
+    fn parse_html_fragment(context: &Element<TH>, input: DOMString) -> Box<Iterator<Item=DomRoot<Node<TH>>>> where Self: Sized;
 
     fn parse_html_script_input(document: &Document<TH>, url: ServoUrl, type_: &str) where Self: Sized;
 
@@ -184,7 +184,7 @@ enum Tokenizer {
 }
 
 impl Tokenizer {
-    fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement>> {
+    fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         match *self {
             Tokenizer::Html(ref mut tokenizer) => tokenizer.feed(input),
             Tokenizer::AsyncHtml(ref mut tokenizer) => tokenizer.feed(input),
@@ -230,7 +230,7 @@ impl Tokenizer {
 #[derive(JSTraceable)]
 pub struct ParserContext<TH: TypeHolderTrait> {
     /// The parser that initiated the request.
-    parser: Option<Trusted<Box<ServoParser>>>,
+    parser: Option<Trusted<Box<ServoParser<TH>>>>,
     /// Is this a synthesized document
     is_synthesized_document: bool,
     /// The pipeline associated with this document.
@@ -402,10 +402,10 @@ fn insert<TH: TypeHolderTrait>(parent: &Node<TH>, reference_child: Option<&Node<
             let text = reference_child
                 .and_then(Node::<TH>::GetPreviousSibling)
                 .or_else(|| parent.GetLastChild())
-                .and_then(DomRoot::downcast::<Text>);
+                .and_then(DomRoot::downcast::<Text<TH>>);
 
             if let Some(text) = text {
-                text.upcast::<CharacterData>().append_data(&t);
+                text.upcast::<CharacterData<TH>>().append_data(&t);
             } else {
                 let text = Text::new(String::from(t).into(), &parent.owner_doc());
                 parent.InsertBefore(text.upcast(), reference_child).unwrap();
@@ -420,7 +420,7 @@ pub struct Sink<TH: TypeHolderTrait> {
     base_url: ServoUrl,
     document: Dom<Document<TH>>,
     current_line: u64,
-    script: MutNullableDom<HTMLScriptElement>,
+    script: MutNullableDom<HTMLScriptElement<TH>>,
     parsing_algorithm: ParsingAlgorithm,
 }
 
@@ -449,7 +449,7 @@ impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
     }
 
     fn get_template_contents(&mut self, target: &Dom<Node<TH>>) -> Dom<Node<TH>> {
-        let template = target.downcast::<HTMLTemplateElement>()
+        let template = target.downcast::<HTMLTemplateElement<TH>>()
             .expect("tried to get template contents of non-HTMLTemplateElement in HTML parsing");
         Dom::from_ref(template.Content().upcast())
     }
@@ -506,7 +506,7 @@ impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
         }
 
         let node = target;
-        let form = DomRoot::downcast::<HTMLFormElement>(DomRoot::from_ref(&**form))
+        let form = DomRoot::downcast::<HTMLFormElement<TH>>(DomRoot::from_ref(&**form))
             .expect("Owner must be a form element");
 
         let elem = node.downcast::<Element<TH>>();
@@ -583,7 +583,7 @@ impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
     }
 
     fn mark_script_already_started(&mut self, node: &Dom<Node<TH>>) {
-        let script = node.downcast::<HTMLScriptElement>();
+        let script = node.downcast::<HTMLScriptElement<TH>>();
         script.map(|script| script.set_already_started(true));
     }
 

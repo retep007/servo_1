@@ -261,7 +261,7 @@ impl PermissionAlgorithm for Permissions {
 
 // https://w3c.github.io/permissions/#permission-state
 pub fn get_descriptor_permission_state(permission_name: PermissionName,
-                                       env_settings_obj: Option<&GlobalScope>)
+                                       env_settings_obj: Option<&GlobalScope<TH>>)
                                        -> PermissionState {
     // Step 1.
     let settings = match env_settings_obj {

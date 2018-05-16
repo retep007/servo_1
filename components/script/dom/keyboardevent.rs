@@ -769,7 +769,7 @@ impl<TH: TypeHolderTrait> KeyboardEventMethods for KeyboardEvent<TH> {
                          _modifiers_list_arg: DOMString,
                          repeat: bool,
                          _locale: DOMString) {
-        if self.upcast::<Event>().dispatching() {
+        if self.upcast::<Event<TH>>().dispatching() {
             return;
         }
 

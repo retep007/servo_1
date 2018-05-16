@@ -92,7 +92,7 @@ pub struct WorkerGlobalScope {
     from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
 
     navigation_start_precise: u64,
-    performance: MutNullableDom<Performance>,
+    performance: MutNullableDom<Performance<TH>>,
 }
 
 impl WorkerGlobalScope {

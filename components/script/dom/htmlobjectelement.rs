@@ -28,7 +28,7 @@ pub struct HTMLObjectElement {
     htmlelement: HTMLElement,
     #[ignore_malloc_size_of = "Arc"]
     image: DomRefCell<Option<Arc<Image>>>,
-    form_owner: MutNullableDom<HTMLFormElement>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
 impl HTMLObjectElement {
@@ -76,7 +76,7 @@ impl<'a> ProcessDataURL for &'a HTMLObjectElement {
 
 impl HTMLObjectElementMethods for HTMLObjectElement {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
-    fn Validity(&self) -> DomRoot<ValidityState> {
+    fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
         ValidityState::new(&window, self.upcast())
     }
@@ -88,7 +88,7 @@ impl HTMLObjectElementMethods for HTMLObjectElement {
     make_setter!(SetType, "type");
 
     // https://html.spec.whatwg.org/multipage/#dom-fae-form
-    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner()
     }
 }
@@ -106,10 +106,10 @@ impl Validatable for HTMLObjectElement {
 
 impl VirtualMethods for HTMLObjectElement {
     fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("data") => {
@@ -126,11 +126,11 @@ impl VirtualMethods for HTMLObjectElement {
 }
 
 impl FormControl for HTMLObjectElement {
-    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement>> {
+    fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
 
-    fn set_form_owner(&self, form: Option<&HTMLFormElement>) {
+    fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>) {
         self.form_owner.set(form);
     }
 

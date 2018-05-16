@@ -50,7 +50,7 @@ impl CloseEvent {
         let event = Box::new(CloseEvent::new_inherited(wasClean, code, reason));
         let ev = reflect_dom_object(event, global, CloseEventBinding::Wrap);
         {
-            let event = ev.upcast::<Event>();
+            let event = ev.upcast::<Event<TH>>();
             event.init_event(type_,
                              bool::from(bubbles),
                              bool::from(cancelable));
