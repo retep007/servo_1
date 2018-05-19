@@ -21,14 +21,14 @@ pub struct TestBindingIterable<TH: TypeHolderTrait> {
 }
 
 impl<TH> TestBindingIterable<TH> {
-    fn new(global: &GlobalScope<TH>) -> DomRoot<TestBindingIterable> {
+    fn new(global: &GlobalScope<TH>) -> DomRoot<TestBindingIterable<TH>> {
         reflect_dom_object(Box::new(TestBindingIterable {
             reflector: Reflector::new(),
             vals: DomRefCell::new(vec![]),
         }), global, TestBindingIterableBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBindingIterable>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBindingIterable<TH>>> {
         Ok(TestBindingIterable::new(global))
     }
 }

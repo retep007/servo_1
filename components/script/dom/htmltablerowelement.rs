@@ -93,7 +93,7 @@ impl<TH> HTMLTableRowElementMethods for HTMLTableRowElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tr-deletecell
-    fn DeleteCell(&self, index: i32) -> ErrorResult {
+    fn DeleteCell(&self, index: i32) -> ErrorResult<TH> {
         let node = self.upcast::<Node<TH>>();
         node.delete_cell_or_row(
             index,

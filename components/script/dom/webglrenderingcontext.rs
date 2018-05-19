@@ -379,7 +379,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
         self.webgl_sender.send_vr(command).unwrap();
     }
 
-    pub fn get_extension_manager<'a>(&'a self) -> &'a WebGLExtensions {
+    pub fn get_extension_manager<'a>(&'a self) -> &'a WebGLExtensions<TH> {
         &self.extension_manager
     }
 
@@ -1675,7 +1675,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext
         target: u32,
         data: *mut JSObject,
         usage: u32,
-    ) -> ErrorResult {
+    ) -> ErrorResult<TH> {
         if data.is_null() {
             return Ok(self.webgl_error(InvalidValue));
         }
@@ -1697,7 +1697,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext
     }
 
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.5
-    fn BufferData_(&self, target: u32, size: i64, usage: u32) -> ErrorResult {
+    fn BufferData_(&self, target: u32, size: i64, usage: u32) -> ErrorResult<TH> {
         let bound_buffer = handle_potential_webgl_error!(self, self.bound_buffer(target), return Ok(()));
         let bound_buffer = match bound_buffer {
             Some(bound_buffer) => bound_buffer,
@@ -3271,7 +3271,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext
         format: u32,
         data_type: u32,
         mut pixels: CustomAutoRooterGuard<Option<ArrayBufferView>>,
-    ) -> ErrorResult {
+    ) -> ErrorResult<TH> {
         if !self.extension_manager.is_tex_type_enabled(data_type) {
             return Ok(self.webgl_error(InvalidEnum));
         }
@@ -3343,7 +3343,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext
         format: u32,
         data_type: u32,
         source: ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>,
-    ) -> ErrorResult {
+    ) -> ErrorResult<TH> {
         if !self.extension_manager.is_tex_type_enabled(data_type) {
             return Ok(self.webgl_error(InvalidEnum));
         }
@@ -3395,7 +3395,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext
                    height: i32,
                    format: u32,
                    data_type: u32,
-                   source: &HTMLIFrameElement<TH>) -> ErrorResult {
+                   source: &HTMLIFrameElement<TH>) -> ErrorResult<TH> {
         // Currently DOMToTexture only supports TEXTURE_2D, RGBA, UNSIGNED_BYTE and no levels.
         if target != constants::TEXTURE_2D || level != 0 || internal_format != constants::RGBA ||
             format != constants::RGBA || data_type != constants::UNSIGNED_BYTE {
@@ -3437,7 +3437,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext
         format: u32,
         data_type: u32,
         mut pixels: CustomAutoRooterGuard<Option<ArrayBufferView>>,
-    ) -> ErrorResult {
+    ) -> ErrorResult<TH> {
         let validator = TexImage2DValidator::new(self, target, level,
                                                  format, width, height,
                                                  0, format, data_type);
@@ -3501,7 +3501,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext
         format: u32,
         data_type: u32,
         source: ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>,
-    ) -> ErrorResult {
+    ) -> ErrorResult<TH> {
         let (pixels, size, premultiplied) = match self.get_image_pixels(source) {
             Ok((pixels, size, premultiplied)) => (pixels, size, premultiplied),
             Err(_) => return Ok(()),

@@ -114,7 +114,7 @@ pub struct Performance<TH: TypeHolderTrait> {
     reflector_: Reflector,
     timing: Option<Dom<PerformanceTiming<TH>>>,
     entries: DomRefCell<PerformanceEntryList>,
-    observers: DomRefCell<Vec<PerformanceObserver>>,
+    observers: DomRefCell<Vec<PerformanceObserver<TH>>>,
     pending_notification_observers_task: Cell<bool>,
     navigation_start_precise: u64,
 }

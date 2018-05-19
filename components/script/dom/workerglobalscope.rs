@@ -80,7 +80,7 @@ pub struct WorkerGlobalScope<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Defined in js"]
     runtime: Runtime,
     location: MutNullableDom<WorkerLocation<TH>>,
-    navigator: MutNullableDom<WorkerNavigator>,
+    navigator: MutNullableDom<WorkerNavigator<TH>>,
 
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
     /// Optional `IpcSender` for sending the `DevtoolScriptControlMsg`
@@ -191,7 +191,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods for WorkerGlobalScope<TH> {
     error_event_handler!(error, GetOnerror, SetOnerror);
 
     // https://html.spec.whatwg.org/multipage/#dom-workerglobalscope-importscripts
-    fn ImportScripts(&self, url_strings: Vec<DOMString>) -> ErrorResult {
+    fn ImportScripts(&self, url_strings: Vec<DOMString>) -> ErrorResult<TH> {
         let mut urls = Vec::with_capacity(url_strings.len());
         for url in url_strings {
             let url = self.worker_url.join(&url);
@@ -241,7 +241,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods for WorkerGlobalScope<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-worker-navigator
-    fn Navigator(&self) -> DomRoot<WorkerNavigator> {
+    fn Navigator(&self) -> DomRoot<WorkerNavigator<TH>> {
         self.navigator.or_init(|| WorkerNavigator::new(self))
     }
 
@@ -316,7 +316,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods for WorkerGlobalScope<TH> {
 
     #[allow(unrooted_must_root)]
     // https://fetch.spec.whatwg.org/#fetch-method
-    fn Fetch(&self, input: RequestOrUSVString, init: RootedTraceableBox<RequestInit>) -> Rc<Promise> {
+    fn Fetch(&self, input: RequestOrUSVString<TH>, init: RootedTraceableBox<RequestInit>) -> Rc<Promise<TH>> {
         fetch::Fetch(self.upcast(), input, init)
     }
 

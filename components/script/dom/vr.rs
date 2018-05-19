@@ -58,7 +58,7 @@ impl<TH> Drop for VR<TH> {
 impl<TH> VRMethods for VR<TH> {
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/webvr/#interface-navigator
-    fn GetDisplays(&self) -> Rc<Promise> {
+    fn GetDisplays(&self) -> Rc<Promise<TH>> {
         let promise = Promise::new(&self.global());
 
         if let Some(webvr_thread) = self.webvr_thread() {

@@ -28,7 +28,7 @@ pub struct ServiceWorkerRegistration<TH> {
 }
 
 impl<TH> ServiceWorkerRegistration<TH> {
-    fn new_inherited(active_sw: &ServiceWorker<TH>, scope: ServoUrl) -> ServiceWorkerRegistration {
+    fn new_inherited(active_sw: &ServiceWorker<TH>, scope: ServoUrl) -> ServiceWorkerRegistration<TH> {
         ServiceWorkerRegistration {
             eventtarget: EventTarget::new_inherited(),
             active: Some(Dom::from_ref(active_sw)),
@@ -41,7 +41,7 @@ impl<TH> ServiceWorkerRegistration<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(global: &GlobalScope<TH>,
                script_url: &ServoUrl,
-               scope: ServoUrl) -> DomRoot<ServiceWorkerRegistration> {
+               scope: ServoUrl) -> DomRoot<ServiceWorkerRegistration<TH>> {
         let active_worker = ServiceWorker::install_serviceworker(global, script_url.clone(), scope.clone(), true);
         active_worker.set_transition_state(ServiceWorkerState::Installed);
         reflect_dom_object(Box::new(ServiceWorkerRegistration::new_inherited(&*active_worker, scope)), global, Wrap)

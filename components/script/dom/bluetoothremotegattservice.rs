@@ -85,7 +85,7 @@ impl<TH> BluetoothRemoteGATTServiceMethods for BluetoothRemoteGATTService<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattservice-getcharacteristic
     fn GetCharacteristic(&self,
                          characteristic: BluetoothCharacteristicUUID)
-                         -> Rc<Promise> {
+                         -> Rc<Promise<TH>> {
         get_gatt_children(self, true, BluetoothUUID::characteristic, Some(characteristic), self.get_instance_id(),
                           self.Device().get_gatt().Connected(), GATTType::Characteristic)
     }
@@ -94,7 +94,7 @@ impl<TH> BluetoothRemoteGATTServiceMethods for BluetoothRemoteGATTService<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattservice-getcharacteristics
     fn GetCharacteristics(&self,
                           characteristic: Option<BluetoothCharacteristicUUID>)
-                          -> Rc<Promise> {
+                          -> Rc<Promise<TH>> {
         get_gatt_children(self, false, BluetoothUUID::characteristic, characteristic, self.get_instance_id(),
                           self.Device().get_gatt().Connected(), GATTType::Characteristic)
     }
@@ -103,7 +103,7 @@ impl<TH> BluetoothRemoteGATTServiceMethods for BluetoothRemoteGATTService<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattservice-getincludedservice
     fn GetIncludedService(&self,
                           service: BluetoothServiceUUID)
-                          -> Rc<Promise> {
+                          -> Rc<Promise<TH>> {
         get_gatt_children(self, false, BluetoothUUID::service, Some(service), self.get_instance_id(),
                           self.Device().get_gatt().Connected(), GATTType::IncludedService)
     }
@@ -113,7 +113,7 @@ impl<TH> BluetoothRemoteGATTServiceMethods for BluetoothRemoteGATTService<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattservice-getincludedservices
     fn GetIncludedServices(&self,
                           service: Option<BluetoothServiceUUID>)
-                          -> Rc<Promise> {
+                          -> Rc<Promise<TH>> {
         get_gatt_children(self, false, BluetoothUUID::service, service, self.get_instance_id(),
                           self.Device().get_gatt().Connected(), GATTType::IncludedService)
     }

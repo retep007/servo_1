@@ -23,14 +23,14 @@ pub struct VRFieldOfView<TH: TypeHolderTrait> {
 unsafe_no_jsmanaged_fields!(WebVRFieldOfView);
 
 impl<TH> VRFieldOfView<TH> {
-    fn new_inherited(fov: WebVRFieldOfView) -> VRFieldOfView {
+    fn new_inherited(fov: WebVRFieldOfView) -> VRFieldOfView<TH> {
         VRFieldOfView {
             reflector_: Reflector::new(),
             fov: DomRefCell::new(fov)
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, fov: WebVRFieldOfView) -> DomRoot<VRFieldOfView> {
+    pub fn new(global: &GlobalScope<TH>, fov: WebVRFieldOfView) -> DomRoot<VRFieldOfView<TH>> {
         reflect_dom_object(Box::new(VRFieldOfView::new_inherited(fov)),
                            global,
                            VRFieldOfViewBinding::Wrap)

@@ -201,7 +201,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-thead
-    fn SetTHead(&self, thead: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult {
+    fn SetTHead(&self, thead: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult<TH> {
         self.set_first_section_of_type(&local_name!("thead"), thead, |n| {
             !n.is::<HTMLTableCaptionElement<TH>>() && !n.is::<HTMLTableColElement<TH>>()
         })
@@ -223,7 +223,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-tfoot
-    fn SetTFoot(&self, tfoot: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult {
+    fn SetTFoot(&self, tfoot: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult<TH> {
         self.set_first_section_of_type(&local_name!("tfoot"), tfoot, |n| {
             if n.is::<HTMLTableCaptionElement<TH>>() || n.is::<HTMLTableColElement<TH>>() {
                 return false;

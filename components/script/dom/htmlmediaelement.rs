@@ -60,7 +60,7 @@ pub struct HTMLMediaElement<TH: TypeHolderTrait> {
     /// <https://html.spec.whatwg.org/multipage/#dom-media-readystate>
     ready_state: Cell<ReadyState>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-srcobject>
-    src_object: MutNullableDom<Blob>,
+    src_object: MutNullableDom<Blob<TH>>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-currentsrc>
     current_src: DomRefCell<String>,
     /// Incremented whenever tasks associated with this element are cancelled.
@@ -79,10 +79,10 @@ pub struct HTMLMediaElement<TH: TypeHolderTrait> {
     delaying_the_load_event_flag: DomRefCell<Option<LoadBlocker<TH>>>,
     /// <https://html.spec.whatwg.org/multipage/#list-of-pending-play-promises>
     #[ignore_malloc_size_of = "promises are hard"]
-    pending_play_promises: DomRefCell<Vec<Rc<Promise>>>,
+    pending_play_promises: DomRefCell<Vec<Rc<Promise<TH>>>>,
     /// Play promises which are soon to be fulfilled by a queued task.
     #[ignore_malloc_size_of = "promises are hard"]
-    in_flight_play_promises_queue: DomRefCell<VecDeque<(Box<[Rc<Promise>]>, ErrorResult)>>,
+    in_flight_play_promises_queue: DomRefCell<VecDeque<(Box<[Rc<Promise<TH>>]>, ErrorResult)>>,
 }
 
 /// <https://html.spec.whatwg.org/multipage/#dom-media-networkstate>
@@ -158,8 +158,8 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
 
     /// <https://html.spec.whatwg.org/multipage/#dom-media-play>
     // FIXME(nox): Move this back to HTMLMediaElementMethods::Play once
-    // Rc<Promise> doesn't require #[allow(unrooted_must_root)] anymore.
-    fn play(&self, promise: &Rc<Promise>) {
+    // Rc<Promise<TH>> doesn't require #[allow(unrooted_must_root)] anymore.
+    fn play(&self, promise: &Rc<Promise<TH>>) {
         // Step 1.
         // FIXME(nox): Reject promise if not allowed to play.
 
@@ -753,7 +753,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
 
     /// Appends a promise to the list of pending play promises.
     #[allow(unrooted_must_root)]
-    fn push_pending_play_promise(&self, promise: &Rc<Promise>) {
+    fn push_pending_play_promise(&self, promise: &Rc<Promise<TH>>) {
         self.pending_play_promises.borrow_mut().push(promise.clone());
     }
 
@@ -768,7 +768,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
     /// `fulfill_in_flight_play_promises`, to actually fulfill the promises
     /// which were taken and moved to the in-flight queue.
     #[allow(unrooted_must_root)]
-    fn take_pending_play_promises(&self, result: ErrorResult) {
+    fn take_pending_play_promises(&self, result: ErrorResult<TH>) {
         let pending_play_promises = mem::replace(
             &mut *self.pending_play_promises.borrow_mut(),
             vec![],
@@ -842,12 +842,12 @@ impl<TH: TypeHolderTrait> HTMLMediaElementMethods<TH> for HTMLMediaElement<TH> {
     make_setter!(SetSrc, "src");
 
     // https://html.spec.whatwg.org/multipage/#dom-media-srcobject
-    fn GetSrcObject(&self) -> Option<DomRoot<Blob>> {
+    fn GetSrcObject(&self) -> Option<DomRoot<Blob<TH>>> {
         self.src_object.get()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-media-srcobject
-    fn SetSrcObject(&self, value: Option<&Blob>) {
+    fn SetSrcObject(&self, value: Option<&Blob<TH>>) {
         self.src_object.set(value);
         self.media_element_load_algorithm();
     }
@@ -886,7 +886,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElementMethods<TH> for HTMLMediaElement<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-media-play
     #[allow(unrooted_must_root)]
-    fn Play(&self) -> Rc<Promise> {
+    fn Play(&self) -> Rc<Promise<TH>> {
         let promise = Promise::new(&self.global());
         self.play(&promise);
         promise

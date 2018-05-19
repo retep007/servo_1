@@ -34,7 +34,7 @@ pub enum JobType {
 
 #[derive(Clone)]
 pub enum SettleType {
-    Resolve(Trusted<ServiceWorkerRegistration>),
+    Resolve(Trusted<ServiceWorkerRegistration<TH>>),
     Reject(Error)
 }
 
@@ -44,7 +44,7 @@ pub struct Job {
     pub job_type: JobType,
     pub scope_url: ServoUrl,
     pub script_url: ServoUrl,
-    pub promise: Rc<Promise>,
+    pub promise: Rc<Promise<TH>>,
     pub equivalent_jobs: Vec<Job>,
     // client can be a window client, worker client so `Client` will be an enum in future
     pub client: Dom<Client>,
@@ -57,7 +57,7 @@ impl Job {
     pub fn create_job(job_type: JobType,
                       scope_url: ServoUrl,
                       script_url: ServoUrl,
-                      promise: Rc<Promise>,
+                      promise: Rc<Promise<TH>>,
                       client: &Client) -> Job {
         Job {
             job_type: job_type,
@@ -263,7 +263,7 @@ impl<TH: TypeHolderTrait> JobQueue<TH> {
     }
 }
 
-fn settle_job_promise(promise: &Promise, settle: SettleType) {
+fn settle_job_promise(promise: &Promise<TH>, settle: SettleType) {
     match settle {
         SettleType::Resolve(reg) => promise.resolve_native(&*reg.root()),
         SettleType::Reject(err) => promise.reject_error(err),
@@ -299,6 +299,6 @@ fn reject_job_promise<TH>(job: &Job, err: Error, task_source: &DOMManipulationTa
     queue_settle_promise(job, SettleType::Reject(err), task_source)
 }
 
-fn resolve_job_promise<TH: TypeHolderTrait>(job: &Job, reg: &ServiceWorkerRegistration, task_source: &DOMManipulationTaskSource<TH>) {
+fn resolve_job_promise<TH: TypeHolderTrait>(job: &Job, reg: &ServiceWorkerRegistration<TH>, task_source: &DOMManipulationTaskSource<TH>) {
     queue_settle_promise(job, SettleType::Resolve(Trusted::new(reg)), task_source)
 }

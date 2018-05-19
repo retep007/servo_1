@@ -43,7 +43,7 @@ impl<TH> DOMStringMapMethods for DOMStringMap<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-domstringmap-setitem
-    fn NamedSetter(&self, name: DOMString, value: DOMString) -> ErrorResult {
+    fn NamedSetter(&self, name: DOMString, value: DOMString) -> ErrorResult<TH> {
         self.element.set_custom_attr(name, value)
     }
 

@@ -179,7 +179,7 @@ impl<TH> PaintWorkletGlobalScope<TH> {
                           name: &Atom,
                           size_in_px: TypedSize2D<f32, CSSPixel>,
                           device_pixel_ratio: TypedScale<f32, CSSPixel, DevicePixel>,
-                          properties: &StylePropertyMapReadOnly,
+                          properties: &StylePropertyMapReadOnly<TH>,
                           arguments: &[String])
                           -> DrawAPaintImageResult
     {
@@ -199,7 +199,7 @@ impl<TH> PaintWorkletGlobalScope<TH> {
                                size_in_px: TypedSize2D<f32, CSSPixel>,
                                size_in_dpx: TypedSize2D<u32, DevicePixel>,
                                device_pixel_ratio: TypedScale<f32, CSSPixel, DevicePixel>,
-                               properties: &StylePropertyMapReadOnly,
+                               properties: &StylePropertyMapReadOnly<TH>,
                                arguments: &[String])
                                -> DrawAPaintImageResult
     {

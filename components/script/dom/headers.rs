@@ -59,7 +59,7 @@ impl<TH> Headers<TH> {
 
 impl<TH> HeadersMethods for Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-append
-    fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult {
+    fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult<TH> {
         // Step 1
         let value = normalize_value(value);
         // Step 2
@@ -93,7 +93,7 @@ impl<TH> HeadersMethods for Headers<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-delete
-    fn Delete(&self, name: ByteString) -> ErrorResult {
+    fn Delete(&self, name: ByteString) -> ErrorResult<TH> {
         // Step 1
         let valid_name = validate_name(name)?;
         // Step 2
@@ -167,7 +167,7 @@ impl<TH> HeadersMethods for Headers<TH> {
 
 impl<TH> Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-fill
-    pub fn fill(&self, filler: Option<HeadersInit>) -> ErrorResult {
+    pub fn fill(&self, filler: Option<HeadersInit>) -> ErrorResult<TH> {
         match filler {
             // Step 1
             Some(HeadersInit::Headers(h)) => {

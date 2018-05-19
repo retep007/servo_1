@@ -1152,14 +1152,14 @@ pub fn encode_multipart_form_data<TH: TypeHolderTrait>(form_data: &mut Vec<FormD
                                                None,
                                                f.name().clone().into()));
                 // https://tools.ietf.org/html/rfc7578#section-4.4
-                let content_type = ContentType(f.upcast::<Blob>().Type()
+                let content_type = ContentType(f.upcast::<Blob<TH>>().Type()
                                                 .parse().unwrap_or(mime!(Text / Plain)));
                 let mut type_bytes = format!("Content-Disposition: {}\r\ncontent-type: {}\r\n\r\n",
                                              content_disposition,
                                              content_type).into_bytes();
                 result.append(&mut type_bytes);
 
-                let mut bytes = f.upcast::<Blob>().get_bytes().unwrap_or(vec![]);
+                let mut bytes = f.upcast::<Blob<TH>>().get_bytes().unwrap_or(vec![]);
 
                 result.append(&mut bytes);
             }

@@ -59,7 +59,7 @@ impl<TH> DissimilarOriginLocationMethods for DissimilarOriginLocation<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn SetHref(&self, _: USVString) -> ErrorResult {
+    fn SetHref(&self, _: USVString) -> ErrorResult<TH> {
         // TODO: setting href on a cross-origin window should succeed?
         Err(Error::Security)
     }

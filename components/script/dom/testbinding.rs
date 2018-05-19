@@ -52,7 +52,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct TestBinding<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    url: MutableWeakRef<URL>,
+    url: MutableWeakRef<URL<TH>>,
 }
 
 impl<TH> TestBinding<TH> {
@@ -118,10 +118,10 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn SetByteStringAttribute(&self, _: ByteString) {}
     fn EnumAttribute(&self) -> TestEnum { TestEnum::_empty }
     fn SetEnumAttribute(&self, _: TestEnum) {}
-    fn InterfaceAttribute(&self) -> DomRoot<Blob> {
+    fn InterfaceAttribute(&self) -> DomRoot<Blob<TH>> {
         Blob::new(&self.global(), BlobImpl::new_from_bytes(vec![]), "".to_owned())
     }
-    fn SetInterfaceAttribute(&self, _: &Blob) {}
+    fn SetInterfaceAttribute(&self, _: &Blob<TH>) {}
     fn UnionAttribute(&self) -> HTMLElementOrLong<TH> { HTMLElementOrLong::Long(0) }
     fn SetUnionAttribute(&self, _: HTMLElementOrLong<TH>) {}
     fn Union2Attribute(&self) -> EventOrString<TH> { EventOrString::String(DOMString::new()) }
@@ -211,14 +211,14 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn Attr_to_automatically_rename(&self) -> DOMString { DOMString::new() }
     fn SetAttr_to_automatically_rename(&self, _: DOMString) {}
     fn GetEnumAttributeNullable(&self) -> Option<TestEnum> { Some(TestEnum::_empty) }
-    fn GetInterfaceAttributeNullable(&self) -> Option<DomRoot<Blob>> {
+    fn GetInterfaceAttributeNullable(&self) -> Option<DomRoot<Blob<TH>>> {
         Some(Blob::new(&self.global(), BlobImpl::new_from_bytes(vec![]), "".to_owned()))
     }
-    fn SetInterfaceAttributeNullable(&self, _: Option<&Blob>) {}
-    fn GetInterfaceAttributeWeak(&self) -> Option<DomRoot<URL>> {
+    fn SetInterfaceAttributeNullable(&self, _: Option<&Blob<TH>>) {}
+    fn GetInterfaceAttributeWeak(&self) -> Option<DomRoot<URL<TH>>> {
         self.url.root()
     }
-    fn SetInterfaceAttributeWeak(&self, url: Option<&URL>) {
+    fn SetInterfaceAttributeWeak(&self, url: Option<&URL<TH>>) {
         self.url.set(url);
     }
     #[allow(unsafe_code)]
@@ -268,7 +268,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn ReceiveUsvstring(&self) -> USVString { USVString("".to_owned()) }
     fn ReceiveByteString(&self) -> ByteString { ByteString::new(vec!()) }
     fn ReceiveEnum(&self) -> TestEnum { TestEnum::_empty }
-    fn ReceiveInterface(&self) -> DomRoot<Blob> {
+    fn ReceiveInterface(&self) -> DomRoot<Blob<TH>> {
         Blob::new(&self.global(), BlobImpl::new_from_bytes(vec![]), "".to_owned())
     }
     #[allow(unsafe_code)]
@@ -293,7 +293,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
         ByteStringSequenceOrLongOrString::ByteStringSequence(vec!(ByteString::new(vec!())))
     }
     fn ReceiveSequence(&self) -> Vec<i32> { vec![1] }
-    fn ReceiveInterfaceSequence(&self) -> Vec<DomRoot<Blob>> {
+    fn ReceiveInterfaceSequence(&self) -> Vec<DomRoot<Blob<TH>>> {
         vec![Blob::new(&self.global(), BlobImpl::new_from_bytes(vec![]), "".to_owned())]
     }
     #[allow(unsafe_code)]
@@ -322,7 +322,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn ReceiveNullableUsvstring(&self) -> Option<USVString> { Some(USVString("".to_owned())) }
     fn ReceiveNullableByteString(&self) -> Option<ByteString> { Some(ByteString::new(vec!())) }
     fn ReceiveNullableEnum(&self) -> Option<TestEnum> { Some(TestEnum::_empty) }
-    fn ReceiveNullableInterface(&self) -> Option<DomRoot<Blob>> {
+    fn ReceiveNullableInterface(&self) -> Option<DomRoot<Blob<TH>>> {
         Some(Blob::new(&self.global(), BlobImpl::new_from_bytes(vec![]), "".to_owned()))
     }
     #[allow(unsafe_code)]
@@ -438,7 +438,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassUsvstring(&self, _: USVString) {}
     fn PassByteString(&self, _: ByteString) {}
     fn PassEnum(&self, _: TestEnum) {}
-    fn PassInterface(&self, _: &Blob) {}
+    fn PassInterface(&self, _: &Blob<TH>) {}
     fn PassTypedArray(&self, _: CustomAutoRooterGuard<typedarray::Int8Array>) {}
     fn PassTypedArray2(&self, _: CustomAutoRooterGuard<typedarray::ArrayBuffer>) {}
     fn PassTypedArray3(&self, _: CustomAutoRooterGuard<typedarray::ArrayBufferView>) {}
@@ -472,7 +472,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     #[allow(unsafe_code)]
     unsafe fn PassObjectSequence(&self, _: *mut JSContext, _: CustomAutoRooterGuard<Vec<*mut JSObject>>) {}
     fn PassStringSequence(&self, _: Vec<DOMString>) {}
-    fn PassInterfaceSequence(&self, _: Vec<DomRoot<Blob>>) {}
+    fn PassInterfaceSequence(&self, _: Vec<DomRoot<Blob<TH>>>) {}
 
     fn PassOverloaded(&self, _: CustomAutoRooterGuard<typedarray::ArrayBuffer>) {}
     fn PassOverloaded_(&self, _: DOMString) {}
@@ -494,7 +494,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassNullableUsvstring(&self, _: Option<USVString>) {}
     fn PassNullableByteString(&self, _: Option<ByteString>) {}
     // fn PassNullableEnum(self, _: Option<TestEnum>) {}
-    fn PassNullableInterface(&self, _: Option<&Blob>) {}
+    fn PassNullableInterface(&self, _: Option<&Blob<TH>>) {}
     #[allow(unsafe_code)]
     unsafe fn PassNullableObject(&self, _: *mut JSContext, _: *mut JSObject) {}
     fn PassNullableTypedArray(&self, _: CustomAutoRooterGuard<Option<typedarray::Int8Array>>) { }
@@ -525,7 +525,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassOptionalUsvstring(&self, _: Option<USVString>) {}
     fn PassOptionalByteString(&self, _: Option<ByteString>) {}
     fn PassOptionalEnum(&self, _: Option<TestEnum>) {}
-    fn PassOptionalInterface(&self, _: Option<&Blob>) {}
+    fn PassOptionalInterface(&self, _: Option<&Blob<TH>>) {}
     fn PassOptionalUnion(&self, _: Option<HTMLElementOrLong<TH>>) {}
     fn PassOptionalUnion2(&self, _: Option<EventOrString<TH>>) {}
     fn PassOptionalUnion3(&self, _: Option<StringOrLongSequence>) {}
@@ -557,7 +557,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassOptionalNullableUsvstring(&self, _: Option<Option<USVString>>) {}
     fn PassOptionalNullableByteString(&self, _: Option<Option<ByteString>>) {}
     // fn PassOptionalNullableEnum(self, _: Option<Option<TestEnum>>) {}
-    fn PassOptionalNullableInterface(&self, _: Option<Option<&Blob>>) {}
+    fn PassOptionalNullableInterface(&self, _: Option<Option<&Blob<TH>>>) {}
     #[allow(unsafe_code)]
     unsafe fn PassOptionalNullableObject(&self, _: *mut JSContext, _: Option<*mut JSObject>) {}
     fn PassOptionalNullableUnion(&self, _: Option<Option<HTMLElementOrLong<TH>>>) {}
@@ -601,7 +601,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassOptionalNullableUsvstringWithDefault(&self, _: Option<USVString>) {}
     fn PassOptionalNullableByteStringWithDefault(&self, _: Option<ByteString>) {}
     // fn PassOptionalNullableEnumWithDefault(self, _: Option<TestEnum>) {}
-    fn PassOptionalNullableInterfaceWithDefault(&self, _: Option<&Blob>) {}
+    fn PassOptionalNullableInterfaceWithDefault(&self, _: Option<&Blob<TH>>) {}
     #[allow(unsafe_code)]
     unsafe fn PassOptionalNullableObjectWithDefault(&self, _: *mut JSContext, _: *mut JSObject) {}
     fn PassOptionalNullableUnionWithDefault(&self, _: Option<HTMLElementOrLong<TH>>) {}
@@ -628,7 +628,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassOptionalNullableUsvstringWithNonNullDefault(&self, _: Option<USVString>) {}
     // fn PassOptionalNullableEnumWithNonNullDefault(self, _: Option<TestEnum>) {}
     fn PassOptionalOverloaded(&self, a: &TestBinding<TH>, _: u32, _: u32) -> DomRoot<TestBinding<TH>> { DomRoot::from_ref(a) }
-    fn PassOptionalOverloaded_(&self, _: &Blob,  _: u32) { }
+    fn PassOptionalOverloaded_(&self, _: &Blob<TH>,  _: u32) { }
 
     fn PassVariadicBoolean(&self, _: Vec<bool>) {}
     fn PassVariadicBooleanAndDefault(&self, _: bool, _: Vec<bool>) {}
@@ -703,32 +703,32 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
 
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
-    unsafe fn ReturnResolvedPromise(&self, cx: *mut JSContext, v: HandleValue) -> Fallible<Rc<Promise>> {
+    unsafe fn ReturnResolvedPromise(&self, cx: *mut JSContext, v: HandleValue) -> Fallible<Rc<Promise<TH>>> {
         Promise::new_resolved(&self.global(), cx, v)
     }
 
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
-    unsafe fn ReturnRejectedPromise(&self, cx: *mut JSContext, v: HandleValue) -> Fallible<Rc<Promise>> {
+    unsafe fn ReturnRejectedPromise(&self, cx: *mut JSContext, v: HandleValue) -> Fallible<Rc<Promise<TH>>> {
         Promise::new_rejected(&self.global(), cx, v)
     }
 
     #[allow(unsafe_code)]
-    unsafe fn PromiseResolveNative(&self, cx: *mut JSContext, p: &Promise, v: HandleValue) {
+    unsafe fn PromiseResolveNative(&self, cx: *mut JSContext, p: &Promise<TH>, v: HandleValue) {
         p.resolve(cx, v);
     }
 
     #[allow(unsafe_code)]
-    unsafe fn PromiseRejectNative(&self, cx: *mut JSContext, p: &Promise, v: HandleValue) {
+    unsafe fn PromiseRejectNative(&self, cx: *mut JSContext, p: &Promise<TH>, v: HandleValue) {
         p.reject(cx, v);
     }
 
-    fn PromiseRejectWithTypeError(&self, p: &Promise, s: USVString) {
+    fn PromiseRejectWithTypeError(&self, p: &Promise<TH>, s: USVString) {
         p.reject_error(Error::Type(s.0));
     }
 
     #[allow(unrooted_must_root)]
-    fn ResolvePromiseDelayed(&self, p: &Promise, value: DOMString, delay: u64) {
+    fn ResolvePromiseDelayed(&self, p: &Promise<TH>, value: DOMString, delay: u64) {
         let promise = p.duplicate();
         let cb = TestBindingCallback {
             promise: TrustedPromise::new(promise),
@@ -743,7 +743,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     #[allow(unrooted_must_root)]
     fn PromiseNativeHandler(&self,
                             resolve: Option<Rc<SimpleCallback>>,
-                            reject: Option<Rc<SimpleCallback>>) -> Rc<Promise> {
+                            reject: Option<Rc<SimpleCallback>>) -> Rc<Promise<TH>> {
         let global = self.global();
         let handler = PromiseNativeHandler::new(&global,
                                                 resolve.map(SimpleHandler::new),
@@ -772,11 +772,11 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    fn PromiseAttribute(&self) -> Rc<Promise> {
+    fn PromiseAttribute(&self) -> Rc<Promise<TH>> {
         Promise::new(&self.global())
     }
 
-    fn AcceptPromise(&self, _promise: &Promise) {
+    fn AcceptPromise(&self, _promise: &Promise<TH>) {
     }
 
     fn PassSequenceSequence(&self, _seq: Vec<Vec<i32>>) {}

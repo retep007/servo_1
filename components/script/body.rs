@@ -42,8 +42,8 @@ pub enum BodyType {
 pub enum FetchedData {
     Text(String),
     Json(RootedTraceableBox<Heap<JSValue>>),
-    BlobData(DomRoot<Blob>),
-    FormData(DomRoot<FormData>),
+    BlobData(DomRoot<Blob<TH>>),
+    FormData(DomRoot<FormData<TH>>),
     ArrayBuffer(RootedTraceableBox<Heap<*mut JSObject>>),
     JSException(RootedTraceableBox<Heap<JSVal>>)
 }
@@ -197,7 +197,7 @@ unsafe fn run_array_buffer_data_algorithm(cx: *mut JSContext, bytes: Vec<u8>) ->
 
 pub trait BodyOperations {
     fn get_body_used(&self) -> bool;
-    fn set_body_promise(&self, p: &Rc<Promise>, body_type: BodyType);
+    fn set_body_promise(&self, p: &Rc<Promise<TH>>, body_type: BodyType);
     /// Returns `Some(_)` if the body is complete, `None` if there is more to
     /// come.
     fn take_body(&self) -> Option<Vec<u8>>;

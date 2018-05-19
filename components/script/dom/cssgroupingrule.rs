@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> CSSGroupingRuleMethods<TH> for CSSGroupingRule<TH> {
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssgroupingrule-deleterule
-    fn DeleteRule(&self, index: u32) -> ErrorResult {
+    fn DeleteRule(&self, index: u32) -> ErrorResult<TH> {
         self.rulelist().remove_rule(index)
     }
 }

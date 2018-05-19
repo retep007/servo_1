@@ -48,7 +48,7 @@ pub struct Request<TH: TypeHolderTrait> {
     headers: MutNullableDom<Headers>,
     mime_type: DomRefCell<Vec<u8>>,
     #[ignore_malloc_size_of = "Rc"]
-    body_promise: DomRefCell<Option<(Rc<Promise>, BodyType)>>,
+    body_promise: DomRefCell<Option<(Rc<Promise<TH>>, BodyType)>>,
 }
 
 impl<TH> Request<TH> {
@@ -591,31 +591,31 @@ impl<TH> RequestMethods for Request<TH> {
 
     #[allow(unrooted_must_root)]
     // https://fetch.spec.whatwg.org/#dom-body-text
-    fn Text(&self) -> Rc<Promise> {
+    fn Text(&self) -> Rc<Promise<TH>> {
         consume_body(self, BodyType::Text)
     }
 
     #[allow(unrooted_must_root)]
     // https://fetch.spec.whatwg.org/#dom-body-blob
-    fn Blob(&self) -> Rc<Promise> {
+    fn Blob(&self) -> Rc<Promise<TH>> {
         consume_body(self, BodyType::Blob)
     }
 
     #[allow(unrooted_must_root)]
     // https://fetch.spec.whatwg.org/#dom-body-formdata
-    fn FormData(&self) -> Rc<Promise> {
+    fn FormData(&self) -> Rc<Promise<TH>> {
         consume_body(self, BodyType::FormData)
     }
 
     #[allow(unrooted_must_root)]
     // https://fetch.spec.whatwg.org/#dom-body-json
-    fn Json(&self) -> Rc<Promise> {
+    fn Json(&self) -> Rc<Promise<TH>> {
         consume_body(self, BodyType::Json)
     }
 
     #[allow(unrooted_must_root)]
     // https://fetch.spec.whatwg.org/#dom-body-arraybuffer
-    fn ArrayBuffer(&self) -> Rc<Promise> {
+    fn ArrayBuffer(&self) -> Rc<Promise<TH>> {
         consume_body(self, BodyType::ArrayBuffer)
     }
 }
@@ -625,7 +625,7 @@ impl<TH> BodyOperations for Request<TH> {
         self.BodyUsed()
     }
 
-    fn set_body_promise(&self, p: &Rc<Promise>, body_type: BodyType) {
+    fn set_body_promise(&self, p: &Rc<Promise<TH>>, body_type: BodyType) {
         assert!(self.body_promise.borrow().is_none());
         self.body_used.set(true);
         *self.body_promise.borrow_mut() = Some((p.clone(), body_type));

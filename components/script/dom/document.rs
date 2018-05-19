@@ -2587,7 +2587,7 @@ impl<TH> Document<TH> {
 
     // https://fullscreen.spec.whatwg.org/#dom-element-requestfullscreen
     #[allow(unrooted_must_root)]
-    pub fn enter_fullscreen(&self, pending: &Element<TH>) -> Rc<Promise> {
+    pub fn enter_fullscreen(&self, pending: &Element<TH>) -> Rc<Promise<TH>> {
         // Step 1
         let promise = Promise::new(self.global().r());
         let mut error = false;
@@ -2639,7 +2639,7 @@ impl<TH> Document<TH> {
 
     // https://fullscreen.spec.whatwg.org/#exit-fullscreen
     #[allow(unrooted_must_root)]
-    pub fn exit_fullscreen(&self) -> Rc<Promise> {
+    pub fn exit_fullscreen(&self) -> Rc<Promise<TH>> {
         let global = self.global();
         // Step 1
         let promise = Promise::new(global.r());
@@ -2788,7 +2788,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-document-domain
-    fn SetDomain(&self, value: DOMString) -> ErrorResult {
+    fn SetDomain(&self, value: DOMString) -> ErrorResult<TH> {
         // Step 1.
         if !self.has_browsing_context {
             return Err(Error::Security);
@@ -3277,7 +3277,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-document-body
-    fn SetBody(&self, new_body: Option<&HTMLElement<TH>>) -> ErrorResult {
+    fn SetBody(&self, new_body: Option<&HTMLElement<TH>>) -> ErrorResult<TH> {
         // Step 1.
         let new_body = match new_body {
             Some(new_body) => new_body,
@@ -3421,12 +3421,12 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
-    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().prepend(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
-    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().append(nodes)
     }
 
@@ -3477,7 +3477,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-document-cookie
-    fn SetCookie(&self, cookie: DOMString) -> ErrorResult {
+    fn SetCookie(&self, cookie: DOMString) -> ErrorResult<TH> {
         if self.is_cookie_averse() {
             return Ok(());
         }
@@ -3834,7 +3834,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-document-write
-    fn Write(&self, text: Vec<DOMString>) -> ErrorResult {
+    fn Write(&self, text: Vec<DOMString>) -> ErrorResult<TH> {
         if !self.is_html_document() {
             // Step 1.
             return Err(Error::InvalidState);
@@ -3878,13 +3878,13 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-document-writeln
-    fn Writeln(&self, mut text: Vec<DOMString>) -> ErrorResult {
+    fn Writeln(&self, mut text: Vec<DOMString>) -> ErrorResult<TH> {
         text.push("\n".into());
         self.Write(text)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-document-close
-    fn Close(&self) -> ErrorResult {
+    fn Close(&self) -> ErrorResult<TH> {
         if !self.is_html_document() {
             // Step 1.
             return Err(Error::InvalidState);
@@ -3936,7 +3936,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
 
     #[allow(unrooted_must_root)]
     // https://fullscreen.spec.whatwg.org/#dom-document-exitfullscreen
-    fn ExitFullscreen(&self) -> Rc<Promise> {
+    fn ExitFullscreen(&self) -> Rc<Promise<TH>> {
         self.exit_fullscreen()
     }
 }

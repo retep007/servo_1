@@ -51,7 +51,7 @@ pub struct CustomElementRegistry<TH: TypeHolderTrait> {
     window: Dom<Window<TH>>,
 
     #[ignore_malloc_size_of = "Rc"]
-    when_defined: DomRefCell<HashMap<LocalName, Rc<Promise>>>,
+    when_defined: DomRefCell<HashMap<LocalName, Rc<Promise<TH>>>>,
 
     element_definition_is_running: Cell<bool>,
 
@@ -103,7 +103,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
     /// Steps 10.1, 10.2
     #[allow(unsafe_code)]
-    fn check_prototype(&self, constructor: HandleObject, prototype: MutableHandleValue) -> ErrorResult {
+    fn check_prototype(&self, constructor: HandleObject, prototype: MutableHandleValue) -> ErrorResult<TH> {
         let global_scope = self.window.upcast::<GlobalScope<TH>>();
         unsafe {
             // Step 10.1
@@ -194,7 +194,7 @@ unsafe fn get_callback(
 impl<TH: TypeHolderTrait> CustomElementRegistryMethods for CustomElementRegistry<TH> {
     #[allow(unsafe_code, unrooted_must_root)]
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
-    fn Define(&self, name: DOMString, constructor_: Rc<Function>, options: &ElementDefinitionOptions) -> ErrorResult {
+    fn Define(&self, name: DOMString, constructor_: Rc<Function>, options: &ElementDefinitionOptions) -> ErrorResult<TH> {
         let cx = self.window.get_cx();
         rooted!(in(cx) let constructor = constructor_.callback());
         let name = LocalName::from(&*name);
@@ -341,7 +341,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistryMethods for CustomElementRegistry
 
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-whendefined>
     #[allow(unrooted_must_root)]
-    fn WhenDefined(&self, name: DOMString) -> Rc<Promise> {
+    fn WhenDefined(&self, name: DOMString) -> Rc<Promise<TH>> {
         let global_scope = self.window.upcast::<GlobalScope<TH>>();
         let name = LocalName::from(&*name);
 
@@ -544,7 +544,7 @@ pub fn upgrade_element<TH: TypeHolderTrait>(definition: Rc<CustomElementDefiniti
 /// <https://html.spec.whatwg.org/multipage/#concept-upgrade-an-element>
 /// Steps 7.1-7.2
 #[allow(unsafe_code)]
-fn run_upgrade_constructor<TH: TypeHolderTrait>(constructor: &Rc<Function>, element: &Element<TH>) -> ErrorResult {
+fn run_upgrade_constructor<TH: TypeHolderTrait>(constructor: &Rc<Function>, element: &Element<TH>) -> ErrorResult<TH> {
     let window = window_from_node(element);
     let cx = window.get_cx();
     rooted!(in(cx) let constructor_val = ObjectValue(constructor.callback()));

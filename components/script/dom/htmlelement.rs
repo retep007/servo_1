@@ -546,7 +546,7 @@ fn to_camel_case(name: &str) -> Option<DOMString> {
 }
 
 impl<TH: TypeHolderTrait> HTMLElement<TH> {
-    pub fn set_custom_attr(&self, name: DOMString, value: DOMString) -> ErrorResult {
+    pub fn set_custom_attr(&self, name: DOMString, value: DOMString) -> ErrorResult<TH> {
         if name.chars()
                .skip_while(|&ch| ch != '\u{2d}')
                .nth(1).map_or(false, |ch| ch >= 'a' && ch <= 'z') {

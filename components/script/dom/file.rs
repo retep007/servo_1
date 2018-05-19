@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct File<TH: TypeHolderTrait> {
-    blob: Blob,
+    blob: Blob<TH>,
     name: DOMString,
     modified: i64,
 }

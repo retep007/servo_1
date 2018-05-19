@@ -109,7 +109,7 @@ impl<TH> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-deleterule
-    fn DeleteRule(&self, index: u32) -> ErrorResult {
+    fn DeleteRule(&self, index: u32) -> ErrorResult<TH> {
         if !self.origin_clean.get() {
             return Err(Error::Security);
         }

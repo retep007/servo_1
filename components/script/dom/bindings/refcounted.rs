@@ -65,7 +65,7 @@ impl TrustedReference {
 /// A safe wrapper around a DOM Promise object that can be shared among threads for use
 /// in asynchronous operations. The underlying DOM object is guaranteed to live at least
 /// as long as the last outstanding `TrustedPromise` instance. These values cannot be cloned,
-/// only created from existing Rc<Promise> values.
+/// only created from existing Rc<Promise<TH>> values.
 pub struct TrustedPromise<TH> {
     dom_object: *const Promise<TH>,
     owner_thread: *const libc::c_void,
@@ -78,7 +78,7 @@ impl<TH> TrustedPromise<TH> {
     /// be prevented from being GCed for the duration of the resulting `TrustedPromise` object's
     /// lifetime.
     #[allow(unrooted_must_root)]
-    pub fn new(promise: Rc<Promise>) -> TrustedPromise<TH> {
+    pub fn new(promise: Rc<Promise<TH>>) -> TrustedPromise<TH> {
         LIVE_REFERENCES.with(|ref r| {
             let r = r.borrow();
             let live_references = r.as_ref().unwrap();
@@ -95,7 +95,7 @@ impl<TH> TrustedPromise<TH> {
     /// a different thread than the original value from which this `TrustedPromise` was
     /// obtained.
     #[allow(unrooted_must_root)]
-    pub fn root(self) -> Rc<Promise> {
+    pub fn root(self) -> Rc<Promise<TH>> {
         LIVE_REFERENCES.with(|ref r| {
             let r = r.borrow();
             let live_references = r.as_ref().unwrap();
@@ -220,7 +220,7 @@ impl<TH> LiveDOMReferences<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    fn addref_promise(&self, promise: Rc<Promise>) {
+    fn addref_promise(&self, promise: Rc<Promise<TH>>) {
         let mut table = self.promise_table.borrow_mut();
         table.entry(&*promise).or_insert(vec![]).push(promise)
     }

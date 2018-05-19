@@ -22,14 +22,14 @@ pub struct VRDisplayCapabilities<TH: TypeHolderTrait> {
 unsafe_no_jsmanaged_fields!(WebVRDisplayCapabilities);
 
 impl<TH> VRDisplayCapabilities<TH> {
-    fn new_inherited(capabilities: WebVRDisplayCapabilities) -> VRDisplayCapabilities {
+    fn new_inherited(capabilities: WebVRDisplayCapabilities) -> VRDisplayCapabilities<TH> {
         VRDisplayCapabilities {
             reflector_: Reflector::new(),
             capabilities: DomRefCell::new(capabilities)
         }
     }
 
-    pub fn new(capabilities: WebVRDisplayCapabilities, global: &GlobalScope<TH>) -> DomRoot<VRDisplayCapabilities> {
+    pub fn new(capabilities: WebVRDisplayCapabilities, global: &GlobalScope<TH>) -> DomRoot<VRDisplayCapabilities<TH>> {
         reflect_dom_object(Box::new(VRDisplayCapabilities::new_inherited(capabilities)),
                            global,
                            VRDisplayCapabilitiesBinding::Wrap)

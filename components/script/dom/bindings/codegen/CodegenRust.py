@@ -6670,7 +6670,7 @@ def method_arguments(descriptorProvider, returnType, arguments, passJSBits=True,
 def return_type(descriptorProvider, rettype, infallible):
     result = getRetvalDeclarationForType(rettype, descriptorProvider)
     if not infallible:
-        result = CGWrapper(result, pre="Fallible<", post=">")
+        result = CGWrapper(result, pre="Fallible<", post=", TH>")
     return result.define()
 
 

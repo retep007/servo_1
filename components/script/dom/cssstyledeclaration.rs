@@ -171,7 +171,7 @@ macro_rules! css_properties(
                 );
                 self.get_property_value($id)
             }
-            fn $setter(&self, value: DOMString) -> ErrorResult {
+            fn $setter(&self, value: DOMString) -> ErrorResult<TH> {
                 debug_assert!(
                     $id.enabled_for_all_content(),
                     "Someone forgot a #[Pref] annotation"
@@ -241,7 +241,7 @@ impl<TH: TypeHolderTrait> CSSStyleDeclaration<TH> {
         DOMString::from(string)
     }
 
-    fn set_property(&self, id: PropertyId, value: DOMString, priority: DOMString) -> ErrorResult {
+    fn set_property(&self, id: PropertyId, value: DOMString, priority: DOMString) -> ErrorResult<TH> {
         // Step 1
         if self.readonly {
             return Err(Error::NoModificationAllowed);
@@ -346,7 +346,7 @@ impl<TH> CSSStyleDeclarationMethods for CSSStyleDeclaration<TH> {
                    property: DOMString,
                    value: DOMString,
                    priority: DOMString)
-                   -> ErrorResult {
+                   -> ErrorResult<TH> {
         // Step 3
         let id = if let Ok(id) = PropertyId::parse(&property) {
             id
@@ -358,7 +358,7 @@ impl<TH> CSSStyleDeclarationMethods for CSSStyleDeclaration<TH> {
     }
 
     // https://dev.w3.org/csswg/cssom/#dom-cssstyledeclaration-setpropertypriority
-    fn SetPropertyPriority(&self, property: DOMString, priority: DOMString) -> ErrorResult {
+    fn SetPropertyPriority(&self, property: DOMString, priority: DOMString) -> ErrorResult<TH> {
         // Step 1
         if self.readonly {
             return Err(Error::NoModificationAllowed);
@@ -386,7 +386,7 @@ impl<TH> CSSStyleDeclarationMethods for CSSStyleDeclaration<TH> {
     }
 
     // https://dev.w3.org/csswg/cssom/#dom-cssstyledeclaration-setpropertyvalue
-    fn SetPropertyValue(&self, property: DOMString, value: DOMString) -> ErrorResult {
+    fn SetPropertyValue(&self, property: DOMString, value: DOMString) -> ErrorResult<TH> {
         self.SetProperty(property, value, DOMString::new())
     }
 
@@ -420,7 +420,7 @@ impl<TH> CSSStyleDeclarationMethods for CSSStyleDeclaration<TH> {
     }
 
     // https://dev.w3.org/csswg/cssom/#dom-cssstyledeclaration-cssfloat
-    fn SetCssFloat(&self, value: DOMString) -> ErrorResult {
+    fn SetCssFloat(&self, value: DOMString) -> ErrorResult<TH> {
         self.SetPropertyValue(DOMString::from("float"), value)
     }
 
@@ -448,7 +448,7 @@ impl<TH> CSSStyleDeclarationMethods for CSSStyleDeclaration<TH> {
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssstyledeclaration-csstext
-    fn SetCssText(&self, value: DOMString) -> ErrorResult {
+    fn SetCssText(&self, value: DOMString) -> ErrorResult<TH> {
         let window = self.owner.window();
 
         // Step 1

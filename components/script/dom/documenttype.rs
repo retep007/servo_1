@@ -81,17 +81,17 @@ impl<TH: TypeHolderTrait> DocumentTypeMethods for DocumentType<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
-    fn Before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn Before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().before(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
-    fn After(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn After(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().after(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
-    fn ReplaceWith(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn ReplaceWith(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().replace_with(nodes)
     }
 

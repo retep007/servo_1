@@ -404,7 +404,7 @@ unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext)
 impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScopeMethods for DedicatedWorkerGlobalScope<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-dedicatedworkerglobalscope-postmessage
-    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult {
+    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {
         let data = StructuredCloneData::write(cx, message)?;
         let worker = self.worker.borrow().as_ref().unwrap().clone();
         let pipeline_id = self.upcast::<GlobalScope<TH>>().pipeline_id();

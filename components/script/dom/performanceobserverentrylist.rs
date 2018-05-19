@@ -21,7 +21,7 @@ pub struct PerformanceObserverEntryList<TH: TypeHolderTrait> {
 }
 
 impl<TH> PerformanceObserverEntryList<TH> {
-    fn new_inherited(entries: PerformanceEntryList) -> PerformanceObserverEntryList {
+    fn new_inherited(entries: PerformanceEntryList) -> PerformanceObserverEntryList<TH> {
         PerformanceObserverEntryList {
             reflector_: Reflector::new(),
             entries: DomRefCell::new(entries),
@@ -30,7 +30,7 @@ impl<TH> PerformanceObserverEntryList<TH> {
 
     #[allow(unrooted_must_root)]
     pub fn new(global: &GlobalScope<TH>, entries: PerformanceEntryList)
-        -> DomRoot<PerformanceObserverEntryList> {
+        -> DomRoot<PerformanceObserverEntryList<TH>> {
         let observer_entry_list = PerformanceObserverEntryList::new_inherited(entries);
         reflect_dom_object(Box::new(observer_entry_list), global, PerformanceObserverEntryListBinding::Wrap)
     }

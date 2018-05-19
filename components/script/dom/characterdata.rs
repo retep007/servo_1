@@ -148,17 +148,17 @@ impl<TH: TypeHolderTrait> CharacterDataMethods<TH> for CharacterData<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-characterdata-insertdataoffset-data
-    fn InsertData(&self, offset: u32, arg: DOMString) -> ErrorResult {
+    fn InsertData(&self, offset: u32, arg: DOMString) -> ErrorResult<TH> {
         self.ReplaceData(offset, 0, arg)
     }
 
     // https://dom.spec.whatwg.org/#dom-characterdata-deletedataoffset-count
-    fn DeleteData(&self, offset: u32, count: u32) -> ErrorResult {
+    fn DeleteData(&self, offset: u32, count: u32) -> ErrorResult<TH> {
         self.ReplaceData(offset, count, DOMString::new())
     }
 
     // https://dom.spec.whatwg.org/#dom-characterdata-replacedata
-    fn ReplaceData(&self, offset: u32, count: u32, arg: DOMString) -> ErrorResult {
+    fn ReplaceData(&self, offset: u32, count: u32, arg: DOMString) -> ErrorResult<TH> {
         let mut new_data;
         {
             let data = self.data.borrow();
@@ -217,17 +217,17 @@ impl<TH: TypeHolderTrait> CharacterDataMethods<TH> for CharacterData<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
-    fn Before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn Before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().before(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
-    fn After(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn After(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().after(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
-    fn ReplaceWith(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn ReplaceWith(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().replace_with(nodes)
     }
 

@@ -28,7 +28,7 @@ impl<TH> CanvasPattern<TH> {
                      surface_size: Size2D<i32>,
                      repeat: RepetitionStyle,
                      origin_clean: bool)
-                     -> CanvasPattern {
+                     -> CanvasPattern<TH> {
         let (x, y) = match repeat {
             RepetitionStyle::Repeat => (true, true),
             RepetitionStyle::RepeatX => (true, false),
@@ -50,7 +50,7 @@ impl<TH> CanvasPattern<TH> {
                surface_size: Size2D<i32>,
                repeat: RepetitionStyle,
                origin_clean: bool)
-               -> DomRoot<CanvasPattern> {
+               -> DomRoot<CanvasPattern<TH>> {
         reflect_dom_object(
             Box::new(CanvasPattern::new_inherited(
                 surface_data, surface_size, repeat, origin_clean

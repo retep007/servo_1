@@ -146,7 +146,7 @@ impl<TH> NavigatorMethods for Navigator<TH> {
 
     // https://w3c.github.io/webvr/spec/1.1/#navigator-getvrdisplays-attribute
     #[allow(unrooted_must_root)]
-    fn GetVRDisplays(&self) -> Rc<Promise> {
+    fn GetVRDisplays(&self) -> Rc<Promise<TH>> {
         self.Vr().GetDisplays()
     }
 }

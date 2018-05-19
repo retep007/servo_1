@@ -21,12 +21,12 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct StylePropertyMapReadOnly<TH: TypeHolderTrait> {
     reflector: Reflector,
-    entries: HashMap<Atom, Dom<CSSStyleValue>>,
+    entries: HashMap<Atom, Dom<CSSStyleValue<TH>>>,
 }
 
 impl<TH> StylePropertyMapReadOnly<TH> {
     fn new_inherited<Entries>(entries: Entries) -> StylePropertyMapReadOnly where
-        Entries: IntoIterator<Item=(Atom, Dom<CSSStyleValue>)>
+        Entries: IntoIterator<Item=(Atom, Dom<CSSStyleValue<TH>>)>
     {
         StylePropertyMapReadOnly {
             reflector: Reflector::new(),
@@ -34,7 +34,7 @@ impl<TH> StylePropertyMapReadOnly<TH> {
         }
     }
 
-    pub fn from_iter<Entries>(global: &GlobalScope<TH>, entries: Entries) -> DomRoot<StylePropertyMapReadOnly> where
+    pub fn from_iter<Entries>(global: &GlobalScope<TH>, entries: Entries) -> DomRoot<StylePropertyMapReadOnly<TH>> where
         Entries: IntoIterator<Item=(Atom, String)>,
     {
         let mut keys = Vec::new();
@@ -55,7 +55,7 @@ impl<TH> StylePropertyMapReadOnly<TH> {
 
 impl<TH> StylePropertyMapReadOnlyMethods for StylePropertyMapReadOnly<TH> {
     /// <https://drafts.css-houdini.org/css-typed-om-1/#dom-stylepropertymapreadonly-get>
-    fn Get(&self, property: DOMString) -> Option<DomRoot<CSSStyleValue>> {
+    fn Get(&self, property: DOMString) -> Option<DomRoot<CSSStyleValue<TH>>> {
         // TODO: avoid constructing an Atom
         self.entries.get(&Atom::from(property)).map(|value| DomRoot::from_ref(&**value))
     }

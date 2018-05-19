@@ -110,7 +110,7 @@ pub struct CommonTexImage2DValidatorResult<TH: TypeHolderTrait> {
 impl<'a, TH: TypeHolderTrait> WebGLValidator for CommonTexImage2DValidator<'a, TH> {
     type Error = TexImageValidationError;
     type ValidatedOutput = CommonTexImage2DValidatorResult<TH>;
-    fn validate(self) -> Result<Self::ValidatedOutput<TH>, TexImageValidationError> {
+    fn validate(self) -> Result<Self::ValidatedOutput, TexImageValidationError> {
         // GL_INVALID_ENUM is generated if target is not GL_TEXTURE_2D,
         // GL_TEXTURE_CUBE_MAP_POSITIVE_X, GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
         // GL_TEXTURE_CUBE_MAP_POSITIVE_Y, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
@@ -283,7 +283,7 @@ impl<'a, TH: TypeHolderTrait> WebGLValidator for TexImage2DValidator<'a, TH> {
     type ValidatedOutput = TexImage2DValidatorResult<TH>;
     type Error = TexImageValidationError;
 
-    fn validate(self) -> Result<Self::ValidatedOutput<TH>, TexImageValidationError> {
+    fn validate(self) -> Result<Self::ValidatedOutput, TexImageValidationError> {
         let context = self.common_validator.context;
         let CommonTexImage2DValidatorResult {
             texture,

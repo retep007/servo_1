@@ -115,7 +115,7 @@ unsafe fn read_blob(cx: *mut JSContext,
     return blob.reflector().get_jsobject().get()
 }
 
-unsafe fn write_blob(blob: DomRoot<Blob>,
+unsafe fn write_blob(blob: DomRoot<Blob<TH>>,
                      w: *mut JSStructuredCloneWriter)
                      -> Result<(), ()> {
     let structured_writer = StructuredCloneWriter { w: w };
@@ -145,7 +145,7 @@ unsafe extern "C" fn write_callback(_cx: *mut JSContext,
                                     obj: RawHandleObject,
                                     _closure: *mut raw::c_void)
                                     -> bool {
-    if let Ok(blob) = root_from_handleobject::<Blob>(Handle::from_raw(obj)) {
+    if let Ok(blob) = root_from_handleobject::<Blob<TH>>(Handle::from_raw(obj)) {
         return write_blob(blob, w).is_ok()
     }
     return false

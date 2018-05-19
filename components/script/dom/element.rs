@@ -1236,7 +1236,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#attr-data-*
-    pub fn set_custom_attribute(&self, name: DOMString, value: DOMString) -> ErrorResult {
+    pub fn set_custom_attribute(&self, name: DOMString, value: DOMString) -> ErrorResult<TH> {
         // Step 1.
         if let InvalidXMLName = xml_name_type(&name) {
             return Err(Error::InvalidCharacter);
@@ -1682,7 +1682,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-setattribute
-    fn SetAttribute(&self, name: DOMString, value: DOMString) -> ErrorResult {
+    fn SetAttribute(&self, name: DOMString, value: DOMString) -> ErrorResult<TH> {
         // Step 1.
         if xml_name_type(&name) == InvalidXMLName {
             return Err(Error::InvalidCharacter);
@@ -1703,7 +1703,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     fn SetAttributeNS(&self,
                       namespace: Option<DOMString>,
                       qualified_name: DOMString,
-                      value: DOMString) -> ErrorResult {
+                      value: DOMString) -> ErrorResult<TH> {
         let (namespace, prefix, local_name) =
             validate_and_extract(namespace, &qualified_name)?;
         let qualified_name = LocalName::from(qualified_name);
@@ -2136,7 +2136,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     /// <https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML>
-    fn SetInnerHTML(&self, value: DOMString) -> ErrorResult {
+    fn SetInnerHTML(&self, value: DOMString) -> ErrorResult<TH> {
         // Step 1.
         let frag = self.parse_fragment(value)?;
         // Step 2.
@@ -2160,7 +2160,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://w3c.github.io/DOM-Parsing/#dom-element-outerhtml
-    fn SetOuterHTML(&self, value: DOMString) -> ErrorResult {
+    fn SetOuterHTML(&self, value: DOMString) -> ErrorResult<TH> {
         let context_document = document_from_node(self);
         let context_node = self.upcast::<Node<TH>>();
         // Step 1.
@@ -2227,12 +2227,12 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
-    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().prepend(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
-    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().append(nodes)
     }
 
@@ -2249,17 +2249,17 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
-    fn Before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn Before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().before(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
-    fn After(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn After(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().after(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
-    fn ReplaceWith(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    fn ReplaceWith(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         self.upcast::<Node<TH>>().replace_with(nodes)
     }
 
@@ -2313,7 +2313,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
 
     // https://dom.spec.whatwg.org/#dom-element-insertadjacenttext
     fn InsertAdjacentText(&self, where_: DOMString, data: DOMString)
-                          -> ErrorResult {
+                          -> ErrorResult<TH> {
         // Step 1.
         let text = Text::new(data, &document_from_node(self));
 
@@ -2324,7 +2324,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
 
     // https://w3c.github.io/DOM-Parsing/#dom-element-insertadjacenthtml
     fn InsertAdjacentHTML(&self, position: DOMString, text: DOMString)
-                          -> ErrorResult {
+                          -> ErrorResult<TH> {
         // Step 1.
         let position = position.parse::<AdjacentPosition>()?;
 
@@ -2355,7 +2355,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // check-tidy: no specs after this line
-    fn EnterFormalActivationState(&self) -> ErrorResult {
+    fn EnterFormalActivationState(&self) -> ErrorResult<TH> {
         match self.as_maybe_activatable() {
             Some(a) => {
                 a.enter_formal_activation_state();
@@ -2365,7 +2365,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
         }
     }
 
-    fn ExitFormalActivationState(&self) -> ErrorResult {
+    fn ExitFormalActivationState(&self) -> ErrorResult<TH> {
         match self.as_maybe_activatable() {
             Some(a) => {
                 a.exit_formal_activation_state();
@@ -2377,7 +2377,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
 
     // https://fullscreen.spec.whatwg.org/#dom-element-requestfullscreen
     #[allow(unrooted_must_root)]
-    fn RequestFullscreen(&self) -> Rc<Promise> {
+    fn RequestFullscreen(&self) -> Rc<Promise<TH>> {
         let doc = document_from_node(self);
         doc.enter_fullscreen(self)
     }

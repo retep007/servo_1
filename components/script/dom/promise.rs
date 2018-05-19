@@ -45,7 +45,7 @@ pub struct Promise<TH: TypeHolderTrait> {
     permanent_js_root: Heap<JSVal>,
 }
 
-/// Private helper to enable adding new methods to Rc<Promise>.
+/// Private helper to enable adding new methods to Rc<Promise<TH>>.
 trait PromiseHelper {
     #[allow(unsafe_code)]
     unsafe fn initialize(&self, cx: *mut JSContext);
@@ -79,7 +79,7 @@ impl<TH> Drop for Promise<TH> {
 
 impl<TH> Promise<TH> {
     #[allow(unsafe_code)]
-    pub fn new(global: &GlobalScope<TH>) -> Rc<Promise> {
+    pub fn new(global: &GlobalScope<TH>) -> Rc<Promise<TH>> {
         let cx = global.get_cx();
         rooted!(in(cx) let mut obj = ptr::null_mut::<JSObject>());
         unsafe {
@@ -89,7 +89,7 @@ impl<TH> Promise<TH> {
     }
 
     #[allow(unsafe_code, unrooted_must_root)]
-    pub fn duplicate(&self) -> Rc<Promise> {
+    pub fn duplicate(&self) -> Rc<Promise<TH>> {
         let cx = self.global().get_cx();
         unsafe {
             Promise::new_with_js_promise(self.reflector().get_jsobject(), cx)
@@ -97,7 +97,7 @@ impl<TH> Promise<TH> {
     }
 
     #[allow(unsafe_code, unrooted_must_root)]
-    unsafe fn new_with_js_promise(obj: HandleObject, cx: *mut JSContext) -> Rc<Promise> {
+    unsafe fn new_with_js_promise(obj: HandleObject, cx: *mut JSContext) -> Rc<Promise<TH>> {
         assert!(IsPromiseObject(obj));
         let promise = Promise {
             reflector: Reflector::new(),
@@ -125,7 +125,7 @@ impl<TH> Promise<TH> {
         global: &GlobalScope<TH>,
         cx: *mut JSContext,
         value: HandleValue,
-    ) -> Fallible<Rc<Promise>> {
+    ) -> Fallible<Rc<Promise<TH>>> {
         let _ac = JSAutoCompartment::new(cx, global.reflector().get_jsobject().get());
         rooted!(in(cx) let p = CallOriginalPromiseResolve(cx, value));
         assert!(!p.handle().is_null());
@@ -137,7 +137,7 @@ impl<TH> Promise<TH> {
         global: &GlobalScope<TH>,
         cx: *mut JSContext,
         value: HandleValue,
-    ) -> Fallible<Rc<Promise>> {
+    ) -> Fallible<Rc<Promise<TH>>> {
         let _ac = JSAutoCompartment::new(cx, global.reflector().get_jsobject().get());
         rooted!(in(cx) let p = CallOriginalPromiseReject(cx, value));
         assert!(!p.handle().is_null());

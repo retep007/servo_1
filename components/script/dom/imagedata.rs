@@ -33,7 +33,7 @@ impl<TH> ImageData<TH> {
                width: u32,
                height: u32,
                mut data: Option<Vec<u8>>)
-               -> Fallible<DomRoot<ImageData>> {
+               -> Fallible<DomRoot<ImageData<TH>>> {
         let len = width * height * 4;
         unsafe {
             let cx = global.get_cx();
@@ -55,7 +55,7 @@ impl<TH> ImageData<TH> {
                                 width: u32,
                                 mut opt_height: Option<u32>,
                                 opt_jsobject: Option<*mut JSObject>)
-                                -> Fallible<DomRoot<ImageData>> {
+                                -> Fallible<DomRoot<ImageData<TH>>> {
         assert!(opt_jsobject.is_some() || opt_height.is_some());
 
         if width == 0 {

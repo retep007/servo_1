@@ -58,7 +58,7 @@ impl<TH> ExtendableEvent<TH> {
     }
 
     // https://w3c.github.io/ServiceWorker/#wait-until-method
-    pub fn WaitUntil(&self, _cx: *mut JSContext, _val: HandleValue) -> ErrorResult {
+    pub fn WaitUntil(&self, _cx: *mut JSContext, _val: HandleValue) -> ErrorResult<TH> {
         // Step 1
         if !self.extensions_allowed {
             return Err(Error::InvalidState);

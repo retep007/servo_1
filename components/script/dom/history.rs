@@ -65,7 +65,7 @@ impl <TH: TypeHolderTrait> History<TH> {
 }
 
 impl<TH> History<TH> {
-    fn traverse_history(&self, direction: TraversalDirection) -> ErrorResult {
+    fn traverse_history(&self, direction: TraversalDirection) -> ErrorResult<TH> {
         if !self.window.Document().is_fully_active() {
             return Err(Error::Security);
         }
@@ -152,7 +152,7 @@ impl<TH> History<TH> {
                              data: HandleValue,
                              _title: DOMString,
                              url: Option<USVString>,
-                             push_or_replace: PushOrReplace) -> ErrorResult {
+                             push_or_replace: PushOrReplace) -> ErrorResult<TH> {
         // Step 1
         let document = self.window.Document();
 
@@ -279,7 +279,7 @@ impl<TH: TypeHolderTrait> HistoryMethods for History<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-history-go
-    fn Go(&self, delta: i32) -> ErrorResult {
+    fn Go(&self, delta: i32) -> ErrorResult<TH> {
         let direction = if delta > 0 {
             TraversalDirection::Forward(delta as usize)
         } else if delta < 0 {
@@ -292,12 +292,12 @@ impl<TH: TypeHolderTrait> HistoryMethods for History<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-history-back
-    fn Back(&self) -> ErrorResult {
+    fn Back(&self) -> ErrorResult<TH> {
         self.traverse_history(TraversalDirection::Back(1))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-history-forward
-    fn Forward(&self) -> ErrorResult {
+    fn Forward(&self) -> ErrorResult<TH> {
         self.traverse_history(TraversalDirection::Forward(1))
     }
 
@@ -307,7 +307,7 @@ impl<TH: TypeHolderTrait> HistoryMethods for History<TH> {
                         cx: *mut JSContext,
                         data: HandleValue,
                         title: DOMString,
-                        url: Option<USVString>) -> ErrorResult {
+                        url: Option<USVString>) -> ErrorResult<TH> {
         self.push_or_replace_state(cx, data, title, url, PushOrReplace::Push)
     }
 
@@ -317,7 +317,7 @@ impl<TH: TypeHolderTrait> HistoryMethods for History<TH> {
                            cx: *mut JSContext,
                            data: HandleValue,
                            title: DOMString,
-                           url: Option<USVString>) -> ErrorResult {
+                           url: Option<USVString>) -> ErrorResult<TH> {
         self.push_or_replace_state(cx, data, title, url, PushOrReplace::Replace)
     }
 }

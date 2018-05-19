@@ -851,7 +851,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods for WebGL2RenderingConte
         format: u32,
         data_type: u32,
         source: ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>,
-    ) -> ErrorResult {
+    ) -> ErrorResult<TH> {
         self.base.TexImage2D_(target, level, internal_format, format, data_type, source)
     }
 
@@ -892,7 +892,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods for WebGL2RenderingConte
         format: u32,
         data_type: u32,
         source: ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>,
-    ) -> ErrorResult {
+    ) -> ErrorResult<TH> {
         self.base.TexSubImage2D_(target, level, xoffset, yoffset, format, data_type, source)
     }
 

@@ -9,7 +9,7 @@ use dom::bindings::str::DOMString;
 use html5ever::{Prefix, LocalName, Namespace};
 
 /// Validate a qualified name. See https://dom.spec.whatwg.org/#validate for details.
-pub fn validate_qualified_name(qualified_name: &str) -> ErrorResult {
+pub fn validate_qualified_name(qualified_name: &str) -> ErrorResult<TH> {
     match xml_name_type(qualified_name) {
         XMLName::InvalidXMLName => {
             // Step 1.

@@ -22,14 +22,14 @@ pub struct CSSStyleValue<TH: TypeHolderTrait> {
 }
 
 impl<TH> CSSStyleValue<TH> {
-    fn new_inherited(value: String) -> CSSStyleValue {
+    fn new_inherited(value: String) -> CSSStyleValue<TH> {
         CSSStyleValue {
             reflector: Reflector::new(),
             value: value,
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, value: String) -> DomRoot<CSSStyleValue> {
+    pub fn new(global: &GlobalScope<TH>, value: String) -> DomRoot<CSSStyleValue<TH>> {
         reflect_dom_object(Box::new(CSSStyleValue::new_inherited(value)), global, Wrap)
     }
 }

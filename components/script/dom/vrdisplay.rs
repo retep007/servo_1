@@ -55,7 +55,7 @@ pub struct VRDisplay<TH: TypeHolderTrait> {
     presenting: Cell<bool>,
     left_eye_params: MutDom<VREyeParameters<TH>>,
     right_eye_params: MutDom<VREyeParameters<TH>>,
-    capabilities: MutDom<VRDisplayCapabilities>,
+    capabilities: MutDom<VRDisplayCapabilities<TH>>,
     stage_params: MutNullableDom<VRStageParameters<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     frame_data: DomRefCell<WebVRFrameData>,
@@ -150,7 +150,7 @@ impl<TH> VRDisplayMethods for VRDisplay<TH> {
     }
 
     // https://w3c.github.io/webvr/#dom-vrdisplay-capabilities
-    fn Capabilities(&self) -> DomRoot<VRDisplayCapabilities> {
+    fn Capabilities(&self) -> DomRoot<VRDisplayCapabilities<TH>> {
         DomRoot::from_ref(&*self.capabilities.get())
     }
 
@@ -279,7 +279,7 @@ impl<TH> VRDisplayMethods for VRDisplay<TH> {
 
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/webvr/#dom-vrdisplay-requestpresent
-    fn RequestPresent(&self, layers: Vec<VRLayer>) -> Rc<Promise> {
+    fn RequestPresent(&self, layers: Vec<VRLayer>) -> Rc<Promise<TH>> {
         let promise = Promise::new(&self.global());
         // TODO: WebVR spec: this method must be called in response to a user gesture
 
@@ -349,7 +349,7 @@ impl<TH> VRDisplayMethods for VRDisplay<TH> {
 
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/webvr/#dom-vrdisplay-exitpresent
-    fn ExitPresent(&self) -> Rc<Promise> {
+    fn ExitPresent(&self) -> Rc<Promise<TH>> {
         let promise = Promise::new(&self.global());
 
         // WebVR spec: If the VRDisplay is not presenting the promise MUST be rejected.

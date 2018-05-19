@@ -90,7 +90,7 @@ impl<TH> BluetoothRemoteGATTDescriptorMethods for BluetoothRemoteGATTDescriptor<
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattdescriptor-readvalue
-    fn ReadValue(&self) -> Rc<Promise> {
+    fn ReadValue(&self) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
 
         // Step 1.
@@ -116,7 +116,7 @@ impl<TH> BluetoothRemoteGATTDescriptorMethods for BluetoothRemoteGATTDescriptor<
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattdescriptor-writevalue
-    fn WriteValue(&self, value: ArrayBufferViewOrArrayBuffer) -> Rc<Promise> {
+    fn WriteValue(&self, value: ArrayBufferViewOrArrayBuffer) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
 
         // Step 1.
@@ -152,7 +152,7 @@ impl<TH> BluetoothRemoteGATTDescriptorMethods for BluetoothRemoteGATTDescriptor<
 }
 
 impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTDescriptor<TH> {
-    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
+    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattdescriptor-readvalue
             BluetoothResponse::ReadValue(result) => {

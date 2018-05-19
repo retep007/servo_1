@@ -95,7 +95,7 @@ struct BluetoothContext<T: AsyncBluetoothListener + DomObject> {
 }
 
 pub trait AsyncBluetoothListener {
-    fn handle_response(&self, result: BluetoothResponse, promise: &Rc<Promise>);
+    fn handle_response(&self, result: BluetoothResponse, promise: &Rc<Promise<TH>>);
 }
 
 impl<T> BluetoothContext<T>
@@ -148,7 +148,7 @@ impl<TH> Bluetooth<TH> {
 
     // https://webbluetoothcg.github.io/web-bluetooth/#request-bluetooth-devices
     fn request_bluetooth_devices(&self,
-                                 p: &Rc<Promise>,
+                                 p: &Rc<Promise<TH>>,
                                  filters: &Option<Vec<BluetoothLEScanFilterInit>>,
                                  optional_services: &Option<Vec<BluetoothServiceUUID>>,
                                  sender: IpcSender<BluetoothResponseResult>) {
@@ -483,7 +483,7 @@ impl From<BluetoothError> for Error {
 impl BluetoothMethods for Bluetooth {
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetooth-requestdevice
-    fn RequestDevice(&self, option: &RequestDeviceOptions) -> Rc<Promise> {
+    fn RequestDevice(&self, option: &RequestDeviceOptions) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
         // Step 1.
         if (option.filters.is_some() && option.acceptAllDevices) ||
@@ -501,7 +501,7 @@ impl BluetoothMethods for Bluetooth {
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetooth-getavailability
-    fn GetAvailability(&self) -> Rc<Promise> {
+    fn GetAvailability(&self) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
         // Step 1. We did not override the method
         // Step 2 - 3. in handle_response
@@ -516,7 +516,7 @@ impl BluetoothMethods for Bluetooth {
 }
 
 impl<TH> AsyncBluetoothListener for Bluetooth<TH> {
-    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
+    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#request-bluetooth-devices
             // Step 11, 13 - 14.
@@ -573,7 +573,7 @@ impl<TH> PermissionAlgorithm for Bluetooth<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#query-the-bluetooth-permission
     fn permission_query(
         _cx: *mut JSContext,
-        promise: &Rc<Promise>,
+        promise: &Rc<Promise<TH>>,
         descriptor: &BluetoothPermissionDescriptor,
         status: &BluetoothPermissionResult<TH>,
     ) {
@@ -655,7 +655,7 @@ impl<TH> PermissionAlgorithm for Bluetooth<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#request-the-bluetooth-permission
     fn permission_request(
         _cx: *mut JSContext,
-        promise: &Rc<Promise>,
+        promise: &Rc<Promise<TH>>,
         descriptor: &BluetoothPermissionDescriptor,
         status: &BluetoothPermissionResult<TH>,
     ) {

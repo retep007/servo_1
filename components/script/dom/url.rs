@@ -35,7 +35,7 @@ pub struct URL<TH: TypeHolderTrait> {
 }
 
 impl<TH> URL<TH> {
-    fn new_inherited(url: ServoUrl) -> URL {
+    fn new_inherited(url: ServoUrl) -> URL<TH> {
         URL {
             reflector_: Reflector::new(),
             url: DomRefCell::new(url),
@@ -43,7 +43,7 @@ impl<TH> URL<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, url: ServoUrl) -> DomRoot<URL> {
+    pub fn new(global: &GlobalScope<TH>, url: ServoUrl) -> DomRoot<URL<TH>> {
         reflect_dom_object(Box::new(URL::new_inherited(url)),
                            global, URLBinding::Wrap)
     }
@@ -62,7 +62,7 @@ impl<TH> URL<TH> {
     // https://url.spec.whatwg.org/#constructors
     pub fn Constructor(global: &GlobalScope<TH>, url: USVString,
                        base: Option<USVString>)
-                       -> Fallible<DomRoot<URL>> {
+                       -> Fallible<DomRoot<URL<TH>>> {
         let parsed_base = match base {
             None => {
                 // Step 1.
@@ -96,7 +96,7 @@ impl<TH> URL<TH> {
     }
 
     // https://w3c.github.io/FileAPI/#dfn-createObjectURL
-    pub fn CreateObjectURL(global: &GlobalScope<TH>, blob: &Blob) -> DOMString {
+    pub fn CreateObjectURL(global: &GlobalScope<TH>, blob: &Blob<TH>) -> DOMString {
         // XXX: Second field is an unicode-serialized Origin, it is a temporary workaround
         //      and should not be trusted. See issue https://github.com/servo/servo/issues/11722
         let origin = get_blob_origin(&global.get_url());
@@ -183,7 +183,7 @@ impl<TH> URLMethods for URL<TH> {
     }
 
     // https://url.spec.whatwg.org/#dom-url-href
-    fn SetHref(&self, value: USVString) -> ErrorResult {
+    fn SetHref(&self, value: USVString) -> ErrorResult<TH> {
         match ServoUrl::parse(&value.0) {
             Ok(url) => {
                 *self.url.borrow_mut() = url;

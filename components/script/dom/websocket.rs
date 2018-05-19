@@ -318,7 +318,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn Send(&self, data: USVString) -> ErrorResult {
+    fn Send(&self, data: USVString) -> ErrorResult<TH> {
         let data_byte_len = data.0.as_bytes().len() as u64;
         let send_data = self.send_impl(data_byte_len)?;
 
@@ -330,7 +330,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn Send_(&self, blob: &Blob) -> ErrorResult {
+    fn Send_(&self, blob: &Blob<TH>) -> ErrorResult<TH> {
         /* As per https://html.spec.whatwg.org/multipage/#websocket
            the buffered amount needs to be clamped to u32, even though Blob.Size() is u64
            If the buffer limit is reached in the first place, there are likely other major problems
@@ -347,7 +347,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn Send__(&self, array: CustomAutoRooterGuard<ArrayBuffer>) -> ErrorResult {
+    fn Send__(&self, array: CustomAutoRooterGuard<ArrayBuffer>) -> ErrorResult<TH> {
         let bytes = array.to_vec();
         let data_byte_len = bytes.len();
         let send_data = self.send_impl(data_byte_len as u64)?;
@@ -359,7 +359,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn Send___(&self, array: CustomAutoRooterGuard<ArrayBufferView>) -> ErrorResult {
+    fn Send___(&self, array: CustomAutoRooterGuard<ArrayBufferView>) -> ErrorResult<TH> {
         let bytes = array.to_vec();
         let data_byte_len = bytes.len();
         let send_data = self.send_impl(data_byte_len as u64)?;
@@ -371,7 +371,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-close
-    fn Close(&self, code: Option<u16>, reason: Option<USVString>) -> ErrorResult {
+    fn Close(&self, code: Option<u16>, reason: Option<USVString>) -> ErrorResult<TH> {
         if let Some(code) = code {
             //Fail if the supplied code isn't normal and isn't reserved for libraries, frameworks, and applications
             if code != close_code::NORMAL && (code < 3000 || code > 4999) {

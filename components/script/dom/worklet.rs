@@ -110,7 +110,7 @@ impl<TH: TypeHolderTrait> Worklet<TH> {
 impl<TH> WorkletMethods for Worklet<TH> {
     #[allow(unrooted_must_root)]
     /// <https://drafts.css-houdini.org/worklets/#dom-worklet-addmodule>
-    fn AddModule(&self, module_url: USVString, options: &WorkletOptions) -> Rc<Promise> {
+    fn AddModule(&self, module_url: USVString, options: &WorkletOptions) -> Rc<Promise<TH>> {
         // Step 1.
         let promise = Promise::new(self.window.upcast());
 
@@ -285,7 +285,7 @@ impl<TH> WorkletThreadPool<TH> {
                                          script_url: ServoUrl,
                                          credentials: RequestCredentials,
                                          pending_tasks_struct: PendingTasksStruct,
-                                         promise: &Rc<Promise>)
+                                         promise: &Rc<Promise<TH>>)
     {
         // Send each thread a control message asking it to load the script.
         for sender in &[&self.control_sender_0, &self.control_sender_1, &self.control_sender_2] {

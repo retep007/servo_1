@@ -82,7 +82,7 @@ impl<TH> DOMTokenListMethods for DOMTokenList<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-add
-    fn Add(&self, tokens: Vec<DOMString>) -> ErrorResult {
+    fn Add(&self, tokens: Vec<DOMString>) -> ErrorResult<TH> {
         let mut atoms = self.element.get_tokenlist_attribute(&self.local_name);
         for token in &tokens {
             let token = self.check_token_exceptions(&token)?;
@@ -95,7 +95,7 @@ impl<TH> DOMTokenListMethods for DOMTokenList<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-remove
-    fn Remove(&self, tokens: Vec<DOMString>) -> ErrorResult {
+    fn Remove(&self, tokens: Vec<DOMString>) -> ErrorResult<TH> {
         let mut atoms = self.element.get_tokenlist_attribute(&self.local_name);
         for token in &tokens {
             let token = self.check_token_exceptions(&token)?;
@@ -140,7 +140,7 @@ impl<TH> DOMTokenListMethods for DOMTokenList<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-replace
-    fn Replace(&self, token: DOMString, new_token: DOMString) -> ErrorResult {
+    fn Replace(&self, token: DOMString, new_token: DOMString) -> ErrorResult<TH> {
         if token.is_empty() || new_token.is_empty() {
             // Step 1.
             return Err(Error::Syntax);

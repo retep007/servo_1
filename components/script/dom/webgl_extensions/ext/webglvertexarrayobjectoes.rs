@@ -27,7 +27,7 @@ pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait> {
 }
 
 impl<TH> WebGLVertexArrayObjectOES<TH> {
-    fn new_inherited(id: WebGLVertexArrayId) -> WebGLVertexArrayObjectOES {
+    fn new_inherited(id: WebGLVertexArrayId) -> WebGLVertexArrayObjectOES<TH> {
         Self {
             webgl_object_: WebGLObject::new_inherited(),
             id: id,
@@ -38,7 +38,7 @@ impl<TH> WebGLVertexArrayObjectOES<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, id: WebGLVertexArrayId) -> DomRoot<WebGLVertexArrayObjectOES> {
+    pub fn new(global: &GlobalScope<TH>, id: WebGLVertexArrayId) -> DomRoot<WebGLVertexArrayObjectOES<TH>> {
         reflect_dom_object(Box::new(WebGLVertexArrayObjectOES::new_inherited(id)),
                            global,
                            WebGLVertexArrayObjectOESBinding::Wrap)

@@ -190,7 +190,7 @@ impl<TH> BluetoothDevice<TH> {
 
     // https://webbluetoothcg.github.io/web-bluetooth/#garbage-collect-the-connection
     #[allow(unrooted_must_root)]
-    pub fn garbage_collect_the_connection(&self) -> ErrorResult {
+    pub fn garbage_collect_the_connection(&self) -> ErrorResult<TH> {
         // Step 1: TODO: Check if other systems using this device.
 
         // Step 2.
@@ -237,7 +237,7 @@ impl<TH> BluetoothDeviceMethods for BluetoothDevice<TH> {
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothdevice-watchadvertisements
-    fn WatchAdvertisements(&self) -> Rc<Promise> {
+    fn WatchAdvertisements(&self) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
         let sender = response_async(&p, self);
         // TODO: Step 1.
@@ -265,7 +265,7 @@ impl<TH> BluetoothDeviceMethods for BluetoothDevice<TH> {
 }
 
 impl<TH> AsyncBluetoothListener for BluetoothDevice<TH> {
-    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
+    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothdevice-unwatchadvertisements
             BluetoothResponse::WatchAdvertisements(_result) => {

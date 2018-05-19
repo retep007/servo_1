@@ -295,17 +295,17 @@ impl<TH> FileReaderMethods for FileReader<TH> {
     event_handler!(loadend, GetOnloadend, SetOnloadend);
 
     // https://w3c.github.io/FileAPI/#dfn-readAsArrayBuffer
-    fn ReadAsArrayBuffer(&self, blob: &Blob) -> ErrorResult {
+    fn ReadAsArrayBuffer(&self, blob: &Blob<TH>) -> ErrorResult<TH> {
         self.read(FileReaderFunction::ReadAsArrayBuffer, blob, None)
     }
 
     // https://w3c.github.io/FileAPI/#dfn-readAsDataURL
-    fn ReadAsDataURL(&self, blob: &Blob) -> ErrorResult {
+    fn ReadAsDataURL(&self, blob: &Blob<TH>) -> ErrorResult<TH> {
         self.read(FileReaderFunction::ReadAsDataUrl, blob, None)
     }
 
     // https://w3c.github.io/FileAPI/#dfn-readAsText
-    fn ReadAsText(&self, blob: &Blob, label: Option<DOMString>) -> ErrorResult {
+    fn ReadAsText(&self, blob: &Blob<TH>, label: Option<DOMString>) -> ErrorResult<TH> {
         self.read(FileReaderFunction::ReadAsText, blob, label)
     }
 
@@ -366,7 +366,7 @@ impl<TH> FileReader<TH> {
         self.generation_id.set(GenerationId(prev_id + 1));
     }
 
-    fn read(&self, function: FileReaderFunction, blob: &Blob, label: Option<DOMString>) -> ErrorResult {
+    fn read(&self, function: FileReaderFunction, blob: &Blob<TH>, label: Option<DOMString>) -> ErrorResult<TH> {
         // Step 1
         if self.ready_state.get() == FileReaderReadyState::Loading {
             return Err(Error::InvalidState);

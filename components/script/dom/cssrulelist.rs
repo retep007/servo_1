@@ -108,7 +108,7 @@ impl<TH: TypeHolderTrait> CSSRuleList<TH> {
     }
 
     // In case of a keyframe rule, index must be valid.
-    pub fn remove_rule(&self, index: u32) -> ErrorResult {
+    pub fn remove_rule(&self, index: u32) -> ErrorResult<TH> {
         let index = index as usize;
         let mut guard = self.parent_stylesheet.shared_lock().write();
 

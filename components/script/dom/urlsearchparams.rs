@@ -25,11 +25,11 @@ pub struct URLSearchParams<TH: TypeHolderTrait> {
     // https://url.spec.whatwg.org/#concept-urlsearchparams-list
     list: DomRefCell<Vec<(String, String)>>,
     // https://url.spec.whatwg.org/#concept-urlsearchparams-url-object
-    url: MutableWeakRef<URL>,
+    url: MutableWeakRef<URL<TH>>,
 }
 
 impl<TH> URLSearchParams<TH> {
-    fn new_inherited(url: Option<&URL>) -> URLSearchParams<TH> {
+    fn new_inherited(url: Option<&URL<TH>>) -> URLSearchParams<TH> {
         URLSearchParams {
             reflector_: Reflector::new(),
             list: DomRefCell::new(url.map_or(Vec::new(), |url| url.query_pairs())),
@@ -37,7 +37,7 @@ impl<TH> URLSearchParams<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, url: Option<&URL>) -> DomRoot<URLSearchParams<TH>> {
+    pub fn new(global: &GlobalScope<TH>, url: Option<&URL<TH>>) -> DomRoot<URLSearchParams<TH>> {
         reflect_dom_object(Box::new(URLSearchParams::new_inherited(url)), global,
                            URLSearchParamsWrap)
     }

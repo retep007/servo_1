@@ -24,13 +24,13 @@ pub struct VREyeParameters<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     parameters: DomRefCell<WebVREyeParameters>,
     offset: Heap<*mut JSObject>,
-    fov: Dom<VRFieldOfView>,
+    fov: Dom<VRFieldOfView<TH>>,
 }
 
 unsafe_no_jsmanaged_fields!(WebVREyeParameters);
 
 impl<TH> VREyeParameters<TH> {
-    fn new_inherited(parameters: WebVREyeParameters, fov: &VRFieldOfView) -> VREyeParameters<TH> {
+    fn new_inherited(parameters: WebVREyeParameters, fov: &VRFieldOfView<TH>) -> VREyeParameters<TH> {
         VREyeParameters {
             reflector_: Reflector::new(),
             parameters: DomRefCell::new(parameters),
@@ -66,7 +66,7 @@ impl<TH> VREyeParametersMethods for VREyeParameters<TH> {
     }
 
     // https://w3c.github.io/webvr/#dom-vreyeparameters-fieldofview
-    fn FieldOfView(&self) -> DomRoot<VRFieldOfView> {
+    fn FieldOfView(&self) -> DomRoot<VRFieldOfView<TH>> {
         DomRoot::from_ref(&*self.fov)
     }
 

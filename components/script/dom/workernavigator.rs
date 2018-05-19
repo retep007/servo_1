@@ -21,14 +21,14 @@ pub struct WorkerNavigator<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> WorkerNavigator<TH> {
-    fn new_inherited() -> WorkerNavigator {
+    fn new_inherited() -> WorkerNavigator<TH> {
         WorkerNavigator {
             reflector_: Reflector::new(),
             permissions: Default::default(),
         }
     }
 
-    pub fn new(global: &WorkerGlobalScope<TH>) -> DomRoot<WorkerNavigator> {
+    pub fn new(global: &WorkerGlobalScope<TH>) -> DomRoot<WorkerNavigator<TH>> {
         reflect_dom_object(Box::new(WorkerNavigator::new_inherited()),
                            global,
                            WorkerNavigatorBinding::Wrap)

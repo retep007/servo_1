@@ -41,7 +41,7 @@ pub struct PerformanceObserver<TH: TypeHolderTrait> {
 impl<TH> PerformanceObserver<TH> {
     fn new_inherited(callback: Rc<PerformanceObserverCallback>,
                      entries: DomRefCell<DOMPerformanceEntryList>)
-        -> PerformanceObserver {
+        -> PerformanceObserver<TH> {
         PerformanceObserver {
             reflector_: Reflector::new(),
             callback,
@@ -53,13 +53,13 @@ impl<TH> PerformanceObserver<TH> {
     pub fn new(global: &GlobalScope<TH>,
                callback: Rc<PerformanceObserverCallback>,
                entries: DOMPerformanceEntryList)
-        -> DomRoot<PerformanceObserver> {
+        -> DomRoot<PerformanceObserver<TH>> {
         let observer = PerformanceObserver::new_inherited(callback, DomRefCell::new(entries));
         reflect_dom_object(Box::new(observer), global, PerformanceObserverBinding::Wrap)
     }
 
     pub fn Constructor(global: &GlobalScope<TH>, callback: Rc<PerformanceObserverCallback>)
-        -> Fallible<DomRoot<PerformanceObserver>> {
+        -> Fallible<DomRoot<PerformanceObserver<TH>>> {
         Ok(PerformanceObserver::new(global, callback, Vec::new()))
     }
 

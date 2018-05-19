@@ -103,7 +103,7 @@ impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharact
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-getdescriptor
-    fn GetDescriptor(&self, descriptor: BluetoothDescriptorUUID) -> Rc<Promise> {
+    fn GetDescriptor(&self, descriptor: BluetoothDescriptorUUID) -> Rc<Promise<TH>> {
         get_gatt_children(self, true, BluetoothUUID::descriptor, Some(descriptor), self.get_instance_id(),
                           self.Service().Device().get_gatt().Connected(), GATTType::Descriptor)
     }
@@ -112,7 +112,7 @@ impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharact
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-getdescriptors
     fn GetDescriptors(&self,
                       descriptor: Option<BluetoothDescriptorUUID>)
-                      -> Rc<Promise> {
+                      -> Rc<Promise<TH>> {
         get_gatt_children(self, false, BluetoothUUID::descriptor, descriptor, self.get_instance_id(),
                           self.Service().Device().get_gatt().Connected(), GATTType::Descriptor)
     }
@@ -124,7 +124,7 @@ impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharact
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-readvalue
-    fn ReadValue(&self) -> Rc<Promise> {
+    fn ReadValue(&self) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
 
         // Step 1.
@@ -157,7 +157,7 @@ impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharact
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-writevalue
-    fn WriteValue(&self, value: ArrayBufferViewOrArrayBuffer) -> Rc<Promise> {
+    fn WriteValue(&self, value: ArrayBufferViewOrArrayBuffer) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
 
         // Step 1.
@@ -203,7 +203,7 @@ impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharact
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-startnotifications
-    fn StartNotifications(&self) -> Rc<Promise> {
+    fn StartNotifications(&self) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
 
         // Step 1.
@@ -239,7 +239,7 @@ impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharact
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-stopnotifications
-    fn StopNotifications(&self) -> Rc<Promise> {
+    fn StopNotifications(&self) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
         let sender = response_async(&p, self);
 
@@ -259,7 +259,7 @@ impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharact
 }
 
 impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTCharacteristic<TH> {
-    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
+    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         let device = self.Service().Device();
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#getgattchildren

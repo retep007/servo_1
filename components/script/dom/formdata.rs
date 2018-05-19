@@ -30,7 +30,7 @@ pub struct FormData<TH: TypeHolderTrait> {
 }
 
 impl<TH> FormData<TH> {
-    fn new_inherited(opt_form: Option<&HTMLFormElement<TH>>) -> FormData {
+    fn new_inherited(opt_form: Option<&HTMLFormElement<TH>>) -> FormData<TH> {
         let mut hashmap: HashMap<LocalName, Vec<FormDatum<TH>>> = HashMap::new();
 
         if let Some(form) = opt_form {
@@ -48,12 +48,12 @@ impl<TH> FormData<TH> {
         }
     }
 
-    pub fn new(form: Option<&HTMLFormElement<TH>>, global: &GlobalScope<TH>) -> DomRoot<FormData> {
+    pub fn new(form: Option<&HTMLFormElement<TH>>, global: &GlobalScope<TH>) -> DomRoot<FormData<TH>> {
         reflect_dom_object(Box::new(FormData::new_inherited(form)),
                            global, FormDataWrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>, form: Option<&HTMLFormElement<TH>>) -> Fallible<DomRoot<FormData>> {
+    pub fn Constructor(global: &GlobalScope<TH>, form: Option<&HTMLFormElement<TH>>) -> Fallible<DomRoot<FormData<TH>>> {
         // TODO: Construct form data set for form if it is supplied
         Ok(FormData::new(form, global))
     }
@@ -77,7 +77,7 @@ impl<TH> FormDataMethods for FormData<TH> {
 
     #[allow(unrooted_must_root)]
     // https://xhr.spec.whatwg.org/#dom-formdata-append
-    fn Append_(&self, name: USVString, blob: &Blob, filename: Option<USVString>) {
+    fn Append_(&self, name: USVString, blob: &Blob<TH>, filename: Option<USVString>) {
         let datum = FormDatum {
             ty: DOMString::from("file"),
             name: DOMString::from(name.0.clone()),
@@ -135,7 +135,7 @@ impl<TH> FormDataMethods for FormData<TH> {
 
     #[allow(unrooted_must_root)]
     // https://xhr.spec.whatwg.org/#dom-formdata-set
-    fn Set_(&self, name: USVString, blob: &Blob, filename: Option<USVString>) {
+    fn Set_(&self, name: USVString, blob: &Blob<TH>, filename: Option<USVString>) {
         self.data.borrow_mut().insert(LocalName::from(name.0.clone()), vec![FormDatum {
             ty: DOMString::from("file"),
             name: DOMString::from(name.0),
@@ -149,7 +149,7 @@ impl<TH> FormDataMethods for FormData<TH> {
 impl<TH> FormData<TH> {
     // https://xhr.spec.whatwg.org/#create-an-entry
     // Steps 3-4.
-    fn create_an_entry(&self, blob: &Blob, opt_filename: Option<USVString>) -> DomRoot<File<TH>> {
+    fn create_an_entry(&self, blob: &Blob<TH>, opt_filename: Option<USVString>) -> DomRoot<File<TH>> {
         let name = match opt_filename {
             Some(filename) => DOMString::from(filename.0),
             None if blob.downcast::<File<TH>>().is_none() => DOMString::from("blob"),

@@ -17,7 +17,7 @@ pub struct HTMLVideoElement<TH: TypeHolderTrait> {
 }
 
 impl<TH> HTMLVideoElement<TH> {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLVideoElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLVideoElement<TH> {
         HTMLVideoElement {
             htmlmediaelement:
                 HTMLMediaElement::new_inherited(local_name, prefix, document)
@@ -27,7 +27,7 @@ impl<TH> HTMLVideoElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLVideoElement> {
+               document: &Document<TH>) -> DomRoot<HTMLVideoElement<TH>> {
         Node::reflect_node(Box::new(HTMLVideoElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLVideoElementBinding::Wrap)

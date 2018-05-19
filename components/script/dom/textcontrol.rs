@@ -58,7 +58,7 @@ impl<'a, E: TextControlElement, TH: TypeHolderTrait> TextControlSelection<'a, E,
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-selectionstart
-    pub fn set_dom_start(&self, start: Option<u32>) -> ErrorResult {
+    pub fn set_dom_start(&self, start: Option<u32>) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);
@@ -91,7 +91,7 @@ impl<'a, E: TextControlElement, TH: TypeHolderTrait> TextControlSelection<'a, E,
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-selectionend
-    pub fn set_dom_end(&self, end: Option<u32>) -> ErrorResult {
+    pub fn set_dom_end(&self, end: Option<u32>) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);
@@ -113,7 +113,7 @@ impl<'a, E: TextControlElement, TH: TypeHolderTrait> TextControlSelection<'a, E,
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-selectiondirection
-    pub fn set_dom_direction(&self, direction: Option<DOMString>) -> ErrorResult {
+    pub fn set_dom_direction(&self, direction: Option<DOMString>) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);
@@ -130,7 +130,7 @@ impl<'a, E: TextControlElement, TH: TypeHolderTrait> TextControlSelection<'a, E,
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-setselectionrange
-    pub fn set_dom_range(&self, start: u32, end: u32, direction: Option<DOMString>) -> ErrorResult {
+    pub fn set_dom_range(&self, start: u32, end: u32, direction: Option<DOMString>) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);
@@ -148,7 +148,7 @@ impl<'a, E: TextControlElement, TH: TypeHolderTrait> TextControlSelection<'a, E,
         start: Option<u32>,
         end: Option<u32>,
         selection_mode: SelectionMode
-    ) -> ErrorResult {
+    ) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);

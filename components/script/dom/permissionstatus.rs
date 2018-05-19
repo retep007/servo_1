@@ -23,7 +23,7 @@ pub struct PermissionStatus<TH: TypeHolderTrait> {
 }
 
 impl<TH> PermissionStatus<TH> {
-    pub fn new_inherited(query: PermissionName) -> PermissionStatus {
+    pub fn new_inherited(query: PermissionName) -> PermissionStatus<TH> {
         PermissionStatus {
             eventtarget: EventTarget::new_inherited(),
             state: Cell::new(PermissionState::Denied),
@@ -31,7 +31,7 @@ impl<TH> PermissionStatus<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>,query: &PermissionDescriptor) -> DomRoot<PermissionStatus> {
+    pub fn new(global: &GlobalScope<TH>,query: &PermissionDescriptor) -> DomRoot<PermissionStatus<TH>> {
         reflect_dom_object(Box::new(PermissionStatus::new_inherited(query.name)),
                            global,
                            PermissionStatusBinding::Wrap)

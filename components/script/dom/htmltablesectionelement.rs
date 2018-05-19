@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods for HTMLTableSectionEle
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tbody-deleterow
-    fn DeleteRow(&self, index: i32) -> ErrorResult {
+    fn DeleteRow(&self, index: i32) -> ErrorResult<TH> {
         let node = self.upcast::<Node<TH>>();
         node.delete_cell_or_row(
             index,

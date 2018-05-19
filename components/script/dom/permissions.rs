@@ -38,9 +38,9 @@ pub trait PermissionAlgorithm {
     fn create_descriptor(cx: *mut JSContext,
                          permission_descriptor_obj: *mut JSObject)
                          -> Result<Self::Descriptor, Error>;
-    fn permission_query(cx: *mut JSContext, promise: &Rc<Promise>,
+    fn permission_query(cx: *mut JSContext, promise: &Rc<Promise<TH>>,
                         descriptor: &Self::Descriptor, status: &Self::Status);
-    fn permission_request(cx: *mut JSContext, promise: &Rc<Promise>,
+    fn permission_request(cx: *mut JSContext, promise: &Rc<Promise<TH>>,
                           descriptor: &Self::Descriptor, status: &Self::Status);
     fn permission_revoke(descriptor: &Self::Descriptor, status: &Self::Status);
 }
@@ -78,8 +78,8 @@ impl<TH> Permissions<TH> {
                   op: Operation,
                   cx: *mut JSContext,
                   permissionDesc: *mut JSObject,
-                  promise: Option<Rc<Promise>>)
-                  -> Rc<Promise> {
+                  promise: Option<Rc<Promise<TH>>>)
+                  -> Rc<Promise<TH>> {
         // (Query, Request) Step 3.
         let p = match promise {
             Some(promise) => promise,
@@ -179,21 +179,21 @@ impl<TH> PermissionsMethods for Permissions<TH> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     // https://w3c.github.io/permissions/#dom-permissions-query
-    unsafe fn Query(&self, cx: *mut JSContext, permissionDesc: *mut JSObject) -> Rc<Promise> {
+    unsafe fn Query(&self, cx: *mut JSContext, permissionDesc: *mut JSObject) -> Rc<Promise<TH>> {
         self.manipulate(Operation::Query, cx, permissionDesc, None)
     }
 
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     // https://w3c.github.io/permissions/#dom-permissions-request
-    unsafe fn Request(&self, cx: *mut JSContext, permissionDesc: *mut JSObject) -> Rc<Promise> {
+    unsafe fn Request(&self, cx: *mut JSContext, permissionDesc: *mut JSObject) -> Rc<Promise<TH>> {
         self.manipulate(Operation::Request, cx, permissionDesc, None)
     }
 
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     // https://w3c.github.io/permissions/#dom-permissions-revoke
-    unsafe fn Revoke(&self, cx: *mut JSContext, permissionDesc: *mut JSObject) -> Rc<Promise> {
+    unsafe fn Revoke(&self, cx: *mut JSContext, permissionDesc: *mut JSObject) -> Rc<Promise<TH>> {
         self.manipulate(Operation::Revoke, cx, permissionDesc, None)
     }
 }
@@ -219,18 +219,18 @@ impl<TH> PermissionAlgorithm for Permissions<TH> {
 
     // https://w3c.github.io/permissions/#boolean-permission-query-algorithm
     fn permission_query(_cx: *mut JSContext,
-                        _promise: &Rc<Promise>,
+                        _promise: &Rc<Promise<TH>>,
                         _descriptor: &PermissionDescriptor,
-                        status: &PermissionStatus) {
+                        status: &PermissionStatus<TH>) {
         // Step 1.
         status.set_state(get_descriptor_permission_state(status.get_query(), None));
     }
 
     // https://w3c.github.io/permissions/#boolean-permission-request-algorithm
     fn permission_request(cx: *mut JSContext,
-                          promise: &Rc<Promise>,
+                          promise: &Rc<Promise<TH>>,
                           descriptor: &PermissionDescriptor,
-                          status: &PermissionStatus) {
+                          status: &PermissionStatus<TH>) {
         // Step 1.
         Permissions::permission_query(cx, promise, descriptor, status);
 
@@ -257,7 +257,7 @@ impl<TH> PermissionAlgorithm for Permissions<TH> {
         Permissions::permission_query(cx, promise, descriptor, status);
     }
 
-    fn permission_revoke(_descriptor: &PermissionDescriptor, _status: &PermissionStatus) {}
+    fn permission_revoke(_descriptor: &PermissionDescriptor, _status: &PermissionStatus<TH>) {}
 }
 
 // https://w3c.github.io/permissions/#permission-state

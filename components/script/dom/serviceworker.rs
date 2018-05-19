@@ -88,7 +88,7 @@ impl<TH: TypeHolderTrait> ServiceWorkerMethods for ServiceWorker<TH> {
 
     #[allow(unsafe_code)]
     // https://w3c.github.io/ServiceWorker/#service-worker-postmessage
-    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult {
+    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {
         // Step 1
         if let ServiceWorkerState::Redundant = self.state.get() {
             return Err(Error::InvalidState);

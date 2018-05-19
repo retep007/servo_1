@@ -764,7 +764,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
                    cx: *mut JSContext,
                    message: HandleValue,
                    origin: DOMString)
-                   -> ErrorResult {
+                   -> ErrorResult<TH> {
         // Step 3-5.
         let origin = match &origin[..] {
             "*" => None,
@@ -1022,7 +1022,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
 
     #[allow(unrooted_must_root)]
     // https://fetch.spec.whatwg.org/#fetch-method
-    fn Fetch(&self, input: RequestOrUSVString, init: RootedTraceableBox<RequestInit>) -> Rc<Promise> {
+    fn Fetch(&self, input: RequestOrUSVString<TH>, init: RootedTraceableBox<RequestInit>) -> Rc<Promise<TH>> {
         fetch::Fetch(&self.upcast(), input, init)
     }
 

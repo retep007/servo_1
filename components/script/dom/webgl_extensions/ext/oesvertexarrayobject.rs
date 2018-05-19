@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 pub struct OESVertexArrayObject<TH: TypeHolderTrait> {
     reflector_: Reflector,
     ctx: Dom<WebGLRenderingContext<TH>>,
-    bound_vao: MutNullableDom<WebGLVertexArrayObjectOES>,
+    bound_vao: MutNullableDom<WebGLVertexArrayObjectOES<TH>>,
 }
 
 impl<TH> OESVertexArrayObject<TH> {
@@ -47,7 +47,7 @@ impl<TH> OESVertexArrayObject<TH> {
 
 impl<TH> OESVertexArrayObjectMethods for OESVertexArrayObject<TH> {
     // https://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/
-    fn CreateVertexArrayOES(&self) -> Option<DomRoot<WebGLVertexArrayObjectOES>> {
+    fn CreateVertexArrayOES(&self) -> Option<DomRoot<WebGLVertexArrayObjectOES<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         self.ctx.send_command(WebGLCommand::CreateVertexArray(sender));
 
@@ -56,7 +56,7 @@ impl<TH> OESVertexArrayObjectMethods for OESVertexArrayObject<TH> {
     }
 
     // https://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/
-    fn DeleteVertexArrayOES(&self, vao: Option<&WebGLVertexArrayObjectOES>) {
+    fn DeleteVertexArrayOES(&self, vao: Option<&WebGLVertexArrayObjectOES<TH>>) {
         if let Some(vao) = vao {
             if vao.is_deleted() {
                 return;
@@ -86,13 +86,13 @@ impl<TH> OESVertexArrayObjectMethods for OESVertexArrayObject<TH> {
     }
 
     // https://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/
-    fn IsVertexArrayOES(&self, vao: Option<&WebGLVertexArrayObjectOES>) -> bool {
+    fn IsVertexArrayOES(&self, vao: Option<&WebGLVertexArrayObjectOES<TH>>) -> bool {
         // Conformance tests expect false if vao never bound
         vao.map_or(false, |vao| !vao.is_deleted() && vao.ever_bound())
     }
 
     // https://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/
-    fn BindVertexArrayOES(&self, vao: Option<&WebGLVertexArrayObjectOES>) {
+    fn BindVertexArrayOES(&self, vao: Option<&WebGLVertexArrayObjectOES<TH>>) {
         if let Some(bound_vao) = self.bound_vao.get() {
             // Store buffers attached to attrib pointers
             let buffers = self.ctx.borrow_bound_attrib_buffers();

@@ -66,7 +66,7 @@ impl<TH> BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer<TH> {
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-connect
-    fn Connect(&self) -> Rc<Promise> {
+    fn Connect(&self) -> Rc<Promise<TH>> {
         // Step 1.
         let p = Promise::new(&self.global());
         let sender = response_async(&p, self);
@@ -86,7 +86,7 @@ impl<TH> BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer<TH> {
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-disconnect
-    fn Disconnect(&self) -> ErrorResult {
+    fn Disconnect(&self) -> ErrorResult<TH> {
         // TODO: Step 1: Implement activeAlgorithms internal slot for BluetoothRemoteGATTServer.
 
         // Step 2.
@@ -103,7 +103,7 @@ impl<TH> BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer<TH> {
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-getprimaryservice
-    fn GetPrimaryService(&self, service: BluetoothServiceUUID) -> Rc<Promise> {
+    fn GetPrimaryService(&self, service: BluetoothServiceUUID) -> Rc<Promise<TH>> {
         // Step 1 - 2.
         get_gatt_children(self, true, BluetoothUUID::service, Some(service), String::from(self.Device().Id()),
                           self.Device().get_gatt().Connected(), GATTType::PrimaryService)
@@ -111,7 +111,7 @@ impl<TH> BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer<TH> {
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-getprimaryservices
-    fn GetPrimaryServices(&self, service: Option<BluetoothServiceUUID>) -> Rc<Promise> {
+    fn GetPrimaryServices(&self, service: Option<BluetoothServiceUUID>) -> Rc<Promise<TH>> {
         // Step 1 - 2.
         get_gatt_children(self, false, BluetoothUUID::service, service, String::from(self.Device().Id()),
                           self.Connected(), GATTType::PrimaryService)
@@ -120,7 +120,7 @@ impl<TH> BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer<TH> {
 }
 
 impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTServer<TH> {
-    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
+    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-connect
             BluetoothResponse::GATTServerConnect(connected) => {

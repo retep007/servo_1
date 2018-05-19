@@ -401,7 +401,7 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     /// A vector containing parser contexts which have not yet been fully processed
     incomplete_parser_contexts: DomRefCell<Vec<(PipelineId, ParserContext)>>,
     /// A map to store service worker registrations for a given origin
-    registration_map: DomRefCell<HashMap<ServoUrl, Dom<ServiceWorkerRegistration>>>,
+    registration_map: DomRefCell<HashMap<ServoUrl, Dom<ServiceWorkerRegistration<TH>>>>,
     /// A job queue for Service Workers keyed by their scope url
     job_queue_map: Rc<JobQueue>,
     /// Image cache for this script thread.
@@ -1750,14 +1750,14 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         }
     }
 
-    pub fn handle_get_registration(&self, scope_url: &ServoUrl) -> Option<DomRoot<ServiceWorkerRegistration>> {
+    pub fn handle_get_registration(&self, scope_url: &ServoUrl) -> Option<DomRoot<ServiceWorkerRegistration<TH>>> {
         let maybe_registration_ref = self.registration_map.borrow();
         maybe_registration_ref.get(scope_url).map(|x| DomRoot::from_ref(&**x))
     }
 
     pub fn handle_serviceworker_registration(&self,
                                          scope: &ServoUrl,
-                                         registration: &ServiceWorkerRegistration,
+                                         registration: &ServiceWorkerRegistration<TH>,
                                          pipeline_id: PipelineId) {
         {
             let ref mut reg_ref = *self.registration_map.borrow_mut();

@@ -121,7 +121,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
         self.terminated.get()
     }
 
-    pub fn handle_message(address: TrustedWorkerAddress,
+    pub fn handle_message(address: TrustedWorkerAddress<TH>,
                           data: StructuredCloneData<TH>) {
         let worker = address.root();
 
@@ -137,7 +137,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
         MessageEvent::dispatch_jsval(target, &global, message.handle());
     }
 
-    pub fn dispatch_simple_error(address: TrustedWorkerAddress) {
+    pub fn dispatch_simple_error(address: TrustedWorkerAddress<TH>) {
         let worker = address.root();
         worker.upcast().fire_event(atom!("error"));
     }
@@ -146,7 +146,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
 impl<TH> WorkerMethods for Worker<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-worker-postmessage
-    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult {
+    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {
         let data = StructuredCloneData::write(cx, message)?;
         let address = Trusted::new(self);
 

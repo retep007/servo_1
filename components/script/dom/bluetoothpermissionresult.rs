@@ -26,13 +26,13 @@ use typeholder::TypeHolderTrait;
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothpermissionresult
 #[dom_struct]
 pub struct BluetoothPermissionResult<TH: TypeHolderTrait> {
-    status: PermissionStatus,
+    status: PermissionStatus<TH>,
     devices: DomRefCell<Vec<Dom<BluetoothDevice<TH>>>>,
 }
 
 impl<TH> BluetoothPermissionResult<TH> {
     #[allow(unrooted_must_root)]
-    fn new_inherited(status: &PermissionStatus) -> BluetoothPermissionResult<TH> {
+    fn new_inherited(status: &PermissionStatus<TH>) -> BluetoothPermissionResult<TH> {
         let result = BluetoothPermissionResult {
             status: PermissionStatus::new_inherited(status.get_query()),
             devices: DomRefCell::new(Vec::new()),
@@ -41,7 +41,7 @@ impl<TH> BluetoothPermissionResult<TH> {
         result
     }
 
-    pub fn new(global: &GlobalScope<TH>,status: &PermissionStatus) -> DomRoot<BluetoothPermissionResult<TH>> {
+    pub fn new(global: &GlobalScope<TH>,status: &PermissionStatus<TH>) -> DomRoot<BluetoothPermissionResult<TH>> {
         reflect_dom_object(Box::new(BluetoothPermissionResult::new_inherited(status)),
                            global,
                            BluetoothPermissionResultBinding::Wrap)
@@ -83,7 +83,7 @@ impl<TH> BluetoothPermissionResultMethods for BluetoothPermissionResult<TH> {
 }
 
 impl<TH> AsyncBluetoothListener for BluetoothPermissionResult<TH> {
-    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
+    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#request-bluetooth-devices
             // Step 3, 11, 13 - 14.

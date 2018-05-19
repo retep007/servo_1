@@ -57,7 +57,7 @@ use typeholder::TypeHolderTrait;
 enum CanvasFillOrStrokeStyle<TH: TypeHolderTrait> {
     Color(RGBA),
     Gradient(Dom<CanvasGradient<TH>>),
-    Pattern(Dom<CanvasPattern>),
+    Pattern(Dom<CanvasPattern<TH>>),
 }
 
 // https://html.spec.whatwg.org/multipage/#canvasrenderingcontext2d
@@ -288,7 +288,7 @@ impl<TH: TypeHolderTrait> CanvasRenderingContext2D<TH> {
                   dy: f64,
                   dw: Option<f64>,
                   dh: Option<f64>)
-                  -> ErrorResult {
+                  -> ErrorResult<TH> {
         let result = match image {
             CanvasImageSource::HTMLCanvasElement(ref canvas) => {
                 self.draw_html_canvas_element(&canvas,
@@ -333,7 +333,7 @@ impl<TH: TypeHolderTrait> CanvasRenderingContext2D<TH> {
                                 dy: f64,
                                 dw: Option<f64>,
                                 dh: Option<f64>)
-                                -> ErrorResult {
+                                -> ErrorResult<TH> {
         // 1. Check the usability of the image argument
         if !canvas.is_valid() {
             return Err(Error::InvalidState);
@@ -401,7 +401,7 @@ impl<TH: TypeHolderTrait> CanvasRenderingContext2D<TH> {
                                  dy: f64,
                                  dw: Option<f64>,
                                  dh: Option<f64>)
-                                 -> ErrorResult {
+                                 -> ErrorResult<TH> {
         debug!("Fetching image {}.", url);
         // https://html.spec.whatwg.org/multipage/#img-error
         // If the image argument is an HTMLImageElement object that is in the broken state,
@@ -437,7 +437,7 @@ impl<TH: TypeHolderTrait> CanvasRenderingContext2D<TH> {
                        dy: f64,
                        dw: f64,
                        dh: f64)
-                       -> ErrorResult {
+                       -> ErrorResult<TH> {
         // Establish the source and destination rectangles
         let (source_rect, dest_rect) = self.adjust_source_dest_rects(image_size,
                                                                      sx,
@@ -808,7 +808,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
                  image: CanvasImageSource<TH>,
                  dx: f64,
                  dy: f64)
-                 -> ErrorResult {
+                 -> ErrorResult<TH> {
         if !(dx.is_finite() && dy.is_finite()) {
             return Ok(());
         }
@@ -823,7 +823,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
                   dy: f64,
                   dw: f64,
                   dh: f64)
-                  -> ErrorResult {
+                  -> ErrorResult<TH> {
         if !(dx.is_finite() && dy.is_finite() && dw.is_finite() && dh.is_finite()) {
             return Ok(());
         }
@@ -842,7 +842,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
                    dy: f64,
                    dw: f64,
                    dh: f64)
-                   -> ErrorResult {
+                   -> ErrorResult<TH> {
         if !(sx.is_finite() && sy.is_finite() && sw.is_finite() && sh.is_finite() &&
              dx.is_finite() && dy.is_finite() && dw.is_finite() && dh.is_finite()) {
             return Ok(());
@@ -909,7 +909,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-arc
-    fn Arc(&self, x: f64, y: f64, r: f64, start: f64, end: f64, ccw: bool) -> ErrorResult {
+    fn Arc(&self, x: f64, y: f64, r: f64, start: f64, end: f64, ccw: bool) -> ErrorResult<TH> {
         if !([x, y, r, start, end].iter().all(|x| x.is_finite())) {
             return Ok(());
         }
@@ -927,7 +927,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-arcto
-    fn ArcTo(&self, cp1x: f64, cp1y: f64, cp2x: f64, cp2y: f64, r: f64) -> ErrorResult {
+    fn ArcTo(&self, cp1x: f64, cp1y: f64, cp2x: f64, cp2y: f64, r: f64) -> ErrorResult<TH> {
         if !([cp1x, cp1y, cp2x, cp2y, r].iter().all(|x| x.is_finite())) {
             return Ok(());
         }
@@ -942,7 +942,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-ellipse
-    fn Ellipse(&self, x: f64, y: f64, rx: f64, ry: f64, rotation: f64, start: f64, end: f64, ccw: bool) -> ErrorResult {
+    fn Ellipse(&self, x: f64, y: f64, rx: f64, ry: f64, rotation: f64, start: f64, end: f64, ccw: bool) -> ErrorResult<TH> {
         if !([x, y, rx, ry, rotation, start, end].iter().all(|x| x.is_finite())) {
             return Ok(());
         }
@@ -1058,7 +1058,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-createimagedata
-    fn CreateImageData(&self, sw: Finite<f64>, sh: Finite<f64>) -> Fallible<DomRoot<ImageData>> {
+    fn CreateImageData(&self, sw: Finite<f64>, sh: Finite<f64>) -> Fallible<DomRoot<ImageData<TH>>> {
         if *sw == 0.0 || *sh == 0.0 {
             return Err(Error::IndexSize);
         }
@@ -1069,7 +1069,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-createimagedata
-    fn CreateImageData_(&self, imagedata: &ImageData) -> Fallible<DomRoot<ImageData>> {
+    fn CreateImageData_(&self, imagedata: &ImageData<TH>) -> Fallible<DomRoot<ImageData<TH>>> {
         ImageData::new(&self.global(),
                        imagedata.Width(),
                        imagedata.Height(),
@@ -1082,7 +1082,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
                     sy: Finite<f64>,
                     sw: Finite<f64>,
                     sh: Finite<f64>)
-                    -> Fallible<DomRoot<ImageData>> {
+                    -> Fallible<DomRoot<ImageData<TH>>> {
         if !self.origin_is_clean() {
             return Err(Error::Security)
         }
@@ -1128,7 +1128,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-putimagedata
-    fn PutImageData(&self, imagedata: &ImageData, dx: Finite<f64>, dy: Finite<f64>) {
+    fn PutImageData(&self, imagedata: &ImageData<TH>, dx: Finite<f64>, dy: Finite<f64>) {
         self.PutImageData_(imagedata,
                            dx,
                            dy,
@@ -1140,7 +1140,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-putimagedata
     fn PutImageData_(&self,
-                     imagedata: &ImageData,
+                     imagedata: &ImageData<TH>,
                      dx: Finite<f64>,
                      dy: Finite<f64>,
                      dirty_x: Finite<f64>,
@@ -1202,7 +1202,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     fn CreatePattern(&self,
                      image: CanvasImageSource<TH>,
                      mut repetition: DOMString)
-                     -> Fallible<DomRoot<CanvasPattern>> {
+                     -> Fallible<DomRoot<CanvasPattern<TH>>> {
         let (image_data, image_size) = match image {
             CanvasImageSource::HTMLImageElement(ref image) => {
                 // https://html.spec.whatwg.org/multipage/#img-error

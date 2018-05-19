@@ -659,7 +659,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
-    pub fn before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    pub fn before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         // Step 1.
         let parent = &self.parent_node;
 
@@ -688,7 +688,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
-    pub fn after(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    pub fn after(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         // Step 1.
         let parent = &self.parent_node;
 
@@ -711,7 +711,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
-    pub fn replace_with(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    pub fn replace_with(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         // Step 1.
         let parent = if let Some(parent) = self.GetParentNode() {
             parent
@@ -734,7 +734,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
-    pub fn prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    pub fn prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         // Step 1.
         let doc = self.owner_doc();
         let node = doc.node_from_nodes_and_strings(nodes)?;
@@ -744,7 +744,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
-    pub fn append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
+    pub fn append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
         // Step 1.
         let doc = self.owner_doc();
         let node = doc.node_from_nodes_and_strings(nodes)?;
@@ -1439,7 +1439,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     // https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity
     pub fn ensure_pre_insertion_validity(node: &Node<TH>,
                                          parent: &Node<TH>,
-                                         child: Option<&Node<TH>>) -> ErrorResult {
+                                         child: Option<&Node<TH>>) -> ErrorResult<TH> {
         // Step 1.
         match parent.type_id() {
             NodeTypeId::Document(_) |

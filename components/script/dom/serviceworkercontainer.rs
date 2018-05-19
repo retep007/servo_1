@@ -55,7 +55,7 @@ impl<TH> ServiceWorkerContainerMethods for ServiceWorkerContainer<TH> {
     // https://w3c.github.io/ServiceWorker/#start-register-algorithm - B
     fn Register(&self,
                 script_url: USVString,
-                options: &RegistrationOptions) -> Rc<Promise> {
+                options: &RegistrationOptions) -> Rc<Promise<TH>> {
         // A: Step 1
         let promise = Promise::new(&*self.global());
         let USVString(ref script_url) = script_url;

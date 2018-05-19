@@ -79,7 +79,7 @@ impl<TH> Blob<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(
             global: &GlobalScope<TH>, blob_impl: BlobImpl<TH>, typeString: String)
-            -> DomRoot<Blob> {
+            -> DomRoot<Blob<TH>> {
         let boxed_blob = Box::new(Blob::new_inherited(blob_impl, typeString));
         reflect_dom_object(boxed_blob, global, BlobBinding::Wrap)
     }
@@ -377,7 +377,7 @@ impl<TH> BlobMethods for Blob<TH> {
              start: Option<i64>,
              end: Option<i64>,
              content_type: Option<DOMString>)
-             -> DomRoot<Blob> {
+             -> DomRoot<Blob<TH>> {
         let rel_pos = RelativePos::from_opts(start, end);
         Blob::new_sliced(self, rel_pos, content_type.unwrap_or(DOMString::from("")))
     }

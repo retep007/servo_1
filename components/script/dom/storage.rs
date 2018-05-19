@@ -81,7 +81,7 @@ impl<TH> StorageMethods for Storage<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-storage-setitem
-    fn SetItem(&self, name: DOMString, value: DOMString) -> ErrorResult {
+    fn SetItem(&self, name: DOMString, value: DOMString) -> ErrorResult<TH> {
         let (sender, receiver) = ipc::channel(self.global().time_profiler_chan().clone()).unwrap();
         let name = String::from(name);
         let value = String::from(value);
@@ -138,7 +138,7 @@ impl<TH> StorageMethods for Storage<TH> {
         self.GetItem(name)
     }
 
-    fn NamedSetter(&self, name: DOMString, value: DOMString) -> ErrorResult {
+    fn NamedSetter(&self, name: DOMString, value: DOMString) -> ErrorResult<TH> {
         self.SetItem(name, value)
     }
 

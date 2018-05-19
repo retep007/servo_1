@@ -234,7 +234,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setstart
-    fn SetStart(&self, node: &Node<TH>, offset: u32) -> ErrorResult {
+    fn SetStart(&self, node: &Node<TH>, offset: u32) -> ErrorResult<TH> {
         if node.is_doctype() {
             // Step 1.
             Err(Error::InvalidNodeType)
@@ -253,7 +253,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setend
-    fn SetEnd(&self, node: &Node<TH>, offset: u32) -> ErrorResult {
+    fn SetEnd(&self, node: &Node<TH>, offset: u32) -> ErrorResult<TH> {
         if node.is_doctype() {
             // Step 1.
             Err(Error::InvalidNodeType)
@@ -272,25 +272,25 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setstartbefore
-    fn SetStartBefore(&self, node: &Node<TH>) -> ErrorResult {
+    fn SetStartBefore(&self, node: &Node<TH>) -> ErrorResult<TH> {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetStart(&parent, node.index())
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setstartafter
-    fn SetStartAfter(&self, node: &Node<TH>) -> ErrorResult {
+    fn SetStartAfter(&self, node: &Node<TH>) -> ErrorResult<TH> {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetStart(&parent, node.index() + 1)
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setendbefore
-    fn SetEndBefore(&self, node: &Node<TH>) -> ErrorResult {
+    fn SetEndBefore(&self, node: &Node<TH>) -> ErrorResult<TH> {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetEnd(&parent, node.index())
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setendafter
-    fn SetEndAfter(&self, node: &Node<TH>) -> ErrorResult {
+    fn SetEndAfter(&self, node: &Node<TH>) -> ErrorResult<TH> {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetEnd(&parent, node.index() + 1)
     }
@@ -305,7 +305,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-selectnode
-    fn SelectNode(&self, node: &Node<TH>) -> ErrorResult {
+    fn SelectNode(&self, node: &Node<TH>) -> ErrorResult<TH> {
         // Steps 1, 2.
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         // Step 3.
@@ -318,7 +318,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-selectnodecontents
-    fn SelectNodeContents(&self, node: &Node<TH>) -> ErrorResult {
+    fn SelectNodeContents(&self, node: &Node<TH>) -> ErrorResult<TH> {
         if node.is_doctype() {
             // Step 1.
             return Err(Error::InvalidNodeType);
@@ -661,7 +661,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-insertnode
     // https://dom.spec.whatwg.org/#concept-range-insert
-    fn InsertNode(&self, node: &Node<TH>) -> ErrorResult {
+    fn InsertNode(&self, node: &Node<TH>) -> ErrorResult<TH> {
         let start_node = self.StartContainer();
         let start_offset = self.StartOffset();
 
@@ -744,7 +744,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-deletecontents
-    fn DeleteContents(&self) -> ErrorResult {
+    fn DeleteContents(&self) -> ErrorResult<TH> {
         // Step 1.
         if self.Collapsed() {
             return Ok(());
@@ -824,7 +824,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-surroundcontents
-    fn SurroundContents(&self, new_parent: &Node<TH>) -> ErrorResult {
+    fn SurroundContents(&self, new_parent: &Node<TH>) -> ErrorResult<TH> {
         // Step 1.
         let start = self.StartContainer();
         let end = self.EndContainer();
