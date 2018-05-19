@@ -18,16 +18,17 @@ use script_thread::ScriptThread;
 use serviceworkerjob::{Job, JobType};
 use std::default::Default;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ServiceWorkerContainer {
-    eventtarget: EventTarget,
+pub struct ServiceWorkerContainer<TH: TypeHolderTrait> {
+    eventtarget: EventTarget<TH>,
     controller: MutNullableDom<ServiceWorker<TH>>,
     client: Dom<Client>
 }
 
-impl ServiceWorkerContainer {
-    fn new_inherited(client: &Client) -> ServiceWorkerContainer {
+impl<TH> ServiceWorkerContainer<TH> {
+    fn new_inherited(client: &Client) -> ServiceWorkerContainer<TH> {
         ServiceWorkerContainer {
             eventtarget: EventTarget::new_inherited(),
             controller: Default::default(),
@@ -36,14 +37,14 @@ impl ServiceWorkerContainer {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(global: &GlobalScope<TH>) -> DomRoot<ServiceWorkerContainer> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<ServiceWorkerContainer<TH>> {
         let client = Client::new(&global.as_window());
         let container = ServiceWorkerContainer::new_inherited(&*client);
         reflect_dom_object(Box::new(container), global, Wrap)
     }
 }
 
-impl ServiceWorkerContainerMethods for ServiceWorkerContainer {
+impl<TH> ServiceWorkerContainerMethods for ServiceWorkerContainer<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-container-controller-attribute
     fn GetController(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.client.get_controller()

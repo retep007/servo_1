@@ -32,12 +32,12 @@ use std::sync::mpsc::{Sender, channel};
 use task::TaskOnce;
 use typeholder::TypeHolderTrait;
 
-pub type TrustedWorkerAddress = Trusted<Worker<TH>>;
+pub type TrustedWorkerAddress<TH> = Trusted<Worker<TH>>;
 
 // https://html.spec.whatwg.org/multipage/#worker
 #[dom_struct]
 pub struct Worker<TH: TypeHolderTrait> {
-    eventtarget: EventTarget,
+    eventtarget: EventTarget<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
     /// Sender to the Receiver associated with the DedicatedWorkerGlobalScope
     /// this Worker created.
@@ -122,7 +122,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
     }
 
     pub fn handle_message(address: TrustedWorkerAddress,
-                          data: StructuredCloneData) {
+                          data: StructuredCloneData<TH>) {
         let worker = address.root();
 
         if worker.is_terminated() {

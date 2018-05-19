@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSKeyframesRule<TH: TypeHolderTrait> {
-    cssrule: CSSRule,
+    cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     keyframesrule: Arc<Locked<KeyframesRule>>,
     rulelist: MutNullableDom<CSSRuleList<TH>>,
@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> CSSKeyframesRule<TH> {
     }
 }
 
-impl<TH> CSSKeyframesRuleMethods for CSSKeyframesRule<TH> {
+impl<TH> CSSKeyframesRuleMethods<TH> for CSSKeyframesRule<TH> {
     // https://drafts.csswg.org/css-animations/#dom-csskeyframesrule-cssrules
     fn CssRules(&self) -> DomRoot<CSSRuleList<TH>> {
         self.rulelist()

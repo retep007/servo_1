@@ -30,9 +30,9 @@ pub struct MutationObserver<TH: TypeHolderTrait> {
     record_queue: DomRefCell<Vec<DomRoot<MutationRecord<TH>>>>,
 }
 
-pub enum Mutation<'a> {
+pub enum Mutation<'a, TH: TypeHolderTrait> {
     Attribute { name: LocalName, namespace: Namespace, old_value: DOMString },
-    ChildList { added: Option<&'a [&'a Node]>, removed: Option<&'a [&'a Node]>,
+    ChildList { added: Option<&'a [&'a Node<TH>]>, removed: Option<&'a [&'a Node<TH>]>,
                 prev: Option<&'a Node<TH>>, next: Option<&'a Node<TH>> },
 }
 
@@ -106,7 +106,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
     }
 
     /// <https://dom.spec.whatwg.org/#queueing-a-mutation-record>
-    pub fn queue_a_mutation_record(target: &Node<TH>, attr_type: Mutation) {
+    pub fn queue_a_mutation_record(target: &Node<TH>, attr_type: Mutation<TH>) {
         if !target.global().as_window().get_exists_mut_observer() {
             return;
         }

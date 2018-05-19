@@ -23,10 +23,11 @@ use js::rust::wrappers::JS_GetPendingException;
 use js::rust::wrappers::JS_SetPendingException;
 use libc::c_uint;
 use std::slice::from_raw_parts;
+use typeholder::TypeHolderTrait;
 
 /// DOM exceptions that can be thrown by a native DOM method.
 #[derive(Clone, Debug, MallocSizeOf)]
-pub enum Error {
+pub enum Error<TH: TypeHolderTrait> {
     /// IndexSizeError DOMException
     IndexSize,
     /// NotFoundError DOMException
@@ -80,14 +81,14 @@ pub enum Error {
 }
 
 /// The return type for IDL operations that can throw DOM exceptions.
-pub type Fallible<T> = Result<T, Error>;
+pub type Fallible<T, TH> = Result<T, Error<TH>>;
 
 /// The return type for IDL operations that can throw DOM exceptions and
 /// return `()`.
-pub type ErrorResult = Fallible<()>;
+pub type ErrorResult<TH> = Fallible<(), TH>;
 
 /// Set a pending exception for the given `result` on `cx`.
-pub unsafe fn throw_dom_exception(cx: *mut JSContext, global: &GlobalScope<TH>, result: Error) {
+pub unsafe fn throw_dom_exception<TH: TypeHolderTrait>(cx: *mut JSContext, global: &GlobalScope<TH>, result: Error<TH>) {
     let code = match result {
         Error::IndexSize => DOMErrorName::IndexSizeError,
         Error::NotFound => DOMErrorName::NotFoundError,
@@ -183,7 +184,7 @@ impl ErrorInfo {
     }
 
     fn from_dom_exception(object: HandleObject) -> Option<ErrorInfo> {
-        let exception = match root_from_object::<DOMException>(object.get()) {
+        let exception = match root_from_object::<DOMException<TH>>(object.get()) {
             Ok(exception) => exception,
             Err(_) => return None,
         };
@@ -269,7 +270,7 @@ pub unsafe fn throw_invalid_this(cx: *mut JSContext, proto_id: u16) {
     throw_type_error(cx, &error);
 }
 
-impl Error {
+impl<TH> Error<TH> {
     /// Convert this error value to a JS value, consuming it in the process.
     pub unsafe fn to_jsval(self, cx: *mut JSContext, global: &GlobalScope<TH>, rval: MutableHandleValue) {
         assert!(!JS_IsExceptionPending(cx));

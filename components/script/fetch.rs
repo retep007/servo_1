@@ -31,10 +31,11 @@ use servo_url::ServoUrl;
 use std::mem;
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
+use typeholder::TypeHolderTrait;
 
-struct FetchContext {
-    fetch_promise: Option<TrustedPromise>,
-    response_object: Trusted<Response>,
+struct FetchContext<TH: TypeHolderTrait> {
+    fetch_promise: Option<TrustedPromise<TH>>,
+    response_object: Trusted<Response<TH>>,
     body: Vec<u8>,
 }
 
@@ -119,7 +120,7 @@ fn request_init_from_request(request: NetTraitsRequest) -> NetTraitsRequestInit 
 
 // https://fetch.spec.whatwg.org/#fetch-method
 #[allow(unrooted_must_root)]
-pub fn Fetch(global: &GlobalScope<TH>, input: RequestInfo, init: RootedTraceableBox<RequestInit>) -> Rc<Promise> {
+pub fn Fetch<TH: TypeHolderTrait>(global: &GlobalScope<TH>, input: RequestInfo, init: RootedTraceableBox<RequestInit>) -> Rc<Promise> {
     let core_resource_thread = global.core_resource_thread();
 
     // Step 1
@@ -137,7 +138,7 @@ pub fn Fetch(global: &GlobalScope<TH>, input: RequestInfo, init: RootedTraceable
     let mut request_init = request_init_from_request(request);
 
     // Step 3
-    if global.downcast::<ServiceWorkerGlobalScope>().is_some() {
+    if global.downcast::<ServiceWorkerGlobalScope<TH>>().is_some() {
         request_init.service_workers_mode = ServiceWorkersMode::Foreign;
     }
 
@@ -166,9 +167,9 @@ pub fn Fetch(global: &GlobalScope<TH>, input: RequestInfo, init: RootedTraceable
     promise
 }
 
-impl PreInvoke for FetchContext {}
+impl<TH> PreInvoke for FetchContext<TH> {}
 
-impl FetchResponseListener for FetchContext {
+impl<TH> FetchResponseListener for FetchContext<TH> {
     fn process_request_body(&mut self) {
         // TODO
     }
@@ -237,7 +238,7 @@ impl FetchResponseListener for FetchContext {
     }
 }
 
-fn fill_headers_with_metadata(r: DomRoot<Response>, m: Metadata) {
+fn fill_headers_with_metadata<TH: TypeHolderTrait>(r: DomRoot<Response<TH>>, m: Metadata) {
     r.set_headers(m.headers);
     r.set_raw_status(m.status);
     r.set_final_url(m.final_url);

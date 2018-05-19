@@ -19,6 +19,7 @@ use dom::performanceentry::PerformanceEntry;
 use dom::performanceobserverentrylist::PerformanceObserverEntryList;
 use dom_struct::dom_struct;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 /// List of allowed performance entry types.
 const VALID_ENTRY_TYPES: &'static [&'static str] = &[
@@ -30,14 +31,14 @@ const VALID_ENTRY_TYPES: &'static [&'static str] = &[
 ];
 
 #[dom_struct]
-pub struct PerformanceObserver {
+pub struct PerformanceObserver<TH: TypeHolderTrait> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<PerformanceObserverCallback>,
     entries: DomRefCell<DOMPerformanceEntryList>,
 }
 
-impl PerformanceObserver {
+impl<TH> PerformanceObserver<TH> {
     fn new_inherited(callback: Rc<PerformanceObserverCallback>,
                      entries: DomRefCell<DOMPerformanceEntryList>)
         -> PerformanceObserver {
@@ -94,7 +95,7 @@ impl PerformanceObserver {
     }
 }
 
-impl PerformanceObserverMethods for PerformanceObserver {
+impl<TH> PerformanceObserverMethods for PerformanceObserver<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver-observe()
     fn Observe(&self, options: &PerformanceObserverInit) -> Fallible<()> {
         // step 1

@@ -21,6 +21,7 @@ use js::rust::{HandleValue, MutableHandleObject};
 use std::cell::Cell;
 use std::ptr;
 use std::ptr::NonNull;
+use typeholder::TypeHolderTrait;
 
 /// The values that an iterator will iterate over.
 #[derive(JSTraceable, MallocSizeOf)]
@@ -57,7 +58,7 @@ pub struct IterableIterator<T: DomObject + JSTraceable + Iterable> {
     index: Cell<u32>,
 }
 
-impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T> {
+impl<T: DomObject + JSTraceable + Iterable, TH> IterableIterator<T, TH> {
     /// Create a new iterator instance for the provided iterable DOM interface.
     pub fn new(iterable: &T,
                type_: IteratorType,

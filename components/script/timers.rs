@@ -59,7 +59,7 @@ pub struct OneshotTimers {
 struct OneshotTimer<TH: TypeHolderTrait> {
     handle: OneshotTimerHandle,
     source: TimerSource,
-    callback: OneshotTimerCallback,
+    callback: OneshotTimerCallback<TH>,
     scheduled_for: MsDuration,
 }
 

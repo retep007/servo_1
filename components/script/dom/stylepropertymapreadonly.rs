@@ -16,14 +16,15 @@ use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::iter::Iterator;
 use style::custom_properties;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct StylePropertyMapReadOnly {
+pub struct StylePropertyMapReadOnly<TH: TypeHolderTrait> {
     reflector: Reflector,
     entries: HashMap<Atom, Dom<CSSStyleValue>>,
 }
 
-impl StylePropertyMapReadOnly {
+impl<TH> StylePropertyMapReadOnly<TH> {
     fn new_inherited<Entries>(entries: Entries) -> StylePropertyMapReadOnly where
         Entries: IntoIterator<Item=(Atom, Dom<CSSStyleValue>)>
     {
@@ -52,7 +53,7 @@ impl StylePropertyMapReadOnly {
     }
 }
 
-impl StylePropertyMapReadOnlyMethods for StylePropertyMapReadOnly {
+impl<TH> StylePropertyMapReadOnlyMethods for StylePropertyMapReadOnly<TH> {
     /// <https://drafts.css-houdini.org/css-typed-om-1/#dom-stylepropertymapreadonly-get>
     fn Get(&self, property: DOMString) -> Option<DomRoot<CSSStyleValue>> {
         // TODO: avoid constructing an Atom

@@ -10,13 +10,14 @@ use dom::htmlelement::HTMLElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLDivElement {
+pub struct HTMLDivElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement
 }
 
-impl HTMLDivElement {
+impl<TH> HTMLDivElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLDivElement {
@@ -35,7 +36,7 @@ impl HTMLDivElement {
     }
 }
 
-impl HTMLDivElementMethods for HTMLDivElement {
+impl<TH> HTMLDivElementMethods for HTMLDivElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-div-align
     make_getter!(Align, "align");
 

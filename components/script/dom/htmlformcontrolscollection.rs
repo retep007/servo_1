@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLFormControlsCollection<TH: TypeHolderTrait> {
-    collection: HTMLCollection,
+    collection: HTMLCollection<TH>,
 }
 
 impl<TH: TypeHolderTrait> HTMLFormControlsCollection<TH> {
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> HTMLFormControlsCollection<TH> {
 
 impl<TH: TypeHolderTrait> HTMLFormControlsCollectionMethods for HTMLFormControlsCollection<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-htmlformcontrolscollection-nameditem
-    fn NamedItem(&self, name: DOMString) -> Option<RadioNodeListOrElement> {
+    fn NamedItem(&self, name: DOMString) -> Option<RadioNodeListOrElement<TH>> {
         // Step 1
         if name.is_empty() { return None; }
 
@@ -77,7 +77,7 @@ impl<TH: TypeHolderTrait> HTMLFormControlsCollectionMethods for HTMLFormControls
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-htmlformcontrolscollection-nameditem
-    fn NamedGetter(&self, name: DOMString) -> Option<RadioNodeListOrElement> {
+    fn NamedGetter(&self, name: DOMString) -> Option<RadioNodeListOrElement<TH>> {
         self.NamedItem(name)
     }
 

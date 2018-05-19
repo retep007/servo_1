@@ -40,9 +40,9 @@ impl<TH: TypeHolderTrait> HTMLSourceElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods for HTMLSourceElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLSourceElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     /// <https://html.spec.whatwg.org/multipage/#the-source-element:nodes-are-inserted>

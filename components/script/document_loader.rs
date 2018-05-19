@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> LoadBlocker<TH> {
     }
 
     /// Remove this load from the associated document's list of blocking loads.
-    pub fn terminate(blocker: &mut Option<LoadBlocker>) {
+    pub fn terminate(blocker: &mut Option<LoadBlocker<TH>>) {
         if let Some(this) = blocker.as_mut() {
             this.doc.finish_load(this.load.take().unwrap());
         }

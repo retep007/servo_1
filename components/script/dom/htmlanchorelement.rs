@@ -35,8 +35,8 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLAnchorElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
-    rel_list: MutNullableDom<DOMTokenList>,
+    htmlelement: HTMLElement<TH>,
+    rel_list: MutNullableDom<DOMTokenList<TH>>,
     url: DomRefCell<Option<ServoUrl>>,
 }
 
@@ -88,9 +88,9 @@ impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods for HTMLAnchorElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLAnchorElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -121,7 +121,7 @@ impl<TH> HTMLAnchorElementMethods for HTMLAnchorElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-a-rellist
-    fn RelList(&self) -> DomRoot<DOMTokenList> {
+    fn RelList(&self) -> DomRoot<DOMTokenList<TH>> {
         self.rel_list.or_init(|| DOMTokenList::new(self.upcast(), &local_name!("rel")))
     }
 
@@ -581,7 +581,7 @@ fn is_current_browsing_context(target: DOMString) -> bool {
 }
 
 /// <https://html.spec.whatwg.org/multipage/#following-hyperlinks-2>
-pub fn follow_hyperlink(subject: &Element<TH>, hyperlink_suffix: Option<String>, referrer_policy: Option<ReferrerPolicy>) {
+pub fn follow_hyperlink<TH: TypeHolderTrait>(subject: &Element<TH>, hyperlink_suffix: Option<String>, referrer_policy: Option<ReferrerPolicy>) {
     // Step 1: replace.
     // Step 2: source browsing context.
     // Step 3: target browsing context.

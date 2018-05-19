@@ -31,7 +31,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLOptionElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#attr-option-selected>
     selectedness: Cell<bool>,
@@ -100,7 +100,7 @@ fn collect_text<TH: TypeHolderTrait>(element: &Element<TH>, value: &mut String) 
     }
 }
 
-impl<TH> HTMLOptionElementMethods for HTMLOptionElement<TH> {
+impl<TH> HTMLOptionElementMethods<TH> for HTMLOptionElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-option-disabled
     make_bool_getter!(Disabled, "disabled");
 
@@ -179,12 +179,12 @@ impl<TH> HTMLOptionElementMethods for HTMLOptionElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods for HTMLOptionElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLOptionElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
@@ -231,7 +231,7 @@ impl<TH> VirtualMethods for HTMLOptionElement<TH> {
         self.pick_if_selected_and_reset();
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         if let Some(select) = context.parent.inclusive_ancestors()

@@ -87,7 +87,7 @@ impl<TH> Activatable for HTMLLabelElement<TH> {
 
 }
 
-impl<TH: TypeHolderTrait> HTMLLabelElementMethods for HTMLLabelElement<TH> {
+impl<TH: TypeHolderTrait> HTMLLabelElementMethods<TH> for HTMLLabelElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-fae-form
     fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner()
@@ -119,9 +119,9 @@ impl<TH: TypeHolderTrait> HTMLLabelElementMethods for HTMLLabelElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods for HTMLLabelElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLLabelElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -131,7 +131,7 @@ impl<TH> VirtualMethods for HTMLLabelElement<TH> {
         }
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("form") => {
@@ -152,7 +152,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
     }
 }
 
-impl<TH> FormControl for HTMLLabelElement<TH> {
+impl<TH> FormControl<TH> for HTMLLabelElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.GetControl().map(DomRoot::upcast::<Element<TH>>).and_then(|elem| {
             elem.as_maybe_form_control().and_then(|control| control.form_owner())
@@ -164,7 +164,7 @@ impl<TH> FormControl for HTMLLabelElement<TH> {
         // form owner. Therefore it doesn't hold form owner itself.
     }
 
-    fn to_element<'a>(&'a self) -> &'a Element {
+    fn to_element<'a>(&'a self) -> &'a Element<TH> {
         self.upcast::<Element<TH>>()
     }
 }

@@ -27,7 +27,7 @@ pub struct NodeIterator<TH: TypeHolderTrait> {
     pointer_before_reference_node: Cell<bool>,
     what_to_show: u32,
     #[ignore_malloc_size_of = "Can't measure due to #6870"]
-    filter: Filter,
+    filter: Filter<TH>,
     active: Cell<bool>,
 }
 
@@ -224,7 +224,7 @@ impl<TH: TypeHolderTrait> NodeIterator<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum Filter {
+pub enum Filter<TH: TypeHolderTrait> {
     None,
     Callback(Rc<NodeFilter>)
 }

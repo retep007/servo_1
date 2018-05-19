@@ -73,7 +73,7 @@ impl Drop for AutoCloseWorker {
 
 #[dom_struct]
 pub struct GlobalScope<TH: TypeHolderTrait> {
-    eventtarget: EventTarget,
+    eventtarget: EventTarget<TH>,
     crypto: MutNullableDom<Crypto>,
     next_worker_id: Cell<WorkerId>,
 
@@ -125,7 +125,7 @@ pub struct GlobalScope<TH: TypeHolderTrait> {
     ///
     /// <https://html.spec.whatwg.org/multipage/#microtask-queue>
     #[ignore_malloc_size_of = "Rc<T> is hard"]
-    microtask_queue: Rc<MicrotaskQueue>,
+    microtask_queue: Rc<MicrotaskQueue<TH>>,
 
     /// Vector storing closing references of all workers
     #[ignore_malloc_size_of = "Arc"]
@@ -143,7 +143,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         resource_threads: ResourceThreads,
         timer_event_chan: IpcSender<TimerEvent>,
         origin: MutableOrigin,
-        microtask_queue: Rc<MicrotaskQueue>,
+        microtask_queue: Rc<MicrotaskQueue<TH>>,
     ) -> Self {
         Self {
             eventtarget: EventTarget::new_inherited(),
@@ -297,11 +297,11 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
             // https://html.spec.whatwg.org/multipage/#script-settings-for-browsing-contexts:api-base-url
             return window.Document().base_url();
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             // https://html.spec.whatwg.org/multipage/#script-settings-for-workers:api-base-url
             return worker.get_url().clone();
         }
-        if let Some(worker) = self.downcast::<WorkletGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkletGlobalScope<TH>>() {
             // https://drafts.css-houdini.org/worklets/#script-settings-for-worklets
             return worker.base_url();
         }
@@ -313,10 +313,10 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         if let Some(window) = self.downcast::<Window<TH>>() {
             return window.get_url();
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.get_url().clone();
         }
-        if let Some(worker) = self.downcast::<WorkletGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkletGlobalScope<TH>>() {
             // TODO: is this the right URL to return?
             return worker.base_url();
         }
@@ -383,7 +383,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         if let Some(window) = self.downcast::<Window<TH>>() {
             return MainThreadScriptChan(window.main_thread_script_chan().clone()).clone();
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.script_chan();
         }
         unreachable!();
@@ -395,7 +395,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         if let Some(window) = self.downcast::<Window<TH>>() {
             return window.networking_task_source();
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.networking_task_source();
         }
         unreachable!();
@@ -453,7 +453,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
     }
 
     pub fn schedule_callback(
-            &self, callback: OneshotTimerCallback, duration: MsDuration)
+            &self, callback: OneshotTimerCallback<TH>, duration: MsDuration)
             -> OneshotTimerHandle {
         self.timers.schedule_callback(callback, duration, self.timer_source())
     }
@@ -501,7 +501,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         if self.is::<Window<TH>>() {
             return TimerSource::FromWindow(self.pipeline_id());
         }
-        if self.is::<WorkerGlobalScope>() {
+        if self.is::<WorkerGlobalScope<TH>>() {
             return TimerSource::FromWorker;
         }
         unreachable!();
@@ -513,7 +513,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         if let Some(window) = self.downcast::<Window<TH>>() {
             return window.task_canceller();
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.task_canceller();
         }
         unreachable!();
@@ -536,14 +536,14 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         if let Some(window) = self.downcast::<Window<TH>>() {
             return window.new_script_pair();
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.new_script_pair();
         }
         unreachable!();
     }
 
     /// Returns the microtask queue of this global.
-    pub fn microtask_queue(&self) -> &Rc<MicrotaskQueue> {
+    pub fn microtask_queue(&self) -> &Rc<MicrotaskQueue<TH>> {
         &self.microtask_queue
     }
 
@@ -553,7 +553,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         if self.is::<Window<TH>>() {
             return ScriptThread::process_event(msg);
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.process_event(msg);
         }
         unreachable!();
@@ -565,7 +565,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         if let Some(window) = self.downcast::<Window<TH>>() {
             return window.file_reading_task_source();
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.file_reading_task_source();
         }
         unreachable!();
@@ -606,7 +606,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         if let Some(window) = self.downcast::<Window<TH>>() {
             return window.Performance();
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.Performance();
         }
         unreachable!();
@@ -614,11 +614,11 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
 
     /// Channel to send messages to the performance timeline task source
     /// of this global scope.
-    pub fn performance_timeline_task_source(&self) -> PerformanceTimelineTaskSource {
+    pub fn performance_timeline_task_source(&self) -> PerformanceTimelineTaskSource<TH> {
         if let Some(window) = self.downcast::<Window<TH>>() {
             return window.performance_timeline_task_source();
         }
-        if let Some(worker) = self.downcast::<WorkerGlobalScope>() {
+        if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.performance_timeline_task_source();
         }
         unreachable!();
@@ -632,7 +632,7 @@ fn timestamp_in_ms(time: Timespec) -> u64 {
 
 /// Returns the Rust global scope from a JS global object.
 #[allow(unsafe_code)]
-unsafe fn global_scope_from_global(global: *mut JSObject) -> DomRoot<GlobalScope<TH>> {
+unsafe fn global_scope_from_global<TH: TypeHolderTrait>(global: *mut JSObject) -> DomRoot<GlobalScope<TH>> {
     assert!(!global.is_null());
     let clasp = get_object_class(global);
     assert_ne!(((*clasp).flags & (JSCLASS_IS_DOMJSCLASS | JSCLASS_IS_GLOBAL)), 0);

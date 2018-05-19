@@ -32,9 +32,10 @@ use js::rust::wrappers::{GetPromiseState, IsPromiseObject};
 use js::rust::wrappers::{NewPromiseObject, ResolvePromise, RejectPromise};
 use std::ptr;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Promise {
+pub struct Promise<TH: TypeHolderTrait> {
     reflector: Reflector,
     /// Since Promise values are natively reference counted without the knowledge of
     /// the SpiderMonkey GC, an explicit root for the reflector is stored while any
@@ -50,7 +51,7 @@ trait PromiseHelper {
     unsafe fn initialize(&self, cx: *mut JSContext);
 }
 
-impl PromiseHelper for Rc<Promise> {
+impl<TH> PromiseHelper for Rc<Promise<TH>> {
     #[allow(unsafe_code)]
     unsafe fn initialize(&self, cx: *mut JSContext) {
         let obj = self.reflector().get_jsobject();
@@ -61,7 +62,7 @@ impl PromiseHelper for Rc<Promise> {
     }
 }
 
-impl Drop for Promise {
+impl<TH> Drop for Promise<TH> {
     #[allow(unsafe_code)]
     fn drop(&mut self) {
         unsafe {
@@ -76,7 +77,7 @@ impl Drop for Promise {
     }
 }
 
-impl Promise {
+impl<TH> Promise<TH> {
     #[allow(unsafe_code)]
     pub fn new(global: &GlobalScope<TH>) -> Rc<Promise> {
         let cx = global.get_cx();
@@ -209,7 +210,7 @@ impl Promise {
     }
 
     #[allow(unsafe_code)]
-    pub fn append_native_handler(&self, handler: &PromiseNativeHandler) {
+    pub fn append_native_handler(&self, handler: &PromiseNativeHandler<TH>) {
         let cx = self.global().get_cx();
         rooted!(in(cx) let resolve_func =
                 create_native_handler_function(cx,
@@ -248,12 +249,12 @@ enum NativeHandlerTask {
 }
 
 #[allow(unsafe_code)]
-unsafe extern fn native_handler_callback(cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
+unsafe extern fn native_handler_callback<TH: TypeHolderTrait>(cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     let args = CallArgs::from_vp(vp, argc);
     rooted!(in(cx) let v = *GetFunctionNativeReserved(args.callee(), SLOT_NATIVEHANDLER));
     assert!(v.get().is_object());
 
-    let handler = root_from_object::<PromiseNativeHandler>(v.to_object())
+    let handler = root_from_object::<PromiseNativeHandler<TH>>(v.to_object())
         .expect("unexpected value for native handler in promise native handler callback");
 
     rooted!(in(cx) let v = *GetFunctionNativeReserved(args.callee(), SLOT_NATIVEHANDLER_TASK));

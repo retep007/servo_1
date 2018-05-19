@@ -38,9 +38,10 @@ use net_traits::request::RequestMode as NetTraitsRequestMode;
 use servo_url::ServoUrl;
 use std::cell::{Cell, Ref};
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Request {
+pub struct Request<TH: TypeHolderTrait> {
     reflector_: Reflector,
     request: DomRefCell<NetTraitsRequest>,
     body_used: Cell<bool>,
@@ -50,9 +51,9 @@ pub struct Request {
     body_promise: DomRefCell<Option<(Rc<Promise>, BodyType)>>,
 }
 
-impl Request {
+impl<TH> Request<TH> {
     fn new_inherited(global: &GlobalScope<TH>,
-                     url: ServoUrl) -> Request {
+                     url: ServoUrl) -> Request<TH> {
         Request {
             reflector_: Reflector::new(),
             request: DomRefCell::new(
@@ -65,7 +66,7 @@ impl Request {
     }
 
     pub fn new(global: &GlobalScope<TH>,
-               url: ServoUrl) -> DomRoot<Request> {
+               url: ServoUrl) -> DomRoot<Request<TH>> {
         reflect_dom_object(Box::new(Request::new_inherited(global, url)),
                            global, RequestBinding::Wrap)
     }
@@ -74,7 +75,7 @@ impl Request {
     pub fn Constructor(global: &GlobalScope<TH>,
                        input: RequestInfo,
                        init: RootedTraceableBox<RequestInit>)
-                       -> Fallible<DomRoot<Request>> {
+                       -> Fallible<DomRoot<Request<TH>>> {
         // Step 1
         let temporary_request: NetTraitsRequest;
 
@@ -403,16 +404,16 @@ impl Request {
     }
 }
 
-impl Request {
+impl<TH> Request<TH> {
     fn from_net_request(global: &GlobalScope<TH>,
-                        net_request: NetTraitsRequest) -> DomRoot<Request> {
+                        net_request: NetTraitsRequest) -> DomRoot<Request<TH>> {
         let r = Request::new(global,
                              net_request.current_url());
         *r.request.borrow_mut() = net_request;
         r
     }
 
-    fn clone_from(r: &Request) -> Fallible<DomRoot<Request>> {
+    fn clone_from(r: &Request<TH>) -> Fallible<DomRoot<Request<TH>>> {
         let req = r.request.borrow();
         let url = req.url();
         let body_used = r.body_used.get();
@@ -437,7 +438,7 @@ impl Request {
     }
 }
 
-fn net_request_from_global(global: &GlobalScope<TH>,
+fn net_request_from_global<TH: TypeHolderTrait>(global: &GlobalScope<TH>,
                            url: ServoUrl) -> NetTraitsRequest {
     let origin = Origin::Origin(global.get_url().origin());
     let pipeline_id = global.pipeline_id();
@@ -489,17 +490,17 @@ fn includes_credentials(input: &ServoUrl) -> bool {
 
 // TODO: `Readable Stream` object is not implemented in Servo yet.
 // https://fetch.spec.whatwg.org/#concept-body-disturbed
-fn request_is_disturbed(_input: &Request) -> bool {
+fn request_is_disturbed<TH: TypeHolderTrait>(_input: &Request<TH>) -> bool {
     false
 }
 
 // TODO: `Readable Stream` object is not implemented in Servo yet.
 // https://fetch.spec.whatwg.org/#concept-body-locked
-fn request_is_locked(_input: &Request) -> bool {
+fn request_is_locked<TH: TypeHolderTrait>(_input: &Request<TH>) -> bool {
     false
 }
 
-impl RequestMethods for Request {
+impl<TH> RequestMethods for Request<TH> {
     // https://fetch.spec.whatwg.org/#dom-request-method
     fn Method(&self) -> ByteString {
         let r = self.request.borrow();
@@ -575,7 +576,7 @@ impl RequestMethods for Request {
     }
 
     // https://fetch.spec.whatwg.org/#dom-request-clone
-    fn Clone(&self) -> Fallible<DomRoot<Request>> {
+    fn Clone(&self) -> Fallible<DomRoot<Request<TH>>> {
         // Step 1
         if request_is_locked(self) {
             return Err(Error::Type("Request is locked".to_string()));
@@ -619,7 +620,7 @@ impl RequestMethods for Request {
     }
 }
 
-impl BodyOperations for Request {
+impl<TH> BodyOperations for Request<TH> {
     fn get_body_used(&self) -> bool {
         self.BodyUsed()
     }

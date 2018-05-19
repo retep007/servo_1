@@ -20,8 +20,8 @@ use std::cell::Cell;
 use style::str::split_html_space_chars;
 use typeholder::TypeHolderTrait;
 
-pub trait CollectionFilter : JSTraceable {
-    fn filter<'a>(&self, elem: &'a Element, root: &'a Node) -> bool;
+pub trait CollectionFilter<TH: TypeHolderTrait> : JSTraceable {
+    fn filter<'a>(&self, elem: &'a Element<TH>, root: &'a Node<TH>) -> bool;
 }
 
 // An optional u32, using maxint to represent None.
@@ -56,7 +56,7 @@ pub struct HTMLCollection<TH: TypeHolderTrait> {
     reflector_: Reflector,
     root: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Contains a trait object; can't measure due to #6870"]
-    filter: Box<CollectionFilter + 'static>,
+    filter: Box<CollectionFilter<TH> + 'static>,
     // We cache the version of the root node and all its decendents,
     // the length of the collection, and a cursor into the collection.
     // FIXME: make the cached cursor element a weak pointer
@@ -68,7 +68,7 @@ pub struct HTMLCollection<TH: TypeHolderTrait> {
 
 impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     #[allow(unrooted_must_root)]
-    pub fn new_inherited(root: &Node<TH>, filter: Box<CollectionFilter + 'static>) -> HTMLCollection<TH> {
+    pub fn new_inherited(root: &Node<TH>, filter: Box<CollectionFilter<TH> + 'static>) -> HTMLCollection<TH> {
         HTMLCollection {
             reflector_: Reflector::new(),
             root: Dom::from_ref(root),
@@ -84,9 +84,9 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     /// Returns a collection which is always empty.
     pub fn always_empty(window: &Window<TH>, root: &Node<TH>) -> DomRoot<Self> {
         #[derive(JSTraceable)]
-        struct NoFilter;
-        impl CollectionFilter for NoFilter {
-            fn filter<'a>(&self, _: &'a Element, _: &'a Node) -> bool {
+        struct NoFilter<TH>;
+        impl<TH> CollectionFilter<TH> for NoFilter<TH> {
+            fn filter<'a>(&self, _: &'a Element<TH>, _: &'a Node<TH>) -> bool {
                 false
             }
         }
@@ -95,13 +95,13 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, root: &Node<TH>, filter: Box<CollectionFilter + 'static>) -> DomRoot<HTMLCollection<TH>> {
+    pub fn new(window: &Window<TH>, root: &Node<TH>, filter: Box<CollectionFilter<TH> + 'static>) -> DomRoot<HTMLCollection<TH>> {
         reflect_dom_object(Box::new(HTMLCollection::new_inherited(root, filter)),
                            window, HTMLCollectionBinding::Wrap)
     }
 
     pub fn create(window: &Window<TH>, root: &Node<TH>,
-                  filter: Box<CollectionFilter + 'static>) -> DomRoot<HTMLCollection<TH>> {
+                  filter: Box<CollectionFilter<TH> + 'static>) -> DomRoot<HTMLCollection<TH>> {
         HTMLCollection::new(window, root, filter)
     }
 
@@ -121,7 +121,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     fn set_cached_cursor(&self, index: u32, element: Option<DomRoot<Element<TH>>>) -> Option<DomRoot<Element<TH>>> {
         if let Some(element) = element {
             self.cached_cursor_index.set(OptionU32::some(index));
-            self.cached_cursor_element.set(Some(&element<TH>));
+            self.cached_cursor_element.set(Some(&element));
             Some(element)
         } else {
             None
@@ -134,8 +134,8 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         // case 1
         if qualified_name == local_name!("*") {
             #[derive(JSTraceable, MallocSizeOf)]
-            struct AllFilter;
-            impl CollectionFilter for AllFilter {
+            struct AllFilter<TH>;
+            impl<TH> CollectionFilter<TH> for AllFilter<TH> {
                 fn filter(&self, _elem: &Element<TH>, _root: &Node<TH>) -> bool {
                     true
                 }
@@ -148,7 +148,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             qualified_name: LocalName,
             ascii_lower_qualified_name: LocalName,
         }
-        impl<TH> CollectionFilter for HtmlDocumentFilter<TH> {
+        impl<TH> CollectionFilter<TH> for HtmlDocumentFilter<TH> {
             fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
                 if root.is_in_html_doc() && elem.namespace() == &ns!(html) {    // case 2
                     HTMLCollection::match_element(elem, &self.ascii_lower_qualified_name)
@@ -187,7 +187,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         struct TagNameNSFilter {
             qname: QualName
         }
-        impl CollectionFilter for TagNameNSFilter {
+        impl CollectionFilter<TH> for TagNameNSFilter {
             fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                     ((self.qname.ns == namespace_url!("*")) || (self.qname.ns == *elem.namespace())) &&
                     ((self.qname.local == local_name!("*")) || (self.qname.local == *elem.local_name()))
@@ -208,10 +208,10 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     pub fn by_atomic_class_name(window: &Window<TH>, root: &Node<TH>, classes: Vec<Atom>)
                          -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ClassNameFilter {
+        struct ClassNameFilter<TH> {
             classes: Vec<Atom>
         }
-        impl CollectionFilter for ClassNameFilter {
+        impl<TH> CollectionFilter<TH> for ClassNameFilter<TH> {
             fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                 let case_sensitivity = document_from_node(elem)
                     .quirks_mode()
@@ -227,8 +227,8 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
 
     pub fn children(window: &Window<TH>, root: &Node<TH>) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ElementChildFilter;
-        impl CollectionFilter for ElementChildFilter {
+        struct ElementChildFilter<TH>;
+        impl<TH> CollectionFilter<TH> for ElementChildFilter<TH> {
             fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
                 root.is_parent_of(elem.upcast())
             }
@@ -236,7 +236,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         HTMLCollection::create(window, root, Box::new(ElementChildFilter))
     }
 
-    pub fn elements_iter_after<'a>(&'a self, after: &'a Node) -> impl Iterator<Item=DomRoot<Element<TH>>> + 'a {
+    pub fn elements_iter_after<'a>(&'a self, after: &'a Node<TH>) -> impl Iterator<Item=DomRoot<Element<TH>>> + 'a {
         // Iterate forwards from a node.
         after.following_nodes(&self.root)
             .filter_map(DomRoot::downcast)
@@ -248,7 +248,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         self.elements_iter_after(&*self.root)
     }
 
-    pub fn elements_iter_before<'a>(&'a self, before: &'a Node) -> impl Iterator<Item=DomRoot<Element<TH>>> + 'a {
+    pub fn elements_iter_before<'a>(&'a self, before: &'a Node<TH>) -> impl Iterator<Item=DomRoot<Element<TH>>> + 'a {
         // Iterate backwards from a node.
         before.preceding_nodes(&self.root)
             .filter_map(DomRoot::downcast)

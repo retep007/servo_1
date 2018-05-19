@@ -56,7 +56,7 @@ pub struct CustomElementRegistry<TH: TypeHolderTrait> {
     element_definition_is_running: Cell<bool>,
 
     #[ignore_malloc_size_of = "Rc"]
-    definitions: DomRefCell<HashMap<LocalName, Rc<CustomElementDefinition>>>,
+    definitions: DomRefCell<HashMap<LocalName, Rc<CustomElementDefinition<TH>>>>,
 }
 
 impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
@@ -86,7 +86,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
     pub fn lookup_definition(&self,
                              local_name: &LocalName,
                              is: Option<&LocalName>)
-                             -> Option<Rc<CustomElementDefinition>> {
+                             -> Option<Rc<CustomElementDefinition<TH>>> {
         self.definitions.borrow().values().find(|definition| {
             // Step 4-5
             definition.local_name == *local_name &&
@@ -94,7 +94,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
         }).cloned()
     }
 
-    pub fn lookup_definition_by_constructor(&self, constructor: HandleObject) -> Option<Rc<CustomElementDefinition>> {
+    pub fn lookup_definition_by_constructor(&self, constructor: HandleObject) -> Option<Rc<CustomElementDefinition<TH>>> {
         self.definitions.borrow().values().find(|definition| {
             definition.constructor.callback() == constructor.get()
         }).cloned()
@@ -390,7 +390,7 @@ pub struct LifecycleCallbacks {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum ConstructionStackEntry {
+pub enum ConstructionStackEntry<TH: TypeHolderTrait> {
     Element(DomRoot<Element<TH>>),
     AlreadyConstructedMarker,
 }
@@ -409,7 +409,7 @@ pub struct CustomElementDefinition<TH: TypeHolderTrait> {
 
     pub callbacks: LifecycleCallbacks,
 
-    pub construction_stack: DomRefCell<Vec<ConstructionStackEntry>>,
+    pub construction_stack: DomRefCell<Vec<ConstructionStackEntry<TH>>>,
 }
 
 impl<TH: TypeHolderTrait> CustomElementDefinition<TH> {
@@ -418,7 +418,7 @@ impl<TH: TypeHolderTrait> CustomElementDefinition<TH> {
            constructor: Rc<Function>,
            observed_attributes: Vec<DOMString>,
            callbacks: LifecycleCallbacks)
-           -> CustomElementDefinition {
+           -> CustomElementDefinition<TH> {
         CustomElementDefinition {
             name: name,
             local_name: local_name,
@@ -634,12 +634,12 @@ enum BackupElementQueueFlag {
 #[must_root]
 pub struct CustomElementReactionStack<TH: TypeHolderTrait> {
     stack: DomRefCell<Vec<ElementQueue<TH>>>,
-    backup_queue: ElementQueue,
+    backup_queue: ElementQueue<TH>,
     processing_backup_element_queue: Cell<BackupElementQueueFlag>,
 }
 
 impl<TH: TypeHolderTrait> CustomElementReactionStack<TH> {
-    pub fn new() -> CustomElementReactionStack {
+    pub fn new() -> CustomElementReactionStack<TH> {
         CustomElementReactionStack {
             stack: DomRefCell::new(Vec::new()),
             backup_queue: ElementQueue::new(),
@@ -700,7 +700,7 @@ impl<TH: TypeHolderTrait> CustomElementReactionStack<TH> {
     #[allow(unsafe_code)]
     pub fn enqueue_callback_reaction(&self,
                                      element: &Element<TH>,
-                                     reaction: CallbackReaction,
+                                     reaction: CallbackReaction<TH>,
                                      definition: Option<Rc<CustomElementDefinition<TH>>>) {
         // Step 1
         let definition = match definition.or_else(|| element.get_custom_element_definition()) {

@@ -92,13 +92,13 @@ struct InternalRawUncompiledHandler {
 
 /// A representation of an event handler, either compiled or uncompiled raw source, or null.
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
-enum InlineEventListener {
+enum InlineEventListener<TH: TypeHolderTrait> {
     Uncompiled(InternalRawUncompiledHandler),
     Compiled(CommonEventHandler),
     Null,
 }
 
-impl InlineEventListener {
+impl<TH> InlineEventListener<TH> {
     /// Get a compiled representation of this event handler, compiling it from its
     /// raw source if necessary.
     /// <https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler>
@@ -122,14 +122,14 @@ impl InlineEventListener {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
-enum EventListenerType {
+enum EventListenerType<TH: TypeHolderTrait> {
     Additive(#[ignore_malloc_size_of = "Rc"] Rc<EventListener>),
     Inline(InlineEventListener),
 }
 
-impl EventListenerType {
+impl<TH> EventListenerType<TH> {
     fn get_compiled_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom)
-                             -> Option<CompiledEventListener> {
+                             -> Option<CompiledEventListener<TH>> {
         match self {
             &mut EventListenerType::Inline(ref mut inline) =>
                 inline.get_compiled_handler(owner, ty)
@@ -142,12 +142,12 @@ impl EventListenerType {
 
 /// A representation of an EventListener/EventHandler object that has previously
 /// been compiled successfully, if applicable.
-pub enum CompiledEventListener {
+pub enum CompiledEventListener<TH: TypeHolderTrait> {
     Listener(Rc<EventListener>),
     Handler(CommonEventHandler),
 }
 
-impl CompiledEventListener {
+impl<TH> CompiledEventListener<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#the-event-handler-processing-algorithm
     pub fn call_or_handle_event<T: DomObject>(&self,
@@ -238,22 +238,22 @@ struct EventListenerEntry {
 
 #[derive(JSTraceable, MallocSizeOf)]
 /// A mix of potentially uncompiled and compiled event listeners of the same type.
-struct EventListeners(Vec<EventListenerEntry>);
+struct EventListeners<TH: TypeHolderTrait>(Vec<EventListenerEntry>);
 
-impl Deref for EventListeners {
+impl<TH> Deref for EventListeners<TH> {
     type Target = Vec<EventListenerEntry>;
     fn deref(&self) -> &Vec<EventListenerEntry> {
         &self.0
     }
 }
 
-impl DerefMut for EventListeners {
+impl<TH> DerefMut for EventListeners<TH> {
     fn deref_mut(&mut self) -> &mut Vec<EventListenerEntry> {
         &mut self.0
     }
 }
 
-impl EventListeners {
+impl<TH> EventListeners<TH> {
     // https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler
     fn get_inline_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom) -> Option<CommonEventHandler> {
         for entry in &mut self.0 {
@@ -269,7 +269,7 @@ impl EventListeners {
 
     // https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler
     fn get_listeners(&mut self, phase: Option<ListenerPhase>, owner: &EventTarget<TH>, ty: &Atom)
-                     -> Vec<CompiledEventListener> {
+                     -> Vec<CompiledEventListener<TH>> {
         self.0.iter_mut().filter_map(|entry| {
             if phase.is_none() || Some(entry.phase) == phase {
                 // Step 1.1-1.8, 2
@@ -308,7 +308,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     pub fn get_listeners_for(&self,
                              type_: &Atom,
                              specific_phase: Option<ListenerPhase>)
-                             -> Vec<CompiledEventListener> {
+                             -> Vec<CompiledEventListener<TH>> {
         self.handlers.borrow_mut().get_mut(type_).map_or(vec![], |listeners| {
             listeners.get_listeners(specific_phase, self, type_)
         })
@@ -342,7 +342,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     /// <https://html.spec.whatwg.org/multipage/#event-handler-attributes:event-handlers-11>
     fn set_inline_event_listener(&self,
                                  ty: Atom,
-                                 listener: Option<InlineEventListener>) {
+                                 listener: Option<InlineEventListener<TH>>) {
         let mut handlers = self.handlers.borrow_mut();
         let entries = match handlers.entry(ty) {
             Occupied(entry) => entry.into_mut(),
@@ -693,8 +693,8 @@ impl<TH> EventTargetMethods for EventTarget<TH> {
     }
 }
 
-impl<TH> VirtualMethods for EventTarget<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
+impl<TH> VirtualMethods<TH> for EventTarget<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         None
     }
 }

@@ -41,7 +41,7 @@ impl<TH: TypeHolderTrait> HTMLDataListElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLDataListElementMethods for HTMLDataListElement<TH> {
+impl<TH: TypeHolderTrait> HTMLDataListElementMethods<TH> for HTMLDataListElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-datalist-options
     fn Options(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]

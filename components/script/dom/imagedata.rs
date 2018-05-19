@@ -17,16 +17,17 @@ use std::default::Default;
 use std::ptr;
 use std::ptr::NonNull;
 use std::vec::Vec;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ImageData {
+pub struct ImageData<TH: TypeHolderTrait> {
     reflector_: Reflector,
     width: u32,
     height: u32,
     data: Heap<*mut JSObject>,
 }
 
-impl ImageData {
+impl<TH> ImageData<TH> {
     #[allow(unsafe_code)]
     pub fn new(global: &GlobalScope<TH>,
                width: u32,
@@ -146,7 +147,7 @@ impl ImageData {
     }
 }
 
-impl ImageDataMethods for ImageData {
+impl<TH> ImageDataMethods for ImageData<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-imagedata-width
     fn Width(&self) -> u32 {
         self.width

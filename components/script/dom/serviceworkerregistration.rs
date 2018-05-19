@@ -15,11 +15,11 @@ use dom_struct::dom_struct;
 use script_traits::{WorkerScriptLoadOrigin, ScopeThings};
 use servo_url::ServoUrl;
 use std::cell::Cell;
-
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ServiceWorkerRegistration {
-    eventtarget: EventTarget,
+pub struct ServiceWorkerRegistration<TH> {
+    eventtarget: EventTarget<TH>,
     active: Option<Dom<ServiceWorker<TH>>>,
     installing: Option<Dom<ServiceWorker<TH>>>,
     waiting: Option<Dom<ServiceWorker<TH>>>,
@@ -27,7 +27,7 @@ pub struct ServiceWorkerRegistration {
     uninstalling: Cell<bool>
 }
 
-impl ServiceWorkerRegistration {
+impl<TH> ServiceWorkerRegistration<TH> {
     fn new_inherited(active_sw: &ServiceWorker<TH>, scope: ServoUrl) -> ServiceWorkerRegistration {
         ServiceWorkerRegistration {
             eventtarget: EventTarget::new_inherited(),
@@ -103,7 +103,7 @@ pub fn longest_prefix_match(stored_scope: &ServoUrl, potential_match: &ServoUrl)
     stored_scope.path().chars().zip(potential_match.path().chars()).all(|(scope, matched)| scope == matched)
 }
 
-impl ServiceWorkerRegistrationMethods for ServiceWorkerRegistration {
+impl<TH> ServiceWorkerRegistrationMethods for ServiceWorkerRegistration<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-registration-installing-attribute
     fn GetInstalling(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.installing.as_ref().map(|sw| DomRoot::from_ref(&**sw))

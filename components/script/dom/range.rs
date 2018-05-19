@@ -36,8 +36,8 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct Range<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    start: BoundaryPoint,
-    end: BoundaryPoint,
+    start: BoundaryPoint<TH>,
+    end: BoundaryPoint<TH>,
 }
 
 impl<TH: TypeHolderTrait> Range<TH> {
@@ -942,7 +942,7 @@ pub struct BoundaryPoint<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> BoundaryPoint<TH> {
-    fn new(node: &Node<TH>, offset: u32) -> BoundaryPoint {
+    fn new(node: &Node<TH>, offset: u32) -> BoundaryPoint<TH> {
         debug_assert!(!node.is_doctype());
         debug_assert!(offset <= node.len());
         BoundaryPoint {
@@ -1045,7 +1045,7 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
 
     /// Used for steps 2-3. when removing a node.
     /// <https://dom.spec.whatwg.org/#concept-node-remove>
-    pub fn drain_to_parent(&self, context: &UnbindContext, child: &Node<TH>) {
+    pub fn drain_to_parent(&self, context: &UnbindContext<TH>, child: &Node<TH>) {
         if self.is_empty() {
             return;
         }

@@ -22,13 +22,13 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct VRDisplayEvent<TH: TypeHolderTrait> {
-    event: Event,
-    display: Dom<VRDisplay>,
+    event: Event<TH>,
+    display: Dom<VRDisplay<TH>>,
     reason: Option<VRDisplayEventReason>
 }
 
 impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
-    fn new_inherited(display: &VRDisplay,
+    fn new_inherited(display: &VRDisplay<TH>,
                      reason: Option<VRDisplayEventReason>)
                      -> VRDisplayEvent<TH> {
         VRDisplayEvent {
@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
                type_: Atom,
                bubbles: bool,
                cancelable: bool,
-               display: &VRDisplay,
+               display: &VRDisplay<TH>,
                reason: Option<VRDisplayEventReason>)
                -> DomRoot<VRDisplayEvent<TH>> {
         let ev = reflect_dom_object(
@@ -58,7 +58,7 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
     }
 
     pub fn new_from_webvr(global: &GlobalScope<TH>,
-                          display: &VRDisplay,
+                          display: &VRDisplay<TH>,
                           event: &WebVRDisplayEvent)
                           -> DomRoot<VRDisplayEvent<TH>> {
         let (name, reason) = match *event {
@@ -107,9 +107,9 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
     }
 }
 
-impl VRDisplayEventMethods for VRDisplayEvent {
+impl<TH> VRDisplayEventMethods for VRDisplayEvent<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplayevent-display
-    fn Display(&self) -> DomRoot<VRDisplay> {
+    fn Display(&self) -> DomRoot<VRDisplay<TH>> {
         DomRoot::from_ref(&*self.display)
     }
 

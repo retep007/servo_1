@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> Attr<TH> {
     }
 }
 
-impl<TH> AttrMethods for Attr<TH> {
+impl<TH> AttrMethods<TH> for Attr<TH> {
     // https://dom.spec.whatwg.org/#dom-attr-localname
     fn LocalName(&self) -> DOMString {
         // FIXME(ajeffrey): convert directly from LocalName to DOMString

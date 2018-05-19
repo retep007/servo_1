@@ -15,18 +15,19 @@ use dom_struct::dom_struct;
 use servo_arc::Arc;
 use style::shared_lock::{SharedRwLock, Locked};
 use style::stylesheets::CssRules as StyleCssRules;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSGroupingRule {
-    cssrule: CSSRule,
+pub struct CSSGroupingRule<TH: TypeHolderTrait> {
+    cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     rules: Arc<Locked<StyleCssRules>>,
     rulelist: MutNullableDom<CSSRuleList<TH>>,
 }
 
-impl CSSGroupingRule {
+impl<TH: TypeHolderTrait> CSSGroupingRule<TH> {
     pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
-                         rules: Arc<Locked<StyleCssRules>>) -> CSSGroupingRule {
+                         rules: Arc<Locked<StyleCssRules>>) -> CSSGroupingRule<TH> {
         CSSGroupingRule {
             cssrule: CSSRule::new_inherited(parent_stylesheet),
             rules: rules,
@@ -50,7 +51,7 @@ impl CSSGroupingRule {
     }
 }
 
-impl CSSGroupingRuleMethods for CSSGroupingRule {
+impl<TH: TypeHolderTrait> CSSGroupingRuleMethods<TH> for CSSGroupingRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssgroupingrule-cssrules
     fn CssRules(&self) -> DomRoot<CSSRuleList<TH>> {
         // XXXManishearth check origin clean flag

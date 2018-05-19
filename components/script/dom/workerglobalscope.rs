@@ -48,8 +48,9 @@ use task_source::networking::NetworkingTaskSource;
 use task_source::performance_timeline::PerformanceTimelineTaskSource;
 use time::precise_time_ns;
 use timers::{IsInterval, TimerCallback};
+use typeholder::TypeHolderTrait;
 
-pub fn prepare_workerscope_init(global: &GlobalScope<TH>,
+pub fn prepare_workerscope_init<TH: TypeHolderTrait>(global: &GlobalScope<TH>,
                                 devtools_sender: Option<IpcSender<DevtoolScriptControlMsg>>) -> WorkerGlobalScopeInit {
     let init = WorkerGlobalScopeInit {
             resource_threads: global.resource_threads().clone(),
@@ -69,8 +70,8 @@ pub fn prepare_workerscope_init(global: &GlobalScope<TH>,
 
 // https://html.spec.whatwg.org/multipage/#the-workerglobalscope-common-interface
 #[dom_struct]
-pub struct WorkerGlobalScope {
-    globalscope: GlobalScope,
+pub struct WorkerGlobalScope<TH: TypeHolderTrait> {
+    globalscope: GlobalScope<TH>,
 
     worker_id: WorkerId,
     worker_url: ServoUrl,
@@ -78,7 +79,7 @@ pub struct WorkerGlobalScope {
     closing: Option<Arc<AtomicBool>>,
     #[ignore_malloc_size_of = "Defined in js"]
     runtime: Runtime,
-    location: MutNullableDom<WorkerLocation>,
+    location: MutNullableDom<WorkerLocation<TH>>,
     navigator: MutNullableDom<WorkerNavigator>,
 
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
@@ -95,7 +96,7 @@ pub struct WorkerGlobalScope {
     performance: MutNullableDom<Performance<TH>>,
 }
 
-impl WorkerGlobalScope {
+impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
     pub fn new_inherited(
         init: WorkerGlobalScopeInit,
         worker_url: ServoUrl,
@@ -173,14 +174,14 @@ impl WorkerGlobalScope {
     }
 }
 
-impl WorkerGlobalScopeMethods for WorkerGlobalScope {
+impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods for WorkerGlobalScope<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-workerglobalscope-self
-    fn Self_(&self) -> DomRoot<WorkerGlobalScope> {
+    fn Self_(&self) -> DomRoot<WorkerGlobalScope<TH>> {
         DomRoot::from_ref(self)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-workerglobalscope-location
-    fn Location(&self) -> DomRoot<WorkerLocation> {
+    fn Location(&self) -> DomRoot<WorkerLocation<TH>> {
         self.location.or_init(|| {
             WorkerLocation::new(self, self.worker_url.clone())
         })
@@ -336,7 +337,7 @@ impl WorkerGlobalScopeMethods for WorkerGlobalScope {
 }
 
 
-impl WorkerGlobalScope {
+impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
     #[allow(unsafe_code)]
     pub fn execute_script(&self, source: DOMString) {
         let _aes = AutoEntryScript::new(self.upcast());
@@ -363,7 +364,7 @@ impl WorkerGlobalScope {
 
     pub fn script_chan(&self) -> Box<ScriptChan + Send> {
         let dedicated = self.downcast::<DedicatedWorkerGlobalScope>();
-        let service_worker = self.downcast::<ServiceWorkerGlobalScope>();
+        let service_worker = self.downcast::<ServiceWorkerGlobalScope<TH>>();
         if let Some(dedicated) = dedicated {
             return dedicated.script_chan();
         } else if let Some(service_worker) = service_worker {

@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSSupportsRule<TH: TypeHolderTrait> {
-    cssconditionrule: CSSConditionRule,
+    cssconditionrule: CSSConditionRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     supportsrule: Arc<Locked<SupportsRule>>,
 }

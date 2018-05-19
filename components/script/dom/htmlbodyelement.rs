@@ -30,7 +30,7 @@ const INITIAL_REFLOW_DELAY: u64 = 200_000_000;
 
 #[dom_struct]
 pub struct HTMLBodyElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
 }
 
 impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
@@ -127,9 +127,9 @@ impl<TH> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
     }
 }
 
-impl<TH> VirtualMethods for HTMLBodyElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLBodyElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn attribute_affects_presentational_hints(&self, attr: &Attr<TH>) -> bool {
@@ -170,7 +170,7 @@ impl<TH> VirtualMethods for HTMLBodyElement<TH> {
         }
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         let do_super_mutate = match (attr.local_name(), mutation) {
             (name, AttributeMutation::Set(_)) if name.starts_with("on") => {
                 let window = window_from_node(self);

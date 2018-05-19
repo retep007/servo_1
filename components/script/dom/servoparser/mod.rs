@@ -112,7 +112,7 @@ pub trait ServoParser<TH: TypeHolderTrait>: DomObject + MutDomObject + MallocSiz
 
     fn get_document(&self) -> Dom<Document<TH>>;
 
-    fn get_tokenizer(&self) -> DomRefCell<Tokenizer>;
+    fn get_tokenizer(&self) -> DomRefCell<Tokenizer<TH>>;
 
     fn get_last_chunk_received(&self) -> Cell<bool>;
 
@@ -177,13 +177,13 @@ enum ParserKind {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-enum Tokenizer {
+enum Tokenizer<TH: TypeHolderTrait> {
     Html(self::html::Tokenizer),
     AsyncHtml(self::async_html::Tokenizer),
     Xml(self::xml::Tokenizer),
 }
 
-impl Tokenizer {
+impl<TH> Tokenizer<TH> {
     fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         match *self {
             Tokenizer::Html(ref mut tokenizer) => tokenizer.feed(input),
@@ -240,7 +240,7 @@ pub struct ParserContext<TH: TypeHolderTrait> {
 }
 
 impl<TH> ParserContext<TH> {
-    pub fn new(id: PipelineId, url: ServoUrl) -> ParserContext {
+    pub fn new(id: PipelineId, url: ServoUrl) -> ParserContext<TH> {
         ParserContext {
             parser: None,
             is_synthesized_document: false,

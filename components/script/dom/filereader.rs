@@ -37,6 +37,7 @@ use std::thread;
 use task::TaskCanceller;
 use task_source::TaskSource;
 use task_source::file_reading::{FileReadingTask, FileReadingTaskSource};
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, JSTraceable, MallocSizeOf, PartialEq)]
 pub enum FileReaderFunction {
@@ -83,15 +84,15 @@ pub enum FileReaderResult {
 }
 
 #[dom_struct]
-pub struct FileReader {
-    eventtarget: EventTarget,
+pub struct FileReader<TH: TypeHolderTrait> {
+    eventtarget: EventTarget<TH>,
     ready_state: Cell<FileReaderReadyState>,
-    error: MutNullableDom<DOMException>,
+    error: MutNullableDom<DOMException<TH>>,
     result: DomRefCell<Option<FileReaderResult>>,
     generation_id: Cell<GenerationId>,
 }
 
-impl FileReader {
+impl<TH> FileReader<TH> {
     pub fn new_inherited() -> FileReader {
         FileReader {
             eventtarget: EventTarget::new_inherited(),
@@ -274,7 +275,7 @@ impl FileReader {
     }
 }
 
-impl FileReaderMethods for FileReader {
+impl<TH> FileReaderMethods for FileReader<TH> {
     // https://w3c.github.io/FileAPI/#dfn-onloadstart
     event_handler!(loadstart, GetOnloadstart, SetOnloadstart);
 
@@ -327,7 +328,7 @@ impl FileReaderMethods for FileReader {
     }
 
     // https://w3c.github.io/FileAPI/#dfn-error
-    fn GetError(&self) -> Option<DomRoot<DOMException>> {
+    fn GetError(&self) -> Option<DomRoot<DOMException<TH>>> {
         self.error.get()
     }
 
@@ -352,7 +353,7 @@ impl FileReaderMethods for FileReader {
 }
 
 
-impl FileReader {
+impl<TH> FileReader<TH> {
     fn dispatch_progress_event(&self, type_: Atom, loaded: u64, total: Option<u64>) {
         let progressevent = ProgressEvent::new(&self.global(),
             type_, EventBubbles::DoesNotBubble, EventCancelable::NotCancelable,

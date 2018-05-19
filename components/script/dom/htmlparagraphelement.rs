@@ -9,16 +9,17 @@ use dom::htmlelement::HTMLElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLParagraphElement {
+pub struct HTMLParagraphElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement
 }
 
-impl HTMLParagraphElement {
+impl<TH> HTMLParagraphElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLParagraphElement {
+                     document: &Document<TH>) -> HTMLParagraphElement<TH> {
         HTMLParagraphElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +29,7 @@ impl HTMLParagraphElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLParagraphElement> {
+               document: &Document<TH>) -> DomRoot<HTMLParagraphElement<TH>> {
         Node::reflect_node(Box::new(HTMLParagraphElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLParagraphElementBinding::Wrap)

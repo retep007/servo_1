@@ -13,9 +13,10 @@ use dom_struct::dom_struct;
 use servo_url::ServoUrl;
 use std::default::Default;
 use uuid::Uuid;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Client {
+pub struct Client<TH: TypeHolderTrait> {
     reflector_: Reflector,
     active_worker: MutNullableDom<ServiceWorker<TH>>,
     url: ServoUrl,
@@ -24,8 +25,8 @@ pub struct Client {
     id: Uuid
 }
 
-impl Client {
-    fn new_inherited(url: ServoUrl) -> Client {
+impl<TH> Client<TH> {
+    fn new_inherited(url: ServoUrl) -> Client<TH> {
         Client {
             reflector_: Reflector::new(),
             active_worker: Default::default(),
@@ -35,7 +36,7 @@ impl Client {
         }
     }
 
-    pub fn new(window: &Window<TH>) -> DomRoot<Client> {
+    pub fn new(window: &Window<TH>) -> DomRoot<Client<TH>> {
         reflect_dom_object(Box::new(Client::new_inherited(window.get_url())),
                            window,
                            Wrap)
@@ -54,7 +55,7 @@ impl Client {
     }
 }
 
-impl ClientMethods for Client {
+impl<TH> ClientMethods for Client<TH> {
     // https://w3c.github.io/ServiceWorker/#client-url-attribute
     fn Url(&self) -> USVString {
         USVString(self.url.as_str().to_owned())

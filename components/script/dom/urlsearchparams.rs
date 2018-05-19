@@ -16,10 +16,11 @@ use dom::globalscope::GlobalScope;
 use dom::url::URL;
 use dom_struct::dom_struct;
 use url::form_urlencoded;
+use typeholder::TypeHolderTrait;
 
 // https://url.spec.whatwg.org/#interface-urlsearchparams
 #[dom_struct]
-pub struct URLSearchParams {
+pub struct URLSearchParams<TH: TypeHolderTrait> {
     reflector_: Reflector,
     // https://url.spec.whatwg.org/#concept-urlsearchparams-list
     list: DomRefCell<Vec<(String, String)>>,
@@ -27,8 +28,8 @@ pub struct URLSearchParams {
     url: MutableWeakRef<URL>,
 }
 
-impl URLSearchParams {
-    fn new_inherited(url: Option<&URL>) -> URLSearchParams {
+impl<TH> URLSearchParams<TH> {
+    fn new_inherited(url: Option<&URL>) -> URLSearchParams<TH> {
         URLSearchParams {
             reflector_: Reflector::new(),
             list: DomRefCell::new(url.map_or(Vec::new(), |url| url.query_pairs())),
@@ -36,14 +37,14 @@ impl URLSearchParams {
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, url: Option<&URL>) -> DomRoot<URLSearchParams> {
+    pub fn new(global: &GlobalScope<TH>, url: Option<&URL>) -> DomRoot<URLSearchParams<TH>> {
         reflect_dom_object(Box::new(URLSearchParams::new_inherited(url)), global,
                            URLSearchParamsWrap)
     }
 
     // https://url.spec.whatwg.org/#dom-urlsearchparams-urlsearchparams
     pub fn Constructor(global: &GlobalScope<TH>, init: Option<USVStringOrURLSearchParams>) ->
-                       Fallible<DomRoot<URLSearchParams>> {
+                       Fallible<DomRoot<URLSearchParams<TH>>> {
         // Step 1.
         let query = URLSearchParams::new(global, None);
         match init {
@@ -67,7 +68,7 @@ impl URLSearchParams {
     }
 }
 
-impl URLSearchParamsMethods for URLSearchParams {
+impl<TH> URLSearchParamsMethods for URLSearchParams<TH> {
     // https://url.spec.whatwg.org/#dom-urlsearchparams-append
     fn Append(&self, name: USVString, value: USVString) {
         // Step 1.
@@ -144,7 +145,7 @@ impl URLSearchParamsMethods for URLSearchParams {
 }
 
 
-impl URLSearchParams {
+impl<TH> URLSearchParams<TH> {
     // https://url.spec.whatwg.org/#concept-urlencoded-serializer
     pub fn serialize_utf8(&self) -> String {
         let list = self.list.borrow();
@@ -155,7 +156,7 @@ impl URLSearchParams {
 }
 
 
-impl URLSearchParams {
+impl<TH> URLSearchParams<TH> {
     // https://url.spec.whatwg.org/#concept-urlsearchparams-update
     fn update_steps(&self) {
         if let Some(url) = self.url.root() {
@@ -165,7 +166,7 @@ impl URLSearchParams {
 }
 
 
-impl Iterable for URLSearchParams {
+impl<TH> Iterable for URLSearchParams<TH> {
     type Key = USVString;
     type Value = USVString;
 

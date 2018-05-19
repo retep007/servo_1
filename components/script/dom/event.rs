@@ -222,7 +222,7 @@ impl<TH: TypeHolderTrait> Event<TH> {
     }
 }
 
-impl<TH> EventMethods for Event<TH> {
+impl<TH> EventMethods<TH> for Event<TH> {
     // https://dom.spec.whatwg.org/#dom-event-eventphase
     fn EventPhase(&self) -> u16 {
         self.phase.get() as u16
@@ -382,14 +382,14 @@ pub enum EventStatus {
 }
 
 // https://dom.spec.whatwg.org/#concept-event-fire
-pub struct EventTask {
+pub struct EventTask<TH: TypeHolderTrait> {
     pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
     pub bubbles: EventBubbles,
     pub cancelable: EventCancelable,
 }
 
-impl TaskOnce for EventTask {
+impl<TH> TaskOnce for EventTask<TH> {
     fn run_once(self) {
         let target = self.target.root();
         let bubbles = self.bubbles;
@@ -399,12 +399,12 @@ impl TaskOnce for EventTask {
 }
 
 // https://html.spec.whatwg.org/multipage/#fire-a-simple-event
-pub struct SimpleEventTask {
+pub struct SimpleEventTask<TH: TypeHolderTrait> {
     pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
 }
 
-impl TaskOnce for SimpleEventTask {
+impl<TH> TaskOnce for SimpleEventTask<TH> {
     fn run_once(self) {
         let target = self.target.root();
         target.fire_event(self.name);
@@ -413,7 +413,7 @@ impl TaskOnce for SimpleEventTask {
 
 // See dispatch_event.
 // https://dom.spec.whatwg.org/#concept-event-dispatch
-fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event<TH>, target: &EventTarget<TH>, event_path: &[&EventTarget]) {
+fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event<TH>, target: &EventTarget<TH>, event_path: &[&EventTarget<TH>]) {
     assert!(!event.stop_propagation.get());
     assert!(!event.stop_immediate.get());
 
@@ -469,7 +469,7 @@ fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event<TH>, target: &EventT
 }
 
 // https://dom.spec.whatwg.org/#concept-event-listener-invoke
-fn invoke(window: Option<&Window<TH>>,
+fn invoke<TH: TypeHolderTrait>(window: Option<&Window<TH>>,
           object: &EventTarget<TH>,
           event: &Event<TH>,
           specific_listener_phase: Option<ListenerPhase>) {
@@ -489,7 +489,7 @@ fn invoke(window: Option<&Window<TH>>,
 }
 
 // https://dom.spec.whatwg.org/#concept-event-listener-inner-invoke
-fn inner_invoke(window: Option<&Window<TH>>,
+fn inner_invoke<TH: TypeHolderTrait>(window: Option<&Window<TH>>,
                 object: &EventTarget<TH>,
                 event: &Event<TH>,
                 listeners: &[CompiledEventListener])

@@ -24,7 +24,7 @@ unsafe_no_jsmanaged_fields!(Key);
 
 #[dom_struct]
 pub struct KeyboardEvent<TH: TypeHolderTrait> {
-    uievent: UIEvent,
+    uievent: UIEvent<TH>,
     key: Cell<Option<Key>>,
     key_string: DomRefCell<DOMString>,
     code: DomRefCell<DOMString>,

@@ -14,9 +14,10 @@ use dom_struct::dom_struct;
 use std::cell::{Cell, Ref};
 use std::collections::HashMap;
 use std::iter::FromIterator;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLVertexArrayObjectOES {
+pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait> {
     webgl_object_: WebGLObject,
     id: WebGLVertexArrayId,
     ever_bound: Cell<bool>,
@@ -25,7 +26,7 @@ pub struct WebGLVertexArrayObjectOES {
     bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>>,
 }
 
-impl WebGLVertexArrayObjectOES {
+impl<TH> WebGLVertexArrayObjectOES<TH> {
     fn new_inherited(id: WebGLVertexArrayId) -> WebGLVertexArrayObjectOES {
         Self {
             webgl_object_: WebGLObject::new_inherited(),
@@ -71,7 +72,7 @@ impl WebGLVertexArrayObjectOES {
         self.bound_attrib_buffers.borrow().iter().map(|(_, b)| DomRoot::from_ref(&**b)).collect()
     }
 
-    pub fn set_bound_attrib_buffers<'a, T>(&self, iter: T) where T: Iterator<Item=(u32, &'a WebGLBuffer)> {
+    pub fn set_bound_attrib_buffers<'a, T>(&self, iter: T) where T: Iterator<Item=(u32, &'a WebGLBuffer<TH>)> {
         *self.bound_attrib_buffers.borrow_mut() = HashMap::from_iter(iter.map(|(k,v)| (k, Dom::from_ref(v))));
     }
 

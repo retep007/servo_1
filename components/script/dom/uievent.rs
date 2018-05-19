@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 // https://w3c.github.io/uievents/#interface-uievent
 #[dom_struct]
 pub struct UIEvent<TH: TypeHolderTrait> {
-    event: Event,
+    event: Event<TH>,
     view: MutNullableDom<Window<TH>>,
     detail: Cell<i32>
 }

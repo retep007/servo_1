@@ -30,7 +30,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLTableElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     border: Cell<Option<u32>>,
     cellspacing: Cell<Option<u32>>,
     tbodies: MutNullableDom<HTMLCollection<TH>>,
@@ -156,12 +156,12 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-caption
-    fn GetCaption(&self) -> Option<DomRoot<HTMLTableCaptionElement>> {
+    fn GetCaption(&self) -> Option<DomRoot<HTMLTableCaptionElement<TH>>> {
         self.upcast::<Node<TH>>().children().filter_map(DomRoot::downcast).next()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-caption
-    fn SetCaption(&self, new_caption: Option<&HTMLTableCaptionElement>) {
+    fn SetCaption(&self, new_caption: Option<&HTMLTableCaptionElement<TH>>) {
         if let Some(ref caption) = self.GetCaption() {
             caption.upcast::<Node<TH>>().remove_self();
         }
@@ -174,7 +174,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-createcaption
-    fn CreateCaption(&self) -> DomRoot<HTMLTableCaptionElement> {
+    fn CreateCaption(&self) -> DomRoot<HTMLTableCaptionElement<TH>> {
         match self.GetCaption() {
             Some(caption) => caption,
             None => {
@@ -203,7 +203,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-thead
     fn SetTHead(&self, thead: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult {
         self.set_first_section_of_type(&local_name!("thead"), thead, |n| {
-            !n.is::<HTMLTableCaptionElement>() && !n.is::<HTMLTableColElement>()
+            !n.is::<HTMLTableCaptionElement<TH>>() && !n.is::<HTMLTableColElement<TH>>()
         })
     }
 
@@ -225,7 +225,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-tfoot
     fn SetTFoot(&self, tfoot: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult {
         self.set_first_section_of_type(&local_name!("tfoot"), tfoot, |n| {
-            if n.is::<HTMLTableCaptionElement>() || n.is::<HTMLTableColElement>() {
+            if n.is::<HTMLTableCaptionElement<TH>>() || n.is::<HTMLTableColElement<TH>>() {
                 return false;
             }
 
@@ -380,7 +380,7 @@ pub trait HTMLTableElementLayoutHelpers {
     fn get_width(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement<TH>> {
+impl<TH> HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement<TH>> {
     #[allow(unsafe_code)]
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
@@ -417,12 +417,12 @@ impl HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement<TH>> {
     }
 }
 
-impl VirtualMethods for HTMLTableElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLTableElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match *attr.local_name() {
             local_name!("border") => {

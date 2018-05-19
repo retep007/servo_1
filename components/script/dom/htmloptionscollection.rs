@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLOptionsCollection<TH: TypeHolderTrait> {
-    collection: HTMLCollection,
+    collection: HTMLCollection<TH>,
 }
 
 impl<TH: TypeHolderTrait> HTMLOptionsCollection<TH> {
@@ -133,7 +133,7 @@ impl<TH> HTMLOptionsCollectionMethods for HTMLOptionsCollection<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-htmloptionscollection-add
-    fn Add(&self, element: HTMLOptionElementOrHTMLOptGroupElement, before: Option<HTMLElementOrLong>) -> ErrorResult {
+    fn Add(&self, element: HTMLOptionElementOrHTMLOptGroupElement<TH>, before: Option<HTMLElementOrLong<TH>>) -> ErrorResult {
         let root = self.upcast().root_node();
 
         let node: &Node = match element {

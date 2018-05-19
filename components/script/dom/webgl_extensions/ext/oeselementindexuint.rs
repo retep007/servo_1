@@ -9,19 +9,20 @@ use dom::bindings::root::DomRoot;
 use dom::webglrenderingcontext::WebGLRenderingContext;
 use dom_struct::dom_struct;
 use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct OESElementIndexUint {
+pub struct OESElementIndexUint<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl OESElementIndexUint {
+impl<TH> OESElementIndexUint<TH> {
     fn new_inherited() -> Self {
         Self { reflector_: Reflector::new() }
     }
 }
 
-impl WebGLExtension for OESElementIndexUint {
+impl<TH> WebGLExtension for OESElementIndexUint<TH> {
     type Extension = Self;
 
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<Self> {
@@ -36,11 +37,11 @@ impl WebGLExtension for OESElementIndexUint {
         WebGLExtensionSpec::Specific(WebGLVersion::WebGL1)
     }
 
-    fn is_supported(ext: &WebGLExtensions) -> bool {
+    fn is_supported(ext: &WebGLExtensions<TH>) -> bool {
         ext.supports_gl_extension("GL_OES_element_index_uint")
     }
 
-    fn enable(ext: &WebGLExtensions) {
+    fn enable(ext: &WebGLExtensions<TH>) {
         ext.enable_element_index_uint();
     }
 

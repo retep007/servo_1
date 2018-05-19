@@ -137,12 +137,12 @@ bitflags! {
 /// Information about the bound textures of a WebGL texture unit.
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
-struct TextureUnitBindings {
+struct TextureUnitBindings<TH: TypeHolderTrait> {
     bound_texture_2d: MutNullableDom<WebGLTexture<TH>>,
     bound_texture_cube_map: MutNullableDom<WebGLTexture<TH>>,
 }
 
-impl TextureUnitBindings {
+impl<TH: TypeHolderTrait> TextureUnitBindings<TH> {
     fn new() -> Self {
         Self {
             bound_texture_2d: MutNullableDom::new(None),
@@ -181,7 +181,7 @@ pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
     glsl_version: WebGLSLVersion,
     #[ignore_malloc_size_of = "Defined in offscreen_gl_context"]
     limits: GLLimits,
-    canvas: Dom<HTMLCanvasElement>,
+    canvas: Dom<HTMLCanvasElement<TH>>,
     #[ignore_malloc_size_of = "Defined in canvas_traits"]
     last_error: Cell<Option<WebGLError>>,
     texture_unpacking_settings: Cell<TextureUnpacking>,
@@ -200,17 +200,17 @@ pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
     current_scissor: Cell<(i32, i32, i32, i32)>,
     #[ignore_malloc_size_of = "Because it's small"]
     current_clear_color: Cell<(f32, f32, f32, f32)>,
-    extension_manager: WebGLExtensions,
+    extension_manager: WebGLExtensions<TH>,
 }
 
 impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
     pub fn new_inherited(
         window: &Window<TH>,
-        canvas: &HTMLCanvasElement,
+        canvas: &HTMLCanvasElement<TH>,
         webgl_version: WebGLVersion,
         size: Size2D<i32>,
         attrs: GLContextAttributes
-    ) -> Result<WebGLRenderingContext, String> {
+    ) -> Result<WebGLRenderingContext<TH>, String> {
         if let Some(true) = PREFS.get("webgl.testing.context_creation_error").as_boolean() {
             return Err("WebGL context creation error forced by pref `webgl.testing.context_creation_error`".into());
         }
@@ -257,7 +257,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(
         window: &Window<TH>,
-        canvas: &HTMLCanvasElement,
+        canvas: &HTMLCanvasElement<TH>,
         webgl_version: WebGLVersion,
         size: Size2D<i32>,
         attrs: GLContextAttributes
@@ -315,7 +315,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
         self.bound_attrib_buffers.borrow()
     }
 
-    pub fn set_bound_attrib_buffers<'a, T>(&self, iter: T) where T: Iterator<Item=(u32, &'a WebGLBuffer)> {
+    pub fn set_bound_attrib_buffers<'a, T>(&self, iter: T) where T: Iterator<Item=(u32, &'a WebGLBuffer<TH>)> {
         *self.bound_attrib_buffers.borrow_mut() = FnvHashMap::from_iter(iter.map(|(k,v)| (k, Dom::from_ref(v))));
     }
 
@@ -1212,7 +1212,7 @@ unsafe fn fallible_array_buffer_view_to_vec(
 
 impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext<TH> {
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.1
-    fn Canvas(&self) -> DomRoot<HTMLCanvasElement> {
+    fn Canvas(&self) -> DomRoot<HTMLCanvasElement<TH>> {
         DomRoot::from_ref(&*self.canvas)
     }
 
@@ -3642,7 +3642,7 @@ pub trait LayoutCanvasWebGLRenderingContextHelpers {
     unsafe fn canvas_data_source(&self) -> HTMLCanvasDataSource;
 }
 
-impl LayoutCanvasWebGLRenderingContextHelpers for LayoutDom<WebGLRenderingContext<TH>> {
+impl<TH: TypeHolderTrait> LayoutCanvasWebGLRenderingContextHelpers for LayoutDom<WebGLRenderingContext<TH>> {
     #[allow(unsafe_code)]
     unsafe fn canvas_data_source(&self) -> HTMLCanvasDataSource {
         HTMLCanvasDataSource::WebGL((*self.unsafe_get()).layout_handle())

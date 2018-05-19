@@ -31,7 +31,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLMetaElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
     cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
@@ -159,9 +159,9 @@ impl<TH> HTMLMetaElementMethods for HTMLMetaElement<TH> {
     make_setter!(SetContent, "content");
 }
 
-impl<TH> VirtualMethods for HTMLMetaElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLMetaElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn bind_to_tree(&self, tree_in_doc: bool) {
@@ -181,7 +181,7 @@ impl<TH> VirtualMethods for HTMLMetaElement<TH> {
         }
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         if let Some(s) = self.super_type() {
             s.attribute_mutated(attr, mutation);
         }
@@ -189,7 +189,7 @@ impl<TH> VirtualMethods for HTMLMetaElement<TH> {
         self.process_referrer_attribute();
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         if let Some(ref s) = self.super_type() {
             s.unbind_from_tree(context);
         }

@@ -14,9 +14,10 @@ use dom_struct::dom_struct;
 use encoding_rs::{Decoder, DecoderResult, Encoding};
 use std::borrow::ToOwned;
 use std::cell::{Cell, RefCell};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TextDecoder {
+pub struct TextDecoder<TH: TypeHolderTrait> {
     reflector_: Reflector,
     encoding: &'static Encoding,
     fatal: bool,
@@ -27,8 +28,8 @@ pub struct TextDecoder {
     do_not_flush: Cell<bool>,
 }
 
-impl TextDecoder {
-    fn new_inherited(encoding: &'static Encoding, fatal: bool, ignoreBOM: bool) -> TextDecoder {
+impl<TH> TextDecoder<TH> {
+    fn new_inherited(encoding: &'static Encoding, fatal: bool, ignoreBOM: bool) -> TextDecoder<TH> {
         TextDecoder {
             reflector_: Reflector::new(),
             encoding: encoding,
@@ -42,12 +43,12 @@ impl TextDecoder {
         }
     }
 
-    fn make_range_error() -> Fallible<DomRoot<TextDecoder>> {
+    fn make_range_error() -> Fallible<DomRoot<TextDecoder<TH>>> {
         Err(Error::Range("The given encoding is not supported.".to_owned()))
     }
 
     pub fn new(global: &GlobalScope<TH>, encoding: &'static Encoding, fatal: bool, ignoreBOM: bool)
-            -> DomRoot<TextDecoder> {
+            -> DomRoot<TextDecoder<TH>> {
         reflect_dom_object(Box::new(TextDecoder::new_inherited(encoding, fatal, ignoreBOM)),
                            global,
                            TextDecoderBinding::Wrap)
@@ -57,7 +58,7 @@ impl TextDecoder {
     pub fn Constructor(global: &GlobalScope<TH>,
                        label: DOMString,
                        options: &TextDecoderBinding::TextDecoderOptions)
-                            -> Fallible<DomRoot<TextDecoder>> {
+                            -> Fallible<DomRoot<TextDecoder<TH>>> {
         let encoding = match Encoding::for_label_no_replacement(label.as_bytes()) {
             None => return TextDecoder::make_range_error(),
             Some(enc) => enc
@@ -67,7 +68,7 @@ impl TextDecoder {
 }
 
 
-impl TextDecoderMethods for TextDecoder {
+impl<TH> TextDecoderMethods for TextDecoder<TH> {
     // https://encoding.spec.whatwg.org/#dom-textdecoder-encoding
     fn Encoding(&self) -> DOMString {
         DOMString::from(self.encoding.name().to_ascii_lowercase())

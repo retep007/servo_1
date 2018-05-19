@@ -16,13 +16,14 @@ use dom::virtualmethods::VirtualMethods;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use servo_url::ServoUrl;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLBaseElement {
-    htmlelement: HTMLElement
+pub struct HTMLBaseElement<TH: TypeHolderTrait> {
+    htmlelement: HTMLElement<TH>
 }
 
-impl HTMLBaseElement {
+impl<TH: TypeHolderTrait> HTMLBaseElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLBaseElement {
         HTMLBaseElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
@@ -63,7 +64,7 @@ impl HTMLBaseElement {
     }
 }
 
-impl HTMLBaseElementMethods for HTMLBaseElement {
+impl<TH: TypeHolderTrait> HTMLBaseElementMethods for HTMLBaseElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-base-href
     fn Href(&self) -> DOMString {
         // Step 1.
@@ -93,12 +94,12 @@ impl HTMLBaseElementMethods for HTMLBaseElement {
     make_setter!(SetHref, "href");
 }
 
-impl VirtualMethods for HTMLBaseElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLBaseElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         if *attr.local_name() == local_name!("href") {
             document_from_node(self).refresh_base_element();
@@ -110,7 +111,7 @@ impl VirtualMethods for HTMLBaseElement {
         self.bind_unbind(tree_in_doc);
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         self.super_type().unwrap().unbind_from_tree(context);
         self.bind_unbind(context.tree_in_doc);
     }

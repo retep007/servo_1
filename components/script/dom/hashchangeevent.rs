@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#hashchangeevent
 #[dom_struct]
 pub struct HashChangeEvent<TH: TypeHolderTrait> {
-    event: Event,
+    event: Event<TH>,
     old_url: String,
     new_url: String,
 }

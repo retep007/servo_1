@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLTableSectionElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
 }
 
 impl<TH: TypeHolderTrait> HTMLTableSectionElement<TH> {
@@ -93,9 +93,9 @@ impl<TH> HTMLTableSectionElementLayoutHelpers for LayoutDom<HTMLTableSectionElem
     }
 }
 
-impl<TH> VirtualMethods for HTMLTableSectionElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLTableSectionElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn parse_plain_attribute(&self, local_name: &LocalName, value: DOMString) -> AttrValue {

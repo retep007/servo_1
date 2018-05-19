@@ -16,18 +16,19 @@ use js::rust::CustomAutoRooterGuard;
 use js::typedarray::ArrayBufferView;
 use servo_rand::{ServoRng, Rng};
 use std::ptr::NonNull;
+use typeholder::TypeHolderTrait;
 
 unsafe_no_jsmanaged_fields!(ServoRng);
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Crypto
 #[dom_struct]
-pub struct Crypto {
+pub struct Crypto<TH: TypeHolderTrait> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in rand"]
     rng: DomRefCell<ServoRng>,
 }
 
-impl Crypto {
+impl<TH> Crypto<TH> {
     fn new_inherited() -> Crypto {
         Crypto {
             reflector_: Reflector::new(),
@@ -40,7 +41,7 @@ impl Crypto {
     }
 }
 
-impl CryptoMethods for Crypto {
+impl<TH> CryptoMethods for Crypto<TH> {
     #[allow(unsafe_code)]
     // https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#Crypto-method-getRandomValues
     unsafe fn GetRandomValues(&self,

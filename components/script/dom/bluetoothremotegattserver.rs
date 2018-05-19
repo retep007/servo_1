@@ -19,17 +19,18 @@ use dom_struct::dom_struct;
 use ipc_channel::ipc::IpcSender;
 use std::cell::Cell;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattserver
 #[dom_struct]
-pub struct BluetoothRemoteGATTServer {
+pub struct BluetoothRemoteGATTServer<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    device: Dom<BluetoothDevice>,
+    device: Dom<BluetoothDevice<TH>>,
     connected: Cell<bool>,
 }
 
-impl BluetoothRemoteGATTServer {
-    pub fn new_inherited(device: &BluetoothDevice) -> BluetoothRemoteGATTServer {
+impl<TH> BluetoothRemoteGATTServer<TH> {
+    pub fn new_inherited(device: &BluetoothDevice<TH>) -> BluetoothRemoteGATTServer<TH> {
         BluetoothRemoteGATTServer {
             reflector_: Reflector::new(),
             device: Dom::from_ref(device),
@@ -37,7 +38,7 @@ impl BluetoothRemoteGATTServer {
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, device: &BluetoothDevice) -> DomRoot<BluetoothRemoteGATTServer> {
+    pub fn new(global: &GlobalScope<TH>, device: &BluetoothDevice<TH>) -> DomRoot<BluetoothRemoteGATTServer<TH>> {
         reflect_dom_object(Box::new(BluetoothRemoteGATTServer::new_inherited(device)),
                            global,
                            BluetoothRemoteGATTServerBinding::Wrap)
@@ -52,9 +53,9 @@ impl BluetoothRemoteGATTServer {
     }
 }
 
-impl BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer {
+impl<TH> BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-device
-    fn Device(&self) -> DomRoot<BluetoothDevice> {
+    fn Device(&self) -> DomRoot<BluetoothDevice<TH>> {
         DomRoot::from_ref(&self.device)
     }
 
@@ -118,7 +119,7 @@ impl BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer {
     }
 }
 
-impl AsyncBluetoothListener for BluetoothRemoteGATTServer {
+impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTServer<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-connect

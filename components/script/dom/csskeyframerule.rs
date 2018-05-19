@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSKeyframeRule<TH: TypeHolderTrait> {
-    cssrule: CSSRule,
+    cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     keyframerule: Arc<Locked<Keyframe>>,
     style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> CSSKeyframeRule<TH> {
     }
 }
 
-impl<TH> CSSKeyframeRuleMethods for CSSKeyframeRule<TH> {
+impl<TH> CSSKeyframeRuleMethods<TH> for CSSKeyframeRule<TH> {
     // https://drafts.csswg.org/css-animations/#dom-csskeyframerule-style
     fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {
@@ -62,7 +62,7 @@ impl<TH> CSSKeyframeRuleMethods for CSSKeyframeRule<TH> {
     }
 }
 
-impl SpecificCSSRule for CSSKeyframeRule {
+impl<TH: TypeHolderTrait> SpecificCSSRule for CSSKeyframeRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::KEYFRAME_RULE

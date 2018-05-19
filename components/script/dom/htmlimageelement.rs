@@ -108,11 +108,11 @@ enum ImageRequestPhase {
 }
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-struct ImageRequest {
+struct ImageRequest<TH: TypeHolderTrait> {
     state: State,
     parsed_url: Option<ServoUrl>,
     source_url: Option<DOMString>,
-    blocker: Option<LoadBlocker>,
+    blocker: Option<LoadBlocker<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     image: Option<Arc<Image>>,
     metadata: Option<ImageMetadata>,
@@ -120,10 +120,10 @@ struct ImageRequest {
 }
 #[dom_struct]
 pub struct HTMLImageElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     image_request: Cell<ImageRequestPhase>,
-    current_request: DomRefCell<ImageRequest>,
-    pending_request: DomRefCell<ImageRequest>,
+    current_request: DomRefCell<ImageRequest<TH>>,
+    pending_request: DomRefCell<ImageRequest<TH>>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
     generation: Cell<u32>,
 }
@@ -387,7 +387,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
     }
 
     fn init_image_request(&self,
-                          request: &mut RefMut<ImageRequest>,
+                          request: &mut RefMut<ImageRequest<TH>>,
                           url: &ServoUrl,
                           src: &DOMString) {
         request.parsed_url = Some(url.clone());
@@ -659,7 +659,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
 
         Ok(image)
     }
-    pub fn areas(&self) -> Option<Vec<DomRoot<HTMLAreaElement>>> {
+    pub fn areas(&self) -> Option<Vec<DomRoot<HTMLAreaElement<TH>>>> {
         let elem = self.upcast::<Element<TH>>();
         let usemap_attr = elem.get_attribute(&ns!(), &local_name!("usemap"))?;
 
@@ -693,14 +693,14 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum ImageElementMicrotask {
+pub enum ImageElementMicrotask<TH: TypeHolderTrait> {
     StableStateUpdateImageDataTask {
         elem: DomRoot<HTMLImageElement<TH>>,
         generation: u32,
     }
 }
 
-impl MicrotaskRunnable for ImageElementMicrotask {
+impl<TH> MicrotaskRunnable for ImageElementMicrotask<TH> {
     fn handler(&self) {
         match self {
             &ImageElementMicrotask::StableStateUpdateImageDataTask { ref elem, ref generation } => {
@@ -958,9 +958,9 @@ impl<TH: TypeHolderTrait> HTMLImageElementMethods for HTMLImageElement<TH> {
     make_setter!(SetBorder, "border");
 }
 
-impl VirtualMethods for HTMLImageElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLImageElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn adopting_steps(&self, old_doc: &Document<TH>) {
@@ -968,7 +968,7 @@ impl VirtualMethods for HTMLImageElement {
         self.update_the_image_data();
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("src") => self.update_the_image_data(),
@@ -1022,7 +1022,7 @@ impl VirtualMethods for HTMLImageElement {
     }
 }
 
-impl FormControl for HTMLImageElement {
+impl<TH: TypeHolderTrait> FormControl<TH> for HTMLImageElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -1031,7 +1031,7 @@ impl FormControl for HTMLImageElement {
         self.form_owner.set(form);
     }
 
-    fn to_element<'a>(&'a self) -> &'a Element {
+    fn to_element<'a>(&'a self) -> &'a Element<TH> {
         self.upcast::<Element<TH>>()
     }
 
@@ -1040,7 +1040,7 @@ impl FormControl for HTMLImageElement {
     }
 }
 
-fn image_dimension_setter(element: &Element<TH>, attr: LocalName, value: u32) {
+fn image_dimension_setter<TH: TypeHolderTrait>(element: &Element<TH>, attr: LocalName, value: u32) {
     // This setter is a bit weird: the IDL type is unsigned long, but it's parsed as
     // a dimension for rendering.
     let value = if value > UNSIGNED_LONG_MAX {

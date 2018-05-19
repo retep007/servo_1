@@ -19,19 +19,19 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct RadioNodeList<TH: TypeHolderTrait> {
-    node_list: NodeList,
+    node_list: NodeList<TH>,
 }
 
 impl<TH: TypeHolderTrait> RadioNodeList<TH> {
     #[allow(unrooted_must_root)]
-    fn new_inherited(list_type: NodeListType) -> RadioNodeList<TH> {
+    fn new_inherited(list_type: NodeListType<TH>) -> RadioNodeList<TH> {
         RadioNodeList {
             node_list: NodeList::new_inherited(list_type)
         }
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window<TH>, list_type: NodeListType) -> DomRoot<RadioNodeList<TH>> {
+    pub fn new(window: &Window<TH>, list_type: NodeListType<TH>) -> DomRoot<RadioNodeList<TH>> {
         reflect_dom_object(Box::new(RadioNodeList::new_inherited(list_type)),
                            window,
                            RadioNodeListBinding::Wrap)

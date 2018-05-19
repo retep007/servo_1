@@ -10,13 +10,14 @@ use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom::mimetype::MimeType;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MimeTypeArray {
+pub struct MimeTypeArray<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl MimeTypeArray {
+impl<TH> MimeTypeArray<TH> {
     pub fn new_inherited() -> MimeTypeArray {
         MimeTypeArray {
             reflector_: Reflector::new()
@@ -30,7 +31,7 @@ impl MimeTypeArray {
     }
 }
 
-impl MimeTypeArrayMethods for MimeTypeArray {
+impl<TH> MimeTypeArrayMethods for MimeTypeArray<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-mimetypearray-length
     fn Length(&self) -> u32 {
         0

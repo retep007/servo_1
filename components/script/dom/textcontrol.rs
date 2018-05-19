@@ -31,7 +31,7 @@ pub struct TextControlSelection<'a, E: TextControlElement, TH: TypeHolderTrait> 
 }
 
 impl<'a, E: TextControlElement, TH: TypeHolderTrait> TextControlSelection<'a, E, TH> {
-    pub fn new(element: &'a E, textinput: &'a DomRefCell<TextInput<ScriptToConstellationChan>>) -> Self {
+    pub fn new(element: &'a E, textinput: &'a DomRefCell<TextInput<ScriptToConstellationChan, TH>>) -> Self {
         TextControlSelection { element, textinput }
     }
 

@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSImportRule<TH: TypeHolderTrait> {
-    cssrule: CSSRule,
+    cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     import_rule: Arc<Locked<ImportRule>>,
 }

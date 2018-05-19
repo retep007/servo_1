@@ -23,7 +23,7 @@ pub enum HeadingLevel {
 
 #[dom_struct]
 pub struct HTMLHeadingElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     level: HeadingLevel,
 }
 

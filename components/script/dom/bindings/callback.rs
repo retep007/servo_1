@@ -23,6 +23,7 @@ use std::mem::drop;
 use std::ops::Deref;
 use std::ptr;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 /// The exception handling used for a call.
 #[derive(Clone, Copy, PartialEq)]
@@ -220,7 +221,7 @@ pub fn wrap_call_this_object<T: DomObject>(cx: *mut JSContext,
 
 /// A class that performs whatever setup we need to safely make a call while
 /// this class is on the stack. After `new` returns, the call is safe to make.
-pub struct CallSetup {
+pub struct CallSetup<TH: TypeHolderTrait> {
     /// The global for reporting exceptions. This is the global object of the
     /// (possibly wrapped) callback object.
     exception_global: DomRoot<GlobalScope<TH>>,
@@ -232,13 +233,13 @@ pub struct CallSetup {
     handling: ExceptionHandling,
     /// <https://heycam.github.io/webidl/#es-invoking-callback-functions>
     /// steps 8 and 18.2.
-    entry_script: Option<AutoEntryScript>,
+    entry_script: Option<AutoEntryScript<TH>>,
     /// <https://heycam.github.io/webidl/#es-invoking-callback-functions>
     /// steps 9 and 18.1.
     incumbent_script: Option<AutoIncumbentScript>,
 }
 
-impl CallSetup {
+impl<TH> CallSetup<TH> {
     /// Performs the setup needed to make a call.
     #[allow(unrooted_must_root)]
     pub fn new<T: CallbackContainer>(callback: &T,
@@ -265,7 +266,7 @@ impl CallSetup {
     }
 }
 
-impl Drop for CallSetup {
+impl<TH> Drop for CallSetup<TH> {
     fn drop(&mut self) {
         unsafe {
             JS_LeaveCompartment(self.cx, self.old_compartment);

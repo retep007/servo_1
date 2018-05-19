@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#beforeunloadevent
 #[dom_struct]
 pub struct BeforeUnloadEvent<TH: TypeHolderTrait> {
-    event: Event,
+    event: Event<TH>,
     return_value: DomRefCell<DOMString>,
 }
 
@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> BeforeUnloadEvent<TH> {
     }
 }
 
-impl BeforeUnloadEventMethods for BeforeUnloadEvent {
+impl<TH: TypeHolderTrait> BeforeUnloadEventMethods for BeforeUnloadEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-beforeunloadevent-returnvalue
     fn ReturnValue(&self) -> DOMString {
         self.return_value.borrow().clone()

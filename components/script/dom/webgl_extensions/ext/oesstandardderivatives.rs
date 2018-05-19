@@ -10,13 +10,14 @@ use dom::bindings::root::DomRoot;
 use dom::webglrenderingcontext::WebGLRenderingContext;
 use dom_struct::dom_struct;
 use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct OESStandardDerivatives {
+pub struct OESStandardDerivatives<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl OESStandardDerivatives {
+impl<TH> OESStandardDerivatives<TH> {
     fn new_inherited() -> OESStandardDerivatives {
         Self {
             reflector_: Reflector::new(),
@@ -24,7 +25,7 @@ impl OESStandardDerivatives {
     }
 }
 
-impl WebGLExtension for OESStandardDerivatives {
+impl<TH> WebGLExtension for OESStandardDerivatives<TH> {
     type Extension = OESStandardDerivatives;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESStandardDerivatives> {
         reflect_dom_object(Box::new(OESStandardDerivatives::new_inherited()),
@@ -36,7 +37,7 @@ impl WebGLExtension for OESStandardDerivatives {
         WebGLExtensionSpec::Specific(WebGLVersion::WebGL1)
     }
 
-    fn is_supported(ext: &WebGLExtensions) -> bool {
+    fn is_supported(ext: &WebGLExtensions<TH>) -> bool {
         if cfg!(any(target_os = "android", target_os = "ios")) {
             return ext.supports_any_gl_extension(&["GL_OES_standard_derivatives"]);
         }
@@ -44,7 +45,7 @@ impl WebGLExtension for OESStandardDerivatives {
         true
     }
 
-    fn enable(ext: &WebGLExtensions) {
+    fn enable(ext: &WebGLExtensions<TH>) {
         ext.enable_hint_target(OESStandardDerivativesConstants::FRAGMENT_SHADER_DERIVATIVE_HINT_OES);
         ext.enable_get_parameter_name(OESStandardDerivativesConstants::FRAGMENT_SHADER_DERIVATIVE_HINT_OES);
     }

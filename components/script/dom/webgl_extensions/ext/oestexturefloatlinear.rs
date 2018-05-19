@@ -8,13 +8,13 @@ use dom::bindings::root::DomRoot;
 use dom::webglrenderingcontext::WebGLRenderingContext;
 use dom_struct::dom_struct;
 use super::{constants as webgl, WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
-
+use typeholder::TypeHolderTrait;
 #[dom_struct]
-pub struct OESTextureFloatLinear {
+pub struct OESTextureFloatLinear<TH> {
     reflector_: Reflector,
 }
 
-impl OESTextureFloatLinear {
+impl<TH> OESTextureFloatLinear<TH> {
     fn new_inherited() -> OESTextureFloatLinear {
         Self {
             reflector_: Reflector::new(),
@@ -22,7 +22,7 @@ impl OESTextureFloatLinear {
     }
 }
 
-impl WebGLExtension for OESTextureFloatLinear {
+impl<TH> WebGLExtension for OESTextureFloatLinear<TH> {
     type Extension = OESTextureFloatLinear;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESTextureFloatLinear> {
         reflect_dom_object(Box::new(OESTextureFloatLinear::new_inherited()),
@@ -34,12 +34,12 @@ impl WebGLExtension for OESTextureFloatLinear {
         WebGLExtensionSpec::All
     }
 
-    fn is_supported(ext: &WebGLExtensions) -> bool {
+    fn is_supported(ext: &WebGLExtensions<TH>) -> bool {
         ext.supports_any_gl_extension(&["GL_OES_texture_float_linear",
                                         "GL_ARB_texture_float"])
     }
 
-    fn enable(ext: &WebGLExtensions) {
+    fn enable(ext: &WebGLExtensions<TH>) {
         ext.enable_filterable_tex_type(webgl::FLOAT);
     }
 

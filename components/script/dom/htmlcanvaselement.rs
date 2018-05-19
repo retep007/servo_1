@@ -41,28 +41,29 @@ use script_layout_interface::{HTMLCanvasData, HTMLCanvasDataSource};
 use servo_config::prefs::PREFS;
 use std::iter::repeat;
 use style::attr::{AttrValue, LengthOrPercentageOrAuto};
+use typeholder::TypeHolderTrait;
 
 const DEFAULT_WIDTH: u32 = 300;
 const DEFAULT_HEIGHT: u32 = 150;
 
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum CanvasContext {
+pub enum CanvasContext<TH: TypeHolderTrait> {
     Context2d(Dom<CanvasRenderingContext2D<TH>>),
     WebGL(Dom<WebGLRenderingContext<TH>>),
     WebGL2(Dom<WebGL2RenderingContext<TH>>),
 }
 
 #[dom_struct]
-pub struct HTMLCanvasElement {
-    htmlelement: HTMLElement,
-    context: DomRefCell<Option<CanvasContext>>,
+pub struct HTMLCanvasElement<TH: TypeHolderTrait> {
+    htmlelement: HTMLElement<TH>,
+    context: DomRefCell<Option<CanvasContext<TH>>>,
 }
 
-impl HTMLCanvasElement {
+impl<TH: TypeHolderTrait> HTMLCanvasElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLCanvasElement {
+                     document: &Document<TH>) -> HTMLCanvasElement<TH> {
         HTMLCanvasElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             context: DomRefCell::new(None),
@@ -72,7 +73,7 @@ impl HTMLCanvasElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLCanvasElement> {
+               document: &Document<TH>) -> DomRoot<HTMLCanvasElement<TH>> {
         Node::reflect_node(Box::new(HTMLCanvasElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLCanvasElementBinding::Wrap)
@@ -108,7 +109,7 @@ pub trait LayoutHTMLCanvasElementHelpers {
     fn get_canvas_id_for_layout(&self) -> CanvasId;
 }
 
-impl LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanvasElement> {
+impl<TH> LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanvasElement<TH>> {
     #[allow(unsafe_code)]
     fn data(&self) -> HTMLCanvasData {
         unsafe {
@@ -173,7 +174,7 @@ impl LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanvasElement> {
 }
 
 
-impl HTMLCanvasElement {
+impl<TH: TypeHolderTrait> HTMLCanvasElement<TH> {
     pub fn get_or_init_2d_context(&self) -> Option<DomRoot<CanvasRenderingContext2D<TH>>> {
         if self.context.borrow().is_none() {
             let window = window_from_node(self);
@@ -297,7 +298,7 @@ impl HTMLCanvasElement {
     }
 }
 
-impl HTMLCanvasElementMethods for HTMLCanvasElement {
+impl<TH: TypeHolderTrait> HTMLCanvasElementMethods for HTMLCanvasElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-canvas-width
     make_uint_getter!(Width, "width", DEFAULT_WIDTH);
 
@@ -316,7 +317,7 @@ impl HTMLCanvasElementMethods for HTMLCanvasElement {
                   cx: *mut JSContext,
                   id: DOMString,
                   attributes: Vec<HandleValue>)
-        -> Option<RenderingContext> {
+        -> Option<RenderingContext<TH>> {
         match &*id {
             "2d" => {
                 self.get_or_init_2d_context()
@@ -392,12 +393,12 @@ impl HTMLCanvasElementMethods for HTMLCanvasElement {
     }
 }
 
-impl VirtualMethods for HTMLCanvasElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLCanvasElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("width") | &local_name!("height") => self.recreate_contexts(),

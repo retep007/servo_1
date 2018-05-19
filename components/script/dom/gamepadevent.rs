@@ -20,8 +20,8 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct GamepadEvent<TH: TypeHolderTrait> {
-    event: Event,
-    gamepad: Dom<Gamepad>,
+    event: Event<TH>,
+    gamepad: Dom<Gamepad<TH>>,
 }
 
 pub enum GamepadEventType {
@@ -30,7 +30,7 @@ pub enum GamepadEventType {
 }
 
 impl<TH: TypeHolderTrait> GamepadEvent<TH> {
-    fn new_inherited(gamepad: &Gamepad) -> GamepadEvent<TH> {
+    fn new_inherited(gamepad: &Gamepad<TH>) -> GamepadEvent<TH> {
         GamepadEvent {
             event: Event::new_inherited(),
             gamepad: Dom::from_ref(gamepad),
@@ -41,7 +41,7 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
                type_: Atom,
                bubbles: bool,
                cancelable: bool,
-               gamepad: &Gamepad)
+               gamepad: &Gamepad<TH>)
                -> DomRoot<GamepadEvent<TH>> {
         let ev = reflect_dom_object(
             Box::new(GamepadEvent::new_inherited(&gamepad)), global, GamepadEventBinding::Wrap
@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
         ev
     }
 
-    pub fn new_with_type(global: &GlobalScope<TH>, event_type: GamepadEventType, gamepad: &Gamepad)
+    pub fn new_with_type(global: &GlobalScope<TH>, event_type: GamepadEventType, gamepad: &Gamepad<TH>)
                          -> DomRoot<GamepadEvent<TH>> {
         let name = match event_type {
             GamepadEventType::Connected => "gamepadconnected",
@@ -80,9 +80,9 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
     }
 }
 
-impl<TH> GamepadEventMethods for GamepadEvent<TH> {
+impl<TH> GamepadEventMethods<TH> for GamepadEvent<TH> {
     // https://w3c.github.io/gamepad/#gamepadevent-interface
-    fn Gamepad(&self) -> DomRoot<Gamepad> {
+    fn Gamepad(&self) -> DomRoot<Gamepad<TH>> {
         DomRoot::from_ref(&*self.gamepad)
     }
 

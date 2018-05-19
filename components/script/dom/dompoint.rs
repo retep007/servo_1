@@ -10,14 +10,15 @@ use dom::bindings::root::DomRoot;
 use dom::dompointreadonly::{DOMPointReadOnly, DOMPointWriteMethods};
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 // http://dev.w3.org/fxtf/geometry/Overview.html#dompoint
 #[dom_struct]
-pub struct DOMPoint {
-    point: DOMPointReadOnly,
+pub struct DOMPoint<TH: TypeHolderTrait> {
+    point: DOMPointReadOnly<TH>,
 }
 
-impl DOMPoint {
+impl<TH> DOMPoint<TH> {
     fn new_inherited(x: f64, y: f64, z: f64, w: f64) -> DOMPoint {
         DOMPoint {
             point: DOMPointReadOnly::new_inherited(x, y, z, w),
@@ -42,7 +43,7 @@ impl DOMPoint {
     }
 }
 
-impl DOMPointMethods for DOMPoint {
+impl<TH> DOMPointMethods for DOMPoint<TH> {
     // https://dev.w3.org/fxtf/geometry/Overview.html#dom-dompointreadonly-x
     fn X(&self) -> f64 {
         self.point.X()

@@ -15,16 +15,17 @@ use dom_struct::dom_struct;
 use html5ever::LocalName;
 use servo_atoms::Atom;
 use style::str::HTML_SPACE_CHARACTERS;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMTokenList {
+pub struct DOMTokenList<TH: TypeHolderTrait> {
     reflector_: Reflector,
     element: Dom<Element<TH>>,
     local_name: LocalName,
 }
 
-impl DOMTokenList {
-    pub fn new_inherited(element: &Element<TH>, local_name: LocalName) -> DOMTokenList {
+impl<TH> DOMTokenList<TH> {
+    pub fn new_inherited(element: &Element<TH>, local_name: LocalName) -> DOMTokenList<TH> {
         DOMTokenList {
             reflector_: Reflector::new(),
             element: Dom::from_ref(element),
@@ -32,7 +33,7 @@ impl DOMTokenList {
         }
     }
 
-    pub fn new(element: &Element<TH>, local_name: &LocalName) -> DomRoot<DOMTokenList> {
+    pub fn new(element: &Element<TH>, local_name: &LocalName) -> DomRoot<DOMTokenList<TH>> {
         let window = window_from_node(element);
         reflect_dom_object(Box::new(DOMTokenList::new_inherited(element, local_name.clone())),
                            &*window,
@@ -53,7 +54,7 @@ impl DOMTokenList {
 }
 
 // https://dom.spec.whatwg.org/#domtokenlist
-impl DOMTokenListMethods for DOMTokenList {
+impl<TH> DOMTokenListMethods for DOMTokenList<TH> {
     // https://dom.spec.whatwg.org/#dom-domtokenlist-length
     fn Length(&self) -> u32 {
         self.attribute().map_or(0, |attr| {

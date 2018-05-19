@@ -46,7 +46,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLScriptElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#already-started>
     already_started: Cell<bool>,
@@ -139,7 +139,7 @@ impl ClassicScript {
 pub type ScriptResult = Result<ClassicScript, NetworkError>;
 
 /// The context required for asynchronously loading an external script source.
-struct ScriptContext {
+struct ScriptContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
     elem: Trusted<HTMLScriptElement<TH>>,
     /// The kind of external script.
@@ -157,7 +157,7 @@ struct ScriptContext {
     status: Result<(), NetworkError>
 }
 
-impl FetchResponseListener for ScriptContext {
+impl<TH> FetchResponseListener for ScriptContext<TH> {
     fn process_request_body(&mut self) {} // TODO(KiChjang): Perhaps add custom steps to perform fetch here?
 
     fn process_request_eof(&mut self) {} // TODO(KiChjang): Perhaps add custom steps to perform fetch here?
@@ -223,7 +223,7 @@ impl FetchResponseListener for ScriptContext {
     }
 }
 
-impl PreInvoke for ScriptContext {}
+impl<TH> PreInvoke for ScriptContext<TH> {}
 
 /// <https://html.spec.whatwg.org/multipage/#fetch-a-classic-script>
 fn fetch_a_classic_script<TH: TypeHolderTrait>(script: &HTMLScriptElement<TH>,
@@ -647,11 +647,11 @@ impl<TH: TypeHolderTrait> HTMLScriptElement<TH> {
 }
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLScriptElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match *attr.local_name() {
             local_name!("src") => {

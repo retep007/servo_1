@@ -57,12 +57,13 @@ use task_source::TaskSource;
 use url::UrlQuery;
 use url::form_urlencoded::Serializer;
 use typeholder::TypeHolderTrait;
+
 #[derive(Clone, Copy, JSTraceable, MallocSizeOf, PartialEq)]
 pub struct GenerationId(u32);
 
 #[dom_struct]
 pub struct HTMLFormElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     marked_for_reset: Cell<bool>,
     elements: DomOnceCell<HTMLFormControlsCollection<TH>>,
     generation_id: Cell<GenerationId>,
@@ -92,7 +93,7 @@ impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
     }
 }
 
-impl<TH> HTMLFormElementMethods for HTMLFormElement<TH> {
+impl<TH> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-form-acceptcharset
     make_getter!(AcceptCharset, "accept-charset");
 
@@ -171,7 +172,7 @@ impl<TH> HTMLFormElementMethods for HTMLFormElement<TH> {
             form: DomRoot<HTMLFormElement<TH>>
         }
         impl<TH> CollectionFilter for ElementsFilter<TH> {
-            fn filter<'a, TH>(&self, elem: &'a Element, _root: &'a Node) -> bool {
+            fn filter<'a, TH>(&self, elem: &'a Element<TH>, _root: &'a Node<TH>) -> bool {
                 let form_owner = match elem.upcast::<Node<TH>>().type_id() {
                     NodeTypeId::Element(ElementTypeId::HTMLElement(t)) => {
                         match t {
@@ -192,7 +193,7 @@ impl<TH> HTMLFormElementMethods for HTMLFormElement<TH> {
                                 elem.downcast::<HTMLObjectElement>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLOutputElement => {
-                                elem.downcast::<HTMLOutputElement>().unwrap().form_owner()
+                                elem.downcast::<HTMLOutputElement<TH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLSelectElement => {
                                 elem.downcast::<HTMLSelectElement<TH>>().unwrap().form_owner()
@@ -269,7 +270,7 @@ impl<TH> HTMLFormElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#text/plain-encoding-algorithm
-    fn encode_plaintext(&self, form_data: &mut Vec<FormDatum>) -> String {
+    fn encode_plaintext(&self, form_data: &mut Vec<FormDatum<TH>>) -> String {
         // Step 1
         let mut result = String::new();
 
@@ -292,7 +293,7 @@ impl<TH> HTMLFormElement<TH> {
     }
 
     /// [Form submission](https://html.spec.whatwg.org/multipage/#concept-form-submit)
-    pub fn submit(&self, submit_method_flag: SubmittedFrom, submitter: FormSubmitter) {
+    pub fn submit(&self, submit_method_flag: SubmittedFrom, submitter: FormSubmitter<TH>) {
         // Step 1
         let doc = document_from_node(self);
         let base = doc.base_url();
@@ -376,7 +377,7 @@ impl<TH> HTMLFormElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#submit-mutate-action
-    fn mutate_action_url(&self, form_data: &mut Vec<FormDatum>, mut load_data: LoadData, encoding: &'static Encoding) {
+    fn mutate_action_url(&self, form_data: &mut Vec<FormDatum<TH>>, mut load_data: LoadData, encoding: &'static Encoding) {
         let charset = encoding.name();
 
         self.set_encoding_override(load_data.url.as_mut_url().query_pairs_mut())
@@ -388,7 +389,7 @@ impl<TH> HTMLFormElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#submit-body
-    fn submit_entity_body(&self, form_data: &mut Vec<FormDatum>, mut load_data: LoadData,
+    fn submit_entity_body(&self, form_data: &mut Vec<FormDatum<TH>>, mut load_data: LoadData,
                           enctype: FormEncType, encoding: &'static Encoding) {
         let boundary = generate_boundary();
         let bytes = match enctype {
@@ -471,7 +472,7 @@ impl<TH> HTMLFormElement<TH> {
 
     /// Statitically validate the constraints of form elements
     /// <https://html.spec.whatwg.org/multipage/#statically-validate-the-constraints>
-    fn static_validation(&self) -> Result<(), Vec<FormSubmittableElement>> {
+    fn static_validation(&self) -> Result<(), Vec<FormSubmittableElement<TH>>> {
         let node = self.upcast::<Node<TH>>();
         // FIXME(#3553): This is an incorrect way of getting controls owned by the
         //               form, refactor this when html5ever's form owner PR lands
@@ -496,7 +497,7 @@ impl<TH> HTMLFormElement<TH> {
             } else {
                 None
             }
-        }).collect::<Vec<FormSubmittableElement>>();
+        }).collect::<Vec<FormSubmittableElement<TH>>>();
         // Step 4
         if invalid_controls.is_empty() { return Ok(()); }
         // Step 5-6
@@ -505,14 +506,14 @@ impl<TH> HTMLFormElement<TH> {
                 .fire_cancelable_event(atom!("invalid"));
             if !event.DefaultPrevented() { return Some(field); }
             None
-        }).collect::<Vec<FormSubmittableElement>>();
+        }).collect::<Vec<FormSubmittableElement<TH>>>();
         // Step 7
         Err(unhandled_invalid_controls)
     }
 
     /// <https://html.spec.whatwg.org/multipage/#constructing-the-form-data-set>
     /// Steps range from 1 to 3
-    fn get_unclean_dataset(&self, submitter: Option<FormSubmitter>) -> Vec<FormDatum> {
+    fn get_unclean_dataset(&self, submitter: Option<FormSubmitter<TH>>) -> Vec<FormDatum<TH>> {
         let controls = self.controls.borrow();
         let mut data_set = Vec::new();
         for child in controls.iter() {
@@ -569,7 +570,7 @@ impl<TH> HTMLFormElement<TH> {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#constructing-the-form-data-set>
-    pub fn get_form_dataset(&self, submitter: Option<FormSubmitter>) -> Vec<FormDatum> {
+    pub fn get_form_dataset(&self, submitter: Option<FormSubmitter<TH>>) -> Vec<FormDatum<TH>> {
         fn clean_crlf(s: &str) -> DOMString {
             // Step 4
             let mut buf = "".to_owned();
@@ -662,7 +663,7 @@ impl<TH> HTMLFormElement<TH> {
         self.marked_for_reset.set(false);
     }
 
-    fn add_control<T: ?Sized + FormControl>(&self, control: &T) {
+    fn add_control<T: ?Sized + FormControl<TH>>(&self, control: &T) {
         let root = self.upcast::<Element<TH>>().root_element();
         let root = root.r().upcast::<Node<TH>>();
 
@@ -670,7 +671,7 @@ impl<TH> HTMLFormElement<TH> {
         controls.insert_pre_order(control.to_element(), root);
     }
 
-    fn remove_control<T: ?Sized + FormControl>(&self, control: &T) {
+    fn remove_control<T: ?Sized + FormControl<TH>>(&self, control: &T) {
         let control = control.to_element();
         let mut controls = self.controls.borrow_mut();
         controls.iter().position(|c| c.r() == control)
@@ -679,20 +680,20 @@ impl<TH> HTMLFormElement<TH> {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum FormDatumValue {
+pub enum FormDatumValue<TH: TypeHolderTrait> {
     #[allow(dead_code)]
     File(DomRoot<File<TH>>),
     String(DOMString)
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub struct FormDatum {
+pub struct FormDatum<TH: TypeHolderTrait> {
     pub ty: DOMString,
     pub name: DOMString,
-    pub value: FormDatumValue
+    pub value: FormDatumValue<TH>
 }
 
-impl FormDatum {
+impl<TH> FormDatum<TH> {
     pub fn replace_value(&self, charset: &str) -> String {
         if self.name == "_charset_" && self.ty == "hidden" {
             return charset.to_string();
@@ -721,7 +722,7 @@ pub enum FormMethod {
 
 #[derive(MallocSizeOf)]
 #[allow(dead_code)]
-pub enum FormSubmittableElement {
+pub enum FormSubmittableElement<TH: TypeHolderTrait> {
     ButtonElement(DomRoot<HTMLButtonElement<TH>>),
     InputElement(DomRoot<HTMLInputElement<TH>>),
     // TODO: HTMLKeygenElement unimplemented
@@ -731,7 +732,7 @@ pub enum FormSubmittableElement {
     TextAreaElement(DomRoot<HTMLTextAreaElement<TH>>),
 }
 
-impl FormSubmittableElement {
+impl<TH> FormSubmittableElement<TH> {
     fn as_event_target(&self) -> &EventTarget<TH> {
         match *self {
             FormSubmittableElement::ButtonElement(ref button) => button.upcast(),
@@ -742,7 +743,7 @@ impl FormSubmittableElement {
         }
     }
 
-    fn from_element(element: &Element<TH>) -> FormSubmittableElement {
+    fn from_element(element: &Element<TH>) -> FormSubmittableElement<TH> {
         if let Some(input) = element.downcast::<HTMLInputElement<TH>>() {
             FormSubmittableElement::InputElement(DomRoot::from_ref(&input))
         }
@@ -764,14 +765,14 @@ impl FormSubmittableElement {
 }
 
 #[derive(Clone, Copy, MallocSizeOf)]
-pub enum FormSubmitter<'a> {
-    FormElement(&'a HTMLFormElement),
-    InputElement(&'a HTMLInputElement),
-    ButtonElement(&'a HTMLButtonElement)
+pub enum FormSubmitter<'a, TH: TypeHolderTrait> {
+    FormElement(&'a HTMLFormElement<TH>),
+    InputElement(&'a HTMLInputElement<TH>),
+    ButtonElement(&'a HTMLButtonElement<TH>)
     // TODO: image submit, etc etc
 }
 
-impl<'a> FormSubmitter<'a> {
+impl<'a, TH> FormSubmitter<'a, TH> {
     fn action(&self) -> DOMString {
         match *self {
             FormSubmitter::FormElement(form) => form.Action(),
@@ -928,7 +929,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
     }
 
     // https://html.spec.whatwg.org/multipage/#association-of-controls-and-forms
-    fn form_attribute_mutated(&self, mutation: AttributeMutation) {
+    fn form_attribute_mutated(&self, mutation: AttributeMutation<TH>) {
         match mutation {
             AttributeMutation::Set(_) => {
                 self.register_if_necessary();
@@ -1035,9 +1036,9 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
     // fn satisfies_constraints(&self) -> bool;
 }
 
-impl<TH> VirtualMethods for HTMLFormElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLFormElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -1047,7 +1048,7 @@ impl<TH> VirtualMethods for HTMLFormElement<TH> {
         }
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         // Collect the controls to reset because reset_form_owner
@@ -1069,7 +1070,7 @@ pub trait FormControlElementHelpers<TH: TypeHolderTrait> {
     fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH>>;
 }
 
-impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element {
+impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element<TH> {
     fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH>> {
         let node = self.upcast::<Node<TH>>();
 
@@ -1096,7 +1097,7 @@ impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element {
                 Some(self.downcast::<HTMLObjectElement>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLOutputElement)) => {
-                Some(self.downcast::<HTMLOutputElement>().unwrap() as &FormControl<TH>)
+                Some(self.downcast::<HTMLOutputElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLSelectElement)) => {
                 Some(self.downcast::<HTMLSelectElement<TH>>().unwrap() as &FormControl<TH>)
@@ -1112,7 +1113,7 @@ impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element {
 }
 
 // https://html.spec.whatwg.org/multipage/#multipart/form-data-encoding-algorithm
-pub fn encode_multipart_form_data(form_data: &mut Vec<FormDatum>,
+pub fn encode_multipart_form_data<TH: TypeHolderTrait>(form_data: &mut Vec<FormDatum<TH>>,
                                   boundary: String, encoding: &'static Encoding) -> Vec<u8> {
     // Step 1
     let mut result = vec![];

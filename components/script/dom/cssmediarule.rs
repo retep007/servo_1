@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSMediaRule<TH: TypeHolderTrait> {
-    cssconditionrule: CSSConditionRule,
+    cssconditionrule: CSSConditionRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     mediarule: Arc<Locked<MediaRule>>,
     medialist: MutNullableDom<MediaList<TH>>,
@@ -107,7 +107,7 @@ impl<TH> SpecificCSSRule for CSSMediaRule<TH> {
     }
 }
 
-impl CSSMediaRuleMethods for CSSMediaRule {
+impl<TH: TypeHolderTrait> CSSMediaRuleMethods<TH> for CSSMediaRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssgroupingrule-media
     fn Media(&self) -> DomRoot<MediaList<TH>> {
         self.medialist()

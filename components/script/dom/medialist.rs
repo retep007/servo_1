@@ -20,6 +20,7 @@ use style::shared_lock::{SharedRwLock, Locked};
 use style::stylesheets::CssRuleType;
 use style_traits::{ParsingMode, ToCss};
 use typeholder::TypeHolderTrait;
+
 #[dom_struct]
 pub struct MediaList<TH: TypeHolderTrait> {
     reflector_: Reflector,

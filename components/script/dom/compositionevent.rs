@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CompositionEvent<TH: TypeHolderTrait> {
-    uievent: UIEvent,
+    uievent: UIEvent<TH>,
     data: DOMString,
 }
 

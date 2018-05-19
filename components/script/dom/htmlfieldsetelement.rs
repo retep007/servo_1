@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLFieldSetElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
@@ -50,13 +50,13 @@ impl<TH> HTMLFieldSetElement<TH> {
     }
 }
 
-impl<TH> HTMLFieldSetElementMethods for HTMLFieldSetElement<TH> {
+impl<TH> HTMLFieldSetElementMethods<TH> for HTMLFieldSetElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-fieldset-elements
     fn Elements(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct ElementsFilter<TH>;
         impl<TH> CollectionFilter for ElementsFilter<TH> {
-            fn filter<'a>(&self, elem: &'a Element, _root: &'a Node) -> bool {
+            fn filter<'a>(&self, elem: &'a Element<TH>, _root: &'a Node<TH>) -> bool {
                 elem.downcast::<HTMLElement<TH>>()
                     .map_or(false, HTMLElement::is_listed_element)
             }
@@ -84,12 +84,12 @@ impl<TH> HTMLFieldSetElementMethods for HTMLFieldSetElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods for HTMLFieldSetElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLFieldSetElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
@@ -159,7 +159,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLFieldSetElement<TH> {
     }
 }
 
-impl<TH> FormControl for HTMLFieldSetElement<TH> {
+impl<TH> FormControl<TH> for HTMLFieldSetElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -168,7 +168,7 @@ impl<TH> FormControl for HTMLFieldSetElement<TH> {
         self.form_owner.set(form);
     }
 
-    fn to_element<'a>(&'a self) -> &'a Element {
+    fn to_element<'a>(&'a self) -> &'a Element<TH> {
         self.upcast::<Element<TH>>()
     }
 }

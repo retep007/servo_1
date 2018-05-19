@@ -86,7 +86,7 @@ impl<TH: TypeHolderTrait> WebGLShader<TH> {
 }
 
 
-impl WebGLShader {
+impl<TH> WebGLShader<TH> {
     pub fn id(&self) -> WebGLShaderId {
         self.id
     }
@@ -100,7 +100,7 @@ impl WebGLShader {
         &self,
         webgl_version: WebGLVersion,
         glsl_version: WebGLSLVersion,
-        ext: &WebGLExtensions,
+        ext: &WebGLExtensions<TH>,
     ) -> WebGLResult<()> {
         if self.is_deleted.get() && !self.is_attached() {
             return Err(WebGLError::InvalidValue);

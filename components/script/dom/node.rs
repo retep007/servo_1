@@ -96,7 +96,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct Node<TH: TypeHolderTrait> {
     /// The JavaScript reflector for this node.
-    eventtarget: EventTarget,
+    eventtarget: EventTarget<TH>,
 
     /// The parent of this node.
     parent_node: MutNullableDom<Node<TH>>,
@@ -132,7 +132,7 @@ pub struct Node<TH: TypeHolderTrait> {
     /// or end containers are this node. No range should ever be found
     /// twice in this vector, even if both the start and end containers
     /// are this node.
-    ranges: WeakRangeVec,
+    ranges: WeakRangeVec<TH>,
 
     /// Style+Layout information. Only the layout thread may touch this data.
     ///
@@ -141,7 +141,7 @@ pub struct Node<TH: TypeHolderTrait> {
     style_and_layout_data: Cell<Option<OpaqueStyleAndLayoutData>>,
 
     /// Registered observers for this node.
-    mutation_observers: DomRefCell<Vec<RegisteredObserver>>,
+    mutation_observers: DomRefCell<Vec<RegisteredObserver<TH>>>,
 
     unique_id: UniqueId,
 }
@@ -332,11 +332,11 @@ impl<TH> Node<TH> {
 
 pub struct QuerySelectorIterator<TH: TypeHolderTrait> {
     selectors: SelectorList<SelectorImpl>,
-    iterator: TreeIterator,
+    iterator: TreeIterator<TH>,
 }
 
 impl<'a, TH> QuerySelectorIterator<TH> {
-     fn new(iter: TreeIterator, selectors: SelectorList<SelectorImpl>)
+     fn new(iter: TreeIterator<TH>, selectors: SelectorList<SelectorImpl>)
                   -> QuerySelectorIterator<TH> {
         QuerySelectorIterator {
             selectors: selectors,
@@ -389,7 +389,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     /// Return all registered mutation observers for this node.
-    pub fn registered_mutation_observers(&self) -> RefMut<Vec<RegisteredObserver>> {
+    pub fn registered_mutation_observers(&self) -> RefMut<Vec<RegisteredObserver<TH>>> {
          self.mutation_observers.borrow_mut()
     }
 
@@ -456,7 +456,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
         self.children_count.get()
     }
 
-    pub fn ranges(&self) -> &WeakRangeVec {
+    pub fn ranges(&self) -> &WeakRangeVec<TH> {
         &self.ranges
     }
 
@@ -572,14 +572,14 @@ impl<TH: TypeHolderTrait> Node<TH> {
         }
     }
 
-    pub fn following_nodes(&self, root: &Node<TH>) -> FollowingNodeIterator {
+    pub fn following_nodes(&self, root: &Node<TH>) -> FollowingNodeIterator<TH> {
         FollowingNodeIterator {
             current: Some(DomRoot::from_ref(self)),
             root: DomRoot::from_ref(root),
         }
     }
 
-    pub fn preceding_nodes(&self, root: &Node<TH>) -> PrecedingNodeIterator {
+    pub fn preceding_nodes(&self, root: &Node<TH>) -> PrecedingNodeIterator<TH> {
         PrecedingNodeIterator {
             current: Some(DomRoot::from_ref(self)),
             root: DomRoot::from_ref(root),
@@ -659,7 +659,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
-    pub fn before(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    pub fn before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let parent = &self.parent_node;
 
@@ -688,7 +688,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
-    pub fn after(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    pub fn after(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let parent = &self.parent_node;
 
@@ -711,7 +711,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
-    pub fn replace_with(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    pub fn replace_with(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let parent = if let Some(parent) = self.GetParentNode() {
             parent
@@ -734,7 +734,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
-    pub fn prepend(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    pub fn prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let doc = self.owner_doc();
         let node = doc.node_from_nodes_and_strings(nodes)?;
@@ -744,7 +744,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
-    pub fn append(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    pub fn append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let doc = self.owner_doc();
         let node = doc.node_from_nodes_and_strings(nodes)?;
@@ -1170,12 +1170,12 @@ impl<TH: TypeHolderTrait> LayoutNodeHelpers<TH> for LayoutDom<Node<TH>> {
     }
 
     fn canvas_data(&self) -> Option<HTMLCanvasData> {
-        self.downcast::<HTMLCanvasElement>()
+        self.downcast::<HTMLCanvasElement<TH>>()
             .map(|canvas| canvas.data())
     }
 
     fn svg_data(&self) -> Option<SVGSVGData> {
-        self.downcast::<SVGSVGElement>()
+        self.downcast::<SVGSVGElement<TH>>()
             .map(|svg| svg.data())
     }
 
@@ -1683,7 +1683,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
                 ref_slice(node)
             }
         } else {
-            &[] as &[&Node]
+            &[] as &[&Node<TH>]
         };
         // Step 4.
         for child in removed_nodes.r() {
@@ -1949,7 +1949,7 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
             }
             NodeTypeId::CharacterData(CharacterDataTypeId::Text) => DOMString::from("#text"),
             NodeTypeId::CharacterData(CharacterDataTypeId::ProcessingInstruction) => {
-                self.downcast::<ProcessingInstruction>().unwrap().Target()
+                self.downcast::<ProcessingInstruction<TH>>().unwrap().Target()
             }
             NodeTypeId::CharacterData(CharacterDataTypeId::Comment) => DOMString::from("#comment"),
             NodeTypeId::DocumentType => {
@@ -2292,8 +2292,8 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
             (element.attrs().len() == other_element.attrs().len())
         }
         fn is_equal_processinginstruction<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
-            let pi = node.downcast::<ProcessingInstruction>().unwrap();
-            let other_pi = other.downcast::<ProcessingInstruction>().unwrap();
+            let pi = node.downcast::<ProcessingInstruction<TH>>().unwrap();
+            let other_pi = other.downcast::<ProcessingInstruction<TH>>().unwrap();
             (*pi.target() == *other_pi.target()) &&
             (*pi.upcast::<CharacterData<TH>>().data() == *other_pi.upcast::<CharacterData<TH>>().data())
         }
@@ -2498,9 +2498,9 @@ pub fn window_from_node<TH: TypeHolderTrait, T: DerivedFrom<Node<TH>> + DomObjec
     DomRoot::from_ref(document.window())
 }
 
-impl<TH> VirtualMethods for Node<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<EventTarget<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for Node<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<EventTarget<TH>>() as &VirtualMethods<TH>)
     }
 
     fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
@@ -2515,7 +2515,7 @@ impl<TH> VirtualMethods for Node<TH> {
 
     // This handles the ranges mentioned in steps 2-3 when removing a node.
     // https://dom.spec.whatwg.org/#concept-node-remove
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         self.super_type().unwrap().unbind_from_tree(context);
         self.ranges.drain_to_parent(context, self);
     }
@@ -2531,8 +2531,8 @@ pub enum NodeDamage {
 }
 
 pub enum ChildrenMutation<'a, TH: TypeHolderTrait> {
-    Append { prev: &'a Node, added: &'a [&'a Node<TH>] },
-    Insert { prev: &'a Node, added: &'a [&'a Node<TH>], next: &'a Node<TH> },
+    Append { prev: &'a Node<TH>, added: &'a [&'a Node<TH>] },
+    Insert { prev: &'a Node<TH>, added: &'a [&'a Node<TH>], next: &'a Node<TH> },
     Prepend { added: &'a [&'a Node<TH>], next: &'a Node<TH> },
     Replace {
         prev: Option<&'a Node<TH>>,
@@ -2549,8 +2549,8 @@ pub enum ChildrenMutation<'a, TH: TypeHolderTrait> {
 }
 
 impl<'a, TH: TypeHolderTrait> ChildrenMutation<'a, TH> {
-    fn insert(prev: Option<&'a Node<TH>>, added: &'a [&'a Node], next: Option<&'a Node<TH>>)
-              -> ChildrenMutation<'a> {
+    fn insert(prev: Option<&'a Node<TH>>, added: &'a [&'a Node<TH>], next: Option<&'a Node<TH>>)
+              -> ChildrenMutation<'a, TH> {
         match (prev, next) {
             (None, None) => {
                 ChildrenMutation::ReplaceAll { removed: &[], added: added }
@@ -2569,9 +2569,9 @@ impl<'a, TH: TypeHolderTrait> ChildrenMutation<'a, TH> {
 
     fn replace(prev: Option<&'a Node<TH>>,
                removed: &'a Option<&'a Node<TH>>,
-               added: &'a [&'a Node],
+               added: &'a [&'a Node<TH>],
                next: Option<&'a Node<TH>>)
-               -> ChildrenMutation<'a> {
+               -> ChildrenMutation<'a, TH> {
         if let Some(ref removed) = *removed {
             if let (None, None) = (prev, next) {
                 ChildrenMutation::ReplaceAll {
@@ -2591,8 +2591,8 @@ impl<'a, TH: TypeHolderTrait> ChildrenMutation<'a, TH> {
         }
     }
 
-    fn replace_all(removed: &'a [&'a Node], added: &'a [&'a Node])
-                   -> ChildrenMutation<'a> {
+    fn replace_all(removed: &'a [&'a Node<TH>], added: &'a [&'a Node<TH>])
+                   -> ChildrenMutation<'a, TH> {
         ChildrenMutation::ReplaceAll { removed: removed, added: added }
     }
 
@@ -2652,20 +2652,20 @@ impl<'a, TH: TypeHolderTrait> ChildrenMutation<'a, TH> {
 
 /// The context of the unbinding from a tree of a node when one of its
 /// inclusive ancestors is removed.
-pub struct UnbindContext<'a> {
+pub struct UnbindContext<'a, TH: TypeHolderTrait> {
     /// The index of the inclusive ancestor that was removed.
     index: Cell<Option<u32>>,
     /// The parent of the inclusive ancestor that was removed.
-    pub parent: &'a Node,
+    pub parent: &'a Node<TH>,
     /// The previous sibling of the inclusive ancestor that was removed.
     prev_sibling: Option<&'a Node<TH>>,
     /// Whether the tree is in a document.
     pub tree_in_doc: bool,
 }
 
-impl<'a> UnbindContext<'a> {
+impl<'a, TH> UnbindContext<'a, TH> {
     /// Create a new `UnbindContext` value.
-    fn new(parent: &'a Node,
+    fn new(parent: &'a Node<TH>,
            prev_sibling: Option<&'a Node<TH>>,
            cached_index: Option<u32>) -> Self {
         UnbindContext {
@@ -2777,11 +2777,11 @@ impl Into<LayoutElementType> for ElementTypeId {
 
 /// Helper trait to insert an element into vector whose elements
 /// are maintained in tree order
-pub trait VecPreOrderInsertionHelper<T> {
+pub trait VecPreOrderInsertionHelper<T, TH: TypeHolderTrait> {
     fn insert_pre_order(&mut self, elem: &T, tree_root: &Node<TH>);
 }
 
-impl<T, TH: TypeHolderTrait> VecPreOrderInsertionHelper<T> for Vec<Dom<T>>
+impl<T, TH: TypeHolderTrait> VecPreOrderInsertionHelper<T, TH> for Vec<Dom<T>>
     where T: DerivedFrom<Node<TH>> + DomObject
 {
     /// This algorithm relies on the following assumptions:

@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct InputEvent<TH: TypeHolderTrait> {
-    uievent: UIEvent,
+    uievent: UIEvent<TH>,
     data: Option<DOMString>,
     is_composing: bool,
 }

@@ -18,19 +18,20 @@ use dom::globalscope::GlobalScope;
 use dom::promise::Promise;
 use dom_struct::dom_struct;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattservice
 #[dom_struct]
-pub struct BluetoothRemoteGATTService {
-    eventtarget: EventTarget,
-    device: Dom<BluetoothDevice>,
+pub struct BluetoothRemoteGATTService<TH: TypeHolderTrait> {
+    eventtarget: EventTarget<TH>,
+    device: Dom<BluetoothDevice<TH>>,
     uuid: DOMString,
     is_primary: bool,
     instance_id: String,
 }
 
-impl BluetoothRemoteGATTService {
-    pub fn new_inherited(device: &BluetoothDevice,
+impl<TH> BluetoothRemoteGATTService<TH> {
+    pub fn new_inherited(device: &BluetoothDevice<TH>,
                          uuid: DOMString,
                          is_primary: bool,
                          instance_id: String)
@@ -45,7 +46,7 @@ impl BluetoothRemoteGATTService {
     }
 
     pub fn new(global: &GlobalScope<TH>,
-               device: &BluetoothDevice,
+               device: &BluetoothDevice<TH>,
                uuid: DOMString,
                isPrimary: bool,
                instanceID: String)
@@ -64,9 +65,9 @@ impl BluetoothRemoteGATTService {
     }
 }
 
-impl BluetoothRemoteGATTServiceMethods for BluetoothRemoteGATTService {
+impl<TH> BluetoothRemoteGATTServiceMethods for BluetoothRemoteGATTService<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattservice-device
-    fn Device(&self) -> DomRoot<BluetoothDevice> {
+    fn Device(&self) -> DomRoot<BluetoothDevice<TH>> {
         DomRoot::from_ref(&self.device)
     }
 
@@ -127,8 +128,8 @@ impl BluetoothRemoteGATTServiceMethods for BluetoothRemoteGATTService {
     event_handler!(serviceremoved, GetOnserviceremoved, SetOnserviceremoved);
 }
 
-impl AsyncBluetoothListener for BluetoothRemoteGATTService {
-    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
+impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTService<TH> {
+    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         let device = self.Device();
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#getgattchildren

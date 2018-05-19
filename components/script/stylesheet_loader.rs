@@ -57,7 +57,7 @@ pub trait StylesheetOwner {
     fn set_origin_clean(&self, origin_clean: bool);
 }
 
-pub enum StylesheetContextSource {
+pub enum StylesheetContextSource<TH: TypeHolderTrait> {
     // NB: `media` is just an option so we avoid cloning it.
     LinkElement { media: Option<MediaList<TH>>, },
     Import(Arc<Stylesheet>),
@@ -67,7 +67,7 @@ pub enum StylesheetContextSource {
 pub struct StylesheetContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
     elem: Trusted<HTMLElement<TH>>,
-    source: StylesheetContextSource,
+    source: StylesheetContextSource<TH>,
     url: ServoUrl,
     metadata: Option<Metadata>,
     /// The response body received to date.
@@ -196,7 +196,7 @@ impl<TH> FetchResponseListener for StylesheetContext<TH> {
 }
 
 pub struct StylesheetLoader<'a, TH: TypeHolderTrait> {
-    elem: &'a HTMLElement,
+    elem: &'a HTMLElement<TH>,
 }
 
 impl<'a, TH: TypeHolderTrait> StylesheetLoader<'a, TH> {
@@ -207,8 +207,8 @@ impl<'a, TH: TypeHolderTrait> StylesheetLoader<'a, TH> {
     }
 }
 
-impl<'a> StylesheetLoader<'a> {
-    pub fn load(&self, source: StylesheetContextSource, url: ServoUrl,
+impl<'a, TH: TypeHolderTrait> StylesheetLoader<'a, TH> {
+    pub fn load(&self, source: StylesheetContextSource<TH>, url: ServoUrl,
                 cors_setting: Option<CorsSettings>,
                 integrity_metadata: String) {
         let document = document_from_node(self.elem);
@@ -272,14 +272,14 @@ impl<'a> StylesheetLoader<'a> {
     }
 }
 
-impl<'a> StyleStylesheetLoader for StylesheetLoader<'a> {
+impl<'a, TH: TypeHolderTrait> StyleStylesheetLoader for StylesheetLoader<'a, TH> {
     /// Request a stylesheet after parsing a given `@import` rule, and return
     /// the constructed `@import` rule.
     fn request_stylesheet(
         &self,
         url: CssUrl,
         source_location: SourceLocation,
-        context: &ParserContext,
+        context: &ParserContext<TH>,
         lock: &SharedRwLock,
         media: Arc<Locked<MediaList<TH>>>,
     ) -> Arc<Locked<ImportRule>> {

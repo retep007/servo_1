@@ -16,9 +16,10 @@ use std::default::Default;
 use std::ptr;
 use std::ptr::NonNull;
 use webvr_traits::WebVREyeParameters;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VREyeParameters {
+pub struct VREyeParameters<TH: TypeHolderTrait> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     parameters: DomRefCell<WebVREyeParameters>,
@@ -28,8 +29,8 @@ pub struct VREyeParameters {
 
 unsafe_no_jsmanaged_fields!(WebVREyeParameters);
 
-impl VREyeParameters {
-    fn new_inherited(parameters: WebVREyeParameters, fov: &VRFieldOfView) -> VREyeParameters {
+impl<TH> VREyeParameters<TH> {
+    fn new_inherited(parameters: WebVREyeParameters, fov: &VRFieldOfView) -> VREyeParameters<TH> {
         VREyeParameters {
             reflector_: Reflector::new(),
             parameters: DomRefCell::new(parameters),
@@ -39,7 +40,7 @@ impl VREyeParameters {
     }
 
     #[allow(unsafe_code)]
-    pub fn new(parameters: WebVREyeParameters, global: &GlobalScope<TH>) -> DomRoot<VREyeParameters> {
+    pub fn new(parameters: WebVREyeParameters, global: &GlobalScope<TH>) -> DomRoot<VREyeParameters<TH>> {
         let fov = VRFieldOfView::new(&global, parameters.field_of_view.clone());
 
         let cx = global.get_cx();
@@ -57,7 +58,7 @@ impl VREyeParameters {
     }
 }
 
-impl VREyeParametersMethods for VREyeParameters {
+impl<TH> VREyeParametersMethods for VREyeParameters<TH> {
     #[allow(unsafe_code)]
     // https://w3c.github.io/webvr/#dom-vreyeparameters-offset
     unsafe fn Offset(&self, _cx: *mut JSContext) -> NonNull<JSObject> {

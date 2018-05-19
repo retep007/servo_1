@@ -29,7 +29,7 @@ use typeholder::TypeHolderTrait;
 // https://dom.spec.whatwg.org/#characterdata
 #[dom_struct]
 pub struct CharacterData<TH: TypeHolderTrait> {
-    node: Node,
+    node: Node<TH>,
     data: DomRefCell<DOMString>,
 }
 
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> CharacterData<TH> {
                 DomRoot::upcast(Comment::new(data, &document))
             }
             NodeTypeId::CharacterData(CharacterDataTypeId::ProcessingInstruction) => {
-                let pi = self.downcast::<ProcessingInstruction>().unwrap();
+                let pi = self.downcast::<ProcessingInstruction<TH>>().unwrap();
                 DomRoot::upcast(ProcessingInstruction::new(pi.Target(), data, &document))
             },
             NodeTypeId::CharacterData(CharacterDataTypeId::Text) => {
@@ -84,7 +84,7 @@ impl<TH: TypeHolderTrait> CharacterData<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CharacterDataMethods for CharacterData<TH> {
+impl<TH: TypeHolderTrait> CharacterDataMethods<TH> for CharacterData<TH> {
     // https://dom.spec.whatwg.org/#dom-characterdata-data
     fn Data(&self) -> DOMString {
         self.data.borrow().clone()
@@ -217,17 +217,17 @@ impl<TH: TypeHolderTrait> CharacterDataMethods for CharacterData<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
-    fn Before(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    fn Before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().before(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
-    fn After(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    fn After(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().after(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
-    fn ReplaceWith(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    fn ReplaceWith(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().replace_with(nodes)
     }
 
@@ -254,7 +254,7 @@ pub trait LayoutCharacterDataHelpers {
 }
 
 #[allow(unsafe_code)]
-impl LayoutCharacterDataHelpers for LayoutDom<CharacterData<TH>> {
+impl<TH> LayoutCharacterDataHelpers for LayoutDom<CharacterData<TH>> {
     #[inline]
     unsafe fn data_for_layout(&self) -> &str {
         &(*self.unsafe_get()).data.borrow_for_layout()

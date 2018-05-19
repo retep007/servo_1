@@ -27,7 +27,7 @@ pub type TrustedServiceWorkerAddress<TH> = Trusted<ServiceWorker<TH>>;
 
 #[dom_struct]
 pub struct ServiceWorker<TH: TypeHolderTrait> {
-    eventtarget: EventTarget,
+    eventtarget: EventTarget<TH>,
     script_url: DomRefCell<String>,
     scope_url: ServoUrl,
     state: Cell<ServiceWorkerState>,
@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> ServiceWorker<TH> {
         )
     }
 
-    pub fn dispatch_simple_error(address: TrustedServiceWorkerAddress) {
+    pub fn dispatch_simple_error(address: TrustedServiceWorkerAddress<TH>) {
         let service_worker = address.root();
         service_worker.upcast().fire_event(atom!("error"));
     }

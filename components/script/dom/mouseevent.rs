@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct MouseEvent<TH: TypeHolderTrait> {
-    uievent: UIEvent,
+    uievent: UIEvent<TH>,
     screen_x: Cell<i32>,
     screen_y: Cell<i32>,
     client_x: Cell<i32>,

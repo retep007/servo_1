@@ -9,13 +9,14 @@ use dom::htmltablecellelement::HTMLTableCellElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTableHeaderCellElement {
-    htmltablecellelement: HTMLTableCellElement,
+pub struct HTMLTableHeaderCellElement<TH: TypeHolderTrait> {
+    htmltablecellelement: HTMLTableCellElement<TH>,
 }
 
-impl HTMLTableHeaderCellElement {
+impl<TH> HTMLTableHeaderCellElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLTableHeaderCellElement {

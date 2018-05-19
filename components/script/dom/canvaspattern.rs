@@ -10,10 +10,11 @@ use dom::canvasgradient::ToFillOrStrokeStyle;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use euclid::Size2D;
+use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#canvaspattern
 #[dom_struct]
-pub struct CanvasPattern {
+pub struct CanvasPattern<TH: TypeHolderTrait> {
     reflector_: Reflector,
     surface_data: Vec<u8>,
     surface_size: Size2D<i32>,
@@ -22,7 +23,7 @@ pub struct CanvasPattern {
     origin_clean: bool,
 }
 
-impl CanvasPattern {
+impl<TH> CanvasPattern<TH> {
     fn new_inherited(surface_data: Vec<u8>,
                      surface_size: Size2D<i32>,
                      repeat: RepetitionStyle,
@@ -63,7 +64,7 @@ impl CanvasPattern {
     }
 }
 
-impl<'a> ToFillOrStrokeStyle for &'a CanvasPattern {
+impl<'a, TH> ToFillOrStrokeStyle for &'a CanvasPattern<TH> {
     fn to_fill_or_stroke_style(self) -> FillOrStrokeStyle {
         FillOrStrokeStyle::Surface(SurfaceStyle::new(self.surface_data.clone(),
                                                      self.surface_size,

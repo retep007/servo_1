@@ -9,14 +9,15 @@ use dom::htmlelement::HTMLElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLEmbedElement {
+pub struct HTMLEmbedElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement
 }
 
-impl HTMLEmbedElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLEmbedElement {
+impl<TH> HTMLEmbedElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLEmbedElement<TH> {
         HTMLEmbedElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -25,7 +26,7 @@ impl HTMLEmbedElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLEmbedElement> {
+               document: &Document<TH>) -> DomRoot<HTMLEmbedElement<TH>> {
         Node::reflect_node(Box::new(HTMLEmbedElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLEmbedElementBinding::Wrap)

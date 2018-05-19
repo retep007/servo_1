@@ -8,15 +8,16 @@ use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom::workerglobalscope::WorkerGlobalScope;
 use std::io;
+use typeholder::TypeHolderTrait;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Console
-pub struct Console(());
+pub struct Console<TH: TypeHolderTrait>(());
 
-impl Console {
+impl<TH> Console<TH> {
     fn send_to_devtools(global: &GlobalScope<TH>, level: LogLevel, message: DOMString) {
         if let Some(chan) = global.devtools_chan() {
             let console_message = prepare_message(level, message);
-            let worker_id = global.downcast::<WorkerGlobalScope>().map(|worker| {
+            let worker_id = global.downcast::<WorkerGlobalScope<TH>>().map(|worker| {
                 worker.get_worker_id()
             });
             let devtools_message = ScriptToDevtoolsControlMsg::ConsoleAPI(
@@ -39,7 +40,7 @@ fn with_stderr_lock<F>(f: F) where F: FnOnce() {
     f()
 }
 
-impl Console {
+impl<TH> Console<TH> {
     // https://developer.mozilla.org/en-US/docs/Web/API/Console/log
     pub fn Log(global: &GlobalScope<TH>, messages: Vec<DOMString>) {
         with_stderr_lock(move || {

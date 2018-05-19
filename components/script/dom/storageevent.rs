@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct StorageEvent<TH: TypeHolderTrait> {
-    event: Event,
+    event: Event<TH>,
     key: Option<DOMString>,
     old_value: Option<DOMString>,
     new_value: Option<DOMString>,

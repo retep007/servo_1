@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TransitionEvent<TH: TypeHolderTrait> {
-    event: Event,
+    event: Event<TH>,
     property_name: Atom,
     elapsed_time: Finite<f32>,
     pseudo_element: DOMString,

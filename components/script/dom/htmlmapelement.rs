@@ -36,9 +36,9 @@ impl<TH: TypeHolderTrait> HTMLMapElement<TH> {
                            HTMLMapElementBinding::Wrap)
     }
 
-    pub fn get_area_elements(&self) -> Vec<DomRoot<HTMLAreaElement>> {
+    pub fn get_area_elements(&self) -> Vec<DomRoot<HTMLAreaElement<TH>>> {
         self.upcast::<Node<TH>>()
             .traverse_preorder()
-            .filter_map(DomRoot::downcast::<HTMLAreaElement>).collect()
+            .filter_map(DomRoot::downcast::<HTMLAreaElement<TH>>).collect()
     }
 }

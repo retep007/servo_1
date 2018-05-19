@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#pagetransitionevent
 #[dom_struct]
 pub struct PageTransitionEvent<TH: TypeHolderTrait> {
-    event: Event,
+    event: Event<TH>,
     persisted: Cell<bool>,
 }
 

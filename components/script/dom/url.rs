@@ -20,20 +20,21 @@ use profile_traits::ipc;
 use servo_url::ServoUrl;
 use std::default::Default;
 use uuid::Uuid;
+use typeholder::TypeHolderTrait;
 
 // https://url.spec.whatwg.org/#url
 #[dom_struct]
-pub struct URL {
+pub struct URL<TH: TypeHolderTrait> {
     reflector_: Reflector,
 
     // https://url.spec.whatwg.org/#concept-url-url
     url: DomRefCell<ServoUrl>,
 
     // https://url.spec.whatwg.org/#dom-url-searchparams
-    search_params: MutNullableDom<URLSearchParams>,
+    search_params: MutNullableDom<URLSearchParams<TH>>,
 }
 
-impl URL {
+impl<TH> URL<TH> {
     fn new_inherited(url: ServoUrl) -> URL {
         URL {
             reflector_: Reflector::new(),
@@ -57,7 +58,7 @@ impl URL {
     }
 }
 
-impl URL {
+impl<TH> URL<TH> {
     // https://url.spec.whatwg.org/#constructors
     pub fn Constructor(global: &GlobalScope<TH>, url: USVString,
                        base: Option<USVString>)
@@ -145,7 +146,7 @@ impl URL {
     }
 }
 
-impl URLMethods for URL {
+impl<TH> URLMethods for URL<TH> {
     // https://url.spec.whatwg.org/#dom-url-hash
     fn Hash(&self) -> USVString {
         UrlHelper::Hash(&self.url.borrow())
@@ -254,7 +255,7 @@ impl URLMethods for URL {
     }
 
     // https://url.spec.whatwg.org/#dom-url-searchparams
-    fn SearchParams(&self) -> DomRoot<URLSearchParams> {
+    fn SearchParams(&self) -> DomRoot<URLSearchParams<TH>> {
         self.search_params.or_init(|| {
             URLSearchParams::new(&self.global(), Some(self))
         })

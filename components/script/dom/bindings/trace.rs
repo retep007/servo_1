@@ -664,7 +664,7 @@ unsafe impl JSTraceable for RwLock<SharedRt> {
     }
 }
 
-unsafe impl JSTraceable for StyleLocked<MediaList<TH>> {
+unsafe impl<TH> JSTraceable for StyleLocked<MediaList<TH>> {
     unsafe fn trace(&self, _trc: *mut JSTracer) {
         // Do nothing.
     }

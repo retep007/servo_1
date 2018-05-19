@@ -43,19 +43,20 @@ use std::rc::Rc;
 use std::sync::mpsc;
 use std::thread;
 use webvr_traits::{WebVRDisplayData, WebVRDisplayEvent, WebVRFrameData, WebVRLayer, WebVRMsg};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRDisplay {
-    eventtarget: EventTarget,
+pub struct VRDisplay<TH: TypeHolderTrait> {
+    eventtarget: EventTarget<TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     display: DomRefCell<WebVRDisplayData>,
     depth_near: Cell<f64>,
     depth_far: Cell<f64>,
     presenting: Cell<bool>,
-    left_eye_params: MutDom<VREyeParameters>,
-    right_eye_params: MutDom<VREyeParameters>,
+    left_eye_params: MutDom<VREyeParameters<TH>>,
+    right_eye_params: MutDom<VREyeParameters<TH>>,
     capabilities: MutDom<VRDisplayCapabilities>,
-    stage_params: MutNullableDom<VRStageParameters>,
+    stage_params: MutNullableDom<VRStageParameters<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     frame_data: DomRefCell<WebVRFrameData>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
@@ -88,8 +89,8 @@ enum VRFrameDataStatus {
 
 unsafe_no_jsmanaged_fields!(VRFrameDataStatus);
 
-impl VRDisplay {
-    fn new_inherited(global: &GlobalScope<TH>, display: WebVRDisplayData) -> VRDisplay {
+impl<TH> VRDisplay<TH> {
+    fn new_inherited(global: &GlobalScope<TH>, display: WebVRDisplayData) -> VRDisplay<TH> {
         let stage = match display.stage_parameters {
             Some(ref params) => Some(VRStageParameters::new(params.clone(), &global)),
             None => None
@@ -122,14 +123,14 @@ impl VRDisplay {
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, display: WebVRDisplayData) -> DomRoot<VRDisplay> {
+    pub fn new(global: &GlobalScope<TH>, display: WebVRDisplayData) -> DomRoot<VRDisplay<TH>> {
         reflect_dom_object(Box::new(VRDisplay::new_inherited(&global, display)),
                            global,
                            VRDisplayBinding::Wrap)
     }
 }
 
-impl Drop for VRDisplay {
+impl<TH> Drop for VRDisplay<TH> {
     fn drop(&mut self) {
         if self.presenting.get() {
             self.force_stop_present();
@@ -137,7 +138,7 @@ impl Drop for VRDisplay {
     }
 }
 
-impl VRDisplayMethods for VRDisplay {
+impl<TH> VRDisplayMethods for VRDisplay<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplay-isconnected
     fn IsConnected(&self) -> bool {
         self.display.borrow().connected
@@ -154,12 +155,12 @@ impl VRDisplayMethods for VRDisplay {
     }
 
     // https://w3c.github.io/webvr/#dom-vrdisplay-stageparameters
-    fn GetStageParameters(&self) -> Option<DomRoot<VRStageParameters>> {
+    fn GetStageParameters(&self) -> Option<DomRoot<VRStageParameters<TH>>> {
         self.stage_params.get().map(|s| DomRoot::from_ref(&*s))
     }
 
     // https://w3c.github.io/webvr/#dom-vrdisplay-geteyeparameters
-    fn GetEyeParameters(&self, eye: VREye) -> DomRoot<VREyeParameters> {
+    fn GetEyeParameters(&self, eye: VREye) -> DomRoot<VREyeParameters<TH>> {
         match eye {
             VREye::Left => DomRoot::from_ref(&*self.left_eye_params.get()),
             VREye::Right => DomRoot::from_ref(&*self.right_eye_params.get())
@@ -177,7 +178,7 @@ impl VRDisplayMethods for VRDisplay {
     }
 
     // https://w3c.github.io/webvr/#dom-vrdisplay-getframedata-framedata-framedata
-    fn GetFrameData(&self, frameData: &VRFrameData) -> bool {
+    fn GetFrameData(&self, frameData: &VRFrameData<TH>) -> bool {
         // If presenting we use a synced data with compositor for the whole frame.
         // Frame data is only synced with compositor when GetFrameData is called from
         // inside the VRDisplay.requestAnimationFrame. This is checked using the running_display_raf property.
@@ -212,7 +213,7 @@ impl VRDisplayMethods for VRDisplay {
     }
 
     // https://w3c.github.io/webvr/#dom-vrdisplay-getpose
-    fn GetPose(&self) -> DomRoot<VRPose> {
+    fn GetPose(&self) -> DomRoot<VRPose<TH>> {
         VRPose::new(&self.global(), &self.frame_data.borrow().pose)
     }
 
@@ -407,7 +408,7 @@ impl VRDisplayMethods for VRDisplay {
     }
 }
 
-impl VRDisplay {
+impl<TH> VRDisplay<TH> {
     fn webvr_thread(&self) -> IpcSender<WebVRMsg> {
         self.global().as_window().webvr_thread().expect("Shouldn't arrive here with WebVR disabled")
     }
@@ -630,7 +631,7 @@ fn parse_bounds(src: &Option<Vec<Finite<f32>>>, dst: &mut [f32; 4]) -> Result<()
     }
 }
 
-fn validate_layer(layer: &VRLayer) -> Result<(WebVRLayer, DomRoot<WebGLRenderingContext<TH>>), &'static str> {
+fn validate_layer<TH: TypeHolderTrait>(layer: &VRLayer) -> Result<(WebVRLayer, DomRoot<WebGLRenderingContext<TH>>), &'static str> {
     let ctx = layer.source.as_ref().map(|ref s| s.get_base_webgl_context()).unwrap_or(None);
     if let Some(ctx) = ctx {
         let mut data = WebVRLayer::default();

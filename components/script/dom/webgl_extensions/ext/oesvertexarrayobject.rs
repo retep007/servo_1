@@ -15,16 +15,17 @@ use js::jsapi::JSContext;
 use js::jsval::{JSVal, NullValue};
 use std::iter;
 use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct OESVertexArrayObject {
+pub struct OESVertexArrayObject<TH: TypeHolderTrait> {
     reflector_: Reflector,
     ctx: Dom<WebGLRenderingContext<TH>>,
     bound_vao: MutNullableDom<WebGLVertexArrayObjectOES>,
 }
 
-impl OESVertexArrayObject {
-    fn new_inherited(ctx: &WebGLRenderingContext<TH>) -> OESVertexArrayObject {
+impl<TH> OESVertexArrayObject<TH> {
+    fn new_inherited(ctx: &WebGLRenderingContext<TH>) -> OESVertexArrayObject<TH> {
         Self {
             reflector_: Reflector::new(),
             ctx: Dom::from_ref(ctx),
@@ -44,7 +45,7 @@ impl OESVertexArrayObject {
     }
 }
 
-impl OESVertexArrayObjectMethods for OESVertexArrayObject {
+impl<TH> OESVertexArrayObjectMethods for OESVertexArrayObject<TH> {
     // https://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/
     fn CreateVertexArrayOES(&self) -> Option<DomRoot<WebGLVertexArrayObjectOES>> {
         let (sender, receiver) = webgl_channel().unwrap();
@@ -130,9 +131,9 @@ impl OESVertexArrayObjectMethods for OESVertexArrayObject {
     }
 }
 
-impl WebGLExtension for OESVertexArrayObject {
-    type Extension = OESVertexArrayObject;
-    fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESVertexArrayObject> {
+impl<TH> WebGLExtension for OESVertexArrayObject<TH> {
+    type Extension = OESVertexArrayObject<TH>;
+    fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESVertexArrayObject<TH>> {
         reflect_dom_object(Box::new(OESVertexArrayObject::new_inherited(ctx)),
                            &*ctx.global(),
                            OESVertexArrayObjectBinding::Wrap)
@@ -142,16 +143,16 @@ impl WebGLExtension for OESVertexArrayObject {
         WebGLExtensionSpec::Specific(WebGLVersion::WebGL1)
     }
 
-    fn is_supported(ext: &WebGLExtensions) -> bool {
+    fn is_supported(ext: &WebGLExtensions<TH>) -> bool {
         ext.supports_any_gl_extension(&["GL_OES_vertex_array_object",
                                         "GL_ARB_vertex_array_object",
                                         "GL_APPLE_vertex_array_object"])
     }
 
-    fn enable(ext: &WebGLExtensions) {
+    fn enable(ext: &WebGLExtensions<TH>) {
         let query = OESVertexArrayObjectConstants::VERTEX_ARRAY_BINDING_OES;
         ext.add_query_parameter_handler(query, Box::new(|cx, webgl_ctx| {
-            match webgl_ctx.get_extension_manager().get_dom_object::<OESVertexArrayObject>() {
+            match webgl_ctx.get_extension_manager().get_dom_object::<OESVertexArrayObject<TH>>() {
                 Some(dom_object) => {
                     Ok(dom_object.get_current_binding(cx))
                 },

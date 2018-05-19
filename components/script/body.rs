@@ -50,7 +50,7 @@ pub enum FetchedData {
 
 // https://fetch.spec.whatwg.org/#concept-body-consume-body
 #[allow(unrooted_must_root)]
-pub fn consume_body<T: BodyOperations + DomObject>(object: &T, body_type: BodyType) -> Rc<Promise> {
+pub fn consume_body<T: BodyOperations + DomObject, TH: TypeHolderTrait>(object: &T, body_type: BodyType) -> Rc<Promise<TH>> {
     let promise = Promise::new(&object.global());
 
     // Step 1
@@ -73,9 +73,9 @@ pub fn consume_body<T: BodyOperations + DomObject>(object: &T, body_type: BodyTy
 
 // https://fetch.spec.whatwg.org/#concept-body-consume-body
 #[allow(unrooted_must_root)]
-pub fn consume_body_with_promise<T: BodyOperations + DomObject>(object: &T,
+pub fn consume_body_with_promise<T: BodyOperations + DomObject, TH: TypeHolderTrait>(object: &T,
                                                                 body_type: BodyType,
-                                                                promise: &Promise) {
+                                                                promise: &Promise<TH>) {
     // Step 5
     let body = match object.take_body() {
         Some(body) => body,

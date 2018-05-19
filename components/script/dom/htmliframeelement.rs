@@ -67,15 +67,15 @@ enum ProcessingMode {
 
 #[dom_struct]
 pub struct HTMLIFrameElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     top_level_browsing_context_id: Cell<Option<TopLevelBrowsingContextId>>,
     browsing_context_id: Cell<Option<BrowsingContextId>>,
     pipeline_id: Cell<Option<PipelineId>>,
     pending_pipeline_id: Cell<Option<PipelineId>>,
     about_blank_pipeline_id: Cell<Option<PipelineId>>,
-    sandbox: MutNullableDom<DOMTokenList>,
+    sandbox: MutNullableDom<DOMTokenList<TH>>,
     sandbox_allowance: Cell<Option<SandboxAllowance>>,
-    load_blocker: DomRefCell<Option<LoadBlocker>>,
+    load_blocker: DomRefCell<Option<LoadBlocker<TH>>>,
     visibility: Cell<bool>,
 }
 
@@ -411,7 +411,7 @@ impl<TH> HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement<TH>> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLIFrameElementMethods for HTMLIFrameElement<TH> {
+impl<TH: TypeHolderTrait> HTMLIFrameElementMethods<TH> for HTMLIFrameElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-iframe-src
     make_url_getter!(Src, "src");
 
@@ -419,7 +419,7 @@ impl<TH: TypeHolderTrait> HTMLIFrameElementMethods for HTMLIFrameElement<TH> {
     make_setter!(SetSrc, "src");
 
     // https://html.spec.whatwg.org/multipage/#dom-iframe-sandbox
-    fn Sandbox(&self) -> DomRoot<DOMTokenList> {
+    fn Sandbox(&self) -> DomRoot<DOMTokenList<TH>> {
         self.sandbox.or_init(|| DOMTokenList::new(self.upcast::<Element<TH>>(), &local_name!("sandbox")))
     }
 
@@ -486,12 +486,12 @@ impl<TH: TypeHolderTrait> HTMLIFrameElementMethods for HTMLIFrameElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods for HTMLIFrameElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLIFrameElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("sandbox") => {
@@ -562,7 +562,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLIFrameElement<TH> {
         }
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         let mut blocker = self.load_blocker.borrow_mut();

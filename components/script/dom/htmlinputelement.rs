@@ -206,7 +206,7 @@ enum ValueMode {
 
 #[dom_struct]
 pub struct HTMLInputElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     input_type: Cell<InputType>,
     checked_changed: Cell<bool>,
     placeholder: DomRefCell<DOMString>,
@@ -215,7 +215,7 @@ pub struct HTMLInputElement<TH: TypeHolderTrait> {
     minlength: Cell<i32>,
     #[ignore_malloc_size_of = "#7193"]
     textinput: DomRefCell<TextInput<ScriptToConstellationChan>>,
-    activation_state: DomRefCell<InputActivationState>,
+    activation_state: DomRefCell<InputActivationState<TH>>,
     // https://html.spec.whatwg.org/multipage/#concept-input-value-dirty-flag
     value_dirty: Cell<bool>,
 
@@ -226,7 +226,7 @@ pub struct HTMLInputElement<TH: TypeHolderTrait> {
 #[derive(JSTraceable)]
 #[must_root]
 #[derive(MallocSizeOf)]
-struct InputActivationState {
+struct InputActivationState<TH: TypeHolderTrait> {
     indeterminate: bool,
     checked: bool,
     checked_changed: bool,
@@ -237,8 +237,8 @@ struct InputActivationState {
     old_type: InputType,
 }
 
-impl InputActivationState {
-    fn new() -> InputActivationState {
+impl<TH> InputActivationState<TH> {
+    fn new() -> InputActivationState<TH> {
         InputActivationState {
             indeterminate: false,
             checked: false,
@@ -421,7 +421,7 @@ impl<TH> LayoutHTMLInputElementHelpers for LayoutDom<HTMLInputElement<TH>> {
     }
 }
 
-impl<TH> TextControlElement for HTMLInputElement<TH> {
+impl<TH> TextControlElement<TH> for HTMLInputElement<TH> {
     // https://html.spec.whatwg.org/multipage/#concept-input-apply
     fn selection_api_applies(&self) -> bool {
         match self.input_type() {
@@ -464,7 +464,7 @@ impl<TH> TextControlElement for HTMLInputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLInputElementMethods for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait> HTMLInputElementMethods<TH> for HTMLInputElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-input-accept
     make_getter!(Accept, "accept");
 
@@ -831,7 +831,7 @@ fn broadcast_radio_checked<TH: TypeHolderTrait>(broadcaster: &HTMLInputElement<T
 }
 
 // https://html.spec.whatwg.org/multipage/#radio-button-group
-fn in_same_group(other: &HTMLInputElement<TH>, owner: Option<&HTMLFormElement<TH>>,
+fn in_same_group<TH: TypeHolderTrait>(other: &HTMLInputElement<TH>, owner: Option<&HTMLFormElement<TH>>,
                  group: Option<&Atom>) -> bool {
     other.input_type() == InputType::Radio &&
     // TODO Both a and b are in the same home subtree.
@@ -851,7 +851,7 @@ impl<TH: TypeHolderTrait> HTMLInputElement<TH> {
 
     /// <https://html.spec.whatwg.org/multipage/#constructing-the-form-data-set>
     /// Steps range from 3.1 to 3.7 (specific to HTMLInputElement)
-    pub fn form_datums(&self, submitter: Option<FormSubmitter>) -> Vec<FormDatum> {
+    pub fn form_datums(&self, submitter: Option<FormSubmitter<TH>>) -> Vec<FormDatum<TH>> {
         // 3.1: disabled state check is in get_unclean_dataset
 
         // Step 3.2
@@ -1110,17 +1110,17 @@ impl<TH: TypeHolderTrait> HTMLInputElement<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    fn selection(&self) -> TextControlSelection<Self> {
+    fn selection(&self) -> TextControlSelection<Self, TH> {
         TextControlSelection::new(&self, &self.textinput)
     }
 }
 
-impl<TH> VirtualMethods for HTMLInputElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLInputElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
@@ -1333,7 +1333,7 @@ impl<TH> VirtualMethods for HTMLInputElement<TH> {
         self.upcast::<Element<TH>>().check_ancestors_disabled_state_for_form_control();
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         let node = self.upcast::<Node<TH>>();
@@ -1420,7 +1420,7 @@ impl<TH> VirtualMethods for HTMLInputElement<TH> {
     }
 }
 
-impl<TH> FormControl for HTMLInputElement<TH> {
+impl<TH> FormControl<TH> for HTMLInputElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -1429,7 +1429,7 @@ impl<TH> FormControl for HTMLInputElement<TH> {
         self.form_owner.set(form);
     }
 
-    fn to_element<'a>(&'a self) -> &'a Element {
+    fn to_element<'a>(&'a self) -> &'a Element<TH> {
         self.upcast::<Element<TH>>()
     }
 }

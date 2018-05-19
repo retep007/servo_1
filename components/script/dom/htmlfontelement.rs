@@ -19,15 +19,16 @@ use html5ever::{LocalName, Prefix};
 use servo_atoms::Atom;
 use style::attr::AttrValue;
 use style::str::{HTML_SPACE_CHARACTERS, read_numbers};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFontElement {
-    htmlelement: HTMLElement,
+pub struct HTMLFontElement<TH: TypeHolderTrait> {
+    htmlelement: HTMLElement<TH>,
 }
 
 
-impl HTMLFontElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLFontElement {
+impl<TH: TypeHolderTrait> HTMLFontElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLFontElement<TH> {
         HTMLFontElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
         }
@@ -36,14 +37,14 @@ impl HTMLFontElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLFontElement> {
+               document: &Document<TH>) -> DomRoot<HTMLFontElement<TH>> {
         Node::reflect_node(Box::new(HTMLFontElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLFontElementBinding::Wrap)
     }
 }
 
-impl HTMLFontElementMethods for HTMLFontElement {
+impl<TH: TypeHolderTrait> HTMLFontElementMethods for HTMLFontElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-font-color
     make_getter!(Color, "color");
 
@@ -66,9 +67,9 @@ impl HTMLFontElementMethods for HTMLFontElement {
     }
 }
 
-impl VirtualMethods for HTMLFontElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLFontElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn attribute_affects_presentational_hints(&self, attr: &Attr<TH>) -> bool {
@@ -96,7 +97,7 @@ pub trait HTMLFontElementLayoutHelpers {
     fn get_size(&self) -> Option<u32>;
 }
 
-impl HTMLFontElementLayoutHelpers for LayoutDom<HTMLFontElement> {
+impl<TH> HTMLFontElementLayoutHelpers for LayoutDom<HTMLFontElement<TH>> {
     #[allow(unsafe_code)]
     fn get_color(&self) -> Option<RGBA> {
         unsafe {

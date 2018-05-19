@@ -16,19 +16,20 @@ use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use script_layout_interface::SVGSVGData;
 use style::attr::AttrValue;
+use typeholder::TypeHolderTrait;
 
 const DEFAULT_WIDTH: u32 = 300;
 const DEFAULT_HEIGHT: u32 = 150;
 
 #[dom_struct]
-pub struct SVGSVGElement {
+pub struct SVGSVGElement<TH: TypeHolderTrait> {
     svggraphicselement: SVGGraphicsElement
 }
 
-impl SVGSVGElement {
+impl<TH> SVGSVGElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> SVGSVGElement {
+                     document: &Document<TH>) -> SVGSVGElement<TH> {
         SVGSVGElement {
             svggraphicselement:
                 SVGGraphicsElement::new_inherited(local_name, prefix, document)
@@ -38,7 +39,7 @@ impl SVGSVGElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<SVGSVGElement> {
+               document: &Document<TH>) -> DomRoot<SVGSVGElement<TH>> {
         Node::reflect_node(Box::new(SVGSVGElement::new_inherited(local_name, prefix, document)),
                            document,
                            SVGSVGElementBinding::Wrap)
@@ -49,7 +50,7 @@ pub trait LayoutSVGSVGElementHelpers {
     fn data(&self) -> SVGSVGData;
 }
 
-impl LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement> {
+impl<TH> LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement<TH>> {
     #[allow(unsafe_code)]
     fn data(&self) -> SVGSVGData {
         unsafe {
@@ -65,12 +66,12 @@ impl LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement> {
     }
 }
 
-impl VirtualMethods for SVGSVGElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<SVGGraphicsElement>() as &VirtualMethods)
+impl<TH> VirtualMethods for SVGSVGElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<SVGGraphicsElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
     }
 

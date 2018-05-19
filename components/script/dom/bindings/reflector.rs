@@ -10,10 +10,11 @@ use dom::globalscope::GlobalScope;
 use js::jsapi::{JSContext, JSObject, Heap};
 use js::rust::HandleObject;
 use std::default::Default;
+use typeholder::TypeHolderTrait;
 
 /// Create the reflector for a new DOM object and yield ownership to the
 /// reflector.
-pub fn reflect_dom_object<T, U>(
+pub fn reflect_dom_object<T, U, TH: TypeHolderTrait>(
         obj: Box<T>,
         global: &U,
         wrap_fn: unsafe fn(*mut JSContext, &GlobalScope<TH>, Box<T>) -> DomRoot<T>)

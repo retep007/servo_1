@@ -9,13 +9,14 @@ use dom::htmlmediaelement::HTMLMediaElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLVideoElement {
+pub struct HTMLVideoElement<TH: TypeHolderTrait> {
     htmlmediaelement: HTMLMediaElement
 }
 
-impl HTMLVideoElement {
+impl<TH> HTMLVideoElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLVideoElement {
         HTMLVideoElement {
             htmlmediaelement:

@@ -28,7 +28,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct CSSStyleDeclaration<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    owner: CSSStyleOwner,
+    owner: CSSStyleOwner<TH>,
     readonly: bool,
     pseudo: Option<PseudoElement>,
 }
@@ -184,7 +184,7 @@ macro_rules! css_properties(
 
 impl<TH: TypeHolderTrait> CSSStyleDeclaration<TH> {
     #[allow(unrooted_must_root)]
-    pub fn new_inherited(owner: CSSStyleOwner,
+    pub fn new_inherited(owner: CSSStyleOwner<TH>,
                          pseudo: Option<PseudoElement>,
                          modification_access: CSSModificationAccess)
                          -> Self {
@@ -198,7 +198,7 @@ impl<TH: TypeHolderTrait> CSSStyleDeclaration<TH> {
 
     #[allow(unrooted_must_root)]
     pub fn new(global: &Window<TH>,
-               owner: CSSStyleOwner,
+               owner: CSSStyleOwner<TH>,
                pseudo: Option<PseudoElement>,
                modification_access: CSSModificationAccess)
                -> DomRoot<Self> {

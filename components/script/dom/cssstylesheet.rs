@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSStyleSheet<TH: TypeHolderTrait> {
-    stylesheet: StyleSheet,
+    stylesheet: StyleSheet<TH>,
     owner: Dom<Element<TH>>,
     rulelist: MutNullableDom<CSSRuleList<TH>>,
     #[ignore_malloc_size_of = "Arc"]
@@ -91,7 +91,7 @@ impl<TH: TypeHolderTrait> CSSStyleSheet<TH> {
     }
 }
 
-impl<TH> CSSStyleSheetMethods for CSSStyleSheet<TH> {
+impl<TH> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-cssrules
     fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList<TH>>> {
         if !self.origin_clean.get() {

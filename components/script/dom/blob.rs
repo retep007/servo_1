@@ -20,6 +20,7 @@ use std::mem;
 use std::ops::Index;
 use std::path::PathBuf;
 use uuid::Uuid;
+use typeholder::TypeHolderTrait;
 
 /// File-based blob
 #[derive(JSTraceable)]
@@ -34,7 +35,7 @@ pub struct FileBlob {
 /// Different backends of Blob
 #[must_root]
 #[derive(JSTraceable)]
-pub enum BlobImpl {
+pub enum BlobImpl<TH: TypeHolderTrait> {
     /// File-based blob, whose content lives in the net process
     File(FileBlob),
     /// Memory-based blob, whose content lives in the script process
@@ -43,18 +44,18 @@ pub enum BlobImpl {
     /// relative positions of current slicing range,
     /// IMPORTANT: The depth of tree is only two, i.e. the parent Blob must be
     /// either File-based or Memory-based
-    Sliced(Dom<Blob>, RelativePos)
+    Sliced(Dom<Blob<TH>>, RelativePos)
 }
 
-impl BlobImpl {
+impl<TH> BlobImpl<TH> {
     /// Construct memory-backed BlobImpl
     #[allow(unrooted_must_root)]
-    pub fn new_from_bytes(bytes: Vec<u8>) -> BlobImpl {
+    pub fn new_from_bytes(bytes: Vec<u8>) -> BlobImpl<TH> {
         BlobImpl::Memory(bytes)
     }
 
     /// Construct file-backed BlobImpl from File ID
-    pub fn new_from_file(file_id: Uuid, name: PathBuf, size: u64) -> BlobImpl {
+    pub fn new_from_file(file_id: Uuid, name: PathBuf, size: u64) -> BlobImpl<TH> {
         BlobImpl::File(FileBlob {
             id: file_id,
             name: Some(name),
@@ -66,25 +67,25 @@ impl BlobImpl {
 
 // https://w3c.github.io/FileAPI/#blob
 #[dom_struct]
-pub struct Blob {
+pub struct Blob<TH: TypeHolderTrait> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "No clear owner"]
-    blob_impl: DomRefCell<BlobImpl>,
+    blob_impl: DomRefCell<BlobImpl<TH>>,
     /// content-type string
     type_string: String,
 }
 
-impl Blob {
+impl<TH> Blob<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(
-            global: &GlobalScope<TH>, blob_impl: BlobImpl, typeString: String)
+            global: &GlobalScope<TH>, blob_impl: BlobImpl<TH>, typeString: String)
             -> DomRoot<Blob> {
         let boxed_blob = Box::new(Blob::new_inherited(blob_impl, typeString));
         reflect_dom_object(boxed_blob, global, BlobBinding::Wrap)
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new_inherited(blob_impl: BlobImpl, type_string: String) -> Blob {
+    pub fn new_inherited(blob_impl: BlobImpl<TH>, type_string: String) -> Blob<TH> {
         Blob {
             reflector_: Reflector::new(),
             blob_impl: DomRefCell::new(blob_impl),
@@ -95,8 +96,8 @@ impl Blob {
     }
 
     #[allow(unrooted_must_root)]
-    fn new_sliced(parent: &Blob, rel_pos: RelativePos,
-                  relative_content_type: DOMString) -> DomRoot<Blob> {
+    fn new_sliced(parent: &Blob<TH>, rel_pos: RelativePos,
+                  relative_content_type: DOMString) -> DomRoot<Blob<TH>> {
         let blob_impl = match *parent.blob_impl.borrow() {
             BlobImpl::File(_) => {
                 // Create new parent node
@@ -119,7 +120,7 @@ impl Blob {
     pub fn Constructor(global: &GlobalScope<TH>,
                        blobParts: Option<Vec<ArrayBufferOrArrayBufferViewOrBlobOrString>>,
                        blobPropertyBag: &BlobBinding::BlobPropertyBag)
-                       -> Fallible<DomRoot<Blob>> {
+                       -> Fallible<DomRoot<Blob<TH>>> {
         // TODO: accept other blobParts types - ArrayBuffer or ArrayBufferView
         let bytes: Vec<u8> = match blobParts {
             None => Vec::new(),
@@ -295,13 +296,13 @@ impl Blob {
     }
 }
 
-impl Drop for Blob {
+impl<TH> Drop for Blob<TH> {
     fn drop(&mut self) {
         self.clean_up_file_resource();
     }
 }
 
-fn read_file(global: &GlobalScope<TH>, id: Uuid) -> Result<Vec<u8>, ()> {
+fn read_file<TH: TypeHolderTrait>(global: &GlobalScope<TH>, id: Uuid) -> Result<Vec<u8>, ()> {
     let resource_threads = global.resource_threads();
     let (chan, recv) = ipc::channel(global.time_profiler_chan().clone()).map_err(|_|())?;
     let origin = get_blob_origin(&global.get_url());
@@ -355,7 +356,7 @@ pub fn blob_parts_to_bytes(mut blobparts: Vec<ArrayBufferOrArrayBufferViewOrBlob
     Ok(ret)
 }
 
-impl BlobMethods for Blob {
+impl<TH> BlobMethods for Blob<TH> {
     // https://w3c.github.io/FileAPI/#dfn-size
     fn Size(&self) -> u64 {
         match *self.blob_impl.borrow() {

@@ -10,9 +10,10 @@ use dom::bindings::root::DomRoot;
 use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PerformanceEntry {
+pub struct PerformanceEntry<TH: TypeHolderTrait> {
     reflector_: Reflector,
     name: DOMString,
     entry_type: DOMString,
@@ -20,7 +21,7 @@ pub struct PerformanceEntry {
     duration: f64,
 }
 
-impl PerformanceEntry {
+impl<TH> PerformanceEntry<TH> {
     pub fn new_inherited(name: DOMString,
                          entry_type: DOMString,
                          start_time: f64,
@@ -57,7 +58,7 @@ impl PerformanceEntry {
     }
 }
 
-impl PerformanceEntryMethods for PerformanceEntry {
+impl<TH> PerformanceEntryMethods for PerformanceEntry<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceentry-name
     fn Name(&self) -> DOMString {
         DOMString::from(self.name.clone())

@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 // https://drafts.csswg.org/cssom-view/#dom-mediaquerylistevent-mediaquerylistevent
 #[dom_struct]
 pub struct MediaQueryListEvent<TH: TypeHolderTrait> {
-    event: Event,
+    event: Event<TH>,
     media: DOMString,
     matches: Cell<bool>
 }

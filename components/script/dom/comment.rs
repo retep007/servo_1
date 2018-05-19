@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 /// An HTML comment.
 #[dom_struct]
 pub struct Comment<TH: TypeHolderTrait> {
-    characterdata: CharacterData,
+    characterdata: CharacterData<TH>,
 }
 
 impl<TH: TypeHolderTrait> Comment<TH> {

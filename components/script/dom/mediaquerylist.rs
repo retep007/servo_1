@@ -33,14 +33,14 @@ pub enum MediaQueryListMatchState {
 
 #[dom_struct]
 pub struct MediaQueryList<TH: TypeHolderTrait> {
-    eventtarget: EventTarget,
+    eventtarget: EventTarget<TH>,
     document: Dom<Document<TH>>,
-    media_query_list: MediaList,
+    media_query_list: MediaList<TH>,
     last_match_state: Cell<Option<bool>>
 }
 
 impl<TH: TypeHolderTrait> MediaQueryList<TH> {
-    fn new_inherited(document: &Document<TH>, media_query_list: MediaList) -> MediaQueryList<TH> {
+    fn new_inherited(document: &Document<TH>, media_query_list: MediaList<TH>) -> MediaQueryList<TH> {
         MediaQueryList {
             eventtarget: EventTarget::new_inherited(),
             document: Dom::from_ref(document),
@@ -49,7 +49,7 @@ impl<TH: TypeHolderTrait> MediaQueryList<TH> {
         }
     }
 
-    pub fn new(document: &Document<TH>, media_query_list: MediaList) -> DomRoot<MediaQueryList<TH>> {
+    pub fn new(document: &Document<TH>, media_query_list: MediaList<TH>) -> DomRoot<MediaQueryList<TH>> {
         reflect_dom_object(Box::new(MediaQueryList::new_inherited(document, media_query_list)),
                            document.window(),
                            MediaQueryListBinding::Wrap)

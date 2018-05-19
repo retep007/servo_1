@@ -44,9 +44,9 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLElement<TH> {
-    element: Element,
+    element: Element<TH>,
     style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
-    dataset: MutNullableDom<DOMStringMap>,
+    dataset: MutNullableDom<DOMStringMap<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLElement<TH> {
@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
 
     fn is_body_or_frameset(&self) -> bool {
         let eventtarget = self.upcast::<EventTarget<TH>>();
-        eventtarget.is::<HTMLBodyElement<TH>>() || eventtarget.is::<HTMLFrameSetElement>()
+        eventtarget.is::<HTMLBodyElement<TH>>() || eventtarget.is::<HTMLFrameSetElement<TH>>()
     }
 
     fn update_sequentially_focusable_status(&self) {
@@ -115,7 +115,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 }
 
-impl<TH> HTMLElementMethods for HTMLElement<TH> {
+impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     // https://html.spec.whatwg.org/multipage/#the-style-attribute
     fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {
@@ -149,7 +149,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
     document_and_element_event_handlers!();
 
     // https://html.spec.whatwg.org/multipage/#dom-dataset
-    fn Dataset(&self) -> DomRoot<DOMStringMap> {
+    fn Dataset(&self) -> DomRoot<DOMStringMap<TH>> {
         self.dataset.or_init(|| DOMStringMap::new(self))
     }
 
@@ -352,7 +352,7 @@ impl<TH> HTMLElementMethods for HTMLElement<TH> {
 
     // https://drafts.csswg.org/cssom-view/#dom-htmlelement-offsetparent
     fn GetOffsetParent(&self) -> Option<DomRoot<Element<TH>>> {
-        if self.is::<HTMLBodyElement<TH>>() || self.is::<HTMLHtmlElement>() {
+        if self.is::<HTMLBodyElement<TH>>() || self.is::<HTMLHtmlElement<TH>>() {
             return None;
         }
 
@@ -661,12 +661,12 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods for HTMLElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<Element<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<Element<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match (attr.local_name(), mutation) {
             (name, AttributeMutation::Set(_)) if name.starts_with("on") => {

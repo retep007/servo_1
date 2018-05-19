@@ -49,8 +49,8 @@ impl RequestGenerationId {
 
 #[dom_struct]
 pub struct HTMLLinkElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
-    rel_list: MutNullableDom<DOMTokenList>,
+    htmlelement: HTMLElement<TH>,
+    rel_list: MutNullableDom<DOMTokenList<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
     cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
@@ -136,7 +136,7 @@ impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
     }
 }
 
-fn get_attr(element: &Element<TH>, local_name: &LocalName) -> Option<String> {
+fn get_attr<TH: TypeHolderTrait>(element: &Element<TH>, local_name: &LocalName) -> Option<String> {
     let elem = element.get_attribute(&ns!(), local_name);
     elem.map(|e| {
         let value = e.value();
@@ -167,12 +167,12 @@ fn is_favicon(value: &Option<String>) -> bool {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods for HTMLLinkElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLinkElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         if !self.upcast::<Node<TH>>().is_in_doc() || mutation.is_removal() {
             return;
@@ -230,7 +230,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLLinkElement<TH> {
         }
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         if let Some(ref s) = self.super_type() {
             s.unbind_from_tree(context);
         }
@@ -355,7 +355,7 @@ impl<TH> StylesheetOwner for HTMLLinkElement<TH> {
     }
 }
 
-impl<TH> HTMLLinkElementMethods for HTMLLinkElement<TH> {
+impl<TH> HTMLLinkElementMethods<TH> for HTMLLinkElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-link-href
     make_url_getter!(Href, "href");
 
@@ -395,7 +395,7 @@ impl<TH> HTMLLinkElementMethods for HTMLLinkElement<TH> {
     make_setter!(SetType, "type");
 
     // https://html.spec.whatwg.org/multipage/#dom-link-rellist
-    fn RelList(&self) -> DomRoot<DOMTokenList> {
+    fn RelList(&self) -> DomRoot<DOMTokenList<TH>> {
         self.rel_list.or_init(|| DOMTokenList::new(self.upcast(), &local_name!("rel")))
     }
 

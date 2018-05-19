@@ -40,7 +40,7 @@ impl<TH> Tokenizer<TH> {
     pub fn new(
             document: &Document<TH>,
             url: ServoUrl,
-            fragment_context: Option<super::FragmentContext>,
+            fragment_context: Option<super::FragmentContext<TH>>,
             parsing_algorithm: ParsingAlgorithm)
             -> Self {
         let sink = Sink {
@@ -118,7 +118,7 @@ unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<N
     }
 }
 
-fn start_element<S: Serializer>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
+fn start_element<S: Serializer, TH: TypeHolderTrait>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
     let name = QualName::new(None, node.namespace().clone(),
                              node.local_name().clone());
     let attrs = node.attrs().iter().map(|attr| {
@@ -135,7 +135,7 @@ fn start_element<S: Serializer>(node: &Element<TH>, serializer: &mut S) -> io::R
     Ok(())
 }
 
-fn end_element<S: Serializer>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
+fn end_element<S: Serializer, TH: TypeHolderTrait>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
     let name = QualName::new(None, node.namespace().clone(),
                              node.local_name().clone());
     serializer.end_elem(name)
@@ -149,7 +149,7 @@ enum SerializationCommand<TH: TypeHolderTrait> {
 }
 
 struct SerializationIterator<TH: TypeHolderTrait> {
-    stack: Vec<SerializationCommand>,
+    stack: Vec<SerializationCommand<TH>>,
 }
 
 fn rev_children_iter<TH: TypeHolderTrait>(n: &Node<TH>) -> impl Iterator<Item=DomRoot<Node<TH>>>{
@@ -160,7 +160,7 @@ fn rev_children_iter<TH: TypeHolderTrait>(n: &Node<TH>) -> impl Iterator<Item=Do
 }
 
 impl<TH: TypeHolderTrait> SerializationIterator<TH> {
-    fn new(node: &Node<TH>, skip_first: bool) -> SerializationIterator {
+    fn new(node: &Node<TH>, skip_first: bool) -> SerializationIterator<TH> {
         let mut ret = SerializationIterator {
             stack: vec![],
         };
@@ -185,7 +185,7 @@ impl<TH: TypeHolderTrait> SerializationIterator<TH> {
 impl<TH: TypeHolderTrait> Iterator for SerializationIterator<TH> {
     type Item = SerializationCommand;
 
-    fn next(&mut self) -> Option<SerializationCommand> {
+    fn next(&mut self) -> Option<SerializationCommand<TH>> {
         let res = self.stack.pop();
 
         if let Some(SerializationCommand::OpenElement(ref e)) = res {
@@ -235,7 +235,7 @@ impl<'a, TH: TypeHolderTrait> Serialize for &'a Node<TH> {
                         },
 
                         NodeTypeId::CharacterData(CharacterDataTypeId::ProcessingInstruction) => {
-                            let pi = n.downcast::<ProcessingInstruction>().unwrap();
+                            let pi = n.downcast::<ProcessingInstruction<TH>>().unwrap();
                             let data = pi.upcast::<CharacterData<TH>>().data();
                             serializer.write_processing_instruction(&pi.target(), &data)?;
                         },

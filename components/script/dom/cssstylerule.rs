@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSStyleRule<TH: TypeHolderTrait> {
-    cssrule: CSSRule,
+    cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylerule: Arc<Locked<StyleRule>>,
     style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
@@ -62,7 +62,7 @@ impl<TH> SpecificCSSRule for CSSStyleRule<TH> {
     }
 }
 
-impl<TH> CSSStyleRuleMethods for CSSStyleRule<TH> {
+impl<TH> CSSStyleRuleMethods<TH> for CSSStyleRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssstylerule-style
     fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {

@@ -17,17 +17,18 @@ use dom::validitystate::ValidityState;
 use dom::virtualmethods::VirtualMethods;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOutputElement {
-    htmlelement: HTMLElement,
+pub struct HTMLOutputElement<TH: TypeHolderTrait> {
+    htmlelement: HTMLElement<TH>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
-impl HTMLOutputElement {
+impl<TH: TypeHolderTrait> HTMLOutputElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLOutputElement {
+                     document: &Document<TH>) -> HTMLOutputElement<TH> {
         HTMLOutputElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -38,14 +39,14 @@ impl HTMLOutputElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLOutputElement> {
+               document: &Document<TH>) -> DomRoot<HTMLOutputElement<TH>> {
         Node::reflect_node(Box::new(HTMLOutputElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLOutputElementBinding::Wrap)
     }
 }
 
-impl HTMLOutputElementMethods for HTMLOutputElement {
+impl<TH: TypeHolderTrait> HTMLOutputElementMethods for HTMLOutputElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
@@ -63,12 +64,12 @@ impl HTMLOutputElementMethods for HTMLOutputElement {
     }
 }
 
-impl VirtualMethods for HTMLOutputElement {
-    fn super_type<'b>(&'b self) -> Option<&'b VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods for HTMLOutputElement<TH> {
+    fn super_type<'b>(&'b self) -> Option<&'b VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("form") => {
@@ -79,7 +80,7 @@ impl VirtualMethods for HTMLOutputElement {
     }
 }
 
-impl FormControl for HTMLOutputElement {
+impl<TH: TypeHolderTrait> FormControl for HTMLOutputElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -88,7 +89,7 @@ impl FormControl for HTMLOutputElement {
         self.form_owner.set(form);
     }
 
-    fn to_element<'a>(&'a self) -> &'a Element {
+    fn to_element<'a>(&'a self) -> &'a Element<TH> {
         self.upcast::<Element<TH>>()
     }
 }

@@ -23,6 +23,7 @@ use std::iter::FromIterator;
 use std::ptr::NonNull;
 use super::{ext, WebGLExtension, WebGLExtensionSpec};
 use super::wrapper::{WebGLExtensionWrapper, TypedWebGLExtensionWrapper};
+use typeholder::TypeHolderTrait;
 
 // Data types that are implemented for texImage2D and texSubImage2D in a WebGL 1.0 context
 // but must trigger a InvalidValue error until the related WebGL Extensions are enabled.
@@ -89,14 +90,14 @@ impl WebGLExtensionFeatures {
 /// Handles the list of implemented, supported and enabled WebGL extensions.
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct WebGLExtensions {
-    extensions: DomRefCell<HashMap<String, Box<WebGLExtensionWrapper>>>,
+pub struct WebGLExtensions<TH: TypeHolderTrait> {
+    extensions: DomRefCell<HashMap<String, Box<WebGLExtensionWrapper<TH>>>>,
     features: DomRefCell<WebGLExtensionFeatures>,
     webgl_version: WebGLVersion,
 }
 
-impl WebGLExtensions {
-    pub fn new(webgl_version: WebGLVersion) -> WebGLExtensions {
+impl<TH> WebGLExtensions<TH> {
+    pub fn new(webgl_version: WebGLVersion) -> WebGLExtensions<TH> {
         Self {
             extensions: DomRefCell::new(HashMap::new()),
             features: DomRefCell::new(WebGLExtensionFeatures::new(webgl_version)),
@@ -258,7 +259,7 @@ impl WebGLExtensions {
 #[derive(Eq, Hash, JSTraceable, MallocSizeOf, PartialEq)]
 struct TexFormatType(u32, u32);
 
-type WebGLQueryParameterFunc = Fn(*mut JSContext, &WebGLRenderingContext<TH>)
+type WebGLQueryParameterFunc<TH> = Fn(*mut JSContext, &WebGLRenderingContext<TH>)
                                -> Result<JSVal, WebGLError>;
 
 #[derive(MallocSizeOf)]

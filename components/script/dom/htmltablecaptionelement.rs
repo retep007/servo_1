@@ -9,16 +9,17 @@ use dom::htmlelement::HTMLElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTableCaptionElement {
+pub struct HTMLTableCaptionElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement
 }
 
-impl HTMLTableCaptionElement {
+impl<TH> HTMLTableCaptionElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLTableCaptionElement {
+                     document: &Document<TH>) -> HTMLTableCaptionElement<TH> {
         HTMLTableCaptionElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +29,7 @@ impl HTMLTableCaptionElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLTableCaptionElement> {
+               document: &Document<TH>) -> DomRoot<HTMLTableCaptionElement<TH>> {
         Node::reflect_node(Box::new(HTMLTableCaptionElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTableCaptionElementBinding::Wrap)

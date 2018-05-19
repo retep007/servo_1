@@ -41,7 +41,7 @@ use typeholder::TypeHolderTrait;
 #[derive(JSTraceable, MallocSizeOf)]
 struct OptionsFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter for OptionsFilter<TH> {
-    fn filter<'a>(&self, elem: &'a Element, root: &'a Node<TH>) -> bool {
+    fn filter<'a>(&self, elem: &'a Element<TH>, root: &'a Node<TH>) -> bool {
         if !elem.is::<HTMLOptionElement<TH>>() {
             return false;
         }
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> CollectionFilter for OptionsFilter<TH> {
 
 #[dom_struct]
 pub struct HTMLSelectElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     options: MutNullableDom<HTMLOptionsCollection<TH>>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
@@ -146,7 +146,7 @@ impl<TH: TypeHolderTrait> HTMLSelectElement<TH> {
         }
     }
 
-    pub fn push_form_data(&self, data_set: &mut Vec<FormDatum>) {
+    pub fn push_form_data(&self, data_set: &mut Vec<FormDatum<TH>>) {
         if self.Name().is_empty() {
             return;
         }
@@ -197,7 +197,7 @@ impl<TH> HTMLSelectElementMethods for HTMLSelectElement<TH> {
 
     // Note: this function currently only exists for union.html.
     // https://html.spec.whatwg.org/multipage/#dom-select-add
-    fn Add(&self, _element: HTMLOptionElementOrHTMLOptGroupElement, _before: Option<HTMLElementOrLong>) {
+    fn Add(&self, _element: HTMLOptionElementOrHTMLOptGroupElement<TH>, _before: Option<HTMLElementOrLong<TH>>) {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-fe-disabled
@@ -342,11 +342,11 @@ impl<TH> HTMLSelectElementMethods for HTMLSelectElement<TH> {
 }
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLSelectElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("disabled") => {
@@ -378,7 +378,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLSelectElement<TH> {
         self.upcast::<Element<TH>>().check_ancestors_disabled_state_for_form_control();
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         let node = self.upcast::<Node<TH>>();
@@ -398,7 +398,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLSelectElement<TH> {
     }
 }
 
-impl FormControl for HTMLSelectElement {
+impl<TH> FormControl for HTMLSelectElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -407,12 +407,12 @@ impl FormControl for HTMLSelectElement {
         self.form_owner.set(form);
     }
 
-    fn to_element<'a>(&'a self) -> &'a Element {
+    fn to_element<'a>(&'a self) -> &'a Element<TH> {
         self.upcast::<Element<TH>>()
     }
 }
 
-impl Validatable for HTMLSelectElement {
+impl<TH> Validatable for HTMLSelectElement<TH> {
     fn is_instance_validatable(&self) -> bool {
         true
     }

@@ -12,8 +12,9 @@ use js::jsapi::UnhideScriptedCaller;
 use js::rust::Runtime;
 use std::cell::RefCell;
 use std::thread;
+use typeholder::TypeHolderTrait;
 
-thread_local!(static STACK: RefCell<Vec<StackEntry>> = RefCell::new(Vec::new()));
+thread_local!(static STACK: RefCell<Vec<StackEntry<TH>>> = RefCell::new(Vec::new()));
 
 #[derive(Debug, Eq, JSTraceable, PartialEq)]
 enum StackEntryKind {
@@ -23,7 +24,7 @@ enum StackEntryKind {
 
 #[allow(unrooted_must_root)]
 #[derive(JSTraceable)]
-struct StackEntry {
+struct StackEntry<TH: TypeHolderTrait> {
     global: Dom<GlobalScope<TH>>,
     kind: StackEntryKind,
 }
@@ -42,11 +43,11 @@ pub fn is_execution_stack_empty() -> bool {
 }
 
 /// RAII struct that pushes and pops entries from the script settings stack.
-pub struct AutoEntryScript {
+pub struct AutoEntryScript<TH: TypeHolderTrait> {
     global: DomRoot<GlobalScope<TH>>,
 }
 
-impl AutoEntryScript {
+impl<TH> AutoEntryScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#prepare-to-run-script>
     pub fn new(global: &GlobalScope<TH>) -> Self {
         STACK.with(|stack| {
@@ -63,14 +64,14 @@ impl AutoEntryScript {
     }
 }
 
-impl Drop for AutoEntryScript {
+impl<TH> Drop for AutoEntryScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#clean-up-after-running-script>
     fn drop(&mut self) {
         STACK.with(|stack| {
             let mut stack = stack.borrow_mut();
             let entry = stack.pop().unwrap();
-            assert_eq!(&*entry.global as *const GlobalScope,
-                       &*self.global as *const GlobalScope,
+            assert_eq!(&*entry.global as *const GlobalScope<TH>,
+                       &*self.global as *const GlobalScope<TH>,
                        "Dropped AutoEntryScript out of order.");
             assert_eq!(entry.kind, StackEntryKind::Entry);
             trace!("Clean up after running script with {:p}", &*entry.global);
@@ -86,7 +87,7 @@ impl Drop for AutoEntryScript {
 /// Returns the ["entry"] global object.
 ///
 /// ["entry"]: https://html.spec.whatwg.org/multipage/#entry
-pub fn entry_global() -> DomRoot<GlobalScope<TH>> {
+pub fn entry_global<TH: TypeHolderTrait>() -> DomRoot<GlobalScope<TH>> {
     STACK.with(|stack| {
         stack.borrow()
              .iter()
@@ -97,11 +98,11 @@ pub fn entry_global() -> DomRoot<GlobalScope<TH>> {
 }
 
 /// RAII struct that pushes and pops entries from the script settings stack.
-pub struct AutoIncumbentScript {
+pub struct AutoIncumbentScript<TH: TypeHolderTrait> {
     global: usize,
 }
 
-impl AutoIncumbentScript {
+impl<TH> AutoIncumbentScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#prepare-to-run-a-callback>
     pub fn new(global: &GlobalScope<TH>) -> Self {
         // Step 2-3.
@@ -125,7 +126,7 @@ impl AutoIncumbentScript {
     }
 }
 
-impl Drop for AutoIncumbentScript {
+impl<TH> Drop for AutoIncumbentScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#clean-up-after-running-a-callback>
     fn drop(&mut self) {
         STACK.with(|stack| {
@@ -151,7 +152,7 @@ impl Drop for AutoIncumbentScript {
 /// Returns the ["incumbent"] global object.
 ///
 /// ["incumbent"]: https://html.spec.whatwg.org/multipage/#incumbent
-pub fn incumbent_global() -> Option<DomRoot<GlobalScope<TH>>> {
+pub fn incumbent_global<TH: TypeHolderTrait>() -> Option<DomRoot<GlobalScope<TH>>> {
     // https://html.spec.whatwg.org/multipage/#incumbent-settings-object
 
     // Step 1, 3: See what the JS engine has to say. If we've got a scripted

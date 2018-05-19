@@ -9,16 +9,17 @@ use dom::htmlelement::HTMLElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLUnknownElement {
+pub struct HTMLUnknownElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement
 }
 
-impl HTMLUnknownElement {
+impl<TH> HTMLUnknownElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLUnknownElement {
+                     document: &Document<TH>) -> HTMLUnknownElement<TH> {
         HTMLUnknownElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +29,7 @@ impl HTMLUnknownElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLUnknownElement> {
+               document: &Document<TH>) -> DomRoot<HTMLUnknownElement<TH>> {
         Node::reflect_node(Box::new(HTMLUnknownElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLUnknownElementBinding::Wrap)

@@ -13,14 +13,15 @@ use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use servo_url::ServoUrl;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSStyleValue {
+pub struct CSSStyleValue<TH: TypeHolderTrait> {
     reflector: Reflector,
     value: String,
 }
 
-impl CSSStyleValue {
+impl<TH> CSSStyleValue<TH> {
     fn new_inherited(value: String) -> CSSStyleValue {
         CSSStyleValue {
             reflector: Reflector::new(),
@@ -33,14 +34,14 @@ impl CSSStyleValue {
     }
 }
 
-impl CSSStyleValueMethods for CSSStyleValue {
+impl<TH> CSSStyleValueMethods for CSSStyleValue<TH> {
     /// <https://drafts.css-houdini.org/css-typed-om-1/#CSSStyleValue-stringification-behavior>
     fn Stringifier(&self) -> DOMString {
         DOMString::from(&*self.value)
     }
 }
 
-impl CSSStyleValue {
+impl<TH> CSSStyleValue<TH> {
     /// Parse the value as a `url()`.
     /// TODO: This should really always be an absolute URL, but we currently
     /// return relative URLs for computed values, so we pass in a base.

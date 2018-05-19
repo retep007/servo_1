@@ -12,10 +12,11 @@ use dom::dompoint::DOMPoint;
 use dom::domrect::DOMRect;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 // https://drafts.fxtf.org/geometry/#DOMQuad
 #[dom_struct]
-pub struct DOMQuad {
+pub struct DOMQuad<TH: TypeHolderTrait> {
     reflector_: Reflector,
     p1: Dom<DOMPoint>,
     p2: Dom<DOMPoint>,
@@ -23,7 +24,7 @@ pub struct DOMQuad {
     p4: Dom<DOMPoint>,
 }
 
-impl DOMQuad {
+impl<TH> DOMQuad<TH> {
     fn new_inherited(p1: &DOMPoint,
                      p2: &DOMPoint,
                      p3: &DOMPoint,
@@ -78,7 +79,7 @@ impl DOMQuad {
     }
 }
 
-impl DOMQuadMethods for DOMQuad {
+impl<TH> DOMQuadMethods for DOMQuad<TH> {
     // https://drafts.fxtf.org/geometry/#dom-domquad-p1
     fn P1(&self) -> DomRoot<DOMPoint> {
         DomRoot::from_ref(&self.p1)
@@ -100,7 +101,7 @@ impl DOMQuadMethods for DOMQuad {
     }
 
     // https://drafts.fxtf.org/geometry/#dom-domquad-getbounds
-    fn GetBounds(&self) -> DomRoot<DOMRect> {
+    fn GetBounds(&self) -> DomRoot<DOMRect<TH>> {
         let left = self.p1.X().min(self.p2.X()).min(self.p3.X()).min(self.p4.X());
         let top = self.p1.Y().min(self.p2.Y()).min(self.p3.Y()).min(self.p4.Y());
         let right = self.p1.X().max(self.p2.X()).max(self.p3.X()).max(self.p4.X());

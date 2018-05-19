@@ -9,14 +9,15 @@ use dom::htmlelement::HTMLElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFrameElement {
+pub struct HTMLFrameElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement
 }
 
-impl HTMLFrameElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLFrameElement {
+impl<TH> HTMLFrameElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLFrameElement<TH> {
         HTMLFrameElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -25,7 +26,7 @@ impl HTMLFrameElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLFrameElement> {
+               document: &Document<TH>) -> DomRoot<HTMLFrameElement<TH>> {
         Node::reflect_node(Box::new(HTMLFrameElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLFrameElementBinding::Wrap)

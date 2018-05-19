@@ -41,7 +41,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLTextAreaElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "#7193"]
     textinput: DomRefCell<TextInput<ScriptToConstellationChan>>,
     placeholder: DomRefCell<DOMString>,
@@ -61,7 +61,7 @@ pub trait LayoutHTMLTextAreaElementHelpers {
     fn get_rows(self) -> u32;
 }
 
-impl LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement<TH>> {
+impl<TH> LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement<TH>> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     unsafe fn value_for_layout(self) -> String {
@@ -331,18 +331,18 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    fn selection(&self) -> TextControlSelection<Self> {
+    fn selection(&self) -> TextControlSelection<Self, TH> {
         TextControlSelection::new(&self, &self.textinput)
     }
 }
 
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match *attr.local_name() {
             local_name!("disabled") => {
@@ -409,7 +409,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
         }
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         let node = self.upcast::<Node<TH>>();
@@ -490,7 +490,7 @@ impl<TH> FormControl for HTMLTextAreaElement<TH> {
         self.form_owner.set(form);
     }
 
-    fn to_element<'a>(&'a self) -> &'a Element {
+    fn to_element<'a>(&'a self) -> &'a Element<TH> {
         self.upcast::<Element<TH>>()
     }
 }

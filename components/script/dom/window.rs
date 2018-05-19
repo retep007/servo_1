@@ -156,7 +156,7 @@ pub enum ReflowReason {
 
 #[dom_struct]
 pub struct Window<TH: TypeHolderTrait> {
-    globalscope: GlobalScope,
+    globalscope: GlobalScope<TH>,
     #[ignore_malloc_size_of = "trait objects are hard"]
     script_chan: MainThreadScriptChan,
     #[ignore_malloc_size_of = "task sources are hard"]
@@ -170,8 +170,8 @@ pub struct Window<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "task sources are hard"]
     file_reading_task_source: FileReadingTaskSource,
     #[ignore_malloc_size_of = "task sources are hard"]
-    performance_timeline_task_source: PerformanceTimelineTaskSource,
-    navigator: MutNullableDom<Navigator>,
+    performance_timeline_task_source: PerformanceTimelineTaskSource<TH>,
+    navigator: MutNullableDom<Navigator<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     image_cache: Arc<ImageCache>,
     #[ignore_malloc_size_of = "channels are hard"]
@@ -258,7 +258,7 @@ pub struct Window<TH: TypeHolderTrait> {
     /// All the MediaQueryLists we need to update
     media_query_lists: WeakMediaQueryListVec,
 
-    test_runner: MutNullableDom<TestRunner>,
+    test_runner: MutNullableDom<TestRunner<TH>>,
 
     /// A handle for communicating messages to the WebGL thread, if available.
     #[ignore_malloc_size_of = "channels are hard"]
@@ -620,7 +620,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-navigator
-    fn Navigator(&self) -> DomRoot<Navigator> {
+    fn Navigator(&self) -> DomRoot<Navigator<TH>> {
         self.navigator.or_init(|| Navigator::new(self))
     }
 
@@ -1026,7 +1026,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
         fetch::Fetch(&self.upcast(), input, init)
     }
 
-    fn TestRunner(&self) -> DomRoot<TestRunner> {
+    fn TestRunner(&self) -> DomRoot<TestRunner<TH>> {
         self.test_runner.or_init(|| TestRunner::new(self.upcast()))
     }
 
@@ -1935,7 +1935,7 @@ impl<TH> Window<TH> {
     pub fn post_message(
         &self,
         target_origin: Option<ImmutableOrigin>,
-        serialize_with_transfer_result: StructuredCloneData,
+        serialize_with_transfer_result: StructuredCloneData<TH>,
     ) {
         let this = Trusted::new(self);
         let task = task!(post_serialised_message: move || {

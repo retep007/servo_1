@@ -21,17 +21,18 @@ use dom::promise::Promise;
 use dom_struct::dom_struct;
 use ipc_channel::ipc::IpcSender;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothpermissionresult
 #[dom_struct]
-pub struct BluetoothPermissionResult {
+pub struct BluetoothPermissionResult<TH: TypeHolderTrait> {
     status: PermissionStatus,
-    devices: DomRefCell<Vec<Dom<BluetoothDevice>>>,
+    devices: DomRefCell<Vec<Dom<BluetoothDevice<TH>>>>,
 }
 
-impl BluetoothPermissionResult {
+impl<TH> BluetoothPermissionResult<TH> {
     #[allow(unrooted_must_root)]
-    fn new_inherited(status: &PermissionStatus) -> BluetoothPermissionResult {
+    fn new_inherited(status: &PermissionStatus) -> BluetoothPermissionResult<TH> {
         let result = BluetoothPermissionResult {
             status: PermissionStatus::new_inherited(status.get_query()),
             devices: DomRefCell::new(Vec::new()),
@@ -40,7 +41,7 @@ impl BluetoothPermissionResult {
         result
     }
 
-    pub fn new(global: &GlobalScope<TH>,status: &PermissionStatus) -> DomRoot<BluetoothPermissionResult> {
+    pub fn new(global: &GlobalScope<TH>,status: &PermissionStatus) -> DomRoot<BluetoothPermissionResult<TH>> {
         reflect_dom_object(Box::new(BluetoothPermissionResult::new_inherited(status)),
                            global,
                            BluetoothPermissionResultBinding::Wrap)
@@ -67,21 +68,21 @@ impl BluetoothPermissionResult {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn set_devices(&self, devices: Vec<Dom<BluetoothDevice>>) {
+    pub fn set_devices(&self, devices: Vec<Dom<BluetoothDevice<TH>>>) {
         *self.devices.borrow_mut() = devices;
     }
 }
 
-impl BluetoothPermissionResultMethods for BluetoothPermissionResult {
+impl<TH> BluetoothPermissionResultMethods for BluetoothPermissionResult<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothpermissionresult-devices
-    fn Devices(&self) -> Vec<DomRoot<BluetoothDevice>> {
-        let device_vec: Vec<DomRoot<BluetoothDevice>> =
+    fn Devices(&self) -> Vec<DomRoot<BluetoothDevice<TH>>> {
+        let device_vec: Vec<DomRoot<BluetoothDevice<TH>>> =
             self.devices.borrow().iter().map(|d| DomRoot::from_ref(&**d)).collect();
         device_vec
     }
 }
 
-impl AsyncBluetoothListener for BluetoothPermissionResult {
+impl<TH> AsyncBluetoothListener for BluetoothPermissionResult<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#request-bluetooth-devices

@@ -22,16 +22,17 @@ use html5ever::{LocalName, Prefix};
 use net_traits::image::base::Image;
 use servo_arc::Arc;
 use std::default::Default;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLObjectElement {
-    htmlelement: HTMLElement,
+pub struct HTMLObjectElement<TH: TypeHolderTrait> {
+    htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     image: DomRefCell<Option<Arc<Image>>>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
-impl HTMLObjectElement {
+impl<TH: TypeHolderTrait> HTMLObjectElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLObjectElement {
@@ -57,7 +58,7 @@ trait ProcessDataURL {
     fn process_data_url(&self);
 }
 
-impl<'a> ProcessDataURL for &'a HTMLObjectElement {
+impl<'a, TH: TypeHolderTrait> ProcessDataURL for &'a HTMLObjectElement<TH> {
     // Makes the local `data` member match the status of the `data` attribute and starts
     /// prefetching the image. This method must be called after `data` is changed.
     fn process_data_url(&self) {
@@ -74,7 +75,7 @@ impl<'a> ProcessDataURL for &'a HTMLObjectElement {
     }
 }
 
-impl HTMLObjectElementMethods for HTMLObjectElement {
+impl<TH: TypeHolderTrait> HTMLObjectElementMethods<TH> for HTMLObjectElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
@@ -93,7 +94,7 @@ impl HTMLObjectElementMethods for HTMLObjectElement {
     }
 }
 
-impl Validatable for HTMLObjectElement {
+impl<TH: TypeHolderTrait> Validatable for HTMLObjectElement<TH> {
     fn is_instance_validatable(&self) -> bool {
         true
     }
@@ -104,12 +105,12 @@ impl Validatable for HTMLObjectElement {
     }
 }
 
-impl VirtualMethods for HTMLObjectElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLObjectElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
         match attr.local_name() {
             &local_name!("data") => {
@@ -125,7 +126,7 @@ impl VirtualMethods for HTMLObjectElement {
     }
 }
 
-impl FormControl for HTMLObjectElement {
+impl<TH: TypeHolderTrait> FormControl<TH> for HTMLObjectElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -134,7 +135,7 @@ impl FormControl for HTMLObjectElement {
         self.form_owner.set(form);
     }
 
-    fn to_element<'a>(&'a self) -> &'a Element {
+    fn to_element<'a>(&'a self) -> &'a Element<TH> {
         self.upcast::<Element<TH>>()
     }
 }

@@ -25,7 +25,7 @@ const DEFAULT_ROWSPAN: u32 = 1;
 
 #[dom_struct]
 pub struct HTMLTableCellElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
 }
 
 impl<TH: TypeHolderTrait> HTMLTableCellElement<TH> {
@@ -127,9 +127,9 @@ impl<TH> HTMLTableCellElementLayoutHelpers for LayoutDom<HTMLTableCellElement<TH
     }
 }
 
-impl<TH> VirtualMethods for HTMLTableCellElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLTableCellElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn parse_plain_attribute(&self, local_name: &LocalName, value: DOMString) -> AttrValue {

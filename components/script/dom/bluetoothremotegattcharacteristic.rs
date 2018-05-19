@@ -28,6 +28,7 @@ use dom::promise::Promise;
 use dom_struct::dom_struct;
 use ipc_channel::ipc::IpcSender;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 // Maximum length of an attribute value.
 // https://www.bluetooth.org/DocMan/handlers/DownloadDoc.ashx?doc_id=286439 (Vol. 3, page 2169)
@@ -35,21 +36,21 @@ pub const MAXIMUM_ATTRIBUTE_LENGTH: usize = 512;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattcharacteristic
 #[dom_struct]
-pub struct BluetoothRemoteGATTCharacteristic {
-    eventtarget: EventTarget,
+pub struct BluetoothRemoteGATTCharacteristic<TH: TypeHolderTrait> {
+    eventtarget: EventTarget<TH>,
     service: Dom<BluetoothRemoteGATTService>,
     uuid: DOMString,
-    properties: Dom<BluetoothCharacteristicProperties>,
+    properties: Dom<BluetoothCharacteristicProperties<TH>>,
     value: DomRefCell<Option<ByteString>>,
     instance_id: String,
 }
 
-impl BluetoothRemoteGATTCharacteristic {
+impl<TH> BluetoothRemoteGATTCharacteristic<TH> {
     pub fn new_inherited(service: &BluetoothRemoteGATTService,
                          uuid: DOMString,
-                         properties: &BluetoothCharacteristicProperties,
+                         properties: &BluetoothCharacteristicProperties<TH>,
                          instance_id: String)
-                         -> BluetoothRemoteGATTCharacteristic {
+                         -> BluetoothRemoteGATTCharacteristic<TH> {
         BluetoothRemoteGATTCharacteristic {
             eventtarget: EventTarget::new_inherited(),
             service: Dom::from_ref(service),
@@ -63,9 +64,9 @@ impl BluetoothRemoteGATTCharacteristic {
     pub fn new(global: &GlobalScope<TH>,
                service: &BluetoothRemoteGATTService,
                uuid: DOMString,
-               properties: &BluetoothCharacteristicProperties,
+               properties: &BluetoothCharacteristicProperties<TH>,
                instanceID: String)
-               -> DomRoot<BluetoothRemoteGATTCharacteristic> {
+               -> DomRoot<BluetoothRemoteGATTCharacteristic<TH>> {
         reflect_dom_object(
             Box::new(BluetoothRemoteGATTCharacteristic::new_inherited(
                 service, uuid, properties, instanceID
@@ -84,9 +85,9 @@ impl BluetoothRemoteGATTCharacteristic {
     }
 }
 
-impl BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharacteristic {
+impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharacteristic<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-properties
-    fn Properties(&self) -> DomRoot<BluetoothCharacteristicProperties> {
+    fn Properties(&self) -> DomRoot<BluetoothCharacteristicProperties<TH>> {
         DomRoot::from_ref(&self.properties)
     }
 
@@ -257,7 +258,7 @@ impl BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharacteris
     event_handler!(characteristicvaluechanged, GetOncharacteristicvaluechanged, SetOncharacteristicvaluechanged);
 }
 
-impl AsyncBluetoothListener for BluetoothRemoteGATTCharacteristic {
+impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTCharacteristic<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
         let device = self.Service().Device();
         match response {

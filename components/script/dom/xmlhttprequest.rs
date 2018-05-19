@@ -122,7 +122,7 @@ impl XHRProgress {
 
 #[dom_struct]
 pub struct XMLHttpRequest<TH: TypeHolderTrait> {
-    eventtarget: XMLHttpRequestEventTarget,
+    eventtarget: XMLHttpRequestEventTarget<TH>,
     ready_state: Cell<XMLHttpRequestState>,
     timeout: Cell<u32>,
     with_credentials: Cell<bool>,
@@ -731,7 +731,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
     // https://xhr.spec.whatwg.org/#the-responsetype-attribute
     fn SetResponseType(&self, response_type: XMLHttpRequestResponseType) -> ErrorResult {
         // Step 1
-        if self.global().is::<WorkerGlobalScope>() && response_type == XMLHttpRequestResponseType::Document {
+        if self.global().is::<WorkerGlobalScope<TH>>() && response_type == XMLHttpRequestResponseType::Document {
             return Ok(());
         }
         match self.ready_state.get() {
@@ -809,7 +809,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
     fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document<TH>>>> {
         // TODO(#2823): Until [Exposed] is implemented, this attribute needs to return null
         //              explicitly in the worker scope.
-        if self.global().is::<WorkerGlobalScope>() {
+        if self.global().is::<WorkerGlobalScope<TH>>() {
             return Ok(None);
         }
 

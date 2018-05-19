@@ -13,15 +13,16 @@ use dom_struct::dom_struct;
 use servo_arc::Arc;
 use style::shared_lock::{SharedRwLock, Locked};
 use style::stylesheets::CssRules as StyleCssRules;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSConditionRule {
-    cssgroupingrule: CSSGroupingRule,
+pub struct CSSConditionRule<TH: TypeHolderTrait> {
+    cssgroupingrule: CSSGroupingRule<TH>,
 }
 
-impl CSSConditionRule {
+impl<TH: TypeHolderTrait> CSSConditionRule<TH> {
     pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
-                         rules: Arc<Locked<StyleCssRules>>) -> CSSConditionRule {
+                         rules: Arc<Locked<StyleCssRules>>) -> CSSConditionRule<TH> {
         CSSConditionRule {
             cssgroupingrule: CSSGroupingRule::new_inherited(parent_stylesheet, rules),
         }
@@ -36,7 +37,7 @@ impl CSSConditionRule {
     }
 }
 
-impl CSSConditionRuleMethods for CSSConditionRule {
+impl<TH> CSSConditionRuleMethods for CSSConditionRule<TH> {
     /// <https://drafts.csswg.org/css-conditional-3/#dom-cssconditionrule-conditiontext>
     fn ConditionText(&self) -> DOMString {
         if let Some(rule) = self.downcast::<CSSMediaRule<TH>>() {

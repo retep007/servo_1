@@ -26,7 +26,7 @@ pub struct TreeWalker<TH: TypeHolderTrait> {
     current_node: MutDom<Node<TH>>,
     what_to_show: u32,
     #[ignore_malloc_size_of = "function pointers and Rc<T> are hard"]
-    filter: Filter,
+    filter: Filter<TH>,
     active: Cell<bool>,
 }
 

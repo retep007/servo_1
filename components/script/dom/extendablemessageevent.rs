@@ -20,20 +20,21 @@ use js::jsapi::{Heap, JSContext};
 use js::jsval::JSVal;
 use js::rust::HandleValue;
 use servo_atoms::Atom;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ExtendableMessageEvent {
+pub struct ExtendableMessageEvent<TH: TypeHolderTrait> {
     event: ExtendableEvent,
     data: Heap<JSVal>,
     origin: DOMString,
     lastEventId: DOMString,
 }
 
-impl ExtendableMessageEvent {
+impl<TH> ExtendableMessageEvent<TH> {
     pub fn new(global: &GlobalScope<TH>, type_: Atom,
                bubbles: bool, cancelable: bool,
                data: HandleValue, origin: DOMString, lastEventId: DOMString)
-               -> DomRoot<ExtendableMessageEvent> {
+               -> DomRoot<ExtendableMessageEvent<TH>> {
         let ev = Box::new(ExtendableMessageEvent {
             event: ExtendableEvent::new_inherited(),
             data: Heap::default(),
@@ -50,10 +51,10 @@ impl ExtendableMessageEvent {
         ev
     }
 
-    pub fn Constructor(worker: &ServiceWorkerGlobalScope,
+    pub fn Constructor(worker: &ServiceWorkerGlobalScope<TH>,
                        type_: DOMString,
                        init: RootedTraceableBox<ExtendableMessageEventBinding::ExtendableMessageEventInit>)
-                       -> Fallible<DomRoot<ExtendableMessageEvent>> {
+                       -> Fallible<DomRoot<ExtendableMessageEvent<TH>>> {
         let global = worker.upcast::<GlobalScope<TH>>();
         let ev = ExtendableMessageEvent::new(global,
                                              Atom::from(type_),
@@ -66,7 +67,7 @@ impl ExtendableMessageEvent {
     }
 }
 
-impl ExtendableMessageEvent {
+impl<TH> ExtendableMessageEvent<TH> {
     pub fn dispatch_jsval(target: &EventTarget<TH>,
                           scope: &GlobalScope<TH>,
                           message: HandleValue) {
@@ -77,7 +78,7 @@ impl ExtendableMessageEvent {
     }
 }
 
-impl ExtendableMessageEventMethods for ExtendableMessageEvent {
+impl<TH> ExtendableMessageEventMethods for ExtendableMessageEvent<TH> {
     #[allow(unsafe_code)]
     // https://w3c.github.io/ServiceWorker/#extendablemessage-event-data-attribute
     unsafe fn Data(&self, _cx: *mut JSContext) -> JSVal {

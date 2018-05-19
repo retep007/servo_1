@@ -35,8 +35,8 @@ pub enum Guard {
     None,
 }
 
-impl Headers {
-    pub fn new_inherited() -> Headers {
+impl<TH> Headers<TH> {
+    pub fn new_inherited() -> Headers<TH> {
         Headers {
             reflector_: Reflector::new(),
             guard: Cell::new(Guard::None),
@@ -44,20 +44,20 @@ impl Headers {
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Headers> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Headers<TH>> {
         reflect_dom_object(Box::new(Headers::new_inherited()), global, HeadersWrap)
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers
     pub fn Constructor(global: &GlobalScope<TH>, init: Option<HeadersInit>)
-                       -> Fallible<DomRoot<Headers>> {
+                       -> Fallible<DomRoot<Headers<TH>>> {
         let dom_headers_new = Headers::new(global);
         dom_headers_new.fill(init)?;
         Ok(dom_headers_new)
     }
 }
 
-impl HeadersMethods for Headers {
+impl<TH> HeadersMethods for Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-append
     fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult {
         // Step 1
@@ -165,7 +165,7 @@ impl HeadersMethods for Headers {
     }
 }
 
-impl Headers {
+impl<TH> Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-fill
     pub fn fill(&self, filler: Option<HeadersInit>) -> ErrorResult {
         match filler {
@@ -206,13 +206,13 @@ impl Headers {
         }
     }
 
-    pub fn for_request(global: &GlobalScope<TH>) -> DomRoot<Headers> {
+    pub fn for_request(global: &GlobalScope<TH>) -> DomRoot<Headers<TH>> {
         let headers_for_request = Headers::new(global);
         headers_for_request.guard.set(Guard::Request);
         headers_for_request
     }
 
-    pub fn for_response(global: &GlobalScope<TH>) -> DomRoot<Headers> {
+    pub fn for_response(global: &GlobalScope<TH>) -> DomRoot<Headers<TH>> {
         let headers_for_response = Headers::new(global);
         headers_for_response.guard.set(Guard::Response);
         headers_for_response
@@ -260,7 +260,7 @@ impl Headers {
     }
 }
 
-impl Iterable for Headers {
+impl<TH> Iterable for Headers<TH> {
     type Key = ByteString;
     type Value = ByteString;
 

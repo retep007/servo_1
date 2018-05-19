@@ -204,19 +204,19 @@ impl PendingRestyle {
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
 #[must_root]
-struct StyleSheetInDocument {
+struct StyleSheetInDocument<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Arc"]
     sheet: Arc<Stylesheet>,
     owner: Dom<Element<TH>>,
 }
 
-impl PartialEq for StyleSheetInDocument {
+impl<TH> PartialEq for StyleSheetInDocument<TH> {
     fn eq(&self, other: &Self) -> bool {
         Arc::ptr_eq(&self.sheet, &other.sheet)
     }
 }
 
-impl ::style::stylesheets::StylesheetInDocument for StyleSheetInDocument {
+impl<TH> ::style::stylesheets::StylesheetInDocument for StyleSheetInDocument<TH> {
     fn origin(&self, guard: &SharedRwLockReadGuard) -> Origin {
         self.sheet.origin(guard)
     }
@@ -229,7 +229,7 @@ impl ::style::stylesheets::StylesheetInDocument for StyleSheetInDocument {
         self.sheet.enabled()
     }
 
-    fn media<'a>(&'a self, guard: &'a SharedRwLockReadGuard) -> Option<&'a MediaList> {
+    fn media<'a>(&'a self, guard: &'a SharedRwLockReadGuard) -> Option<&'a MediaList<TH>> {
         self.sheet.media(guard)
     }
 
@@ -241,7 +241,7 @@ impl ::style::stylesheets::StylesheetInDocument for StyleSheetInDocument {
 /// <https://dom.spec.whatwg.org/#document>
 #[dom_struct]
 pub struct Document<TH: TypeHolderTrait> {
-    node: Node,
+    node: Node<TH>,
     window: Dom<Window<TH>>,
     implementation: MutNullableDom<DOMImplementation<TH>>,
     #[ignore_malloc_size_of = "type from external crate"]
@@ -282,13 +282,13 @@ pub struct Document<TH: TypeHolderTrait> {
     /// The script element that is currently executing.
     current_script: MutNullableDom<HTMLScriptElement<TH>>,
     /// <https://html.spec.whatwg.org/multipage/#pending-parsing-blocking-script>
-    pending_parsing_blocking_script: DomRefCell<Option<PendingScript>>,
+    pending_parsing_blocking_script: DomRefCell<Option<PendingScript<TH>>>,
     /// Number of stylesheets that block executing the next parser-inserted script
     script_blocking_stylesheets_count: Cell<u32>,
     /// https://html.spec.whatwg.org/multipage/#list-of-scripts-that-will-execute-when-the-document-has-finished-parsing
-    deferred_scripts: PendingInOrderScriptVec,
+    deferred_scripts: PendingInOrderScriptVec<TH>,
     /// <https://html.spec.whatwg.org/multipage/#list-of-scripts-that-will-execute-in-order-as-soon-as-possible>
-    asap_in_order_scripts_list: PendingInOrderScriptVec,
+    asap_in_order_scripts_list: PendingInOrderScriptVec<TH>,
     /// <https://html.spec.whatwg.org/multipage/#set-of-scripts-that-will-execute-as-soon-as-possible>
     asap_scripts_set: DomRefCell<Vec<Dom<HTMLScriptElement<TH>>>>,
     /// <https://html.spec.whatwg.org/multipage/#concept-n-noscript>
@@ -299,7 +299,7 @@ pub struct Document<TH: TypeHolderTrait> {
     animation_frame_ident: Cell<u32>,
     /// <https://html.spec.whatwg.org/multipage/#list-of-animation-frame-callbacks>
     /// List of animation frame callbacks
-    animation_frame_list: DomRefCell<Vec<(u32, Option<AnimationFrameCallback>)>>,
+    animation_frame_list: DomRefCell<Vec<(u32, Option<AnimationFrameCallback<TH>>)>>,
     /// Whether we're in the process of running animation callbacks.
     ///
     /// Tracking this is not necessary for correctness. Instead, it is an optimization to avoid
@@ -390,7 +390,7 @@ impl CollectionFilter for ImagesFilter {
 struct EmbedsFilter;
 impl CollectionFilter for EmbedsFilter {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
-        elem.is::<HTMLEmbedElement>()
+        elem.is::<HTMLEmbedElement<TH>>()
     }
 }
 
@@ -398,7 +398,7 @@ impl CollectionFilter for EmbedsFilter {
 struct LinksFilter;
 impl CollectionFilter for LinksFilter {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
-        (elem.is::<HTMLAnchorElement<TH>>() || elem.is::<HTMLAreaElement>()) &&
+        (elem.is::<HTMLAnchorElement<TH>>() || elem.is::<HTMLAreaElement<TH>>()) &&
         elem.has_attribute(&local_name!("href"))
     }
 }
@@ -674,14 +674,14 @@ impl<TH> Document<TH> {
         self.reset_form_owner_for_listeners(&id);
     }
 
-    pub fn register_form_id_listener<T: ?Sized + FormControl>(&self, id: DOMString, listener: &T) {
+    pub fn register_form_id_listener<T: ?Sized + FormControl<TH>>(&self, id: DOMString, listener: &T) {
         let mut map = self.form_id_listener_map.borrow_mut();
         let listener = listener.to_element();
         let set = map.entry(Atom::from(id)).or_insert(HashSet::new());
         set.insert(Dom::from_ref(listener));
     }
 
-    pub fn unregister_form_id_listener<T: ?Sized + FormControl>(&self, id: DOMString, listener: &T) {
+    pub fn unregister_form_id_listener<T: ?Sized + FormControl<TH>>(&self, id: DOMString, listener: &T) {
         let mut map = self.form_id_listener_map.borrow_mut();
         if let Occupied(mut entry) = map.entry(Atom::from(id)) {
             entry.get_mut().remove(&Dom::from_ref(listener.to_element()));
@@ -1350,7 +1350,7 @@ impl<TH> Document<TH> {
 
     // https://dom.spec.whatwg.org/#converting-nodes-into-a-node
     pub fn node_from_nodes_and_strings(&self,
-                                       mut nodes: Vec<NodeOrString>)
+                                       mut nodes: Vec<NodeOrString<TH>>)
                                        -> Fallible<DomRoot<Node<TH>>> {
         if nodes.len() == 1 {
             Ok(match nodes.pop().unwrap() {
@@ -1424,7 +1424,7 @@ impl<TH> Document<TH> {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#dom-window-requestanimationframe>
-    pub fn request_animation_frame(&self, callback: AnimationFrameCallback) -> u32 {
+    pub fn request_animation_frame(&self, callback: AnimationFrameCallback<TH>) -> u32 {
         let ident = self.animation_frame_ident.get() + 1;
 
         self.animation_frame_ident.set(ident);
@@ -2000,7 +2000,7 @@ impl<TH> Document<TH> {
                                             namespace: &Namespace,
                                             local_name: &LocalName,
                                             is: Option<&LocalName>)
-                                            -> Option<Rc<CustomElementDefinition>> {
+                                            -> Option<Rc<CustomElementDefinition<TH>>> {
         if !PREFS.get("dom.customelements.enabled").as_boolean().unwrap_or(false) {
             return None;
         }
@@ -2044,7 +2044,7 @@ pub enum DocumentSource {
 }
 
 #[allow(unsafe_code)]
-pub trait LayoutDocumentHelpers {
+pub trait LayoutDocumentHelpers<TH: TypeHolderTrait> {
     unsafe fn is_html_document_for_layout(&self) -> bool;
     unsafe fn drain_pending_restyles(&self) -> Vec<(LayoutDom<Element<TH>>, PendingRestyle)>;
     unsafe fn needs_paint_from_layout(&self);
@@ -2054,7 +2054,7 @@ pub trait LayoutDocumentHelpers {
 }
 
 #[allow(unsafe_code)]
-impl<TH: TypeHolderTrait> LayoutDocumentHelpers for LayoutDom<Document<TH>> {
+impl<TH: TypeHolderTrait> LayoutDocumentHelpers<TH> for LayoutDom<Document<TH>> {
     #[inline]
     unsafe fn is_html_document_for_layout(&self) -> bool {
         (*self.unsafe_get()).is_html_document
@@ -2348,7 +2348,7 @@ impl<TH> Document<TH> {
         NodeList::new_simple_list(&self.window, iter)
     }
 
-    fn get_html_element(&self) -> Option<DomRoot<HTMLHtmlElement>> {
+    fn get_html_element(&self) -> Option<DomRoot<HTMLHtmlElement<TH>>> {
         self.GetDocumentElement().and_then(DomRoot::downcast)
     }
 
@@ -2731,7 +2731,7 @@ impl<TH> ProfilerMetadataFactory for Document<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DocumentMethods for Document<TH> {
+impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://drafts.csswg.org/cssom/#dom-document-stylesheets
     fn StyleSheets(&self) -> DomRoot<StyleSheetList<TH>> {
         self.stylesheet_list.or_init(|| StyleSheetList::new(&self.window, Dom::from_ref(&self)))
@@ -3011,7 +3011,7 @@ impl<TH: TypeHolderTrait> DocumentMethods for Document<TH> {
     fn CreateProcessingInstruction(&self,
                                    target: DOMString,
                                    data: DOMString)
-                                   -> Fallible<DomRoot<ProcessingInstruction>> {
+                                   -> Fallible<DomRoot<ProcessingInstruction<TH>>> {
         // Step 1.
         if xml_name_type(&target) == InvalidXMLName {
             return Err(Error::InvalidCharacter);
@@ -3421,12 +3421,12 @@ impl<TH: TypeHolderTrait> DocumentMethods for Document<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
-    fn Prepend(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().prepend(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
-    fn Append(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().append(nodes)
     }
 
@@ -4026,11 +4026,11 @@ impl<TH: TypeHolderTrait> AnimationFrameCallback<TH> {
 
 #[derive(Default, JSTraceable, MallocSizeOf)]
 #[must_root]
-struct PendingInOrderScriptVec {
-    scripts: DomRefCell<VecDeque<PendingScript>>,
+struct PendingInOrderScriptVec<TH: TypeHolderTrait> {
+    scripts: DomRefCell<VecDeque<PendingScript<TH>>>,
 }
 
-impl PendingInOrderScriptVec {
+impl<TH> PendingInOrderScriptVec<TH> {
     fn is_empty(&self) -> bool {
         self.scripts.borrow().is_empty()
     }
@@ -4059,12 +4059,12 @@ impl PendingInOrderScriptVec {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-struct PendingScript {
+struct PendingScript<TH: TypeHolderTrait> {
     element: Dom<HTMLScriptElement<TH>>,
     load: Option<ScriptResult>,
 }
 
-impl PendingScript {
+impl<TH> PendingScript<TH> {
     fn new(element: &HTMLScriptElement<TH>) -> Self {
         Self { element: Dom::from_ref(element), load: None }
     }

@@ -9,10 +9,11 @@ use dom::bindings::reflector::{Reflector, reflect_dom_object};
 use dom::bindings::root::DomRoot;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#characteristicproperties
  #[dom_struct]
-pub struct BluetoothCharacteristicProperties {
+pub struct BluetoothCharacteristicProperties<TH: TypeHolderTrait> {
     reflector_: Reflector,
     broadcast: bool,
     read: bool,
@@ -25,7 +26,7 @@ pub struct BluetoothCharacteristicProperties {
     writable_auxiliaries: bool,
 }
 
-impl BluetoothCharacteristicProperties {
+impl<TH> BluetoothCharacteristicProperties<TH> {
     pub fn new_inherited(broadcast: bool,
                          read: bool,
                          write_without_response: bool,
@@ -35,7 +36,7 @@ impl BluetoothCharacteristicProperties {
                          authenticated_signed_writes: bool,
                          reliable_write: bool,
                          writable_auxiliaries: bool)
-                         -> BluetoothCharacteristicProperties {
+                         -> BluetoothCharacteristicProperties<TH> {
         BluetoothCharacteristicProperties {
             reflector_: Reflector::new(),
             broadcast: broadcast,
@@ -60,7 +61,7 @@ impl BluetoothCharacteristicProperties {
                authenticatedSignedWrites: bool,
                reliableWrite: bool,
                writableAuxiliaries: bool)
-               -> DomRoot<BluetoothCharacteristicProperties> {
+               -> DomRoot<BluetoothCharacteristicProperties<TH>> {
         reflect_dom_object(
             Box::new(BluetoothCharacteristicProperties::new_inherited(
                 broadcast,
@@ -79,7 +80,7 @@ impl BluetoothCharacteristicProperties {
     }
 }
 
-impl BluetoothCharacteristicPropertiesMethods for BluetoothCharacteristicProperties {
+impl<TH> BluetoothCharacteristicPropertiesMethods for BluetoothCharacteristicProperties<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothcharacteristicproperties-broadcast
     fn Broadcast(&self) -> bool {
         self.broadcast

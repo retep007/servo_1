@@ -54,7 +54,7 @@ use typeholder::TypeHolderTrait;
 // FIXME(nox): A lot of tasks queued for this element should probably be in the
 // media element event task source.
 pub struct HTMLMediaElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-networkstate>
     network_state: Cell<NetworkState>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-readystate>
@@ -76,7 +76,7 @@ pub struct HTMLMediaElement<TH: TypeHolderTrait> {
     /// <https://html.spec.whatwg.org/multipage/#attr-media-autoplay>
     autoplaying: Cell<bool>,
     /// <https://html.spec.whatwg.org/multipage/#delaying-the-load-event-flag>
-    delaying_the_load_event_flag: DomRefCell<Option<LoadBlocker>>,
+    delaying_the_load_event_flag: DomRefCell<Option<LoadBlocker<TH>>>,
     /// <https://html.spec.whatwg.org/multipage/#list-of-pending-play-promises>
     #[ignore_malloc_size_of = "promises are hard"]
     pending_play_promises: DomRefCell<Vec<Rc<Promise>>>,
@@ -457,7 +457,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
             Attribute(String),
             Children(DomRoot<HTMLSourceElement<TH>>),
         }
-        fn mode<TH>(media: &HTMLMediaElement<TH>) -> Option<Mode> {
+        fn mode<TH>(media: &HTMLMediaElement<TH>) -> Option<Mode<TH>> {
             if media.src_object.get().is_some() {
                 return Some(Mode::Object);
             }
@@ -819,7 +819,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
     }
 }
 
-impl HTMLMediaElementMethods for HTMLMediaElement {
+impl<TH: TypeHolderTrait> HTMLMediaElementMethods<TH> for HTMLMediaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-media-networkstate
     fn NetworkState(&self) -> u16 {
         self.network_state.get() as u16
@@ -909,12 +909,12 @@ impl HTMLMediaElementMethods for HTMLMediaElement {
     }
 }
 
-impl VirtualMethods for HTMLMediaElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLMediaElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
 
         match attr.local_name() {
@@ -928,7 +928,7 @@ impl VirtualMethods for HTMLMediaElement {
     }
 
     // https://html.spec.whatwg.org/multipage/#playing-the-media-resource:remove-an-element-from-a-document
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         self.super_type().unwrap().unbind_from_tree(context);
 
         if context.tree_in_doc {
@@ -974,7 +974,7 @@ enum Resource {
     Url(ServoUrl),
 }
 
-struct HTMLMediaElementContext {
+struct HTMLMediaElementContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
     elem: Trusted<HTMLMediaElement<TH>>,
     /// The response body received to date.
@@ -992,7 +992,7 @@ struct HTMLMediaElementContext {
 }
 
 // https://html.spec.whatwg.org/multipage/#media-data-processing-steps-list
-impl FetchResponseListener for HTMLMediaElementContext {
+impl<TH> FetchResponseListener for HTMLMediaElementContext<TH> {
     fn process_request_body(&mut self) {}
 
     fn process_request_eof(&mut self) {}
@@ -1093,15 +1093,15 @@ impl FetchResponseListener for HTMLMediaElementContext {
     }
 }
 
-impl PreInvoke for HTMLMediaElementContext {
+impl<TH> PreInvoke for HTMLMediaElementContext<TH> {
     fn should_invoke(&self) -> bool {
         //TODO: finish_load needs to run at some point if the generation changes.
         self.elem.root().generation_id.get() == self.generation_id
     }
 }
 
-impl HTMLMediaElementContext {
-    fn new(elem: &HTMLMediaElement<TH>) -> HTMLMediaElementContext {
+impl<TH> HTMLMediaElementContext<TH> {
+    fn new(elem: &HTMLMediaElement<TH>) -> HTMLMediaElementContext<TH> {
         HTMLMediaElementContext {
             elem: Trusted::new(elem),
             data: vec![],

@@ -19,16 +19,17 @@ use js::jsapi::{Heap, JSContext};
 use js::jsval::JSVal;
 use js::rust::HandleValue;
 use servo_atoms::Atom;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MessageEvent {
-    event: Event,
+pub struct MessageEvent<TH: TypeHolderTrait> {
+    event: Event<TH>,
     data: Heap<JSVal>,
     origin: DOMString,
     lastEventId: DOMString,
 }
 
-impl MessageEvent {
+impl<TH> MessageEvent<TH> {
     pub fn new_uninitialized(global: &GlobalScope<TH>) -> DomRoot<MessageEvent> {
         MessageEvent::new_initialized(global,
                                       HandleValue::undefined(),
@@ -79,7 +80,7 @@ impl MessageEvent {
     }
 }
 
-impl MessageEvent {
+impl<TH> MessageEvent<TH> {
     pub fn dispatch_jsval(target: &EventTarget<TH>,
                           scope: &GlobalScope<TH>,
                           message: HandleValue) {
@@ -95,7 +96,7 @@ impl MessageEvent {
     }
 }
 
-impl MessageEventMethods for MessageEvent {
+impl<TH> MessageEventMethods for MessageEvent<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-messageevent-data
     unsafe fn Data(&self, _cx: *mut JSContext) -> JSVal {

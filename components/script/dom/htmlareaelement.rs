@@ -26,6 +26,7 @@ use std::default::Default;
 use std::f32;
 use std::str;
 use style::attr::AttrValue;
+use typeholder::TypeHolderTrait;
 
 #[derive(PartialEq)]
 #[derive(Debug)]
@@ -215,13 +216,13 @@ impl Area {
 }
 
 #[dom_struct]
-pub struct HTMLAreaElement {
-    htmlelement: HTMLElement,
-    rel_list: MutNullableDom<DOMTokenList>,
+pub struct HTMLAreaElement<TH: TypeHolderTrait> {
+    htmlelement: HTMLElement<TH>,
+    rel_list: MutNullableDom<DOMTokenList<TH>>,
 }
 
-impl HTMLAreaElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLAreaElement {
+impl<TH: TypeHolderTrait> HTMLAreaElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLAreaElement<TH> {
         HTMLAreaElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             rel_list: Default::default(),
@@ -231,7 +232,7 @@ impl HTMLAreaElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLAreaElement> {
+               document: &Document<TH>) -> DomRoot<HTMLAreaElement<TH>> {
         Node::reflect_node(Box::new(HTMLAreaElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLAreaElementBinding::Wrap)
@@ -258,9 +259,9 @@ impl HTMLAreaElement {
     }
 }
 
-impl VirtualMethods for HTMLAreaElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLAreaElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {
@@ -271,16 +272,16 @@ impl VirtualMethods for HTMLAreaElement {
     }
 }
 
-impl HTMLAreaElementMethods for HTMLAreaElement {
+impl<TH: TypeHolderTrait> HTMLAreaElementMethods for HTMLAreaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-area-rellist
-    fn RelList(&self) -> DomRoot<DOMTokenList> {
+    fn RelList(&self) -> DomRoot<DOMTokenList<TH>> {
         self.rel_list.or_init(|| {
             DOMTokenList::new(self.upcast(), &local_name!("rel"))
         })
     }
 }
 
-impl Activatable for HTMLAreaElement {
+impl<TH: TypeHolderTrait> Activatable for HTMLAreaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#the-area-element:activation-behaviour
     fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()

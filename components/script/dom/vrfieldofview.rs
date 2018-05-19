@@ -11,9 +11,10 @@ use dom::bindings::root::DomRoot;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use webvr_traits::WebVRFieldOfView;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRFieldOfView {
+pub struct VRFieldOfView<TH: TypeHolderTrait> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     fov: DomRefCell<WebVRFieldOfView>
@@ -21,7 +22,7 @@ pub struct VRFieldOfView {
 
 unsafe_no_jsmanaged_fields!(WebVRFieldOfView);
 
-impl VRFieldOfView {
+impl<TH> VRFieldOfView<TH> {
     fn new_inherited(fov: WebVRFieldOfView) -> VRFieldOfView {
         VRFieldOfView {
             reflector_: Reflector::new(),
@@ -36,7 +37,7 @@ impl VRFieldOfView {
     }
 }
 
-impl VRFieldOfViewMethods for VRFieldOfView {
+impl<TH> VRFieldOfViewMethods for VRFieldOfView<TH> {
     // https://w3c.github.io/webvr/#interface-interface-vrfieldofview
     fn UpDegrees(&self) -> Finite<f64> {
         Finite::wrap(self.fov.borrow().up_degrees)

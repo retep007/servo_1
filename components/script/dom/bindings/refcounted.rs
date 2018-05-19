@@ -38,6 +38,7 @@ use std::marker::PhantomData;
 use std::rc::Rc;
 use std::sync::{Arc, Weak};
 use task::TaskOnce;
+use typeholder::TypeHolderTrait;
 
 
 #[allow(missing_docs)]  // FIXME
@@ -45,7 +46,7 @@ mod dummy {  // Attributes don’t apply through the macro.
     use std::cell::RefCell;
     use std::rc::Rc;
     use super::LiveDOMReferences;
-    thread_local!(pub static LIVE_REFERENCES: Rc<RefCell<Option<LiveDOMReferences>>> =
+    thread_local!(pub static LIVE_REFERENCES: Rc<RefCell<Option<LiveDOMReferences<TH>>>> =
             Rc::new(RefCell::new(None)));
 }
 pub use self::dummy::LIVE_REFERENCES;
@@ -65,19 +66,19 @@ impl TrustedReference {
 /// in asynchronous operations. The underlying DOM object is guaranteed to live at least
 /// as long as the last outstanding `TrustedPromise` instance. These values cannot be cloned,
 /// only created from existing Rc<Promise> values.
-pub struct TrustedPromise {
-    dom_object: *const Promise,
+pub struct TrustedPromise<TH> {
+    dom_object: *const Promise<TH>,
     owner_thread: *const libc::c_void,
 }
 
-unsafe impl Send for TrustedPromise {}
+unsafe impl<TH> Send for TrustedPromise<TH> {}
 
-impl TrustedPromise {
+impl<TH> TrustedPromise<TH> {
     /// Create a new `TrustedPromise` instance from an existing DOM object. The object will
     /// be prevented from being GCed for the duration of the resulting `TrustedPromise` object's
     /// lifetime.
     #[allow(unrooted_must_root)]
-    pub fn new(promise: Rc<Promise>) -> TrustedPromise {
+    pub fn new(promise: Rc<Promise>) -> TrustedPromise<TH> {
         LIVE_REFERENCES.with(|ref r| {
             let r = r.borrow();
             let live_references = r.as_ref().unwrap();
@@ -201,13 +202,13 @@ impl<T: DomObject> Clone for Trusted<T> {
 /// The set of live, pinned DOM objects that are currently prevented
 /// from being garbage collected due to outstanding references.
 #[allow(unrooted_must_root)]
-pub struct LiveDOMReferences {
+pub struct LiveDOMReferences<TH: TypeHolderTrait> {
     // keyed on pointer to Rust DOM object
     reflectable_table: RefCell<HashMap<*const libc::c_void, Weak<TrustedReference>>>,
-    promise_table: RefCell<HashMap<*const Promise, Vec<Rc<Promise>>>>,
+    promise_table: RefCell<HashMap<*const Promise<TH>, Vec<Rc<Promise<TH>>>>>,
 }
 
-impl LiveDOMReferences {
+impl<TH> LiveDOMReferences<TH> {
     /// Set up the thread-local data required for storing the outstanding DOM references.
     pub fn initialize() {
         LIVE_REFERENCES.with(|ref r| {

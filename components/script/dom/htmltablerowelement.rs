@@ -30,14 +30,14 @@ use typeholder::TypeHolderTrait;
 struct CellsFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter for CellsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
-        (elem.is::<HTMLTableHeaderCellElement>() || elem.is::<HTMLTableDataCellElement>()) &&
+        (elem.is::<HTMLTableHeaderCellElement>() || elem.is::<HTMLTableDataCellElement<TH>>()) &&
             elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
     }
 }
 
 #[dom_struct]
 pub struct HTMLTableRowElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     cells: MutNullableDom<HTMLCollection<TH>>,
 }
 
@@ -98,7 +98,7 @@ impl<TH> HTMLTableRowElementMethods for HTMLTableRowElement<TH> {
         node.delete_cell_or_row(
             index,
             || self.Cells(),
-            |n| n.is::<HTMLTableDataCellElement>())
+            |n| n.is::<HTMLTableDataCellElement<TH>>())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tr-rowindex
@@ -154,9 +154,9 @@ impl<TH> HTMLTableRowElementLayoutHelpers for LayoutDom<HTMLTableRowElement<TH>>
     }
 }
 
-impl<TH> VirtualMethods for HTMLTableRowElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLTableRowElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn parse_plain_attribute(&self, local_name: &LocalName, value: DOMString) -> AttrValue {

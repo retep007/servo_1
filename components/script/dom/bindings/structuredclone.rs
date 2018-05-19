@@ -26,6 +26,7 @@ use libc::size_t;
 use std::os::raw;
 use std::ptr;
 use std::slice;
+use typeholder::TypeHolderTrait;
 
 // TODO: Should we add Min and Max const to https://github.com/servo/rust-mozjs/blob/master/src/consts.rs?
 // TODO: Determine for sure which value Min and Max should have.
@@ -192,16 +193,16 @@ static STRUCTURED_CLONE_CALLBACKS: JSStructuredCloneCallbacks = JSStructuredClon
 };
 
 /// A buffer for a structured clone.
-pub enum StructuredCloneData {
+pub enum StructuredCloneData<TH: TypeHolderTrait> {
     /// A non-serializable (default) variant
     Struct(*mut u64, size_t),
     /// A variant that can be serialized
     Vector(Vec<u8>)
 }
 
-impl StructuredCloneData {
+impl<TH> StructuredCloneData<TH> {
     /// Writes a structured clone. Returns a `DataClone` error if that fails.
-    pub fn write(cx: *mut JSContext, message: HandleValue) -> Fallible<StructuredCloneData> {
+    pub fn write(cx: *mut JSContext, message: HandleValue) -> Fallible<StructuredCloneData<TH>> {
         let mut data = ptr::null_mut();
         let mut nbytes = 0;
         let result = unsafe {
@@ -268,4 +269,4 @@ impl StructuredCloneData {
     }
 }
 
-unsafe impl Send for StructuredCloneData {}
+unsafe impl<TH> Send for StructuredCloneData<TH> {}

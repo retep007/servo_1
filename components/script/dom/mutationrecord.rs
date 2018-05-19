@@ -45,8 +45,8 @@ impl<TH: TypeHolderTrait> MutationRecord<TH> {
     }
 
     pub fn child_list_mutated(target: &Node<TH>,
-                              added_nodes: Option<&[&Node]>,
-                              removed_nodes: Option<&[&Node]>,
+                              added_nodes: Option<&[&Node<TH>]>,
+                              removed_nodes: Option<&[&Node<TH>]>,
                               next_sibling: Option<&Node<TH>>,
                               prev_sibling: Option<&Node<TH>>) -> DomRoot<MutationRecord<TH>> {
         let window = window_from_node(target);

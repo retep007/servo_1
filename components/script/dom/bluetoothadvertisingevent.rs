@@ -21,8 +21,8 @@ use typeholder::TypeHolderTrait;
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothadvertisingevent
 #[dom_struct]
 pub struct BluetoothAdvertisingEvent<TH> {
-    event: Event,
-    device: Dom<BluetoothDevice>,
+    event: Event<TH>,
+    device: Dom<BluetoothDevice<TH>>,
     name: Option<DOMString>,
     appearance: Option<u16>,
     tx_power: Option<i8>,
@@ -30,7 +30,7 @@ pub struct BluetoothAdvertisingEvent<TH> {
 }
 
 impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
-    pub fn new_inherited(device: &BluetoothDevice,
+    pub fn new_inherited(device: &BluetoothDevice<TH>,
                          name: Option<DOMString>,
                          appearance: Option<u16>,
                          tx_power: Option<i8>,
@@ -49,7 +49,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
     pub fn new(global: &GlobalScope<TH>,               type_: Atom,
                bubbles: EventBubbles,
                cancelable: EventCancelable,
-               device: &BluetoothDevice,
+               device: &BluetoothDevice<TH>,
                name: Option<DOMString>,
                appearance: Option<u16>,
                txPower: Option<i8>,
@@ -98,9 +98,9 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
     }
 }
 
-impl BluetoothAdvertisingEventMethods for BluetoothAdvertisingEvent {
+impl<TH: TypeHolderTrait> BluetoothAdvertisingEventMethods for BluetoothAdvertisingEvent<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothadvertisingevent-device
-    fn Device(&self) -> DomRoot<BluetoothDevice> {
+    fn Device(&self) -> DomRoot<BluetoothDevice<TH>> {
         DomRoot::from_ref(&*self.device)
     }
 

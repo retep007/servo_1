@@ -23,6 +23,7 @@ use servo_config::prefs::PREFS;
 use std::rc::Rc;
 #[cfg(target_os = "linux")]
 use tinyfiledialogs::{self, MessageBoxIcon, YesNo};
+use typeholder::TypeHolderTrait;
 
 #[cfg(target_os = "linux")]
 const DIALOG_TITLE: &'static str = "Permission request dialog";
@@ -52,18 +53,18 @@ enum Operation {
 
 // https://w3c.github.io/permissions/#permissions
 #[dom_struct]
-pub struct Permissions {
+pub struct Permissions<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl Permissions {
-    pub fn new_inherited() -> Permissions {
+impl<TH> Permissions<TH> {
+    pub fn new_inherited() -> Permissions<TH> {
         Permissions {
             reflector_: Reflector::new(),
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Permissions> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Permissions<TH>> {
         reflect_dom_object(Box::new(Permissions::new_inherited()),
                            global,
                            PermissionsBinding::Wrap)
@@ -174,7 +175,7 @@ impl Permissions {
     }
 }
 
-impl PermissionsMethods for Permissions {
+impl<TH> PermissionsMethods for Permissions<TH> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     // https://w3c.github.io/permissions/#dom-permissions-query
@@ -197,7 +198,7 @@ impl PermissionsMethods for Permissions {
     }
 }
 
-impl PermissionAlgorithm for Permissions {
+impl<TH> PermissionAlgorithm for Permissions<TH> {
     type Descriptor = PermissionDescriptor;
     type Status = PermissionStatus;
 
@@ -260,7 +261,7 @@ impl PermissionAlgorithm for Permissions {
 }
 
 // https://w3c.github.io/permissions/#permission-state
-pub fn get_descriptor_permission_state(permission_name: PermissionName,
+pub fn get_descriptor_permission_state<TH: TypeHolderTrait>(permission_name: PermissionName,
                                        env_settings_obj: Option<&GlobalScope<TH>>)
                                        -> PermissionState {
     // Step 1.

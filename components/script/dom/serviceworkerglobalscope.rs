@@ -33,6 +33,7 @@ use std::sync::mpsc::{Receiver, RecvError, Select, Sender, channel};
 use std::thread;
 use std::time::Duration;
 use style::thread_state::{self, ThreadState};
+use typeholder::TypeHolderTrait;
 
 /// Messages used to control service worker event loop
 pub enum ServiceWorkerScriptMsg {
@@ -68,8 +69,8 @@ impl ScriptChan for ServiceWorkerChan {
 }
 
 #[dom_struct]
-pub struct ServiceWorkerGlobalScope {
-    workerglobalscope: WorkerGlobalScope,
+pub struct ServiceWorkerGlobalScope<TH: TypeHolderTrait> {
+    workerglobalscope: WorkerGlobalScope<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
     receiver: Receiver<ServiceWorkerScriptMsg>,
     #[ignore_malloc_size_of = "Defined in std"]
@@ -81,7 +82,7 @@ pub struct ServiceWorkerGlobalScope {
     scope_url: ServoUrl,
 }
 
-impl ServiceWorkerGlobalScope {
+impl<TH> ServiceWorkerGlobalScope<TH> {
     fn new_inherited(init: WorkerGlobalScopeInit,
                      worker_url: ServoUrl,
                      from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
@@ -92,7 +93,7 @@ impl ServiceWorkerGlobalScope {
                      timer_event_port: Receiver<()>,
                      swmanager_sender: IpcSender<ServiceWorkerMsg>,
                      scope_url: ServoUrl)
-                     -> ServiceWorkerGlobalScope {
+                     -> ServiceWorkerGlobalScope<TH> {
         ServiceWorkerGlobalScope {
             workerglobalscope: WorkerGlobalScope::new_inherited(init,
                                                                 worker_url,
@@ -119,7 +120,7 @@ impl ServiceWorkerGlobalScope {
                timer_event_port: Receiver<()>,
                swmanager_sender: IpcSender<ServiceWorkerMsg>,
                scope_url: ServoUrl)
-               -> DomRoot<ServiceWorkerGlobalScope> {
+               -> DomRoot<ServiceWorkerGlobalScope<TH>> {
         let cx = runtime.cx();
         let scope = Box::new(ServiceWorkerGlobalScope::new_inherited(
             init,
@@ -193,7 +194,7 @@ impl ServiceWorkerGlobalScope {
                 init, url, devtools_mpsc_port, runtime,
                 own_sender, receiver,
                 timer_ipc_chan, timer_port, swmanager_sender, scope_url);
-            let scope = global.upcast::<WorkerGlobalScope>();
+            let scope = global.upcast::<WorkerGlobalScope<TH>>();
 
             unsafe {
                 // Handle interrupt requests
@@ -255,7 +256,7 @@ impl ServiceWorkerGlobalScope {
 
         match msg {
             CommonWorker(WorkerScriptMsg::DOMMessage(data)) => {
-                let scope = self.upcast::<WorkerGlobalScope>();
+                let scope = self.upcast::<WorkerGlobalScope<TH>>();
                 let target = self.upcast();
                 let _ac = JSAutoCompartment::new(scope.get_cx(), scope.reflector().get_jsobject().get());
                 rooted!(in(scope.get_cx()) let mut message = UndefinedValue());
@@ -263,7 +264,7 @@ impl ServiceWorkerGlobalScope {
                 ExtendableMessageEvent::dispatch_jsval(target, scope.upcast(), message.handle());
             },
             CommonWorker(WorkerScriptMsg::Common(msg)) => {
-                self.upcast::<WorkerGlobalScope>().process_event(msg);
+                self.upcast::<WorkerGlobalScope<TH>>().process_event(msg);
             },
             Response(mediator) => {
                 // TODO XXXcreativcoder This will eventually use a FetchEvent interface to fire event
@@ -277,7 +278,7 @@ impl ServiceWorkerGlobalScope {
 
     #[allow(unsafe_code)]
     fn receive_event(&self) -> Result<MixedMessage, RecvError> {
-        let scope = self.upcast::<WorkerGlobalScope>();
+        let scope = self.upcast::<WorkerGlobalScope<TH>>();
         let worker_port = &self.receiver;
         let devtools_port = scope.from_devtools_receiver();
         let timer_event_port = &self.timer_event_port;
@@ -320,17 +321,17 @@ impl ServiceWorkerGlobalScope {
 }
 
 #[allow(unsafe_code)]
-unsafe extern "C" fn interrupt_callback(cx: *mut JSContext) -> bool {
+unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext) -> bool {
     let worker =
-        DomRoot::downcast::<WorkerGlobalScope>(GlobalScope::from_context(cx))
+        DomRoot::downcast::<WorkerGlobalScope<TH>>(GlobalScope::from_context(cx))
             .expect("global is not a worker scope");
-    assert!(worker.is::<ServiceWorkerGlobalScope>());
+    assert!(worker.is::<ServiceWorkerGlobalScope<TH>>());
 
     // A false response causes the script to terminate
     !worker.is_closing()
 }
 
-impl ServiceWorkerGlobalScopeMethods for ServiceWorkerGlobalScope {
+impl<TH> ServiceWorkerGlobalScopeMethods for ServiceWorkerGlobalScope<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-global-scope-onmessage-attribute
     event_handler!(message, GetOnmessage, SetOnmessage);
 }

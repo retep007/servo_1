@@ -15,7 +15,7 @@ use script_layout_interface::message::ReflowGoal;
 use typeholder::TypeHolderTrait;
 
 /// Trait for elements with defined activation behavior
-pub trait Activatable {
+pub trait Activatable<TH: TypeHolderTrait> {
     fn as_element(&self) -> &Element;
 
     // Is this particular instance of the element activatable?

@@ -183,7 +183,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
     pub fn new(
             document: &Document<TH>,
             url: ServoUrl,
-            fragment_context: Option<super::FragmentContext>)
+            fragment_context: Option<super::FragmentContext<TH>>)
             -> Self {
         // Messages from the Tokenizer (main thread) to HtmlTokenizer (parser thread)
         let (to_html_tokenizer_sender, html_tokenizer_receiver) = channel();

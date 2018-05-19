@@ -10,9 +10,10 @@ use dom::bindings::root::DomRoot;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use webvr_traits::WebVRDisplayCapabilities;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRDisplayCapabilities {
+pub struct VRDisplayCapabilities<TH: TypeHolderTrait> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     capabilities: DomRefCell<WebVRDisplayCapabilities>
@@ -20,7 +21,7 @@ pub struct VRDisplayCapabilities {
 
 unsafe_no_jsmanaged_fields!(WebVRDisplayCapabilities);
 
-impl VRDisplayCapabilities {
+impl<TH> VRDisplayCapabilities<TH> {
     fn new_inherited(capabilities: WebVRDisplayCapabilities) -> VRDisplayCapabilities {
         VRDisplayCapabilities {
             reflector_: Reflector::new(),
@@ -35,7 +36,7 @@ impl VRDisplayCapabilities {
     }
 }
 
-impl VRDisplayCapabilitiesMethods for VRDisplayCapabilities {
+impl<TH> VRDisplayCapabilitiesMethods for VRDisplayCapabilities<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplaycapabilities-hasposition
     fn HasPosition(&self) -> bool {
         self.capabilities.borrow().has_position

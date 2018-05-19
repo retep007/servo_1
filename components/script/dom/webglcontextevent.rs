@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct WebGLContextEvent<TH: TypeHolderTrait> {
-    event: Event,
+    event: Event<TH>,
     status_message: DOMString,
 }
 

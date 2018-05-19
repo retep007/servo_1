@@ -14,14 +14,15 @@ use dom::bindings::root::DomRoot;
 use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TestBindingPairIterable {
+pub struct TestBindingPairIterable<TH> {
     reflector: Reflector,
     map: DomRefCell<Vec<(DOMString, u32)>>,
 }
 
-impl Iterable for TestBindingPairIterable {
+impl<TH> Iterable for TestBindingPairIterable<TH> {
     type Key = DOMString;
     type Value = u32;
     fn get_iterable_length(&self) -> u32 {
@@ -35,7 +36,7 @@ impl Iterable for TestBindingPairIterable {
     }
 }
 
-impl TestBindingPairIterable {
+impl<TH> TestBindingPairIterable<TH> {
     fn new(global: &GlobalScope<TH>) -> DomRoot<TestBindingPairIterable> {
         reflect_dom_object(Box::new(TestBindingPairIterable {
             reflector: Reflector::new(),
@@ -48,7 +49,7 @@ impl TestBindingPairIterable {
     }
 }
 
-impl TestBindingPairIterableMethods for TestBindingPairIterable {
+impl<TH> TestBindingPairIterableMethods for TestBindingPairIterable<TH> {
     fn Add(&self, key: DOMString, value: u32) {
         self.map.borrow_mut().push((key, value));
     }

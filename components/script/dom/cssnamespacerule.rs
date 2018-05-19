@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSNamespaceRule<TH: TypeHolderTrait> {
-    cssrule: CSSRule,
+    cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     namespacerule: Arc<Locked<NamespaceRule>>,
 }

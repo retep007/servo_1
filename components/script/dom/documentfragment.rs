@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> DocumentFragment<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DocumentFragmentMethods for DocumentFragment<TH> {
+impl<TH: TypeHolderTrait> DocumentFragmentMethods<TH> for DocumentFragment<TH> {
     // https://dom.spec.whatwg.org/#dom-parentnode-children
     fn Children(&self) -> DomRoot<HTMLCollection<TH>> {
         let window = window_from_node(self);
@@ -82,12 +82,12 @@ impl<TH: TypeHolderTrait> DocumentFragmentMethods for DocumentFragment<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
-    fn Prepend(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().prepend(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
-    fn Append(&self, nodes: Vec<NodeOrString>) -> ErrorResult {
+    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().append(nodes)
     }
 

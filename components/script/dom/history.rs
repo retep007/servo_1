@@ -256,7 +256,7 @@ impl<TH> History<TH> {
     }
 }
 
-impl HistoryMethods for History {
+impl<TH: TypeHolderTrait> HistoryMethods for History<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-history-state
     #[allow(unsafe_code)]
     unsafe fn GetState(&self, _cx: *mut JSContext) -> Fallible<JSVal> {

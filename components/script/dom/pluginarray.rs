@@ -10,27 +10,28 @@ use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom::plugin::Plugin;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PluginArray {
+pub struct PluginArray<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl PluginArray {
-    pub fn new_inherited() -> PluginArray {
+impl<TH> PluginArray<TH> {
+    pub fn new_inherited() -> PluginArray<TH> {
         PluginArray {
             reflector_: Reflector::new()
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>) -> DomRoot<PluginArray> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<PluginArray<TH>> {
         reflect_dom_object(Box::new(PluginArray::new_inherited()),
                            global,
                            PluginArrayBinding::Wrap)
     }
 }
 
-impl PluginArrayMethods for PluginArray {
+impl<TH> PluginArrayMethods for PluginArray<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-pluginarray-refresh
     fn Refresh(&self, _reload: bool) {
     }

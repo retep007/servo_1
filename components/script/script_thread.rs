@@ -477,7 +477,7 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     content_process_shutdown_chan: IpcSender<()>,
 
     /// <https://html.spec.whatwg.org/multipage/#microtask-queue>
-    microtask_queue: Rc<MicrotaskQueue>,
+    microtask_queue: Rc<MicrotaskQueue<TH>>,
 
     /// Microtask Queue for adding support for mutation observer microtasks
     mutation_observer_compound_microtask_queued: Cell<bool>,
@@ -492,7 +492,7 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     webvr_chan: Option<IpcSender<WebVRMsg>>,
 
     /// The worklet thread pool
-    worklet_thread_pool: DomRefCell<Option<Rc<WorkletThreadPool>>>,
+    worklet_thread_pool: DomRefCell<Option<Rc<WorkletThreadPool<TH>>>>,
 
     /// A list of pipelines containing documents that finished loading all their blocking
     /// resources during a turn of the event loop.
@@ -503,7 +503,7 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     transitioning_nodes: DomRefCell<Vec<Dom<Node<TH>>>>,
 
     /// <https://html.spec.whatwg.org/multipage/#custom-element-reactions-stack>
-    custom_element_reaction_stack: CustomElementReactionStack,
+    custom_element_reaction_stack: CustomElementReactionStack<TH>,
 
     /// The Webrender Document ID associated with this thread.
     webrender_document: DocumentId,
@@ -712,7 +712,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         }))
     }
 
-    pub fn worklet_thread_pool() -> Rc<WorkletThreadPool> {
+    pub fn worklet_thread_pool() -> Rc<WorkletThreadPool<TH>> {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = unsafe { &*root.get().unwrap() };
             script_thread.worklet_thread_pool.borrow_mut().get_or_insert_with(|| {

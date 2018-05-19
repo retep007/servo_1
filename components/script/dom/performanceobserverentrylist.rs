@@ -12,14 +12,15 @@ use dom::globalscope::GlobalScope;
 use dom::performance::PerformanceEntryList;
 use dom::performanceentry::PerformanceEntry;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PerformanceObserverEntryList {
+pub struct PerformanceObserverEntryList<TH: TypeHolderTrait> {
     reflector_: Reflector,
     entries: DomRefCell<PerformanceEntryList>,
 }
 
-impl PerformanceObserverEntryList {
+impl<TH> PerformanceObserverEntryList<TH> {
     fn new_inherited(entries: PerformanceEntryList) -> PerformanceObserverEntryList {
         PerformanceObserverEntryList {
             reflector_: Reflector::new(),
@@ -35,7 +36,7 @@ impl PerformanceObserverEntryList {
     }
 }
 
-impl PerformanceObserverEntryListMethods for PerformanceObserverEntryList {
+impl<TH> PerformanceObserverEntryListMethods for PerformanceObserverEntryList<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver
     fn GetEntries(&self) -> Vec<DomRoot<PerformanceEntry>> {
         self.entries.borrow().get_entries_by_name_and_type(None, None)

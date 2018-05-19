@@ -18,17 +18,18 @@ use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use std::cell::Cell;
 use task_source::TaskSource;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLDetailsElement {
-    htmlelement: HTMLElement,
+pub struct HTMLDetailsElement<TH: TypeHolderTrait> {
+    htmlelement: HTMLElement<TH>,
     toggle_counter: Cell<u32>
 }
 
-impl HTMLDetailsElement {
+impl<TH: TypeHolderTrait> HTMLDetailsElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLDetailsElement {
+                     document: &Document<TH>) -> HTMLDetailsElement<TH> {
         HTMLDetailsElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -39,14 +40,14 @@ impl HTMLDetailsElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLDetailsElement> {
+               document: &Document<TH>) -> DomRoot<HTMLDetailsElement<TH>> {
         Node::reflect_node(Box::new(HTMLDetailsElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLDetailsElementBinding::Wrap)
     }
 }
 
-impl HTMLDetailsElementMethods for HTMLDetailsElement {
+impl<TH: TypeHolderTrait> HTMLDetailsElementMethods for HTMLDetailsElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-details-open
     make_bool_getter!(Open, "open");
 
@@ -54,12 +55,12 @@ impl HTMLDetailsElementMethods for HTMLDetailsElement {
     make_bool_setter!(SetOpen, "open");
 }
 
-impl VirtualMethods for HTMLDetailsElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLDetailsElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
 
         if attr.local_name() == &local_name!("open") {

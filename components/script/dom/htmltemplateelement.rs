@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLTemplateElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#template-contents>
     contents: MutNullableDom<DocumentFragment<TH>>,
@@ -57,8 +57,8 @@ impl<TH> HTMLTemplateElementMethods for HTMLTemplateElement<TH> {
 }
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLTemplateElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     /// <https://html.spec.whatwg.org/multipage/#template-adopting-steps>

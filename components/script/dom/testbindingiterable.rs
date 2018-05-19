@@ -12,14 +12,15 @@ use dom::bindings::root::DomRoot;
 use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TestBindingIterable {
+pub struct TestBindingIterable<TH: TypeHolderTrait> {
     reflector: Reflector,
     vals: DomRefCell<Vec<DOMString>>,
 }
 
-impl TestBindingIterable {
+impl<TH> TestBindingIterable<TH> {
     fn new(global: &GlobalScope<TH>) -> DomRoot<TestBindingIterable> {
         reflect_dom_object(Box::new(TestBindingIterable {
             reflector: Reflector::new(),
@@ -32,7 +33,7 @@ impl TestBindingIterable {
     }
 }
 
-impl TestBindingIterableMethods for TestBindingIterable {
+impl<TH> TestBindingIterableMethods for TestBindingIterable<TH> {
     fn Add(&self, v: DOMString) { self.vals.borrow_mut().push(v); }
     fn Length(&self) -> u32 { self.vals.borrow().len() as u32 }
     fn GetItem(&self, n: u32) -> DOMString { self.IndexedGetter(n).unwrap_or_default() }

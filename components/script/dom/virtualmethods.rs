@@ -60,12 +60,12 @@ use typeholder::TypeHolderTrait;
 pub trait VirtualMethods<TH: TypeHolderTrait> {
     /// Returns self as the superclass of the implementation for this trait,
     /// if any.
-    fn super_type(&self) -> Option<&VirtualMethods>;
+    fn super_type(&self) -> Option<&VirtualMethods<TH>>;
 
     /// Called when attributes of a node are mutated.
     /// <https://dom.spec.whatwg.org/#attribute-is-set>
     /// <https://dom.spec.whatwg.org/#attribute-is-removed>
-    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         if let Some(s) = self.super_type() {
             s.attribute_mutated(attr, mutation);
         }
@@ -101,7 +101,7 @@ pub trait VirtualMethods<TH: TypeHolderTrait> {
     /// indicates whether the tree is part of a Document.
     /// Implements removing steps:
     /// <https://dom.spec.whatwg.org/#concept-node-remove-ext>
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         if let Some(ref s) = self.super_type() {
             s.unbind_from_tree(context);
         }
@@ -155,7 +155,7 @@ pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
             node.downcast::<HTMLAnchorElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLAreaElement)) => {
-            node.downcast::<HTMLAreaElement>().unwrap() as &VirtualMethods
+            node.downcast::<HTMLAreaElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLBaseElement)) => {
             node.downcast::<HTMLBaseElement>().unwrap() as &VirtualMethods
@@ -167,16 +167,16 @@ pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
             node.downcast::<HTMLButtonElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLCanvasElement)) => {
-            node.downcast::<HTMLCanvasElement>().unwrap() as &VirtualMethods
+            node.downcast::<HTMLCanvasElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLDetailsElement)) => {
-            node.downcast::<HTMLDetailsElement>().unwrap() as &VirtualMethods
+            node.downcast::<HTMLDetailsElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLFieldSetElement)) => {
             node.downcast::<HTMLFieldSetElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLFontElement)) => {
-            node.downcast::<HTMLFontElement>().unwrap() as &VirtualMethods
+            node.downcast::<HTMLFontElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLFormElement)) => {
             node.downcast::<HTMLFormElement<TH>>().unwrap() as &VirtualMethods
@@ -185,7 +185,7 @@ pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
             node.downcast::<HTMLHeadElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLHRElement)) => {
-            node.downcast::<HTMLHRElement>().unwrap() as &VirtualMethods
+            node.downcast::<HTMLHRElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLImageElement)) => {
             node.downcast::<HTMLImageElement<TH>>().unwrap() as &VirtualMethods
@@ -200,7 +200,7 @@ pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
             node.downcast::<HTMLLabelElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLLIElement)) => {
-            node.downcast::<HTMLLIElement>().unwrap() as &VirtualMethods
+            node.downcast::<HTMLLIElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLLinkElement)) => {
             node.downcast::<HTMLLinkElement<TH>>().unwrap() as &VirtualMethods
@@ -221,7 +221,7 @@ pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
             node.downcast::<HTMLOptionElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLOutputElement)) => {
-            node.downcast::<HTMLOutputElement>().unwrap() as &VirtualMethods
+            node.downcast::<HTMLOutputElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLScriptElement)) => {
             node.downcast::<HTMLScriptElement<TH>>().unwrap() as &VirtualMethods
@@ -259,7 +259,7 @@ pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
         NodeTypeId::Element(ElementTypeId::SVGElement(SVGElementTypeId::SVGGraphicsElement(
                     SVGGraphicsElementTypeId::SVGSVGElement
                 ))) => {
-            node.downcast::<SVGSVGElement>().unwrap() as &VirtualMethods
+            node.downcast::<SVGSVGElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::Element) => {
             node.downcast::<Element<TH>>().unwrap() as &VirtualMethods

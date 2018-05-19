@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 /// An HTML text node.
 #[dom_struct]
 pub struct Text<TH: TypeHolderTrait> {
-    characterdata: CharacterData,
+    characterdata: CharacterData<TH>,
 }
 
 impl<TH: TypeHolderTrait> Text<TH> {

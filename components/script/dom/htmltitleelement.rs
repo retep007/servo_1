@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLTitleElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
 }
 
 impl<TH: TypeHolderTrait> HTMLTitleElement<TH> {
@@ -51,8 +51,8 @@ impl<TH: TypeHolderTrait> HTMLTitleElementMethods for HTMLTitleElement<TH> {
 }
 
 impl<TH: TypeHolderTrait> VirtualMethods for HTMLTitleElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn children_changed(&self, mutation: &ChildrenMutation<TH>) {

@@ -30,7 +30,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLStyleElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement,
+    htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
     cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
@@ -143,9 +143,9 @@ impl<TH: TypeHolderTrait> HTMLStyleElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods for HTMLStyleElement<TH> {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+impl<TH> VirtualMethods<TH> for HTMLStyleElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
@@ -185,7 +185,7 @@ impl<TH> VirtualMethods for HTMLStyleElement<TH> {
         }
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         if let Some(ref s) = self.super_type() {
             s.unbind_from_tree(context);
         }
