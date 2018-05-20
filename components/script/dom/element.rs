@@ -132,7 +132,9 @@ use typeholder::TypeHolderTrait;
 // and when the element enters or leaves a browsing context container.
 // https://html.spec.whatwg.org/multipage/#selector-focus
 
-#[dom_struct]
+#[derive(DenyPublicFields, DomObject, JSTraceable, MallocSizeOf)]
+        #[must_root]
+        #[repr(C)]
 pub struct Element<TH: TypeHolderTrait> {
     node: Node<TH>,
     local_name: LocalName,
@@ -213,15 +215,15 @@ impl ElementCreator {
     }
 }
 
-pub enum AdjacentPosition {
+pub enum AdjacentPosition<TH> {
     BeforeBegin,
     AfterEnd,
     AfterBegin,
     BeforeEnd,
 }
 
-impl FromStr for AdjacentPosition {
-    type Err = Error;
+impl<TH> FromStr for AdjacentPosition<TH> {
+    type Err = Error<TH>;
 
     fn from_str(position: &str) -> Result<Self, Self::Err> {
         match_ignore_ascii_case! { &*position,
@@ -1025,7 +1027,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         }
     }
 
-    pub fn serialize(&self, traversal_scope: TraversalScope) -> Fallible<DOMString> {
+    pub fn serialize(&self, traversal_scope: TraversalScope) -> Fallible<DOMString, TH> {
         let mut writer = vec![];
         match serialize(&mut writer,
                         &self.upcast::<Node<TH>>(),
@@ -1039,7 +1041,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         }
     }
 
-    pub fn xmlSerialize(&self, traversal_scope: XmlTraversalScope) -> Fallible<DOMString> {
+    pub fn xmlSerialize(&self, traversal_scope: XmlTraversalScope) -> Fallible<DOMString, TH> {
         let mut writer = vec![];
         match xmlSerialize::serialize(&mut writer,
                         &self.upcast::<Node<TH>>(),
@@ -1454,8 +1456,8 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#insert-adjacent
-    pub fn insert_adjacent(&self, where_: AdjacentPosition, node: &Node<TH>)
-                           -> Fallible<Option<DomRoot<Node<TH>>>> {
+    pub fn insert_adjacent(&self, where_: AdjacentPosition<TH>, node: &Node<TH>)
+                           -> Fallible<Option<DomRoot<Node<TH>>>, TH> {
         let self_node = self.upcast::<Node<TH>>();
         match where_ {
             AdjacentPosition::BeforeBegin => {
@@ -1533,7 +1535,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 
     // https://w3c.github.io/DOM-Parsing/#parsing
-    pub fn parse_fragment(&self, markup: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>> {
+    pub fn parse_fragment(&self, markup: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
         // Steps 1-2.
         let context_document = document_from_node(self);
         // TODO(#11995): XML case.
@@ -1715,7 +1717,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-setattributenode
-    fn SetAttributeNode(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>> {
+    fn SetAttributeNode(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>, TH> {
         // Step 1.
         if let Some(owner) = attr.GetOwnerElement() {
             if &*owner != self {
@@ -1777,7 +1779,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-setattributenodens
-    fn SetAttributeNodeNS(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>> {
+    fn SetAttributeNodeNS(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>, TH> {
         self.SetAttributeNode(attr)
     }
 
@@ -1795,7 +1797,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-removeattributenode
-    fn RemoveAttributeNode(&self, attr: &Attr<TH>) -> Fallible<DomRoot<Attr<TH>>> {
+    fn RemoveAttributeNode(&self, attr: &Attr<TH>) -> Fallible<DomRoot<Attr<TH>>, TH> {
         self.remove_first_matching_attribute(|a| a == attr)
             .ok_or(Error::NotFound)
     }
@@ -2124,7 +2126,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     /// <https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML>
-    fn GetInnerHTML(&self) -> Fallible<DOMString> {
+    fn GetInnerHTML(&self) -> Fallible<DOMString, TH> {
         let qname = QualName::new(self.prefix().clone(),
                                   self.namespace().clone(),
                                   self.local_name().clone());
@@ -2151,7 +2153,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dvcs.w3.org/hg/innerhtml/raw-file/tip/index.html#widl-Element-outerHTML
-    fn GetOuterHTML(&self) -> Fallible<DOMString> {
+    fn GetOuterHTML(&self) -> Fallible<DOMString, TH> {
         if document_from_node(self).is_html_document() {
             return self.serialize(IncludeNode);
         } else {
@@ -2237,13 +2239,13 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
-    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
+    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
         let root = self.upcast::<Node<TH>>();
         root.query_selector(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
-    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>> {
+    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>, TH> {
         let root = self.upcast::<Node<TH>>();
         root.query_selector_all(selectors)
     }
@@ -2269,7 +2271,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-matches
-    fn Matches(&self, selectors: DOMString) -> Fallible<bool> {
+    fn Matches(&self, selectors: DOMString) -> Fallible<bool, TH> {
         let selectors =
             match SelectorParser::parse_author_origin_no_namespace(&selectors) {
                 Err(_) => return Err(Error::Syntax),
@@ -2283,12 +2285,12 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-webkitmatchesselector
-    fn WebkitMatchesSelector(&self, selectors: DOMString) -> Fallible<bool> {
+    fn WebkitMatchesSelector(&self, selectors: DOMString) -> Fallible<bool, TH> {
         self.Matches(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-element-closest
-    fn Closest(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
+    fn Closest(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
         let selectors =
             match SelectorParser::parse_author_origin_no_namespace(&selectors) {
                 Err(_) => return Err(Error::Syntax),
@@ -2305,8 +2307,8 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
 
     // https://dom.spec.whatwg.org/#dom-element-insertadjacentelement
     fn InsertAdjacentElement(&self, where_: DOMString, element: &Element<TH>)
-                             -> Fallible<Option<DomRoot<Element<TH>>>> {
-        let where_ = where_.parse::<AdjacentPosition>()?;
+                             -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
+        let where_ = where_.parse::<AdjacentPosition<TH>>()?;
         let inserted_node = self.insert_adjacent(where_, element.upcast())?;
         Ok(inserted_node.map(|node| DomRoot::downcast(node).unwrap()))
     }
@@ -2318,7 +2320,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
         let text = Text::new(data, &document_from_node(self));
 
         // Step 2.
-        let where_ = where_.parse::<AdjacentPosition>()?;
+        let where_ = where_.parse::<AdjacentPosition<TH>>()?;
         self.insert_adjacent(where_, text.upcast()).map(|_| ())
     }
 
@@ -2326,7 +2328,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     fn InsertAdjacentHTML(&self, position: DOMString, text: DOMString)
                           -> ErrorResult<TH> {
         // Step 1.
-        let position = position.parse::<AdjacentPosition>()?;
+        let position = position.parse::<AdjacentPosition<TH>>()?;
 
         let context = match position {
             AdjacentPosition::BeforeBegin | AdjacentPosition::AfterEnd => {
@@ -2750,23 +2752,23 @@ impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
 
 
 impl<TH> Element<TH> {
-    pub fn as_maybe_activatable(&self) -> Option<&Activatable> {
+    pub fn as_maybe_activatable(&self) -> Option<&Activatable<TH>> {
         let element = match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
                 let element = self.downcast::<HTMLInputElement<TH>>().unwrap();
-                Some(element as &Activatable)
+                Some(element as &Activatable<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLButtonElement)) => {
                 let element = self.downcast::<HTMLButtonElement<TH>>().unwrap();
-                Some(element as &Activatable)
+                Some(element as &Activatable<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLAnchorElement)) => {
                 let element = self.downcast::<HTMLAnchorElement<TH>>().unwrap();
-                Some(element as &Activatable)
+                Some(element as &Activatable<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLLabelElement)) => {
                 let element = self.downcast::<HTMLLabelElement<TH>>().unwrap();
-                Some(element as &Activatable)
+                Some(element as &Activatable<TH>)
             },
             _ => {
                 None
@@ -2805,7 +2807,7 @@ impl<TH> Element<TH> {
                 Some(element as &Validatable)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLObjectElement)) => {
-                let element = self.downcast::<HTMLObjectElement>().unwrap();
+                let element = self.downcast::<HTMLObjectElement<TH>>().unwrap();
                 Some(element as &Validatable)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLSelectElement)) => {
@@ -3136,7 +3138,7 @@ pub struct ElementPerformFullscreenEnter<TH: TypeHolderTrait> {
 }
 
 impl<TH> ElementPerformFullscreenEnter<TH> {
-    pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise<TH>, error: bool) -> Box<ElementPerformFullscreenEnter> {
+    pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise<TH>, error: bool) -> Box<ElementPerformFullscreenEnter<TH>> {
         Box::new(ElementPerformFullscreenEnter {
             element: element,
             promise: promise,

@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct PerformanceEntry<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     name: DOMString,
     entry_type: DOMString,
     start_time: f64,
@@ -25,7 +25,7 @@ impl<TH> PerformanceEntry<TH> {
     pub fn new_inherited(name: DOMString,
                          entry_type: DOMString,
                          start_time: f64,
-                         duration: f64) -> PerformanceEntry {
+                         duration: f64) -> PerformanceEntry<TH> {
         PerformanceEntry {
             reflector_: Reflector::new(),
             name,
@@ -40,7 +40,7 @@ impl<TH> PerformanceEntry<TH> {
                name: DOMString,
                entry_type: DOMString,
                start_time: f64,
-               duration: f64) -> DomRoot<PerformanceEntry> {
+               duration: f64) -> DomRoot<PerformanceEntry<TH>> {
         let entry = PerformanceEntry::new_inherited(name, entry_type, start_time, duration);
         reflect_dom_object(Box::new(entry), global, PerformanceEntryBinding::Wrap)
     }

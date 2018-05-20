@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct ImageData<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     width: u32,
     height: u32,
     data: Heap<*mut JSObject>,
@@ -33,7 +33,7 @@ impl<TH> ImageData<TH> {
                width: u32,
                height: u32,
                mut data: Option<Vec<u8>>)
-               -> Fallible<DomRoot<ImageData<TH>>> {
+               -> Fallible<DomRoot<ImageData<TH>>, TH> {
         let len = width * height * 4;
         unsafe {
             let cx = global.get_cx();
@@ -55,7 +55,7 @@ impl<TH> ImageData<TH> {
                                 width: u32,
                                 mut opt_height: Option<u32>,
                                 opt_jsobject: Option<*mut JSObject>)
-                                -> Fallible<DomRoot<ImageData<TH>>> {
+                                -> Fallible<DomRoot<ImageData<TH>>, TH> {
         assert!(opt_jsobject.is_some() || opt_height.is_some());
 
         if width == 0 {
@@ -114,7 +114,7 @@ impl<TH> ImageData<TH> {
 
     // https://html.spec.whatwg.org/multipage/#pixel-manipulation:dom-imagedata-3
     #[allow(unsafe_code)]
-    pub fn Constructor(global: &GlobalScope<TH>, width: u32, height: u32) -> Fallible<DomRoot<Self>> {
+    pub fn Constructor(global: &GlobalScope<TH>, width: u32, height: u32) -> Fallible<DomRoot<Self>, TH> {
         unsafe { Self::new_with_jsobject(global, width, Some(height), None) }
     }
 
@@ -126,7 +126,7 @@ impl<TH> ImageData<TH> {
                                jsobject: *mut JSObject,
                                width: u32,
                                opt_height: Option<u32>)
-                               -> Fallible<DomRoot<Self>> {
+                               -> Fallible<DomRoot<Self>, TH> {
         Self::new_with_jsobject(global, width, opt_height, Some(jsobject))
     }
 

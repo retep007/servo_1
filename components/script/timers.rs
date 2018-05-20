@@ -32,14 +32,14 @@ use typeholder::TypeHolderTrait;
 pub struct OneshotTimerHandle(i32);
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
-pub struct OneshotTimers {
-    js_timers: JsTimers,
+pub struct OneshotTimers<TH: TypeHolderTrait> {
+    js_timers: JsTimers<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
     timer_event_chan: IpcSender<TimerEvent>,
     #[ignore_malloc_size_of = "Defined in std"]
     scheduler_chan: IpcSender<TimerSchedulerMsg>,
     next_timer_handle: Cell<OneshotTimerHandle>,
-    timers: DomRefCell<Vec<OneshotTimer>>,
+    timers: DomRefCell<Vec<OneshotTimer<TH>>>,
     suspended_since: Cell<Option<MsDuration>>,
     /// Initially 0, increased whenever the associated document is reactivated
     /// by the amount of ms the document was inactive. The current time can be
@@ -65,18 +65,18 @@ struct OneshotTimer<TH: TypeHolderTrait> {
 
 // This enum is required to work around the fact that trait objects do not support generic methods.
 // A replacement trait would have a method such as
-//     `invoke<T: DomObject>(self: Box<Self>, this: &T, js_timers: &JsTimers);`.
+//     `invoke<T: DomObject<TH>, TH: TypeHolderTrait>(self: Box<Self>, this: &T, js_timers: &JsTimers);`.
 #[derive(JSTraceable, MallocSizeOf)]
 pub enum OneshotTimerCallback<TH: TypeHolderTrait> {
-    XhrTimeout(XHRTimeoutCallback),
-    EventSourceTimeout(EventSourceTimeoutCallback),
+    XhrTimeout(XHRTimeoutCallback<TH>),
+    EventSourceTimeout(EventSourceTimeoutCallback<TH>),
     JsTimer(JsTimerTask<TH>),
-    TestBindingCallback(TestBindingCallback),
-    FakeRequestAnimationFrame(FakeRequestAnimationFrameCallback),
+    TestBindingCallback(TestBindingCallback<TH>),
+    FakeRequestAnimationFrame(FakeRequestAnimationFrameCallback<TH>),
 }
 
 impl<TH: TypeHolderTrait> OneshotTimerCallback<TH> {
-    fn invoke<T: DomObject>(self, this: &T, js_timers: &JsTimers<TH>) {
+    fn invoke<T: DomObject<TH>, TH: TypeHolderTrait>(self, this: &T, js_timers: &JsTimers<TH>) {
         match self {
             OneshotTimerCallback::XhrTimeout(callback) => callback.invoke(),
             OneshotTimerCallback::EventSourceTimeout(callback) => callback.invoke(),
@@ -112,7 +112,7 @@ impl<TH> PartialEq for OneshotTimer<TH> {
 impl<TH: TypeHolderTrait> OneshotTimers<TH> {
     pub fn new(timer_event_chan: IpcSender<TimerEvent>,
                scheduler_chan: IpcSender<TimerSchedulerMsg>)
-               -> OneshotTimers {
+               -> OneshotTimers<TH> {
         OneshotTimers {
             js_timers: JsTimers::new(),
             timer_event_chan: timer_event_chan,
@@ -484,7 +484,7 @@ fn clamp_duration(nesting_level: u32, unclamped: MsDuration) -> MsDuration {
 
 impl<TH: TypeHolderTrait> JsTimerTask<TH> {
     // see https://html.spec.whatwg.org/multipage/#timer-initialisation-steps
-    pub fn invoke<T: DomObject>(self, this: &T, timers: &JsTimers<TH>) {
+    pub fn invoke<T: DomObject<TH>, TH: TypeHolderTrait>(self, this: &T, timers: &JsTimers<TH>) {
         // step 4.1 can be ignored, because we proactively prevent execution
         // of this task when its scheduled execution is canceled.
 

@@ -84,7 +84,7 @@ pub unsafe trait StableTraceObject {
 
 unsafe impl<T> StableTraceObject for Dom<T>
 where
-    T: DomObject,
+    T: DomObject<TH>,
 {
     fn stable_trace_object<'a>(&'a self) -> *const JSTraceable {
         // The JSTraceable impl for Reflector doesn't actually do anything,
@@ -150,7 +150,7 @@ impl<T: Castable> DomRoot<T> {
     }
 }
 
-impl<T: DomObject> DomRoot<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> DomRoot<T> {
     /// Generate a new root from a reference
     pub fn from_ref(unrooted: &T) -> DomRoot<T> {
         unsafe { DomRoot::new(Dom::from_ref(unrooted)) }
@@ -168,7 +168,7 @@ where
 
 impl<T> PartialEq for DomRoot<T>
 where
-    T: DomObject,
+    T: DomObject<TH>,
 {
     fn eq(&self, other: &Self) -> bool {
         self.value == other.value
@@ -177,7 +177,7 @@ where
 
 impl<T> Clone for DomRoot<T>
 where
-    T: DomObject,
+    T: DomObject<TH>,
 {
     fn clone(&self) -> DomRoot<T> {
         DomRoot::from_ref(&*self)
@@ -186,7 +186,7 @@ where
 
 unsafe impl<T> JSTraceable for DomRoot<T>
 where
-    T: DomObject,
+    T: DomObject<TH>,
 {
     unsafe fn trace(&self, _: *mut JSTracer) {
         // Already traced.
@@ -333,7 +333,7 @@ impl<T> Dom<T> {
     }
 }
 
-impl<T: DomObject> Dom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> Dom<T> {
     /// Create a Dom<T> from a &T
     #[allow(unrooted_must_root)]
     pub fn from_ref(obj: &T) -> Dom<T> {
@@ -344,7 +344,7 @@ impl<T: DomObject> Dom<T> {
     }
 }
 
-impl<T: DomObject> Deref for Dom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> Deref for Dom<T> {
     type Target = T;
 
     fn deref(&self) -> &T {
@@ -355,7 +355,7 @@ impl<T: DomObject> Deref for Dom<T> {
     }
 }
 
-unsafe impl<T: DomObject> JSTraceable for Dom<T> {
+unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> JSTraceable for Dom<T> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         #[cfg(all(feature = "unstable", debug_assertions))]
         let trace_str = format!("for {} on heap", ::std::intrinsics::type_name::<T>());
@@ -408,7 +408,7 @@ impl<T: Castable> LayoutDom<T> {
     }
 }
 
-impl<T: DomObject> LayoutDom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> LayoutDom<T> {
     /// Get the reflector.
     pub unsafe fn get_jsobject(&self) -> *mut JSObject {
         debug_assert!(thread_state::get().is_layout());
@@ -486,11 +486,11 @@ impl<TH: TypeHolderTrait> LayoutDom<Node<TH>> {
 /// on `Dom<T>`.
 #[must_root]
 #[derive(JSTraceable)]
-pub struct MutDom<T: DomObject> {
+pub struct MutDom<T: DomObject<TH>, TH: TypeHolderTrait> {
     val: UnsafeCell<Dom<T>>,
 }
 
-impl<T: DomObject> MutDom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> MutDom<T> {
     /// Create a new `MutDom`.
     pub fn new(initial: &T) -> MutDom<T> {
         debug_assert!(thread_state::get().is_script());
@@ -516,14 +516,14 @@ impl<T: DomObject> MutDom<T> {
     }
 }
 
-impl<T: DomObject> MallocSizeOf for MutDom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> MallocSizeOf for MutDom<T> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         // See comment on MallocSizeOf for Dom<T>.
         0
     }
 }
 
-impl<T: DomObject> PartialEq for MutDom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> PartialEq for MutDom<T> {
    fn eq(&self, other: &Self) -> bool {
         unsafe {
             *self.val.get() == *other.val.get()
@@ -547,11 +547,11 @@ impl<T: DomObject + PartialEq> PartialEq<T> for MutDom<T> {
 /// on `Dom<T>`.
 #[must_root]
 #[derive(JSTraceable)]
-pub struct MutNullableDom<T: DomObject> {
+pub struct MutNullableDom<T: DomObject<TH>, TH: TypeHolderTrait> {
     ptr: UnsafeCell<Option<Dom<T>>>,
 }
 
-impl<T: DomObject> MutNullableDom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> MutNullableDom<T> {
     /// Create a new `MutNullableDom`.
     pub fn new(initial: Option<&T>) -> MutNullableDom<T> {
         debug_assert!(thread_state::get().is_script());
@@ -609,7 +609,7 @@ impl<T: DomObject> MutNullableDom<T> {
     }
 }
 
-impl<T: DomObject> PartialEq for MutNullableDom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> PartialEq for MutNullableDom<T> {
     fn eq(&self, other: &Self) -> bool {
         unsafe {
             *self.ptr.get() == *other.ptr.get()
@@ -625,7 +625,7 @@ impl<'a, T: DomObject> PartialEq<Option<&'a T>> for MutNullableDom<T> {
     }
 }
 
-impl<T: DomObject> Default for MutNullableDom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> Default for MutNullableDom<T> {
     #[allow(unrooted_must_root)]
     fn default() -> MutNullableDom<T> {
         debug_assert!(thread_state::get().is_script());
@@ -635,7 +635,7 @@ impl<T: DomObject> Default for MutNullableDom<T> {
     }
 }
 
-impl<T: DomObject> MallocSizeOf for MutNullableDom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> MallocSizeOf for MutNullableDom<T> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         // See comment on MallocSizeOf for Dom<T>.
         0
@@ -649,7 +649,7 @@ impl<T: DomObject> MallocSizeOf for MutNullableDom<T> {
 /// This should only be used as a field in other DOM objects; see warning
 /// on `Dom<T>`.
 #[must_root]
-pub struct DomOnceCell<T: DomObject> {
+pub struct DomOnceCell<T: DomObject<TH>, TH: TypeHolderTrait> {
     ptr: OnceCell<Dom<T>>,
 }
 
@@ -668,7 +668,7 @@ where
     }
 }
 
-impl<T: DomObject> Default for DomOnceCell<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> Default for DomOnceCell<T> {
     #[allow(unrooted_must_root)]
     fn default() -> DomOnceCell<T> {
         debug_assert!(thread_state::get().is_script());
@@ -678,7 +678,7 @@ impl<T: DomObject> Default for DomOnceCell<T> {
     }
 }
 
-impl<T: DomObject> MallocSizeOf for DomOnceCell<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> MallocSizeOf for DomOnceCell<T> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         // See comment on MallocSizeOf for Dom<T>.
         0
@@ -686,7 +686,7 @@ impl<T: DomObject> MallocSizeOf for DomOnceCell<T> {
 }
 
 #[allow(unrooted_must_root)]
-unsafe impl<T: DomObject> JSTraceable for DomOnceCell<T> {
+unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> JSTraceable for DomOnceCell<T> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         if let Some(ptr) = self.ptr.as_ref() {
             ptr.trace(trc);
@@ -694,7 +694,7 @@ unsafe impl<T: DomObject> JSTraceable for DomOnceCell<T> {
     }
 }
 
-impl<T: DomObject> LayoutDom<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> LayoutDom<T> {
     /// Returns an unsafe pointer to the interior of this JS object. This is
     /// the only method that be safely accessed from layout. (The fact that
     /// this is unsafe is what necessitates the layout wrappers.)

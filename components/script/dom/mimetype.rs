@@ -11,7 +11,7 @@ use dom_struct::dom_struct;
 
 #[dom_struct]
 pub struct MimeType {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 impl MimeTypeMethods for MimeType {

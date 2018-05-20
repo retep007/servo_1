@@ -15,19 +15,19 @@ use typeholder::TypeHolderTrait;
 // https://www.w3.org/TR/gamepad/
 #[dom_struct]
 pub struct GamepadList<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     list: DomRefCell<Vec<Dom<Gamepad<TH>>>>
 }
 
 impl<TH> GamepadList<TH> {
-    fn new_inherited(list: &[&Gamepad]) -> GamepadList<TH> {
+    fn new_inherited(list: &[&Gamepad<TH>]) -> GamepadList<TH> {
         GamepadList {
             reflector_: Reflector::new(),
             list: DomRefCell::new(list.iter().map(|g| Dom::from_ref(&**g)).collect())
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, list: &[&Gamepad]) -> DomRoot<GamepadList> {
+    pub fn new(global: &GlobalScope<TH>, list: &[&Gamepad<TH>]) -> DomRoot<GamepadList<TH>> {
         reflect_dom_object(Box::new(GamepadList::new_inherited(list)),
                            global,
                            GamepadListBinding::Wrap)

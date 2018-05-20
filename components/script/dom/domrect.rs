@@ -36,7 +36,7 @@ impl<TH> DOMRect<TH> {
                        y: f64,
                        width: f64,
                        height: f64)
-                       -> Fallible<DomRoot<DOMRect<TH>>> {
+                       -> Fallible<DomRoot<DOMRect<TH>>, TH> {
         Ok(DOMRect::new(global, x, y, width, height))
     }
 }

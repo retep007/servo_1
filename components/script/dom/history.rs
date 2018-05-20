@@ -39,7 +39,7 @@ enum PushOrReplace {
 // https://html.spec.whatwg.org/multipage/#the-history-interface
 #[dom_struct]
 pub struct History<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     window: Dom<Window<TH>>,
     state: Heap<JSVal>,
     state_id: Cell<Option<HistoryStateId>>,
@@ -259,7 +259,7 @@ impl<TH> History<TH> {
 impl<TH: TypeHolderTrait> HistoryMethods for History<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-history-state
     #[allow(unsafe_code)]
-    unsafe fn GetState(&self, _cx: *mut JSContext) -> Fallible<JSVal> {
+    unsafe fn GetState(&self, _cx: *mut JSContext) -> Fallible<JSVal, TH> {
         if !self.window.Document().is_fully_active() {
             return Err(Error::Security);
         }
@@ -267,7 +267,7 @@ impl<TH: TypeHolderTrait> HistoryMethods for History<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-history-length
-    fn GetLength(&self) -> Fallible<u32> {
+    fn GetLength(&self) -> Fallible<u32, TH> {
         if !self.window.Document().is_fully_active() {
             return Err(Error::Security);
         }

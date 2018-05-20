@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 #[must_root]
 pub struct Tokenizer<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Defined in xml5ever"]
-    inner: XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink>>,
+    inner: XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink<TH>>>,
 }
 
 impl<TH: TypeHolderTrait> Tokenizer<TH> {

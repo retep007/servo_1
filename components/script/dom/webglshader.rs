@@ -117,7 +117,7 @@ impl<TH> WebGLShader<TH> {
 
         let mut params = BuiltInResources::default();
         params.FragmentPrecisionHigh = 1;
-        params.OES_standard_derivatives = ext.is_enabled::<OESStandardDerivatives>() as i32;
+        params.OES_standard_derivatives = ext.is_enabled::<OESStandardDerivatives<TH>>() as i32;
         let validator = match webgl_version {
             WebGLVersion::WebGL1 => {
                 let output_format = if cfg!(any(target_os = "android", target_os = "ios")) {

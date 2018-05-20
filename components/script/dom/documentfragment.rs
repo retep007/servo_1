@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> DocumentFragment<TH> {
                            DocumentFragmentBinding::Wrap)
     }
 
-    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<DocumentFragment<TH>>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
         let document = window.Document();
 
         Ok(DocumentFragment::new(&document))
@@ -92,12 +92,12 @@ impl<TH: TypeHolderTrait> DocumentFragmentMethods<TH> for DocumentFragment<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
-    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
+    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
         self.upcast::<Node<TH>>().query_selector(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
-    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>> {
+    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>, TH> {
         self.upcast::<Node<TH>>().query_selector_all(selectors)
     }
 }

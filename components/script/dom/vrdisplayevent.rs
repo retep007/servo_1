@@ -97,7 +97,7 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &VRDisplayEventBinding::VRDisplayEventInit)
-                       -> Fallible<DomRoot<VRDisplayEvent<TH>>> {
+                       -> Fallible<DomRoot<VRDisplayEvent<TH>>, TH> {
         Ok(VRDisplayEvent::new(&window.global(),
                             Atom::from(type_),
                             init.parent.bubbles,

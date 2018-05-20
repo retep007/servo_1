@@ -20,12 +20,12 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSS<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 impl<TH: TypeHolderTrait> CSS<TH> {
     /// <http://dev.w3.org/csswg/cssom/#serialize-an-identifier>
-    pub fn Escape(_: &Window<TH>, ident: DOMString) -> Fallible<DOMString> {
+    pub fn Escape(_: &Window<TH>, ident: DOMString) -> Fallible<DOMString, TH> {
         let mut escaped = String::new();
         serialize_identifier(&ident, &mut escaped).unwrap();
         Ok(DOMString::from(escaped))

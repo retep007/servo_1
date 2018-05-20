@@ -63,7 +63,7 @@ enum CanvasFillOrStrokeStyle<TH: TypeHolderTrait> {
 // https://html.spec.whatwg.org/multipage/#canvasrenderingcontext2d
 #[dom_struct]
 pub struct CanvasRenderingContext2D<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
     ipc_renderer: IpcSender<CanvasMsg>,
     /// For rendering contexts created by an HTML canvas element, this is Some,
@@ -972,7 +972,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-strokestyle
-    fn StrokeStyle(&self) -> StringOrCanvasGradientOrCanvasPattern {
+    fn StrokeStyle(&self) -> StringOrCanvasGradientOrCanvasPattern<TH> {
         match self.state.borrow().stroke_style {
             CanvasFillOrStrokeStyle::Color(ref rgba) => {
                 let mut result = String::new();
@@ -989,7 +989,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-strokestyle
-    fn SetStrokeStyle(&self, value: StringOrCanvasGradientOrCanvasPattern) {
+    fn SetStrokeStyle(&self, value: StringOrCanvasGradientOrCanvasPattern<TH>) {
         match value {
             StringOrCanvasGradientOrCanvasPattern::String(string) => {
                 if let Ok(rgba) = self.parse_color(&string) {
@@ -1015,7 +1015,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-strokestyle
-    fn FillStyle(&self) -> StringOrCanvasGradientOrCanvasPattern {
+    fn FillStyle(&self) -> StringOrCanvasGradientOrCanvasPattern<TH> {
         match self.state.borrow().fill_style {
             CanvasFillOrStrokeStyle::Color(ref rgba) => {
                 let mut result = String::new();
@@ -1032,7 +1032,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-strokestyle
-    fn SetFillStyle(&self, value: StringOrCanvasGradientOrCanvasPattern) {
+    fn SetFillStyle(&self, value: StringOrCanvasGradientOrCanvasPattern<TH>) {
         match value {
             StringOrCanvasGradientOrCanvasPattern::String(string) => {
                 if let Ok(rgba) = self.parse_color(&string) {
@@ -1058,7 +1058,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-createimagedata
-    fn CreateImageData(&self, sw: Finite<f64>, sh: Finite<f64>) -> Fallible<DomRoot<ImageData<TH>>> {
+    fn CreateImageData(&self, sw: Finite<f64>, sh: Finite<f64>) -> Fallible<DomRoot<ImageData<TH>>, TH> {
         if *sw == 0.0 || *sh == 0.0 {
             return Err(Error::IndexSize);
         }
@@ -1069,7 +1069,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-createimagedata
-    fn CreateImageData_(&self, imagedata: &ImageData<TH>) -> Fallible<DomRoot<ImageData<TH>>> {
+    fn CreateImageData_(&self, imagedata: &ImageData<TH>) -> Fallible<DomRoot<ImageData<TH>>, TH> {
         ImageData::new(&self.global(),
                        imagedata.Width(),
                        imagedata.Height(),
@@ -1082,7 +1082,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
                     sy: Finite<f64>,
                     sw: Finite<f64>,
                     sh: Finite<f64>)
-                    -> Fallible<DomRoot<ImageData<TH>>> {
+                    -> Fallible<DomRoot<ImageData<TH>>, TH> {
         if !self.origin_is_clean() {
             return Err(Error::Security)
         }
@@ -1183,7 +1183,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
                             x1: Finite<f64>,
                             y1: Finite<f64>,
                             r1: Finite<f64>)
-                            -> Fallible<DomRoot<CanvasGradient<TH>>> {
+                            -> Fallible<DomRoot<CanvasGradient<TH>>, TH> {
         if *r0 < 0. || *r1 < 0. {
             return Err(Error::IndexSize);
         }
@@ -1202,7 +1202,7 @@ impl<TH> CanvasRenderingContext2DMethods<TH> for CanvasRenderingContext2D<TH> {
     fn CreatePattern(&self,
                      image: CanvasImageSource<TH>,
                      mut repetition: DOMString)
-                     -> Fallible<DomRoot<CanvasPattern<TH>>> {
+                     -> Fallible<DomRoot<CanvasPattern<TH>>, TH> {
         let (image_data, image_size) = match image {
             CanvasImageSource::HTMLImageElement(ref image) => {
                 // https://html.spec.whatwg.org/multipage/#img-error

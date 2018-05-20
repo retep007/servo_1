@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 // https://webbluetoothcg.github.io/web-bluetooth/tests#test-runner
  #[dom_struct]
 pub struct TestRunner<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 impl<TH> TestRunner<TH> {

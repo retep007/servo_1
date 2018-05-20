@@ -24,13 +24,13 @@ pub struct HTMLFormControlsCollection<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> HTMLFormControlsCollection<TH> {
-    fn new_inherited(root: &Node<TH>, filter: Box<CollectionFilter + 'static>) -> HTMLFormControlsCollection<TH> {
+    fn new_inherited(root: &Node<TH>, filter: Box<CollectionFilter<TH> + 'static>) -> HTMLFormControlsCollection<TH> {
         HTMLFormControlsCollection {
             collection: HTMLCollection::new_inherited(root, filter)
         }
     }
 
-    pub fn new(window: &Window<TH>, root: &Node<TH>, filter: Box<CollectionFilter + 'static>)
+    pub fn new(window: &Window<TH>, root: &Node<TH>, filter: Box<CollectionFilter<TH> + 'static>)
         -> DomRoot<HTMLFormControlsCollection<TH>>
     {
         reflect_dom_object(Box::new(HTMLFormControlsCollection::new_inherited(root, filter)),

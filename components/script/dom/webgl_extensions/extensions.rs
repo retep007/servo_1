@@ -114,7 +114,7 @@ impl<TH> WebGLExtensions<TH> {
         }
     }
 
-    pub fn register<T:'static + WebGLExtension + JSTraceable + MallocSizeOf>(&self) {
+    pub fn register<T:'static + WebGLExtension<TH> + JSTraceable + MallocSizeOf>(&self) {
         let name = T::name().to_uppercase();
         self.extensions.borrow_mut().insert(name, Box::new(TypedWebGLExtensionWrapper::<T>::new()));
     }
@@ -146,7 +146,7 @@ impl<TH> WebGLExtensions<TH> {
 
     pub fn is_enabled<T>(&self) -> bool
     where
-        T: 'static + WebGLExtension + JSTraceable + MallocSizeOf
+        T: 'static + WebGLExtension<TH> + JSTraceable + MallocSizeOf
     {
         let name = T::name().to_uppercase();
         self.extensions.borrow().get(&name).map_or(false, |ext| { ext.is_enabled() })
@@ -154,7 +154,7 @@ impl<TH> WebGLExtensions<TH> {
 
     pub fn get_dom_object<T>(&self) -> Option<DomRoot<T::Extension>>
     where
-        T: 'static + WebGLExtension + JSTraceable + MallocSizeOf
+        T: 'static + WebGLExtension<TH> + JSTraceable + MallocSizeOf
     {
         let name = T::name().to_uppercase();
         self.extensions.borrow().get(&name).and_then(|extension| {
@@ -208,14 +208,14 @@ impl<TH> WebGLExtensions<TH> {
         self.features.borrow().not_filterable_tex_types.get(&text_data_type).is_none()
     }
 
-    pub fn add_query_parameter_handler(&self, name: GLenum, f: Box<WebGLQueryParameterFunc>) {
+    pub fn add_query_parameter_handler(&self, name: GLenum, f: Box<WebGLQueryParameterFunc<TH>>) {
         let handler = WebGLQueryParameterHandler {
             func: f
         };
         self.features.borrow_mut().query_parameter_handlers.insert(name, handler);
     }
 
-    pub fn get_query_parameter_handler(&self, name: GLenum) -> Option<Ref<Box<WebGLQueryParameterFunc>>> {
+    pub fn get_query_parameter_handler(&self, name: GLenum) -> Option<Ref<Box<WebGLQueryParameterFunc<TH>>>> {
         ref_filter_map(self.features.borrow(), |features| {
             features.query_parameter_handlers.get(&name).map(|item| &item.func)
         })
@@ -265,7 +265,7 @@ type WebGLQueryParameterFunc<TH> = Fn(*mut JSContext, &WebGLRenderingContext<TH>
 #[derive(MallocSizeOf)]
 struct WebGLQueryParameterHandler {
     #[ignore_malloc_size_of = "Closures are hard"]
-    func: Box<WebGLQueryParameterFunc>
+    func: Box<WebGLQueryParameterFunc<TH>>
 }
 
 unsafe_no_jsmanaged_fields!(WebGLQueryParameterHandler);

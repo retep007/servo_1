@@ -158,7 +158,7 @@ pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
             node.downcast::<HTMLAreaElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLBaseElement)) => {
-            node.downcast::<HTMLBaseElement>().unwrap() as &VirtualMethods
+            node.downcast::<HTMLBaseElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLBodyElement)) => {
             node.downcast::<HTMLBodyElement<TH>>().unwrap() as &VirtualMethods
@@ -212,7 +212,7 @@ pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
             node.downcast::<HTMLMetaElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLObjectElement)) => {
-            node.downcast::<HTMLObjectElement>().unwrap() as &VirtualMethods
+            node.downcast::<HTMLObjectElement<TH>>().unwrap() as &VirtualMethods
         }
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLOptGroupElement)) => {
             node.downcast::<HTMLOptGroupElement<TH>>().unwrap() as &VirtualMethods

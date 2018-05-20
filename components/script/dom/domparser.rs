@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct DOMParser<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     window: Dom<Window<TH>>, // XXXjdm Document instead?
 }
 
@@ -43,7 +43,7 @@ impl<TH> DOMParser<TH> {
                            DOMParserBinding::Wrap)
     }
 
-    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<DOMParser<TH>>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<DOMParser<TH>>, TH> {
         Ok(DOMParser::new(window))
     }
 }
@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> DOMParserMethods for DOMParser<TH> {
     fn ParseFromString(&self,
                        s: DOMString,
                        ty: DOMParserBinding::SupportedType)
-                       -> Fallible<DomRoot<Document<TH>>> {
+                       -> Fallible<DomRoot<Document<TH>>, TH> {
         let url = self.window.get_url();
         let content_type = ty.as_str().parse().expect("Supported type is not a MIME type");
         let doc = self.window.Document();

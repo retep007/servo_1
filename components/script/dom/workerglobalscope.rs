@@ -246,17 +246,17 @@ impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods for WorkerGlobalScope<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dfn-Crypto
-    fn Crypto(&self) -> DomRoot<Crypto> {
+    fn Crypto(&self) -> DomRoot<Crypto<TH>> {
         self.upcast::<GlobalScope<TH>>().crypto()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-windowbase64-btoa
-    fn Btoa(&self, btoa: DOMString) -> Fallible<DOMString> {
+    fn Btoa(&self, btoa: DOMString) -> Fallible<DOMString, TH> {
         base64_btoa(btoa)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-windowbase64-atob
-    fn Atob(&self, atob: DOMString) -> Fallible<DOMString> {
+    fn Atob(&self, atob: DOMString) -> Fallible<DOMString, TH> {
         base64_atob(atob)
     }
 
@@ -363,7 +363,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
     }
 
     pub fn script_chan(&self) -> Box<ScriptChan + Send> {
-        let dedicated = self.downcast::<DedicatedWorkerGlobalScope>();
+        let dedicated = self.downcast::<DedicatedWorkerGlobalScope<TH>>();
         let service_worker = self.downcast::<ServiceWorkerGlobalScope<TH>>();
         if let Some(dedicated) = dedicated {
             return dedicated.script_chan();
@@ -387,7 +387,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
     }
 
     pub fn new_script_pair(&self) -> (Box<ScriptChan + Send>, Box<ScriptPort + Send>) {
-        let dedicated = self.downcast::<DedicatedWorkerGlobalScope>();
+        let dedicated = self.downcast::<DedicatedWorkerGlobalScope<TH>>();
         if let Some(dedicated) = dedicated {
             return dedicated.new_script_pair();
         } else {

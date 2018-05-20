@@ -42,7 +42,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Request<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     request: DomRefCell<NetTraitsRequest>,
     body_used: Cell<bool>,
     headers: MutNullableDom<Headers>,
@@ -73,9 +73,9 @@ impl<TH> Request<TH> {
 
     // https://fetch.spec.whatwg.org/#dom-request
     pub fn Constructor(global: &GlobalScope<TH>,
-                       input: RequestInfo,
+                       input: RequestInfo<TH>,
                        init: RootedTraceableBox<RequestInit>)
-                       -> Fallible<DomRoot<Request<TH>>> {
+                       -> Fallible<DomRoot<Request<TH>>, TH> {
         // Step 1
         let temporary_request: NetTraitsRequest;
 
@@ -413,7 +413,7 @@ impl<TH> Request<TH> {
         r
     }
 
-    fn clone_from(r: &Request<TH>) -> Fallible<DomRoot<Request<TH>>> {
+    fn clone_from(r: &Request<TH>) -> Fallible<DomRoot<Request<TH>>, TH> {
         let req = r.request.borrow();
         let url = req.url();
         let body_used = r.body_used.get();
@@ -576,7 +576,7 @@ impl<TH> RequestMethods for Request<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-request-clone
-    fn Clone(&self) -> Fallible<DomRoot<Request<TH>>> {
+    fn Clone(&self) -> Fallible<DomRoot<Request<TH>>, TH> {
         // Step 1
         if request_is_locked(self) {
             return Err(Error::Type("Request is locked".to_string()));

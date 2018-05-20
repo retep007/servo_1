@@ -171,7 +171,7 @@ impl<TH: TypeHolderTrait> TextureUnitBindings<TH> {
 
 #[dom_struct]
 pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Channels are hard"]
     webgl_sender: WebGLMsgSender,
     #[ignore_malloc_size_of = "Defined in webrender"]

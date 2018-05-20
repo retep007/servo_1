@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct DOMRectReadOnly<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     x: Cell<f64>,
     y: Cell<f64>,
     width: Cell<f64>,
@@ -45,7 +45,7 @@ impl<TH> DOMRectReadOnly<TH> {
                        y: f64,
                        width: f64,
                        height: f64)
-                       -> Fallible<DomRoot<DOMRectReadOnly<TH>>> {
+                       -> Fallible<DomRoot<DOMRectReadOnly<TH>>, TH> {
         Ok(DOMRectReadOnly::new(global, x, y, width, height))
     }
 

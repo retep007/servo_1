@@ -135,7 +135,7 @@ impl<TH: TypeHolderTrait> WebSocket<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        url: DOMString,
                        protocols: Option<StringOrStringSequence>)
-                       -> Fallible<DomRoot<WebSocket<TH>>> {
+                       -> Fallible<DomRoot<WebSocket<TH>>, TH> {
         // Steps 1-2.
         let url_record = ServoUrl::parse(&url).or(Err(Error::Syntax))?;
 
@@ -236,7 +236,7 @@ impl<TH: TypeHolderTrait> WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn send_impl(&self, data_byte_len: u64) -> Fallible<bool> {
+    fn send_impl(&self, data_byte_len: u64) -> Fallible<bool, TH> {
         let return_after_buffer = match self.ready_state.get() {
             WebSocketRequestState::Connecting => {
                 return Err(Error::InvalidState);

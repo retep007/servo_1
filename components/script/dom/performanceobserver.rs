@@ -32,7 +32,7 @@ const VALID_ENTRY_TYPES: &'static [&'static str] = &[
 
 #[dom_struct]
 pub struct PerformanceObserver<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<PerformanceObserverCallback>,
     entries: DomRefCell<DOMPerformanceEntryList>,
@@ -59,12 +59,12 @@ impl<TH> PerformanceObserver<TH> {
     }
 
     pub fn Constructor(global: &GlobalScope<TH>, callback: Rc<PerformanceObserverCallback>)
-        -> Fallible<DomRoot<PerformanceObserver<TH>>> {
+        -> Fallible<DomRoot<PerformanceObserver<TH>>, TH> {
         Ok(PerformanceObserver::new(global, callback, Vec::new()))
     }
 
     /// Buffer a new performance entry.
-    pub fn queue_entry(&self, entry: &PerformanceEntry) {
+    pub fn queue_entry(&self, entry: &PerformanceEntry<TH>) {
         self.entries.borrow_mut().push(DomRoot::from_ref(entry));
     }
 
@@ -97,7 +97,7 @@ impl<TH> PerformanceObserver<TH> {
 
 impl<TH> PerformanceObserverMethods for PerformanceObserver<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver-observe()
-    fn Observe(&self, options: &PerformanceObserverInit) -> Fallible<()> {
+    fn Observe(&self, options: &PerformanceObserverInit) -> Fallible<(), TH> {
         // step 1
         // Make sure the client is asking to observe events from allowed entry types.
         let entry_types = options.entryTypes.iter()

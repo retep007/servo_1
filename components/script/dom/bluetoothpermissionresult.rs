@@ -47,7 +47,7 @@ impl<TH> BluetoothPermissionResult<TH> {
                            BluetoothPermissionResultBinding::Wrap)
     }
 
-    pub fn get_bluetooth(&self) -> DomRoot<Bluetooth> {
+    pub fn get_bluetooth(&self) -> DomRoot<Bluetooth<TH>> {
         self.global().as_window().Navigator().Bluetooth()
     }
 

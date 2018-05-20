@@ -88,7 +88,7 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
                                     atom: &LocalName,
                                     section: Option<&HTMLTableSectionElement<TH>>,
                                     reference_predicate: P)
-                                    -> ErrorResult
+                                    -> ErrorResult<TH>
                                     where P: FnMut(&DomRoot<Element<TH>>) -> bool {
         if let Some(e) = section {
             if e.upcast::<Element<TH>>().local_name() != atom {
@@ -290,7 +290,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-insertrow
-    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLTableRowElement<TH>>> {
+    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLTableRowElement<TH>>, TH> {
         let rows = self.Rows();
         let number_of_row_elements = rows.Length();
 
@@ -345,7 +345,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-deleterow
-    fn DeleteRow(&self, mut index: i32) -> Fallible<()> {
+    fn DeleteRow(&self, mut index: i32) -> Fallible<(), TH> {
         let rows = self.Rows();
         // Step 1.
         if index == -1 {

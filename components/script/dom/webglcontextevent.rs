@@ -74,7 +74,7 @@ impl<TH: TypeHolderTrait> WebGLContextEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &WebGLContextEventInit) -> Fallible<DomRoot<WebGLContextEvent<TH>>> {
+                       init: &WebGLContextEventInit) -> Fallible<DomRoot<WebGLContextEvent<TH>>, TH> {
         let status_message = match init.statusMessage.as_ref() {
             Some(message) => message.clone(),
             None => DOMString::new(),

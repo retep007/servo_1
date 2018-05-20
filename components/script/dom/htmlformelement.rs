@@ -190,7 +190,7 @@ impl<TH> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
                                 input_elem.form_owner()
                             }
                             HTMLElementTypeId::HTMLObjectElement => {
-                                elem.downcast::<HTMLObjectElement>().unwrap().form_owner()
+                                elem.downcast::<HTMLObjectElement<TH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLOutputElement => {
                                 elem.downcast::<HTMLOutputElement<TH>>().unwrap().form_owner()
@@ -727,7 +727,7 @@ pub enum FormSubmittableElement<TH: TypeHolderTrait> {
     InputElement(DomRoot<HTMLInputElement<TH>>),
     // TODO: HTMLKeygenElement unimplemented
     // KeygenElement(&'a HTMLKeygenElement),
-    ObjectElement(DomRoot<HTMLObjectElement>),
+    ObjectElement(DomRoot<HTMLObjectElement<TH>>),
     SelectElement(DomRoot<HTMLSelectElement<TH>>),
     TextAreaElement(DomRoot<HTMLTextAreaElement<TH>>),
 }
@@ -750,7 +750,7 @@ impl<TH> FormSubmittableElement<TH> {
         else if let Some(input) = element.downcast::<HTMLButtonElement<TH>>() {
             FormSubmittableElement::ButtonElement(DomRoot::from_ref(&input))
         }
-        else if let Some(input) = element.downcast::<HTMLObjectElement>() {
+        else if let Some(input) = element.downcast::<HTMLObjectElement<TH>>() {
             FormSubmittableElement::ObjectElement(DomRoot::from_ref(&input))
         }
         else if let Some(input) = element.downcast::<HTMLSelectElement<TH>>() {
@@ -871,7 +871,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
 
     fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>);
 
-    fn to_element<'a>(&'a self) -> &'a Element;
+    fn to_element<'a>(&'a self) -> &'a Element<TH>;
 
     fn is_listed(&self) -> bool {
         true
@@ -1094,7 +1094,7 @@ impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element<TH> {
                 Some(self.downcast::<HTMLLegendElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLObjectElement)) => {
-                Some(self.downcast::<HTMLObjectElement>().unwrap() as &FormControl<TH>)
+                Some(self.downcast::<HTMLObjectElement<TH>>().unwrap() as &FormControl<TH>)
             },
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLOutputElement)) => {
                 Some(self.downcast::<HTMLOutputElement<TH>>().unwrap() as &FormControl<TH>)

@@ -24,11 +24,11 @@ use typeholder::TypeHolderTrait;
 pub struct ServiceWorkerContainer<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
     controller: MutNullableDom<ServiceWorker<TH>>,
-    client: Dom<Client>
+    client: Dom<Client<TH>>
 }
 
 impl<TH> ServiceWorkerContainer<TH> {
-    fn new_inherited(client: &Client) -> ServiceWorkerContainer<TH> {
+    fn new_inherited(client: &Client<TH>) -> ServiceWorkerContainer<TH> {
         ServiceWorkerContainer {
             eventtarget: EventTarget::new_inherited(),
             controller: Default::default(),

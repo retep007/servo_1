@@ -77,7 +77,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &BluetoothAdvertisingEventInit)
-                       -> Fallible<DomRoot<BluetoothAdvertisingEvent<TH>>> {
+                       -> Fallible<DomRoot<BluetoothAdvertisingEvent<TH>>, TH> {
         let global = window.upcast::<GlobalScope<TH>>();
         let device = init.device.r();
         let name = init.name.clone();

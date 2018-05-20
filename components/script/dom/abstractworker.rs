@@ -17,11 +17,11 @@ pub enum WorkerScriptMsg {
     DOMMessage(StructuredCloneData)
 }
 
-pub struct SimpleWorkerErrorHandler<T: DomObject> {
+pub struct SimpleWorkerErrorHandler<T: DomObject<TH>, TH: TypeHolderTrait> {
     pub addr: Trusted<T>,
 }
 
-impl<T: DomObject> SimpleWorkerErrorHandler<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> SimpleWorkerErrorHandler<T> {
     pub fn new(addr: Trusted<T>) -> SimpleWorkerErrorHandler<T> {
         SimpleWorkerErrorHandler {
             addr: addr

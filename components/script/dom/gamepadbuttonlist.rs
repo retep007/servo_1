@@ -15,13 +15,13 @@ use typeholder::TypeHolderTrait;
 // https://w3c.github.io/gamepad/#gamepadbutton-interface
 #[dom_struct]
 pub struct GamepadButtonList<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     list: Vec<Dom<GamepadButton<TH>>>
 }
 
 impl<TH> GamepadButtonList<TH> {
     #[allow(unrooted_must_root)]
-    fn new_inherited(list: &[&GamepadButton]) -> GamepadButtonList<TH> {
+    fn new_inherited(list: &[&GamepadButton<TH>]) -> GamepadButtonList<TH> {
         GamepadButtonList {
             reflector_: Reflector::new(),
             list: list.iter().map(|button| Dom::from_ref(*button)).collect(),

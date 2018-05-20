@@ -21,7 +21,7 @@ pub struct HTMLMeterElement<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> HTMLMeterElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLMeterElement {
+                     document: &Document<TH>) -> HTMLMeterElement<TH> {
         HTMLMeterElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -30,7 +30,7 @@ impl<TH: TypeHolderTrait> HTMLMeterElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLMeterElement> {
+               document: &Document<TH>) -> DomRoot<HTMLMeterElement<TH>> {
         Node::reflect_node(Box::new(HTMLMeterElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLMeterElementBinding::Wrap)

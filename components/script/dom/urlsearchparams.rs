@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 // https://url.spec.whatwg.org/#interface-urlsearchparams
 #[dom_struct]
 pub struct URLSearchParams<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     // https://url.spec.whatwg.org/#concept-urlsearchparams-list
     list: DomRefCell<Vec<(String, String)>>,
     // https://url.spec.whatwg.org/#concept-urlsearchparams-url-object
@@ -43,8 +43,8 @@ impl<TH> URLSearchParams<TH> {
     }
 
     // https://url.spec.whatwg.org/#dom-urlsearchparams-urlsearchparams
-    pub fn Constructor(global: &GlobalScope<TH>, init: Option<USVStringOrURLSearchParams>) ->
-                       Fallible<DomRoot<URLSearchParams<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>, init: Option<USVStringOrURLSearchParams<TH>>) ->
+                       Fallible<DomRoot<URLSearchParams<TH>>, TH> {
         // Step 1.
         let query = URLSearchParams::new(global, None);
         match init {

@@ -32,7 +32,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Response<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     headers_reflector: MutNullableDom<Headers>,
     mime_type: DomRefCell<Vec<u8>>,
     body_used: Cell<bool>,
@@ -71,8 +71,8 @@ impl<TH> Response<TH> {
         reflect_dom_object(Box::new(Response::new_inherited()), global, ResponseBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>, body: Option<BodyInit>, init: &ResponseBinding::ResponseInit)
-                       -> Fallible<DomRoot<Response<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>, body: Option<BodyInit<TH>>, init: &ResponseBinding::ResponseInit)
+                       -> Fallible<DomRoot<Response<TH>>, TH> {
         // Step 1
         if init.status < 200 || init.status > 599 {
             return Err(Error::Range(
@@ -148,7 +148,7 @@ impl<TH> Response<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-response-redirect
-    pub fn Redirect(global: &GlobalScope<TH>, url: USVString, status: u16) -> Fallible<DomRoot<Response<TH>>> {
+    pub fn Redirect(global: &GlobalScope<TH>, url: USVString, status: u16) -> Fallible<DomRoot<Response<TH>>, TH> {
         // Step 1
         let base_url = global.api_base_url();
         let parsed_url = base_url.join(&url.0);
@@ -296,7 +296,7 @@ impl<TH> ResponseMethods for Response<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-response-clone
-    fn Clone(&self) -> Fallible<DomRoot<Response<TH>>> {
+    fn Clone(&self) -> Fallible<DomRoot<Response<TH>>, TH> {
         // Step 1
         if self.is_locked() || self.body_used.get() {
             return Err(Error::Type("cannot clone a disturbed response".to_string()));

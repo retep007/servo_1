@@ -312,7 +312,7 @@ pub struct Document<TH: TypeHolderTrait> {
     /// When we should kick off a reflow. This happens during parsing.
     reflow_timeout: Cell<Option<u64>>,
     /// The cached first `base` element with an `href` attribute.
-    base_element: MutNullableDom<HTMLBaseElement>,
+    base_element: MutNullableDom<HTMLBaseElement<TH>>,
     /// This field is set to the document itself for inert documents.
     /// <https://html.spec.whatwg.org/multipage/#appropriate-template-contents-owner-document>
     appropriate_template_contents_owner_document: MutNullableDom<Document<TH>>,
@@ -538,7 +538,7 @@ impl<TH> Document<TH> {
     }
 
     /// Returns the first `base` element in the DOM that has an `href` attribute.
-    pub fn base_element(&self) -> Option<DomRoot<HTMLBaseElement>> {
+    pub fn base_element(&self) -> Option<DomRoot<HTMLBaseElement<TH>>> {
         self.base_element.get()
     }
 
@@ -547,7 +547,7 @@ impl<TH> Document<TH> {
     pub fn refresh_base_element(&self) {
         let base = self.upcast::<Node<TH>>()
                        .traverse_preorder()
-                       .filter_map(DomRoot::downcast::<HTMLBaseElement>)
+                       .filter_map(DomRoot::downcast::<HTMLBaseElement<TH>>)
                        .find(|element| element.upcast::<Element<TH>>().has_attribute(&local_name!("href")));
         self.base_element.set(base.r());
     }
@@ -1351,7 +1351,7 @@ impl<TH> Document<TH> {
     // https://dom.spec.whatwg.org/#converting-nodes-into-a-node
     pub fn node_from_nodes_and_strings(&self,
                                        mut nodes: Vec<NodeOrString<TH>>)
-                                       -> Fallible<DomRoot<Node<TH>>> {
+                                       -> Fallible<DomRoot<Node<TH>>, TH> {
         if nodes.len() == 1 {
             Ok(match nodes.pop().unwrap() {
                 NodeOrString::Node(node) => node,
@@ -2281,7 +2281,7 @@ impl<TH> Document<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-document-document
-    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<Document<TH>>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<Document<TH>>, TH> {
         let doc = window.Document();
         let docloader = DocumentLoader::new(&*doc.loader());
         Ok(Document::new(window,
@@ -2925,7 +2925,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     fn CreateElement(&self,
                      mut local_name: DOMString,
                      options: &ElementCreationOptions)
-                     -> Fallible<DomRoot<Element<TH>>> {
+                     -> Fallible<DomRoot<Element<TH>>, TH> {
         if xml_name_type(&local_name) == InvalidXMLName {
             debug!("Not a valid element name");
             return Err(Error::InvalidCharacter);
@@ -2951,7 +2951,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
                        namespace: Option<DOMString>,
                        qualified_name: DOMString,
                        options: &ElementCreationOptions)
-                       -> Fallible<DomRoot<Element<TH>>> {
+                       -> Fallible<DomRoot<Element<TH>>, TH> {
         let (namespace, prefix, local_name) = validate_and_extract(namespace,
                                                                         &qualified_name)?;
         let name = QualName::new(prefix, namespace, local_name);
@@ -2960,7 +2960,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-document-createattribute
-    fn CreateAttribute(&self, mut local_name: DOMString) -> Fallible<DomRoot<Attr<TH>>> {
+    fn CreateAttribute(&self, mut local_name: DOMString) -> Fallible<DomRoot<Attr<TH>>, TH> {
         if xml_name_type(&local_name) == InvalidXMLName {
             debug!("Not a valid element name");
             return Err(Error::InvalidCharacter);
@@ -2978,7 +2978,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     fn CreateAttributeNS(&self,
                          namespace: Option<DOMString>,
                          qualified_name: DOMString)
-                         -> Fallible<DomRoot<Attr<TH>>> {
+                         -> Fallible<DomRoot<Attr<TH>>, TH> {
         let (namespace, prefix, local_name) = validate_and_extract(namespace,
                                                                         &qualified_name)?;
         let value = AttrValue::String("".to_owned());
@@ -3011,7 +3011,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     fn CreateProcessingInstruction(&self,
                                    target: DOMString,
                                    data: DOMString)
-                                   -> Fallible<DomRoot<ProcessingInstruction<TH>>> {
+                                   -> Fallible<DomRoot<ProcessingInstruction<TH>>, TH> {
         // Step 1.
         if xml_name_type(&target) == InvalidXMLName {
             return Err(Error::InvalidCharacter);
@@ -3027,7 +3027,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-document-importnode
-    fn ImportNode(&self, node: &Node<TH>, deep: bool) -> Fallible<DomRoot<Node<TH>>> {
+    fn ImportNode(&self, node: &Node<TH>, deep: bool) -> Fallible<DomRoot<Node<TH>>, TH> {
         // Step 1.
         if node.is::<Document<TH>>() {
             return Err(Error::NotSupported);
@@ -3044,7 +3044,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-document-adoptnode
-    fn AdoptNode(&self, node: &Node<TH>) -> Fallible<DomRoot<Node<TH>>> {
+    fn AdoptNode(&self, node: &Node<TH>) -> Fallible<DomRoot<Node<TH>>, TH> {
         // Step 1.
         if node.is::<Document<TH>>() {
             return Err(Error::NotSupported);
@@ -3058,7 +3058,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-document-createevent
-    fn CreateEvent(&self, mut interface: DOMString) -> Fallible<DomRoot<Event<TH>>> {
+    fn CreateEvent(&self, mut interface: DOMString) -> Fallible<DomRoot<Event<TH>>, TH> {
         interface.make_ascii_lowercase();
         match &*interface {
             "beforeunloadevent" =>
@@ -3431,13 +3431,13 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
-    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
+    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
         let root = self.upcast::<Node<TH>>();
         root.query_selector(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
-    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>> {
+    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>, TH> {
         let root = self.upcast::<Node<TH>>();
         root.query_selector_all(selectors)
     }
@@ -3457,7 +3457,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-document-cookie
-    fn GetCookie(&self) -> Fallible<DOMString> {
+    fn GetCookie(&self) -> Fallible<DOMString, TH> {
         if self.is_cookie_averse() {
             return Ok(DOMString::new());
         }
@@ -3694,7 +3694,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-document-open
-    fn Open(&self, _type: Option<DOMString>, replace: DOMString) -> Fallible<DomRoot<Document<TH>>> {
+    fn Open(&self, _type: Option<DOMString>, replace: DOMString) -> Fallible<DomRoot<Document<TH>>, TH> {
         if !self.is_html_document() {
             // Step 1.
             return Err(Error::InvalidState);

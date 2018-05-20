@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct PerformanceObserverEntryList<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     entries: DomRefCell<PerformanceEntryList>,
 }
 
@@ -38,18 +38,18 @@ impl<TH> PerformanceObserverEntryList<TH> {
 
 impl<TH> PerformanceObserverEntryListMethods for PerformanceObserverEntryList<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver
-    fn GetEntries(&self) -> Vec<DomRoot<PerformanceEntry>> {
+    fn GetEntries(&self) -> Vec<DomRoot<PerformanceEntry<TH>>> {
         self.entries.borrow().get_entries_by_name_and_type(None, None)
     }
 
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver
-    fn GetEntriesByType(&self, entry_type: DOMString) -> Vec<DomRoot<PerformanceEntry>> {
+    fn GetEntriesByType(&self, entry_type: DOMString) -> Vec<DomRoot<PerformanceEntry<TH>>> {
         self.entries.borrow().get_entries_by_name_and_type(None, Some(entry_type))
     }
 
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver
     fn GetEntriesByName(&self, name: DOMString, entry_type: Option<DOMString>)
-        -> Vec<DomRoot<PerformanceEntry>> {
+        -> Vec<DomRoot<PerformanceEntry<TH>>> {
         self.entries.borrow().get_entries_by_name_and_type(Some(name), entry_type)
     }
 }

@@ -24,7 +24,7 @@ pub struct HTMLBaseElement<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> HTMLBaseElement<TH> {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLBaseElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLBaseElement<TH> {
         HTMLBaseElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -33,7 +33,7 @@ impl<TH: TypeHolderTrait> HTMLBaseElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLBaseElement> {
+               document: &Document<TH>) -> DomRoot<HTMLBaseElement<TH>> {
         Node::reflect_node(Box::new(HTMLBaseElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLBaseElementBinding::Wrap)

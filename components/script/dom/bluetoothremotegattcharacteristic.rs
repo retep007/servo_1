@@ -38,7 +38,7 @@ pub const MAXIMUM_ATTRIBUTE_LENGTH: usize = 512;
 #[dom_struct]
 pub struct BluetoothRemoteGATTCharacteristic<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
-    service: Dom<BluetoothRemoteGATTService>,
+    service: Dom<BluetoothRemoteGATTService<TH>>,
     uuid: DOMString,
     properties: Dom<BluetoothCharacteristicProperties<TH>>,
     value: DomRefCell<Option<ByteString>>,
@@ -46,7 +46,7 @@ pub struct BluetoothRemoteGATTCharacteristic<TH: TypeHolderTrait> {
 }
 
 impl<TH> BluetoothRemoteGATTCharacteristic<TH> {
-    pub fn new_inherited(service: &BluetoothRemoteGATTService,
+    pub fn new_inherited(service: &BluetoothRemoteGATTService<TH>,
                          uuid: DOMString,
                          properties: &BluetoothCharacteristicProperties<TH>,
                          instance_id: String)
@@ -62,7 +62,7 @@ impl<TH> BluetoothRemoteGATTCharacteristic<TH> {
     }
 
     pub fn new(global: &GlobalScope<TH>,
-               service: &BluetoothRemoteGATTService,
+               service: &BluetoothRemoteGATTService<TH>,
                uuid: DOMString,
                properties: &BluetoothCharacteristicProperties<TH>,
                instanceID: String)
@@ -92,7 +92,7 @@ impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharact
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-service
-    fn Service(&self) -> DomRoot<BluetoothRemoteGATTService> {
+    fn Service(&self) -> DomRoot<BluetoothRemoteGATTService<TH>> {
         DomRoot::from_ref(&self.service)
     }
 

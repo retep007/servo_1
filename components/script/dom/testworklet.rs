@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TestWorklet<TH: TypeHolderTrait> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     worklet: Dom<Worklet<TH>>,
 }
 
@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> TestWorklet<TH> {
         reflect_dom_object(Box::new(TestWorklet::new_inherited(&*worklet)), window, Wrap)
     }
 
-    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<TestWorklet<TH>>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<TestWorklet<TH>>, TH> {
         Ok(TestWorklet::new(window))
     }
 }

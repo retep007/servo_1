@@ -8,7 +8,7 @@ use dom_struct::dom_struct;
 
 #[dom_struct]
 pub struct WebGLObject {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 impl WebGLObject {

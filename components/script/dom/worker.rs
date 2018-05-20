@@ -41,7 +41,7 @@ pub struct Worker<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Defined in std"]
     /// Sender to the Receiver associated with the DedicatedWorkerGlobalScope
     /// this Worker created.
-    sender: Sender<(TrustedWorkerAddress, WorkerScriptMsg)>,
+    sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
     #[ignore_malloc_size_of = "Arc"]
     closing: Arc<AtomicBool>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
@@ -50,7 +50,7 @@ pub struct Worker<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> Worker<TH> {
-    fn new_inherited(sender: Sender<(TrustedWorkerAddress, WorkerScriptMsg)>,
+    fn new_inherited(sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
                      closing: Arc<AtomicBool>) -> Worker<TH> {
         Worker {
             eventtarget: EventTarget::new_inherited(),
@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
     }
 
     pub fn new(global: &GlobalScope<TH>,
-               sender: Sender<(TrustedWorkerAddress, WorkerScriptMsg)>,
+               sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
                closing: Arc<AtomicBool>) -> DomRoot<Worker<TH>> {
         reflect_dom_object(Box::new(Worker::new_inherited(sender, closing)),
                            global,
@@ -71,7 +71,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-worker
     #[allow(unsafe_code)]
-    pub fn Constructor(global: &GlobalScope<TH>, script_url: DOMString) -> Fallible<DomRoot<Worker<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>, script_url: DOMString) -> Fallible<DomRoot<Worker<TH>>, TH> {
         // Step 2-4.
         let worker_url = match global.api_base_url().join(&script_url) {
             Ok(url) => url,

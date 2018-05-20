@@ -185,7 +185,7 @@ impl CallbackInterface {
 
     /// Returns the property with the given `name`, if it is a callable object,
     /// or an error otherwise.
-    pub fn get_callable_property(&self, cx: *mut JSContext, name: &str) -> Fallible<JSVal> {
+    pub fn get_callable_property(&self, cx: *mut JSContext, name: &str) -> Fallible<JSVal, TH> {
         rooted!(in(cx) let mut callable = UndefinedValue());
         rooted!(in(cx) let obj = self.callback_holder().get());
         unsafe {
@@ -205,7 +205,7 @@ impl CallbackInterface {
 
 
 /// Wraps the reflector for `p` into the compartment of `cx`.
-pub fn wrap_call_this_object<T: DomObject>(cx: *mut JSContext,
+pub fn wrap_call_this_object<T: DomObject<TH>, TH: TypeHolderTrait>(cx: *mut JSContext,
                                            p: &T,
                                            mut rval: MutableHandleObject) {
     rval.set(p.reflector().get_jsobject().get());
@@ -244,7 +244,7 @@ impl<TH> CallSetup<TH> {
     #[allow(unrooted_must_root)]
     pub fn new<T: CallbackContainer>(callback: &T,
                                      handling: ExceptionHandling)
-                                     -> CallSetup {
+                                     -> CallSetup<TH> {
         let global = unsafe { GlobalScope::from_object(callback.callback()) };
         let cx = global.get_cx();
 

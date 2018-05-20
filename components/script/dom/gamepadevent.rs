@@ -71,7 +71,7 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &GamepadEventBinding::GamepadEventInit)
-                       -> Fallible<DomRoot<GamepadEvent<TH>>> {
+                       -> Fallible<DomRoot<GamepadEvent<TH>>, TH> {
         Ok(GamepadEvent::new(&window.global(),
                              Atom::from(type_),
                              init.parent.bubbles,

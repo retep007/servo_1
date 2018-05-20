@@ -13,7 +13,7 @@ use std::sync::mpsc::{Receiver, Sender};
 /// common event loop messages. While this SendableWorkerScriptChan is alive, the associated
 /// Worker object will remain alive.
 #[derive(Clone, JSTraceable)]
-pub struct SendableWorkerScriptChan<T: DomObject> {
+pub struct SendableWorkerScriptChan<T: DomObject<TH>, TH: TypeHolderTrait> {
     pub sender: Sender<(Trusted<T>, CommonScriptMsg)>,
     pub worker: Trusted<T>,
 }
@@ -35,7 +35,7 @@ impl<T: JSTraceable + DomObject + 'static> ScriptChan for SendableWorkerScriptCh
 /// worker event loop messages. While this SendableWorkerScriptChan is alive, the associated
 /// Worker object will remain alive.
 #[derive(Clone, JSTraceable)]
-pub struct WorkerThreadWorkerChan<T: DomObject> {
+pub struct WorkerThreadWorkerChan<T: DomObject<TH>, TH: TypeHolderTrait> {
     pub sender: Sender<(Trusted<T>, WorkerScriptMsg)>,
     pub worker: Trusted<T>,
 }
@@ -55,7 +55,7 @@ impl<T: JSTraceable + DomObject + 'static> ScriptChan for WorkerThreadWorkerChan
     }
 }
 
-impl<T: DomObject> ScriptPort for Receiver<(Trusted<T>, WorkerScriptMsg)> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> ScriptPort for Receiver<(Trusted<T>, WorkerScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         match self.recv().map(|(_, msg)| msg) {
             Ok(WorkerScriptMsg::Common(script_msg)) => Ok(script_msg),

@@ -30,7 +30,7 @@ pub struct MessageEvent<TH: TypeHolderTrait> {
 }
 
 impl<TH> MessageEvent<TH> {
-    pub fn new_uninitialized(global: &GlobalScope<TH>) -> DomRoot<MessageEvent> {
+    pub fn new_uninitialized(global: &GlobalScope<TH>) -> DomRoot<MessageEvent<TH>> {
         MessageEvent::new_initialized(global,
                                       HandleValue::undefined(),
                                       DOMString::new(),
@@ -40,7 +40,7 @@ impl<TH> MessageEvent<TH> {
     pub fn new_initialized(global: &GlobalScope<TH>,
                            data: HandleValue,
                            origin: DOMString,
-                           lastEventId: DOMString) -> DomRoot<MessageEvent> {
+                           lastEventId: DOMString) -> DomRoot<MessageEvent<TH>> {
         let ev = Box::new(MessageEvent {
             event: Event::new_inherited(),
             data: Heap::default(),
@@ -56,7 +56,7 @@ impl<TH> MessageEvent<TH> {
     pub fn new(global: &GlobalScope<TH>, type_: Atom,
                bubbles: bool, cancelable: bool,
                data: HandleValue, origin: DOMString, lastEventId: DOMString)
-               -> DomRoot<MessageEvent> {
+               -> DomRoot<MessageEvent<TH>> {
         let ev = MessageEvent::new_initialized(global, data, origin, lastEventId);
         {
             let event = ev.upcast::<Event<TH>>();
@@ -68,7 +68,7 @@ impl<TH> MessageEvent<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
                        init: RootedTraceableBox<MessageEventBinding::MessageEventInit>)
-                       -> Fallible<DomRoot<MessageEvent>> {
+                       -> Fallible<DomRoot<MessageEvent<TH>>, TH> {
         let ev = MessageEvent::new(global,
                                    Atom::from(type_),
                                    init.parent.bubbles,

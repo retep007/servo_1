@@ -20,7 +20,7 @@ pub type BluetoothDescriptorUUID = StringOrUnsignedLong;
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothuuid
  #[dom_struct]
 pub struct BluetoothUUID<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 //https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx
@@ -290,31 +290,31 @@ impl<TH: TypeHolderTrait> BluetoothUUID<TH> {
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothuuid-getservice
-    pub fn GetService(_: &Window<TH>, name: BluetoothServiceUUID) -> Fallible<UUID> {
+    pub fn GetService(_: &Window<TH>, name: BluetoothServiceUUID) -> Fallible<UUID, TH> {
         Self::service(name)
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothuuid-getcharacteristic
-    pub fn GetCharacteristic(_: &Window<TH>, name: BluetoothCharacteristicUUID) -> Fallible<UUID> {
+    pub fn GetCharacteristic(_: &Window<TH>, name: BluetoothCharacteristicUUID) -> Fallible<UUID, TH> {
         Self::characteristic(name)
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothuuid-getdescriptor
-    pub fn GetDescriptor(_: &Window<TH>, name: BluetoothDescriptorUUID) -> Fallible<UUID> {
+    pub fn GetDescriptor(_: &Window<TH>, name: BluetoothDescriptorUUID) -> Fallible<UUID, TH> {
         Self::descriptor(name)
     }
 }
 
 impl<TH> BluetoothUUID<TH> {
-    pub fn service(name: BluetoothServiceUUID) -> Fallible<UUID> {
+    pub fn service(name: BluetoothServiceUUID) -> Fallible<UUID, TH> {
         resolve_uuid_name(name, BLUETOOTH_ASSIGNED_SERVICES, SERVICE_PREFIX)
     }
 
-    pub fn characteristic(name: BluetoothCharacteristicUUID) -> Fallible<UUID> {
+    pub fn characteristic(name: BluetoothCharacteristicUUID) -> Fallible<UUID, TH> {
         resolve_uuid_name(name, BLUETOOTH_ASSIGNED_CHARCTERISTICS, CHARACTERISTIC_PREFIX)
     }
 
-    pub fn descriptor(name: BluetoothDescriptorUUID) -> Fallible<UUID> {
+    pub fn descriptor(name: BluetoothDescriptorUUID) -> Fallible<UUID, TH> {
         resolve_uuid_name(name, BLUETOOTH_ASSIGNED_DESCRIPTORS, DESCRIPTOR_PREFIX)
     }
 }
@@ -337,7 +337,7 @@ fn resolve_uuid_name(
         name: StringOrUnsignedLong,
         assigned_numbers_table: &'static [(&'static str, u32)],
         prefix: &str)
-        -> Fallible<DOMString> {
+        -> Fallible<DOMString, TH> {
     match name {
         // Step 1.
         StringOrUnsignedLong::UnsignedLong(unsigned32) => {

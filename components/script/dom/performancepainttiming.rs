@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct PerformancePaintTiming<TH: TypeHolderTrait> {
-    entry: PerformanceEntry,
+    entry: PerformanceEntry<TH>,
 }
 
 impl<TH> PerformancePaintTiming<TH> {

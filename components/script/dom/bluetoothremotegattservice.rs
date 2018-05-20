@@ -35,7 +35,7 @@ impl<TH> BluetoothRemoteGATTService<TH> {
                          uuid: DOMString,
                          is_primary: bool,
                          instance_id: String)
-                         -> BluetoothRemoteGATTService {
+                         -> BluetoothRemoteGATTService<TH> {
         BluetoothRemoteGATTService {
             eventtarget: EventTarget::new_inherited(),
             device: Dom::from_ref(device),
@@ -50,7 +50,7 @@ impl<TH> BluetoothRemoteGATTService<TH> {
                uuid: DOMString,
                isPrimary: bool,
                instanceID: String)
-               -> DomRoot<BluetoothRemoteGATTService> {
+               -> DomRoot<BluetoothRemoteGATTService<TH>> {
         reflect_dom_object(
             Box::new(BluetoothRemoteGATTService::new_inherited(
                 device, uuid, isPrimary, instanceID

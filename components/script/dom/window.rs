@@ -160,9 +160,9 @@ pub struct Window<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "trait objects are hard"]
     script_chan: MainThreadScriptChan,
     #[ignore_malloc_size_of = "task sources are hard"]
-    dom_manipulation_task_source: DOMManipulationTaskSource,
+    dom_manipulation_task_source: DOMManipulationTaskSource<TH>,
     #[ignore_malloc_size_of = "task sources are hard"]
-    user_interaction_task_source: UserInteractionTaskSource,
+    user_interaction_task_source: UserInteractionTaskSource<TH>,
     #[ignore_malloc_size_of = "task sources are hard"]
     networking_task_source: NetworkingTaskSource,
     #[ignore_malloc_size_of = "task sources are hard"]
@@ -256,7 +256,7 @@ pub struct Window<TH: TypeHolderTrait> {
     scroll_offsets: DomRefCell<HashMap<UntrustedNodeAddress, Vector2D<f32>>>,
 
     /// All the MediaQueryLists we need to update
-    media_query_lists: WeakMediaQueryListVec,
+    media_query_lists: WeakMediaQueryListVec<TH>,
 
     test_runner: MutNullableDom<TestRunner<TH>>,
 
@@ -458,7 +458,7 @@ fn display_alert_dialog(_message: &str) {
 }
 
 // https://html.spec.whatwg.org/multipage/#atob
-pub fn base64_btoa(input: DOMString) -> Fallible<DOMString> {
+pub fn base64_btoa(input: DOMString) -> Fallible<DOMString, TH> {
     // "The btoa() method must throw an InvalidCharacterError exception if
     //  the method's first argument contains any character whose code point
     //  is greater than U+00FF."
@@ -478,7 +478,7 @@ pub fn base64_btoa(input: DOMString) -> Fallible<DOMString> {
 }
 
 // https://html.spec.whatwg.org/multipage/#atob
-pub fn base64_atob(input: DOMString) -> Fallible<DOMString> {
+pub fn base64_atob(input: DOMString) -> Fallible<DOMString, TH> {
     // "Remove all space characters from input."
     fn is_html_space(c: char) -> bool {
         HTML_SPACE_CHARACTERS.iter().any(|&m| m == c)
@@ -597,7 +597,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     }
 
     // https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-GlobalCrypto
-    fn Crypto(&self) -> DomRoot<Crypto> {
+    fn Crypto(&self) -> DomRoot<Crypto<TH>> {
         self.upcast::<GlobalScope<TH>>().crypto()
     }
 
@@ -737,12 +737,12 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-windowbase64-btoa
-    fn Btoa(&self, btoa: DOMString) -> Fallible<DOMString> {
+    fn Btoa(&self, btoa: DOMString) -> Fallible<DOMString, TH> {
         base64_btoa(btoa)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-windowbase64-atob
-    fn Atob(&self, atob: DOMString) -> Fallible<DOMString> {
+    fn Atob(&self, atob: DOMString) -> Fallible<DOMString, TH> {
         base64_atob(atob)
     }
 

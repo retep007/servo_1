@@ -51,7 +51,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TestBinding<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     url: MutableWeakRef<URL<TH>>,
 }
 
@@ -68,17 +68,17 @@ impl<TH> TestBinding<TH> {
                            global, TestBindingBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBinding<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBinding<TH>>, TH> {
         Ok(TestBinding::new(global))
     }
 
     #[allow(unused_variables)]
-    pub fn Constructor_(global: &GlobalScope<TH>, nums: Vec<f64>) -> Fallible<DomRoot<TestBinding<TH>>> {
+    pub fn Constructor_(global: &GlobalScope<TH>, nums: Vec<f64>) -> Fallible<DomRoot<TestBinding<TH>>, TH> {
         Ok(TestBinding::new(global))
     }
 
     #[allow(unused_variables)]
-    pub fn Constructor__(global: &GlobalScope<TH>, num: f64) -> Fallible<DomRoot<TestBinding<TH>>> {
+    pub fn Constructor__(global: &GlobalScope<TH>, num: f64) -> Fallible<DomRoot<TestBinding<TH>>, TH> {
         Ok(TestBinding::new(global))
     }
 }
@@ -142,14 +142,14 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
         UnsignedLongOrBoolean::Boolean(true)
     }
     fn SetUnion6Attribute(&self, _: UnsignedLongOrBoolean) {}
-    fn Union7Attribute(&self) -> BlobOrBoolean {
+    fn Union7Attribute(&self) -> BlobOrBoolean<TH> {
         BlobOrBoolean::Boolean(true)
     }
-    fn SetUnion7Attribute(&self, _: BlobOrBoolean) {}
-    fn Union8Attribute(&self) -> BlobOrUnsignedLong {
+    fn SetUnion7Attribute(&self, _: BlobOrBoolean<TH>) {}
+    fn Union8Attribute(&self) -> BlobOrUnsignedLong<TH> {
         BlobOrUnsignedLong::UnsignedLong(0u32)
     }
-    fn SetUnion8Attribute(&self, _: BlobOrUnsignedLong) {}
+    fn SetUnion8Attribute(&self, _: BlobOrUnsignedLong<TH>) {}
     fn Union9Attribute(&self) -> ByteStringOrLong {
         ByteStringOrLong::ByteString(ByteString::new(vec!()))
     }
@@ -233,10 +233,10 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
         Some(EventOrString::String(DOMString::new()))
     }
     fn SetUnion2AttributeNullable(&self, _: Option<EventOrString<TH>>) {}
-    fn GetUnion3AttributeNullable(&self) -> Option<BlobOrBoolean> {
+    fn GetUnion3AttributeNullable(&self) -> Option<BlobOrBoolean<TH>> {
         Some(BlobOrBoolean::Boolean(true))
     }
-    fn SetUnion3AttributeNullable(&self, _: Option<BlobOrBoolean>) {}
+    fn SetUnion3AttributeNullable(&self, _: Option<BlobOrBoolean<TH>>) {}
     fn GetUnion4AttributeNullable(&self) -> Option<UnsignedLongOrBoolean> {
         Some(UnsignedLongOrBoolean::Boolean(true))
     }
@@ -281,7 +281,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn ReceiveUnion2(&self) -> EventOrString<TH> { EventOrString::String(DOMString::new()) }
     fn ReceiveUnion3(&self) -> StringOrLongSequence { StringOrLongSequence::LongSequence(vec![]) }
     fn ReceiveUnion4(&self) -> StringOrStringSequence { StringOrStringSequence::StringSequence(vec![]) }
-    fn ReceiveUnion5(&self) -> BlobOrBlobSequence { BlobOrBlobSequence::BlobSequence(vec![]) }
+    fn ReceiveUnion5(&self) -> BlobOrBlobSequence<TH> { BlobOrBlobSequence::BlobSequence(vec![]) }
     fn ReceiveUnion6(&self) -> StringOrUnsignedLong { StringOrUnsignedLong::String(DOMString::new()) }
     fn ReceiveUnion7(&self) -> StringOrBoolean { StringOrBoolean::Boolean(true) }
     fn ReceiveUnion8(&self) -> UnsignedLongOrBoolean { UnsignedLongOrBoolean::UnsignedLong(0u32) }
@@ -444,7 +444,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassTypedArray3(&self, _: CustomAutoRooterGuard<typedarray::ArrayBufferView>) {}
     fn PassUnion(&self, _: HTMLElementOrLong<TH>) {}
     fn PassUnion2(&self, _: EventOrString<TH>) {}
-    fn PassUnion3(&self, _: BlobOrString) {}
+    fn PassUnion3(&self, _: BlobOrString<TH>) {}
     fn PassUnion4(&self, _: StringOrStringSequence) {}
     fn PassUnion5(&self, _: StringOrBoolean) {}
     fn PassUnion6(&self, _: UnsignedLongOrBoolean) {}
@@ -455,7 +455,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     unsafe fn PassUnion10(&self, _: *mut JSContext, _: UnionTypes::StringOrObject) {}
     fn PassUnion11(&self, _: UnionTypes::ArrayBufferOrArrayBufferView) {}
     fn PassUnionWithTypedef(&self, _: DocumentOrTestTypedef<TH>) {}
-    fn PassUnionWithTypedef2(&self, _: LongSequenceOrTestTypedef) {}
+    fn PassUnionWithTypedef2(&self, _: LongSequenceOrTestTypedef<TH>) {}
     #[allow(unsafe_code)]
     unsafe fn PassAny(&self, _: *mut JSContext, _: HandleValue) {}
     #[allow(unsafe_code)]
@@ -648,11 +648,11 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassVariadicUsvstring(&self, _: Vec<USVString>) {}
     fn PassVariadicByteString(&self, _: Vec<ByteString>) {}
     fn PassVariadicEnum(&self, _: Vec<TestEnum>) {}
-    fn PassVariadicInterface(&self, _: &[&Blob]) {}
+    fn PassVariadicInterface(&self, _: &[&Blob<TH>]) {}
     fn PassVariadicUnion(&self, _: Vec<HTMLElementOrLong<TH>>) {}
     fn PassVariadicUnion2(&self, _: Vec<EventOrString<TH>>) {}
-    fn PassVariadicUnion3(&self, _: Vec<BlobOrString>) {}
-    fn PassVariadicUnion4(&self, _: Vec<BlobOrBoolean>) {}
+    fn PassVariadicUnion3(&self, _: Vec<BlobOrString<TH>>) {}
+    fn PassVariadicUnion4(&self, _: Vec<BlobOrBoolean<TH>>) {}
     fn PassVariadicUnion5(&self, _: Vec<StringOrUnsignedLong>) {}
     fn PassVariadicUnion6(&self, _: Vec<UnsignedLongOrBoolean>) {}
     fn PassVariadicUnion7(&self, _: Vec<ByteStringOrLong>) {}
@@ -692,8 +692,8 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassByteStringMozMap(&self, _: MozMap<ByteString>) {}
     fn PassMozMapOfMozMaps(&self, _: MozMap<MozMap<i32>>) {}
     fn PassMozMapUnion(&self, _: UnionTypes::LongOrStringByteStringRecord) {}
-    fn PassMozMapUnion2(&self, _: UnionTypes::TestBindingOrStringByteStringRecord) {}
-    fn PassMozMapUnion3(&self, _: UnionTypes::TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord) {}
+    fn PassMozMapUnion2(&self, _: UnionTypes::TestBindingOrStringByteStringRecord<TH>) {}
+    fn PassMozMapUnion3(&self, _: UnionTypes::TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH>) {}
     fn ReceiveMozMap(&self) -> MozMap<i32> { MozMap::new() }
     fn ReceiveNullableMozMap(&self) -> Option<MozMap<i32>> { Some(MozMap::new()) }
     fn ReceiveMozMapOfNullableInts(&self) -> MozMap<Option<i32>> { MozMap::new() }
@@ -703,13 +703,13 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
 
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
-    unsafe fn ReturnResolvedPromise(&self, cx: *mut JSContext, v: HandleValue) -> Fallible<Rc<Promise<TH>>> {
+    unsafe fn ReturnResolvedPromise(&self, cx: *mut JSContext, v: HandleValue) -> Fallible<Rc<Promise<TH>>, TH> {
         Promise::new_resolved(&self.global(), cx, v)
     }
 
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
-    unsafe fn ReturnRejectedPromise(&self, cx: *mut JSContext, v: HandleValue) -> Fallible<Rc<Promise<TH>>> {
+    unsafe fn ReturnRejectedPromise(&self, cx: *mut JSContext, v: HandleValue) -> Fallible<Rc<Promise<TH>>, TH> {
         Promise::new_rejected(&self.global(), cx, v)
     }
 

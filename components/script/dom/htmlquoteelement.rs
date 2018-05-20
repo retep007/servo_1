@@ -19,7 +19,7 @@ pub struct HTMLQuoteElement<TH: TypeHolderTrait> {
 impl<TH> HTMLQuoteElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLQuoteElement {
+                     document: &Document<TH>) -> HTMLQuoteElement<TH> {
         HTMLQuoteElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -29,7 +29,7 @@ impl<TH> HTMLQuoteElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLQuoteElement> {
+               document: &Document<TH>) -> DomRoot<HTMLQuoteElement<TH>> {
         Node::reflect_node(Box::new(HTMLQuoteElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLQuoteElementBinding::Wrap)

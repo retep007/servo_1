@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TextDecoder<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     encoding: &'static Encoding,
     fatal: bool,
     ignoreBOM: bool,
@@ -43,7 +43,7 @@ impl<TH> TextDecoder<TH> {
         }
     }
 
-    fn make_range_error() -> Fallible<DomRoot<TextDecoder<TH>>> {
+    fn make_range_error() -> Fallible<DomRoot<TextDecoder<TH>>, TH> {
         Err(Error::Range("The given encoding is not supported.".to_owned()))
     }
 
@@ -58,7 +58,7 @@ impl<TH> TextDecoder<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        label: DOMString,
                        options: &TextDecoderBinding::TextDecoderOptions)
-                            -> Fallible<DomRoot<TextDecoder<TH>>> {
+                            -> Fallible<DomRoot<TextDecoder<TH>>, TH> {
         let encoding = match Encoding::for_label_no_replacement(label.as_bytes()) {
             None => return TextDecoder::make_range_error(),
             Some(enc) => enc
@@ -89,7 +89,7 @@ impl<TH> TextDecoderMethods for TextDecoder<TH> {
         &self,
         input: Option<ArrayBufferViewOrArrayBuffer>,
         options: &TextDecodeOptions
-    ) -> Fallible<USVString> {
+    ) -> Fallible<USVString, TH> {
         // Step 1.
         if !self.do_not_flush.get() {
             if self.ignoreBOM {

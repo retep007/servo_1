@@ -36,7 +36,7 @@ impl From<RulesMutateError> for Error {
 
 #[dom_struct]
 pub struct CSSRuleList<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     rules: RulesSource,
@@ -79,7 +79,7 @@ impl<TH: TypeHolderTrait> CSSRuleList<TH> {
 
     /// Should only be called for CssRules-backed rules. Use append_lazy_rule
     /// for keyframes-backed rules.
-    pub fn insert_rule(&self, rule: &str, idx: u32, nested: bool) -> Fallible<u32> {
+    pub fn insert_rule(&self, rule: &str, idx: u32, nested: bool) -> Fallible<u32, TH> {
         let css_rules = if let RulesSource::Rules(ref rules) = self.rules {
             rules
         } else {

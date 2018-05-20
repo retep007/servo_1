@@ -46,7 +46,7 @@ use typeholder::TypeHolderTrait;
 /// <https://html.spec.whatwg.org/multipage/#customelementregistry>
 #[dom_struct]
 pub struct CustomElementRegistry<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 
     window: Dom<Window<TH>>,
 
@@ -125,7 +125,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
     /// Steps 10.3, 10.4
     #[allow(unsafe_code)]
-    unsafe fn get_callbacks(&self, prototype: HandleObject) -> Fallible<LifecycleCallbacks> {
+    unsafe fn get_callbacks(&self, prototype: HandleObject) -> Fallible<LifecycleCallbacks, TH> {
         let cx = self.window.get_cx();
 
         // Step 4
@@ -140,7 +140,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
     /// Step 10.6
     #[allow(unsafe_code)]
-    fn get_observed_attributes(&self, constructor: HandleObject) -> Fallible<Vec<DOMString>> {
+    fn get_observed_attributes(&self, constructor: HandleObject) -> Fallible<Vec<DOMString>, TH> {
         let cx = self.window.get_cx();
         rooted!(in(cx) let mut observed_attributes = UndefinedValue());
         if unsafe { !JS_GetProperty(cx,
@@ -172,7 +172,7 @@ unsafe fn get_callback(
     cx: *mut JSContext,
     prototype: HandleObject,
     name: &[u8],
-) -> Fallible<Option<Rc<Function>>> {
+) -> Fallible<Option<Rc<Function>>, TH> {
     rooted!(in(cx) let mut callback = UndefinedValue());
 
     // Step 10.4.1
@@ -436,7 +436,7 @@ impl<TH: TypeHolderTrait> CustomElementDefinition<TH> {
 
     /// https://dom.spec.whatwg.org/#concept-create-element Step 6.1
     #[allow(unsafe_code)]
-    pub fn create_element(&self, document: &Document<TH>, prefix: Option<Prefix>) -> Fallible<DomRoot<Element<TH>>> {
+    pub fn create_element(&self, document: &Document<TH>, prefix: Option<Prefix>) -> Fallible<DomRoot<Element<TH>>, TH> {
         let window = document.window();
         let cx = window.get_cx();
         // Step 2

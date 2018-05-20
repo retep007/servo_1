@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 /// Trait for elements with defined activation behavior
 pub trait Activatable<TH: TypeHolderTrait> {
-    fn as_element(&self) -> &Element;
+    fn as_element(&self) -> &Element<TH>;
 
     // Is this particular instance of the element activatable?
     fn is_instance_activatable(&self) -> bool;

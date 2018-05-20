@@ -183,7 +183,7 @@ impl<TH: TypeHolderTrait> SerializationIterator<TH> {
 }
 
 impl<TH: TypeHolderTrait> Iterator for SerializationIterator<TH> {
-    type Item = SerializationCommand;
+    type Item = SerializationCommand<TH>;
 
     fn next(&mut self) -> Option<SerializationCommand<TH>> {
         let res = self.stack.pop();

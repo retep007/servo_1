@@ -17,7 +17,7 @@ pub struct HTMLDListElement<TH: TypeHolderTrait> {
 }
 
 impl<TH> HTMLDListElement<TH> {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLDListElement {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLDListElement<TH> {
         HTMLDListElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -27,7 +27,7 @@ impl<TH> HTMLDListElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLDListElement> {
+               document: &Document<TH>) -> DomRoot<HTMLDListElement<TH>> {
         Node::reflect_node(Box::new(HTMLDListElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLDListElementBinding::Wrap)

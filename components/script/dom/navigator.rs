@@ -24,13 +24,13 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Navigator<TH: TypeHolderTrait> {
-    reflector_: Reflector,
-    bluetooth: MutNullableDom<Bluetooth>,
+    reflector_: Reflector<TH>,
+    bluetooth: MutNullableDom<Bluetooth<TH>>,
     plugins: MutNullableDom<PluginArray<TH>>,
-    mime_types: MutNullableDom<MimeTypeArray>,
+    mime_types: MutNullableDom<MimeTypeArray<TH>>,
     service_worker: MutNullableDom<ServiceWorkerContainer<TH>>,
     vr: MutNullableDom<VR<TH>>,
-    gamepads: MutNullableDom<GamepadList>,
+    gamepads: MutNullableDom<GamepadList<TH>>,
     permissions: MutNullableDom<Permissions<TH>>,
 }
 
@@ -92,7 +92,7 @@ impl<TH> NavigatorMethods for Navigator<TH> {
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-navigator-bluetooth
-    fn Bluetooth(&self) -> DomRoot<Bluetooth> {
+    fn Bluetooth(&self) -> DomRoot<Bluetooth<TH>> {
         self.bluetooth.or_init(|| Bluetooth::new(&self.global()))
     }
 
@@ -107,7 +107,7 @@ impl<TH> NavigatorMethods for Navigator<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-navigator-mimetypes
-    fn MimeTypes(&self) -> DomRoot<MimeTypeArray> {
+    fn MimeTypes(&self) -> DomRoot<MimeTypeArray<TH>> {
         self.mime_types.or_init(|| MimeTypeArray::new(&self.global()))
     }
 
@@ -129,7 +129,7 @@ impl<TH> NavigatorMethods for Navigator<TH> {
     }
 
     // https://www.w3.org/TR/gamepad/#navigator-interface-extension
-    fn GetGamepads(&self) -> DomRoot<GamepadList> {
+    fn GetGamepads(&self) -> DomRoot<GamepadList<TH>> {
         let root = self.gamepads.or_init(|| {
             GamepadList::new(&self.global(), &[])
         });

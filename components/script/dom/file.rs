@@ -27,7 +27,7 @@ pub struct File<TH: TypeHolderTrait> {
 
 impl<TH: TypeHolderTrait> File<TH> {
     #[allow(unrooted_must_root)]
-    fn new_inherited(blob_impl: BlobImpl, name: DOMString,
+    fn new_inherited(blob_impl: BlobImpl<TH>, name: DOMString,
                      modified: Option<i64>, type_string: &str) -> File<TH> {
         File {
             blob: Blob::new_inherited(blob_impl, type_string.to_owned()),
@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> File<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(global: &GlobalScope<TH>, blob_impl: BlobImpl,
+    pub fn new(global: &GlobalScope<TH>, blob_impl: BlobImpl<TH>,
                name: DOMString, modified: Option<i64>, typeString: &str) -> DomRoot<File<TH>> {
         reflect_dom_object(Box::new(File::new_inherited(blob_impl, name, modified, typeString)),
                            global,
@@ -61,10 +61,10 @@ impl<TH: TypeHolderTrait> File<TH> {
 
     // https://w3c.github.io/FileAPI/#file-constructor
     pub fn Constructor(global: &GlobalScope<TH>,
-                       fileBits: Vec<ArrayBufferOrArrayBufferViewOrBlobOrString>,
+                       fileBits: Vec<ArrayBufferOrArrayBufferViewOrBlobOrString<TH>>,
                        filename: DOMString,
                        filePropertyBag: &FileBinding::FilePropertyBag)
-                       -> Fallible<DomRoot<File<TH>>> {
+                       -> Fallible<DomRoot<File<TH>>, TH> {
         let bytes: Vec<u8> = match blob_parts_to_bytes(fileBits) {
             Ok(bytes) => bytes,
             Err(_) => return Err(Error::InvalidCharacter),

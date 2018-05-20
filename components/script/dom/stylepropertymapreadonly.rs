@@ -20,12 +20,12 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct StylePropertyMapReadOnly<TH: TypeHolderTrait> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     entries: HashMap<Atom, Dom<CSSStyleValue<TH>>>,
 }
 
 impl<TH> StylePropertyMapReadOnly<TH> {
-    fn new_inherited<Entries>(entries: Entries) -> StylePropertyMapReadOnly where
+    fn new_inherited<Entries>(entries: Entries) -> StylePropertyMapReadOnly<TH> where
         Entries: IntoIterator<Item=(Atom, Dom<CSSStyleValue<TH>>)>
     {
         StylePropertyMapReadOnly {

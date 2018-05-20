@@ -20,7 +20,7 @@ pub struct HTMLDivElement<TH: TypeHolderTrait> {
 impl<TH> HTMLDivElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLDivElement {
+                     document: &Document<TH>) -> HTMLDivElement<TH> {
         HTMLDivElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -29,7 +29,7 @@ impl<TH> HTMLDivElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLDivElement> {
+               document: &Document<TH>) -> DomRoot<HTMLDivElement<TH>> {
         Node::reflect_node(Box::new(HTMLDivElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLDivElementBinding::Wrap)

@@ -77,7 +77,7 @@ impl<TH> ErrorEvent<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
                        init: RootedTraceableBox<ErrorEventBinding::ErrorEventInit>)
-                       -> Fallible<DomRoot<ErrorEvent<TH>>>{
+                       -> Fallible<DomRoot<ErrorEvent<TH>>, TH>{
         let msg = match init.message.as_ref() {
             Some(message) => message.clone(),
             None => DOMString::new(),

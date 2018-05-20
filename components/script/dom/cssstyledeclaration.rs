@@ -27,7 +27,7 @@ use typeholder::TypeHolderTrait;
 // http://dev.w3.org/csswg/cssom/#the-cssstyledeclaration-interface
 #[dom_struct]
 pub struct CSSStyleDeclaration<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     owner: CSSStyleOwner<TH>,
     readonly: bool,
     pseudo: Option<PseudoElement>,
@@ -391,7 +391,7 @@ impl<TH> CSSStyleDeclarationMethods for CSSStyleDeclaration<TH> {
     }
 
     // https://dev.w3.org/csswg/cssom/#dom-cssstyledeclaration-removeproperty
-    fn RemoveProperty(&self, property: DOMString) -> Fallible<DOMString> {
+    fn RemoveProperty(&self, property: DOMString) -> Fallible<DOMString, TH> {
         // Step 1
         if self.readonly {
             return Err(Error::NoModificationAllowed);

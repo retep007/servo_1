@@ -33,8 +33,8 @@ pub struct MicrotaskQueue<TH: TypeHolderTrait> {
 #[derive(JSTraceable, MallocSizeOf)]
 pub enum Microtask {
     Promise(EnqueuedPromiseCallback),
-    MediaElement(MediaElementMicrotask),
-    ImageElement(ImageElementMicrotask),
+    MediaElement(MediaElementMicrotask<TH>),
+    ImageElement(ImageElementMicrotask<TH>),
     CustomElementReaction,
     NotifyMutationObservers,
 }

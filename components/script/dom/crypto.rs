@@ -23,20 +23,20 @@ unsafe_no_jsmanaged_fields!(ServoRng);
 // https://developer.mozilla.org/en-US/docs/Web/API/Crypto
 #[dom_struct]
 pub struct Crypto<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rand"]
     rng: DomRefCell<ServoRng>,
 }
 
 impl<TH> Crypto<TH> {
-    fn new_inherited() -> Crypto {
+    fn new_inherited() -> Crypto<TH> {
         Crypto {
             reflector_: Reflector::new(),
             rng: DomRefCell::new(ServoRng::new()),
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Crypto> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Crypto<TH>> {
         reflect_dom_object(Box::new(Crypto::new_inherited()), global, CryptoBinding::Wrap)
     }
 }
@@ -47,7 +47,7 @@ impl<TH> CryptoMethods for Crypto<TH> {
     unsafe fn GetRandomValues(&self,
                        _cx: *mut JSContext,
                        mut input: CustomAutoRooterGuard<ArrayBufferView>)
-                       -> Fallible<NonNull<JSObject>> {
+                       -> Fallible<NonNull<JSObject>, TH> {
         let array_type = input.get_array_type();
 
         if !is_integer_buffer(array_type) {

@@ -469,7 +469,7 @@ pub fn root_from_handleobject<T>(obj: HandleObject) -> Result<DomRoot<T>, ()>
     root_from_object(obj.get())
 }
 
-impl<T: DomObject> ToJSValConvertible for DomRoot<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> ToJSValConvertible for DomRoot<T> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.reflector().to_jsval(cx, rval);
     }
@@ -489,7 +489,7 @@ pub unsafe fn get_property_jsval(cx: *mut JSContext,
                                  object: HandleObject,
                                  name: &str,
                                  mut rval: MutableHandleValue)
-                                 -> Fallible<()>
+                                 -> Fallible<(), TH>
 {
     rval.set(UndefinedValue());
     let cname = match ffi::CString::new(name) {
@@ -508,7 +508,7 @@ pub unsafe fn get_property<T>(cx: *mut JSContext,
                               object: HandleObject,
                               name: &str,
                               option: T::Config)
-                              -> Fallible<Option<T>> where
+                              -> Fallible<Option<T>, TH> where
     T: FromJSValConvertible
 {
     debug!("Getting property {}.", name);

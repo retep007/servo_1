@@ -33,7 +33,7 @@ impl<TH: TypeHolderTrait> Comment<TH> {
                            CommentBinding::Wrap)
     }
 
-    pub fn Constructor(window: &Window<TH>, data: DOMString) -> Fallible<DomRoot<Self>> {
+    pub fn Constructor(window: &Window<TH>, data: DOMString) -> Fallible<DomRoot<Self>, TH> {
         let document = window.Document();
         Ok(Comment::new(data, &document))
     }

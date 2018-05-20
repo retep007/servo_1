@@ -59,7 +59,7 @@ impl<TH: TypeHolderTrait> HashChangeEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &HashChangeEventBinding::HashChangeEventInit)
-                       -> Fallible<DomRoot<HashChangeEvent<TH>>> {
+                       -> Fallible<DomRoot<HashChangeEvent<TH>>, TH> {
         Ok(HashChangeEvent::new(window,
                                 Atom::from(type_),
                                 init.parent.bubbles,

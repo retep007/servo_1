@@ -21,7 +21,7 @@ pub struct HTMLDataElement<TH: TypeHolderTrait> {
 impl<TH> HTMLDataElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLDataElement {
+                     document: &Document<TH>) -> HTMLDataElement<TH> {
         HTMLDataElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -30,7 +30,7 @@ impl<TH> HTMLDataElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLDataElement> {
+               document: &Document<TH>) -> DomRoot<HTMLDataElement<TH>> {
         Node::reflect_node(Box::new(HTMLDataElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLDataElementBinding::Wrap)

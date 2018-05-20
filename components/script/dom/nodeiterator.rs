@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct NodeIterator<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     root_node: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     reference_node: MutDom<Node<TH>>,
@@ -97,7 +97,7 @@ impl<TH: TypeHolderTrait> NodeIteratorMethods for NodeIterator<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-nodeiterator-nextnode
-    fn NextNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>> {
+    fn NextNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH> {
         // https://dom.spec.whatwg.org/#concept-NodeIterator-traverse
         // Step 1.
         let node = self.reference_node.get();
@@ -141,7 +141,7 @@ impl<TH: TypeHolderTrait> NodeIteratorMethods for NodeIterator<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-nodeiterator-previousnode
-    fn PreviousNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>> {
+    fn PreviousNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH> {
         // https://dom.spec.whatwg.org/#concept-NodeIterator-traverse
         // Step 1.
         let node = self.reference_node.get();
@@ -193,7 +193,7 @@ impl<TH: TypeHolderTrait> NodeIteratorMethods for NodeIterator<TH> {
 
 impl<TH: TypeHolderTrait> NodeIterator<TH> {
     // https://dom.spec.whatwg.org/#concept-node-filter
-    fn accept_node(&self, node: &Node<TH>) -> Fallible<u16> {
+    fn accept_node(&self, node: &Node<TH>) -> Fallible<u16, TH> {
         // Step 1.
         if self.active.get() {
             return Err(Error::InvalidState);

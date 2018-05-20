@@ -19,7 +19,7 @@ pub struct HTMLAudioElement<TH: TypeHolderTrait> {
 impl<TH> HTMLAudioElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document<TH>) -> HTMLAudioElement {
+                     document: &Document<TH>) -> HTMLAudioElement<TH> {
         HTMLAudioElement {
             htmlmediaelement:
                 HTMLMediaElement::new_inherited(local_name, prefix, document)
@@ -29,7 +29,7 @@ impl<TH> HTMLAudioElement<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document<TH>) -> DomRoot<HTMLAudioElement> {
+               document: &Document<TH>) -> DomRoot<HTMLAudioElement<TH>> {
         Node::reflect_node(Box::new(HTMLAudioElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLAudioElementBinding::Wrap)

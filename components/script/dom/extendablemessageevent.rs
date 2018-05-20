@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct ExtendableMessageEvent<TH: TypeHolderTrait> {
-    event: ExtendableEvent,
+    event: ExtendableEvent<TH>,
     data: Heap<JSVal>,
     origin: DOMString,
     lastEventId: DOMString,
@@ -54,7 +54,7 @@ impl<TH> ExtendableMessageEvent<TH> {
     pub fn Constructor(worker: &ServiceWorkerGlobalScope<TH>,
                        type_: DOMString,
                        init: RootedTraceableBox<ExtendableMessageEventBinding::ExtendableMessageEventInit>)
-                       -> Fallible<DomRoot<ExtendableMessageEvent<TH>>> {
+                       -> Fallible<DomRoot<ExtendableMessageEvent<TH>>, TH> {
         let global = worker.upcast::<GlobalScope<TH>>();
         let ev = ExtendableMessageEvent::new(global,
                                              Atom::from(type_),

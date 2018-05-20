@@ -106,7 +106,7 @@ pub enum XHRProgress {
     /// Loading is done
     Done(GenerationId),
     /// There was an error (only Error::Abort, Error::Timeout or Error::Network is used)
-    Errored(GenerationId, Error),
+    Errored(GenerationId, Error<TH>),
 }
 
 impl XHRProgress {
@@ -216,7 +216,7 @@ impl<TH> XMLHttpRequest<TH> {
     }
 
     // https://xhr.spec.whatwg.org/#constructors
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<XMLHttpRequest<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<XMLHttpRequest<TH>>, TH> {
         Ok(XMLHttpRequest::new(global))
     }
 
@@ -790,7 +790,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
     }
 
     // https://xhr.spec.whatwg.org/#the-responsetext-attribute
-    fn GetResponseText(&self) -> Fallible<USVString> {
+    fn GetResponseText(&self) -> Fallible<USVString, TH> {
         match self.response_type.get() {
             XMLHttpRequestResponseType::_empty | XMLHttpRequestResponseType::Text => {
                 Ok(USVString(String::from(match self.ready_state.get() {
@@ -806,7 +806,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
     }
 
     // https://xhr.spec.whatwg.org/#the-responsexml-attribute
-    fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document<TH>>>> {
+    fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document<TH>>>, TH> {
         // TODO(#2823): Until [Exposed] is implemented, this attribute needs to return null
         //              explicitly in the worker scope.
         if self.global().is::<WorkerGlobalScope<TH>>() {
@@ -846,7 +846,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
     fn process_headers_available(&self,
                                  gen_id: GenerationId,
                                  metadata: Result<FetchMetadata, NetworkError>)
-                                 -> Result<(), Error> {
+                                 -> Result<(), Error<TH>> {
         let metadata = match metadata {
             Ok(meta) => match meta {
                 FetchMetadata::Unfiltered(m) => m,
@@ -1428,7 +1428,7 @@ impl Extractable for URLSearchParams {
     }
 }
 
-fn serialize_document<TH: TypeHolderTrait>(doc: &Document<TH>) -> Fallible<DOMString> {
+fn serialize_document<TH: TypeHolderTrait>(doc: &Document<TH>) -> Fallible<DOMString, TH> {
     let mut writer = vec![];
     match serialize(&mut writer, &doc.upcast::<Node<TH>>(), SerializeOpts::default()) {
         Ok(_) => Ok(DOMString::from(String::from_utf8(writer).unwrap())),

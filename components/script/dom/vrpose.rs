@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct VRPose<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     position: Heap<*mut JSObject>,
     orientation: Heap<*mut JSObject>,
     linear_vel: Heap<*mut JSObject>,

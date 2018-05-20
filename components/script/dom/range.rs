@@ -35,7 +35,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Range<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     start: BoundaryPoint<TH>,
     end: BoundaryPoint<TH>,
 }
@@ -74,7 +74,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range
-    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<Range<TH>>> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<Range<TH>>, TH> {
         let document = window.Document();
         Ok(Range::new_with_doc(&document))
     }
@@ -95,9 +95,9 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#concept-range-clone
-    fn contained_children(&self) -> Fallible<(Option<DomRoot<Node<TH>>>,
+    fn contained_children(&self) -> Fallible<(Option<DomRoot<Node<TH>>, TH>,
                                               Option<DomRoot<Node<TH>>>,
-                                              Vec<DomRoot<Node<TH>>>)> {
+                                              Vec<DomRoot<Node<TH>>>), TH> {
         let start_node = self.StartContainer();
         let end_node = self.EndContainer();
         // Steps 5-6.
@@ -164,7 +164,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-comparepointnode-offset
-    fn compare_point(&self, node: &Node<TH>, offset: u32) -> Fallible<Ordering> {
+    fn compare_point(&self, node: &Node<TH>, offset: u32) -> Fallible<Ordering, TH> {
         let start_node = self.StartContainer();
         let start_node_root = start_node.inclusive_ancestors().last().unwrap();
         let node_root = node.inclusive_ancestors().last().unwrap();
@@ -334,7 +334,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-compareboundarypoints
     fn CompareBoundaryPoints(&self, how: u16, other: &Range<TH>)
-                             -> Fallible<i16> {
+                             -> Fallible<i16, TH> {
         if how > RangeConstants::END_TO_START {
             // Step 1.
             return Err(Error::NotSupported);
@@ -378,7 +378,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-ispointinrange
-    fn IsPointInRange(&self, node: &Node<TH>, offset: u32) -> Fallible<bool> {
+    fn IsPointInRange(&self, node: &Node<TH>, offset: u32) -> Fallible<bool, TH> {
         match self.compare_point(node, offset) {
             Ok(Ordering::Less) => Ok(false),
             Ok(Ordering::Equal) => Ok(true),
@@ -392,7 +392,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-comparepoint
-    fn ComparePoint(&self, node: &Node<TH>, offset: u32) -> Fallible<i16> {
+    fn ComparePoint(&self, node: &Node<TH>, offset: u32) -> Fallible<i16, TH> {
         self.compare_point(node, offset).map(|order| {
             match order {
                 Ordering::Less => -1,
@@ -429,7 +429,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-clonecontents
     // https://dom.spec.whatwg.org/#concept-range-clone
-    fn CloneContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>> {
+    fn CloneContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
         // Step 3.
         let start_node = self.StartContainer();
         let start_offset = self.StartOffset();
@@ -528,7 +528,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-extractcontents
     // https://dom.spec.whatwg.org/#concept-range-extract
-    fn ExtractContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>> {
+    fn ExtractContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
         // Step 3.
         let start_node = self.StartContainer();
         let start_offset = self.StartOffset();
@@ -902,7 +902,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
     }
 
     // https://dvcs.w3.org/hg/innerhtml/raw-file/tip/index.html#extensions-to-the-range-interface
-    fn CreateContextualFragment(&self, fragment: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>> {
+    fn CreateContextualFragment(&self, fragment: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
         // Step 1.
         let node = self.StartContainer();
         let owner_doc = node.owner_doc();

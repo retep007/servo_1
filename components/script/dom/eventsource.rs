@@ -426,7 +426,7 @@ impl<TH> EventSource<TH> {
 
     pub fn Constructor(global: &GlobalScope<TH>,
                        url: DOMString,
-                       event_source_init: &EventSourceInit) -> Fallible<DomRoot<EventSource<TH>>> {
+                       event_source_init: &EventSourceInit) -> Fallible<DomRoot<EventSource<TH>>, TH> {
         // TODO: Step 2 relevant settings object
         // Step 3
         let base_url = global.api_base_url();

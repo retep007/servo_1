@@ -31,7 +31,7 @@ use typeholder::TypeHolderTrait;
 // https://dom.spec.whatwg.org/#domimplementation
 #[dom_struct]
 pub struct DOMImplementation<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     document: Dom<Document<TH>>,
 }
 
@@ -58,7 +58,7 @@ impl<TH: TypeHolderTrait> DOMImplementationMethods for DOMImplementation<TH> {
                           qualified_name: DOMString,
                           pubid: DOMString,
                           sysid: DOMString)
-                          -> Fallible<DomRoot<DocumentType<TH>>> {
+                          -> Fallible<DomRoot<DocumentType<TH>>, TH> {
         validate_qualified_name(&qualified_name)?;
         Ok(DocumentType::new(qualified_name, Some(pubid), Some(sysid), &self.document))
     }
@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> DOMImplementationMethods for DOMImplementation<TH> {
                       maybe_namespace: Option<DOMString>,
                       qname: DOMString,
                       maybe_doctype: Option<&DocumentType<TH>>)
-                      -> Fallible<DomRoot<XMLDocument<TH>>> {
+                      -> Fallible<DomRoot<XMLDocument<TH>>, TH> {
         let win = self.document.window();
         let loader = DocumentLoader::new(&self.document.loader());
         let namespace = namespace_from_domstring(maybe_namespace.to_owned());

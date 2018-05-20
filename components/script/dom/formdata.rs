@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct FormData<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     data: DomRefCell<HashMap<LocalName, Vec<FormDatum<TH>>>>,
 }
 
@@ -53,7 +53,7 @@ impl<TH> FormData<TH> {
                            global, FormDataWrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>, form: Option<&HTMLFormElement<TH>>) -> Fallible<DomRoot<FormData<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>, form: Option<&HTMLFormElement<TH>>) -> Fallible<DomRoot<FormData<TH>>, TH> {
         // TODO: Construct form data set for form if it is supplied
         Ok(FormData::new(form, global))
     }
@@ -171,7 +171,7 @@ impl<TH> FormData<TH> {
 
 impl<TH> Iterable for FormData<TH> {
     type Key = USVString;
-    type Value = FileOrUSVString;
+    type Value = FileOrUSVString<TH>;
 
     fn get_iterable_length(&self) -> u32 {
         self.data.borrow().values().map(|value| value.len()).sum::<usize>() as u32

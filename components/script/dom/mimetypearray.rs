@@ -14,17 +14,17 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct MimeTypeArray<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 impl<TH> MimeTypeArray<TH> {
-    pub fn new_inherited() -> MimeTypeArray {
+    pub fn new_inherited() -> MimeTypeArray<TH> {
         MimeTypeArray {
             reflector_: Reflector::new()
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>) -> DomRoot<MimeTypeArray> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<MimeTypeArray<TH>> {
         reflect_dom_object(Box::new(MimeTypeArray::new_inherited()),
                            global,
                            MimeTypeArrayBinding::Wrap)

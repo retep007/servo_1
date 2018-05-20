@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 pub struct DissimilarOriginLocation<TH: TypeHolderTrait> {
     /// The reflector. Once we have XOWs, this will have a cross-origin
     /// wrapper placed around it.
-    reflector: Reflector,
+    reflector: Reflector<TH>,
 
     /// The window associated with this location.
     window: Dom<DissimilarOriginWindow<TH>>,
@@ -54,7 +54,7 @@ impl<TH> DissimilarOriginLocation<TH> {
 
 impl<TH> DissimilarOriginLocationMethods for DissimilarOriginLocation<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn GetHref(&self) -> Fallible<USVString> {
+    fn GetHref(&self) -> Fallible<USVString, TH> {
         Err(Error::Security)
     }
 
@@ -65,24 +65,24 @@ impl<TH> DissimilarOriginLocationMethods for DissimilarOriginLocation<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-assign
-    fn Assign(&self, _: USVString) -> Fallible<()> {
+    fn Assign(&self, _: USVString) -> Fallible<(), TH> {
         // TODO: setting href on a cross-origin window should succeed?
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-replace
-    fn Replace(&self, _: USVString) -> Fallible<()> {
+    fn Replace(&self, _: USVString) -> Fallible<(), TH> {
         // TODO: replacing href on a cross-origin window should succeed?
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-reload
-    fn Reload(&self) -> Fallible<()> {
+    fn Reload(&self) -> Fallible<(), TH> {
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn Stringifier(&self) -> Fallible<DOMString> {
+    fn Stringifier(&self) -> Fallible<DOMString, TH> {
         Err(Error::Security)
     }
 }

@@ -43,7 +43,7 @@ impl<TH: TypeHolderTrait> InputEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &InputEventBinding::InputEventInit)
-                       -> Fallible<DomRoot<InputEvent<TH>>> {
+                       -> Fallible<DomRoot<InputEvent<TH>>, TH> {
         let event = InputEvent::new(window,
                                     type_,
                                     init.parent.parent.bubbles,

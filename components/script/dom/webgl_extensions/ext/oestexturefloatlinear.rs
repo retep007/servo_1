@@ -11,11 +11,11 @@ use super::{constants as webgl, WebGLExtension, WebGLExtensions, WebGLExtensionS
 use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct OESTextureFloatLinear<TH> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 impl<TH> OESTextureFloatLinear<TH> {
-    fn new_inherited() -> OESTextureFloatLinear {
+    fn new_inherited() -> OESTextureFloatLinear<TH> {
         Self {
             reflector_: Reflector::new(),
         }
@@ -23,8 +23,8 @@ impl<TH> OESTextureFloatLinear<TH> {
 }
 
 impl<TH> WebGLExtension for OESTextureFloatLinear<TH> {
-    type Extension = OESTextureFloatLinear;
-    fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESTextureFloatLinear> {
+    type Extension = OESTextureFloatLinear<TH>;
+    fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESTextureFloatLinear<TH>> {
         reflect_dom_object(Box::new(OESTextureFloatLinear::new_inherited()),
                            &*ctx.global(),
                            OESTextureFloatLinearBinding::Wrap)

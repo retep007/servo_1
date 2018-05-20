@@ -57,7 +57,7 @@ pub struct TrustedReference(*const libc::c_void);
 unsafe impl Send for TrustedReference {}
 
 impl TrustedReference {
-    fn new<T: DomObject>(ptr: *const T) -> TrustedReference {
+    fn new<T: DomObject<TH>, TH: TypeHolderTrait>(ptr: *const T) -> TrustedReference {
         TrustedReference(ptr as *const libc::c_void)
     }
 }
@@ -120,7 +120,7 @@ impl<TH> TrustedPromise<TH> {
 
     /// A task which will reject the promise.
     #[allow(unrooted_must_root)]
-    pub fn reject_task(self, error: Error) -> impl TaskOnce {
+    pub fn reject_task(self, error: Error<TH>) -> impl TaskOnce {
         let this = self;
         task!(reject_promise: move || {
             debug!("Rejecting promise.");
@@ -147,7 +147,7 @@ impl<TH> TrustedPromise<TH> {
 /// DOM object is guaranteed to live at least as long as the last outstanding
 /// `Trusted<T>` instance.
 #[allow_unrooted_interior]
-pub struct Trusted<T: DomObject> {
+pub struct Trusted<T: DomObject<TH>, TH: TypeHolderTrait> {
     /// A pointer to the Rust DOM object of type T, but void to allow
     /// sending `Trusted<T>` between threads, regardless of T's sendability.
     refcount: Arc<TrustedReference>,
@@ -155,9 +155,9 @@ pub struct Trusted<T: DomObject> {
     phantom: PhantomData<T>,
 }
 
-unsafe impl<T: DomObject> Send for Trusted<T> {}
+unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> Send for Trusted<T> {}
 
-impl<T: DomObject> Trusted<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> Trusted<T> {
     /// Create a new `Trusted<T>` instance from an existing DOM pointer. The DOM object will
     /// be prevented from being GCed for the duration of the resulting `Trusted<T>` object's
     /// lifetime.
@@ -189,7 +189,7 @@ impl<T: DomObject> Trusted<T> {
     }
 }
 
-impl<T: DomObject> Clone for Trusted<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> Clone for Trusted<T> {
     fn clone(&self) -> Trusted<T> {
         Trusted {
             refcount: self.refcount.clone(),
@@ -225,7 +225,7 @@ impl<TH> LiveDOMReferences<TH> {
         table.entry(&*promise).or_insert(vec![]).push(promise)
     }
 
-    fn addref<T: DomObject>(&self, ptr: *const T) -> Arc<TrustedReference> {
+    fn addref<T: DomObject<TH>, TH: TypeHolderTrait>(&self, ptr: *const T) -> Arc<TrustedReference> {
         let mut table = self.reflectable_table.borrow_mut();
         let capacity = table.capacity();
         let len = table.len();

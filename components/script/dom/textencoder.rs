@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TextEncoder<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 impl<TH> TextEncoder<TH> {
@@ -35,7 +35,7 @@ impl<TH> TextEncoder<TH> {
     }
 
     // https://encoding.spec.whatwg.org/#dom-textencoder
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TextEncoder<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TextEncoder<TH>>, TH> {
         Ok(TextEncoder::new(global))
     }
 }

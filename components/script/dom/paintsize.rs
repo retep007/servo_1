@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct PaintSize<TH: TypeHolderTrait> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     width: Finite<f64>,
     height: Finite<f64>,
 }

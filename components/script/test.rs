@@ -43,16 +43,16 @@ pub mod size_of {
         size_of::<EventTarget<TH>>()
     }
 
-    pub fn HTMLDivElement() -> usize {
-        size_of::<HTMLDivElement>()
+    pub fn HTMLDivElement<TH: TypeHolderTrait>() -> usize {
+        size_of::<HTMLDivElement<TH>>()
     }
 
     pub fn HTMLElement<TH: TypeHolderTrait>() -> usize {
         size_of::<HTMLElement<TH>>()
     }
 
-    pub fn HTMLSpanElement() -> usize {
-        size_of::<HTMLSpanElement>()
+    pub fn HTMLSpanElement<TH: TypeHolderTrait>() -> usize {
+        size_of::<HTMLSpanElement<TH>>()
     }
 
     pub fn Node<TH: TypeHolderTrait>() -> usize {

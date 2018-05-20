@@ -38,8 +38,8 @@ pub struct BluetoothDevice<TH: TypeHolderTrait> {
     id: DOMString,
     name: Option<DOMString>,
     gatt: MutNullableDom<BluetoothRemoteGATTServer<TH>>,
-    context: Dom<Bluetooth>,
-    attribute_instance_map: (DomRefCell<HashMap<String, Dom<BluetoothRemoteGATTService>>>,
+    context: Dom<Bluetooth<TH>>,
+    attribute_instance_map: (DomRefCell<HashMap<String, Dom<BluetoothRemoteGATTService<TH>>>>,
                              DomRefCell<HashMap<String, Dom<BluetoothRemoteGATTCharacteristic<TH>>>>,
                              DomRefCell<HashMap<String, Dom<BluetoothRemoteGATTDescriptor<TH>>>>),
     watching_advertisements: Cell<bool>,
@@ -48,7 +48,7 @@ pub struct BluetoothDevice<TH: TypeHolderTrait> {
 impl<TH> BluetoothDevice<TH> {
     pub fn new_inherited(id: DOMString,
                          name: Option<DOMString>,
-                         context: &Bluetooth)
+                         context: &Bluetooth<TH>)
                          -> BluetoothDevice<TH> {
         BluetoothDevice {
             eventtarget: EventTarget::new_inherited(),
@@ -66,7 +66,7 @@ impl<TH> BluetoothDevice<TH> {
     pub fn new(global: &GlobalScope<TH>,
                id: DOMString,
                name: Option<DOMString>,
-               context: &Bluetooth)
+               context: &Bluetooth<TH>)
                -> DomRoot<BluetoothDevice<TH>> {
         reflect_dom_object(Box::new(BluetoothDevice::new_inherited(id, name, context)),
                            global,
@@ -79,14 +79,14 @@ impl<TH> BluetoothDevice<TH> {
         })
     }
 
-    fn get_context(&self) -> DomRoot<Bluetooth> {
+    fn get_context(&self) -> DomRoot<Bluetooth<TH>> {
         DomRoot::from_ref(&self.context)
     }
 
     pub fn get_or_create_service(&self,
                                  service: &BluetoothServiceMsg,
                                  server: &BluetoothRemoteGATTServer<TH>)
-                                 -> DomRoot<BluetoothRemoteGATTService> {
+                                 -> DomRoot<BluetoothRemoteGATTService<TH>> {
         let (ref service_map_ref, _, _) = self.attribute_instance_map;
         let mut service_map = service_map_ref.borrow_mut();
         if let Some(existing_service) = service_map.get(&service.instance_id) {
@@ -103,7 +103,7 @@ impl<TH> BluetoothDevice<TH> {
 
     pub fn get_or_create_characteristic(&self,
                                         characteristic: &BluetoothCharacteristicMsg,
-                                        service: &BluetoothRemoteGATTService)
+                                        service: &BluetoothRemoteGATTService<TH>)
                                         -> DomRoot<BluetoothRemoteGATTCharacteristic<TH>> {
         let (_, ref characteristic_map_ref, _) = self.attribute_instance_map;
         let mut characteristic_map = characteristic_map_ref.borrow_mut();

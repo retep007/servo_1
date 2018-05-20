@@ -150,7 +150,7 @@ pub enum CompiledEventListener<TH: TypeHolderTrait> {
 impl<TH> CompiledEventListener<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#the-event-handler-processing-algorithm
-    pub fn call_or_handle_event<T: DomObject>(&self,
+    pub fn call_or_handle_event<T: DomObject<TH>, TH: TypeHolderTrait>(&self,
                                               object: &T,
                                               event: &Event<TH>,
                                               exception_handle: ExceptionHandling) {
@@ -162,7 +162,7 @@ impl<TH> CompiledEventListener<TH> {
             CompiledEventListener::Handler(ref handler) => {
                 match *handler {
                     CommonEventHandler::ErrorEventHandler(ref handler) => {
-                        if let Some(event) = event.downcast::<ErrorEvent>() {
+                        if let Some(event) = event.downcast::<ErrorEvent<TH>>() {
                             let cx = object.global().get_cx();
                             rooted!(in(cx) let error = unsafe { event.Error(cx) });
                             let return_value = handler.Call_(object,
@@ -283,7 +283,7 @@ impl<TH> EventListeners<TH> {
 
 #[dom_struct]
 pub struct EventTarget<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     handlers: DomRefCell<HashMap<Atom, EventListeners, BuildHasherDefault<FnvHasher>>>,
 }
 
@@ -301,7 +301,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
                            Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<EventTarget<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<EventTarget<TH>>, TH> {
         Ok(EventTarget::new(global))
     }
 
@@ -681,7 +681,7 @@ impl<TH> EventTargetMethods for EventTarget<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-eventtarget-dispatchevent
-    fn DispatchEvent(&self, event: &Event<TH>) -> Fallible<bool> {
+    fn DispatchEvent(&self, event: &Event<TH>) -> Fallible<bool, TH> {
         if event.dispatching() || !event.initialized() {
             return Err(Error::InvalidState);
         }

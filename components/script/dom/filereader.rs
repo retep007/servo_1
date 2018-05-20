@@ -46,7 +46,7 @@ pub enum FileReaderFunction {
     ReadAsArrayBuffer,
 }
 
-pub type TrustedFileReader = Trusted<FileReader>;
+pub type TrustedFileReader = Trusted<FileReader<TH>>;
 
 #[derive(Clone, MallocSizeOf)]
 pub struct ReadMetaData {
@@ -93,7 +93,7 @@ pub struct FileReader<TH: TypeHolderTrait> {
 }
 
 impl<TH> FileReader<TH> {
-    pub fn new_inherited() -> FileReader {
+    pub fn new_inherited() -> FileReader<TH> {
         FileReader {
             eventtarget: EventTarget::new_inherited(),
             ready_state: Cell::new(FileReaderReadyState::Empty),
@@ -103,12 +103,12 @@ impl<TH> FileReader<TH> {
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>) -> DomRoot<FileReader> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<FileReader<TH>> {
         reflect_dom_object(Box::new(FileReader::new_inherited()),
                            global, FileReaderBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<FileReader>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<FileReader<TH>>, TH> {
         Ok(FileReader::new(global))
     }
 

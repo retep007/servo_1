@@ -29,7 +29,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Event<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     current_target: MutNullableDom<EventTarget<TH>>,
     target: MutNullableDom<EventTarget<TH>>,
     type_: DomRefCell<Atom>,
@@ -82,7 +82,7 @@ impl<TH: TypeHolderTrait> Event<TH> {
 
     pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
-                       init: &EventBinding::EventInit) -> Fallible<DomRoot<Event<TH>>> {
+                       init: &EventBinding::EventInit) -> Fallible<DomRoot<Event<TH>>, TH> {
         let bubbles = EventBubbles::from(init.bubbles);
         let cancelable = EventCancelable::from(init.cancelable);
         Ok(Event::new(global, Atom::from(type_), bubbles, cancelable))

@@ -25,7 +25,7 @@ pub struct ExtendableEvent<TH: TypeHolderTrait> {
 }
 
 impl<TH> ExtendableEvent<TH> {
-    pub fn new_inherited() -> ExtendableEvent {
+    pub fn new_inherited() -> ExtendableEvent<TH> {
         ExtendableEvent {
             event: Event::new_inherited(),
             extensions_allowed: true
@@ -35,7 +35,7 @@ impl<TH> ExtendableEvent<TH> {
                type_: Atom,
                bubbles: bool,
                cancelable: bool)
-               -> DomRoot<ExtendableEvent> {
+               -> DomRoot<ExtendableEvent<TH>> {
         let ev = reflect_dom_object(
             Box::new(ExtendableEvent::new_inherited()),
             worker,
@@ -50,7 +50,7 @@ impl<TH> ExtendableEvent<TH> {
 
     pub fn Constructor(worker: &ServiceWorkerGlobalScope<TH>,
                        type_: DOMString,
-                       init: &ExtendableEventBinding::ExtendableEventInit) -> Fallible<DomRoot<ExtendableEvent>> {
+                       init: &ExtendableEventBinding::ExtendableEventInit) -> Fallible<DomRoot<ExtendableEvent<TH>>, TH> {
         Ok(ExtendableEvent::new(worker,
                                 Atom::from(type_),
                                 init.parent.bubbles,

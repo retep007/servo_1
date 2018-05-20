@@ -32,12 +32,12 @@ const NONSECURE_DIALOG_MESSAGE: &'static str = "feature is only safe to use in s
 const REQUEST_DIALOG_MESSAGE: &'static str = "Do you want to grant permission for";
 const ROOT_DESC_CONVERSION_ERROR: &'static str = "Can't convert to an IDL value of type PermissionDescriptor";
 
-pub trait PermissionAlgorithm {
+pub trait PermissionAlgorithm<TH: TypeHolderTrait> {
     type Descriptor;
     type Status;
     fn create_descriptor(cx: *mut JSContext,
                          permission_descriptor_obj: *mut JSObject)
-                         -> Result<Self::Descriptor, Error>;
+                         -> Result<Self::Descriptor, Error<TH>>;
     fn permission_query(cx: *mut JSContext, promise: &Rc<Promise<TH>>,
                         descriptor: &Self::Descriptor, status: &Self::Status);
     fn permission_request(cx: *mut JSContext, promise: &Rc<Promise<TH>>,
@@ -54,7 +54,7 @@ enum Operation {
 // https://w3c.github.io/permissions/#permissions
 #[dom_struct]
 pub struct Permissions<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 impl<TH> Permissions<TH> {
@@ -198,14 +198,14 @@ impl<TH> PermissionsMethods for Permissions<TH> {
     }
 }
 
-impl<TH> PermissionAlgorithm for Permissions<TH> {
+impl<TH> PermissionAlgorithm<TH> for Permissions<TH> {
     type Descriptor = PermissionDescriptor;
-    type Status = PermissionStatus;
+    type Status = PermissionStatus<TH>;
 
     #[allow(unsafe_code)]
     fn create_descriptor(cx: *mut JSContext,
                          permission_descriptor_obj: *mut JSObject)
-                         -> Result<PermissionDescriptor, Error> {
+                         -> Result<PermissionDescriptor, Error<TH>> {
         rooted!(in(cx) let mut property = UndefinedValue());
         property.handle_mut().set(ObjectValue(permission_descriptor_obj));
         unsafe {

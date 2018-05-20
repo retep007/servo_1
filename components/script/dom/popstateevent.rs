@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> PopStateEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: RootedTraceableBox<PopStateEventBinding::PopStateEventInit>)
-                       -> Fallible<DomRoot<PopStateEvent<TH>>> {
+                       -> Fallible<DomRoot<PopStateEvent<TH>>, TH> {
         Ok(PopStateEvent::new(window,
                               Atom::from(type_),
                               init.parent.bubbles,

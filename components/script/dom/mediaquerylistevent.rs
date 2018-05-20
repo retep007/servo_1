@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> MediaQueryListEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>, type_: DOMString,
                        init: &MediaQueryListEventInit)
-                       -> Fallible<DomRoot<MediaQueryListEvent<TH>>> {
+                       -> Fallible<DomRoot<MediaQueryListEvent<TH>>, TH> {
         let global = window.upcast::<GlobalScope<TH>>();
         Ok(MediaQueryListEvent::new(global, Atom::from(type_),
                                     init.parent.bubbles, init.parent.cancelable,

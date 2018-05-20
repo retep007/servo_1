@@ -23,7 +23,7 @@ pub enum NodeListType<TH: TypeHolderTrait> {
 // https://dom.spec.whatwg.org/#interface-nodelist
 #[dom_struct]
 pub struct NodeList<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     list_type: NodeListType<TH>,
 }
 

@@ -178,9 +178,9 @@ enum ParserKind {
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
 enum Tokenizer<TH: TypeHolderTrait> {
-    Html(self::html::Tokenizer),
-    AsyncHtml(self::async_html::Tokenizer),
-    Xml(self::xml::Tokenizer),
+    Html(self::html::Tokenizer<TH>),
+    AsyncHtml(self::async_html::Tokenizer<TH>),
+    Xml(self::xml::Tokenizer<TH>),
 }
 
 impl<TH> Tokenizer<TH> {

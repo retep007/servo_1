@@ -266,7 +266,7 @@ pub fn get_gatt_children<T, F, TH: TypeHolderTrait> (
         child_type: GATTType)
         -> Rc<Promise<TH>>
         where T: AsyncBluetoothListener + DomObject + 'static,
-              F: FnOnce(StringOrUnsignedLong) -> Fallible<UUID> {
+              F: FnOnce(StringOrUnsignedLong) -> Fallible<UUID, TH> {
     let p = Promise::new(&attribute.global());
 
     let result_uuid = if let Some(u) = uuid {
@@ -305,7 +305,7 @@ pub fn get_gatt_children<T, F, TH: TypeHolderTrait> (
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothlescanfilterinit-canonicalizing
-fn canonicalize_filter(filter: &BluetoothLEScanFilterInit) -> Fallible<BluetoothScanfilter> {
+fn canonicalize_filter(filter: &BluetoothLEScanFilterInit) -> Fallible<BluetoothScanfilter, TH> {
     // Step 1.
     if filter.services.is_none() &&
        filter.name.is_none() &&
@@ -441,7 +441,7 @@ fn canonicalize_filter(filter: &BluetoothLEScanFilterInit) -> Fallible<Bluetooth
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothdatafilterinit-canonicalizing
-fn canonicalize_bluetooth_data_filter_init(bdfi: &BluetoothDataFilterInit) -> Fallible<(Vec<u8>, Vec<u8>)> {
+fn canonicalize_bluetooth_data_filter_init(bdfi: &BluetoothDataFilterInit) -> Fallible<(Vec<u8>, Vec<u8>), TH> {
     // Step 1.
     let data_prefix = match bdfi.dataPrefix {
         Some(ArrayBufferViewOrArrayBuffer::ArrayBufferView(ref avb)) => avb.to_vec(),
@@ -553,12 +553,12 @@ impl<TH> AsyncBluetoothListener for Bluetooth<TH> {
 
 impl<TH> PermissionAlgorithm for Bluetooth<TH> {
     type Descriptor = BluetoothPermissionDescriptor;
-    type Status = BluetoothPermissionResult;
+    type Status = BluetoothPermissionResult<TH>;
 
     #[allow(unsafe_code)]
     fn create_descriptor(cx: *mut JSContext,
                          permission_descriptor_obj: *mut JSObject)
-                         -> Result<BluetoothPermissionDescriptor, Error> {
+                         -> Result<BluetoothPermissionDescriptor, Error<TH>> {
         rooted!(in(cx) let mut property = UndefinedValue());
         property.handle_mut().set(ObjectValue(permission_descriptor_obj));
         unsafe {

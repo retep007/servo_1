@@ -399,11 +399,11 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     /// A list of data pertaining to loads that have not yet received a network response
     incomplete_loads: DomRefCell<Vec<InProgressLoad>>,
     /// A vector containing parser contexts which have not yet been fully processed
-    incomplete_parser_contexts: DomRefCell<Vec<(PipelineId, ParserContext)>>,
+    incomplete_parser_contexts: DomRefCell<Vec<(PipelineId, ParserContext<TH>)>>,
     /// A map to store service worker registrations for a given origin
     registration_map: DomRefCell<HashMap<ServoUrl, Dom<ServiceWorkerRegistration<TH>>>>,
     /// A job queue for Service Workers keyed by their scope url
-    job_queue_map: Rc<JobQueue>,
+    job_queue_map: Rc<JobQueue<TH>>,
     /// Image cache for this script thread.
     image_cache: Arc<ImageCache>,
     /// A handle to the resource thread. This is an `Arc` to avoid running out of file descriptors if
@@ -2628,7 +2628,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         if let Some(window) = window {
             let entry = PerformancePaintTiming::new(&window.upcast::<GlobalScope<TH>>(),
                                                     metric_type, metric_value);
-            window.Performance().queue_entry(&entry.upcast::<PerformanceEntry>(),
+            window.Performance().queue_entry(&entry.upcast::<PerformanceEntry<TH>>(),
                                              true /* buffer performance entry */);
         }
     }

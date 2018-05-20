@@ -40,7 +40,7 @@ pub enum DOMErrorName {
 
 #[dom_struct]
 pub struct DOMException<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     code: DOMErrorName,
 }
 

@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct MutationObserver<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<MutationCallback>,
     record_queue: DomRefCell<Vec<DomRoot<MutationRecord<TH>>>>,
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
         }
     }
 
-    pub fn Constructor(global: &Window<TH>, callback: Rc<MutationCallback>) -> Fallible<DomRoot<MutationObserver<TH>>> {
+    pub fn Constructor(global: &Window<TH>, callback: Rc<MutationCallback>) -> Fallible<DomRoot<MutationObserver<TH>>, TH> {
         global.set_exists_mut_observer();
         let observer = MutationObserver::new(global, callback);
         ScriptThread::add_mutation_observer(&*observer);
@@ -188,7 +188,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
 
 impl<TH> MutationObserverMethods for MutationObserver<TH> {
     /// <https://dom.spec.whatwg.org/#dom-mutationobserver-observe>
-    fn Observe(&self, target: &Node<TH>, options: &MutationObserverInit) -> Fallible<()> {
+    fn Observe(&self, target: &Node<TH>, options: &MutationObserverInit) -> Fallible<(), TH> {
         let attribute_filter = options.attributeFilter.clone().unwrap_or(vec![]);
         let attribute_old_value = options.attributeOldValue.unwrap_or(false);
         let mut attributes = options.attributes.unwrap_or(false);

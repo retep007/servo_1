@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#canvaspattern
 #[dom_struct]
 pub struct CanvasPattern<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     surface_data: Vec<u8>,
     surface_size: Size2D<i32>,
     repeat_x: bool,

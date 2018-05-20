@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct DOMTokenList<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     element: Dom<Element<TH>>,
     local_name: LocalName,
 }
@@ -44,7 +44,7 @@ impl<TH> DOMTokenList<TH> {
         self.element.get_attribute(&ns!(), &self.local_name)
     }
 
-    fn check_token_exceptions(&self, token: &str) -> Fallible<Atom> {
+    fn check_token_exceptions(&self, token: &str) -> Fallible<Atom, TH> {
         match token {
             "" => Err(Error::Syntax),
             slice if slice.find(HTML_SPACE_CHARACTERS).is_some() => Err(Error::InvalidCharacter),
@@ -106,7 +106,7 @@ impl<TH> DOMTokenListMethods for DOMTokenList<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-toggle
-    fn Toggle(&self, token: DOMString, force: Option<bool>) -> Fallible<bool> {
+    fn Toggle(&self, token: DOMString, force: Option<bool>) -> Fallible<bool, TH> {
         let mut atoms = self.element.get_tokenlist_attribute(&self.local_name);
         let token = self.check_token_exceptions(&token)?;
         match atoms.iter().position(|atom| *atom == token) {

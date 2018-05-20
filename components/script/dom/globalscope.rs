@@ -74,7 +74,7 @@ impl Drop for AutoCloseWorker {
 #[dom_struct]
 pub struct GlobalScope<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
-    crypto: MutNullableDom<Crypto>,
+    crypto: MutNullableDom<Crypto<TH>>,
     next_worker_id: Cell<WorkerId>,
 
     /// Pipeline id associated with this global.
@@ -173,7 +173,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
     /// Returns the global scope of the realm that the given DOM object's reflector
     /// was created in.
     #[allow(unsafe_code)]
-    pub fn from_reflector<T: DomObject>(reflector: &T) -> DomRoot<Self> {
+    pub fn from_reflector<T: DomObject<TH>, TH: TypeHolderTrait>(reflector: &T) -> DomRoot<Self> {
         unsafe { GlobalScope::from_object(*reflector.reflector().get_jsobject()) }
     }
 
@@ -215,7 +215,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         }
     }
 
-    pub fn crypto(&self) -> DomRoot<Crypto> {
+    pub fn crypto(&self) -> DomRoot<Crypto<TH>> {
         self.crypto.or_init(|| Crypto::new(self))
     }
 
@@ -361,7 +361,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
         // Step 9.
         if event_status == EventStatus::NotCanceled {
             // https://html.spec.whatwg.org/multipage/#runtime-script-errors-2
-            if let Some(dedicated) = self.downcast::<DedicatedWorkerGlobalScope>() {
+            if let Some(dedicated) = self.downcast::<DedicatedWorkerGlobalScope<TH>>() {
                 dedicated.forward_error_to_worker_object(error_info);
             }
         }

@@ -19,7 +19,7 @@ pub trait Callback: JSTraceable + MallocSizeOf {
 
 #[dom_struct]
 pub struct PromiseNativeHandler<TH: TypeHolderTrait> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     resolve: Option<Box<Callback>>,
     reject: Option<Box<Callback>>,
 }

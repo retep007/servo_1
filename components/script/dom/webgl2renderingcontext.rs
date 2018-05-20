@@ -42,7 +42,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct WebGL2RenderingContext<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     base: Dom<WebGLRenderingContext<TH>>,
 }
 
@@ -243,12 +243,12 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods for WebGL2RenderingConte
 
     #[allow(unsafe_code)]
     /// https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.5
-    unsafe fn BufferData(&self, cx: *mut JSContext, target: u32, data: *mut JSObject, usage: u32) -> Fallible<()> {
+    unsafe fn BufferData(&self, cx: *mut JSContext, target: u32, data: *mut JSObject, usage: u32) -> Fallible<(), TH> {
         self.base.BufferData(cx, target, data, usage)
     }
 
     /// https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.5
-    fn BufferData_(&self, target: u32, size: i64, usage: u32) -> Fallible<()> {
+    fn BufferData_(&self, target: u32, size: i64, usage: u32) -> Fallible<(), TH> {
         self.base.BufferData_(target, size, usage)
     }
 
@@ -838,7 +838,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods for WebGL2RenderingConte
                   border: i32,
                   format: u32,
                   data_type: u32,
-                  pixels: CustomAutoRooterGuard<Option<ArrayBufferView>>) -> Fallible<()> {
+                  pixels: CustomAutoRooterGuard<Option<ArrayBufferView>>) -> Fallible<(), TH> {
         self.base.TexImage2D(target, level, internal_format, width, height, border, format, data_type, pixels)
     }
 
@@ -864,7 +864,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods for WebGL2RenderingConte
                    height: i32,
                    format: u32,
                    data_type: u32,
-                   source: &HTMLIFrameElement<TH>) -> Fallible<()> {
+                   source: &HTMLIFrameElement<TH>) -> Fallible<(), TH> {
         self.base.TexImageDOM(target, level, internal_format, width, height, format, data_type, source)
     }
 
@@ -878,7 +878,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods for WebGL2RenderingConte
                      height: i32,
                      format: u32,
                      data_type: u32,
-                     pixels: CustomAutoRooterGuard<Option<ArrayBufferView>>) -> Fallible<()> {
+                     pixels: CustomAutoRooterGuard<Option<ArrayBufferView>>) -> Fallible<(), TH> {
         self.base.TexSubImage2D(target, level, xoffset, yoffset, width, height, format, data_type, pixels)
     }
 

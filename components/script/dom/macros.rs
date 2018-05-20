@@ -589,8 +589,8 @@ macro_rules! impl_performance_entry_struct(
         use typeholder::TypeHolderTrait;
 
         #[dom_struct]
-        pub struct $struct {
-            entry: PerformanceEntry,
+        pub struct $struct<TH: TypeHolderTrait> {
+            entry: PerformanceEntry<TH>,
         }
 
         impl<TH: TypeHolderTrait> $struct<TH> {

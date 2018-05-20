@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 // https://url.spec.whatwg.org/#url
 #[dom_struct]
 pub struct URL<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 
     // https://url.spec.whatwg.org/#concept-url-url
     url: DomRefCell<ServoUrl>,
@@ -62,7 +62,7 @@ impl<TH> URL<TH> {
     // https://url.spec.whatwg.org/#constructors
     pub fn Constructor(global: &GlobalScope<TH>, url: USVString,
                        base: Option<USVString>)
-                       -> Fallible<DomRoot<URL<TH>>> {
+                       -> Fallible<DomRoot<URL<TH>>, TH> {
         let parsed_base = match base {
             None => {
                 // Step 1.

@@ -53,7 +53,7 @@ impl<TH> ProgressEvent<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
                        init: &ProgressEventBinding::ProgressEventInit)
-                       -> Fallible<DomRoot<ProgressEvent<TH>>> {
+                       -> Fallible<DomRoot<ProgressEvent<TH>>, TH> {
         let bubbles = EventBubbles::from(init.parent.bubbles);
         let cancelable = EventCancelable::from(init.parent.cancelable);
         let ev = ProgressEvent::new(global, Atom::from(type_), bubbles, cancelable,

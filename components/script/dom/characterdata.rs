@@ -106,7 +106,7 @@ impl<TH: TypeHolderTrait> CharacterDataMethods<TH> for CharacterData<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-characterdata-substringdata
-    fn SubstringData(&self, offset: u32, count: u32) -> Fallible<DOMString> {
+    fn SubstringData(&self, offset: u32, count: u32) -> Fallible<DOMString, TH> {
         let data = self.data.borrow();
         // Step 1.
         let mut substring = String::new();

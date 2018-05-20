@@ -19,13 +19,13 @@ pub struct DOMPoint<TH: TypeHolderTrait> {
 }
 
 impl<TH> DOMPoint<TH> {
-    fn new_inherited(x: f64, y: f64, z: f64, w: f64) -> DOMPoint {
+    fn new_inherited(x: f64, y: f64, z: f64, w: f64) -> DOMPoint<TH> {
         DOMPoint {
             point: DOMPointReadOnly::new_inherited(x, y, z, w),
         }
     }
 
-    pub fn new(global: &GlobalScope<TH>, x: f64, y: f64, z: f64, w: f64) -> DomRoot<DOMPoint> {
+    pub fn new(global: &GlobalScope<TH>, x: f64, y: f64, z: f64, w: f64) -> DomRoot<DOMPoint<TH>> {
         reflect_dom_object(Box::new(DOMPoint::new_inherited(x, y, z, w)), global, Wrap)
     }
 
@@ -34,11 +34,11 @@ impl<TH> DOMPoint<TH> {
                        y: f64,
                        z: f64,
                        w: f64)
-                       -> Fallible<DomRoot<DOMPoint>> {
+                       -> Fallible<DomRoot<DOMPoint<TH>>, TH> {
         Ok(DOMPoint::new(global, x, y, z, w))
     }
 
-    pub fn new_from_init(global: &GlobalScope<TH>, p: &DOMPointInit) -> DomRoot<DOMPoint> {
+    pub fn new_from_init(global: &GlobalScope<TH>, p: &DOMPointInit) -> DomRoot<DOMPoint<TH>> {
         DOMPoint::new(global, p.x, p.y, p.z, p.w)
     }
 }

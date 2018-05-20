@@ -30,7 +30,7 @@ use typeholder::TypeHolderTrait;
 struct CellsFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter for CellsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
-        (elem.is::<HTMLTableHeaderCellElement>() || elem.is::<HTMLTableDataCellElement<TH>>()) &&
+        (elem.is::<HTMLTableHeaderCellElement<TH>>() || elem.is::<HTMLTableDataCellElement<TH>>()) &&
             elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
     }
 }
@@ -84,7 +84,7 @@ impl<TH> HTMLTableRowElementMethods for HTMLTableRowElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tr-insertcell
-    fn InsertCell(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>> {
+    fn InsertCell(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>, TH> {
         let node = self.upcast::<Node<TH>>();
         node.insert_cell_or_row(
             index,

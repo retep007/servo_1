@@ -27,7 +27,7 @@ pub fn validate_qualified_name(qualified_name: &str) -> ErrorResult<TH> {
 /// See https://dom.spec.whatwg.org/#validate-and-extract for details.
 pub fn validate_and_extract(namespace: Option<DOMString>,
                             qualified_name: &str)
-                            -> Fallible<(Namespace, Option<Prefix>, LocalName)> {
+                            -> Fallible<(Namespace, Option<Prefix>, LocalName), TH> {
     // Step 1.
     let namespace = namespace_from_domstring(namespace);
 

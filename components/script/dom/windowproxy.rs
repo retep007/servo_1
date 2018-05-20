@@ -54,7 +54,7 @@ pub struct WindowProxy<TH: TypeHolderTrait> {
     /// Unlike other reflectors, we mutate this field because
     /// we have to brain-transplant the reflector when the WindowProxy
     /// changes Window.
-    reflector: Reflector,
+    reflector: Reflector<TH>,
 
     /// The id of the browsing context.
     /// In the case that this is a nested browsing context, this is the id

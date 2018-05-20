@@ -647,7 +647,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
 
     pub fn Image(window: &Window<TH>,
                  width: Option<u32>,
-                 height: Option<u32>) -> Fallible<DomRoot<HTMLImageElement<TH>>> {
+                 height: Option<u32>) -> Fallible<DomRoot<HTMLImageElement<TH>>, TH> {
         let document = window.Document();
         let image = HTMLImageElement::new(local_name!("img"), None, &document);
         if let Some(w) = width {

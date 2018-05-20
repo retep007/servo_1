@@ -54,9 +54,9 @@ struct AutoWorkerReset<'a, TH: TypeHolderTrait> {
 }
 
 impl<'a, TH: TypeHolderTrait> AutoWorkerReset<'a, TH> {
-    fn new(workerscope: &'a DedicatedWorkerGlobalScope,
+    fn new(workerscope: &'a DedicatedWorkerGlobalScope<TH>,
            worker: TrustedWorkerAddress<TH>)
-           -> AutoWorkerReset<'a> {
+           -> AutoWorkerReset<'a, TH> {
         AutoWorkerReset {
             workerscope: workerscope,
             old_worker: replace(&mut *workerscope.worker.borrow_mut(), Some(worker)),

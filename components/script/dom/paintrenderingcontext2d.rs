@@ -280,22 +280,22 @@ impl<TH> PaintRenderingContext2DMethods for PaintRenderingContext2D<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-strokestyle
-    fn StrokeStyle(&self) -> StringOrCanvasGradientOrCanvasPattern {
+    fn StrokeStyle(&self) -> StringOrCanvasGradientOrCanvasPattern<TH> {
         self.context.StrokeStyle()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-strokestyle
-    fn SetStrokeStyle(&self, value: StringOrCanvasGradientOrCanvasPattern) {
+    fn SetStrokeStyle(&self, value: StringOrCanvasGradientOrCanvasPattern<TH>) {
         self.context.SetStrokeStyle(value)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-strokestyle
-    fn FillStyle(&self) -> StringOrCanvasGradientOrCanvasPattern {
+    fn FillStyle(&self) -> StringOrCanvasGradientOrCanvasPattern<TH> {
         self.context.FillStyle()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-strokestyle
-    fn SetFillStyle(&self, value: StringOrCanvasGradientOrCanvasPattern) {
+    fn SetFillStyle(&self, value: StringOrCanvasGradientOrCanvasPattern<TH>) {
         self.context.SetFillStyle(value)
     }
 
@@ -317,7 +317,7 @@ impl<TH> PaintRenderingContext2DMethods for PaintRenderingContext2D<TH> {
                             x1: Finite<f64>,
                             y1: Finite<f64>,
                             r1: Finite<f64>)
-                            -> Fallible<DomRoot<CanvasGradient<TH>>> {
+                            -> Fallible<DomRoot<CanvasGradient<TH>>, TH> {
         self.context.CreateRadialGradient(x0, y0, r0, x1, y1, r1)
     }
 
@@ -325,7 +325,7 @@ impl<TH> PaintRenderingContext2DMethods for PaintRenderingContext2D<TH> {
     fn CreatePattern(&self,
                      image: HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>,
                      repetition: DOMString)
-                     -> Fallible<DomRoot<CanvasPattern<TH>>> {
+                     -> Fallible<DomRoot<CanvasPattern<TH>>, TH> {
         self.context.CreatePattern(image, repetition)
     }
 

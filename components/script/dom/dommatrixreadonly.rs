@@ -27,7 +27,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct DOMMatrixReadOnly<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     matrix: DomRefCell<Transform3D<f64>>,
     is2D: Cell<bool>,
 }
@@ -48,12 +48,12 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-dommatrixreadonly
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<Self>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<Self>, TH> {
         Ok(Self::new(global, true, Transform3D::identity()))
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-dommatrixreadonly-numbersequence
-    pub fn Constructor_(global: &GlobalScope<TH>, entries: Vec<f64>) -> Fallible<DomRoot<Self>> {
+    pub fn Constructor_(global: &GlobalScope<TH>, entries: Vec<f64>) -> Fallible<DomRoot<Self>, TH> {
         entries_to_matrix(&entries[..])
             .map(|(is2D, matrix)| {
                 Self::new(global, is2D, matrix)
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-frommatrix
-    pub fn FromMatrix(global: &GlobalScope<TH>, other: &DOMMatrixInit) -> Fallible<DomRoot<Self>> {
+    pub fn FromMatrix(global: &GlobalScope<TH>, other: &DOMMatrixInit) -> Fallible<DomRoot<Self>, TH> {
         dommatrixinit_to_matrix(&other)
             .map(|(is2D, matrix)| {
                 Self::new(global, is2D, matrix)
@@ -158,7 +158,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
 
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-multiplyself
-    pub fn multiply_self(&self, other: &DOMMatrixInit) -> Fallible<()> {
+    pub fn multiply_self(&self, other: &DOMMatrixInit) -> Fallible<(), TH> {
         // Step 1.
         dommatrixinit_to_matrix(&other).map(|(is2D, other_matrix)| {
             // Step 2.
@@ -173,7 +173,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-premultiplyself
-    pub fn pre_multiply_self(&self, other: &DOMMatrixInit) -> Fallible<()> {
+    pub fn pre_multiply_self(&self, other: &DOMMatrixInit) -> Fallible<(), TH> {
         // Step 1.
         dommatrixinit_to_matrix(&other).map(|(is2D, other_matrix)| {
             // Step 2.
@@ -347,7 +347,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
     pub fn FromFloat32Array(
         global: &GlobalScope<TH>,
         array: CustomAutoRooterGuard<Float32Array>,
-    ) -> Fallible<DomRoot<DOMMatrixReadOnly<TH>>> {
+    ) -> Fallible<DomRoot<DOMMatrixReadOnly<TH>>, TH> {
         let vec: Vec<f64> = array.to_vec().iter().map(|&x| x as f64).collect();
         DOMMatrixReadOnly::Constructor_(global, vec)
     }
@@ -357,7 +357,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
     pub fn FromFloat64Array(
         global: &GlobalScope<TH>,
         array: CustomAutoRooterGuard<Float64Array>,
-    ) -> Fallible<DomRoot<DOMMatrixReadOnly<TH>>> {
+    ) -> Fallible<DomRoot<DOMMatrixReadOnly<TH>>, TH> {
         let vec: Vec<f64> = array.to_vec();
         DOMMatrixReadOnly::Constructor_(global, vec)
     }
@@ -533,7 +533,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnlyMethods for DOMMatrixReadOnly<TH> {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-multiply
-    fn Multiply(&self, other: &DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>> {
+    fn Multiply(&self, other: &DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>, TH> {
         DOMMatrix::from_readonly(&self.global(), self).MultiplySelf(&other)
     }
 
@@ -565,7 +565,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnlyMethods for DOMMatrixReadOnly<TH> {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-transformpoint
-    fn TransformPoint(&self, point: &DOMPointInit) -> DomRoot<DOMPoint> {
+    fn TransformPoint(&self, point: &DOMPointInit) -> DomRoot<DOMPoint<TH>> {
         // Euclid always normalizes the homogeneous coordinate which is usually the right
         // thing but may (?) not be compliant with the CSS matrix spec (or at least is
         // probably not the behavior web authors will expect even if it is mathematically
@@ -622,7 +622,7 @@ fn create_3d_matrix(entries: &[f64]) -> Transform3D<f64> {
 }
 
 // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-dommatrixreadonly-numbersequence
-pub fn entries_to_matrix(entries: &[f64]) -> Fallible<(bool, Transform3D<f64>)> {
+pub fn entries_to_matrix(entries: &[f64]) -> Fallible<(bool, Transform3D<f64>), TH> {
     if entries.len() == 6 {
         Ok((true, create_2d_matrix(&entries)))
     } else if entries.len() == 16 {
@@ -635,7 +635,7 @@ pub fn entries_to_matrix(entries: &[f64]) -> Fallible<(bool, Transform3D<f64>)> 
 
 
 // https://drafts.fxtf.org/geometry-1/#validate-and-fixup
-pub fn dommatrixinit_to_matrix(dict: &DOMMatrixInit) -> Fallible<(bool, Transform3D<f64>)> {
+pub fn dommatrixinit_to_matrix(dict: &DOMMatrixInit) -> Fallible<(bool, Transform3D<f64>), TH> {
     // Step 1.
     if dict.a.is_some() && dict.m11.is_some() && dict.a.unwrap() != dict.m11.unwrap() ||
        dict.b.is_some() && dict.m12.is_some() && dict.b.unwrap() != dict.m12.unwrap() ||

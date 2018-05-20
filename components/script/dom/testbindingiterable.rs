@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TestBindingIterable<TH: TypeHolderTrait> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     vals: DomRefCell<Vec<DOMString>>,
 }
 
@@ -28,7 +28,7 @@ impl<TH> TestBindingIterable<TH> {
         }), global, TestBindingIterableBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBindingIterable<TH>>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBindingIterable<TH>>, TH> {
         Ok(TestBindingIterable::new(global))
     }
 }

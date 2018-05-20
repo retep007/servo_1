@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct OESTextureHalfFloat<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 }
 
 impl<TH> OESTextureHalfFloat<TH> {
@@ -25,7 +25,7 @@ impl<TH> OESTextureHalfFloat<TH> {
 }
 
 impl<TH> WebGLExtension for OESTextureHalfFloat<TH> {
-    type Extension = OESTextureHalfFloat;
+    type Extension = OESTextureHalfFloat<TH>;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESTextureHalfFloat<TH>> {
         reflect_dom_object(Box::new(OESTextureHalfFloat::new_inherited()),
                            &*ctx.global(),

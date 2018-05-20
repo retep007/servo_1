@@ -26,7 +26,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSRule<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
 
     /// Whether the parentStyleSheet attribute should return null.

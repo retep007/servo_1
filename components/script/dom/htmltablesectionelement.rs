@@ -59,7 +59,7 @@ impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods for HTMLTableSectionEle
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tbody-insertrow
-    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>> {
+    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>, TH> {
         let node = self.upcast::<Node<TH>>();
         node.insert_cell_or_row(
             index,

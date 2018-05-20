@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct WebGLActiveInfo<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     size: i32,
     // NOTE: `ty` stands for `type`, which is a reserved keyword
     ty: u32,

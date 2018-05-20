@@ -29,13 +29,13 @@ pub struct HTMLOptionsCollection<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> HTMLOptionsCollection<TH> {
-    fn new_inherited(select: &HTMLSelectElement<TH>, filter: Box<CollectionFilter + 'static>) -> HTMLOptionsCollection<TH> {
+    fn new_inherited(select: &HTMLSelectElement<TH>, filter: Box<CollectionFilter<TH> + 'static>) -> HTMLOptionsCollection<TH> {
         HTMLOptionsCollection {
             collection: HTMLCollection::new_inherited(select.upcast(), filter),
         }
     }
 
-    pub fn new(window: &Window<TH>, select: &HTMLSelectElement<TH>, filter: Box<CollectionFilter + 'static>)
+    pub fn new(window: &Window<TH>, select: &HTMLSelectElement<TH>, filter: Box<CollectionFilter<TH> + 'static>)
         -> DomRoot<HTMLOptionsCollection<TH>>
     {
         reflect_dom_object(Box::new(HTMLOptionsCollection::new_inherited(select, filter)),

@@ -9,6 +9,7 @@ replacing = [
         ("<&%(generic)s>" , "<&%(generic)s<TH>>" ),
         ("<%(generic)s>" , "<%(generic)s<TH>>" ),
         ("-> %(generic)s {" , "-> %(generic)s<TH> {" ),
+        ("-> %(generic)s;" , "-> %(generic)s<TH>;" ),
         ("&'a %(generic)s)" , "&'a %(generic)s<TH>)" ),
         ("&'a %(generic)s," , "&'a %(generic)s<TH>," ),
         ("<&'a %(generic)s>" , "<&'a %(generic)s<TH>>" ),
@@ -16,7 +17,11 @@ replacing = [
         ("-> &'a %(generic)s {" , "-> &'a %(generic)s<TH> {" ),
         (": %(generic)s)" , ": %(generic)s<TH>)" ),
         (": %(generic)s," , ": %(generic)s<TH>," ),
-
+        (": &[&%(generic)s]" , ": &[&%(generic)s<TH>]" ),
+        ("type Extension = %(generic)s;", "type Extension = %(generic)s<TH>;"),
+        ("type Item = %(generic)s;", "type Item = %(generic)s<TH>;"),
+        ("type Value = %(generic)s;", "type Value = %(generic)s<TH>;"),
+        ("type Status = %(generic)s;", "type Status = %(generic)s<TH>;"),
 ]
 
 def findReplace(directory, filePattern, glbl):

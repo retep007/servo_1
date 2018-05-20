@@ -35,30 +35,30 @@ pub enum JobType {
 #[derive(Clone)]
 pub enum SettleType {
     Resolve(Trusted<ServiceWorkerRegistration<TH>>),
-    Reject(Error)
+    Reject(Error<TH>)
 }
 
 #[must_root]
 #[derive(JSTraceable)]
-pub struct Job {
+pub struct Job<TH: TypeHolderTrait> {
     pub job_type: JobType,
     pub scope_url: ServoUrl,
     pub script_url: ServoUrl,
     pub promise: Rc<Promise<TH>>,
     pub equivalent_jobs: Vec<Job>,
     // client can be a window client, worker client so `Client` will be an enum in future
-    pub client: Dom<Client>,
+    pub client: Dom<Client<TH>>,
     pub referrer: ServoUrl
 }
 
-impl Job {
+impl Job<TH> {
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/ServiceWorker/#create-job-algorithm
     pub fn create_job(job_type: JobType,
                       scope_url: ServoUrl,
                       script_url: ServoUrl,
                       promise: Rc<Promise<TH>>,
-                      client: &Client) -> Job {
+                      client: &Client<TH>) -> Job {
         Job {
             job_type: job_type,
             scope_url: scope_url,
@@ -75,7 +75,7 @@ impl Job {
     }
 }
 
-impl PartialEq for Job {
+impl<TH> PartialEq for Job<TH> {
     // Equality criteria as described in https://w3c.github.io/ServiceWorker/#dfn-job-equivalent
     fn eq(&self, other: &Self) -> bool {
         let same_job = self.job_type == other.job_type;
@@ -263,7 +263,7 @@ impl<TH: TypeHolderTrait> JobQueue<TH> {
     }
 }
 
-fn settle_job_promise(promise: &Promise<TH>, settle: SettleType) {
+fn settle_job_promise<TH: TypeHolderTrait>(promise: &Promise<TH>, settle: SettleType) {
     match settle {
         SettleType::Resolve(reg) => promise.resolve_native(&*reg.root()),
         SettleType::Reject(err) => promise.reject_error(err),

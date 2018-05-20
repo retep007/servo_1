@@ -19,7 +19,7 @@ use std::str;
 
 #[dom_struct]
 pub struct Headers {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     guard: Cell<Guard>,
     #[ignore_malloc_size_of = "Defined in hyper"]
     header_list: DomRefCell<HyperHeaders>
@@ -50,7 +50,7 @@ impl<TH> Headers<TH> {
 
     // https://fetch.spec.whatwg.org/#dom-headers
     pub fn Constructor(global: &GlobalScope<TH>, init: Option<HeadersInit>)
-                       -> Fallible<DomRoot<Headers<TH>>> {
+                       -> Fallible<DomRoot<Headers<TH>>, TH> {
         let dom_headers_new = Headers::new(global);
         dom_headers_new.fill(init)?;
         Ok(dom_headers_new)
@@ -119,7 +119,7 @@ impl<TH> HeadersMethods for Headers<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-get
-    fn Get(&self, name: ByteString) -> Fallible<Option<ByteString>> {
+    fn Get(&self, name: ByteString) -> Fallible<Option<ByteString>, TH> {
         // Step 1
         let valid_name = &validate_name(name)?;
         Ok(self.header_list.borrow().get_raw(&valid_name).map(|v| {
@@ -128,7 +128,7 @@ impl<TH> HeadersMethods for Headers<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-has
-    fn Has(&self, name: ByteString) -> Fallible<bool> {
+    fn Has(&self, name: ByteString) -> Fallible<bool, TH> {
         // Step 1
         let valid_name = validate_name(name)?;
         // Step 2
@@ -136,7 +136,7 @@ impl<TH> HeadersMethods for Headers<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-set
-    fn Set(&self, name: ByteString, value: ByteString) -> Fallible<()> {
+    fn Set(&self, name: ByteString, value: ByteString) -> Fallible<(), TH> {
         // Step 1
         let value = normalize_value(value);
         // Step 2
@@ -365,7 +365,7 @@ pub fn is_forbidden_header_name(name: &str) -> bool {
 // [3] https://tools.ietf.org/html/rfc7230#section-3.2.6
 // [4] https://www.rfc-editor.org/errata_search.php?rfc=7230
 fn validate_name_and_value(name: ByteString, value: ByteString)
-                           -> Fallible<(String, Vec<u8>)> {
+                           -> Fallible<(String, Vec<u8>), TH> {
     let valid_name = validate_name(name)?;
     if !is_field_content(&value) {
         return Err(Error::Type("Value is not valid".to_string()));
@@ -373,7 +373,7 @@ fn validate_name_and_value(name: ByteString, value: ByteString)
     Ok((valid_name, value.into()))
 }
 
-fn validate_name(name: ByteString) -> Fallible<String> {
+fn validate_name(name: ByteString) -> Fallible<String, TH> {
     if !is_field_name(&name) {
         return Err(Error::Type("Name is not valid".to_string()));
     }

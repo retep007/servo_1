@@ -193,7 +193,7 @@ class Descriptor(DescriptorProvider):
         if self.interface.isIteratorInterface():
             itrName = self.interface.iterableInterface.identifier.name
             itrDesc = self.getDescriptor(itrName)
-            nativeTypeDefault = iteratorNativeType(itrDesc)
+            nativeTypeDefault = iteratorNativeType(itrDesc, False, config)
 
         typeName = desc.get('nativeType', nativeTypeDefault)
 
@@ -345,9 +345,17 @@ class Descriptor(DescriptorProvider):
 
         # Build the prototype chain.
         self.prototypeChain = []
+        self.concreteChain = []
         parent = interface
         while parent:
             self.prototypeChain.insert(0, parent.identifier.name)
+            parent = parent.parent
+        parent = interface
+        while parent:
+            name = parent.identifier.name
+            if name in config.genericStructs:
+                name += "<TH>"
+            self.concreteChain.insert(0, name)
             parent = parent.parent
         self.prototypeDepth = len(self.prototypeChain) - 1
         config.maxProtoChainLength = max(config.maxProtoChainLength,
@@ -483,8 +491,10 @@ def getUnwrappedType(type):
     return type
 
 
-def iteratorNativeType(descriptor, infer=False):
+def iteratorNativeType(descriptor, infer=False, config=None):
     assert descriptor.interface.isIterable()
     iterableDecl = descriptor.interface.maplikeOrSetlikeOrIterable
     assert iterableDecl.isPairIterator()
-    return "IterableIterator%s" % ("" if infer else '<%s>' % descriptor.interface.identifier.name)
+    name = descriptor.interface.identifier.name
+    type = '%s<TH>' % name if config and name in config.genericStructs else name
+    return "IterableIterator%s" % ("" if infer else '<%s>' % type)
