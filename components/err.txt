@@ -1681,18 +1681,6 @@ error[E0243]: wrong number of type arguments: expected 2, found 1
 41 |     pub worker: Trusted<T>,
    |                 ^^^^^^^^^^ expected 2 type arguments
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/attr.rs:36:12
-   |
-36 |     owner: MutNullableDom<Element<TH>>,
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/attr.rs:29:1
-   |
-29 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
    --> components/script/dom/bindings/trace.rs:134:29
     |
@@ -6277,77 +6265,11 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 3396 |     TestDictionary(RootedTraceableBox<TestDictionary>),
      |                                       ^^^^^^^^^^^^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/bluetoothdevice.rs:40:11
-   |
-40 |     gatt: MutNullableDom<BluetoothRemoteGATTServer<TH>>,
-   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/bluetoothdevice.rs:35:1
-   |
-35 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
- --> <macro expansion>:1:1
+error[E0244]: wrong number of type arguments: expected 1, found 2
+ --> <macro expansion>:1:2
   |
-1 | pub struct Client<TH: TypeHolderTrait> {
-  | ^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/client.rs:18:1
-   |
-18 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/cssgroupingrule.rs:25:15
-   |
-25 |     rulelist: MutNullableDom<CSSRuleList<TH>>,
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/cssgroupingrule.rs:20:1
-   |
-20 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/csskeyframerule.rs:25:17
-   |
-25 |     style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/csskeyframerule.rs:20:1
-   |
-20 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/csskeyframesrule.rs:30:15
-   |
-30 |     rulelist: MutNullableDom<CSSRuleList<TH>>,
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/csskeyframesrule.rs:25:1
-   |
-25 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/cssmediarule.rs:31:16
-   |
-31 |     medialist: MutNullableDom<MediaList<TH>>,
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/cssmediarule.rs:26:1
-   |
-26 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
+1 | pub struct CSSRuleList<TH: TypeHolderTrait> {
+  |  ^^ expected 1 type argument
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
  --> <macro expansion>:1:2
@@ -6355,34 +6277,16 @@ error[E0243]: wrong number of type arguments: expected 2, found 1
 1 | pub struct CSSRuleList<TH: TypeHolderTrait> {
   |  ^^ expected 2 type arguments
 
+error[E0244]: wrong number of type arguments: expected 1, found 2
+  --> components/script/dom/cssrulelist.rs:37:1
+   |
+37 | #[dom_struct]
+   | ^^^^^^^^^^^^^ expected 1 type argument
+
 error[E0243]: wrong number of type arguments: expected 2, found 1
   --> components/script/dom/cssrulelist.rs:37:1
    |
 37 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/cssstylerule.rs:31:17
-   |
-31 |     style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/cssstylerule.rs:26:1
-   |
-26 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/cssstylesheet.rs:27:15
-   |
-27 |     rulelist: MutNullableDom<CSSRuleList<TH>>,
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/cssstylesheet.rs:23:1
-   |
-23 | #[dom_struct]
    | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
@@ -6433,131 +6337,11 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 80 | #[dom_struct]
    | ^^^^^^^^^^^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/dissimilaroriginwindow.rs:45:15
-   |
-45 |     location: MutNullableDom<DissimilarOriginLocation<TH>>,
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/dissimilaroriginwindow.rs:36:1
-   |
-36 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:246:21
-    |
-246 |     implementation: MutNullableDom<DOMImplementation<TH>>,
-    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:262:13
-    |
-262 |     images: MutNullableDom<HTMLCollection<TH>>,
-    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:263:13
-    |
-263 |     embeds: MutNullableDom<HTMLCollection<TH>>,
-    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:264:12
-    |
-264 |     links: MutNullableDom<HTMLCollection<TH>>,
-    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:265:12
-    |
-265 |     forms: MutNullableDom<HTMLCollection<TH>>,
-    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:266:14
-    |
-266 |     scripts: MutNullableDom<HTMLCollection<TH>>,
-    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:267:14
-    |
-267 |     anchors: MutNullableDom<HTMLCollection<TH>>,
-    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:268:14
-    |
-268 |     applets: MutNullableDom<HTMLCollection<TH>>,
-    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
    --> components/script/dom/document.rs:273:51
     |
 273 |     stylesheets: DomRefCell<DocumentStylesheetSet<StyleSheetInDocument>>,
     |                                                   ^^^^^^^^^^^^^^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:274:22
-    |
-274 |     stylesheet_list: MutNullableDom<StyleSheetList<TH>>,
-    |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:279:23
-    |
-279 |     possibly_focused: MutNullableDom<Element<TH>>,
-    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:281:14
-    |
-281 |     focused: MutNullableDom<Element<TH>>,
-    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:283:21
-    |
-283 |     current_script: MutNullableDom<HTMLScriptElement<TH>>,
-    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:311:21
-    |
-311 |     current_parser: MutNullableDom<Box<ServoParser<TH>>>,
-    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:315:19
-    |
-315 |     base_element: MutNullableDom<HTMLBaseElement<TH>>,
-    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:318:51
-    |
-318 |     appropriate_template_contents_owner_document: MutNullableDom<Document<TH>>,
-    |                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:346:21
-    |
-346 |     target_element: MutNullableDom<Element<TH>>,
-    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:364:25
-    |
-364 |     fullscreen_element: MutNullableDom<Element<TH>>,
-    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/document.rs:242:1
-    |
-242 | #[dom_struct]
-    | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
    --> components/script/dom/document.rs:242:1
@@ -6583,53 +6367,17 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 1 | pub struct DOMMatrix<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/element.rs:149:16
-    |
-149 |     attr_list: MutNullableDom<NamedNodeMap<TH>>,
-    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/element.rs:150:17
-    |
-150 |     class_list: MutNullableDom<DOMTokenList<TH>>,
-    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
    --> components/script/dom/element.rs:159:51
     |
 159 |     custom_element_reaction_queue: DomRefCell<Vec<CustomElementReaction>>,
     |                                                   ^^^^^^^^^^^^^^^^^^^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/element.rs:135:28
-    |
-135 | #[derive(DenyPublicFields, DomObject, JSTraceable, MallocSizeOf)]
-    |                            ^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
    --> components/script/dom/element.rs:135:28
     |
 135 | #[derive(DenyPublicFields, DomObject, JSTraceable, MallocSizeOf)]
     |                            ^^^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/event.rs:33:21
-   |
-33 |     current_target: MutNullableDom<EventTarget<TH>>,
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/event.rs:34:13
-   |
-34 |     target: MutNullableDom<EventTarget<TH>>,
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/event.rs:30:1
-   |
-30 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
    --> components/script/dom/eventsource.rs:537:19
@@ -6685,101 +6433,17 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 284 | #[dom_struct]
     | ^^^^^^^^^^^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/filereader.rs:90:12
-   |
-90 |     error: MutNullableDom<DOMException<TH>>,
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/filereader.rs:86:1
-   |
-86 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
   |
 1 | pub struct FileReaderSync<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/focusevent.rs:24:21
-   |
-24 |     related_target: MutNullableDom<EventTarget<TH>>,
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/focusevent.rs:21:1
-   |
-21 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/globalscope.rs:77:13
-   |
-77 |     crypto: MutNullableDom<Crypto<TH>>,
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/globalscope.rs:74:1
-   |
-74 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlanchorelement.rs:39:15
-   |
-39 |     rel_list: MutNullableDom<DOMTokenList<TH>>,
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlanchorelement.rs:36:1
-   |
-36 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/htmlareaelement.rs:221:15
-    |
-221 |     rel_list: MutNullableDom<DOMTokenList<TH>>,
-    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/htmlareaelement.rs:218:1
-    |
-218 | #[dom_struct]
-    | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
   |
 1 | pub struct HTMLAudioElement<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlbuttonelement.rs:46:17
-   |
-46 |     form_owner: MutNullableDom<HTMLFormElement<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlbuttonelement.rs:42:1
-   |
-42 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
- --> <macro expansion>:1:2
-  |
-1 | pub struct HTMLCollection<TH: TypeHolderTrait> {
-  |  ^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlcollection.rs:54:1
-   |
-54 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
@@ -6811,41 +6475,11 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 1 | pub struct HTMLDListElement<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlelement.rs:48:17
-   |
-48 |     style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlelement.rs:49:14
-   |
-49 |     dataset: MutNullableDom<DOMStringMap<TH>>,
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlelement.rs:45:1
-   |
-45 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
   |
 1 | pub struct HTMLEmbedElement<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlfieldsetelement.rs:28:17
-   |
-28 |     form_owner: MutNullableDom<HTMLFormElement<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlfieldsetelement.rs:25:1
-   |
-25 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
   --> components/script/dom/htmlformelement.rs:68:15
@@ -6884,46 +6518,10 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
   | ^^^ expected 1 type argument
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmliframeelement.rs:76:14
-   |
-76 |     sandbox: MutNullableDom<DOMTokenList<TH>>,
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmliframeelement.rs:68:1
-   |
-68 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/htmlimageelement.rs:127:17
-    |
-127 |     form_owner: MutNullableDom<HTMLFormElement<TH>>,
-    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/htmlimageelement.rs:121:1
-    |
-121 | #[dom_struct]
-    | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
    --> components/script/dom/htmlinputelement.rs:217:27
     |
 217 |     textinput: DomRefCell<TextInput<ScriptToConstellationChan>>,
     |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/htmlinputelement.rs:222:15
-    |
-222 |     filelist: MutNullableDom<FileList<TH>>,
-    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/htmlinputelement.rs:223:17
-    |
-223 |     form_owner: MutNullableDom<HTMLFormElement<TH>>,
-    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
    --> components/script/dom/htmlinputelement.rs:207:1
@@ -6937,53 +6535,11 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 1 | pub struct HTMLLabelElement<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmllegendelement.rs:24:17
-   |
-24 |     form_owner: MutNullableDom<HTMLFormElement<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmllegendelement.rs:21:1
-   |
-21 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmllinkelement.rs:53:15
-   |
-53 |     rel_list: MutNullableDom<DOMTokenList<TH>>,
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmllinkelement.rs:56:23
-   |
-56 |     cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmllinkelement.rs:50:1
-   |
-50 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
   |
 1 | pub struct HTMLMapElement<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlmediaelement.rs:63:17
-   |
-63 |     src_object: MutNullableDom<Blob<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlmediaelement.rs:73:12
-   |
-73 |     error: MutNullableDom<MediaError<TH>>,
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/htmlmediaelement.rs:85:81
@@ -6991,29 +6547,11 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 85 |     in_flight_play_promises_queue: DomRefCell<VecDeque<(Box<[Rc<Promise<TH>>]>, ErrorResult)>>,
    |                                                                                 ^^^^^^^^^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlmediaelement.rs:53:1
-   |
-53 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/htmlmediaelement.rs:53:1
    |
 53 | #[dom_struct]
    | ^^^^^^^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlmetaelement.rs:37:23
-   |
-37 |     cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlmetaelement.rs:32:1
-   |
-32 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
@@ -7021,35 +6559,11 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 1 | pub struct HTMLModElement<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlobjectelement.rs:32:17
-   |
-32 |     form_owner: MutNullableDom<HTMLFormElement<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlobjectelement.rs:27:1
-   |
-27 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
   |
 1 | pub struct HTMLOptGroupElement<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmloutputelement.rs:25:17
-   |
-25 |     form_owner: MutNullableDom<HTMLFormElement<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmloutputelement.rs:22:1
-   |
-22 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
@@ -7063,24 +6577,6 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 1 | pub struct HTMLParamElement<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlselectelement.rs:65:14
-   |
-65 |     options: MutNullableDom<HTMLOptionsCollection<TH>>,
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlselectelement.rs:66:17
-   |
-66 |     form_owner: MutNullableDom<HTMLFormElement<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlselectelement.rs:62:1
-   |
-62 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
   |
@@ -7093,18 +6589,6 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 1 | pub struct HTMLSpanElement<TH: TypeHolderTrait> {
   | ^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlstyleelement.rs:36:23
-   |
-36 |     cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmlstyleelement.rs:31:1
-   |
-31 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
   |
@@ -7112,52 +6596,10 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
   | ^^^ expected 1 type argument
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmltableelement.rs:36:14
-   |
-36 |     tbodies: MutNullableDom<HTMLCollection<TH>>,
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmltableelement.rs:31:1
-   |
-31 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmltablerowelement.rs:41:12
-   |
-41 |     cells: MutNullableDom<HTMLCollection<TH>>,
-   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmltablerowelement.rs:38:1
-   |
-38 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmltemplateelement.rs:25:15
-   |
-25 |     contents: MutNullableDom<DocumentFragment<TH>>,
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmltemplateelement.rs:20:1
-   |
-20 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
   --> components/script/dom/htmltextareaelement.rs:46:27
    |
 46 |     textinput: DomRefCell<TextInput<ScriptToConstellationChan>>,
    |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/htmltextareaelement.rs:50:17
-   |
-50 |     form_owner: MutNullableDom<HTMLFormElement<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
   --> components/script/dom/htmltextareaelement.rs:42:1
@@ -7195,18 +6637,6 @@ error[E0244]: wrong number of type arguments: expected 0, found 1
 34 | #[dom_struct]
    | ^^^^^^^^^^^^^ expected no type arguments
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
- --> <macro expansion>:1:1
-  |
-1 | pub struct MouseEvent<TH: TypeHolderTrait> {
-  | ^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/mouseevent.rs:24:1
-   |
-24 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
   |
@@ -7218,114 +6648,6 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
    |
 25 | #[dom_struct]
    | ^^^^^^^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/mutationrecord.rs:24:18
-   |
-24 |     added_nodes: MutNullableDom<NodeList<TH>>,
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/mutationrecord.rs:25:20
-   |
-25 |     removed_nodes: MutNullableDom<NodeList<TH>>,
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/mutationrecord.rs:16:1
-   |
-16 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/navigator.rs:47:16
-   |
-47 |     bluetooth: MutNullableDom<Bluetooth<TH>>,
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/navigator.rs:48:14
-   |
-48 |     plugins: MutNullableDom<PluginArray<TH>>,
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/navigator.rs:49:17
-   |
-49 |     mime_types: MutNullableDom<MimeTypeArray<TH>>,
-   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/navigator.rs:50:21
-   |
-50 |     service_worker: MutNullableDom<ServiceWorkerContainer<TH>>,
-   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/navigator.rs:51:9
-   |
-51 |     vr: MutNullableDom<VR<TH>>,
-   |         ^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/navigator.rs:52:15
-   |
-52 |     gamepads: MutNullableDom<GamepadList<TH>>,
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/navigator.rs:53:18
-   |
-53 |     permissions: MutNullableDom<Permissions<TH>>,
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/node.rs:102:18
-    |
-102 |     parent_node: MutNullableDom<Node<TH>>,
-    |                  ^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/node.rs:105:18
-    |
-105 |     first_child: MutNullableDom<Node<TH>>,
-    |                  ^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/node.rs:108:17
-    |
-108 |     last_child: MutNullableDom<Node<TH>>,
-    |                 ^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/node.rs:111:19
-    |
-111 |     next_sibling: MutNullableDom<Node<TH>>,
-    |                   ^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/node.rs:114:19
-    |
-114 |     prev_sibling: MutNullableDom<Node<TH>>,
-    |                   ^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/node.rs:117:16
-    |
-117 |     owner_doc: MutNullableDom<Document<TH>>,
-    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/node.rs:120:17
-    |
-120 |     child_list: MutNullableDom<NodeList<TH>>,
-    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/node.rs:96:1
-   |
-96 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
  --> <macro expansion>:1:2
@@ -7351,12 +6673,6 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 20 |     Children(ChildrenList),
    |              ^^^^^^^^^^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/nodelist.rs:118:19
-    |
-118 |     last_visited: MutNullableDom<Node<TH>>,
-    |                   ^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/performance.rs:57:14
    |
@@ -7381,65 +6697,29 @@ error[E0243]: wrong number of type arguments: expected 2, found 1
 940 |     node: MutDom<Node<TH>>,
     |           ^^^^^^^^^^^^^^^^ expected 2 type arguments
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/request.rs:48:14
-   |
-48 |     headers: MutNullableDom<Headers>,
-   |              ^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/request.rs:48:29
    |
-48 |     headers: MutNullableDom<Headers>,
+48 |     headers: MutNullableDom<Headers, TH>,
    |                             ^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/request.rs:43:1
-   |
-43 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/request.rs:43:1
    |
 43 | #[dom_struct]
    | ^^^^^^^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/response.rs:36:24
-   |
-36 |     headers_reflector: MutNullableDom<Headers>,
-   |                        ^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/response.rs:36:39
    |
-36 |     headers_reflector: MutNullableDom<Headers>,
+36 |     headers_reflector: MutNullableDom<Headers, TH>,
    |                                       ^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/response.rs:33:1
-   |
-33 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/response.rs:33:1
    |
 33 | #[dom_struct]
    | ^^^^^^^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
- --> <macro expansion>:1:1
-  |
-1 | pub struct ServiceWorkerContainer<TH: TypeHolderTrait> {
-  | ^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/serviceworkercontainer.rs:23:1
-   |
-23 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/servoparser/html.rs:36:53
@@ -7452,24 +6732,6 @@ error[E0243]: wrong number of type arguments: expected 2, found 1
     |
 233 |     parser: Option<Trusted<Box<ServoParser<TH>>>>,
     |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/servoparser/mod.rs:423:13
-    |
-423 |     script: MutNullableDom<HTMLScriptElement<TH>>,
-    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
- --> <macro expansion>:1:1
-  |
-1 | pub struct StorageEvent<TH: TypeHolderTrait> {
-  | ^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/storageevent.rs:20:1
-   |
-20 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:1
@@ -7544,30 +6806,6 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
     |            ^^^^^^^^^^ expected 1 type argument
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
- --> <macro expansion>:1:1
-  |
-1 | pub struct UIEvent<TH: TypeHolderTrait> {
-  | ^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/uievent.rs:22:1
-   |
-22 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/url.rs:34:20
-   |
-34 |     search_params: MutNullableDom<URLSearchParams<TH>>,
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/url.rs:26:1
-   |
-26 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
   --> components/script/dom/vrdisplay.rs:56:22
    |
 56 |     left_eye_params: MutDom<VREyeParameters<TH>>,
@@ -7584,18 +6822,6 @@ error[E0243]: wrong number of type arguments: expected 2, found 1
    |
 58 |     capabilities: MutDom<VRDisplayCapabilities<TH>>,
    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/vrdisplay.rs:59:19
-   |
-59 |     stage_params: MutNullableDom<VRStageParameters<TH>>,
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/vrdisplay.rs:64:16
-   |
-64 |     layer_ctx: MutNullableDom<WebGLRenderingContext<TH>>,
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/vrdisplay.rs:69:55
@@ -7615,30 +6841,6 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 48 | #[dom_struct]
    | ^^^^^^^^^^^^^ expected 1 type argument
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/webgl_extensions/ext/oesvertexarrayobject.rs:24:16
-   |
-24 |     bound_vao: MutNullableDom<WebGLVertexArrayObjectOES<TH>>,
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/webgl_extensions/ext/oesvertexarrayobject.rs:20:1
-   |
-20 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/webgl_extensions/ext/webglvertexarrayobjectoes.rs:26:33
-   |
-26 |     bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>>,
-   |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/webgl_extensions/ext/webglvertexarrayobjectoes.rs:19:1
-   |
-19 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
 error[E0243]: wrong number of type arguments: expected 1, found 0
    --> components/script/dom/webgl_extensions/extensions.rs:271:29
     |
@@ -7651,161 +6853,17 @@ error[E0243]: wrong number of type arguments: expected 2, found 1
 34 |     extension: MutNullableDom<T::Extension>
    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
 
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/webglprogram.rs:29:22
-   |
-29 |     fragment_shader: MutNullableDom<WebGLShader<TH>>,
-   |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/webglprogram.rs:30:20
-   |
-30 |     vertex_shader: MutNullableDom<WebGLShader<TH>>,
-   |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/webglprogram.rs:22:1
-   |
-22 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/webglrenderingcontext.rs:141:23
-    |
-141 |     bound_texture_2d: MutNullableDom<WebGLTexture<TH>>,
-    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/webglrenderingcontext.rs:142:29
-    |
-142 |     bound_texture_cube_map: MutNullableDom<WebGLTexture<TH>>,
-    |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
+error[E0243]: wrong number of type arguments: expected 1, found 0
  --> <macro expansion>:1:4
   |
 1 | pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
-  |    ^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 1, found 0
- --> <macro expansion>:1:5
-  |
-1 | pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
-  |     ^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
- --> <macro expansion>:1:5
-  |
-1 | pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
-  |     ^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
- --> <macro expansion>:1:6
-  |
-1 | pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
-  |      ^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
- --> <macro expansion>:1:7
-  |
-1 | pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
-  |       ^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/webglrenderingcontext.rs:172:1
-    |
-172 | #[dom_struct]
-    | ^^^^^^^^^^^^^ expected 2 type arguments
+  |    ^ expected 1 type argument
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
    --> components/script/dom/webglrenderingcontext.rs:172:1
     |
 172 | #[dom_struct]
     | ^^^^^^^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:174:16
-    |
-174 |     navigator: MutNullableDom<Navigator<TH>>,
-    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:179:19
-    |
-179 |     window_proxy: MutNullableDom<WindowProxy<TH>>,
-    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:180:15
-    |
-180 |     document: MutNullableDom<Document<TH>>,
-    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:181:15
-    |
-181 |     location: MutNullableDom<Location<TH>>,
-    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:182:14
-    |
-182 |     history: MutNullableDom<History<TH>>,
-    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:183:30
-    |
-183 |     custom_element_registry: MutNullableDom<CustomElementRegistry<TH>>,
-    |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:184:18
-    |
-184 |     performance: MutNullableDom<Performance<TH>>,
-    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:187:13
-    |
-187 |     screen: MutNullableDom<Screen<TH>>,
-    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:188:22
-    |
-188 |     session_storage: MutNullableDom<Storage<TH>>,
-    |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:189:20
-    |
-189 |     local_storage: MutNullableDom<Storage<TH>>,
-    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:261:18
-    |
-261 |     test_runner: MutNullableDom<TestRunner<TH>>,
-    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:285:19
-    |
-285 |     test_worklet: MutNullableDom<Worklet<TH>>,
-    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:287:20
-    |
-287 |     paint_worklet: MutNullableDom<Worklet<TH>>,
-    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/window.rs:157:1
-    |
-157 | #[dom_struct]
-    | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
   --> components/script/dom/worker.rs:44:47
@@ -7818,60 +6876,6 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
    |
 38 | #[dom_struct]
    | ^^^^^^^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/workerglobalscope.rs:82:15
-   |
-82 |     location: MutNullableDom<WorkerLocation<TH>>,
-   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/workerglobalscope.rs:83:16
-   |
-83 |     navigator: MutNullableDom<WorkerNavigator<TH>>,
-   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/workerglobalscope.rs:96:18
-   |
-96 |     performance: MutNullableDom<Performance<TH>>,
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/workerglobalscope.rs:72:1
-   |
-72 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/workernavigator.rs:20:18
-   |
-20 |     permissions: MutNullableDom<Permissions<TH>>,
-   |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-  --> components/script/dom/workernavigator.rs:17:1
-   |
-17 | #[dom_struct]
-   | ^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/xmlhttprequest.rs:135:19
-    |
-135 |     response_xml: MutNullableDom<Document<TH>>,
-    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/xmlhttprequest.rs:136:20
-    |
-136 |     response_blob: MutNullableDom<Blob<TH>>,
-    |                    ^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/xmlhttprequest.rs:123:1
-    |
-123 | #[dom_struct]
-    | ^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
     --> components/script/dom/xmlhttprequest.rs:1379:10
@@ -7896,12 +6900,6 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
     |
 133 | thread_local!(static SCRIPT_THREAD_ROOT: Cell<Option<*const ScriptThread>> = Cell::new(None));
     |                                                             ^^^^^^^^^^^^ expected 1 type argument
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/script_thread.rs:468:32
-    |
-468 |     topmost_mouse_over_target: MutNullableDom<Element<TH>>,
-    |                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
   --> components/script/serviceworkerjob.rs:37:13
@@ -11834,18 +10832,6 @@ error[E0243]: wrong number of type arguments: expected 2, found 1
     |                                ^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/bindings/root.rs:561:40
-    |
-561 |     pub fn new(initial: Option<&T>) -> MutNullableDom<T> {
-    |                                        ^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-   --> components/script/dom/bindings/root.rs:635:21
-    |
-635 |     fn default() -> MutNullableDom<T> {
-    |                     ^^^^^^^^^^^^^^^^^ expected 2 type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
    --> components/script/dom/bindings/root.rs:679:21
     |
 679 |     fn default() -> DomOnceCell<T> {
@@ -11916,12 +10902,6 @@ error[E0244]: wrong number of type arguments: expected 0, found 1
     |
 232 |     fn media<'a>(&'a self, guard: &'a SharedRwLockReadGuard) -> Option<&'a MediaList<TH>> {
     |                                                                            ^^^^^^^^^^^^^ expected no type arguments
-
-error[E0243]: wrong number of type arguments: expected 2, found 1
-    --> components/script/dom/document.rs:1044:34
-     |
-1044 |         prev_mouse_over_target: &MutNullableDom<Element<TH>>,
-     |                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected 2 type arguments
 
 error[E0243]: wrong number of type arguments: expected 1, found 0
     --> components/script/dom/document.rs:3127:45
@@ -15882,7 +14862,7 @@ error[E0243]: wrong number of type arguments: expected 1, found 0
 43  |     event_handler!(loadend, GetOnloadend, SetOnloadend);
     |     ---------------------------------------------------- in this macro invocation
 
-error: aborting due to 2387 previous errors
+error: aborting due to 2217 previous errors
 
 Some errors occurred: E0243, E0244, E0412, E0432.
 For more information about an error, try `rustc --explain E0243`.

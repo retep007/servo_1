@@ -146,8 +146,8 @@ pub struct Element<TH: TypeHolderTrait> {
     is: DomRefCell<Option<LocalName>>,
     #[ignore_malloc_size_of = "Arc"]
     style_attribute: DomRefCell<Option<Arc<Locked<PropertyDeclarationBlock>>>>,
-    attr_list: MutNullableDom<NamedNodeMap<TH>>,
-    class_list: MutNullableDom<DOMTokenList<TH>>,
+    attr_list: MutNullableDom<NamedNodeMap<TH>, TH>,
+    class_list: MutNullableDom<DOMTokenList<TH>, TH>,
     state: Cell<ElementState>,
     /// These flags are set by the style system to indicate the that certain
     /// operations may require restyling this element or its descendants. The

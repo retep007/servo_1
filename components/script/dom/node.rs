@@ -99,25 +99,25 @@ pub struct Node<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
 
     /// The parent of this node.
-    parent_node: MutNullableDom<Node<TH>>,
+    parent_node: MutNullableDom<Node<TH>, TH>,
 
     /// The first child of this node.
-    first_child: MutNullableDom<Node<TH>>,
+    first_child: MutNullableDom<Node<TH>, TH>,
 
     /// The last child of this node.
-    last_child: MutNullableDom<Node<TH>>,
+    last_child: MutNullableDom<Node<TH>, TH>,
 
     /// The next sibling of this node.
-    next_sibling: MutNullableDom<Node<TH>>,
+    next_sibling: MutNullableDom<Node<TH>, TH>,
 
     /// The previous sibling of this node.
-    prev_sibling: MutNullableDom<Node<TH>>,
+    prev_sibling: MutNullableDom<Node<TH>, TH>,
 
     /// The document that this node belongs to.
-    owner_doc: MutNullableDom<Document<TH>>,
+    owner_doc: MutNullableDom<Document<TH>, TH>,
 
     /// The live list of children return by .childNodes.
-    child_list: MutNullableDom<NodeList<TH>>,
+    child_list: MutNullableDom<NodeList<TH>, TH>,
 
     /// The live count of children of this node.
     children_count: Cell<u32>,

@@ -42,7 +42,7 @@ pub struct DissimilarOriginWindow<TH: TypeHolderTrait> {
     window_proxy: Dom<WindowProxy<TH>>,
 
     /// The location of this window, initialized lazily.
-    location: MutNullableDom<DissimilarOriginLocation<TH>>,
+    location: MutNullableDom<DissimilarOriginLocation<TH>, TH>,
 }
 
 impl<TH: TypeHolderTrait> DissimilarOriginWindow<TH> {

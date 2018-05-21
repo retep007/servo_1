@@ -79,8 +79,8 @@ pub struct WorkerGlobalScope<TH: TypeHolderTrait> {
     closing: Option<Arc<AtomicBool>>,
     #[ignore_malloc_size_of = "Defined in js"]
     runtime: Runtime,
-    location: MutNullableDom<WorkerLocation<TH>>,
-    navigator: MutNullableDom<WorkerNavigator<TH>>,
+    location: MutNullableDom<WorkerLocation<TH>, TH>,
+    navigator: MutNullableDom<WorkerNavigator<TH>, TH>,
 
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
     /// Optional `IpcSender` for sending the `DevtoolScriptControlMsg`
@@ -93,7 +93,7 @@ pub struct WorkerGlobalScope<TH: TypeHolderTrait> {
     from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
 
     navigation_start_precise: u64,
-    performance: MutNullableDom<Performance<TH>>,
+    performance: MutNullableDom<Performance<TH>, TH>,
 }
 
 impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {

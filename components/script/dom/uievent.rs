@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct UIEvent<TH: TypeHolderTrait> {
     event: Event<TH>,
-    view: MutNullableDom<Window<TH>>,
+    view: MutNullableDom<Window<TH>, TH>,
     detail: Cell<i32>
 }
 

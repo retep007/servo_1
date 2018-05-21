@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct ServiceWorkerContainer<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
-    controller: MutNullableDom<ServiceWorker<TH>>,
+    controller: MutNullableDom<ServiceWorker<TH>, TH>,
     client: Dom<Client<TH>>
 }
 

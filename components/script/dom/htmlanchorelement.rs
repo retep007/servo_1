@@ -36,7 +36,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct HTMLAnchorElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
-    rel_list: MutNullableDom<DOMTokenList<TH>>,
+    rel_list: MutNullableDom<DOMTokenList<TH>, TH>,
     url: DomRefCell<Option<ServoUrl>>,
 }
 

@@ -45,7 +45,7 @@ pub struct Request<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
     request: DomRefCell<NetTraitsRequest>,
     body_used: Cell<bool>,
-    headers: MutNullableDom<Headers>,
+    headers: MutNullableDom<Headers, TH>,
     mime_type: DomRefCell<Vec<u8>>,
     #[ignore_malloc_size_of = "Rc"]
     body_promise: DomRefCell<Option<(Rc<Promise<TH>>, BodyType)>>,

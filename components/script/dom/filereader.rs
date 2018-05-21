@@ -87,7 +87,7 @@ pub enum FileReaderResult {
 pub struct FileReader<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
     ready_state: Cell<FileReaderReadyState>,
-    error: MutNullableDom<DOMException<TH>>,
+    error: MutNullableDom<DOMException<TH>, TH>,
     result: DomRefCell<Option<FileReaderResult>>,
     generation_id: Cell<GenerationId>,
 }

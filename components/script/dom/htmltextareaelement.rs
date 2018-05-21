@@ -47,7 +47,7 @@ pub struct HTMLTextAreaElement<TH: TypeHolderTrait> {
     placeholder: DomRefCell<DOMString>,
     // https://html.spec.whatwg.org/multipage/#concept-textarea-dirty
     value_dirty: Cell<bool>,
-    form_owner: MutNullableDom<HTMLFormElement<TH>>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>, TH>,
 }
 
 pub trait LayoutHTMLTextAreaElementHelpers {

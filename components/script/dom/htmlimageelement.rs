@@ -124,7 +124,7 @@ pub struct HTMLImageElement<TH: TypeHolderTrait> {
     image_request: Cell<ImageRequestPhase>,
     current_request: DomRefCell<ImageRequest<TH>>,
     pending_request: DomRefCell<ImageRequest<TH>>,
-    form_owner: MutNullableDom<HTMLFormElement<TH>>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>, TH>,
     generation: Cell<u32>,
 }
 

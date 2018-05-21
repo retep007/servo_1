@@ -22,7 +22,7 @@ pub struct CSSGroupingRule<TH: TypeHolderTrait> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     rules: Arc<Locked<StyleCssRules>>,
-    rulelist: MutNullableDom<CSSRuleList<TH>>,
+    rulelist: MutNullableDom<CSSRuleList<TH>, TH>,
 }
 
 impl<TH: TypeHolderTrait> CSSGroupingRule<TH> {

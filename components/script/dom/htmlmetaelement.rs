@@ -34,7 +34,7 @@ pub struct HTMLMetaElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
-    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
+    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>, TH>,
 }
 
 impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {

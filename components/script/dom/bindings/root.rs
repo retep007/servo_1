@@ -558,7 +558,7 @@ pub struct MutNullableDom<T: DomObject<TH>, TH: TypeHolderTrait> {
 
 impl<T: DomObject<TH>, TH: TypeHolderTrait> MutNullableDom<T, TH> {
     /// Create a new `MutNullableDom`.
-    pub fn new(initial: Option<&T>) -> MutNullableDom<T> {
+    pub fn new(initial: Option<&T>) -> MutNullableDom<T, TH> {
         debug_assert!(thread_state::get().is_script());
         MutNullableDom {
             ptr: UnsafeCell::new(initial.map(Dom::from_ref)),
@@ -632,7 +632,7 @@ impl<'a, T: DomObject<TH>, TH: TypeHolderTrait> PartialEq<Option<&'a T>> for Mut
 
 impl<T: DomObject<TH>, TH: TypeHolderTrait> Default for MutNullableDom<T, TH> {
     #[allow(unrooted_must_root)]
-    fn default() -> MutNullableDom<T> {
+    fn default() -> MutNullableDom<T, TH> {
         debug_assert!(thread_state::get().is_script());
         MutNullableDom {
             ptr: UnsafeCell::new(None),

@@ -74,7 +74,7 @@ impl Drop for AutoCloseWorker {
 #[dom_struct]
 pub struct GlobalScope<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
-    crypto: MutNullableDom<Crypto<TH>>,
+    crypto: MutNullableDom<Crypto<TH>, TH>,
     next_worker_id: Cell<WorkerId>,
 
     /// Pipeline id associated with this global.

@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct HTMLLegendElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
-    form_owner: MutNullableDom<HTMLFormElement<TH>>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>, TH>,
 }
 
 impl<TH: TypeHolderTrait> HTMLLegendElement<TH> {

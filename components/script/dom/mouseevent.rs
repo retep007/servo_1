@@ -33,7 +33,7 @@ pub struct MouseEvent<TH: TypeHolderTrait> {
     alt_key: Cell<bool>,
     meta_key: Cell<bool>,
     button: Cell<i16>,
-    related_target: MutNullableDom<EventTarget<TH>>,
+    related_target: MutNullableDom<EventTarget<TH>, TH>,
     point_in_target: Cell<Option<Point2D<f32>>>
 }
 

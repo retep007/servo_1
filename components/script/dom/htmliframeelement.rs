@@ -73,7 +73,7 @@ pub struct HTMLIFrameElement<TH: TypeHolderTrait> {
     pipeline_id: Cell<Option<PipelineId>>,
     pending_pipeline_id: Cell<Option<PipelineId>>,
     about_blank_pipeline_id: Cell<Option<PipelineId>>,
-    sandbox: MutNullableDom<DOMTokenList<TH>>,
+    sandbox: MutNullableDom<DOMTokenList<TH>, TH>,
     sandbox_allowance: Cell<Option<SandboxAllowance>>,
     load_blocker: DomRefCell<Option<LoadBlocker<TH>>>,
     visibility: Cell<bool>,

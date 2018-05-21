@@ -61,7 +61,7 @@ pub struct HTMLCollection<TH: TypeHolderTrait> {
     // the length of the collection, and a cursor into the collection.
     // FIXME: make the cached cursor element a weak pointer
     cached_version: Cell<u64>,
-    cached_cursor_element: MutNullableDom<Element<TH>>,
+    cached_cursor_element: MutNullableDom<Element<TH>, TH>,
     cached_cursor_index: Cell<OptionU32>,
     cached_length: Cell<OptionU32>,
 }

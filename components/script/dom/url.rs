@@ -31,7 +31,7 @@ pub struct URL<TH: TypeHolderTrait> {
     url: DomRefCell<ServoUrl>,
 
     // https://url.spec.whatwg.org/#dom-url-searchparams
-    search_params: MutNullableDom<URLSearchParams<TH>>,
+    search_params: MutNullableDom<URLSearchParams<TH>, TH>,
 }
 
 impl<TH> URL<TH> {

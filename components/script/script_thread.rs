@@ -465,7 +465,7 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     js_runtime: Rc<Runtime>,
 
     /// The topmost element over the mouse.
-    topmost_mouse_over_target: MutNullableDom<Element<TH>>,
+    topmost_mouse_over_target: MutNullableDom<Element<TH>, TH>,
 
     /// List of pipelines that have been owned and closed by this script thread.
     closed_pipelines: DomRefCell<HashSet<PipelineId>>,

@@ -37,7 +37,7 @@ pub struct BluetoothDevice<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
     id: DOMString,
     name: Option<DOMString>,
-    gatt: MutNullableDom<BluetoothRemoteGATTServer<TH>>,
+    gatt: MutNullableDom<BluetoothRemoteGATTServer<TH>, TH>,
     context: Dom<Bluetooth<TH>>,
     attribute_instance_map: (DomRefCell<HashMap<String, Dom<BluetoothRemoteGATTService<TH>>>>,
                              DomRefCell<HashMap<String, Dom<BluetoothRemoteGATTCharacteristic<TH>>>>,

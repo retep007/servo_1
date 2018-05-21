@@ -33,7 +33,7 @@ pub struct HTMLTableElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
     border: Cell<Option<u32>>,
     cellspacing: Cell<Option<u32>>,
-    tbodies: MutNullableDom<HTMLCollection<TH>>,
+    tbodies: MutNullableDom<HTMLCollection<TH>, TH>,
 }
 
 #[allow(unrooted_must_root)]

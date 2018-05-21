@@ -28,7 +28,7 @@ pub struct CSSStyleRule<TH: TypeHolderTrait> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylerule: Arc<Locked<StyleRule>>,
-    style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
+    style_decl: MutNullableDom<CSSStyleDeclaration<TH>, TH>,
 }
 
 impl<TH: TypeHolderTrait> CSSStyleRule<TH> {

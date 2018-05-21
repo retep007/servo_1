@@ -132,8 +132,8 @@ pub struct XMLHttpRequest<TH: TypeHolderTrait> {
     status_text: DomRefCell<ByteString>,
     response: DomRefCell<ByteString>,
     response_type: Cell<XMLHttpRequestResponseType>,
-    response_xml: MutNullableDom<Document<TH>>,
-    response_blob: MutNullableDom<Blob<TH>>,
+    response_xml: MutNullableDom<Document<TH>, TH>,
+    response_blob: MutNullableDom<Blob<TH>, TH>,
     response_arraybuffer: Heap<*mut JSObject>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     response_json: Heap<JSVal>,

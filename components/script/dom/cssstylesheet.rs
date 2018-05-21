@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 pub struct CSSStyleSheet<TH: TypeHolderTrait> {
     stylesheet: StyleSheet<TH>,
     owner: Dom<Element<TH>>,
-    rulelist: MutNullableDom<CSSRuleList<TH>>,
+    rulelist: MutNullableDom<CSSRuleList<TH>, TH>,
     #[ignore_malloc_size_of = "Arc"]
     style_stylesheet: Arc<StyleStyleSheet>,
     origin_clean: Cell<bool>,

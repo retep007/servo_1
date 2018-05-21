@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct WorkerNavigator<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
-    permissions: MutNullableDom<Permissions<TH>>,
+    permissions: MutNullableDom<Permissions<TH>, TH>,
 }
 
 impl<TH: TypeHolderTrait> WorkerNavigator<TH> {

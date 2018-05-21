@@ -29,7 +29,7 @@ pub struct HTMLObjectElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     image: DomRefCell<Option<Arc<Image>>>,
-    form_owner: MutNullableDom<HTMLFormElement<TH>>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>, TH>,
 }
 
 impl<TH: TypeHolderTrait> HTMLObjectElement<TH> {

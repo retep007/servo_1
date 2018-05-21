@@ -60,7 +60,7 @@ pub struct HTMLMediaElement<TH: TypeHolderTrait> {
     /// <https://html.spec.whatwg.org/multipage/#dom-media-readystate>
     ready_state: Cell<ReadyState>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-srcobject>
-    src_object: MutNullableDom<Blob<TH>>,
+    src_object: MutNullableDom<Blob<TH>, TH>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-currentsrc>
     current_src: DomRefCell<String>,
     /// Incremented whenever tasks associated with this element are cancelled.
@@ -70,7 +70,7 @@ pub struct HTMLMediaElement<TH: TypeHolderTrait> {
     /// Reset to false every time the load algorithm is invoked.
     fired_loadeddata_event: Cell<bool>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-error>
-    error: MutNullableDom<MediaError<TH>>,
+    error: MutNullableDom<MediaError<TH>, TH>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-paused>
     paused: Cell<bool>,
     /// <https://html.spec.whatwg.org/multipage/#attr-media-autoplay>

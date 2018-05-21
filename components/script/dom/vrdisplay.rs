@@ -56,12 +56,12 @@ pub struct VRDisplay<TH: TypeHolderTrait> {
     left_eye_params: MutDom<VREyeParameters<TH>>,
     right_eye_params: MutDom<VREyeParameters<TH>>,
     capabilities: MutDom<VRDisplayCapabilities<TH>>,
-    stage_params: MutNullableDom<VRStageParameters<TH>>,
+    stage_params: MutNullableDom<VRStageParameters<TH>, TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     frame_data: DomRefCell<WebVRFrameData>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     layer: DomRefCell<WebVRLayer>,
-    layer_ctx: MutNullableDom<WebGLRenderingContext<TH>>,
+    layer_ctx: MutNullableDom<WebGLRenderingContext<TH>, TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     next_raf_id: Cell<u32>,
     /// List of request animation frame callbacks

@@ -62,8 +62,8 @@ impl<TH: TypeHolderTrait> CollectionFilter for OptionsFilter<TH> {
 #[dom_struct]
 pub struct HTMLSelectElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
-    options: MutNullableDom<HTMLOptionsCollection<TH>>,
-    form_owner: MutNullableDom<HTMLFormElement<TH>>,
+    options: MutNullableDom<HTMLOptionsCollection<TH>, TH>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>, TH>,
 }
 
 static DEFAULT_SELECT_SIZE: u32 = 0;

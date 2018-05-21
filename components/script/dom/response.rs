@@ -33,7 +33,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct Response<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
-    headers_reflector: MutNullableDom<Headers>,
+    headers_reflector: MutNullableDom<Headers, TH>,
     mime_type: DomRefCell<Vec<u8>>,
     body_used: Cell<bool>,
     /// `None` can be considered a StatusCode of `0`.

@@ -35,7 +35,7 @@ pub struct TypedWebGLExtensionWrapper<T: WebGLExtension<TH>, TH: TypeHolderTrait
 }
 
 /// Typed WebGL Extension implementation.
-/// Exposes the exact MutNullableDom<DOMObject> type defined by the extension.
+/// Exposes the exact MutNullableDom<DOMObject, TH> type defined by the extension.
 impl<T: WebGLExtension, TH: TypeHolderTrait> TypedWebGLExtensionWrapper<T, TH> {
     pub fn new() -> TypedWebGLExtensionWrapper<T, TH> {
         TypedWebGLExtensionWrapper {

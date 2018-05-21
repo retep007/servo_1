@@ -24,7 +24,7 @@ pub struct StorageEvent<TH: TypeHolderTrait> {
     old_value: Option<DOMString>,
     new_value: Option<DOMString>,
     url: DOMString,
-    storage_area: MutNullableDom<Storage<TH>>
+    storage_area: MutNullableDom<Storage<TH>, TH>
 }
 
 

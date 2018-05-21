@@ -420,7 +420,7 @@ pub struct Sink<TH: TypeHolderTrait> {
     base_url: ServoUrl,
     document: Dom<Document<TH>>,
     current_line: u64,
-    script: MutNullableDom<HTMLScriptElement<TH>>,
+    script: MutNullableDom<HTMLScriptElement<TH>, TH>,
     parsing_algorithm: ParsingAlgorithm,
 }
 

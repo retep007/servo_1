@@ -171,22 +171,22 @@ pub struct Window<TH: TypeHolderTrait> {
     file_reading_task_source: FileReadingTaskSource,
     #[ignore_malloc_size_of = "task sources are hard"]
     performance_timeline_task_source: PerformanceTimelineTaskSource<TH>,
-    navigator: MutNullableDom<Navigator<TH>>,
+    navigator: MutNullableDom<Navigator<TH>, TH>,
     #[ignore_malloc_size_of = "Arc"]
     image_cache: Arc<ImageCache>,
     #[ignore_malloc_size_of = "channels are hard"]
     image_cache_chan: Sender<ImageCacheMsg>,
-    window_proxy: MutNullableDom<WindowProxy<TH>>,
-    document: MutNullableDom<Document<TH>>,
-    location: MutNullableDom<Location<TH>>,
-    history: MutNullableDom<History<TH>>,
-    custom_element_registry: MutNullableDom<CustomElementRegistry<TH>>,
-    performance: MutNullableDom<Performance<TH>>,
+    window_proxy: MutNullableDom<WindowProxy<TH>, TH>,
+    document: MutNullableDom<Document<TH>, TH>,
+    location: MutNullableDom<Location<TH>, TH>,
+    history: MutNullableDom<History<TH>, TH>,
+    custom_element_registry: MutNullableDom<CustomElementRegistry<TH>, TH>,
+    performance: MutNullableDom<Performance<TH>, TH>,
     navigation_start: Cell<u64>,
     navigation_start_precise: Cell<u64>,
-    screen: MutNullableDom<Screen<TH>>,
-    session_storage: MutNullableDom<Storage<TH>>,
-    local_storage: MutNullableDom<Storage<TH>>,
+    screen: MutNullableDom<Screen<TH>, TH>,
+    session_storage: MutNullableDom<Storage<TH>, TH>,
+    local_storage: MutNullableDom<Storage<TH>, TH>,
     status: DomRefCell<DOMString>,
 
     /// For sending timeline markers. Will be ignored if
@@ -258,7 +258,7 @@ pub struct Window<TH: TypeHolderTrait> {
     /// All the MediaQueryLists we need to update
     media_query_lists: WeakMediaQueryListVec<TH>,
 
-    test_runner: MutNullableDom<TestRunner<TH>>,
+    test_runner: MutNullableDom<TestRunner<TH>, TH>,
 
     /// A handle for communicating messages to the WebGL thread, if available.
     #[ignore_malloc_size_of = "channels are hard"]
@@ -282,9 +282,9 @@ pub struct Window<TH: TypeHolderTrait> {
     unminified_js_dir: DomRefCell<Option<String>>,
 
     /// Worklets
-    test_worklet: MutNullableDom<Worklet<TH>>,
+    test_worklet: MutNullableDom<Worklet<TH>, TH>,
     /// <https://drafts.css-houdini.org/css-paint-api-1/#paint-worklet>
-    paint_worklet: MutNullableDom<Worklet<TH>>,
+    paint_worklet: MutNullableDom<Worklet<TH>, TH>,
     /// The Webrender Document id associated with this window.
     #[ignore_malloc_size_of = "defined in webrender_api"]
     webrender_document: DocumentId,
