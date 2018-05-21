@@ -90,7 +90,7 @@ pub struct GenerationId(u32);
 
 /// Closure of required data for each async network event that comprises the
 /// XHR's response.
-struct XHRContext {
+struct XHRContext<TH: TypeHolderTrait> {
     xhr: TrustedXHRAddress,
     gen_id: GenerationId,
     buf: DomRefCell<Vec<u8>>,
@@ -98,7 +98,7 @@ struct XHRContext {
 }
 
 #[derive(Clone)]
-pub enum XHRProgress {
+pub enum XHRProgress<TH: TypeHolderTrait> {
     /// Notify that headers have been received
     HeadersReceived(GenerationId, Option<Headers>, Option<(u16, Vec<u8>)>),
     /// Partial progress (after receiving headers), containing portion of the response
@@ -109,7 +109,7 @@ pub enum XHRProgress {
     Errored(GenerationId, Error<TH>),
 }
 
-impl XHRProgress {
+impl<TH> XHRProgress<TH> {
     fn generation_id(&self) -> GenerationId {
         match *self {
             XHRProgress::HeadersReceived(id, _, _) |
@@ -224,7 +224,7 @@ impl<TH> XMLHttpRequest<TH> {
         self.sync.get() && self.global().is::<Window<TH>>()
     }
 
-    fn initiate_async_xhr(context: Arc<Mutex<XHRContext>>,
+    fn initiate_async_xhr(context: Arc<Mutex<XHRContext<TH>>>,
                           task_source: NetworkingTaskSource,
                           global: &GlobalScope<TH>,
                           init: RequestInit,
@@ -891,7 +891,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
         }
     }
 
-    fn process_partial_response(&self, progress: XHRProgress) {
+    fn process_partial_response(&self, progress: XHRProgress<TH>) {
         let msg_id = progress.generation_id();
 
         // Aborts processing if abort() or open() was called
@@ -1393,7 +1393,7 @@ pub trait Extractable {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>);
 }
 
-impl Extractable for Blob {
+impl<TH> Extractable for Blob<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         let content_type = if self.Type().as_ref().is_empty() {
             None

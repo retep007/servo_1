@@ -113,7 +113,7 @@ pub struct GlobalScope<TH: TypeHolderTrait> {
     /// including resource_thread, filemanager_thread and storage_thread
     resource_threads: ResourceThreads,
 
-    timers: OneshotTimers,
+    timers: OneshotTimers<TH>,
 
     /// The origin of the globalscope
     origin: MutableOrigin,
@@ -525,7 +525,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
     }
 
     /// Enqueue a microtask for subsequent execution.
-    pub fn enqueue_microtask(&self, job: Microtask) {
+    pub fn enqueue_microtask(&self, job: Microtask<TH>) {
         self.microtask_queue.enqueue(job);
     }
 

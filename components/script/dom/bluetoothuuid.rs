@@ -333,7 +333,7 @@ fn canonical_uuid(alias: u32) -> UUID {
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#resolveuuidname
-fn resolve_uuid_name(
+fn resolve_uuid_name<TH: TypeHolderTrait>(
         name: StringOrUnsignedLong,
         assigned_numbers_table: &'static [(&'static str, u32)],
         prefix: &str)

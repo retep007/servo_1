@@ -19,7 +19,7 @@ pub fn reflect_dom_object<T, U, TH: TypeHolderTrait>(
         global: &U,
         wrap_fn: unsafe fn(*mut JSContext, &GlobalScope<TH>, Box<T>) -> DomRoot<T>)
         -> DomRoot<T>
-    where T: DomObject<TH>, U: DerivedFrom<GlobalScope<TH>>
+    where T: DomObject<TH>, U: DerivedFrom<GlobalScope<TH>, TH>
 {
     let global_scope = global.upcast();
     unsafe {
@@ -85,13 +85,13 @@ pub trait DomObject<TH: TypeHolderTrait>: 'static {
     }
 }
 
-impl<TH> DomObject for Reflector<TH> {
+impl<TH: TypeHolderTrait> DomObject<TH> for Reflector<TH> {
     fn reflector(&self) -> &Self {
         self
     }
 }
 
-impl<S: DomObject + ?Sized, TH> DomObject<TH> for Box<S> {
+impl<S: DomObject<TH> + ?Sized, TH: TypeHolderTrait> DomObject<TH> for Box<S> {
     fn reflector(&self) -> &Reflector<TH> {
        (*self).reflector()
     }

@@ -135,7 +135,7 @@ pub unsafe fn throw_dom_exception<TH: TypeHolderTrait>(cx: *mut JSContext, globa
 }
 
 /// A struct encapsulating information about a runtime script error.
-pub struct ErrorInfo {
+pub struct ErrorInfo<TH: TypeHolderTrait> {
     /// The error message.
     pub message: String,
     /// The file name.
@@ -146,7 +146,7 @@ pub struct ErrorInfo {
     pub column: c_uint,
 }
 
-impl ErrorInfo {
+impl<TH> ErrorInfo<TH> {
     unsafe fn from_native_error(cx: *mut JSContext, object: HandleObject)
                                 -> Option<ErrorInfo> {
         let report = JS_ErrorFromException(cx, object);

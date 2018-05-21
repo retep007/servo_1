@@ -35,7 +35,7 @@ pub enum WebGLFramebufferAttachmentRoot<TH: TypeHolderTrait> {
 
 #[dom_struct]
 pub struct WebGLFramebuffer<TH: TypeHolderTrait> {
-    webgl_object: WebGLObject,
+    webgl_object: WebGLObject<TH>,
     id: WebGLFramebufferId,
     /// target can only be gl::FRAMEBUFFER at the moment
     target: Cell<Option<u32>>,

@@ -107,7 +107,7 @@ impl PartialEq for CallbackObject {
 
 /// A trait to be implemented by concrete IDL callback function and
 /// callback interface types.
-pub trait CallbackContainer {
+pub trait CallbackContainer<TH: TypeHolderTrait> {
     /// Create a new CallbackContainer object for the given `JSObject`.
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<Self>;
     /// Returns the underlying `CallbackObject`.
@@ -160,11 +160,11 @@ impl CallbackFunction {
 /// A common base class for representing IDL callback interface types.
 #[derive(JSTraceable, PartialEq)]
 #[must_root]
-pub struct CallbackInterface {
+pub struct CallbackInterface<TH: TypeHolderTrait> {
     object: CallbackObject,
 }
 
-impl CallbackInterface {
+impl<TH> CallbackInterface<TH> {
     /// Create a new CallbackInterface object for the given `JSObject`.
     pub fn new() -> CallbackInterface {
         CallbackInterface {
@@ -236,13 +236,13 @@ pub struct CallSetup<TH: TypeHolderTrait> {
     entry_script: Option<AutoEntryScript<TH>>,
     /// <https://heycam.github.io/webidl/#es-invoking-callback-functions>
     /// steps 9 and 18.1.
-    incumbent_script: Option<AutoIncumbentScript>,
+    incumbent_script: Option<AutoIncumbentScript<TH>>,
 }
 
 impl<TH> CallSetup<TH> {
     /// Performs the setup needed to make a call.
     #[allow(unrooted_must_root)]
-    pub fn new<T: CallbackContainer>(callback: &T,
+    pub fn new<T: CallbackContainer<TH>>(callback: &T,
                                      handling: ExceptionHandling)
                                      -> CallSetup<TH> {
         let global = unsafe { GlobalScope::from_object(callback.callback()) };

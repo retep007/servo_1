@@ -458,7 +458,7 @@ fn display_alert_dialog(_message: &str) {
 }
 
 // https://html.spec.whatwg.org/multipage/#atob
-pub fn base64_btoa(input: DOMString) -> Fallible<DOMString, TH> {
+pub fn base64_btoa<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString, TH> {
     // "The btoa() method must throw an InvalidCharacterError exception if
     //  the method's first argument contains any character whose code point
     //  is greater than U+00FF."
@@ -478,7 +478,7 @@ pub fn base64_btoa(input: DOMString) -> Fallible<DOMString, TH> {
 }
 
 // https://html.spec.whatwg.org/multipage/#atob
-pub fn base64_atob(input: DOMString) -> Fallible<DOMString, TH> {
+pub fn base64_atob<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString, TH> {
     // "Remove all space characters from input."
     fn is_html_space(c: char) -> bool {
         HTML_SPACE_CHARACTERS.iter().any(|&m| m == c)

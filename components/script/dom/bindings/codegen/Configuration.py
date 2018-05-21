@@ -174,6 +174,7 @@ class Descriptor(DescriptorProvider):
     def __init__(self, config, interface, desc):
         DescriptorProvider.__init__(self, config)
         self.interface = interface
+        self.isGeneric = False
 
         if not self.isExposedConditionally():
             if interface.parent and interface.parent.isExposedConditionally():
@@ -193,11 +194,11 @@ class Descriptor(DescriptorProvider):
         if self.interface.isIteratorInterface():
             itrName = self.interface.iterableInterface.identifier.name
             itrDesc = self.getDescriptor(itrName)
+            self.isGeneric = self.isGeneric or itrDesc.isGeneric
             nativeTypeDefault = iteratorNativeType(itrDesc, False, config)
 
         typeName = desc.get('nativeType', nativeTypeDefault)
 
-        self.isGeneric = False
         self.nonGenericType = typeName
         if typeName in config.genericStructs:
             typeName = "%s<TH>" % typeName

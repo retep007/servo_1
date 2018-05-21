@@ -5,14 +5,15 @@
 // https://www.khronos.org/registry/webgl/specs/latest/1.0/webgl.idl
 use dom::bindings::reflector::Reflector;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLObject {
+pub struct WebGLObject<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
 }
 
-impl WebGLObject {
-    pub fn new_inherited() -> WebGLObject {
+impl<TH> WebGLObject<TH> {
+    pub fn new_inherited() -> WebGLObject<TH> {
         WebGLObject {
             reflector_: Reflector::new(),
         }

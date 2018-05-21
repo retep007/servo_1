@@ -22,7 +22,26 @@ use dom_struct::dom_struct;
 use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
-#[dom_struct]
+# [ allow ( non_upper_case_globals ) ] const _IMPL_DOMOBJECT_FOR_Navigator : ( ) = {
+    impl < TH : TypeHolderTrait > :: js :: conversions :: ToJSValConvertible for Navigator < TH > {
+        # [ allow ( unsafe_code ) ] unsafe fn to_jsval ( & self , cx : * mut :: js :: jsapi :: JSContext , rval : :: js :: rust :: MutableHandleValue ) { let object = :: dom :: bindings :: reflector :: DomObject :: reflector ( self ) . get_jsobject ( ) ; object . to_jsval ( cx , rval ) } }
+        impl < TH : TypeHolderTrait > :: dom :: bindings :: reflector :: DomObject < TH > for Navigator < TH > {
+            # [ inline ] fn reflector ( & self ) -> & :: dom :: bindings :: reflector :: Reflector < TH > { self . reflector_ . reflector ( ) } }
+            impl < TH : TypeHolderTrait > :: dom :: bindings :: reflector :: MutDomObject < TH > for Navigator < TH > {
+                fn init_reflector ( & mut self , obj : * mut :: js :: jsapi :: JSObject ) { self . reflector_ . init_reflector ( obj ) ; } }
+                impl < TH : TypeHolderTrait > ShouldNotImplDomObject for ( ( TH ) , MutNullableDom < Bluetooth < TH > > ) { }
+                impl < TH : TypeHolderTrait > ShouldNotImplDomObject for ( ( TH ) , MutNullableDom < PluginArray < TH > > ) { }
+                impl < TH : TypeHolderTrait > ShouldNotImplDomObject for ( ( TH ) , MutNullableDom < MimeTypeArray < TH > > ) { }
+                impl < TH : TypeHolderTrait > ShouldNotImplDomObject for ( ( TH ) , MutNullableDom < ServiceWorkerContainer < TH > > ) { }
+                impl < TH : TypeHolderTrait > ShouldNotImplDomObject for ( ( TH ) , MutNullableDom < VR < TH > > ) { }
+                impl < TH : TypeHolderTrait > ShouldNotImplDomObject for ( ( TH ) , MutNullableDom < GamepadList < TH > > ) { }
+                impl < TH : TypeHolderTrait > ShouldNotImplDomObject for ( ( TH ) , MutNullableDom < Permissions < TH > > ) { }
+                trait ShouldNotImplDomObject { }
+                impl < TH : TypeHolderTrait , __T : :: dom :: bindings :: reflector :: DomObject < TH > > ShouldNotImplDomObject for ( ( TH ) , __T ) { } } ;
+
+#[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
+#[must_root]
+#[repr(C)]
 pub struct Navigator<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
     bluetooth: MutNullableDom<Bluetooth<TH>>,

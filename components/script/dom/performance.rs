@@ -53,11 +53,11 @@ const INVALID_ENTRY_NAMES: &'static [&'static str] = &[
 /// Implementation of a list of PerformanceEntry items shared by the
 /// Performance and PerformanceObserverEntryList interfaces implementations.
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct PerformanceEntryList {
+pub struct PerformanceEntryList<TH: TypeHolderTrait> {
     entries: DOMPerformanceEntryList,
 }
 
-impl PerformanceEntryList {
+impl<TH> PerformanceEntryList<TH> {
     pub fn new(entries: DOMPerformanceEntryList) -> Self {
         PerformanceEntryList {
             entries,
@@ -94,7 +94,7 @@ impl PerformanceEntryList {
     }
 }
 
-impl IntoIterator for PerformanceEntryList {
+impl<TH> IntoIterator for PerformanceEntryList<TH> {
     type Item = DomRoot<PerformanceEntry<TH>>;
     type IntoIter = ::std::vec::IntoIter<DomRoot<PerformanceEntry<TH>>>;
 
@@ -104,7 +104,7 @@ impl IntoIterator for PerformanceEntryList {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct PerformanceObserver {
+struct PerformanceObserver<TH: TypeHolderTrait> {
     observer: DomRoot<DOMPerformanceObserver<TH>>,
     entry_types: Vec<DOMString>,
 }
@@ -113,7 +113,7 @@ struct PerformanceObserver {
 pub struct Performance<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
     timing: Option<Dom<PerformanceTiming<TH>>>,
-    entries: DomRefCell<PerformanceEntryList>,
+    entries: DomRefCell<PerformanceEntryList<TH>>,
     observers: DomRefCell<Vec<PerformanceObserver<TH>>>,
     pending_notification_observers_task: Cell<bool>,
     navigation_start_precise: u64,

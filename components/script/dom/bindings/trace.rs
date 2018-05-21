@@ -116,6 +116,7 @@ use time::Duration;
 use uuid::Uuid;
 use webrender_api::{DocumentId, ImageKey};
 use webvr_traits::WebVRGamepadHand;
+use typeholder::TypeHolderTrait;
 
 /// A trait to allow tracing (only) DOM objects.
 pub unsafe trait JSTraceable {
@@ -150,7 +151,7 @@ pub fn trace_jsval(tracer: *mut JSTracer, description: &str, val: &Heap<JSVal>) 
 
 /// Trace the `JSObject` held by `reflector`.
 #[allow(unrooted_must_root)]
-pub fn trace_reflector(tracer: *mut JSTracer, description: &str, reflector: &Reflector<TH>) {
+pub fn trace_reflector<TH: TypeHolderTrait>(tracer: *mut JSTracer, description: &str, reflector: &Reflector<TH>) {
     trace!("tracing reflector {}", description);
     trace_object(tracer, description, reflector.rootable())
 }
@@ -481,7 +482,7 @@ unsafe impl<T> JSTraceable for IpcReceiver<T> where T: for<'de> Deserialize<'de>
     }
 }
 
-unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> JSTraceable for Trusted<T> {
+unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> JSTraceable for Trusted<T, TH> {
     #[inline]
     unsafe fn trace(&self, _: *mut JSTracer) {
         // Do nothing

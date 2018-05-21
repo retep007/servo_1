@@ -46,7 +46,7 @@ pub enum FileReaderFunction {
     ReadAsArrayBuffer,
 }
 
-pub type TrustedFileReader = Trusted<FileReader<TH>>;
+pub type TrustedFileReader<TH> = Trusted<FileReader<TH>>;
 
 #[derive(Clone, MallocSizeOf)]
 pub struct ReadMetaData {

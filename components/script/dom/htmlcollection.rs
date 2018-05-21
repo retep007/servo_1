@@ -184,10 +184,10 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
 
     pub fn by_qual_tag_name(window: &Window<TH>, root: &Node<TH>, qname: QualName) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct TagNameNSFilter {
+        struct TagNameNSFilter<TH: TypeHolderTrait> {
             qname: QualName
         }
-        impl CollectionFilter<TH> for TagNameNSFilter {
+        impl<TH> CollectionFilter<TH> for TagNameNSFilter<TH> {
             fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                     ((self.qname.ns == namespace_url!("*")) || (self.qname.ns == *elem.namespace())) &&
                     ((self.qname.local == local_name!("*")) || (self.qname.local == *elem.local_name()))

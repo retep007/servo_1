@@ -60,6 +60,7 @@ use libc;
 use num_traits::Float;
 use servo_config::opts;
 use std::{char, ffi, ptr, slice};
+use typeholder::TypeHolderTrait;
 
 /// A trait to check whether a given `JSObject` implements an IDL interface.
 pub trait IDLInterface {
@@ -70,7 +71,7 @@ pub trait IDLInterface {
 /// A trait to mark an IDL interface as deriving from another one.
 #[cfg_attr(feature = "unstable",
            rustc_on_unimplemented = "The IDL interface `{Self}` is not derived from `{T}`.")]
-pub trait DerivedFrom<T: Castable>: Castable {}
+pub trait DerivedFrom<T: Castable<TH>, TH: TypeHolderTrait>: Castable<TH> {}
 
 impl<T: Float + ToJSValConvertible> ToJSValConvertible for Finite<T> {
     #[inline]
@@ -105,7 +106,7 @@ impl<T: Float + FromJSValConvertible<Config=()>> FromJSValConvertible for Finite
     }
 }
 
-impl <T: DomObject + IDLInterface> FromJSValConvertible for DomRoot<T> {
+impl <T: DomObject<TH> + IDLInterface, TH: TypeHolderTrait> FromJSValConvertible for DomRoot<T> {
     type Config = ();
 
     unsafe fn from_jsval(_cx: *mut JSContext,
@@ -321,7 +322,7 @@ impl FromJSValConvertible for ByteString {
 }
 
 
-impl ToJSValConvertible for Reflector {
+impl<TH> ToJSValConvertible for Reflector<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         let obj = self.get_jsobject().get();
         assert!(!obj.is_null());
@@ -420,8 +421,9 @@ pub unsafe fn private_from_proto_check<F>(mut obj: *mut JSObject,
 }
 
 /// Get a `*const T` for a DOM object accessible from a `JSObject`.
-pub fn native_from_object<T>(obj: *mut JSObject) -> Result<*const T, ()>
-    where T: DomObject + IDLInterface
+pub fn native_from_object<T, TH>(obj: *mut JSObject) -> Result<*const T, ()>
+    where T: DomObject<TH> + IDLInterface,
+          TH: TypeHolderTrait
 {
     unsafe {
         private_from_proto_check(obj, T::derives).map(|ptr| ptr as *const T)
@@ -434,16 +436,18 @@ pub fn native_from_object<T>(obj: *mut JSObject) -> Result<*const T, ()>
 /// Returns Err(()) if `obj` is an opaque security wrapper or if the object is
 /// not a reflector for a DOM object of the given type (as defined by the
 /// proto_id and proto_depth).
-pub fn root_from_object<T>(obj: *mut JSObject) -> Result<DomRoot<T>, ()>
-    where T: DomObject + IDLInterface
+pub fn root_from_object<T, TH>(obj: *mut JSObject) -> Result<DomRoot<T>, ()>
+    where T: DomObject<TH> + IDLInterface,
+          TH: TypeHolderTrait
 {
     native_from_object(obj).map(|ptr| unsafe { DomRoot::from_ref(&*ptr) })
 }
 
 /// Get a `*const T` for a DOM object accessible from a `HandleValue`.
 /// Caller is responsible for throwing a JS exception if needed in case of error.
-pub fn native_from_handlevalue<T>(v: HandleValue) -> Result<*const T, ()>
-    where T: DomObject + IDLInterface
+pub fn native_from_handlevalue<T, TH>(v: HandleValue) -> Result<*const T, ()>
+    where T: DomObject<TH> + IDLInterface,
+          TH: TypeHolderTrait
 {
     if !v.get().is_object() {
         return Err(());
@@ -453,8 +457,9 @@ pub fn native_from_handlevalue<T>(v: HandleValue) -> Result<*const T, ()>
 
 /// Get a `DomRoot<T>` for a DOM object accessible from a `HandleValue`.
 /// Caller is responsible for throwing a JS exception if needed in case of error.
-pub fn root_from_handlevalue<T>(v: HandleValue) -> Result<DomRoot<T>, ()>
-    where T: DomObject + IDLInterface
+pub fn root_from_handlevalue<T, TH>(v: HandleValue) -> Result<DomRoot<T>, ()>
+    where T: DomObject<TH> + IDLInterface,
+          TH: TypeHolderTrait
 {
     if !v.get().is_object() {
         return Err(());
@@ -463,8 +468,9 @@ pub fn root_from_handlevalue<T>(v: HandleValue) -> Result<DomRoot<T>, ()>
 }
 
 /// Get a `DomRoot<T>` for a DOM object accessible from a `HandleObject`.
-pub fn root_from_handleobject<T>(obj: HandleObject) -> Result<DomRoot<T>, ()>
-    where T: DomObject + IDLInterface
+pub fn root_from_handleobject<T, TH>(obj: HandleObject) -> Result<DomRoot<T>, ()>
+    where T: DomObject<TH> + IDLInterface,
+          TH: TypeHolderTrait
 {
     root_from_object(obj.get())
 }
@@ -485,7 +491,7 @@ pub unsafe fn is_array_like(cx: *mut JSContext, value: HandleValue) -> bool {
 }
 
 /// Get a property from a JS object.
-pub unsafe fn get_property_jsval(cx: *mut JSContext,
+pub unsafe fn get_property_jsval<TH: TypeHolderTrait>(cx: *mut JSContext,
                                  object: HandleObject,
                                  name: &str,
                                  mut rval: MutableHandleValue)
@@ -504,12 +510,13 @@ pub unsafe fn get_property_jsval(cx: *mut JSContext,
 }
 
 /// Get a property from a JS object, and convert it to a Rust value.
-pub unsafe fn get_property<T>(cx: *mut JSContext,
+pub unsafe fn get_property<T, TH>(cx: *mut JSContext,
                               object: HandleObject,
                               name: &str,
                               option: T::Config)
                               -> Fallible<Option<T>, TH> where
-    T: FromJSValConvertible
+    T: FromJSValConvertible,
+    TH: TypeHolderTrait
 {
     debug!("Getting property {}.", name);
     rooted!(in(cx) let mut result = UndefinedValue());

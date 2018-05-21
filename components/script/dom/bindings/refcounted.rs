@@ -155,9 +155,9 @@ pub struct Trusted<T: DomObject<TH>, TH: TypeHolderTrait> {
     phantom: PhantomData<T>,
 }
 
-unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> Send for Trusted<T> {}
+unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> Send for Trusted<T, TH> {}
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> Trusted<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> Trusted<T, TH> {
     /// Create a new `Trusted<T>` instance from an existing DOM pointer. The DOM object will
     /// be prevented from being GCed for the duration of the resulting `Trusted<T>` object's
     /// lifetime.
@@ -189,7 +189,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> Trusted<T> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> Clone for Trusted<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> Clone for Trusted<T, TH> {
     fn clone(&self) -> Trusted<T> {
         Trusted {
             refcount: self.refcount.clone(),

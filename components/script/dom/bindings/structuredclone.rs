@@ -115,7 +115,7 @@ unsafe fn read_blob(cx: *mut JSContext,
     return blob.reflector().get_jsobject().get()
 }
 
-unsafe fn write_blob(blob: DomRoot<Blob<TH>>,
+unsafe fn write_blob<TH: TypeHolderTrait>(blob: DomRoot<Blob<TH>>,
                      w: *mut JSStructuredCloneWriter)
                      -> Result<(), ()> {
     let structured_writer = StructuredCloneWriter { w: w };
@@ -140,7 +140,7 @@ unsafe extern "C" fn read_callback(cx: *mut JSContext,
     return ptr::null_mut()
 }
 
-unsafe extern "C" fn write_callback(_cx: *mut JSContext,
+unsafe extern "C" fn write_callback<TH: TypeHolderTrait>(_cx: *mut JSContext,
                                     w: *mut JSStructuredCloneWriter,
                                     obj: RawHandleObject,
                                     _closure: *mut raw::c_void)

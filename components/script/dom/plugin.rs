@@ -8,13 +8,14 @@ use dom::bindings::root::DomRoot;
 use dom::bindings::str::DOMString;
 use dom::mimetype::MimeType;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Plugin {
+pub struct Plugin<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
 }
 
-impl PluginMethods for Plugin {
+impl<TH> PluginMethods for Plugin<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-plugin-name
     fn Name(&self) -> DOMString {
         unreachable!()

@@ -8,13 +8,14 @@ use dom::bindings::root::DomRoot;
 use dom::bindings::str::DOMString;
 use dom::plugin::Plugin;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MimeType {
+pub struct MimeType<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
 }
 
-impl MimeTypeMethods for MimeType {
+impl<TH> MimeTypeMethods for MimeType<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-mimetype-type
     fn Type(&self) -> DOMString {
         unreachable!()

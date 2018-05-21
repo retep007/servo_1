@@ -8,6 +8,7 @@ use dom::bindings::reflector::DomObject;
 use dom::bindings::trace::JSTraceable;
 use script_runtime::{ScriptChan, CommonScriptMsg, ScriptPort};
 use std::sync::mpsc::{Receiver, Sender};
+use typeholder::TypeHolderTrait;
 
 /// A ScriptChan that can be cloned freely and will silently send a TrustedWorkerAddress with
 /// common event loop messages. While this SendableWorkerScriptChan is alive, the associated
@@ -18,7 +19,7 @@ pub struct SendableWorkerScriptChan<T: DomObject<TH>, TH: TypeHolderTrait> {
     pub worker: Trusted<T>,
 }
 
-impl<T: JSTraceable + DomObject + 'static> ScriptChan for SendableWorkerScriptChan<T> {
+impl<T: JSTraceable + DomObject<TH> + 'static, TH: TypeHolderTrait> ScriptChan for SendableWorkerScriptChan<T, TH> {
     fn send(&self, msg: CommonScriptMsg) -> Result<(), ()> {
         self.sender.send((self.worker.clone(), msg)).map_err(|_| ())
     }
@@ -40,7 +41,7 @@ pub struct WorkerThreadWorkerChan<T: DomObject<TH>, TH: TypeHolderTrait> {
     pub worker: Trusted<T>,
 }
 
-impl<T: JSTraceable + DomObject + 'static> ScriptChan for WorkerThreadWorkerChan<T> {
+impl<T: JSTraceable + DomObject<TH> + 'static, TH: TypeHolderTrait> ScriptChan for WorkerThreadWorkerChan<T, TH> {
     fn send(&self, msg: CommonScriptMsg) -> Result<(), ()> {
         self.sender
             .send((self.worker.clone(), WorkerScriptMsg::Common(msg)))
@@ -55,7 +56,7 @@ impl<T: JSTraceable + DomObject + 'static> ScriptChan for WorkerThreadWorkerChan
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> ScriptPort for Receiver<(Trusted<T>, WorkerScriptMsg)> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> ScriptPort for Receiver<(Trusted<T, TH>, WorkerScriptMsg<TH>)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         match self.recv().map(|(_, msg)| msg) {
             Ok(WorkerScriptMsg::Common(script_msg)) => Ok(script_msg),

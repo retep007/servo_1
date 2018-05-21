@@ -658,7 +658,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn schedule_job(job: Job) {
+    pub fn schedule_job(job: Job<TH>) {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = unsafe { &*root.get().unwrap() };
             let job_queue = &*script_thread.job_queue_map;
@@ -676,7 +676,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#await-a-stable-state
-    pub fn await_stable_state(task: Microtask) {
+    pub fn await_stable_state(task: Microtask<TH>) {
         SCRIPT_THREAD_ROOT.with(|root| {
             if let Some(script_thread) = root.get() {
                 let script_thread = unsafe { &*script_thread };
@@ -2633,7 +2633,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         }
     }
 
-    pub fn enqueue_microtask(job: Microtask) {
+    pub fn enqueue_microtask(job: Microtask<TH>) {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = unsafe { &*root.get().unwrap() };
             script_thread.microtask_queue.enqueue(job);

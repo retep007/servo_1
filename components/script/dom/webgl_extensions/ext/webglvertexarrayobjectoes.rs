@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait> {
-    webgl_object_: WebGLObject,
+    webgl_object_: WebGLObject<TH>,
     id: WebGLVertexArrayId,
     ever_bound: Cell<bool>,
     is_deleted: Cell<bool>,

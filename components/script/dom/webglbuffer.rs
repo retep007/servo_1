@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct WebGLBuffer<TH: TypeHolderTrait> {
-    webgl_object: WebGLObject,
+    webgl_object: WebGLObject<TH>,
     id: WebGLBufferId,
     /// The target to which this buffer was bound the first time
     target: Cell<Option<u32>>,

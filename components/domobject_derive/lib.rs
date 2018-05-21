@@ -49,7 +49,7 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
 
         impl #impl_generics ::dom::bindings::reflector::DomObject<TH> for #name #ty_generics #where_clause {
             #[inline]
-            fn reflector(&self) -> &::dom::bindings::reflector::Reflector {
+            fn reflector(&self) -> &::dom::bindings::reflector::Reflector<TH> {
                 self.#first_field_name.reflector()
             }
         }
@@ -61,7 +61,8 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
         }
     };
     let mut params = quote::Tokens::new();
-    params.append_separated(input.generics.type_params().map(|param| param.ident), ", ");
+    params.append_separated(input.generics.type_params().map(|param| param.ident), quote!(,));
+
 
     // For each field in the struct, we implement ShouldNotImplDomObject for a
     // pair of all the type parameters of the DomObject and and the field type.
@@ -88,8 +89,8 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
         #[allow(non_upper_case_globals)]
         const #dummy_const: () = { #items };
     };
-    if name == "Element" {
-        println!("{:?}", tokens);
+    if name == "Navigator" {
+        println!("{}", tokens);
     }
     tokens
 }

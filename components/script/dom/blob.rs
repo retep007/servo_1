@@ -331,7 +331,7 @@ fn read_file<TH: TypeHolderTrait>(global: &GlobalScope<TH>, id: Uuid) -> Result<
 /// Extract bytes from BlobParts, used by Blob and File constructor
 /// <https://w3c.github.io/FileAPI/#constructorBlob>
 #[allow(unsafe_code)]
-pub fn blob_parts_to_bytes(mut blobparts: Vec<ArrayBufferOrArrayBufferViewOrBlobOrString<TH>>) -> Result<Vec<u8>, ()> {
+pub fn blob_parts_to_bytes<TH: TypeHolderTrait>(mut blobparts: Vec<ArrayBufferOrArrayBufferViewOrBlobOrString<TH>>) -> Result<Vec<u8>, ()> {
     let mut ret = vec![];
     for blobpart in &mut blobparts {
         match blobpart {

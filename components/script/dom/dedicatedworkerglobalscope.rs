@@ -307,7 +307,7 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
         }
     }
 
-    fn handle_script_event(&self, msg: WorkerScriptMsg) {
+    fn handle_script_event(&self, msg: WorkerScriptMsg<TH>) {
         match msg {
             WorkerScriptMsg::DOMMessage(data) => {
                 let scope = self.upcast::<WorkerGlobalScope<TH>>();

@@ -16,9 +16,10 @@ use mime::{Mime, TopLevel, SubLevel};
 use std::cell::Cell;
 use std::result::Result;
 use std::str;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Headers {
+pub struct Headers<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
     guard: Cell<Guard>,
     #[ignore_malloc_size_of = "Defined in hyper"]
@@ -364,7 +365,7 @@ pub fn is_forbidden_header_name(name: &str) -> bool {
 // [2] https://tools.ietf.org/html/rfc7230#section-3.2
 // [3] https://tools.ietf.org/html/rfc7230#section-3.2.6
 // [4] https://www.rfc-editor.org/errata_search.php?rfc=7230
-fn validate_name_and_value(name: ByteString, value: ByteString)
+fn validate_name_and_value<TH: TypeHolderTrait>(name: ByteString, value: ByteString)
                            -> Fallible<(String, Vec<u8>), TH> {
     let valid_name = validate_name(name)?;
     if !is_field_content(&value) {
@@ -373,7 +374,7 @@ fn validate_name_and_value(name: ByteString, value: ByteString)
     Ok((valid_name, value.into()))
 }
 
-fn validate_name(name: ByteString) -> Fallible<String, TH> {
+fn validate_name<TH: TypeHolderTrait>(name: ByteString) -> Fallible<String, TH> {
     if !is_field_name(&name) {
         return Err(Error::Type("Name is not valid".to_string()));
     }

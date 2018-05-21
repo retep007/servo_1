@@ -1471,7 +1471,6 @@ def getRetvalDeclarationForType(returnType, descriptorProvider, generic=False):
         # UnionTypes::
         if generic and a[12:] in cfg.genericStructs:
             result = CGGeneric(a + "<TH>")
-        print result.define(), a[12:], generic
         if returnType.nullable():
             result = CGWrapper(result, pre="Option<", post=">")
         return result
@@ -4718,7 +4717,11 @@ ${className}::${className}(${args})${initializationList}
                  'args': args,
                  'initializationList': self.getInitializationList(cgClass),
                  'body': body})
-
+class ClassDummy():
+    def __init__(self, text):
+        self.text = text
+    def declare(self):
+        return self.text
 
 class ClassMember(ClassItem):
     def __init__(self, name, type, visibility="priv", static=False,
@@ -4773,7 +4776,7 @@ class CGClass(CGThing):
         className = self.name
         if self.templateSpecialization:
             className = className + \
-                '<%s>' % ', '.join([str(a) for a
+                '<%s>' % ', '.join([str(a[0]) for a
                                     in self.templateSpecialization])
         return className
 
@@ -4786,7 +4789,7 @@ class CGClass(CGThing):
 
         if self.templateSpecialization:
             specialization = \
-                '<%s>' % ', '.join([str(a) for a in self.templateSpecialization])
+                '<%s>' % ', '.join([str(a[0]) + ': ' + str(a[1]) for a in self.templateSpecialization])
         else:
             specialization = ''
 
@@ -4839,7 +4842,9 @@ class CGClass(CGThing):
             result = result + memberString
 
         result += self.indent + '}\n\n'
-        result += 'impl %s {\n' % self.name
+        s = ', '.join([str(a[0]) + ': ' + str(a[1]) for a in self.templateSpecialization])
+        special = ('<%s>' % s) if self.templateSpecialization else ''
+        result += 'impl%s %s {\n' % (special if special else '', self.name)
 
         order = [(self.constructors + disallowedCopyConstructors, '\n'),
                  (self.destructors, '\n'), (self.methods, '\n)')]
@@ -5700,7 +5705,11 @@ class CGInterfaceTrait(CGThing):
                 return False
             return reduce((lambda x, y: x or y[1] == '*mut JSContext'), arguments, False)
 
-        def contains_generic_ret_type():
+        def contains_generic_ret_type(rettype):
+            if "<TH>" in rettype:
+                return True
+            if "Fallible<" in rettype:
+                return True
             for m in descriptor.interface.members:
                 if not m.isAttr() or m.isStatic() or not m.type.isGeckoInterface():
                     continue
@@ -5710,7 +5719,10 @@ class CGInterfaceTrait(CGThing):
                     return True
             return False
 
-        def contains_generic_arg_type():
+        def contains_generic_arg_type(arguments):
+            for arg in arguments:
+                if "<TH>" in arg:
+                    return True
             for m in descriptor.interface.members:
                 if (m.isMethod() and not m.isStatic() and
                         not m.isMaplikeOrSetlikeOrIterableMethod() and
@@ -5729,18 +5741,20 @@ class CGInterfaceTrait(CGThing):
             return False
 
         methods = []
+        isGeneric = False
         for name, arguments, rettype in members():
             arguments = list(arguments)
             global cfg
             if rettype in cfg.genericStructs:
                 rettype += "<TH>"
+            isGeneric = isGeneric or contains_generic_arg_type(arguments) or contains_generic_ret_type(rettype)
             methods.append(CGGeneric("%sfn %s(&self%s) -> %s;\n" % (
                 'unsafe ' if contains_unsafe_arg(arguments) else '',
                 name, fmt(arguments), rettype))
             )
         if methods:
             self.cgRoot = CGWrapper(CGIndenter(CGList(methods, "")),
-                                    pre="pub trait %sMethods%s {\n" % (descriptor.interface.identifier.name, '<TH: TypeHolderTrait>' if contains_generic_ret_type() or contains_generic_arg_type() else ''),
+                                    pre="pub trait %sMethods%s {\n" % (descriptor.interface.identifier.name, '<TH: TypeHolderTrait>' if isGeneric else ''),
                                     post="}")
         else:
             self.cgRoot = CGGeneric("")
@@ -6226,6 +6240,7 @@ class CGNonNamespacedEnum(CGThing):
 
 class CGDictionary(CGThing):
     def __init__(self, dictionary, descriptorProvider):
+        self.isGeneric = False
         self.dictionary = dictionary
         if all(CGDictionary(d, descriptorProvider).generatable for
                d in CGDictionary.getDictionaryDependencies(dictionary)):
@@ -6259,6 +6274,9 @@ class CGDictionary(CGThing):
         memberDecls = ["    pub %s: %s," %
                        (self.makeMemberName(m[0].identifier.name), self.getMemberType(m))
                        for m in self.memberInfo]
+        for m in self.memberInfo:
+            if '<TH>' in m[1].declType.define():
+                self.isGeneric = True
 
         derive = ["JSTraceable"]
         mustRoot = ""
@@ -6269,13 +6287,14 @@ class CGDictionary(CGThing):
         return (string.Template(
                 "#[derive(${derive})]\n"
                 "${mustRoot}" +
-                "pub struct ${selfName} {\n" +
+                "pub struct ${selfName}${generic} {\n" +
                 "${inheritance}" +
                 "\n".join(memberDecls) + "\n" +
                 "}").substitute({"selfName": self.makeClassName(d),
                                  "inheritance": inheritance,
                                  "mustRoot": mustRoot,
-                                 "derive": ', '.join(derive)}))
+                                 "derive": ', '.join(derive),
+                                 "generic": '<TH: TypeHolderTrait>' if self.isGeneric else ''}))
 
     def impl(self):
         d = self.dictionary
@@ -6322,21 +6341,24 @@ class CGDictionary(CGThing):
         memberInserts = CGList([memberInsert(m) for m in self.memberInfo])
 
         selfName = self.makeClassName(d)
+        genericName = selfName
+        if self.isGeneric:
+            genericName = '%s<TH>' % genericName
         if self.membersNeedTracing():
-            actualType = "RootedTraceableBox<%s>" % selfName
+            actualType = "RootedTraceableBox<%s>" % genericName
             preInitial = "let mut dictionary = RootedTraceableBox::new(%s::default());\n" % selfName
             initParent = initParent = ("dictionary.parent = %s;\n" % initParent) if initParent else ""
             memberInits = CGList([memberInit(m, False) for m in self.memberInfo])
             postInitial = ""
         else:
-            actualType = selfName
+            actualType = genericName
             preInitial = "let dictionary = %s {\n" % selfName
             postInitial = "};\n"
             initParent = ("parent: %s,\n" % initParent) if initParent else ""
             memberInits = CGList([memberInit(m, True) for m in self.memberInfo])
-
+        print selfName, actualType
         return string.Template(
-            "impl ${selfName} {\n"
+            "impl${generic} ${actualType} {\n"
             "    pub unsafe fn empty(cx: *mut JSContext) -> ${actualType} {\n"
             "        match ${selfName}::new(cx, HandleValue::null()) {\n"
             "            Ok(ConversionResult::Success(v)) => v,\n"
@@ -6361,7 +6383,7 @@ class CGDictionary(CGThing):
             "    }\n"
             "}\n"
             "\n"
-            "impl FromJSValConvertible for ${actualType} {\n"
+            "impl${generic} FromJSValConvertible for ${actualType} {\n"
             "    type Config = ();\n"
             "    unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())\n"
             "                         -> Result<ConversionResult<${actualType}>, ()> {\n"
@@ -6369,7 +6391,7 @@ class CGDictionary(CGThing):
             "    }\n"
             "}\n"
             "\n"
-            "impl ToJSValConvertible for ${selfName} {\n"
+            "impl${generic} ToJSValConvertible for ${actualType} {\n"
             "    unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {\n"
             "        rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));\n"
             "${insertMembers}"
@@ -6383,6 +6405,7 @@ class CGDictionary(CGThing):
                 "insertMembers": CGIndenter(memberInserts, indentLevel=8).define(),
                 "preInitial": CGIndenter(CGGeneric(preInitial), indentLevel=12).define(),
                 "postInitial": CGIndenter(CGGeneric(postInitial), indentLevel=12).define(),
+                "generic": '<TH>' if self.isGeneric else ''
             })
 
     def membersNeedTracing(self):
@@ -6528,22 +6551,26 @@ class CGBindingRoot(CGThing):
         # Do codegen for all the typedefs
         for t in typedefs:
             typeName = getRetvalDeclarationForType(t.innerType, config.getDescriptorProvider())
+            isGeneric = False
+            if '<TH>' in typeName.define():
+                isGeneric = True
             substs = {
                 "name": t.identifier.name,
                 "type": typeName.define(),
+                "generic": "<TH>" if isGeneric else ''
             }
 
             if t.innerType.isUnion() and not t.innerType.nullable():
                 # Allow using the typedef's name for accessing variants.
                 template = "pub use self::%(type)s as %(name)s;"
             else:
-                template = "pub type %(name)s = %(type)s;"
+                template = "pub type %(name)s%(generic)s = %(type)s;"
 
             cgthings.append(CGGeneric(template % substs))
 
         # # Do codegen for all the dictionaries.
         cgthings.extend([CGDictionary(d, config.getDescriptorProvider())
-                         for d in dictionaries])
+                        for d in dictionaries])
 
         # # Do codegen for all the callbacks.
         cgthings.extend(CGList([CGCallbackFunction(c, config.getDescriptorProvider()),
@@ -6741,10 +6768,18 @@ class CGCallback(CGClass):
                 realMethods.append(method)
             else:
                 realMethods.extend(self.getMethodImpls(method))
+        isGeneric = False
+        for meth in realMethods:
+            if '<TH>' or ', TH>' in meth.body:
+                isGeneric = True
+        templateSpecialization = None
+        if isGeneric:
+            templateSpecialization = [('TH', 'TypeHolderTrait')]
         CGClass.__init__(self, name,
                          bases=[ClassBase(baseName)],
                          constructors=self.getConstructors(),
                          methods=realMethods,
+                         templateSpecialization=templateSpecialization,
                          decorators="#[derive(JSTraceable, PartialEq)]\n#[allow_unrooted_interior]")
 
     def getConstructors(self):
@@ -7463,10 +7498,9 @@ impl Clone for TopTypeId {
             typeIdCode.append(CGWrapper(CGIndenter(CGList(variants, ",\n"), 4),
                                         pre="#[derive(%s)]\npub enum %sTypeId {\n" % (derives, base),
                                         post="\n}\n\n"))
-            global cfg
             if base in topTypes:
                 typeIdCode.append(CGGeneric("""\
-impl %(base)s%(generic)s {
+impl%(generic)s %(base)s%(generic)s {
     pub fn type_id(&self) -> &'static %(base)sTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())

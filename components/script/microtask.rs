@@ -25,13 +25,13 @@ use typeholder::TypeHolderTrait;
 #[derive(Default, JSTraceable, MallocSizeOf)]
 pub struct MicrotaskQueue<TH: TypeHolderTrait> {
     /// The list of enqueued microtasks that will be invoked at the next microtask checkpoint.
-    microtask_queue: DomRefCell<Vec<Microtask>>,
+    microtask_queue: DomRefCell<Vec<Microtask<TH>>>,
     /// <https://html.spec.whatwg.org/multipage/#performing-a-microtask-checkpoint>
     performing_a_microtask_checkpoint: Cell<bool>,
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum Microtask {
+pub enum Microtask<TH: TypeHolderTrait> {
     Promise(EnqueuedPromiseCallback),
     MediaElement(MediaElementMicrotask<TH>),
     ImageElement(ImageElementMicrotask<TH>),
@@ -54,7 +54,7 @@ pub struct EnqueuedPromiseCallback {
 impl<TH: TypeHolderTrait> MicrotaskQueue<TH> {
     /// Add a new microtask to this queue. It will be invoked as part of the next
     /// microtask checkpoint.
-    pub fn enqueue(&self, job: Microtask) {
+    pub fn enqueue(&self, job: Microtask<TH>) {
         self.microtask_queue.borrow_mut().push(job);
     }
 

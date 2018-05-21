@@ -168,7 +168,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
 /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
 /// Step 10.4
 #[allow(unsafe_code)]
-unsafe fn get_callback(
+unsafe fn get_callback<TH: TypeHolderTrait>(
     cx: *mut JSContext,
     prototype: HandleObject,
     name: &[u8],

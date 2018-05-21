@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct WebGLRenderbuffer<TH: TypeHolderTrait> {
-    webgl_object: WebGLObject,
+    webgl_object: WebGLObject<TH>,
     id: WebGLRenderbufferId,
     ever_bound: Cell<bool>,
     is_deleted: Cell<bool>,

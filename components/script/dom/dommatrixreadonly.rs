@@ -622,7 +622,7 @@ fn create_3d_matrix(entries: &[f64]) -> Transform3D<f64> {
 }
 
 // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-dommatrixreadonly-numbersequence
-pub fn entries_to_matrix(entries: &[f64]) -> Fallible<(bool, Transform3D<f64>), TH> {
+pub fn entries_to_matrix<TH: TypeHolderTrait>(entries: &[f64]) -> Fallible<(bool, Transform3D<f64>), TH> {
     if entries.len() == 6 {
         Ok((true, create_2d_matrix(&entries)))
     } else if entries.len() == 16 {
@@ -635,7 +635,7 @@ pub fn entries_to_matrix(entries: &[f64]) -> Fallible<(bool, Transform3D<f64>), 
 
 
 // https://drafts.fxtf.org/geometry-1/#validate-and-fixup
-pub fn dommatrixinit_to_matrix(dict: &DOMMatrixInit) -> Fallible<(bool, Transform3D<f64>), TH> {
+pub fn dommatrixinit_to_matrix<TH: TypeHolderTrait>(dict: &DOMMatrixInit) -> Fallible<(bool, Transform3D<f64>), TH> {
     // Step 1.
     if dict.a.is_some() && dict.m11.is_some() && dict.a.unwrap() != dict.m11.unwrap() ||
        dict.b.is_some() && dict.m12.is_some() && dict.b.unwrap() != dict.m12.unwrap() ||

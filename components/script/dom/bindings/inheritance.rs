@@ -10,10 +10,11 @@ use dom::bindings::conversions::{DerivedFrom, IDLInterface};
 use dom::bindings::conversions::get_dom_class;
 use dom::bindings::reflector::DomObject;
 use std::mem;
+use typeholder::TypeHolderTrait;
 
 /// A trait to hold the cast functions of IDL interfaces that either derive
 /// or are derived from other interfaces.
-pub trait Castable: IDLInterface + DomObject + Sized {
+pub trait Castable<TH: TypeHolderTrait>: IDLInterface + DomObject<TH> + Sized {
     /// Check whether a DOM object implements one of its deriving interfaces.
     fn is<T>(&self) -> bool
         where T: DerivedFrom<Self>

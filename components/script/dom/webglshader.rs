@@ -30,7 +30,7 @@ pub enum ShaderCompilationStatus {
 
 #[dom_struct]
 pub struct WebGLShader<TH: TypeHolderTrait> {
-    webgl_object: WebGLObject,
+    webgl_object: WebGLObject<TH>,
     id: WebGLShaderId,
     gl_type: u32,
     source: DomRefCell<Option<DOMString>>,

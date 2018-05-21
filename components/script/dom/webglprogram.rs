@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct WebGLProgram<TH: TypeHolderTrait> {
-    webgl_object: WebGLObject,
+    webgl_object: WebGLObject<TH>,
     id: WebGLProgramId,
     is_deleted: Cell<bool>,
     link_called: Cell<bool>,

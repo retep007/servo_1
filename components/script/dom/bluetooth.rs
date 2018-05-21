@@ -89,18 +89,19 @@ impl BluetoothExtraPermissionData {
     }
 }
 
-struct BluetoothContext<T: AsyncBluetoothListener + DomObject> {
+struct BluetoothContext<T: AsyncBluetoothListener<TH> + DomObject<TH>, TH: TypeHolderTrait> {
     promise: Option<TrustedPromise<TH>>,
-    receiver: Trusted<T>,
+    receiver: Trusted<T, TH>,
 }
 
-pub trait AsyncBluetoothListener {
+pub trait AsyncBluetoothListener<TH: TypeHolderTrait> {
     fn handle_response(&self, result: BluetoothResponse, promise: &Rc<Promise<TH>>);
 }
 
-impl<T> BluetoothContext<T>
+impl<T, TH> BluetoothContext<T, TH>
 where
-    T: AsyncBluetoothListener + DomObject,
+    T: AsyncBluetoothListener<TH> + DomObject<TH>,
+    TH: TypeHolderTrait
 {
     #[allow(unrooted_must_root)]
     fn response(&mut self, response: BluetoothResponseResult) {
@@ -216,7 +217,7 @@ impl<TH> Bluetooth<TH> {
     }
 }
 
-pub fn response_async<T: AsyncBluetoothListener + DomObject + 'static, TH: TypeHolderTrait>(
+pub fn response_async<T: AsyncBluetoothListener<TH> + DomObject<TH> + 'static, TH: TypeHolderTrait>(
         promise: &Rc<Promise<TH>>,
         receiver: &T) -> IpcSender<BluetoothResponseResult> {
     let (action_sender, action_receiver) = ipc::channel().unwrap();
@@ -226,14 +227,15 @@ pub fn response_async<T: AsyncBluetoothListener + DomObject + 'static, TH: TypeH
         receiver: Trusted::new(receiver),
     }));
     ROUTER.add_route(action_receiver.to_opaque(), Box::new(move |message| {
-        struct ListenerTask<T: AsyncBluetoothListener + DomObject> {
+        struct ListenerTask<T: AsyncBluetoothListener<TH> + DomObject<TH>, TH: TypeHolderTrait> {
             context: Arc<Mutex<BluetoothContext<T>>>,
             action: BluetoothResponseResult,
         }
 
-        impl<T> TaskOnce for ListenerTask<T>
+        impl<T, TH> TaskOnce for ListenerTask<T, TH>
         where
-            T: AsyncBluetoothListener + DomObject,
+            T: AsyncBluetoothListener<TH> + DomObject<TH>,
+            TH: TypeHolderTrait
         {
             fn run_once(self) {
                 let mut context = self.context.lock().unwrap();
@@ -265,7 +267,7 @@ pub fn get_gatt_children<T, F, TH: TypeHolderTrait> (
         connected: bool,
         child_type: GATTType)
         -> Rc<Promise<TH>>
-        where T: AsyncBluetoothListener + DomObject + 'static,
+        where T: AsyncBluetoothListener<TH> + DomObject<TH> + 'static,
               F: FnOnce(StringOrUnsignedLong) -> Fallible<UUID, TH> {
     let p = Promise::new(&attribute.global());
 
@@ -305,7 +307,7 @@ pub fn get_gatt_children<T, F, TH: TypeHolderTrait> (
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothlescanfilterinit-canonicalizing
-fn canonicalize_filter(filter: &BluetoothLEScanFilterInit) -> Fallible<BluetoothScanfilter, TH> {
+fn canonicalize_filter<TH: TypeHolderTrait>(filter: &BluetoothLEScanFilterInit) -> Fallible<BluetoothScanfilter, TH> {
     // Step 1.
     if filter.services.is_none() &&
        filter.name.is_none() &&
@@ -441,7 +443,7 @@ fn canonicalize_filter(filter: &BluetoothLEScanFilterInit) -> Fallible<Bluetooth
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothdatafilterinit-canonicalizing
-fn canonicalize_bluetooth_data_filter_init(bdfi: &BluetoothDataFilterInit) -> Fallible<(Vec<u8>, Vec<u8>), TH> {
+fn canonicalize_bluetooth_data_filter_init<TH: TypeHolderTrait>(bdfi: &BluetoothDataFilterInit) -> Fallible<(Vec<u8>, Vec<u8>), TH> {
     // Step 1.
     let data_prefix = match bdfi.dataPrefix {
         Some(ArrayBufferViewOrArrayBuffer::ArrayBufferView(ref avb)) => avb.to_vec(),
@@ -480,7 +482,7 @@ impl From<BluetoothError> for Error {
     }
 }
 
-impl BluetoothMethods for Bluetooth {
+impl<TH> BluetoothMethods for Bluetooth<TH> {
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetooth-requestdevice
     fn RequestDevice(&self, option: &RequestDeviceOptions) -> Rc<Promise<TH>> {
@@ -515,7 +517,7 @@ impl BluetoothMethods for Bluetooth {
     event_handler!(availabilitychanged, GetOnavailabilitychanged, SetOnavailabilitychanged);
 }
 
-impl<TH> AsyncBluetoothListener for Bluetooth<TH> {
+impl<TH> AsyncBluetoothListener<TH> for Bluetooth<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#request-bluetooth-devices

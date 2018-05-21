@@ -49,20 +49,19 @@ pub trait Iterable {
 }
 
 /// An iterator over the iterable entries of a given DOM interface.
-//FIXME: #12811 prevents dom_struct with type parameters
 #[dom_struct]
-pub struct IterableIterator<T: DomObject + JSTraceable + Iterable> {
+pub struct IterableIterator<TH: TypeHolderTrait, T: DomObject<TH> + JSTraceable + Iterable> {
     reflector: Reflector<TH>,
     iterable: Dom<T>,
     type_: IteratorType,
     index: Cell<u32>,
 }
 
-impl<T: DomObject + JSTraceable + Iterable, TH> IterableIterator<T, TH> {
+impl<T: DomObject<TH> + JSTraceable + Iterable, TH: TypeHolderTrait> IterableIterator<T, TH> {
     /// Create a new iterator instance for the provided iterable DOM interface.
     pub fn new(iterable: &T,
                type_: IteratorType,
-               wrap: unsafe fn(*mut JSContext, &GlobalScope<TH>, Box<IterableIterator<T>>)
+               wrap: unsafe fn(*mut JSContext, &GlobalScope<TH>, Box<IterableIterator<T, TH>>)
                      -> DomRoot<Self>) -> DomRoot<Self> {
         let iterator = Box::new(IterableIterator {
             reflector: Reflector::new(),
@@ -112,7 +111,7 @@ impl<T: DomObject + JSTraceable + Iterable, TH> IterableIterator<T, TH> {
     }
 }
 
-fn dict_return(cx: *mut JSContext,
+fn dict_return<TH: TypeHolderTrait>(cx: *mut JSContext,
                mut result: MutableHandleObject,
                done: bool,
                value: HandleValue) -> Fallible<(), TH> {
@@ -127,7 +126,7 @@ fn dict_return(cx: *mut JSContext,
     Ok(())
 }
 
-fn key_and_value_return(cx: *mut JSContext,
+fn key_and_value_return<TH: TypeHolderTrait>(cx: *mut JSContext,
                         mut result: MutableHandleObject,
                         key: HandleValue,
                         value: HandleValue) -> Fallible<(), TH> {

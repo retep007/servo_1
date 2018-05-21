@@ -8,20 +8,21 @@ use dom::bindings::structuredclone::StructuredCloneData;
 use js::jsapi::{JSRuntime, JS_RequestInterruptCallback};
 use js::rust::Runtime;
 use script_runtime::CommonScriptMsg;
+use typeholder::TypeHolderTrait;
 
 /// Messages used to control the worker event loops
-pub enum WorkerScriptMsg {
+pub enum WorkerScriptMsg<TH: TypeHolderTrait> {
     /// Common variants associated with the script messages
     Common(CommonScriptMsg),
     /// Message sent through Worker.postMessage
-    DOMMessage(StructuredCloneData)
+    DOMMessage(StructuredCloneData<TH>)
 }
 
 pub struct SimpleWorkerErrorHandler<T: DomObject<TH>, TH: TypeHolderTrait> {
-    pub addr: Trusted<T>,
+    pub addr: Trusted<T, TH>,
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> SimpleWorkerErrorHandler<T> {
+impl<T: DomObject<TH>, TH: TypeHolderTrait> SimpleWorkerErrorHandler<T, TH> {
     pub fn new(addr: Trusted<T>) -> SimpleWorkerErrorHandler<T> {
         SimpleWorkerErrorHandler {
             addr: addr
