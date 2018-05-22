@@ -283,7 +283,7 @@ impl<TH: TypeHolderTrait> OneshotTimers<TH> {
 
     pub fn set_timeout_or_interval(&self,
                                global: &GlobalScope<TH>,
-                               callback: TimerCallback,
+                               callback: TimerCallback<TH>,
                                arguments: Vec<HandleValue>,
                                timeout: i32,
                                is_interval: IsInterval,
@@ -329,7 +329,7 @@ pub struct JsTimerTask<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
     handle: JsTimerHandle,
     source: TimerSource,
-    callback: InternalTimerCallback,
+    callback: InternalTimerCallback<TH>,
     is_interval: IsInterval,
     nesting_level: u32,
     duration: MsDuration,
@@ -343,17 +343,17 @@ pub enum IsInterval {
 }
 
 #[derive(Clone)]
-pub enum TimerCallback {
+pub enum TimerCallback<TH: TypeHolderTrait> {
     StringTimerCallback(DOMString),
-    FunctionTimerCallback(Rc<Function>),
+    FunctionTimerCallback(Rc<Function<TH>>),
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-enum InternalTimerCallback {
+enum InternalTimerCallback<TH: TypeHolderTrait> {
     StringTimerCallback(DOMString),
     FunctionTimerCallback(
         #[ignore_malloc_size_of = "Rc"]
-        Rc<Function>,
+        Rc<Function<TH>>,
         #[ignore_malloc_size_of = "Rc"]
         Rc<Box<[Heap<JSVal>]>>),
 }
@@ -371,7 +371,7 @@ impl<TH: TypeHolderTrait> JsTimers<TH> {
     // see https://html.spec.whatwg.org/multipage/#timer-initialisation-steps
     pub fn set_timeout_or_interval(&self,
                                global: &GlobalScope<TH>,
-                               callback: TimerCallback,
+                               callback: TimerCallback<TH>,
                                arguments: Vec<HandleValue>,
                                timeout: i32,
                                is_interval: IsInterval,

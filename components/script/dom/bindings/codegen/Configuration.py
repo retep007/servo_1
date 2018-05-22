@@ -213,11 +213,15 @@ class Descriptor(DescriptorProvider):
             self.nativeType = typeName
             pathDefault = 'dom::types::%s' % self.nonGenericType
         elif self.interface.isCallback():
+            name = ifaceName
+            if name in config.genericStructs:
+                name = "%s<TH>" % name
             ty = 'dom::bindings::codegen::Bindings::%sBinding::%s' % (ifaceName, ifaceName)
             pathDefault = ty
             self.returnType = "Rc<%s>" % ty
             self.argumentType = "???"
             self.nativeType = ty
+            self.generic = 'dom::bindings::codegen::Bindings::%sBinding::%s' % (ifaceName, name)
         else:
             self.returnType = "DomRoot<%s>" % typeName
             self.argumentType = "&%s" % typeName

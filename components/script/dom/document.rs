@@ -229,7 +229,7 @@ impl<TH> ::style::stylesheets::StylesheetInDocument for StyleSheetInDocument<TH>
         self.sheet.enabled()
     }
 
-    fn media<'a>(&'a self, guard: &'a SharedRwLockReadGuard) -> Option<&'a MediaList<TH>> {
+    fn media<'a>(&'a self, guard: &'a SharedRwLockReadGuard) -> Option<&'a MediaList> {
         self.sheet.media(guard)
     }
 
@@ -3124,7 +3124,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     fn CreateNodeIterator(&self,
                           root: &Node<TH>,
                           what_to_show: u32,
-                          filter: Option<Rc<NodeFilter>>)
+                          filter: Option<Rc<NodeFilter<TH>>>)
                           -> DomRoot<NodeIterator<TH>> {
         NodeIterator::new(self, root, what_to_show, filter)
     }
@@ -3161,7 +3161,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     fn CreateTreeWalker(&self,
                         root: &Node<TH>,
                         what_to_show: u32,
-                        filter: Option<Rc<NodeFilter>>)
+                        filter: Option<Rc<NodeFilter<TH>>>)
                         -> DomRoot<TreeWalker<TH>> {
         TreeWalker::new(self, root, what_to_show, filter)
     }
@@ -3988,7 +3988,7 @@ pub enum FocusEventType {
 pub struct FakeRequestAnimationFrameCallback<TH: TypeHolderTrait> {
     /// The document.
     #[ignore_malloc_size_of = "non-owning"]
-    document: Trusted<Document<TH>>,
+    document: Trusted<Document<TH>, TH>,
 }
 
 impl<TH> FakeRequestAnimationFrameCallback<TH> {
@@ -4003,7 +4003,7 @@ pub enum AnimationFrameCallback<TH: TypeHolderTrait> {
     DevtoolsFramerateTick { actor_name: String },
     FrameRequestCallback {
         #[ignore_malloc_size_of = "Rc is hard"]
-        callback: Rc<FrameRequestCallback>
+        callback: Rc<FrameRequestCallback<TH>>
     },
 }
 

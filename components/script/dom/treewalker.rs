@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
     pub fn new(document: &Document<TH>,
                root_node: &Node<TH>,
                what_to_show: u32,
-               node_filter: Option<Rc<NodeFilter>>) -> DomRoot<TreeWalker<TH>> {
+               node_filter: Option<Rc<NodeFilter<TH>>>) -> DomRoot<TreeWalker<TH>> {
         let filter = match node_filter {
             None => Filter::None,
             Some(jsfilter) => Filter::Dom(jsfilter)
@@ -77,7 +77,7 @@ impl<TH: TypeHolderTrait> TreeWalkerMethods for TreeWalker<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-treewalker-filter
-    fn GetFilter(&self) -> Option<Rc<NodeFilter>> {
+    fn GetFilter(&self) -> Option<Rc<NodeFilter<TH>>> {
         match self.filter {
             Filter::None => None,
             Filter::Dom(ref nf) => Some(nf.clone()),
@@ -472,5 +472,5 @@ impl<'a, TH: TypeHolderTrait> Iterator for &'a TreeWalker<TH> {
 pub enum Filter<TH: TypeHolderTrait> {
     None,
     Native(fn (node: &Node<TH>) -> u16),
-    Dom(Rc<NodeFilter>)
+    Dom(Rc<NodeFilter<TH>>)
 }

@@ -163,26 +163,26 @@ pub mod xmlname;
 pub mod codegen {
     #[allow(dead_code, unrooted_must_root)]
     pub mod Bindings {
-        include!(concat!(env!("OUT_DIR"), "/Bindings/mod.rs"));
+        include!("../../Bindings/mod.rs");
     }
     pub mod InterfaceObjectMap {
-        include!(concat!(env!("OUT_DIR"), "/InterfaceObjectMap.rs"));
+        include!("../../InterfaceObjectMap.rs");
     }
     pub mod InterfaceTypes {
-        include!(concat!(env!("OUT_DIR"), "/InterfaceTypes.rs"));
+        include!("../../InterfaceTypes.rs");
     }
     #[allow(dead_code, unused_imports)]
     pub mod InheritTypes {
-        include!(concat!(env!("OUT_DIR"), "/InheritTypes.rs"));
+        include!("../../InheritTypes.rs");
     }
     pub mod PrototypeList {
-        include!(concat!(env!("OUT_DIR"), "/PrototypeList.rs"));
+        include!("../../PrototypeList.rs");
     }
     pub mod RegisterBindings {
-        include!(concat!(env!("OUT_DIR"), "/RegisterBindings.rs"));
+        include!("../../RegisterBindings.rs");
     }
     #[allow(non_camel_case_types, unused_imports, unused_variables)]
     pub mod UnionTypes {
-        include!(concat!(env!("OUT_DIR"), "/UnionTypes.rs"));
+        include!("../../UnionTypes.rs");
     }
 }

@@ -71,7 +71,7 @@ impl<'a, TH: TypeHolderTrait> Drop for AutoWorkerReset<'a, TH> {
 }
 
 enum MixedMessage<TH: TypeHolderTrait> {
-    FromWorker((TrustedWorkerAddress<TH>, WorkerScriptMsg)),
+    FromWorker((TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)),
     FromScheduler((TrustedWorkerAddress<TH>, TimerEvent)),
     FromDevtools(DevtoolScriptControlMsg)
 }
@@ -82,9 +82,9 @@ pub struct DedicatedWorkerGlobalScope<TH: TypeHolderTrait>
  {
     workerglobalscope: WorkerGlobalScope<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
-    receiver: Receiver<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
+    receiver: Receiver<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
     #[ignore_malloc_size_of = "Defined in std"]
-    own_sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
+    own_sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
     #[ignore_malloc_size_of = "Defined in std"]
     timer_event_port: Receiver<(TrustedWorkerAddress<TH>, TimerEvent)>,
     #[ignore_malloc_size_of = "Trusted<T> has unclear ownership like Dom<T>"]
@@ -100,8 +100,8 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
                      from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
                      runtime: Runtime,
                      parent_sender: Box<ScriptChan + Send>,
-                     own_sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
-                     receiver: Receiver<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
+                     own_sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
+                     receiver: Receiver<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
                      timer_event_chan: IpcSender<TimerEvent>,
                      timer_event_port: Receiver<(TrustedWorkerAddress<TH>, TimerEvent)>,
                      closing: Arc<AtomicBool>)
@@ -127,8 +127,8 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
                from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
                runtime: Runtime,
                parent_sender: Box<ScriptChan + Send>,
-               own_sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
-               receiver: Receiver<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
+               own_sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
+               receiver: Receiver<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
                timer_event_chan: IpcSender<TimerEvent>,
                timer_event_port: Receiver<(TrustedWorkerAddress<TH>, TimerEvent)>,
                closing: Arc<AtomicBool>)
@@ -158,8 +158,8 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
                             worker_rt_for_mainthread: Arc<Mutex<Option<SharedRt>>>,
                             worker: TrustedWorkerAddress<TH>,
                             parent_sender: Box<ScriptChan + Send>,
-                            own_sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
-                            receiver: Receiver<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
+                            own_sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
+                            receiver: Receiver<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
                             worker_load_origin: WorkerScriptLoadOrigin,
                             closing: Arc<AtomicBool>) {
         let serialized_worker_url = worker_url.to_string();
@@ -358,7 +358,7 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
 
     // https://html.spec.whatwg.org/multipage/#runtime-script-errors-2
     #[allow(unsafe_code)]
-    pub fn forward_error_to_worker_object(&self, error_info: ErrorInfo) {
+    pub fn forward_error_to_worker_object(&self, error_info: ErrorInfo<TH>) {
         let worker = self.worker.borrow().as_ref().unwrap().clone();
         let pipeline_id = self.upcast::<GlobalScope<TH>>().pipeline_id();
         let task = Box::new(task!(forward_error_to_worker_object: move || {

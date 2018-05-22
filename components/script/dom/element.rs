@@ -327,7 +327,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         (*self.custom_element_definition.borrow()).clone()
     }
 
-    pub fn push_callback_reaction(&self, function: Rc<Function>, args: Box<[Heap<JSVal>]>) {
+    pub fn push_callback_reaction(&self, function: Rc<Function<TH>>, args: Box<[Heap<JSVal>]>) {
         self.custom_element_reaction_queue.borrow_mut().push(CustomElementReaction::Callback(function, args));
     }
 
@@ -1572,7 +1572,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
 
     // https://html.spec.whatwg.org/multipage/#home-subtree
     pub fn is_in_same_home_subtree<T>(&self, other: &T) -> bool
-        where T: DerivedFrom<Element<TH>> + DomObject
+        where T: DerivedFrom<Element<TH>, TH> + DomObject<TH>
     {
         let other = other.upcast::<Element<TH>>();
         self.root_element() == other.root_element()
@@ -3132,13 +3132,13 @@ impl TagName {
 }
 
 pub struct ElementPerformFullscreenEnter<TH: TypeHolderTrait> {
-    element: Trusted<Element<TH>>,
+    element: Trusted<Element<TH>, TH>,
     promise: TrustedPromise<TH>,
     error: bool,
 }
 
 impl<TH> ElementPerformFullscreenEnter<TH> {
-    pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise<TH>, error: bool) -> Box<ElementPerformFullscreenEnter<TH>> {
+    pub fn new(element: Trusted<Element<TH>, TH>, promise: TrustedPromise<TH>, error: bool) -> Box<ElementPerformFullscreenEnter<TH>> {
         Box::new(ElementPerformFullscreenEnter {
             element: element,
             promise: promise,
@@ -3176,12 +3176,12 @@ impl<TH> TaskOnce for ElementPerformFullscreenEnter<TH> {
 }
 
 pub struct ElementPerformFullscreenExit<TH: TypeHolderTrait> {
-    element: Trusted<Element<TH>>,
+    element: Trusted<Element<TH>, TH>,
     promise: TrustedPromise<TH>,
 }
 
 impl<TH> ElementPerformFullscreenExit<TH> {
-    pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise<TH>) -> Box<ElementPerformFullscreenExit<TH>> {
+    pub fn new(element: Trusted<Element<TH>, TH>, promise: TrustedPromise<TH>) -> Box<ElementPerformFullscreenExit<TH>> {
         Box::new(ElementPerformFullscreenExit {
             element: element,
             promise: promise,

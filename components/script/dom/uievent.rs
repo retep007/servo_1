@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> UIEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &UIEventBinding::UIEventInit) -> Fallible<DomRoot<UIEvent<TH>>, TH> {
+                       init: &UIEventBinding::UIEventInit<TH>) -> Fallible<DomRoot<UIEvent<TH>>, TH> {
         let bubbles = EventBubbles::from(init.parent.bubbles);
         let cancelable = EventCancelable::from(init.parent.cancelable);
         let event = UIEvent::new(window,

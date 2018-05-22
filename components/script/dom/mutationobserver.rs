@@ -26,7 +26,7 @@ use typeholder::TypeHolderTrait;
 pub struct MutationObserver<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "can't measure Rc values"]
-    callback: Rc<MutationCallback>,
+    callback: Rc<MutationCallback<TH>>,
     record_queue: DomRefCell<Vec<DomRoot<MutationRecord<TH>>>>,
 }
 
@@ -54,12 +54,12 @@ pub struct ObserverOptions {
 }
 
 impl<TH: TypeHolderTrait> MutationObserver<TH> {
-    fn new(global: &Window<TH>, callback: Rc<MutationCallback>) -> DomRoot<MutationObserver<TH>> {
+    fn new(global: &Window<TH>, callback: Rc<MutationCallback<TH>>) -> DomRoot<MutationObserver<TH>> {
         let boxed_observer = Box::new(MutationObserver::new_inherited(callback));
         reflect_dom_object(boxed_observer, global, MutationObserverBinding::Wrap)
     }
 
-    fn new_inherited(callback: Rc<MutationCallback>) -> MutationObserver<TH> {
+    fn new_inherited(callback: Rc<MutationCallback<TH>>) -> MutationObserver<TH> {
         MutationObserver {
             reflector_: Reflector::new(),
             callback: callback,
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
         }
     }
 
-    pub fn Constructor(global: &Window<TH>, callback: Rc<MutationCallback>) -> Fallible<DomRoot<MutationObserver<TH>>, TH> {
+    pub fn Constructor(global: &Window<TH>, callback: Rc<MutationCallback<TH>>) -> Fallible<DomRoot<MutationObserver<TH>>, TH> {
         global.set_exists_mut_observer();
         let observer = MutationObserver::new(global, callback);
         ScriptThread::add_mutation_observer(&*observer);

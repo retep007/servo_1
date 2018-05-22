@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> FocusEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &FocusEventBinding::FocusEventInit) -> Fallible<DomRoot<FocusEvent<TH>>, TH> {
+                       init: &FocusEventBinding::FocusEventInit<TH>) -> Fallible<DomRoot<FocusEvent<TH>>, TH> {
         let bubbles = EventBubbles::from(init.parent.parent.bubbles);
         let cancelable = EventCancelable::from(init.parent.parent.cancelable);
         let event = FocusEvent::new(window,

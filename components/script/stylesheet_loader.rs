@@ -66,14 +66,14 @@ pub enum StylesheetContextSource<TH: TypeHolderTrait> {
 /// The context required for asynchronously loading an external stylesheet.
 pub struct StylesheetContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
-    elem: Trusted<HTMLElement<TH>>,
+    elem: Trusted<HTMLElement<TH>, TH>,
     source: StylesheetContextSource<TH>,
     url: ServoUrl,
     metadata: Option<Metadata>,
     /// The response body received to date.
     data: Vec<u8>,
     /// The node document for elem when the load was initiated.
-    document: Trusted<Document<TH>>,
+    document: Trusted<Document<TH>, TH>,
     origin_clean: bool,
     /// A token which must match the generation id of the `HTMLLinkElement` for it to load the stylesheet.
     /// This is ignored for `HTMLStyleElement` and imports.
@@ -279,9 +279,9 @@ impl<'a, TH: TypeHolderTrait> StyleStylesheetLoader for StylesheetLoader<'a, TH>
         &self,
         url: CssUrl,
         source_location: SourceLocation,
-        context: &ParserContext<TH>,
+        context: &ParserContext,
         lock: &SharedRwLock,
-        media: Arc<Locked<MediaList<TH>>>,
+        media: Arc<Locked<MediaList>>,
     ) -> Arc<Locked<ImportRule>> {
         let sheet = Arc::new(Stylesheet {
             contents: StylesheetContents {

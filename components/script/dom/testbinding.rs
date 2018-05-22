@@ -348,7 +348,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
         Some(ByteStringOrLong::ByteString(ByteString::new(vec!())))
     }
     fn ReceiveNullableSequence(&self) -> Option<Vec<i32>> { Some(vec![1]) }
-    fn ReceiveTestDictionaryWithSuccessOnKeyword(&self) -> RootedTraceableBox<TestDictionary> {
+    fn ReceiveTestDictionaryWithSuccessOnKeyword(&self) -> RootedTraceableBox<TestDictionary<TH>> {
         RootedTraceableBox::new(TestDictionary {
             anyValue: RootedTraceableBox::new(Heap::default()),
             booleanValue: None,
@@ -415,7 +415,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
         })
     }
 
-    fn DictMatchesPassedValues(&self, arg: RootedTraceableBox<TestDictionary>) -> bool {
+    fn DictMatchesPassedValues(&self, arg: RootedTraceableBox<TestDictionary<TH>>) -> bool {
         arg.type_.as_ref().map(|s| s == "success").unwrap_or(false) &&
             arg.nonRequiredNullable.is_none() &&
             arg.nonRequiredNullable2 == Some(None)
@@ -450,7 +450,7 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassUnion6(&self, _: UnsignedLongOrBoolean) {}
     fn PassUnion7(&self, _: StringSequenceOrUnsignedLong) {}
     fn PassUnion8(&self, _: ByteStringSequenceOrLong) {}
-    fn PassUnion9(&self, _: UnionTypes::TestDictionaryOrLong) {}
+    fn PassUnion9(&self, _: UnionTypes::TestDictionaryOrLong<TH>) {}
     #[allow(unsafe_code)]
     unsafe fn PassUnion10(&self, _: *mut JSContext, _: UnionTypes::StringOrObject) {}
     fn PassUnion11(&self, _: UnionTypes::ArrayBufferOrArrayBufferView) {}
@@ -460,8 +460,8 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     unsafe fn PassAny(&self, _: *mut JSContext, _: HandleValue) {}
     #[allow(unsafe_code)]
     unsafe fn PassObject(&self, _: *mut JSContext, _: *mut JSObject) {}
-    fn PassCallbackFunction(&self, _: Rc<Function>) {}
-    fn PassCallbackInterface(&self, _: Rc<EventListener>) {}
+    fn PassCallbackFunction(&self, _: Rc<Function<TH>>) {}
+    fn PassCallbackInterface(&self, _: Rc<EventListener<TH>>) {}
     fn PassSequence(&self, _: Vec<i32>) {}
     #[allow(unsafe_code)]
     unsafe fn PassAnySequence(&self, _: *mut JSContext, _: CustomAutoRooterGuard<Vec<JSVal>>) {}
@@ -504,8 +504,8 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassNullableUnion4(&self, _: Option<LongSequenceOrBoolean>) {}
     fn PassNullableUnion5(&self, _: Option<UnsignedLongOrBoolean>) {}
     fn PassNullableUnion6(&self, _: Option<ByteStringOrLong>) {}
-    fn PassNullableCallbackFunction(&self, _: Option<Rc<Function>>) {}
-    fn PassNullableCallbackInterface(&self, _: Option<Rc<EventListener>>) {}
+    fn PassNullableCallbackFunction(&self, _: Option<Rc<Function<TH>>>) {}
+    fn PassNullableCallbackInterface(&self, _: Option<Rc<EventListener<TH>>>) {}
     fn PassNullableSequence(&self, _: Option<Vec<i32>>) {}
 
     fn PassOptionalBoolean(&self, _: Option<bool>) {}
@@ -536,8 +536,8 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     unsafe fn PassOptionalAny(&self, _: *mut JSContext, _: HandleValue) {}
     #[allow(unsafe_code)]
     unsafe fn PassOptionalObject(&self, _: *mut JSContext, _: Option<*mut JSObject>) {}
-    fn PassOptionalCallbackFunction(&self, _: Option<Rc<Function>>) {}
-    fn PassOptionalCallbackInterface(&self, _: Option<Rc<EventListener>>) {}
+    fn PassOptionalCallbackFunction(&self, _: Option<Rc<Function<TH>>>) {}
+    fn PassOptionalCallbackInterface(&self, _: Option<Rc<EventListener<TH>>>) {}
     fn PassOptionalSequence(&self, _: Option<Vec<i32>>) {}
 
     fn PassOptionalNullableBoolean(&self, _: Option<Option<bool>>) {}
@@ -566,8 +566,8 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     fn PassOptionalNullableUnion4(&self, _: Option<Option<LongSequenceOrBoolean>>) {}
     fn PassOptionalNullableUnion5(&self, _: Option<Option<UnsignedLongOrBoolean>>) {}
     fn PassOptionalNullableUnion6(&self, _: Option<Option<ByteStringOrLong>>) {}
-    fn PassOptionalNullableCallbackFunction(&self, _: Option<Option<Rc<Function>>>) {}
-    fn PassOptionalNullableCallbackInterface(&self, _: Option<Option<Rc<EventListener>>>) {}
+    fn PassOptionalNullableCallbackFunction(&self, _: Option<Option<Rc<Function<TH>>>>) {}
+    fn PassOptionalNullableCallbackInterface(&self, _: Option<Option<Rc<EventListener<TH>>>>) {}
     fn PassOptionalNullableSequence(&self, _: Option<Option<Vec<i32>>>) {}
 
     fn PassOptionalBooleanWithDefault(&self, _: bool) {}
@@ -606,8 +606,8 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
     unsafe fn PassOptionalNullableObjectWithDefault(&self, _: *mut JSContext, _: *mut JSObject) {}
     fn PassOptionalNullableUnionWithDefault(&self, _: Option<HTMLElementOrLong<TH>>) {}
     fn PassOptionalNullableUnion2WithDefault(&self, _: Option<EventOrString<TH>>) {}
-    // fn PassOptionalNullableCallbackFunctionWithDefault(self, _: Option<Function>) {}
-    fn PassOptionalNullableCallbackInterfaceWithDefault(&self, _: Option<Rc<EventListener>>) {}
+    // fn PassOptionalNullableCallbackFunctionWithDefault(self, _: Option<Function<TH>>) {}
+    fn PassOptionalNullableCallbackInterfaceWithDefault(&self, _: Option<Rc<EventListener<TH>>>) {}
     #[allow(unsafe_code)]
     unsafe fn PassOptionalAnyWithDefault(&self, _: *mut JSContext, _: HandleValue) {}
 
@@ -742,8 +742,8 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
 
     #[allow(unrooted_must_root)]
     fn PromiseNativeHandler(&self,
-                            resolve: Option<Rc<SimpleCallback>>,
-                            reject: Option<Rc<SimpleCallback>>) -> Rc<Promise<TH>> {
+                            resolve: Option<Rc<SimpleCallback<TH>>>,
+                            reject: Option<Rc<SimpleCallback<TH>>>) -> Rc<Promise<TH>> {
         let global = self.global();
         let handler = PromiseNativeHandler::new(&global,
                                                 resolve.map(SimpleHandler::new),
@@ -753,16 +753,16 @@ impl<TH> TestBindingMethods for TestBinding<TH> {
         return p;
 
         #[derive(JSTraceable, MallocSizeOf)]
-        struct SimpleHandler {
+        struct SimpleHandler<TH> {
             #[ignore_malloc_size_of = "Rc has unclear ownership semantics"]
-            handler: Rc<SimpleCallback>,
+            handler: Rc<SimpleCallback<TH>>,
         }
-        impl SimpleHandler {
-            fn new(callback: Rc<SimpleCallback>) -> Box<Callback> {
+        impl<TH> SimpleHandler<TH> {
+            fn new(callback: Rc<SimpleCallback<TH>>) -> Box<Callback> {
                 Box::new(SimpleHandler { handler: callback })
             }
         }
-        impl Callback for SimpleHandler {
+        impl<TH> Callback for SimpleHandler<TH> {
             #[allow(unsafe_code)]
             fn callback(&self, cx: *mut JSContext, v: HandleValue) {
                 let global = unsafe { GlobalScope::from_context(cx) };

@@ -154,7 +154,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onload
-    fn GetOnload(&self) -> Option<Rc<EventHandlerNonNull>> {
+    fn GetOnload(&self) -> Option<Rc<EventHandlerNonNull<TH>>> {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {
@@ -168,7 +168,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onload
-    fn SetOnload(&self, listener: Option<Rc<EventHandlerNonNull>>) {
+    fn SetOnload(&self, listener: Option<Rc<EventHandlerNonNull<TH>>>) {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {
@@ -180,7 +180,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onresize
-    fn GetOnresize(&self) -> Option<Rc<EventHandlerNonNull>> {
+    fn GetOnresize(&self) -> Option<Rc<EventHandlerNonNull<TH>>> {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {
@@ -194,7 +194,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onresize
-    fn SetOnresize(&self, listener: Option<Rc<EventHandlerNonNull>>) {
+    fn SetOnresize(&self, listener: Option<Rc<EventHandlerNonNull<TH>>>) {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {
@@ -206,7 +206,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onblur
-    fn GetOnblur(&self) -> Option<Rc<EventHandlerNonNull>> {
+    fn GetOnblur(&self) -> Option<Rc<EventHandlerNonNull<TH>>> {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {
@@ -220,7 +220,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onblur
-    fn SetOnblur(&self, listener: Option<Rc<EventHandlerNonNull>>) {
+    fn SetOnblur(&self, listener: Option<Rc<EventHandlerNonNull<TH>>>) {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {
@@ -232,7 +232,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onfocus
-    fn GetOnfocus(&self) -> Option<Rc<EventHandlerNonNull>> {
+    fn GetOnfocus(&self) -> Option<Rc<EventHandlerNonNull<TH>>> {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {
@@ -246,7 +246,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onfocus
-    fn SetOnfocus(&self, listener: Option<Rc<EventHandlerNonNull>>) {
+    fn SetOnfocus(&self, listener: Option<Rc<EventHandlerNonNull<TH>>>) {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {
@@ -258,7 +258,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onscroll
-    fn GetOnscroll(&self) -> Option<Rc<EventHandlerNonNull>> {
+    fn GetOnscroll(&self) -> Option<Rc<EventHandlerNonNull<TH>>> {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {
@@ -272,7 +272,7 @@ impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#handler-onscroll
-    fn SetOnscroll(&self, listener: Option<Rc<EventHandlerNonNull>>) {
+    fn SetOnscroll(&self, listener: Option<Rc<EventHandlerNonNull<TH>>>) {
         if self.is_body_or_frameset() {
             let document = document_from_node(self);
             if document.has_browsing_context() {

@@ -54,11 +54,11 @@ const INVALID_ENTRY_NAMES: &'static [&'static str] = &[
 /// Performance and PerformanceObserverEntryList interfaces implementations.
 #[derive(JSTraceable, MallocSizeOf)]
 pub struct PerformanceEntryList<TH: TypeHolderTrait> {
-    entries: DOMPerformanceEntryList,
+    entries: DOMPerformanceEntryList<TH>,
 }
 
 impl<TH> PerformanceEntryList<TH> {
-    pub fn new(entries: DOMPerformanceEntryList) -> Self {
+    pub fn new(entries: DOMPerformanceEntryList<TH>) -> Self {
         PerformanceEntryList {
             entries,
         }
@@ -159,7 +159,7 @@ impl<TH: TypeHolderTrait> Performance<TH> {
             let entries = self.entries.borrow();
             let mut new_entries = entry_types.iter()
                             .flat_map(|e| entries.get_entries_by_name_and_type(None, Some(e.clone())))
-                            .collect::<DOMPerformanceEntryList>();
+                            .collect::<DOMPerformanceEntryList<TH>>();
             let mut obs_entries = observer.entries();
             obs_entries.append(&mut new_entries);
             observer.set_entries(obs_entries);

@@ -626,7 +626,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
 
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-settimeout
-    unsafe fn SetTimeout(&self, _cx: *mut JSContext, callback: Rc<Function>, timeout: i32,
+    unsafe fn SetTimeout(&self, _cx: *mut JSContext, callback: Rc<Function<TH>>, timeout: i32,
                          args: Vec<HandleValue>) -> i32 {
         self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::FunctionTimerCallback(callback),
@@ -653,7 +653,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
 
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-setinterval
-    unsafe fn SetInterval(&self, _cx: *mut JSContext, callback: Rc<Function>,
+    unsafe fn SetInterval(&self, _cx: *mut JSContext, callback: Rc<Function<TH>>,
                           timeout: i32, args: Vec<HandleValue>) -> i32 {
         self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::FunctionTimerCallback(callback),
@@ -747,7 +747,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#dom-window-requestanimationframe>
-    fn RequestAnimationFrame(&self, callback: Rc<FrameRequestCallback>) -> u32 {
+    fn RequestAnimationFrame(&self, callback: Rc<FrameRequestCallback<TH>>) -> u32 {
         self.Document()
             .request_animation_frame(AnimationFrameCallback::FrameRequestCallback { callback })
     }

@@ -50,7 +50,7 @@ impl<TH> Headers<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers
-    pub fn Constructor(global: &GlobalScope<TH>, init: Option<HeadersInit>)
+    pub fn Constructor(global: &GlobalScope<TH>, init: Option<HeadersInit<TH>>)
                        -> Fallible<DomRoot<Headers<TH>>, TH> {
         let dom_headers_new = Headers::new(global);
         dom_headers_new.fill(init)?;
@@ -168,7 +168,7 @@ impl<TH> HeadersMethods for Headers<TH> {
 
 impl<TH> Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-fill
-    pub fn fill(&self, filler: Option<HeadersInit>) -> ErrorResult<TH> {
+    pub fn fill(&self, filler: Option<HeadersInit<TH>>) -> ErrorResult<TH> {
         match filler {
             // Step 1
             Some(HeadersInit::Headers(h)) => {

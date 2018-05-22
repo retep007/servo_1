@@ -52,22 +52,22 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
-pub enum CommonEventHandler {
+pub enum CommonEventHandler<TH: TypeHolderTrait> {
     EventHandler(
         #[ignore_malloc_size_of = "Rc"]
-        Rc<EventHandlerNonNull>),
+        Rc<EventHandlerNonNull<TH>>),
 
     ErrorEventHandler(
         #[ignore_malloc_size_of = "Rc"]
-        Rc<OnErrorEventHandlerNonNull>),
+        Rc<OnErrorEventHandlerNonNull<TH>>),
 
     BeforeUnloadEventHandler(
         #[ignore_malloc_size_of = "Rc"]
-        Rc<OnBeforeUnloadEventHandlerNonNull>),
+        Rc<OnBeforeUnloadEventHandlerNonNull<TH>>),
 }
 
-impl CommonEventHandler {
-    fn parent(&self) -> &CallbackFunction {
+impl<TH> CommonEventHandler<TH> {
+    fn parent(&self) -> &CallbackFunction<TH> {
         match *self {
             CommonEventHandler::EventHandler(ref handler) => &handler.parent,
             CommonEventHandler::ErrorEventHandler(ref handler) => &handler.parent,
@@ -94,7 +94,7 @@ struct InternalRawUncompiledHandler {
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
 enum InlineEventListener<TH: TypeHolderTrait> {
     Uncompiled(InternalRawUncompiledHandler),
-    Compiled(CommonEventHandler),
+    Compiled(CommonEventHandler<TH>),
     Null,
 }
 
@@ -103,7 +103,7 @@ impl<TH> InlineEventListener<TH> {
     /// raw source if necessary.
     /// <https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler>
     fn get_compiled_handler(&mut self, owner: &EventTarget<TH>, ty: &Atom)
-                            -> Option<CommonEventHandler> {
+                            -> Option<CommonEventHandler<TH>> {
         match mem::replace(self, InlineEventListener::Null) {
             InlineEventListener::Null => None,
             InlineEventListener::Uncompiled(handler) => {
@@ -123,7 +123,7 @@ impl<TH> InlineEventListener<TH> {
 
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
 enum EventListenerType<TH: TypeHolderTrait> {
-    Additive(#[ignore_malloc_size_of = "Rc"] Rc<EventListener>),
+    Additive(#[ignore_malloc_size_of = "Rc"] Rc<EventListener<TH>>),
     Inline(InlineEventListener),
 }
 
@@ -143,8 +143,8 @@ impl<TH> EventListenerType<TH> {
 /// A representation of an EventListener/EventHandler object that has previously
 /// been compiled successfully, if applicable.
 pub enum CompiledEventListener<TH: TypeHolderTrait> {
-    Listener(Rc<EventListener>),
-    Handler(CommonEventHandler),
+    Listener(Rc<EventListener<TH>>),
+    Handler(CommonEventHandler<TH>),
 }
 
 impl<TH> CompiledEventListener<TH> {
@@ -255,7 +255,7 @@ impl<TH> DerefMut for EventListeners<TH> {
 
 impl<TH> EventListeners<TH> {
     // https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler
-    fn get_inline_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom) -> Option<CommonEventHandler> {
+    fn get_inline_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom) -> Option<CommonEventHandler<TH>> {
         for entry in &mut self.0 {
             if let EventListenerType::Inline(ref mut inline) = entry.listener {
                 // Step 1.1-1.8 and Step 2
@@ -372,7 +372,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
         }
     }
 
-    fn get_inline_event_listener(&self, ty: &Atom) -> Option<CommonEventHandler> {
+    fn get_inline_event_listener(&self, ty: &Atom) -> Option<CommonEventHandler<TH>> {
         let mut handlers = self.handlers.borrow_mut();
         handlers.get_mut(ty).and_then(|entry| entry.get_inline_listener(self, ty))
     }
@@ -398,7 +398,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     fn get_compiled_event_handler(&self,
                                   handler: InternalRawUncompiledHandler,
                                   ty: &Atom)
-                                  -> Option<CommonEventHandler> {
+                                  -> Option<CommonEventHandler<TH>> {
         // Step 1.1
         let element = self.downcast::<Element<TH>>();
         let document = match element {
@@ -490,13 +490,13 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn set_event_handler_common<T: CallbackContainer>(
+    pub fn set_event_handler_common<T: CallbackContainer<TH>, TH: TypeHolderTrait>(
         &self,
         ty: &str,
         listener: Option<Rc<T>>,
     )
     where
-        T: CallbackContainer,
+        T: CallbackContainer<TH>,
     {
         let cx = self.global().get_cx();
 
@@ -509,13 +509,13 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn set_error_event_handler<T: CallbackContainer>(
+    pub fn set_error_event_handler<T: CallbackContainer<TH>, TH: TypeHolderTrait>(
         &self,
         ty: &str,
         listener: Option<Rc<T>>,
     )
     where
-        T: CallbackContainer,
+        T: CallbackContainer<TH>,
     {
         let cx = self.global().get_cx();
 
@@ -528,13 +528,13 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn set_beforeunload_event_handler<T: CallbackContainer>(
+    pub fn set_beforeunload_event_handler<T: CallbackContainer<TH>, TH: TypeHolderTrait>(
         &self,
         ty: &str,
         listener: Option<Rc<T>>,
     )
     where
-        T: CallbackContainer,
+        T: CallbackContainer<TH>,
     {
         let cx = self.global().get_cx();
 
@@ -547,7 +547,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn get_event_handler_common<T: CallbackContainer>(&self, ty: &str) -> Option<Rc<T>> {
+    pub fn get_event_handler_common<T: CallbackContainer<TH>, TH: TypeHolderTrait>(&self, ty: &str) -> Option<Rc<T>> {
         let cx = self.global().get_cx();
         let listener = self.get_inline_event_listener(&Atom::from(ty));
         unsafe {
@@ -602,7 +602,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     pub fn add_event_listener(
         &self,
         ty: DOMString,
-        listener: Option<Rc<EventListener>>,
+        listener: Option<Rc<EventListener<TH>>>,
         options: AddEventListenerOptions,
     ) {
         let listener = match listener {
@@ -633,7 +633,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     pub fn remove_event_listener(
         &self,
         ty: DOMString,
-        listener: Option<Rc<EventListener>>,
+        listener: Option<Rc<EventListener<TH>>>,
         options: EventListenerOptions,
     ) {
         let ref listener = match listener {
@@ -664,7 +664,7 @@ impl<TH> EventTargetMethods for EventTarget<TH> {
     fn AddEventListener(
         &self,
         ty: DOMString,
-        listener: Option<Rc<EventListener>>,
+        listener: Option<Rc<EventListener<TH>>>,
         options: AddEventListenerOptionsOrBoolean,
     ) {
         self.add_event_listener(ty, listener, options.into())
@@ -674,7 +674,7 @@ impl<TH> EventTargetMethods for EventTarget<TH> {
     fn RemoveEventListener(
         &self,
         ty: DOMString,
-        listener: Option<Rc<EventListener>>,
+        listener: Option<Rc<EventListener<TH>>>,
         options: EventListenerOptionsOrBoolean,
     ) {
         self.remove_event_listener(ty, listener, options.into())

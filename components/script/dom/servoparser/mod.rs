@@ -62,7 +62,7 @@ mod async_html;
 mod html;
 mod xml;
 
-pub trait ServoParser<TH: TypeHolderTrait>: DomObject + MutDomObject + MallocSizeOf + JSTraceable {
+pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TH> + MutDomObject<TH> + MallocSizeOf + JSTraceable {
     fn parser_is_not_active(&self) -> bool;
 
     fn script_nesting_level(&self) -> usize;

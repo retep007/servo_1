@@ -12,7 +12,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct XMLHttpRequestUpload<TH: TypeHolderTrait> {
-    eventtarget: XMLHttpRequestEventTarget
+    eventtarget: XMLHttpRequestEventTarget<TH>
 }
 
 impl<TH: TypeHolderTrait> XMLHttpRequestUpload<TH> {

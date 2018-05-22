@@ -354,7 +354,7 @@ macro_rules! define_window_owned_event_handler(
 macro_rules! event_handler(
     ($event_type: ident, $getter: ident, $setter: ident) => (
         define_event_handler!(
-            ::dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull,
+            ::dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>,
             $event_type,
             $getter,
             $setter,
@@ -366,7 +366,7 @@ macro_rules! event_handler(
 macro_rules! error_event_handler(
     ($event_type: ident, $getter: ident, $setter: ident) => (
         define_event_handler!(
-            ::dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull,
+            ::dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull<TH>,
             $event_type,
             $getter,
             $setter,
@@ -378,7 +378,7 @@ macro_rules! error_event_handler(
 macro_rules! beforeunload_event_handler(
     ($event_type: ident, $getter: ident, $setter: ident) => (
         define_event_handler!(
-            ::dom::bindings::codegen::Bindings::EventHandlerBinding::OnBeforeUnloadEventHandlerNonNull,
+            ::dom::bindings::codegen::Bindings::EventHandlerBinding::OnBeforeUnloadEventHandlerNonNull<TH>,
             $event_type,
             $getter,
             $setter,
@@ -390,7 +390,7 @@ macro_rules! beforeunload_event_handler(
 macro_rules! window_owned_event_handler(
     ($event_type: ident, $getter: ident, $setter: ident) => (
         define_window_owned_event_handler!(
-            ::dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull,
+            ::dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>,
             $event_type,
             $getter,
             $setter
@@ -401,7 +401,7 @@ macro_rules! window_owned_event_handler(
 macro_rules! window_owned_beforeunload_event_handler(
     ($event_type: ident, $getter: ident, $setter: ident) => (
         define_window_owned_event_handler!(
-            ::dom::bindings::codegen::Bindings::EventHandlerBinding::OnBeforeUnloadEventHandlerNonNull,
+            ::dom::bindings::codegen::Bindings::EventHandlerBinding::OnBeforeUnloadEventHandlerNonNull<TH>,
             $event_type,
             $getter,
             $setter

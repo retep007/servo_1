@@ -514,7 +514,7 @@ impl<TH> RequestMethods for Request<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-request-headers
-    fn Headers(&self) -> DomRoot<Headers> {
+    fn Headers(&self) -> DomRoot<Headers<TH>> {
         self.headers.or_init(|| Headers::new(&self.global()))
     }
 
@@ -820,8 +820,8 @@ impl Into<RequestRedirect> for NetTraitsRequestRedirect {
     }
 }
 
-impl Clone for HeadersInit {
-    fn clone(&self) -> HeadersInit {
+impl<TH> Clone for HeadersInit<TH> {
+    fn clone(&self) -> HeadersInit<TH> {
     match self {
         &HeadersInit::Headers(ref h) =>
             HeadersInit::Headers(h.clone()),

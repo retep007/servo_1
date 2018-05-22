@@ -58,7 +58,7 @@ impl<TH: TypeHolderTrait> NodeIterator<TH> {
     pub fn new(document: &Document<TH>,
                root_node: &Node<TH>,
                what_to_show: u32,
-               node_filter: Option<Rc<NodeFilter>>) -> DomRoot<NodeIterator<TH>> {
+               node_filter: Option<Rc<NodeFilter<TH>>>) -> DomRoot<NodeIterator<TH>> {
         let filter = match node_filter {
             None => Filter::None,
             Some(jsfilter) => Filter::Callback(jsfilter)
@@ -79,7 +79,7 @@ impl<TH: TypeHolderTrait> NodeIteratorMethods for NodeIterator<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-nodeiterator-filter
-    fn GetFilter(&self) -> Option<Rc<NodeFilter>> {
+    fn GetFilter(&self) -> Option<Rc<NodeFilter<TH>>> {
         match self.filter {
             Filter::None => None,
             Filter::Callback(ref nf) => Some((*nf).clone()),
@@ -226,5 +226,5 @@ impl<TH: TypeHolderTrait> NodeIterator<TH> {
 #[derive(JSTraceable)]
 pub enum Filter<TH: TypeHolderTrait> {
     None,
-    Callback(Rc<NodeFilter>)
+    Callback(Rc<NodeFilter<TH>>)
 }

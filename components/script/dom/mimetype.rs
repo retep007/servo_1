@@ -32,7 +32,7 @@ impl<TH> MimeTypeMethods for MimeType<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-mimetype-enabledplugin
-    fn EnabledPlugin(&self) -> DomRoot<Plugin> {
+    fn EnabledPlugin(&self) -> DomRoot<Plugin<TH>> {
         unreachable!()
     }
 }

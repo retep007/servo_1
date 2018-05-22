@@ -32,7 +32,7 @@ pub struct MicrotaskQueue<TH: TypeHolderTrait> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 pub enum Microtask<TH: TypeHolderTrait> {
-    Promise(EnqueuedPromiseCallback),
+    Promise(EnqueuedPromiseCallback<TH>),
     MediaElement(MediaElementMicrotask<TH>),
     ImageElement(ImageElementMicrotask<TH>),
     CustomElementReaction,
@@ -45,9 +45,9 @@ pub trait MicrotaskRunnable {
 
 /// A promise callback scheduled to run during the next microtask checkpoint (#4283).
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct EnqueuedPromiseCallback {
+pub struct EnqueuedPromiseCallback<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Rc has unclear ownership"]
-    pub callback: Rc<PromiseJobCallback>,
+    pub callback: Rc<PromiseJobCallback<TH>>,
     pub pipeline: PipelineId,
 }
 

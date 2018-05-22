@@ -41,7 +41,7 @@ pub struct Worker<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Defined in std"]
     /// Sender to the Receiver associated with the DedicatedWorkerGlobalScope
     /// this Worker created.
-    sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
+    sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
     #[ignore_malloc_size_of = "Arc"]
     closing: Arc<AtomicBool>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
@@ -50,7 +50,7 @@ pub struct Worker<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> Worker<TH> {
-    fn new_inherited(sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
+    fn new_inherited(sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
                      closing: Arc<AtomicBool>) -> Worker<TH> {
         Worker {
             eventtarget: EventTarget::new_inherited(),
@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
     }
 
     pub fn new(global: &GlobalScope<TH>,
-               sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg)>,
+               sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
                closing: Arc<AtomicBool>) -> DomRoot<Worker<TH>> {
         reflect_dom_object(Box::new(Worker::new_inherited(sender, closing)),
                            global,

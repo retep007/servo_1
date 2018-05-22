@@ -34,13 +34,13 @@ const VALID_ENTRY_TYPES: &'static [&'static str] = &[
 pub struct PerformanceObserver<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "can't measure Rc values"]
-    callback: Rc<PerformanceObserverCallback>,
-    entries: DomRefCell<DOMPerformanceEntryList>,
+    callback: Rc<PerformanceObserverCallback<TH>>,
+    entries: DomRefCell<DOMPerformanceEntryList<TH>>,
 }
 
 impl<TH> PerformanceObserver<TH> {
-    fn new_inherited(callback: Rc<PerformanceObserverCallback>,
-                     entries: DomRefCell<DOMPerformanceEntryList>)
+    fn new_inherited(callback: Rc<PerformanceObserverCallback<TH>>,
+                     entries: DomRefCell<DOMPerformanceEntryList<TH>>)
         -> PerformanceObserver<TH> {
         PerformanceObserver {
             reflector_: Reflector::new(),
@@ -51,14 +51,14 @@ impl<TH> PerformanceObserver<TH> {
 
     #[allow(unrooted_must_root)]
     pub fn new(global: &GlobalScope<TH>,
-               callback: Rc<PerformanceObserverCallback>,
-               entries: DOMPerformanceEntryList)
+               callback: Rc<PerformanceObserverCallback<TH>>,
+               entries: DOMPerformanceEntryList<TH>)
         -> DomRoot<PerformanceObserver<TH>> {
         let observer = PerformanceObserver::new_inherited(callback, DomRefCell::new(entries));
         reflect_dom_object(Box::new(observer), global, PerformanceObserverBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>, callback: Rc<PerformanceObserverCallback>)
+    pub fn Constructor(global: &GlobalScope<TH>, callback: Rc<PerformanceObserverCallback<TH>>)
         -> Fallible<DomRoot<PerformanceObserver<TH>>, TH> {
         Ok(PerformanceObserver::new(global, callback, Vec::new()))
     }
@@ -82,15 +82,15 @@ impl<TH> PerformanceObserver<TH> {
         let _ = self.callback.Call__(&observer_entry_list, self, ExceptionHandling::Report);
     }
 
-    pub fn callback(&self) -> Rc<PerformanceObserverCallback> {
+    pub fn callback(&self) -> Rc<PerformanceObserverCallback<TH>> {
         self.callback.clone()
     }
 
-    pub fn entries(&self) -> DOMPerformanceEntryList {
+    pub fn entries(&self) -> DOMPerformanceEntryList<TH> {
         self.entries.borrow().clone()
     }
 
-    pub fn set_entries(&self, entries: DOMPerformanceEntryList) {
+    pub fn set_entries(&self, entries: DOMPerformanceEntryList<TH>) {
         *self.entries.borrow_mut() = entries;
     }
 }

@@ -866,7 +866,7 @@ impl<'a, TH> FormSubmitter<'a, TH> {
     }
 }
 
-pub trait FormControl<TH: TypeHolderTrait>: DomObject {
+pub trait FormControl<TH: TypeHolderTrait>: DomObject<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>>;
 
     fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>);

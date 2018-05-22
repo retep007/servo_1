@@ -40,7 +40,7 @@ pub struct MediaQueryList<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> MediaQueryList<TH> {
-    fn new_inherited(document: &Document<TH>, media_query_list: MediaList<TH>) -> MediaQueryList<TH> {
+    fn new_inherited(document: &Document<TH>, media_query_list: MediaList) -> MediaQueryList<TH> {
         MediaQueryList {
             eventtarget: EventTarget::new_inherited(),
             document: Dom::from_ref(document),
@@ -49,7 +49,7 @@ impl<TH: TypeHolderTrait> MediaQueryList<TH> {
         }
     }
 
-    pub fn new(document: &Document<TH>, media_query_list: MediaList<TH>) -> DomRoot<MediaQueryList<TH>> {
+    pub fn new(document: &Document<TH>, media_query_list: MediaList) -> DomRoot<MediaQueryList<TH>> {
         reflect_dom_object(Box::new(MediaQueryList::new_inherited(document, media_query_list)),
                            document.window(),
                            MediaQueryListBinding::Wrap)
@@ -96,7 +96,7 @@ impl<TH> MediaQueryListMethods for MediaQueryList<TH> {
     }
 
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylist-addlistener
-    fn AddListener(&self, listener: Option<Rc<EventListener>>) {
+    fn AddListener(&self, listener: Option<Rc<EventListener<TH>>>) {
         self.upcast::<EventTarget<TH>>().add_event_listener(
             DOMString::from_string("change".to_owned()),
             listener,
@@ -105,7 +105,7 @@ impl<TH> MediaQueryListMethods for MediaQueryList<TH> {
     }
 
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylist-removelistener
-    fn RemoveListener(&self, listener: Option<Rc<EventListener>>) {
+    fn RemoveListener(&self, listener: Option<Rc<EventListener<TH>>>) {
         self.upcast::<EventTarget<TH>>().remove_event_listener(
             DOMString::from_string("change".to_owned()),
             listener,

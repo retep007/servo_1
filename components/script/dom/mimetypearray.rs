@@ -38,22 +38,22 @@ impl<TH> MimeTypeArrayMethods for MimeTypeArray<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-mimetypearray-item
-    fn Item(&self, _index: u32) -> Option<DomRoot<MimeType>> {
+    fn Item(&self, _index: u32) -> Option<DomRoot<MimeType<TH>>> {
         None
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-mimetypearray-nameditem
-    fn NamedItem(&self, _name: DOMString) -> Option<DomRoot<MimeType>> {
+    fn NamedItem(&self, _name: DOMString) -> Option<DomRoot<MimeType<TH>>> {
         None
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-mimetypearray-item
-    fn IndexedGetter(&self, _index: u32) -> Option<DomRoot<MimeType>> {
+    fn IndexedGetter(&self, _index: u32) -> Option<DomRoot<MimeType<TH>>> {
         None
     }
 
     // check-tidy: no specs after this line
-    fn NamedGetter(&self, _name: DOMString) -> Option<DomRoot<MimeType>> {
+    fn NamedGetter(&self, _name: DOMString) -> Option<DomRoot<MimeType<TH>>> {
         None
     }
 

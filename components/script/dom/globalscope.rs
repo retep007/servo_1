@@ -329,7 +329,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#report-the-error>
-    pub fn report_an_error(&self, error_info: ErrorInfo, value: HandleValue) {
+    pub fn report_an_error(&self, error_info: ErrorInfo<TH>, value: HandleValue) {
         // Step 1.
         if self.in_error_reporting_mode.get() {
             return;
@@ -464,7 +464,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
 
     pub fn set_timeout_or_interval(
             &self,
-            callback: TimerCallback,
+            callback: TimerCallback<TH>,
             arguments: Vec<HandleValue>,
             timeout: i32,
             is_interval: IsInterval)

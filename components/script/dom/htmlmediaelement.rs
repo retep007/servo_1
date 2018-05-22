@@ -976,7 +976,7 @@ enum Resource {
 
 struct HTMLMediaElementContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
-    elem: Trusted<HTMLMediaElement<TH>>,
+    elem: Trusted<HTMLMediaElement<TH>, TH>,
     /// The response body received to date.
     data: Vec<u8>,
     /// The response metadata received to date.

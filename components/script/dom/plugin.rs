@@ -37,22 +37,22 @@ impl<TH> PluginMethods for Plugin<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-plugin-item
-    fn Item(&self, _index: u32) -> Option<DomRoot<MimeType>> {
+    fn Item(&self, _index: u32) -> Option<DomRoot<MimeType<TH>>> {
         unreachable!()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-plugin-nameditem
-    fn NamedItem(&self, _name: DOMString) -> Option<DomRoot<MimeType>> {
+    fn NamedItem(&self, _name: DOMString) -> Option<DomRoot<MimeType<TH>>> {
         unreachable!()
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-plugin-item
-    fn IndexedGetter(&self, _index: u32) -> Option<DomRoot<MimeType>> {
+    fn IndexedGetter(&self, _index: u32) -> Option<DomRoot<MimeType<TH>>> {
         unreachable!()
     }
 
     // check-tidy: no specs after this line
-    fn NamedGetter(&self, _name: DOMString) -> Option<DomRoot<MimeType>> {
+    fn NamedGetter(&self, _name: DOMString) -> Option<DomRoot<MimeType<TH>>> {
         unreachable!()
     }
 

@@ -148,7 +148,7 @@ pub struct ErrorInfo<TH: TypeHolderTrait> {
 
 impl<TH> ErrorInfo<TH> {
     unsafe fn from_native_error(cx: *mut JSContext, object: HandleObject)
-                                -> Option<ErrorInfo> {
+                                -> Option<ErrorInfo<TH>> {
         let report = JS_ErrorFromException(cx, object);
         if report.is_null() {
             return None;
@@ -183,7 +183,7 @@ impl<TH> ErrorInfo<TH> {
         })
     }
 
-    fn from_dom_exception(object: HandleObject) -> Option<ErrorInfo> {
+    fn from_dom_exception(object: HandleObject) -> Option<ErrorInfo<TH>> {
         let exception = match root_from_object::<DOMException<TH>>(object.get()) {
             Ok(exception) => exception,
             Err(_) => return None,

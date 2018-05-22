@@ -125,7 +125,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistry<TH> {
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
     /// Steps 10.3, 10.4
     #[allow(unsafe_code)]
-    unsafe fn get_callbacks(&self, prototype: HandleObject) -> Fallible<LifecycleCallbacks, TH> {
+    unsafe fn get_callbacks(&self, prototype: HandleObject) -> Fallible<LifecycleCallbacks<TH>, TH> {
         let cx = self.window.get_cx();
 
         // Step 4
@@ -172,7 +172,7 @@ unsafe fn get_callback<TH: TypeHolderTrait>(
     cx: *mut JSContext,
     prototype: HandleObject,
     name: &[u8],
-) -> Fallible<Option<Rc<Function>>, TH> {
+) -> Fallible<Option<Rc<Function<TH>>>, TH> {
     rooted!(in(cx) let mut callback = UndefinedValue());
 
     // Step 10.4.1
@@ -194,7 +194,7 @@ unsafe fn get_callback<TH: TypeHolderTrait>(
 impl<TH: TypeHolderTrait> CustomElementRegistryMethods for CustomElementRegistry<TH> {
     #[allow(unsafe_code, unrooted_must_root)]
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
-    fn Define(&self, name: DOMString, constructor_: Rc<Function>, options: &ElementDefinitionOptions) -> ErrorResult<TH> {
+    fn Define(&self, name: DOMString, constructor_: Rc<Function<TH>>, options: &ElementDefinitionOptions) -> ErrorResult<TH> {
         let cx = self.window.get_cx();
         rooted!(in(cx) let constructor = constructor_.callback());
         let name = LocalName::from(&*name);
@@ -375,18 +375,18 @@ impl<TH: TypeHolderTrait> CustomElementRegistryMethods for CustomElementRegistry
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub struct LifecycleCallbacks {
+pub struct LifecycleCallbacks<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Rc"]
-    connected_callback: Option<Rc<Function>>,
+    connected_callback: Option<Rc<Function<TH>>>,
 
     #[ignore_malloc_size_of = "Rc"]
-    disconnected_callback: Option<Rc<Function>>,
+    disconnected_callback: Option<Rc<Function<TH>>>,
 
     #[ignore_malloc_size_of = "Rc"]
-    adopted_callback: Option<Rc<Function>>,
+    adopted_callback: Option<Rc<Function<TH>>>,
 
     #[ignore_malloc_size_of = "Rc"]
-    attribute_changed_callback: Option<Rc<Function>>,
+    attribute_changed_callback: Option<Rc<Function<TH>>>,
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
@@ -403,11 +403,11 @@ pub struct CustomElementDefinition<TH: TypeHolderTrait> {
     pub local_name: LocalName,
 
     #[ignore_malloc_size_of = "Rc"]
-    pub constructor: Rc<Function>,
+    pub constructor: Rc<Function<TH>>,
 
     pub observed_attributes: Vec<DOMString>,
 
-    pub callbacks: LifecycleCallbacks,
+    pub callbacks: LifecycleCallbacks<TH>,
 
     pub construction_stack: DomRefCell<Vec<ConstructionStackEntry<TH>>>,
 }
@@ -415,9 +415,9 @@ pub struct CustomElementDefinition<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> CustomElementDefinition<TH> {
     fn new(name: LocalName,
            local_name: LocalName,
-           constructor: Rc<Function>,
+           constructor: Rc<Function<TH>>,
            observed_attributes: Vec<DOMString>,
-           callbacks: LifecycleCallbacks)
+           callbacks: LifecycleCallbacks<TH>)
            -> CustomElementDefinition<TH> {
         CustomElementDefinition {
             name: name,
@@ -544,7 +544,7 @@ pub fn upgrade_element<TH: TypeHolderTrait>(definition: Rc<CustomElementDefiniti
 /// <https://html.spec.whatwg.org/multipage/#concept-upgrade-an-element>
 /// Steps 7.1-7.2
 #[allow(unsafe_code)]
-fn run_upgrade_constructor<TH: TypeHolderTrait>(constructor: &Rc<Function>, element: &Element<TH>) -> ErrorResult<TH> {
+fn run_upgrade_constructor<TH: TypeHolderTrait>(constructor: &Rc<Function<TH>>, element: &Element<TH>) -> ErrorResult<TH> {
     let window = window_from_node(element);
     let cx = window.get_cx();
     rooted!(in(cx) let constructor_val = ObjectValue(constructor.callback()));
@@ -594,7 +594,7 @@ pub enum CustomElementReaction<TH: TypeHolderTrait> {
     ),
     Callback(
         #[ignore_malloc_size_of = "Rc"]
-        Rc<Function>,
+        Rc<Function<TH>>,
         Box<[Heap<JSVal>]>
     ),
 }

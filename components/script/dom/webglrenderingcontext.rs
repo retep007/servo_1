@@ -188,7 +188,7 @@ pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
     texture_unpacking_alignment: Cell<u32>,
     bound_framebuffer: MutNullableDom<WebGLFramebuffer<TH>, TH>,
     bound_renderbuffer: MutNullableDom<WebGLRenderbuffer<TH>, TH>,
-    bound_textures: DomRefCell<FnvHashMap<u32, TextureUnitBindings>>,
+    bound_textures: DomRefCell<FnvHashMap<u32, TextureUnitBindings<TH>>>,
     bound_texture_unit: Cell<u32>,
     bound_buffer_array: MutNullableDom<WebGLBuffer<TH>, TH>,
     bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>, TH>,

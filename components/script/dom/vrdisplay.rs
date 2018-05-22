@@ -66,7 +66,7 @@ pub struct VRDisplay<TH: TypeHolderTrait> {
     next_raf_id: Cell<u32>,
     /// List of request animation frame callbacks
     #[ignore_malloc_size_of = "closures are hard"]
-    raf_callback_list: DomRefCell<Vec<(u32, Option<Rc<FrameRequestCallback>>)>>,
+    raf_callback_list: DomRefCell<Vec<(u32, Option<Rc<FrameRequestCallback<TH>>>)>>,
     // Compositor VRFrameData synchonization
     frame_data_status: Cell<VRFrameDataStatus>,
     #[ignore_malloc_size_of = "closures are hard"]
@@ -250,7 +250,7 @@ impl<TH> VRDisplayMethods for VRDisplay<TH> {
     }
 
     // https://w3c.github.io/webvr/#dom-vrdisplay-requestanimationframe
-    fn RequestAnimationFrame(&self, callback: Rc<FrameRequestCallback>) -> u32 {
+    fn RequestAnimationFrame(&self, callback: Rc<FrameRequestCallback<TH>>) -> u32 {
         if self.presenting.get() {
             let raf_id = self.next_raf_id.get();
             self.next_raf_id.set(raf_id + 1);
@@ -279,7 +279,7 @@ impl<TH> VRDisplayMethods for VRDisplay<TH> {
 
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/webvr/#dom-vrdisplay-requestpresent
-    fn RequestPresent(&self, layers: Vec<VRLayer>) -> Rc<Promise<TH>> {
+    fn RequestPresent(&self, layers: Vec<VRLayer<TH>>) -> Rc<Promise<TH>> {
         let promise = Promise::new(&self.global());
         // TODO: WebVR spec: this method must be called in response to a user gesture
 
@@ -392,7 +392,7 @@ impl<TH> VRDisplayMethods for VRDisplay<TH> {
     }
 
     // https://w3c.github.io/webvr/spec/1.1/#dom-vrdisplay-getlayers
-    fn GetLayers(&self) -> Vec<VRLayer> {
+    fn GetLayers(&self) -> Vec<VRLayer<TH>> {
         // WebVR spec: MUST return an empty array if the VRDisplay is not currently presenting
         if !self.presenting.get() {
             return Vec::new();
@@ -631,7 +631,7 @@ fn parse_bounds(src: &Option<Vec<Finite<f32>>>, dst: &mut [f32; 4]) -> Result<()
     }
 }
 
-fn validate_layer<TH: TypeHolderTrait>(layer: &VRLayer) -> Result<(WebVRLayer, DomRoot<WebGLRenderingContext<TH>>), &'static str> {
+fn validate_layer<TH: TypeHolderTrait>(layer: &VRLayer<TH>) -> Result<(WebVRLayer, DomRoot<WebGLRenderingContext<TH>>), &'static str> {
     let ctx = layer.source.as_ref().map(|ref s| s.get_base_webgl_context()).unwrap_or(None);
     if let Some(ctx) = ctx {
         let mut data = WebVRLayer::default();

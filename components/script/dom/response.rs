@@ -291,7 +291,7 @@ impl<TH> ResponseMethods for Response<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-response-headers
-    fn Headers(&self) -> DomRoot<Headers> {
+    fn Headers(&self) -> DomRoot<Headers<TH>> {
         self.headers_reflector.or_init(|| Headers::for_response(&self.global()))
     }
 

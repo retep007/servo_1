@@ -38,7 +38,7 @@ pub enum ExceptionHandling {
 /// callback interface types.
 #[derive(JSTraceable)]
 #[must_root]
-pub struct CallbackObject {
+pub struct CallbackObject<TH: TypeHolderTrait> {
     /// The underlying `JSObject`.
     callback: Heap<*mut JSObject>,
     permanent_js_root: Heap<JSVal>,
@@ -57,16 +57,16 @@ pub struct CallbackObject {
     incumbent: Option<Dom<GlobalScope<TH>>>
 }
 
-impl Default for CallbackObject {
+impl<TH> Default for CallbackObject<TH> {
     #[allow(unrooted_must_root)]
-    fn default() -> CallbackObject {
+    fn default() -> CallbackObject<TH> {
         CallbackObject::new()
     }
 }
 
-impl CallbackObject {
+impl<TH> CallbackObject<TH> {
     #[allow(unrooted_must_root)]
-    fn new() -> CallbackObject {
+    fn new() -> CallbackObject<TH> {
         CallbackObject {
             callback: Heap::default(),
             permanent_js_root: Heap::default(),
@@ -98,8 +98,8 @@ impl Drop for CallbackObject {
 
 }
 
-impl PartialEq for CallbackObject {
-    fn eq(&self, other: &CallbackObject) -> bool {
+impl<TH> PartialEq for CallbackObject<TH> {
+    fn eq(&self, other: &CallbackObject<TH>) -> bool {
         self.callback.get() == other.callback.get()
     }
 }
@@ -111,7 +111,7 @@ pub trait CallbackContainer<TH: TypeHolderTrait> {
     /// Create a new CallbackContainer object for the given `JSObject`.
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<Self>;
     /// Returns the underlying `CallbackObject`.
-    fn callback_holder(&self) -> &CallbackObject;
+    fn callback_holder(&self) -> &CallbackObject<TH>;
     /// Returns the underlying `JSObject`.
     fn callback(&self) -> *mut JSObject {
         self.callback_holder().get()
@@ -129,21 +129,21 @@ pub trait CallbackContainer<TH: TypeHolderTrait> {
 /// A common base class for representing IDL callback function types.
 #[derive(JSTraceable, PartialEq)]
 #[must_root]
-pub struct CallbackFunction {
-    object: CallbackObject,
+pub struct CallbackFunction<TH: TypeHolderTrait> {
+    object: CallbackObject<TH>,
 }
 
-impl CallbackFunction {
+impl<TH> CallbackFunction<TH> {
     /// Create a new `CallbackFunction` for this object.
     #[allow(unrooted_must_root)]
-    pub fn new() -> CallbackFunction {
+    pub fn new() -> CallbackFunction<TH> {
         CallbackFunction {
             object: CallbackObject::new(),
         }
     }
 
     /// Returns the underlying `CallbackObject`.
-    pub fn callback_holder(&self) -> &CallbackObject {
+    pub fn callback_holder(&self) -> &CallbackObject<TH> {
         &self.object
     }
 
@@ -161,19 +161,19 @@ impl CallbackFunction {
 #[derive(JSTraceable, PartialEq)]
 #[must_root]
 pub struct CallbackInterface<TH: TypeHolderTrait> {
-    object: CallbackObject,
+    object: CallbackObject<TH>,
 }
 
 impl<TH> CallbackInterface<TH> {
     /// Create a new CallbackInterface object for the given `JSObject`.
-    pub fn new() -> CallbackInterface {
+    pub fn new() -> CallbackInterface<TH> {
         CallbackInterface {
             object: CallbackObject::new(),
         }
     }
 
     /// Returns the underlying `CallbackObject`.
-    pub fn callback_holder(&self) -> &CallbackObject {
+    pub fn callback_holder(&self) -> &CallbackObject<TH> {
         &self.object
     }
 

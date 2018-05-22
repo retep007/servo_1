@@ -70,7 +70,7 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
     // https://w3c.github.io/gamepad/#gamepadevent-interface
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &GamepadEventBinding::GamepadEventInit)
+                       init: &GamepadEventBinding::GamepadEventInit<TH>)
                        -> Fallible<DomRoot<GamepadEvent<TH>>, TH> {
         Ok(GamepadEvent::new(&window.global(),
                              Atom::from(type_),

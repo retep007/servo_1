@@ -383,7 +383,7 @@ pub enum EventStatus {
 
 // https://dom.spec.whatwg.org/#concept-event-fire
 pub struct EventTask<TH: TypeHolderTrait> {
-    pub target: Trusted<EventTarget<TH>>,
+    pub target: Trusted<EventTarget<TH>, TH>,
     pub name: Atom,
     pub bubbles: EventBubbles,
     pub cancelable: EventCancelable,
@@ -400,7 +400,7 @@ impl<TH> TaskOnce for EventTask<TH> {
 
 // https://html.spec.whatwg.org/multipage/#fire-a-simple-event
 pub struct SimpleEventTask<TH: TypeHolderTrait> {
-    pub target: Trusted<EventTarget<TH>>,
+    pub target: Trusted<EventTarget<TH>, TH>,
     pub name: Atom,
 }
 

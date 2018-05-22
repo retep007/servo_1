@@ -113,7 +113,7 @@ impl<TH> FileReader<TH> {
     }
 
     //https://w3c.github.io/FileAPI/#dfn-error-steps
-    pub fn process_read_error(filereader: TrustedFileReader, gen_id: GenerationId, error: DOMErrorName) {
+    pub fn process_read_error(filereader: TrustedFileReader<TH>, gen_id: GenerationId, error: DOMErrorName) {
         let fr = filereader.root();
 
         macro_rules! return_on_abort(
@@ -142,7 +142,7 @@ impl<TH> FileReader<TH> {
     }
 
     // https://w3c.github.io/FileAPI/#dfn-readAsText
-    pub fn process_read_data(filereader: TrustedFileReader, gen_id: GenerationId) {
+    pub fn process_read_data(filereader: TrustedFileReader<TH>, gen_id: GenerationId) {
         let fr = filereader.root();
 
         macro_rules! return_on_abort(
@@ -158,7 +158,7 @@ impl<TH> FileReader<TH> {
     }
 
     // https://w3c.github.io/FileAPI/#dfn-readAsText
-    pub fn process_read(filereader: TrustedFileReader, gen_id: GenerationId) {
+    pub fn process_read(filereader: TrustedFileReader<TH>, gen_id: GenerationId) {
         let fr = filereader.root();
 
         macro_rules! return_on_abort(
@@ -175,7 +175,7 @@ impl<TH> FileReader<TH> {
 
     // https://w3c.github.io/FileAPI/#dfn-readAsText
     #[allow(unsafe_code)]
-    pub fn process_read_eof(filereader: TrustedFileReader, gen_id: GenerationId,
+    pub fn process_read_eof(filereader: TrustedFileReader<TH>, gen_id: GenerationId,
                             data: ReadMetaData, blob_contents: Arc<Vec<u8>>) {
         let fr = filereader.root();
 
@@ -409,11 +409,11 @@ impl<TH> FileReader<TH> {
 }
 
 // https://w3c.github.io/FileAPI/#thread-read-operation
-fn perform_annotated_read_operation(
+fn perform_annotated_read_operation<TH: TypeHolderTrait>(
     gen_id: GenerationId,
     data: ReadMetaData,
     blob_contents: Arc<Vec<u8>>,
-    filereader: TrustedFileReader,
+    filereader: TrustedFileReader<TH>,
     task_source: FileReadingTaskSource,
     canceller: TaskCanceller,
 ) {

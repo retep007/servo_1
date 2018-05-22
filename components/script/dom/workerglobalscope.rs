@@ -262,7 +262,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods for WorkerGlobalScope<TH> {
 
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-settimeout
-    unsafe fn SetTimeout(&self, _cx: *mut JSContext, callback: Rc<Function>,
+    unsafe fn SetTimeout(&self, _cx: *mut JSContext, callback: Rc<Function<TH>>,
                          timeout: i32, args: Vec<HandleValue>) -> i32 {
         self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::FunctionTimerCallback(callback),
@@ -289,7 +289,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods for WorkerGlobalScope<TH> {
 
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-windowtimers-setinterval
-    unsafe fn SetInterval(&self, _cx: *mut JSContext, callback: Rc<Function>,
+    unsafe fn SetInterval(&self, _cx: *mut JSContext, callback: Rc<Function<TH>>,
                           timeout: i32, args: Vec<HandleValue>) -> i32 {
         self.upcast::<GlobalScope<TH>>().set_timeout_or_interval(
             TimerCallback::FunctionTimerCallback(callback),

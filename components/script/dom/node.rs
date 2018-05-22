@@ -887,7 +887,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     pub fn insert_cell_or_row<F, G, I>(&self, index: i32, get_items: F, new_child: G) -> Fallible<DomRoot<HTMLElement<TH>>, TH>
         where F: Fn() -> DomRoot<HTMLCollection<TH>>,
               G: Fn() -> DomRoot<I>,
-              I: DerivedFrom<Node<TH>> + DerivedFrom<HTMLElement<TH>> + DomObject,
+              I: DerivedFrom<Node<TH>, TH> + DerivedFrom<HTMLElement<TH>, TH> + DomObject<TH>,
     {
         if index < -1 {
             return Err(Error::IndexSize);
@@ -1372,7 +1372,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
             document: &Document<TH>,
             wrap_fn: unsafe extern "Rust" fn(*mut JSContext, &GlobalScope<TH>, Box<N>) -> DomRoot<N>)
             -> DomRoot<N>
-        where N: DerivedFrom<Node<TH>> + DomObject
+        where N: DerivedFrom<Node<TH>, TH> + DomObject<TH>
     {
         let window = document.window();
         reflect_dom_object(node, window, wrap_fn)
@@ -2489,11 +2489,11 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
     }
 }
 
-pub fn document_from_node<T: DerivedFrom<TH> + DomObject, TH: TypeHolderTrait>(derived: &T) -> DomRoot<Document<TH>> {
+pub fn document_from_node<T: DerivedFrom<TH, TH> + DomObject, TH: TypeHolderTrait>(derived: &T) -> DomRoot<Document<TH>> {
     derived.upcast().owner_doc()
 }
 
-pub fn window_from_node<TH: TypeHolderTrait, T: DerivedFrom<Node<TH>> + DomObject>(derived: &T) -> DomRoot<Window<TH>> {
+pub fn window_from_node<TH: TypeHolderTrait, T: DerivedFrom<Node<TH>, TH> + DomObject>(derived: &T) -> DomRoot<Window<TH>> {
     let document = document_from_node(derived);
     DomRoot::from_ref(document.window())
 }
@@ -2782,7 +2782,7 @@ pub trait VecPreOrderInsertionHelper<T, TH: TypeHolderTrait> {
 }
 
 impl<T, TH: TypeHolderTrait> VecPreOrderInsertionHelper<T, TH> for Vec<Dom<T>>
-    where T: DerivedFrom<Node<TH>> + DomObject
+    where T: DerivedFrom<Node<TH>, TH> + DomObject<TH>
 {
     /// This algorithm relies on the following assumptions:
     /// * any elements inserted in this vector share the same tree root

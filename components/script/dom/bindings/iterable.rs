@@ -50,7 +50,7 @@ pub trait Iterable {
 
 /// An iterator over the iterable entries of a given DOM interface.
 #[dom_struct]
-pub struct IterableIterator<TH: TypeHolderTrait, T: DomObject<TH> + JSTraceable + Iterable> {
+pub struct IterableIterator<T: DomObject<TH> + JSTraceable + Iterable, TH: TypeHolderTrait> {
     reflector: Reflector<TH>,
     iterable: Dom<T>,
     type_: IteratorType,

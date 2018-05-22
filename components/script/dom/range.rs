@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#concept-range-clone
-    fn contained_children(&self) -> Fallible<(Option<DomRoot<Node<TH>>, TH>,
+    fn contained_children(&self) -> Fallible<(Option<DomRoot<Node<TH>>>,
                                               Option<DomRoot<Node<TH>>>,
                                               Vec<DomRoot<Node<TH>>>), TH> {
         let start_node = self.StartContainer();

@@ -42,22 +42,22 @@ impl<TH> PluginArrayMethods for PluginArray<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-pluginarray-item
-    fn Item(&self, _index: u32) -> Option<DomRoot<Plugin>> {
+    fn Item(&self, _index: u32) -> Option<DomRoot<Plugin<TH>>> {
         None
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-pluginarray-nameditem
-    fn NamedItem(&self, _name: DOMString) -> Option<DomRoot<Plugin>> {
+    fn NamedItem(&self, _name: DOMString) -> Option<DomRoot<Plugin<TH>>> {
         None
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-pluginarray-item
-    fn IndexedGetter(&self, _index: u32) -> Option<DomRoot<Plugin>> {
+    fn IndexedGetter(&self, _index: u32) -> Option<DomRoot<Plugin<TH>>> {
         None
     }
 
     // check-tidy: no specs after this line
-    fn NamedGetter(&self, _name: DOMString) -> Option<DomRoot<Plugin>> {
+    fn NamedGetter(&self, _name: DOMString) -> Option<DomRoot<Plugin<TH>>> {
         None
     }
 

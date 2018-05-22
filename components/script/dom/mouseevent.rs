@@ -94,7 +94,7 @@ impl<TH: TypeHolderTrait> MouseEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &MouseEventBinding::MouseEventInit) -> Fallible<DomRoot<MouseEvent<TH>>, TH> {
+                       init: &MouseEventBinding::MouseEventInit<TH>) -> Fallible<DomRoot<MouseEvent<TH>>, TH> {
         let bubbles = EventBubbles::from(init.parent.parent.parent.bubbles);
         let cancelable = EventCancelable::from(init.parent.parent.parent.cancelable);
         let event = MouseEvent::new(

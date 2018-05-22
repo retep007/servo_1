@@ -1376,7 +1376,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
 #[derive(JSTraceable, MallocSizeOf)]
 pub struct XHRTimeoutCallback<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
-    xhr: Trusted<XMLHttpRequest<TH>>,
+    xhr: Trusted<XMLHttpRequest<TH>, TH>,
     generation_id: GenerationId,
 }
 

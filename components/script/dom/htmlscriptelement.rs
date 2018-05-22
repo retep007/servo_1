@@ -141,7 +141,7 @@ pub type ScriptResult = Result<ClassicScript, NetworkError>;
 /// The context required for asynchronously loading an external script source.
 struct ScriptContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
-    elem: Trusted<HTMLScriptElement<TH>>,
+    elem: Trusted<HTMLScriptElement<TH>, TH>,
     /// The kind of external script.
     kind: ExternalScriptKind,
     /// The (fallback) character encoding argument to the "fetch a classic

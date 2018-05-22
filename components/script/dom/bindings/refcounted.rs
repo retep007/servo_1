@@ -161,7 +161,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> Trusted<T, TH> {
     /// Create a new `Trusted<T>` instance from an existing DOM pointer. The DOM object will
     /// be prevented from being GCed for the duration of the resulting `Trusted<T>` object's
     /// lifetime.
-    pub fn new(ptr: &T) -> Trusted<T> {
+    pub fn new(ptr: &T) -> Trusted<T, TH> {
         LIVE_REFERENCES.with(|ref r| {
             let r = r.borrow();
             let live_references = r.as_ref().unwrap();
@@ -190,7 +190,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> Trusted<T, TH> {
 }
 
 impl<T: DomObject<TH>, TH: TypeHolderTrait> Clone for Trusted<T, TH> {
-    fn clone(&self) -> Trusted<T> {
+    fn clone(&self) -> Trusted<T, TH> {
         Trusted {
             refcount: self.refcount.clone(),
             owner_thread: self.owner_thread,

@@ -133,15 +133,15 @@ pub type DomRoot<T> = Root<Dom<T>>;
 impl<T: Castable<TH>, TH: TypeHolderTrait> DomRoot<T> {
     /// Cast a DOM object root upwards to one of the interfaces it derives from.
     pub fn upcast<U>(root: DomRoot<T>) -> DomRoot<U>
-        where U: Castable,
-              T: DerivedFrom<U>
+        where U: Castable<TH>,
+              T: DerivedFrom<U, TH>
     {
         unsafe { mem::transmute(root) }
     }
 
     /// Cast a DOM object root downwards to one of the interfaces it might implement.
     pub fn downcast<U>(root: DomRoot<T>) -> Option<DomRoot<U>>
-        where U: DerivedFrom<T>
+        where U: DerivedFrom<T, TH>
     {
         if root.is::<U>() {
             Some(unsafe { mem::transmute(root) })
@@ -385,8 +385,8 @@ pub struct LayoutDom<T> {
 impl<T: Castable<TH>, TH: TypeHolderTrait> LayoutDom<T> {
     /// Cast a DOM object root upwards to one of the interfaces it derives from.
     pub fn upcast<U>(&self) -> LayoutDom<U>
-        where U: Castable,
-              T: DerivedFrom<U>
+        where U: Castable<TH>,
+              T: DerivedFrom<U, TH>
     {
         debug_assert!(thread_state::get().is_layout());
         let ptr: *mut T = self.ptr.as_ptr();
@@ -397,7 +397,7 @@ impl<T: Castable<TH>, TH: TypeHolderTrait> LayoutDom<T> {
 
     /// Cast a DOM object downwards to one of the interfaces it might implement.
     pub fn downcast<U>(&self) -> Option<LayoutDom<U>>
-        where U: DerivedFrom<T>
+        where U: DerivedFrom<T, TH>
     {
         debug_assert!(thread_state::get().is_layout());
         unsafe {
@@ -497,7 +497,7 @@ pub struct MutDom<T: DomObject<TH>, TH: TypeHolderTrait> {
 
 impl<T: DomObject<TH>, TH: TypeHolderTrait> MutDom<T, TH> {
     /// Create a new `MutDom`.
-    pub fn new(initial: &T) -> MutDom<T> {
+    pub fn new(initial: &T) -> MutDom<T, TH> {
         debug_assert!(thread_state::get().is_script());
         MutDom {
             val: UnsafeCell::new(Dom::from_ref(initial)),
@@ -676,7 +676,7 @@ where
 
 impl<T: DomObject<TH>, TH: TypeHolderTrait> Default for DomOnceCell<T, TH> {
     #[allow(unrooted_must_root)]
-    fn default() -> DomOnceCell<T> {
+    fn default() -> DomOnceCell<T, TH> {
         debug_assert!(thread_state::get().is_script());
         DomOnceCell {
             ptr: OnceCell::new(),
