@@ -47,14 +47,14 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
             }
         }
 
-        impl #impl_generics ::dom::bindings::reflector::DomObject<TH> for #name #ty_generics #where_clause {
+        impl #impl_generics ::dom::bindings::reflector::DomObject for #name #ty_generics #where_clause {
             #[inline]
-            fn reflector(&self) -> &::dom::bindings::reflector::Reflector<TH> {
+            fn reflector(&self) -> &::dom::bindings::reflector::Reflector {
                 self.#first_field_name.reflector()
             }
         }
 
-        impl #impl_generics ::dom::bindings::reflector::MutDomObject<TH> for #name #ty_generics #where_clause {
+        impl #impl_generics ::dom::bindings::reflector::MutDomObject for #name #ty_generics #where_clause {
             fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
                 self.#first_field_name.init_reflector(obj);
             }
@@ -75,7 +75,7 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
     }));
 
     let mut generics = input.generics.clone();
-    generics.params.push(parse_quote!(__T: ::dom::bindings::reflector::DomObject<TH>));
+    generics.params.push(parse_quote!(__T: ::dom::bindings::reflector::DomObject));
 
     let (impl_generics, _, where_clause) = generics.split_for_impl();
 

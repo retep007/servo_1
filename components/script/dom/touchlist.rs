@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TouchList<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     touches: Vec<Dom<Touch<TH>>>,
 }
 

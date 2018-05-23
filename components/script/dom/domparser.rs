@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct DOMParser<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     window: Dom<Window<TH>>, // XXXjdm Document instead?
 }
 

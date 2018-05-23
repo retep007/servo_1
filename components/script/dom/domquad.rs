@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 // https://drafts.fxtf.org/geometry/#DOMQuad
 #[dom_struct]
 pub struct DOMQuad<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     p1: Dom<DOMPoint<TH>>,
     p2: Dom<DOMPoint<TH>>,
     p3: Dom<DOMPoint<TH>>,

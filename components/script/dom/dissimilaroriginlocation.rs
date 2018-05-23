@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 pub struct DissimilarOriginLocation<TH: TypeHolderTrait> {
     /// The reflector. Once we have XOWs, this will have a cross-origin
     /// wrapper placed around it.
-    reflector: Reflector<TH>,
+    reflector: Reflector,
 
     /// The window associated with this location.
     window: Dom<DissimilarOriginWindow<TH>>,

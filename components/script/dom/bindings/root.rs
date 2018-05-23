@@ -82,17 +82,16 @@ pub unsafe trait StableTraceObject {
     fn stable_trace_object(&self) -> *const JSTraceable;
 }
 
-unsafe impl<T, TH> StableTraceObject for Dom<T>
+unsafe impl<T> StableTraceObject for Dom<T>
 where
-    T: DomObject<TH>,
-    TH: TypeHolderTrait
+    T: DomObject
 {
     fn stable_trace_object<'a>(&'a self) -> *const JSTraceable {
         // The JSTraceable impl for Reflector doesn't actually do anything,
         // so we need this shenanigan to actually trace the reflector of the
         // T pointer in Dom<T>.
         #[allow(unrooted_must_root)]
-        struct ReflectorStackRoot<TH>(Reflector<TH>);
+        struct ReflectorStackRoot<TH>(Reflector);
         unsafe impl<TH> JSTraceable for ReflectorStackRoot<TH> {
             unsafe fn trace(&self, tracer: *mut JSTracer) {
                 trace_reflector(tracer, "on stack", &self.0);
@@ -130,18 +129,18 @@ where
 /// A rooted reference to a DOM object.
 pub type DomRoot<T> = Root<Dom<T>>;
 
-impl<T: Castable<TH>, TH: TypeHolderTrait> DomRoot<T> {
+impl<T: Castable> DomRoot<T> {
     /// Cast a DOM object root upwards to one of the interfaces it derives from.
     pub fn upcast<U>(root: DomRoot<T>) -> DomRoot<U>
-        where U: Castable<TH>,
-              T: DerivedFrom<U, TH>
+        where U: Castable,
+              T: DerivedFrom<U>
     {
         unsafe { mem::transmute(root) }
     }
 
     /// Cast a DOM object root downwards to one of the interfaces it might implement.
     pub fn downcast<U>(root: DomRoot<T>) -> Option<DomRoot<U>>
-        where U: DerivedFrom<T, TH>
+        where U: DerivedFrom<T>
     {
         if root.is::<U>() {
             Some(unsafe { mem::transmute(root) })
@@ -151,47 +150,43 @@ impl<T: Castable<TH>, TH: TypeHolderTrait> DomRoot<T> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> DomRoot<T> {
+impl<T: DomObject> DomRoot<T> {
     /// Generate a new root from a reference
     pub fn from_ref(unrooted: &T) -> DomRoot<T> {
         unsafe { DomRoot::new(Dom::from_ref(unrooted)) }
     }
 }
 
-impl<T, TH> MallocSizeOf for DomRoot<T>
+impl<T> MallocSizeOf for DomRoot<T>
 where
-    T: DomObject<TH> + MallocSizeOf,
-    TH: TypeHolderTrait
+    T: DomObject + MallocSizeOf
 {
     fn size_of(&self, ops: &mut MallocSizeOfOps) -> usize {
         (**self).size_of(ops)
     }
 }
 
-impl<T, TH> PartialEq for DomRoot<T>
+impl<T> PartialEq for DomRoot<T>
 where
-    T: DomObject<TH>,
-    TH: TypeHolderTrait
+    T: DomObject
 {
     fn eq(&self, other: &Self) -> bool {
         self.value == other.value
     }
 }
 
-impl<T, TH> Clone for DomRoot<T>
+impl<T> Clone for DomRoot<T>
 where
-    T: DomObject<TH>,
-    TH: TypeHolderTrait
+    T: DomObject
 {
     fn clone(&self) -> DomRoot<T> {
         DomRoot::from_ref(&*self)
     }
 }
 
-unsafe impl<T, TH> JSTraceable for DomRoot<T>
+unsafe impl<T> JSTraceable for DomRoot<T>
 where
-    T: DomObject<TH>,
-    TH: TypeHolderTrait
+    T: DomObject
 {
     unsafe fn trace(&self, _: *mut JSTracer) {
         // Already traced.
@@ -273,28 +268,28 @@ pub trait RootedReference<'root> {
     fn r(&'root self) -> Self::Ref;
 }
 
-impl<'root, T: DomObject<TH> + 'root, TH: TypeHolderTrait> RootedReference<'root> for DomRoot<T> {
+impl<'root, T: DomObject + 'root> RootedReference<'root> for DomRoot<T> {
     type Ref = &'root T;
     fn r(&'root self) -> &'root T {
         self
     }
 }
 
-impl<'root, T: DomObject<TH> + 'root, TH: TypeHolderTrait> RootedReference<'root> for Dom<T> {
+impl<'root, T: DomObject + 'root> RootedReference<'root> for Dom<T> {
     type Ref = &'root T;
     fn r(&'root self) -> &'root T {
         &self
     }
 }
 
-impl<'root, T: JSTraceable + DomObject<TH> + 'root, TH: TypeHolderTrait> RootedReference<'root> for [Dom<T>] {
+impl<'root, T: JSTraceable + DomObject + 'root> RootedReference<'root> for [Dom<T>] {
     type Ref = &'root [&'root T];
     fn r(&'root self) -> &'root [&'root T] {
         unsafe { mem::transmute(self) }
     }
 }
 
-impl<'root, T: DomObject<TH> + 'root, TH: TypeHolderTrait> RootedReference<'root> for Rc<T> {
+impl<'root, T: DomObject + 'root> RootedReference<'root> for Rc<T> {
     type Ref = &'root T;
     fn r(&'root self) -> &'root T {
         self
@@ -338,7 +333,7 @@ impl<T> Dom<T> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> Dom<T> {
+impl<T: DomObject> Dom<T> {
     /// Create a Dom<T> from a &T
     #[allow(unrooted_must_root)]
     pub fn from_ref(obj: &T) -> Dom<T> {
@@ -349,7 +344,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> Dom<T> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> Deref for Dom<T> {
+impl<T: DomObject> Deref for Dom<T> {
     type Target = T;
 
     fn deref(&self) -> &T {
@@ -360,7 +355,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> Deref for Dom<T> {
     }
 }
 
-unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> JSTraceable for Dom<T> {
+unsafe impl<T: DomObject> JSTraceable for Dom<T> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         #[cfg(all(feature = "unstable", debug_assertions))]
         let trace_str = format!("for {} on heap", ::std::intrinsics::type_name::<T>());
@@ -382,11 +377,11 @@ pub struct LayoutDom<T> {
     ptr: ptr::NonNull<T>,
 }
 
-impl<T: Castable<TH>, TH: TypeHolderTrait> LayoutDom<T> {
+impl<T: Castable> LayoutDom<T> {
     /// Cast a DOM object root upwards to one of the interfaces it derives from.
     pub fn upcast<U>(&self) -> LayoutDom<U>
-        where U: Castable<TH>,
-              T: DerivedFrom<U, TH>
+        where U: Castable,
+              T: DerivedFrom<U>
     {
         debug_assert!(thread_state::get().is_layout());
         let ptr: *mut T = self.ptr.as_ptr();
@@ -397,7 +392,7 @@ impl<T: Castable<TH>, TH: TypeHolderTrait> LayoutDom<T> {
 
     /// Cast a DOM object downwards to one of the interfaces it might implement.
     pub fn downcast<U>(&self) -> Option<LayoutDom<U>>
-        where U: DerivedFrom<T, TH>
+        where U: DerivedFrom<T>
     {
         debug_assert!(thread_state::get().is_layout());
         unsafe {
@@ -413,7 +408,7 @@ impl<T: Castable<TH>, TH: TypeHolderTrait> LayoutDom<T> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> LayoutDom<T> {
+impl<T: DomObject> LayoutDom<T> {
     /// Get the reflector.
     pub unsafe fn get_jsobject(&self) -> *mut JSObject {
         debug_assert!(thread_state::get().is_layout());
@@ -491,11 +486,11 @@ impl<TH: TypeHolderTrait> LayoutDom<Node<TH>> {
 /// on `Dom<T>`.
 #[must_root]
 #[derive(JSTraceable)]
-pub struct MutDom<T: DomObject<TH>, TH: TypeHolderTrait> {
+pub struct MutDom<T: DomObject, TH: TypeHolderTrait> {
     val: UnsafeCell<Dom<T>>,
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> MutDom<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> MutDom<T, TH> {
     /// Create a new `MutDom`.
     pub fn new(initial: &T) -> MutDom<T, TH> {
         debug_assert!(thread_state::get().is_script());
@@ -521,14 +516,14 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> MutDom<T, TH> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> MallocSizeOf for MutDom<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> MallocSizeOf for MutDom<T, TH> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         // See comment on MallocSizeOf for Dom<T>.
         0
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> PartialEq for MutDom<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> PartialEq for MutDom<T, TH> {
    fn eq(&self, other: &Self) -> bool {
         unsafe {
             *self.val.get() == *other.val.get()
@@ -536,7 +531,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> PartialEq for MutDom<T, TH> {
     }
 }
 
-impl<T: DomObject<TH> + PartialEq, TH: TypeHolderTrait> PartialEq<T> for MutDom<T, TH> {
+impl<T: DomObject + PartialEq, TH: TypeHolderTrait> PartialEq<T> for MutDom<T, TH> {
     fn eq(&self, other: &T) -> bool {
         unsafe {
             **self.val.get() == *other
@@ -552,11 +547,11 @@ impl<T: DomObject<TH> + PartialEq, TH: TypeHolderTrait> PartialEq<T> for MutDom<
 /// on `Dom<T>`.
 #[must_root]
 #[derive(JSTraceable)]
-pub struct MutNullableDom<T: DomObject<TH>, TH: TypeHolderTrait> {
+pub struct MutNullableDom<T: DomObject, TH: TypeHolderTrait> {
     ptr: UnsafeCell<Option<Dom<T>>>,
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> MutNullableDom<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> MutNullableDom<T, TH> {
     /// Create a new `MutNullableDom`.
     pub fn new(initial: Option<&T>) -> MutNullableDom<T, TH> {
         debug_assert!(thread_state::get().is_script());
@@ -614,7 +609,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> MutNullableDom<T, TH> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> PartialEq for MutNullableDom<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> PartialEq for MutNullableDom<T, TH> {
     fn eq(&self, other: &Self) -> bool {
         unsafe {
             *self.ptr.get() == *other.ptr.get()
@@ -622,7 +617,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> PartialEq for MutNullableDom<T, TH> 
     }
 }
 
-impl<'a, T: DomObject<TH>, TH: TypeHolderTrait> PartialEq<Option<&'a T>> for MutNullableDom<T, TH> {
+impl<'a, T: DomObject, TH: TypeHolderTrait> PartialEq<Option<&'a T>> for MutNullableDom<T, TH> {
     fn eq(&self, other: &Option<&T>) -> bool {
         unsafe {
             *self.ptr.get() == other.map(Dom::from_ref)
@@ -630,7 +625,7 @@ impl<'a, T: DomObject<TH>, TH: TypeHolderTrait> PartialEq<Option<&'a T>> for Mut
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> Default for MutNullableDom<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> Default for MutNullableDom<T, TH> {
     #[allow(unrooted_must_root)]
     fn default() -> MutNullableDom<T, TH> {
         debug_assert!(thread_state::get().is_script());
@@ -640,7 +635,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> Default for MutNullableDom<T, TH> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> MallocSizeOf for MutNullableDom<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> MallocSizeOf for MutNullableDom<T, TH> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         // See comment on MallocSizeOf for Dom<T>.
         0
@@ -654,13 +649,13 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> MallocSizeOf for MutNullableDom<T, T
 /// This should only be used as a field in other DOM objects; see warning
 /// on `Dom<T>`.
 #[must_root]
-pub struct DomOnceCell<T: DomObject<TH>, TH: TypeHolderTrait> {
+pub struct DomOnceCell<T: DomObject, TH: TypeHolderTrait> {
     ptr: OnceCell<Dom<T>>,
 }
 
 impl<T, TH> DomOnceCell<T, TH>
 where
-    T: DomObject<TH>,
+    T: DomObject,
     TH: TypeHolderTrait
 {
     /// Retrieve a copy of the current inner value. If it is `None`, it is
@@ -674,7 +669,7 @@ where
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> Default for DomOnceCell<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> Default for DomOnceCell<T, TH> {
     #[allow(unrooted_must_root)]
     fn default() -> DomOnceCell<T, TH> {
         debug_assert!(thread_state::get().is_script());
@@ -684,7 +679,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> Default for DomOnceCell<T, TH> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> MallocSizeOf for DomOnceCell<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> MallocSizeOf for DomOnceCell<T, TH> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         // See comment on MallocSizeOf for Dom<T>.
         0
@@ -692,7 +687,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> MallocSizeOf for DomOnceCell<T, TH> 
 }
 
 #[allow(unrooted_must_root)]
-unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> JSTraceable for DomOnceCell<T, TH> {
+unsafe impl<T: DomObject, TH: TypeHolderTrait> JSTraceable for DomOnceCell<T, TH> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         if let Some(ptr) = self.ptr.as_ref() {
             ptr.trace(trc);
@@ -700,7 +695,7 @@ unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> JSTraceable for DomOnceCell<T
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> LayoutDom<T> {
+impl<T: DomObject> LayoutDom<T> {
     /// Returns an unsafe pointer to the interior of this JS object. This is
     /// the only method that be safely accessed from layout. (The fact that
     /// this is unsafe is what necessitates the layout wrappers.)

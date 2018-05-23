@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct VRFieldOfView<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     fov: DomRefCell<WebVRFieldOfView>
 }

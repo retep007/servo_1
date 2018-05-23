@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct VRStageParameters<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     parameters: DomRefCell<WebVRStageParameters>,
     transform: Heap<*mut JSObject>,

@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct OESTextureHalfFloatLinear<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 }
 
 impl<TH> OESTextureHalfFloatLinear<TH> {

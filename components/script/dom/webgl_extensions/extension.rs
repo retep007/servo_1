@@ -11,7 +11,7 @@ use super::WebGLExtensions;
 use typeholder::TypeHolderTrait;
 
 /// Trait implemented by WebGL extensions.
-pub trait WebGLExtension<TH: TypeHolderTrait>: Sized where Self::Extension: DomObject<TH> + JSTraceable {
+pub trait WebGLExtension<TH: TypeHolderTrait>: Sized where Self::Extension: DomObject + JSTraceable {
     type Extension;
 
     /// Creates the DOM object of the WebGL extension.

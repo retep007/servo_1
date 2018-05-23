@@ -332,7 +332,7 @@ pub struct TestDictionary<TH: TypeHolderTrait> {
     pub unsignedShortValue: Option<u16>,
     pub usvstringValue: Option<USVString>,
 }
-impl<TH> RootedTraceableBox<TestDictionary<TH>> {
+impl<TH> TestDictionary<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<TestDictionary<TH>> {
         match TestDictionary::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -998,7 +998,7 @@ pub struct TestDictionaryDefaults {
     pub unsignedShortValue: u16,
     pub usvstringValue: USVString,
 }
-impl RootedTraceableBox<TestDictionaryDefaults> {
+impl TestDictionaryDefaults {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<TestDictionaryDefaults> {
         match TestDictionaryDefaults::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -1815,7 +1815,7 @@ impl<TH: TypeHolderTrait> SimpleCallback<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject<TH>, TH: TypeHolderTrait>(&self, thisObj: &T, value: HandleValue, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call_<T: DomObject, TH: TypeHolderTrait>(&self, thisObj: &T, value: HandleValue, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());

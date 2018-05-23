@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TestWorklet<TH: TypeHolderTrait> {
-    reflector: Reflector<TH>,
+    reflector: Reflector,
     worklet: Dom<Worklet<TH>>,
 }
 

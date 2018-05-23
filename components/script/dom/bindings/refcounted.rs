@@ -45,8 +45,8 @@ use typeholder::TypeHolderTrait;
 mod dummy {  // Attributes don’t apply through the macro.
     use std::cell::RefCell;
     use std::rc::Rc;
-    use super::LiveDOMReferences;
-    thread_local!(pub static LIVE_REFERENCES: Rc<RefCell<Option<LiveDOMReferences<TH>>>> =
+    use super::LiveDOMReferencesTrait;
+    thread_local!(pub static LIVE_REFERENCES: Rc<RefCell<Option<Box<LiveDOMReferencesTrait>>>> =
             Rc::new(RefCell::new(None)));
 }
 pub use self::dummy::LIVE_REFERENCES;
@@ -57,7 +57,7 @@ pub struct TrustedReference(*const libc::c_void);
 unsafe impl Send for TrustedReference {}
 
 impl TrustedReference {
-    fn new<T: DomObject<TH>, TH: TypeHolderTrait>(ptr: *const T) -> TrustedReference {
+    fn new<T: DomObject, TH: TypeHolderTrait>(ptr: *const T) -> TrustedReference {
         TrustedReference(ptr as *const libc::c_void)
     }
 }
@@ -147,7 +147,7 @@ impl<TH> TrustedPromise<TH> {
 /// DOM object is guaranteed to live at least as long as the last outstanding
 /// `Trusted<T>` instance.
 #[allow_unrooted_interior]
-pub struct Trusted<T: DomObject<TH>, TH: TypeHolderTrait> {
+pub struct Trusted<T: DomObject, TH: TypeHolderTrait> {
     /// A pointer to the Rust DOM object of type T, but void to allow
     /// sending `Trusted<T>` between threads, regardless of T's sendability.
     refcount: Arc<TrustedReference>,
@@ -155,9 +155,9 @@ pub struct Trusted<T: DomObject<TH>, TH: TypeHolderTrait> {
     phantom: PhantomData<T>,
 }
 
-unsafe impl<T: DomObject<TH>, TH: TypeHolderTrait> Send for Trusted<T, TH> {}
+unsafe impl<T: DomObject, TH: TypeHolderTrait> Send for Trusted<T, TH> {}
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> Trusted<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> Trusted<T, TH> {
     /// Create a new `Trusted<T>` instance from an existing DOM pointer. The DOM object will
     /// be prevented from being GCed for the duration of the resulting `Trusted<T>` object's
     /// lifetime.
@@ -189,7 +189,7 @@ impl<T: DomObject<TH>, TH: TypeHolderTrait> Trusted<T, TH> {
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> Clone for Trusted<T, TH> {
+impl<T: DomObject, TH: TypeHolderTrait> Clone for Trusted<T, TH> {
     fn clone(&self) -> Trusted<T, TH> {
         Trusted {
             refcount: self.refcount.clone(),
@@ -206,6 +206,10 @@ pub struct LiveDOMReferences<TH: TypeHolderTrait> {
     // keyed on pointer to Rust DOM object
     reflectable_table: RefCell<HashMap<*const libc::c_void, Weak<TrustedReference>>>,
     promise_table: RefCell<HashMap<*const Promise<TH>, Vec<Rc<Promise<TH>>>>>,
+}
+
+pub trait LiveDOMReferencesTrait {
+
 }
 
 impl<TH> LiveDOMReferences<TH> {
@@ -225,7 +229,7 @@ impl<TH> LiveDOMReferences<TH> {
         table.entry(&*promise).or_insert(vec![]).push(promise)
     }
 
-    fn addref<T: DomObject<TH>, TH: TypeHolderTrait>(&self, ptr: *const T) -> Arc<TrustedReference> {
+    fn addref<T: DomObject, TH: TypeHolderTrait>(&self, ptr: *const T) -> Arc<TrustedReference> {
         let mut table = self.reflectable_table.borrow_mut();
         let capacity = table.capacity();
         let len = table.len();

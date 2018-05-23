@@ -46,7 +46,7 @@ use typeholder::TypeHolderTrait;
 /// <https://html.spec.whatwg.org/multipage/#customelementregistry>
 #[dom_struct]
 pub struct CustomElementRegistry<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 
     window: Dom<Window<TH>>,
 

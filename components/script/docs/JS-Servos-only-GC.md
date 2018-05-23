@@ -183,7 +183,7 @@ pub fn trace_reflector(tracer: *mut JSTracer, description: &str, reflector: &Ref
     }
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> JSTraceable for Dom<T> {
+impl<T: DomObject, TH: TypeHolderTrait> JSTraceable for Dom<T> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         trace_reflector(trc, "", unsafe { (**self.ptr).reflector() });
     }

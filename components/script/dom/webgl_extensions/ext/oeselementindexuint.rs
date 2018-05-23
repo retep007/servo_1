@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct OESElementIndexUint<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 }
 
 impl<TH> OESElementIndexUint<TH> {

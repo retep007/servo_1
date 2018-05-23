@@ -257,7 +257,7 @@ pub struct BluetoothDataFilterInit {
     pub dataPrefix: Option<UnionTypes::ArrayBufferViewOrArrayBuffer>,
     pub mask: Option<UnionTypes::ArrayBufferViewOrArrayBuffer>,
 }
-impl RootedTraceableBox<BluetoothDataFilterInit> {
+impl BluetoothDataFilterInit {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<BluetoothDataFilterInit> {
         match BluetoothDataFilterInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,

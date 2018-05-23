@@ -89,7 +89,7 @@ impl BluetoothExtraPermissionData {
     }
 }
 
-struct BluetoothContext<T: AsyncBluetoothListener<TH> + DomObject<TH>, TH: TypeHolderTrait> {
+struct BluetoothContext<T: AsyncBluetoothListener<TH> + DomObject, TH: TypeHolderTrait> {
     promise: Option<TrustedPromise<TH>>,
     receiver: Trusted<T, TH>,
 }
@@ -100,7 +100,7 @@ pub trait AsyncBluetoothListener<TH: TypeHolderTrait> {
 
 impl<T, TH> BluetoothContext<T, TH>
 where
-    T: AsyncBluetoothListener<TH> + DomObject<TH>,
+    T: AsyncBluetoothListener<TH> + DomObject,
     TH: TypeHolderTrait
 {
     #[allow(unrooted_must_root)]
@@ -217,7 +217,7 @@ impl<TH> Bluetooth<TH> {
     }
 }
 
-pub fn response_async<T: AsyncBluetoothListener<TH> + DomObject<TH> + 'static, TH: TypeHolderTrait>(
+pub fn response_async<T: AsyncBluetoothListener<TH> + DomObject + 'static, TH: TypeHolderTrait>(
         promise: &Rc<Promise<TH>>,
         receiver: &T) -> IpcSender<BluetoothResponseResult> {
     let (action_sender, action_receiver) = ipc::channel().unwrap();
@@ -227,14 +227,14 @@ pub fn response_async<T: AsyncBluetoothListener<TH> + DomObject<TH> + 'static, T
         receiver: Trusted::new(receiver),
     }));
     ROUTER.add_route(action_receiver.to_opaque(), Box::new(move |message| {
-        struct ListenerTask<T: AsyncBluetoothListener<TH> + DomObject<TH>, TH: TypeHolderTrait> {
+        struct ListenerTask<T: AsyncBluetoothListener<TH> + DomObject, TH: TypeHolderTrait> {
             context: Arc<Mutex<BluetoothContext<T, TH>>>,
             action: BluetoothResponseResult,
         }
 
         impl<T, TH> TaskOnce for ListenerTask<T, TH>
         where
-            T: AsyncBluetoothListener<TH> + DomObject<TH>,
+            T: AsyncBluetoothListener<TH> + DomObject,
             TH: TypeHolderTrait
         {
             fn run_once(self) {
@@ -267,7 +267,7 @@ pub fn get_gatt_children<T, F, TH: TypeHolderTrait> (
         connected: bool,
         child_type: GATTType)
         -> Rc<Promise<TH>>
-        where T: AsyncBluetoothListener<TH> + DomObject<TH> + 'static,
+        where T: AsyncBluetoothListener<TH> + DomObject + 'static,
               F: FnOnce(StringOrUnsignedLong) -> Fallible<UUID, TH> {
     let p = Promise::new(&attribute.global());
 

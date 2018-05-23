@@ -14,7 +14,7 @@ use std::cell::RefCell;
 use std::thread;
 use typeholder::TypeHolderTrait;
 
-thread_local!(static STACK: RefCell<Vec<StackEntry<TH>>> = RefCell::new(Vec::new()));
+thread_local!(static STACK: RefCell<Vec<Box<StackEntryTrait>>> = RefCell::new(Vec::new()));
 
 #[derive(Debug, Eq, JSTraceable, PartialEq)]
 enum StackEntryKind {
@@ -28,6 +28,8 @@ struct StackEntry<TH: TypeHolderTrait> {
     global: Dom<GlobalScope<TH>>,
     kind: StackEntryKind,
 }
+
+trait StackEntryTrait {}
 
 /// Traces the script settings stack.
 pub unsafe fn trace(tracer: *mut JSTracer) {

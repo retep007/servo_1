@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Touch<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     identifier: i32,
     target: MutDom<EventTarget<TH>, TH>,
     screen_x: f64,

@@ -205,7 +205,7 @@ impl<TH> CallbackInterface<TH> {
 
 
 /// Wraps the reflector for `p` into the compartment of `cx`.
-pub fn wrap_call_this_object<T: DomObject<TH>, TH: TypeHolderTrait>(cx: *mut JSContext,
+pub fn wrap_call_this_object<T: DomObject, TH: TypeHolderTrait>(cx: *mut JSContext,
                                            p: &T,
                                            mut rval: MutableHandleObject) {
     rval.set(p.reflector().get_jsobject().get());

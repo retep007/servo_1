@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct GamepadButton<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     pressed: Cell<bool>,
     touched: Cell<bool>,
     value: Cell<f64>,

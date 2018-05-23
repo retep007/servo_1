@@ -173,7 +173,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
     /// Returns the global scope of the realm that the given DOM object's reflector
     /// was created in.
     #[allow(unsafe_code)]
-    pub fn from_reflector<T: DomObject<TH>, TH: TypeHolderTrait>(reflector: &T) -> DomRoot<Self> {
+    pub fn from_reflector<T: DomObject, TH: TypeHolderTrait>(reflector: &T) -> DomRoot<Self> {
         unsafe { GlobalScope::from_object(*reflector.reflector().get_jsobject()) }
     }
 

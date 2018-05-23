@@ -62,7 +62,8 @@ mod async_html;
 mod html;
 mod xml;
 
-pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TH> + MutDomObject<TH> + MallocSizeOf + JSTraceable {
+pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TypeHolder=TH> + MutDomObject + MallocSizeOf + JSTraceable {
+
     fn parser_is_not_active(&self) -> bool;
 
     fn script_nesting_level(&self) -> usize;
@@ -230,7 +231,7 @@ impl<TH> Tokenizer<TH> {
 #[derive(JSTraceable)]
 pub struct ParserContext<TH: TypeHolderTrait> {
     /// The parser that initiated the request.
-    parser: Option<Trusted<Box<ServoParser<TH>>, TH>>,
+    parser: Option<Trusted<Box<ServoParser<TH, TypeHolder=TH>>, TH>>,
     /// Is this a synthesized document
     is_synthesized_document: bool,
     /// The pipeline associated with this document.

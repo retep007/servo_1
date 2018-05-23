@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct StyleSheet<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     type_: DOMString,
     href: Option<DOMString>,
     title: Option<DOMString>,

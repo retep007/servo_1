@@ -11,7 +11,7 @@ use super::{constants as webgl, WebGLExtension, WebGLExtensions, WebGLExtensionS
 use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct OESTextureFloatLinear<TH> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 }
 
 impl<TH> OESTextureFloatLinear<TH> {

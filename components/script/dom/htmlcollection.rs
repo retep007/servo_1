@@ -53,7 +53,7 @@ impl OptionU32 {
 
 #[dom_struct]
 pub struct HTMLCollection<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     root: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Contains a trait object; can't measure due to #6870"]
     filter: Box<CollectionFilter<TH> + 'static>,

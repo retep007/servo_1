@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct MutationObserver<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<MutationCallback<TH>>,
     record_queue: DomRefCell<Vec<DomRoot<MutationRecord<TH>>>>,

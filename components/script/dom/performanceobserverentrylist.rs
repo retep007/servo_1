@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct PerformanceObserverEntryList<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     entries: DomRefCell<PerformanceEntryList<TH>>,
 }
 

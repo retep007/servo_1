@@ -27,7 +27,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct DOMMatrixReadOnly<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     matrix: DomRefCell<Transform3D<f64>>,
     is2D: Cell<bool>,
 }

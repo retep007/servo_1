@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct MediaList<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     media_queries: Arc<Locked<StyleMediaList>>,

@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct OESStandardDerivatives<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 }
 
 impl<TH> OESStandardDerivatives<TH> {

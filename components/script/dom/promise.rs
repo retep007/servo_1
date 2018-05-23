@@ -36,7 +36,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Promise<TH: TypeHolderTrait> {
-    reflector: Reflector<TH>,
+    reflector: Reflector,
     /// Since Promise values are natively reference counted without the knowledge of
     /// the SpiderMonkey GC, an explicit root for the reflector is stored while any
     /// native instance exists. This ensures that the reflector will never be GCed

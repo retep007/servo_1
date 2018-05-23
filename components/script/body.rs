@@ -50,7 +50,7 @@ pub enum FetchedData<TH: TypeHolderTrait> {
 
 // https://fetch.spec.whatwg.org/#concept-body-consume-body
 #[allow(unrooted_must_root)]
-pub fn consume_body<T: BodyOperations<TH> + DomObject<TH>, TH: TypeHolderTrait>(object: &T, body_type: BodyType) -> Rc<Promise<TH>> {
+pub fn consume_body<T: BodyOperations<TH> + DomObject, TH: TypeHolderTrait>(object: &T, body_type: BodyType) -> Rc<Promise<TH>> {
     let promise = Promise::new(&object.global());
 
     // Step 1
@@ -73,7 +73,7 @@ pub fn consume_body<T: BodyOperations<TH> + DomObject<TH>, TH: TypeHolderTrait>(
 
 // https://fetch.spec.whatwg.org/#concept-body-consume-body
 #[allow(unrooted_must_root)]
-pub fn consume_body_with_promise<T: BodyOperations<TH> + DomObject<TH>, TH: TypeHolderTrait>(object: &T,
+pub fn consume_body_with_promise<T: BodyOperations<TH> + DomObject, TH: TypeHolderTrait>(object: &T,
                                                                 body_type: BodyType,
                                                                 promise: &Promise<TH>) {
     // Step 5
@@ -104,7 +104,7 @@ pub fn consume_body_with_promise<T: BodyOperations<TH> + DomObject<TH>, TH: Type
 
 // https://fetch.spec.whatwg.org/#concept-body-package-data
 #[allow(unsafe_code)]
-fn run_package_data_algorithm<T: BodyOperations<TH> + DomObject<TH>, TH: TypeHolderTrait>(object: &T,
+fn run_package_data_algorithm<T: BodyOperations<TH> + DomObject, TH: TypeHolderTrait>(object: &T,
                                                              bytes: Vec<u8>,
                                                              body_type: BodyType,
                                                              mime_type: Ref<Vec<u8>>)

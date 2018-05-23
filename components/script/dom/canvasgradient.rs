@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#canvasgradient
 #[dom_struct]
 pub struct CanvasGradient<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     style: CanvasGradientStyle,
     stops: DomRefCell<Vec<CanvasGradientStop>>,
 }

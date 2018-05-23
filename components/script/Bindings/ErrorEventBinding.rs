@@ -261,7 +261,7 @@ pub struct ErrorEventInit {
     pub lineno: Option<u32>,
     pub message: Option<DOMString>,
 }
-impl RootedTraceableBox<ErrorEventInit> {
+impl ErrorEventInit {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<ErrorEventInit> {
         match ErrorEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,

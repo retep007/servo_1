@@ -12,7 +12,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct MimeType<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 }
 
 impl<TH> MimeTypeMethods<TH> for MimeType<TH> {

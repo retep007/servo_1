@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Storage<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     storage_type: StorageType
 }
 

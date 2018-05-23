@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct DOMTokenList<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     element: Dom<Element<TH>>,
     local_name: LocalName,
 }

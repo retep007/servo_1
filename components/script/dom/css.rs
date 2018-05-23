@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSS<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 }
 
 impl<TH: TypeHolderTrait> CSS<TH> {

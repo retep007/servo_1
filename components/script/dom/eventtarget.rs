@@ -150,7 +150,7 @@ pub enum CompiledEventListener<TH: TypeHolderTrait> {
 impl<TH> CompiledEventListener<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#the-event-handler-processing-algorithm
-    pub fn call_or_handle_event<T: DomObject<TH>, TH: TypeHolderTrait>(&self,
+    pub fn call_or_handle_event<T: DomObject, TH: TypeHolderTrait>(&self,
                                               object: &T,
                                               event: &Event<TH>,
                                               exception_handle: ExceptionHandling) {
@@ -283,7 +283,7 @@ impl<TH> EventListeners<TH> {
 
 #[dom_struct]
 pub struct EventTarget<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     handlers: DomRefCell<HashMap<Atom, EventListeners<TH>, BuildHasherDefault<FnvHasher>>>,
 }
 

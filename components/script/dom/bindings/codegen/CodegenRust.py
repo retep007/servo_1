@@ -6876,7 +6876,7 @@ class CGCallback(CGClass):
             })
         return [ClassMethod(method.name + '_', method.returnType, args,
                             bodyInHeader=True,
-                            templateArgs=["T: DomObject<TH>", "TH: TypeHolderTrait"],
+                            templateArgs=["T: DomObject", "TH: TypeHolderTrait"],
                             body=bodyWithThis,
                             visibility='pub'),
                 ClassMethod(method.name + '__', method.returnType, argsWithoutThis,
@@ -7490,7 +7490,7 @@ class GlobalGenRoots():
 
             # Implement `DerivedFrom<Bar>` for `Foo`, for all `Bar` that `Foo` inherits from.
             if chain:
-                allprotos.append(CGGeneric("impl%s Castable<TH> for %s {}\n" % ("<TH>" if descriptor.isGeneric else "", descriptor.concreteType)))
+                allprotos.append(CGGeneric("impl%s Castable for %s {}\n" % ("<TH>" if descriptor.isGeneric else "", descriptor.concreteType)))
             for baseName in chain:
                 allprotos.append(CGGeneric("impl%s DerivedFrom<%s, TH> for %s {}\n" % ("<TH>" if descriptor.isGeneric else "", baseName, descriptor.concreteType)))
             if chain:

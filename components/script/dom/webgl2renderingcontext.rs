@@ -42,7 +42,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct WebGL2RenderingContext<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     base: Dom<WebGLRenderingContext<TH>>,
 }
 

@@ -28,7 +28,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct VR<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     displays: DomRefCell<Vec<Dom<VRDisplay<TH>>>>,
     gamepads: DomRefCell<Vec<Dom<Gamepad<TH>>>>
 }

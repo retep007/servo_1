@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TextDecoder<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     encoding: &'static Encoding,
     fatal: bool,
     ignoreBOM: bool,

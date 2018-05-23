@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 // https://w3c.github.io/FileAPI/#dfn-filelist
 #[dom_struct]
 pub struct FileList<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     list: Vec<Dom<File<TH>>>
 }
 

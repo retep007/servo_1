@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct PerformanceEntry<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     name: DOMString,
     entry_type: DOMString,
     start_time: f64,

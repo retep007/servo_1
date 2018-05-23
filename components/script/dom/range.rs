@@ -35,7 +35,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Range<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     start: BoundaryPoint<TH>,
     end: BoundaryPoint<TH>,
 }

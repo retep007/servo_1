@@ -12,7 +12,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Plugin<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 }
 
 impl<TH> PluginMethods<TH> for Plugin<TH> {

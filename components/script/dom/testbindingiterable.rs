@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TestBindingIterable<TH: TypeHolderTrait> {
-    reflector: Reflector<TH>,
+    reflector: Reflector,
     vals: DomRefCell<Vec<DOMString>>,
 }
 

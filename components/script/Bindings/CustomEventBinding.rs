@@ -257,7 +257,7 @@ pub struct CustomEventInit {
     pub parent: dom::bindings::codegen::Bindings::EventBinding::EventInit,
     pub detail: RootedTraceableBox<Heap<JSVal>>,
 }
-impl RootedTraceableBox<CustomEventInit> {
+impl CustomEventInit {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<CustomEventInit> {
         match CustomEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,

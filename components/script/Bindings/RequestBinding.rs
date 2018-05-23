@@ -541,7 +541,7 @@ pub struct RequestInit<TH: TypeHolderTrait> {
     pub referrerPolicy: Option<ReferrerPolicy>,
     pub window: RootedTraceableBox<Heap<JSVal>>,
 }
-impl<TH> RootedTraceableBox<RequestInit<TH>> {
+impl<TH> RequestInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<RequestInit<TH>> {
         match RequestInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,

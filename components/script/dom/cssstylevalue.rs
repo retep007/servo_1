@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct CSSStyleValue<TH: TypeHolderTrait> {
-    reflector: Reflector<TH>,
+    reflector: Reflector,
     value: String,
 }
 

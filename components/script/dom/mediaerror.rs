@@ -12,7 +12,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct MediaError<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     code: u16,
 }
 

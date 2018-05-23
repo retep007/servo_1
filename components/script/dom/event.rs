@@ -29,7 +29,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Event<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     current_target: MutNullableDom<EventTarget<TH>, TH>,
     target: MutNullableDom<EventTarget<TH>, TH>,
     type_: DomRefCell<Atom>,

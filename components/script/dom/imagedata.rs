@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct ImageData<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     width: u32,
     height: u32,
     data: Heap<*mut JSObject>,

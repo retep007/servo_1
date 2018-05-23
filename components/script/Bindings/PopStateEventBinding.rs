@@ -257,7 +257,7 @@ pub struct PopStateEventInit {
     pub parent: dom::bindings::codegen::Bindings::EventBinding::EventInit,
     pub state: RootedTraceableBox<Heap<JSVal>>,
 }
-impl RootedTraceableBox<PopStateEventInit> {
+impl PopStateEventInit {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<PopStateEventInit> {
         match PopStateEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,

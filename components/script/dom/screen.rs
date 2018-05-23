@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Screen<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     window: Dom<Window<TH>>,
 }
 

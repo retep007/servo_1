@@ -54,7 +54,7 @@ enum Operation {
 // https://w3c.github.io/permissions/#permissions
 #[dom_struct]
 pub struct Permissions<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 }
 
 impl<TH> Permissions<TH> {

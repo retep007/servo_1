@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct VRFrameData<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     left_proj: Heap<*mut JSObject>,
     left_view: Heap<*mut JSObject>,
     right_proj: Heap<*mut JSObject>,

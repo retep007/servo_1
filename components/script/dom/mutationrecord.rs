@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct MutationRecord<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     record_type: DOMString,
     target: Dom<Node<TH>>,
     attribute_name: Option<DOMString>,

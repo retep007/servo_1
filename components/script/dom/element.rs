@@ -1570,7 +1570,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
 
     // https://html.spec.whatwg.org/multipage/#home-subtree
     pub fn is_in_same_home_subtree<T>(&self, other: &T) -> bool
-        where T: DerivedFrom<Element<TH>, TH> + DomObject<TH>
+        where T: DerivedFrom<Element<TH>> + DomObject
     {
         let other = other.upcast::<Element<TH>>();
         self.root_element() == other.root_element()

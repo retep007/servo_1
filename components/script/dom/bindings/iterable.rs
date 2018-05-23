@@ -50,14 +50,14 @@ pub trait Iterable {
 
 /// An iterator over the iterable entries of a given DOM interface.
 #[dom_struct]
-pub struct IterableIterator<T: DomObject<TH> + JSTraceable + Iterable, TH: TypeHolderTrait> {
-    reflector: Reflector<TH>,
+pub struct IterableIterator<T: DomObject + JSTraceable + Iterable, TH: TypeHolderTrait> {
+    reflector: Reflector,
     iterable: Dom<T>,
     type_: IteratorType,
     index: Cell<u32>,
 }
 
-impl<T: DomObject<TH> + JSTraceable + Iterable, TH: TypeHolderTrait> IterableIterator<T, TH> {
+impl<T: DomObject + JSTraceable + Iterable, TH: TypeHolderTrait> IterableIterator<T, TH> {
     /// Create a new iterator instance for the provided iterable DOM interface.
     pub fn new(iterable: &T,
                type_: IteratorType,

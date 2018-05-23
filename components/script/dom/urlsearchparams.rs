@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 // https://url.spec.whatwg.org/#interface-urlsearchparams
 #[dom_struct]
 pub struct URLSearchParams<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     // https://url.spec.whatwg.org/#concept-urlsearchparams-list
     list: DomRefCell<Vec<(String, String)>>,
     // https://url.spec.whatwg.org/#concept-urlsearchparams-url-object

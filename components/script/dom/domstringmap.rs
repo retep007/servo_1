@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct DOMStringMap<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     element: Dom<HTMLElement<TH>>,
 }
 

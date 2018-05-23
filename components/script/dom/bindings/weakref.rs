@@ -48,7 +48,7 @@ pub struct WeakBox<T: WeakReferenceable<TH>, TH: TypeHolderTrait> {
 }
 
 /// Trait implemented by weak-referenceable interfaces.
-pub trait WeakReferenceable<TH: TypeHolderTrait>: DomObject<TH> + Sized {
+pub trait WeakReferenceable<TH: TypeHolderTrait>: DomObject + Sized {
     /// Downgrade a DOM object reference to a weak one.
     fn downgrade(&self) -> WeakRef<Self, TH> {
         unsafe {

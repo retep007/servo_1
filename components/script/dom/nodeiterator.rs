@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct NodeIterator<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     root_node: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     reference_node: MutDom<Node<TH>, TH>,

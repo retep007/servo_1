@@ -257,7 +257,7 @@ pub struct IterableKeyOrValueResult {
     pub done: bool,
     pub value: RootedTraceableBox<Heap<JSVal>>,
 }
-impl RootedTraceableBox<IterableKeyOrValueResult> {
+impl IterableKeyOrValueResult {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<IterableKeyOrValueResult> {
         match IterableKeyOrValueResult::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -338,7 +338,7 @@ pub struct IterableKeyAndValueResult {
     pub done: bool,
     pub value: Option<Vec<RootedTraceableBox<Heap<JSVal>>>>,
 }
-impl RootedTraceableBox<IterableKeyAndValueResult> {
+impl IterableKeyAndValueResult {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<IterableKeyAndValueResult> {
         match IterableKeyAndValueResult::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,

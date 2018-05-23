@@ -259,7 +259,7 @@ pub struct ExtendableMessageEventInit {
     pub lastEventId: Option<DOMString>,
     pub origin: Option<DOMString>,
 }
-impl RootedTraceableBox<ExtendableMessageEventInit> {
+impl ExtendableMessageEventInit {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<ExtendableMessageEventInit> {
         match ExtendableMessageEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,

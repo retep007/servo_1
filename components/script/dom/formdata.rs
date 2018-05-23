@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct FormData<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     data: DomRefCell<HashMap<LocalName, Vec<FormDatum<TH>>>>,
 }
 

@@ -71,7 +71,7 @@ pub trait IDLInterface {
 /// A trait to mark an IDL interface as deriving from another one.
 #[cfg_attr(feature = "unstable",
            rustc_on_unimplemented = "The IDL interface `{Self}` is not derived from `{T}`.")]
-pub trait DerivedFrom<T: Castable<TH>, TH: TypeHolderTrait>: Castable<TH> {}
+pub trait DerivedFrom<T: Castable>: Castable {}
 
 impl<T: Float + ToJSValConvertible> ToJSValConvertible for Finite<T> {
     #[inline]
@@ -106,7 +106,7 @@ impl<T: Float + FromJSValConvertible<Config=()>> FromJSValConvertible for Finite
     }
 }
 
-impl <T: DomObject<TH> + IDLInterface, TH: TypeHolderTrait> FromJSValConvertible for DomRoot<T> {
+impl <T: DomObject + IDLInterface> FromJSValConvertible for DomRoot<T> {
     type Config = ();
 
     unsafe fn from_jsval(_cx: *mut JSContext,
@@ -322,7 +322,7 @@ impl FromJSValConvertible for ByteString {
 }
 
 
-impl<TH> ToJSValConvertible for Reflector<TH> {
+impl ToJSValConvertible for Reflector {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         let obj = self.get_jsobject().get();
         assert!(!obj.is_null());
@@ -422,7 +422,7 @@ pub unsafe fn private_from_proto_check<F>(mut obj: *mut JSObject,
 
 /// Get a `*const T` for a DOM object accessible from a `JSObject`.
 pub fn native_from_object<T, TH>(obj: *mut JSObject) -> Result<*const T, ()>
-    where T: DomObject<TH> + IDLInterface,
+    where T: DomObject + IDLInterface,
           TH: TypeHolderTrait
 {
     unsafe {
@@ -437,7 +437,7 @@ pub fn native_from_object<T, TH>(obj: *mut JSObject) -> Result<*const T, ()>
 /// not a reflector for a DOM object of the given type (as defined by the
 /// proto_id and proto_depth).
 pub fn root_from_object<T, TH>(obj: *mut JSObject) -> Result<DomRoot<T>, ()>
-    where T: DomObject<TH> + IDLInterface,
+    where T: DomObject + IDLInterface,
           TH: TypeHolderTrait
 {
     native_from_object(obj).map(|ptr| unsafe { DomRoot::from_ref(&*ptr) })
@@ -446,7 +446,7 @@ pub fn root_from_object<T, TH>(obj: *mut JSObject) -> Result<DomRoot<T>, ()>
 /// Get a `*const T` for a DOM object accessible from a `HandleValue`.
 /// Caller is responsible for throwing a JS exception if needed in case of error.
 pub fn native_from_handlevalue<T, TH>(v: HandleValue) -> Result<*const T, ()>
-    where T: DomObject<TH> + IDLInterface,
+    where T: DomObject + IDLInterface,
           TH: TypeHolderTrait
 {
     if !v.get().is_object() {
@@ -458,7 +458,7 @@ pub fn native_from_handlevalue<T, TH>(v: HandleValue) -> Result<*const T, ()>
 /// Get a `DomRoot<T>` for a DOM object accessible from a `HandleValue`.
 /// Caller is responsible for throwing a JS exception if needed in case of error.
 pub fn root_from_handlevalue<T, TH>(v: HandleValue) -> Result<DomRoot<T>, ()>
-    where T: DomObject<TH> + IDLInterface,
+    where T: DomObject + IDLInterface,
           TH: TypeHolderTrait
 {
     if !v.get().is_object() {
@@ -469,13 +469,13 @@ pub fn root_from_handlevalue<T, TH>(v: HandleValue) -> Result<DomRoot<T>, ()>
 
 /// Get a `DomRoot<T>` for a DOM object accessible from a `HandleObject`.
 pub fn root_from_handleobject<T, TH>(obj: HandleObject) -> Result<DomRoot<T>, ()>
-    where T: DomObject<TH> + IDLInterface,
+    where T: DomObject + IDLInterface,
           TH: TypeHolderTrait
 {
     root_from_object(obj.get())
 }
 
-impl<T: DomObject<TH>, TH: TypeHolderTrait> ToJSValConvertible for DomRoot<T> {
+impl<T: DomObject> ToJSValConvertible for DomRoot<T> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.reflector().to_jsval(cx, rval);
     }

@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 // http://dev.w3.org/fxtf/geometry/Overview.html#dompointreadonly
 #[dom_struct]
 pub struct DOMPointReadOnly<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     x: Cell<f64>,
     y: Cell<f64>,
     z: Cell<f64>,

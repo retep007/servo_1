@@ -130,7 +130,7 @@ use typeholder::TypeHolderTrait;
 
 pub type ImageCacheMsg = (PipelineId, PendingImageResponse);
 
-thread_local!(static SCRIPT_THREAD_ROOT: Cell<Option<*const ScriptThread>> = Cell::new(None));
+thread_local!(static SCRIPT_THREAD_ROOT: Cell<Option<Box<ScriptThreadTrait>>> = Cell::new(None));
 
 pub unsafe fn trace_thread(tr: *mut JSTracer) {
     SCRIPT_THREAD_ROOT.with(|root| {
@@ -509,6 +509,10 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     webrender_document: DocumentId,
 }
 
+pub trait ScriptThreadTrait {
+
+}
+
 /// In the event of thread panic, all data on the stack runs its destructor. However, there
 /// are no reachable, owning pointers to the DOM memory, so it never gets freed by default
 /// when the script thread fails. The ScriptMemoryFailsafe uses the destructor bomb pattern
@@ -650,7 +654,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     }
 
     pub fn page_headers_available(id: &PipelineId, metadata: Option<Metadata>)
-                                  -> Option<DomRoot<Box<ServoParser<TH>>>> {
+                                  -> Option<DomRoot<Box<ServoParser<TH, TypeHolder=TH>>>> {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = unsafe { &*root.get().unwrap() };
             script_thread.handle_page_headers_available(id, metadata)
@@ -1722,7 +1726,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     /// We have received notification that the response associated with a load has completed.
     /// Kick off the document and frame tree creation process using the result.
     fn handle_page_headers_available(&self, id: &PipelineId,
-                                     metadata: Option<Metadata>) -> Option<DomRoot<Box<ServoParser<TH>>>> {
+                                     metadata: Option<Metadata>) -> Option<DomRoot<Box<ServoParser<TH, TypeHolder=TH>>>> {
         let idx = self.incomplete_loads.borrow().iter().position(|load| { load.pipeline_id == *id });
         // The matching in progress load structure may not exist if
         // the pipeline exited before the page load completed.
@@ -2072,7 +2076,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
 
     /// The entry point to document loading. Defines bindings, sets up the window and document
     /// objects, parses HTML and CSS, and kicks off initial layout.
-    fn load(&self, metadata: Metadata, incomplete: InProgressLoad) -> DomRoot<Box<ServoParser<TH>>> {
+    fn load(&self, metadata: Metadata, incomplete: InProgressLoad) -> DomRoot<Box<ServoParser<TH, TypeHolder=TH>>> {
         let final_url = metadata.final_url.clone();
         {
             // send the final url to the layout thread.

@@ -39,7 +39,7 @@ enum PushOrReplace {
 // https://html.spec.whatwg.org/multipage/#the-history-interface
 #[dom_struct]
 pub struct History<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     window: Dom<Window<TH>>,
     state: Heap<JSVal>,
     state_id: Cell<Option<HistoryStateId>>,

@@ -9,7 +9,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct WebGLObject<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
 }
 
 impl<TH> WebGLObject<TH> {

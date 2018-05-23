@@ -866,7 +866,7 @@ impl<'a, TH> FormSubmitter<'a, TH> {
     }
 }
 
-pub trait FormControl<TH: TypeHolderTrait>: DomObject<TH> {
+pub trait FormControl<TH: TypeHolderTrait>: DomObject {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>>;
 
     fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>);
@@ -1067,11 +1067,11 @@ impl<TH> VirtualMethods<TH> for HTMLFormElement<TH> {
 }
 
 pub trait FormControlElementHelpers<TH: TypeHolderTrait> {
-    fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH>>;
+    fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH, TypeHolder=TH>>;
 }
 
 impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element<TH> {
-    fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH>> {
+    fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH, TypeHolder=TH>> {
         let node = self.upcast::<Node<TH>>();
 
         match node.type_id() {

@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Navigator<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     bluetooth: MutNullableDom<Bluetooth<TH>, TH>,
     plugins: MutNullableDom<PluginArray<TH>, TH>,
     mime_types: MutNullableDom<MimeTypeArray<TH>, TH>,

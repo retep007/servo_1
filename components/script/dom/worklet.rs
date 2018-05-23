@@ -76,7 +76,7 @@ const MIN_GC_THRESHOLD: u32 = 1_000_000;
 #[dom_struct]
 /// <https://drafts.css-houdini.org/worklets/#worklet>
 pub struct Worklet<TH: TypeHolderTrait> {
-    reflector: Reflector<TH>,
+    reflector: Reflector,
     window: Dom<Window<TH>>,
     worklet_id: WorkletId,
     global_type: WorkletGlobalScopeType<TH>,

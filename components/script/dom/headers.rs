@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Headers<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     guard: Cell<Guard>,
     #[ignore_malloc_size_of = "Defined in hyper"]
     header_list: DomRefCell<HyperHeaders>

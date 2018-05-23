@@ -23,7 +23,7 @@ unsafe_no_jsmanaged_fields!(ServoRng);
 // https://developer.mozilla.org/en-US/docs/Web/API/Crypto
 #[dom_struct]
 pub struct Crypto<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in rand"]
     rng: DomRefCell<ServoRng>,
 }

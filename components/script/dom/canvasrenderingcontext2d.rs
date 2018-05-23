@@ -63,7 +63,7 @@ enum CanvasFillOrStrokeStyle<TH: TypeHolderTrait> {
 // https://html.spec.whatwg.org/multipage/#canvasrenderingcontext2d
 #[dom_struct]
 pub struct CanvasRenderingContext2D<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
     ipc_renderer: IpcSender<CanvasMsg>,
     /// For rendering contexts created by an HTML canvas element, this is Some,

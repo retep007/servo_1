@@ -68,7 +68,7 @@ impl<TH> BlobImpl<TH> {
 // https://w3c.github.io/FileAPI/#blob
 #[dom_struct]
 pub struct Blob<TH: TypeHolderTrait> {
-    reflector_: Reflector<TH>,
+    reflector_: Reflector,
     #[ignore_malloc_size_of = "No clear owner"]
     blob_impl: DomRefCell<BlobImpl<TH>>,
     /// content-type string
