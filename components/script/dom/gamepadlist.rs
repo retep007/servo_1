@@ -44,7 +44,7 @@ impl<TH> GamepadList<TH> {
     }
 }
 
-impl<TH> GamepadListMethods for GamepadList<TH> {
+impl<TH> GamepadListMethods<TH> for GamepadList<TH> {
     // https://w3c.github.io/gamepad/#dom-navigator-getgamepads
     fn Length(&self) -> u32 {
         self.list.borrow().len() as u32

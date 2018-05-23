@@ -98,7 +98,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BluetoothAdvertisingEventMethods for BluetoothAdvertisingEvent<TH> {
+impl<TH: TypeHolderTrait> BluetoothAdvertisingEventMethods<TH> for BluetoothAdvertisingEvent<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothadvertisingevent-device
     fn Device(&self) -> DomRoot<BluetoothDevice<TH>> {
         DomRoot::from_ref(&*self.device)

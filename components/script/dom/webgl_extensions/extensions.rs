@@ -268,4 +268,4 @@ struct WebGLQueryParameterHandler<TH: TypeHolderTrait> {
     func: Box<WebGLQueryParameterFunc<TH>>
 }
 
-unsafe_no_jsmanaged_fields!(WebGLQueryParameterHandler);
+unsafe_no_jsmanaged_fields_generic!(WebGLQueryParameterHandler<TH>);

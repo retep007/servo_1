@@ -506,7 +506,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn escape(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn escape<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
 
@@ -600,7 +600,7 @@ unsafe extern fn supports(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal
     }), false);
 }
 
-unsafe extern fn get_paintWorklet(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn get_paintWorklet<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
 

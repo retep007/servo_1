@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 /// Worker object will remain alive.
 #[derive(Clone, JSTraceable)]
 pub struct SendableWorkerScriptChan<T: DomObject<TH>, TH: TypeHolderTrait> {
-    pub sender: Sender<(Trusted<T>, CommonScriptMsg)>,
+    pub sender: Sender<(Trusted<T, TH>, CommonScriptMsg)>,
     pub worker: Trusted<T, TH>,
 }
 
@@ -37,7 +37,7 @@ impl<T: JSTraceable + DomObject<TH> + 'static, TH: TypeHolderTrait> ScriptChan f
 /// Worker object will remain alive.
 #[derive(Clone, JSTraceable)]
 pub struct WorkerThreadWorkerChan<T: DomObject<TH>, TH: TypeHolderTrait> {
-    pub sender: Sender<(Trusted<T>, WorkerScriptMsg)>,
+    pub sender: Sender<(Trusted<T, TH>, WorkerScriptMsg<TH>)>,
     pub worker: Trusted<T, TH>,
 }
 

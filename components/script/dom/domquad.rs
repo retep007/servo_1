@@ -79,7 +79,7 @@ impl<TH> DOMQuad<TH> {
     }
 }
 
-impl<TH> DOMQuadMethods for DOMQuad<TH> {
+impl<TH> DOMQuadMethods<TH> for DOMQuad<TH> {
     // https://drafts.fxtf.org/geometry/#dom-domquad-p1
     fn P1(&self) -> DomRoot<DOMPoint<TH>> {
         DomRoot::from_ref(&self.p1)

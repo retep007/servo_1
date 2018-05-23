@@ -65,7 +65,7 @@ impl<TH: TypeHolderTrait> UIEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> UIEventMethods for UIEvent<TH> {
+impl<TH: TypeHolderTrait> UIEventMethods<TH> for UIEvent<TH> {
     // https://w3c.github.io/uievents/#widl-UIEvent-view
     fn GetView(&self) -> Option<DomRoot<Window<TH>>> {
         self.view.get()

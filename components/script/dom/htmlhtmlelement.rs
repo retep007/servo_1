@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLHtmlElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement
+    htmlelement: HTMLElement<TH>
 }
 
 impl<TH> HTMLHtmlElement<TH> {

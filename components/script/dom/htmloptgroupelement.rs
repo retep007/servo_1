@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLOptGroupElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement
+    htmlelement: HTMLElement<TH>
 }
 
 impl<TH: TypeHolderTrait> HTMLOptGroupElement<TH> {

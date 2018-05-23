@@ -48,7 +48,7 @@ impl<TH> DOMParser<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DOMParserMethods for DOMParser<TH> {
+impl<TH: TypeHolderTrait> DOMParserMethods<TH> for DOMParser<TH> {
     // https://w3c.github.io/DOM-Parsing/#the-domparser-interface
     fn ParseFromString(&self,
                        s: DOMString,

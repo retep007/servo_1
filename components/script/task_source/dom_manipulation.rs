@@ -27,7 +27,7 @@ impl<TH> fmt::Debug for DOMManipulationTaskSource<TH> {
     }
 }
 
-impl<TH> TaskSource for DOMManipulationTaskSource<TH> {
+impl<TH> TaskSource<TH> for DOMManipulationTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,

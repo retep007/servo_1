@@ -46,7 +46,7 @@ impl<TH> HTMLTemplateElement<TH> {
     }
 }
 
-impl<TH> HTMLTemplateElementMethods for HTMLTemplateElement<TH> {
+impl<TH> HTMLTemplateElementMethods<TH> for HTMLTemplateElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#dom-template-content>
     fn Content(&self) -> DomRoot<DocumentFragment<TH>> {
         self.contents.or_init(|| {
@@ -56,7 +56,7 @@ impl<TH> HTMLTemplateElementMethods for HTMLTemplateElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods for HTMLTemplateElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTemplateElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

@@ -258,7 +258,7 @@ impl<TH: TypeHolderTrait> Performance<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PerformanceMethods for Performance<TH> {
+impl<TH: TypeHolderTrait> PerformanceMethods<TH> for Performance<TH> {
     // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html#performance-timing-attribute
     fn Timing(&self) -> DomRoot<PerformanceTiming<TH>> {
         match self.timing {

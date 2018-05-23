@@ -522,7 +522,7 @@ pub fn base64_atob<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString,
     }
 }
 
-impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
+impl<TH: TypeHolderTrait> WindowMethods<TH> for Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-alert
     fn Alert_(&self) {
         self.Alert(DOMString::new());
@@ -1022,7 +1022,7 @@ impl<TH: TypeHolderTrait> WindowMethods for Window<TH> {
 
     #[allow(unrooted_must_root)]
     // https://fetch.spec.whatwg.org/#fetch-method
-    fn Fetch(&self, input: RequestOrUSVString<TH>, init: RootedTraceableBox<RequestInit>) -> Rc<Promise<TH>> {
+    fn Fetch(&self, input: RequestOrUSVString<TH>, init: RootedTraceableBox<RequestInit<TH>>) -> Rc<Promise<TH>> {
         fetch::Fetch(&self.upcast(), input, init)
     }
 

@@ -22,7 +22,7 @@ impl<TH> OESElementIndexUint<TH> {
     }
 }
 
-impl<TH> WebGLExtension for OESElementIndexUint<TH> {
+impl<TH> WebGLExtension<TH> for OESElementIndexUint<TH> {
     type Extension = Self;
 
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<Self> {

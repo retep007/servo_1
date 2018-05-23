@@ -971,7 +971,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
 
 
 /// Iterate through `nodes` until we find a `Node` that is not in `not_in`
-fn first_node_not_in<I, TH: TypeHolderTrait>(mut nodes: I, not_in: &[NodeOrString]) -> Option<DomRoot<Node<TH>>>
+fn first_node_not_in<I, TH: TypeHolderTrait>(mut nodes: I, not_in: &[NodeOrString<TH>]) -> Option<DomRoot<Node<TH>>>
         where I: Iterator<Item=DomRoot<Node<TH>>>
 {
     nodes.find(|node| {
@@ -1920,7 +1920,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
+impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
     // https://dom.spec.whatwg.org/#dom-node-nodetype
     fn NodeType(&self) -> u16 {
         match self.type_id() {
@@ -2489,11 +2489,11 @@ impl<TH: TypeHolderTrait> NodeMethods for Node<TH> {
     }
 }
 
-pub fn document_from_node<T: DerivedFrom<TH, TH> + DomObject, TH: TypeHolderTrait>(derived: &T) -> DomRoot<Document<TH>> {
+pub fn document_from_node<T: DerivedFrom<TH, TH> + DomObject<TH>, TH: TypeHolderTrait>(derived: &T) -> DomRoot<Document<TH>> {
     derived.upcast().owner_doc()
 }
 
-pub fn window_from_node<TH: TypeHolderTrait, T: DerivedFrom<Node<TH>, TH> + DomObject>(derived: &T) -> DomRoot<Window<TH>> {
+pub fn window_from_node<TH: TypeHolderTrait, T: DerivedFrom<Node<TH>, TH> + DomObject<TH>>(derived: &T) -> DomRoot<Window<TH>> {
     let document = document_from_node(derived);
     DomRoot::from_ref(document.window())
 }

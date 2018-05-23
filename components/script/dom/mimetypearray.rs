@@ -31,7 +31,7 @@ impl<TH> MimeTypeArray<TH> {
     }
 }
 
-impl<TH> MimeTypeArrayMethods for MimeTypeArray<TH> {
+impl<TH> MimeTypeArrayMethods<TH> for MimeTypeArray<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-mimetypearray-length
     fn Length(&self) -> u32 {
         0

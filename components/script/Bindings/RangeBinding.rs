@@ -2061,7 +2061,7 @@ pub trait RangeMethods<TH: TypeHolderTrait> {
     fn Stringifier(&self) -> DOMString;
     fn CreateContextualFragment(&self, fragment: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>, TH>;
 }
-impl WeakReferenceable for Range {}
+impl<TH> WeakReferenceable<TH> for Range<TH> {}
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {

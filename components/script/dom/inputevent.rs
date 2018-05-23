@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> InputEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &InputEventBinding::InputEventInit)
+                       init: &InputEventBinding::InputEventInit<TH>)
                        -> Fallible<DomRoot<InputEvent<TH>>, TH> {
         let event = InputEvent::new(window,
                                     type_,

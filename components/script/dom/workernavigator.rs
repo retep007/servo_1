@@ -35,7 +35,7 @@ impl<TH: TypeHolderTrait> WorkerNavigator<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WorkerNavigatorMethods for WorkerNavigator<TH> {
+impl<TH: TypeHolderTrait> WorkerNavigatorMethods<TH> for WorkerNavigator<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-navigator-product
     fn Product(&self) -> DOMString {
         navigatorinfo::Product()

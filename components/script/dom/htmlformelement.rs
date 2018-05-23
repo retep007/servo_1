@@ -65,7 +65,7 @@ pub struct GenerationId(u32);
 pub struct HTMLFormElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
     marked_for_reset: Cell<bool>,
-    elements: DomOnceCell<HTMLFormControlsCollection<TH>>,
+    elements: DomOnceCell<HTMLFormControlsCollection<TH>, TH>,
     generation_id: Cell<GenerationId>,
     controls: DomRefCell<Vec<Dom<Element<TH>>>>,
 }
@@ -171,7 +171,7 @@ impl<TH> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
         struct ElementsFilter<TH> {
             form: DomRoot<HTMLFormElement<TH>>
         }
-        impl<TH> CollectionFilter for ElementsFilter<TH> {
+        impl<TH> CollectionFilter<TH> for ElementsFilter<TH> {
             fn filter<'a, TH>(&self, elem: &'a Element<TH>, _root: &'a Node<TH>) -> bool {
                 let form_owner = match elem.upcast::<Node<TH>>().type_id() {
                     NodeTypeId::Element(ElementTypeId::HTMLElement(t)) => {

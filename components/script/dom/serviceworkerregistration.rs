@@ -103,7 +103,7 @@ pub fn longest_prefix_match(stored_scope: &ServoUrl, potential_match: &ServoUrl)
     stored_scope.path().chars().zip(potential_match.path().chars()).all(|(scope, matched)| scope == matched)
 }
 
-impl<TH> ServiceWorkerRegistrationMethods for ServiceWorkerRegistration<TH> {
+impl<TH> ServiceWorkerRegistrationMethods<TH> for ServiceWorkerRegistration<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-registration-installing-attribute
     fn GetInstalling(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.installing.as_ref().map(|sw| DomRoot::from_ref(&**sw))

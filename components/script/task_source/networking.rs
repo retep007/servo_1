@@ -16,7 +16,7 @@ impl Clone for NetworkingTaskSource {
     }
 }
 
-impl TaskSource for NetworkingTaskSource {
+impl<TH> TaskSource<TH> for NetworkingTaskSource {
     fn queue_with_canceller<T>(
         &self,
         task: T,

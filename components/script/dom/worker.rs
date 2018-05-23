@@ -32,7 +32,7 @@ use std::sync::mpsc::{Sender, channel};
 use task::TaskOnce;
 use typeholder::TypeHolderTrait;
 
-pub type TrustedWorkerAddress<TH> = Trusted<Worker<TH>>;
+pub type TrustedWorkerAddress<TH> = Trusted<Worker<TH>, TH>;
 
 // https://html.spec.whatwg.org/multipage/#worker
 #[dom_struct]
@@ -143,7 +143,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
     }
 }
 
-impl<TH> WorkerMethods for Worker<TH> {
+impl<TH> WorkerMethods<TH> for Worker<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-worker-postmessage
     unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {
@@ -179,7 +179,7 @@ impl<TH> WorkerMethods for Worker<TH> {
     event_handler!(error, GetOnerror, SetOnerror);
 }
 
-impl<TH> TaskOnce for SimpleWorkerErrorHandler<Worker<TH>> {
+impl<TH> TaskOnce for SimpleWorkerErrorHandler<Worker<TH>, TH> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         Worker::dispatch_simple_error(self.addr);

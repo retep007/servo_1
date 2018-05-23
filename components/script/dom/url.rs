@@ -146,7 +146,7 @@ impl<TH> URL<TH> {
     }
 }
 
-impl<TH> URLMethods for URL<TH> {
+impl<TH> URLMethods<TH> for URL<TH> {
     // https://url.spec.whatwg.org/#dom-url-hash
     fn Hash(&self) -> USVString {
         UrlHelper::Hash(&self.url.borrow())

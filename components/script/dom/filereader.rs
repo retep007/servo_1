@@ -46,7 +46,7 @@ pub enum FileReaderFunction {
     ReadAsArrayBuffer,
 }
 
-pub type TrustedFileReader<TH> = Trusted<FileReader<TH>>;
+pub type TrustedFileReader<TH> = Trusted<FileReader<TH>, TH>;
 
 #[derive(Clone, MallocSizeOf)]
 pub struct ReadMetaData {
@@ -275,7 +275,7 @@ impl<TH> FileReader<TH> {
     }
 }
 
-impl<TH> FileReaderMethods for FileReader<TH> {
+impl<TH> FileReaderMethods<TH> for FileReader<TH> {
     // https://w3c.github.io/FileAPI/#dfn-onloadstart
     event_handler!(loadstart, GetOnloadstart, SetOnloadstart);
 

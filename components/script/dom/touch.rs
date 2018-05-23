@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 pub struct Touch<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
     identifier: i32,
-    target: MutDom<EventTarget<TH>>,
+    target: MutDom<EventTarget<TH>, TH>,
     screen_x: f64,
     screen_y: f64,
     client_x: f64,
@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> Touch<TH> {
     }
 }
 
-impl<TH> TouchMethods for Touch<TH> {
+impl<TH> TouchMethods<TH> for Touch<TH> {
     /// <https://w3c.github.io/touch-events/#widl-Touch-identifier>
     fn Identifier(&self) -> i32 {
         self.identifier

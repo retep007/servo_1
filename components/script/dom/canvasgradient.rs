@@ -47,7 +47,7 @@ impl<TH> CanvasGradient<TH> {
     }
 }
 
-impl<TH> CanvasGradientMethods for CanvasGradient<TH> {
+impl<TH> CanvasGradientMethods<TH> for CanvasGradient<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-canvasgradient-addcolorstop
     fn AddColorStop(&self, offset: Finite<f64>, color: DOMString) -> ErrorResult<TH> {
         if *offset < 0f64 || *offset > 1f64 {

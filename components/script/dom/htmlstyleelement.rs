@@ -235,7 +235,7 @@ impl<TH> StylesheetOwner for HTMLStyleElement<TH> {
 }
 
 
-impl<TH> HTMLStyleElementMethods for HTMLStyleElement<TH> {
+impl<TH> HTMLStyleElementMethods<TH> for HTMLStyleElement<TH> {
     // https://drafts.csswg.org/cssom/#dom-linkstyle-sheet
     fn GetSheet(&self) -> Option<DomRoot<DOMStyleSheet<TH>>> {
         self.get_cssom_stylesheet().map(DomRoot::upcast)

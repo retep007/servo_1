@@ -356,7 +356,7 @@ pub fn blob_parts_to_bytes<TH: TypeHolderTrait>(mut blobparts: Vec<ArrayBufferOr
     Ok(ret)
 }
 
-impl<TH> BlobMethods for Blob<TH> {
+impl<TH> BlobMethods<TH> for Blob<TH> {
     // https://w3c.github.io/FileAPI/#dfn-size
     fn Size(&self) -> u64 {
         match *self.blob_impl.borrow() {

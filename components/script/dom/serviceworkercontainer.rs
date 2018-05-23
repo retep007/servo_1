@@ -44,7 +44,7 @@ impl<TH> ServiceWorkerContainer<TH> {
     }
 }
 
-impl<TH> ServiceWorkerContainerMethods for ServiceWorkerContainer<TH> {
+impl<TH> ServiceWorkerContainerMethods<TH> for ServiceWorkerContainer<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-container-controller-attribute
     fn GetController(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.client.get_controller()

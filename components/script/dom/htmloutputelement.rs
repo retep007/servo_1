@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> HTMLOutputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLOutputElementMethods for HTMLOutputElement<TH> {
+impl<TH: TypeHolderTrait> HTMLOutputElementMethods<TH> for HTMLOutputElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> HTMLOutputElementMethods for HTMLOutputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods for HTMLOutputElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLOutputElement<TH> {
     fn super_type<'b>(&'b self) -> Option<&'b VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -80,7 +80,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLOutputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl for HTMLOutputElement<TH> {
+impl<TH: TypeHolderTrait> FormControl<TH> for HTMLOutputElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }

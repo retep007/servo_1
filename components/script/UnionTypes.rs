@@ -3397,7 +3397,7 @@ pub enum TestDictionaryOrLong<TH: TypeHolderTrait> {
     Long(RootedTraceableBox<i32>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for TestDictionaryOrLong {
+impl<TH: TypeHolderTrait> ToJSValConvertible for TestDictionaryOrLong<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             TestDictionaryOrLong::TestDictionary(ref inner) => inner.to_jsval(cx, rval),

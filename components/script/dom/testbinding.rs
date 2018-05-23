@@ -52,7 +52,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct TestBinding<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
-    url: MutableWeakRef<URL<TH>>,
+    url: MutableWeakRef<URL<TH>, TH>,
 }
 
 impl<TH> TestBinding<TH> {
@@ -83,7 +83,7 @@ impl<TH> TestBinding<TH> {
     }
 }
 
-impl<TH> TestBindingMethods for TestBinding<TH> {
+impl<TH> TestBindingMethods<TH> for TestBinding<TH> {
     fn BooleanAttribute(&self) -> bool { false }
     fn SetBooleanAttribute(&self, _: bool) {}
     fn ByteAttribute(&self) -> i8 { 0 }

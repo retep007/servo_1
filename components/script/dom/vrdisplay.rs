@@ -53,9 +53,9 @@ pub struct VRDisplay<TH: TypeHolderTrait> {
     depth_near: Cell<f64>,
     depth_far: Cell<f64>,
     presenting: Cell<bool>,
-    left_eye_params: MutDom<VREyeParameters<TH>>,
-    right_eye_params: MutDom<VREyeParameters<TH>>,
-    capabilities: MutDom<VRDisplayCapabilities<TH>>,
+    left_eye_params: MutDom<VREyeParameters<TH>, TH>,
+    right_eye_params: MutDom<VREyeParameters<TH>, TH>,
+    capabilities: MutDom<VRDisplayCapabilities<TH>, TH>,
     stage_params: MutNullableDom<VRStageParameters<TH>, TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     frame_data: DomRefCell<WebVRFrameData>,
@@ -138,7 +138,7 @@ impl<TH> Drop for VRDisplay<TH> {
     }
 }
 
-impl<TH> VRDisplayMethods for VRDisplay<TH> {
+impl<TH> VRDisplayMethods<TH> for VRDisplay<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplay-isconnected
     fn IsConnected(&self) -> bool {
         self.display.borrow().connected

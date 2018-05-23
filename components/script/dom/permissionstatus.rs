@@ -46,7 +46,7 @@ impl<TH> PermissionStatus<TH> {
     }
 }
 
-impl<TH> PermissionStatusMethods for PermissionStatus<TH> {
+impl<TH> PermissionStatusMethods<TH> for PermissionStatus<TH> {
     // https://w3c.github.io/permissions/#dom-permissionstatus-state
     fn State(&self) -> PermissionState {
         self.state.get()

@@ -193,7 +193,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
+impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     // https://dom.spec.whatwg.org/#dom-range-startcontainer
     fn StartContainer(&self) -> DomRoot<Node<TH>> {
         self.start.node.get()
@@ -937,7 +937,7 @@ impl<TH: TypeHolderTrait> RangeMethods for Range<TH> {
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
 #[must_root]
 pub struct BoundaryPoint<TH: TypeHolderTrait> {
-    node: MutDom<Node<TH>>,
+    node: MutDom<Node<TH>, TH>,
     offset: Cell<u32>,
 }
 
@@ -1016,7 +1016,7 @@ fn bp_position<TH: TypeHolderTrait>(a_node: &Node<TH>, a_offset: u32,
 }
 
 pub struct WeakRangeVec<TH: TypeHolderTrait> {
-    cell: UnsafeCell<WeakRefVec<Range<TH>>>,
+    cell: UnsafeCell<WeakRefVec<Range<TH>, TH>>,
 }
 
 #[allow(unsafe_code)]
@@ -1234,13 +1234,13 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
         }
     }
 
-    fn push(&self, ref_: WeakRef<Range<TH>>) {
+    fn push(&self, ref_: WeakRef<Range<TH>, TH>) {
         unsafe {
             (*self.cell.get()).push(ref_);
         }
     }
 
-    fn remove(&self, range: &Range<TH>) -> WeakRef<Range<TH>> {
+    fn remove(&self, range: &Range<TH>) -> WeakRef<Range<TH>, TH> {
         unsafe {
             let ranges = &mut *self.cell.get();
             let position = ranges.iter().position(|ref_| {
@@ -1252,14 +1252,14 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
 }
 
 #[allow(unsafe_code)]
-impl MallocSizeOf for WeakRangeVec {
+impl<TH> MallocSizeOf for WeakRangeVec<TH> {
     fn size_of(&self, ops: &mut MallocSizeOfOps) -> usize {
         unsafe { (*self.cell.get()).size_of(ops) }
     }
 }
 
 #[allow(unsafe_code)]
-unsafe impl JSTraceable for WeakRangeVec {
+unsafe impl<TH> JSTraceable for WeakRangeVec<TH> {
     unsafe fn trace(&self, _: *mut JSTracer) {
         (*self.cell.get()).retain_alive()
     }

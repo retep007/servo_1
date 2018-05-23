@@ -44,7 +44,7 @@ impl<TH> GamepadButtonList<TH> {
     }
 }
 
-impl<TH> GamepadButtonListMethods for GamepadButtonList<TH> {
+impl<TH> GamepadButtonListMethods<TH> for GamepadButtonList<TH> {
     // https://w3c.github.io/gamepad/#dom-gamepad-buttons
     fn Length(&self) -> u32 {
         self.list.len() as u32

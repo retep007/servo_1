@@ -28,7 +28,7 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
 struct CellsFilter<TH: TypeHolderTrait>;
-impl<TH: TypeHolderTrait> CollectionFilter for CellsFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for CellsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
         (elem.is::<HTMLTableHeaderCellElement<TH>>() || elem.is::<HTMLTableDataCellElement<TH>>()) &&
             elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> HTMLTableRowElement<TH> {
     }
 }
 
-impl<TH> HTMLTableRowElementMethods for HTMLTableRowElement<TH> {
+impl<TH> HTMLTableRowElementMethods<TH> for HTMLTableRowElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tr-bgcolor
     make_getter!(BgColor, "bgcolor");
 

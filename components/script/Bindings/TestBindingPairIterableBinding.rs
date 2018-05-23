@@ -1282,7 +1282,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 unsafe extern fn next<TH: TypeHolderTrait>
-(cx: *mut JSContext, _obj: HandleObject, this: *const IterableIterator<TestBindingPairIterable<TH>>, args: *const JSJitMethodCallArgs) -> bool {
+(cx: *mut JSContext, _obj: HandleObject, this: *const IterableIterator<TestBindingPairIterable<TH>, TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
         let args = &*args;
@@ -1380,7 +1380,7 @@ fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_voi
 }
 
 pub unsafe fn Wrap<TH: TypeHolderTrait>
-(cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<IterableIterator<TestBindingPairIterable<TH>>>) -> DomRoot<IterableIterator<TestBindingPairIterable<TH>>> {
+(cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<IterableIterator<TestBindingPairIterable<TH>, TH>>) -> DomRoot<IterableIterator<TestBindingPairIterable<TH>, TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
     assert!(((*get_object_class(scope.get())).flags & JSCLASS_IS_GLOBAL) != 0);

@@ -191,7 +191,7 @@ unsafe fn get_callback<TH: TypeHolderTrait>(
     }
 }
 
-impl<TH: TypeHolderTrait> CustomElementRegistryMethods for CustomElementRegistry<TH> {
+impl<TH: TypeHolderTrait> CustomElementRegistryMethods<TH> for CustomElementRegistry<TH> {
     #[allow(unsafe_code, unrooted_must_root)]
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
     fn Define(&self, name: DOMString, constructor_: Rc<Function<TH>>, options: &ElementDefinitionOptions) -> ErrorResult<TH> {

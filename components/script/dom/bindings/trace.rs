@@ -131,7 +131,7 @@ unsafe_no_jsmanaged_fields!(&'static Encoding);
 unsafe_no_jsmanaged_fields!(RefCell<Decoder>);
 unsafe_no_jsmanaged_fields!(RefCell<Vec<u8>>);
 
-unsafe_no_jsmanaged_fields!(Reflector);
+unsafe_no_jsmanaged_fields_generic!(Reflector<TH>);
 
 unsafe_no_jsmanaged_fields!(Duration);
 
@@ -352,13 +352,13 @@ unsafe impl<A: JSTraceable, B: JSTraceable, C: JSTraceable> JSTraceable for (A, 
 unsafe_no_jsmanaged_fields!(bool, f32, f64, String, AtomicBool, AtomicUsize, Uuid, char);
 unsafe_no_jsmanaged_fields!(usize, u8, u16, u32, u64);
 unsafe_no_jsmanaged_fields!(isize, i8, i16, i32, i64);
-unsafe_no_jsmanaged_fields!(Error);
+unsafe_no_jsmanaged_fields_generic!(Error<TH>);
 unsafe_no_jsmanaged_fields!(ServoUrl, ImmutableOrigin, MutableOrigin);
 unsafe_no_jsmanaged_fields!(Image, ImageMetadata, ImageCache, PendingImageId);
 unsafe_no_jsmanaged_fields!(Metadata);
 unsafe_no_jsmanaged_fields!(NetworkError);
 unsafe_no_jsmanaged_fields!(Atom, Prefix, LocalName, Namespace, QualName);
-unsafe_no_jsmanaged_fields!(TrustedPromise);
+unsafe_no_jsmanaged_fields_generic!(TrustedPromise<TH>);
 unsafe_no_jsmanaged_fields!(PropertyDeclarationBlock);
 // These three are interdependent, if you plan to put jsmanaged data
 // in one of these make sure it is propagated properly to containing structs
@@ -665,7 +665,7 @@ unsafe impl JSTraceable for RwLock<SharedRt> {
     }
 }
 
-unsafe impl<TH> JSTraceable for StyleLocked<MediaList<TH>> {
+unsafe impl JSTraceable for StyleLocked<MediaList> {
     unsafe fn trace(&self, _trc: *mut JSTracer) {
         // Do nothing.
     }
@@ -880,7 +880,7 @@ impl<'a, T: 'static + JSTraceable> RootedVec<'a, T> {
     }
 }
 
-impl<'a, T: 'static + JSTraceable + DomObject> RootedVec<'a, Dom<T>> {
+impl<'a, T: 'static + JSTraceable + DomObject<TH>, TH: TypeHolderTrait> RootedVec<'a, Dom<T>> {
     /// Create a vector of items of type Dom<T> that is rooted for
     /// the lifetime of this struct
     pub fn from_iter<I>(root: &'a mut RootableVec<Dom<T>>, iter: I) -> Self

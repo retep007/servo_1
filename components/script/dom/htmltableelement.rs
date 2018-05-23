@@ -42,7 +42,7 @@ struct TableRowFilter<TH: TypeHolderTrait> {
     sections: Vec<Dom<Node<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> CollectionFilter for TableRowFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for TableRowFilter<TH> {
     fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
         elem.is::<HTMLTableRowElement<TH>>() &&
             (root.is_parent_of(elem.upcast())
@@ -148,7 +148,7 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-rows
     fn Rows(&self) -> DomRoot<HTMLCollection<TH>> {
         let filter = self.get_rows();
@@ -254,8 +254,8 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods for HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-tbodies
     fn TBodies(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable)]
-        struct TBodiesFilter;
-        impl CollectionFilter for TBodiesFilter {
+        struct TBodiesFilter<TH: TypeHolderTrait>;
+        impl<TH> CollectionFilter<TH> for TBodiesFilter<TH> {
             fn filter<TH>(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
                 elem.is::<HTMLTableSectionElement<TH>>() &&
                     elem.local_name() == &local_name!("tbody") &&

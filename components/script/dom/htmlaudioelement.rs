@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLAudioElement<TH: TypeHolderTrait> {
-    htmlmediaelement: HTMLMediaElement
+    htmlmediaelement: HTMLMediaElement<TH>
 }
 
 impl<TH> HTMLAudioElement<TH> {

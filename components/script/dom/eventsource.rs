@@ -498,7 +498,7 @@ impl<TH> EventSource<TH> {
     }
 }
 
-impl<TH> EventSourceMethods for EventSource<TH> {
+impl<TH> EventSourceMethods<TH> for EventSource<TH> {
     // https://html.spec.whatwg.org/multipage/#handler-eventsource-onopen
     event_handler!(open, GetOnopen, SetOnopen);
 

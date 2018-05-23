@@ -230,7 +230,7 @@ impl<TH> Tokenizer<TH> {
 #[derive(JSTraceable)]
 pub struct ParserContext<TH: TypeHolderTrait> {
     /// The parser that initiated the request.
-    parser: Option<Trusted<Box<ServoParser<TH>>>>,
+    parser: Option<Trusted<Box<ServoParser<TH>>, TH>>,
     /// Is this a synthesized document
     is_synthesized_document: bool,
     /// The pipeline associated with this document.
@@ -385,7 +385,7 @@ impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
     }
 }
 
-impl PreInvoke for ParserContext {}
+impl<TH> PreInvoke for ParserContext<TH> {}
 
 pub struct FragmentContext<'a, TH: TypeHolderTrait> {
     pub context_elem: &'a Node<TH>,

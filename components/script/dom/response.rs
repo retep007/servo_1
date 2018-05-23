@@ -33,7 +33,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct Response<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
-    headers_reflector: MutNullableDom<Headers, TH>,
+    headers_reflector: MutNullableDom<Headers<TH>, TH>,
     mime_type: DomRefCell<Vec<u8>>,
     body_used: Cell<bool>,
     /// `None` can be considered a StatusCode of `0`.
@@ -71,7 +71,7 @@ impl<TH> Response<TH> {
         reflect_dom_object(Box::new(Response::new_inherited()), global, ResponseBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>, body: Option<BodyInit<TH>>, init: &ResponseBinding::ResponseInit)
+    pub fn Constructor(global: &GlobalScope<TH>, body: Option<BodyInit<TH>>, init: &ResponseBinding::ResponseInit<TH>)
                        -> Fallible<DomRoot<Response<TH>>, TH> {
         // Step 1
         if init.status < 200 || init.status > 599 {
@@ -192,7 +192,7 @@ impl<TH> Response<TH> {
     }
 }
 
-impl<TH> BodyOperations for Response<TH> {
+impl<TH> BodyOperations<TH> for Response<TH> {
     fn get_body_used(&self) -> bool {
         self.BodyUsed()
     }
@@ -246,7 +246,7 @@ fn is_null_body_status(status: u16) -> bool {
     status == 101 || status == 204 || status == 205 || status == 304
 }
 
-impl<TH> ResponseMethods for Response<TH> {
+impl<TH> ResponseMethods<TH> for Response<TH> {
     // https://fetch.spec.whatwg.org/#dom-response-type
     fn Type(&self) -> DOMResponseType {
         *self.response_type.borrow()//into()

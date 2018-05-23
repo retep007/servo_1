@@ -51,7 +51,7 @@ impl<TH: TypeHolderTrait> Storage<TH> {
 
 }
 
-impl<TH> StorageMethods for Storage<TH> {
+impl<TH> StorageMethods<TH> for Storage<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-storage-length
     fn Length(&self) -> u32 {
         let (sender, receiver) = ipc::channel(self.global().time_profiler_chan().clone()).unwrap();

@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> DOMImplementation<TH> {
 }
 
 // https://dom.spec.whatwg.org/#domimplementation
-impl<TH: TypeHolderTrait> DOMImplementationMethods for DOMImplementation<TH> {
+impl<TH: TypeHolderTrait> DOMImplementationMethods<TH> for DOMImplementation<TH> {
     // https://dom.spec.whatwg.org/#dom-domimplementation-createdocumenttype
     fn CreateDocumentType(&self,
                           qualified_name: DOMString,

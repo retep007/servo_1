@@ -1484,7 +1484,7 @@ pub trait URLMethods<TH: TypeHolderTrait> {
     fn SetHash(&self, value: USVString) -> ();
     fn Stringifier(&self) -> DOMString;
 }
-impl WeakReferenceable for URL {}
+impl<TH> WeakReferenceable<TH> for URL<TH> {}
 const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {

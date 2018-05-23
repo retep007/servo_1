@@ -255,8 +255,8 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct EventModifierInit {
-    pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit,
+pub struct EventModifierInit<TH: TypeHolderTrait> {
+    pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit<TH>,
     pub altKey: bool,
     pub ctrlKey: bool,
     pub keyModifierStateAltGraph: bool,
@@ -273,15 +273,15 @@ pub struct EventModifierInit {
     pub metaKey: bool,
     pub shiftKey: bool,
 }
-impl EventModifierInit {
-    pub unsafe fn empty(cx: *mut JSContext) -> EventModifierInit {
+impl<TH> EventModifierInit<TH> {
+    pub unsafe fn empty(cx: *mut JSContext) -> EventModifierInit<TH>{
         match EventModifierInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
             _ => unreachable!(),
         }
     }
     pub unsafe fn new(cx: *mut JSContext, val: HandleValue)
-                      -> Result<ConversionResult<EventModifierInit>, ()> {
+                      -> Result<ConversionResult<EventModifierInit<TH>>, ()> {
         let object = if val.get().is_null_or_undefined() {
             ptr::null_mut()
         } else if val.get().is_object() {
@@ -575,15 +575,15 @@ impl EventModifierInit {
     }
 }
 
-impl FromJSValConvertible for EventModifierInit {
+impl<TH> FromJSValConvertible for EventModifierInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
-                         -> Result<ConversionResult<EventModifierInit>, ()> {
+                         -> Result<ConversionResult<EventModifierInit<TH>>, ()> {
         EventModifierInit::new(cx, value)
     }
 }
 
-impl ToJSValConvertible for EventModifierInit {
+impl<TH> ToJSValConvertible for EventModifierInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let altKey = &self.altKey;

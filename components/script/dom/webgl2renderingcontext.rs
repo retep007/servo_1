@@ -83,7 +83,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContext<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods for WebGL2RenderingContext<TH> {
+impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods<TH> for WebGL2RenderingContext<TH> {
     /// https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.1
     fn Canvas(&self) -> DomRoot<HTMLCanvasElement<TH>> {
         self.base.Canvas()

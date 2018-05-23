@@ -36,7 +36,7 @@ impl<TH> PerformanceObserverEntryList<TH> {
     }
 }
 
-impl<TH> PerformanceObserverEntryListMethods for PerformanceObserverEntryList<TH> {
+impl<TH> PerformanceObserverEntryListMethods<TH> for PerformanceObserverEntryList<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver
     fn GetEntries(&self) -> Vec<DomRoot<PerformanceEntry<TH>>> {
         self.entries.borrow().get_entries_by_name_and_type(None, None)

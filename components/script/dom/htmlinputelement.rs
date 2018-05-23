@@ -214,7 +214,7 @@ pub struct HTMLInputElement<TH: TypeHolderTrait> {
     maxlength: Cell<i32>,
     minlength: Cell<i32>,
     #[ignore_malloc_size_of = "#7193"]
-    textinput: DomRefCell<TextInput<ScriptToConstellationChan>>,
+    textinput: DomRefCell<TextInput<ScriptToConstellationChan, TH>>,
     activation_state: DomRefCell<InputActivationState<TH>>,
     // https://html.spec.whatwg.org/multipage/#concept-input-value-dirty-flag
     value_dirty: Cell<bool>,
@@ -1445,7 +1445,7 @@ impl<TH> Validatable for HTMLInputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Activatable for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait> Activatable<TH> for HTMLInputElement<TH> {
     fn as_element(&self) -> &Element<TH> {
         self.upcast()
     }

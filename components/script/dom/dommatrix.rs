@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct DOMMatrix<TH: TypeHolderTrait> {
-    parent: DOMMatrixReadOnly
+    parent: DOMMatrixReadOnly<TH>
 }
 
 impl<TH> DOMMatrix<TH> {
@@ -78,7 +78,7 @@ impl<TH> DOMMatrix<TH> {
     }
 }
 
-impl<TH> DOMMatrixMethods for DOMMatrix<TH> {
+impl<TH> DOMMatrixMethods<TH> for DOMMatrix<TH> {
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-m11
     fn M11(&self) -> f64 {
         self.upcast::<DOMMatrixReadOnly<TH>>().M11()

@@ -39,7 +39,7 @@ impl<TH> TestRunner<TH> {
     }
 }
 
-impl<TH> TestRunnerMethods for TestRunner<TH> {
+impl<TH> TestRunnerMethods<TH> for TestRunner<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/tests#setBluetoothMockDataSet
     fn SetBluetoothMockDataSet(&self, dataSetName: DOMString) -> ErrorResult<TH> {
         let (sender, receiver) = ipc::channel(self.global().time_profiler_chan().clone()).unwrap();

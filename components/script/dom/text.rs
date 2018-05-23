@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> Text<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TextMethods for Text<TH> {
+impl<TH: TypeHolderTrait> TextMethods<TH> for Text<TH> {
     // https://dom.spec.whatwg.org/#dom-text-splittext
     // https://dom.spec.whatwg.org/#concept-text-split
     fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text<TH>>, TH> {

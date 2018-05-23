@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> DocumentType<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DocumentTypeMethods for DocumentType<TH> {
+impl<TH: TypeHolderTrait> DocumentTypeMethods<TH> for DocumentType<TH> {
     // https://dom.spec.whatwg.org/#dom-documenttype-name
     fn Name(&self) -> DOMString {
         self.name.clone()

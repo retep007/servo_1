@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> RadioNodeList<TH> {
     }
 }
 
-impl<TH> RadioNodeListMethods for RadioNodeList<TH> {
+impl<TH> RadioNodeListMethods<TH> for RadioNodeList<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-radionodelist-value
     fn Value(&self) -> DOMString {
         self.upcast::<NodeList<TH>>().as_simple_list().iter().filter_map(|node| {

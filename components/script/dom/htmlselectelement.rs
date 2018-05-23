@@ -40,7 +40,7 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, MallocSizeOf)]
 struct OptionsFilter<TH: TypeHolderTrait>;
-impl<TH: TypeHolderTrait> CollectionFilter for OptionsFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for OptionsFilter<TH> {
     fn filter<'a>(&self, elem: &'a Element<TH>, root: &'a Node<TH>) -> bool {
         if !elem.is::<HTMLOptionElement<TH>>() {
             return false;
@@ -188,7 +188,7 @@ impl<TH: TypeHolderTrait> HTMLSelectElement<TH> {
      }
 }
 
-impl<TH> HTMLSelectElementMethods for HTMLSelectElement<TH> {
+impl<TH> HTMLSelectElementMethods<TH> for HTMLSelectElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
@@ -341,7 +341,7 @@ impl<TH> HTMLSelectElementMethods for HTMLSelectElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods for HTMLSelectElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLSelectElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -398,7 +398,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLSelectElement<TH> {
     }
 }
 
-impl<TH> FormControl for HTMLSelectElement<TH> {
+impl<TH> FormControl<TH> for HTMLSelectElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }

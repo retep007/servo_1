@@ -254,10 +254,10 @@ use typeholder::TypeHolderTrait;
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
 pub struct Function<TH: TypeHolderTrait> {
-    pub parent: CallbackFunction,
+    pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> Function {
+impl<TH: TypeHolderTrait> Function<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<Function<TH>> {
         let mut ret = Rc::new(Function {
             parent: CallbackFunction::new()
@@ -320,7 +320,7 @@ impl<TH: TypeHolderTrait> Function {
 
     }
 }
-impl<TH> CallbackContainer for Function<TH> {
+impl<TH> CallbackContainer<TH> for Function<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<Function<TH>> {
         Function::new(cx, callback)
     }

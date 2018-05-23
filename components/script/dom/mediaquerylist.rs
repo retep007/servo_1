@@ -35,7 +35,7 @@ pub enum MediaQueryListMatchState {
 pub struct MediaQueryList<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
     document: Dom<Document<TH>>,
-    media_query_list: MediaList<TH>,
+    media_query_list: MediaList,
     last_match_state: Cell<Option<bool>>
 }
 
@@ -81,7 +81,7 @@ impl<TH> MediaQueryList<TH> {
     }
 }
 
-impl<TH> MediaQueryListMethods for MediaQueryList<TH> {
+impl<TH> MediaQueryListMethods<TH> for MediaQueryList<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylist-media
     fn Media(&self) -> DOMString {
         self.media_query_list.to_css_string().into()
@@ -119,7 +119,7 @@ impl<TH> MediaQueryListMethods for MediaQueryList<TH> {
 
 #[derive(MallocSizeOf)]
 pub struct WeakMediaQueryListVec<TH: TypeHolderTrait> {
-    cell: DomRefCell<WeakRefVec<MediaQueryList<TH>>>,
+    cell: DomRefCell<WeakRefVec<MediaQueryList<TH>, TH>>,
 }
 
 impl<TH: TypeHolderTrait> WeakMediaQueryListVec<TH> {

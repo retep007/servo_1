@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLFrameSetElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement
+    htmlelement: HTMLElement<TH>
 }
 
 impl<TH> HTMLFrameSetElement<TH> {
@@ -38,7 +38,7 @@ impl<TH> HTMLFrameSetElement<TH> {
     }
 }
 
-impl<TH> HTMLFrameSetElementMethods for HTMLFrameSetElement<TH> {
+impl<TH> HTMLFrameSetElementMethods<TH> for HTMLFrameSetElement<TH> {
     // https://html.spec.whatwg.org/multipage/#windoweventhandlers
     window_event_handlers!(ForwardToWindow);
 }

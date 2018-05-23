@@ -36,25 +36,25 @@ use style::thread_state::{self, ThreadState};
 use typeholder::TypeHolderTrait;
 
 /// Messages used to control service worker event loop
-pub enum ServiceWorkerScriptMsg {
+pub enum ServiceWorkerScriptMsg<TH: TypeHolderTrait> {
     /// Message common to all workers
-    CommonWorker(WorkerScriptMsg),
+    CommonWorker(WorkerScriptMsg<TH>),
     // Message to request a custom response by the service worker
     Response(CustomResponseMediator)
 }
 
-pub enum MixedMessage {
-    FromServiceWorker(ServiceWorkerScriptMsg),
+pub enum MixedMessage<TH: TypeHolderTrait> {
+    FromServiceWorker(ServiceWorkerScriptMsg<TH>),
     FromDevtools(DevtoolScriptControlMsg),
     FromTimeoutThread(())
 }
 
 #[derive(Clone, JSTraceable)]
-pub struct ServiceWorkerChan {
-    pub sender: Sender<ServiceWorkerScriptMsg>
+pub struct ServiceWorkerChan<TH: TypeHolderTrait> {
+    pub sender: Sender<ServiceWorkerScriptMsg<TH>>
 }
 
-impl ScriptChan for ServiceWorkerChan {
+impl<TH> ScriptChan for ServiceWorkerChan<TH> {
     fn send(&self, msg: CommonScriptMsg) -> Result<(), ()> {
         self.sender
             .send(ServiceWorkerScriptMsg::CommonWorker(WorkerScriptMsg::Common(msg)))
@@ -72,9 +72,9 @@ impl ScriptChan for ServiceWorkerChan {
 pub struct ServiceWorkerGlobalScope<TH: TypeHolderTrait> {
     workerglobalscope: WorkerGlobalScope<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
-    receiver: Receiver<ServiceWorkerScriptMsg>,
+    receiver: Receiver<ServiceWorkerScriptMsg<TH>>,
     #[ignore_malloc_size_of = "Defined in std"]
-    own_sender: Sender<ServiceWorkerScriptMsg>,
+    own_sender: Sender<ServiceWorkerScriptMsg<TH>>,
     #[ignore_malloc_size_of = "Defined in std"]
     timer_event_port: Receiver<()>,
     #[ignore_malloc_size_of = "Defined in std"]
@@ -87,8 +87,8 @@ impl<TH> ServiceWorkerGlobalScope<TH> {
                      worker_url: ServoUrl,
                      from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
                      runtime: Runtime,
-                     own_sender: Sender<ServiceWorkerScriptMsg>,
-                     receiver: Receiver<ServiceWorkerScriptMsg>,
+                     own_sender: Sender<ServiceWorkerScriptMsg<TH>>,
+                     receiver: Receiver<ServiceWorkerScriptMsg<TH>>,
                      timer_event_chan: IpcSender<TimerEvent>,
                      timer_event_port: Receiver<()>,
                      swmanager_sender: IpcSender<ServiceWorkerMsg>,
@@ -114,8 +114,8 @@ impl<TH> ServiceWorkerGlobalScope<TH> {
                worker_url: ServoUrl,
                from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
                runtime: Runtime,
-               own_sender: Sender<ServiceWorkerScriptMsg>,
-               receiver: Receiver<ServiceWorkerScriptMsg>,
+               own_sender: Sender<ServiceWorkerScriptMsg<TH>>,
+               receiver: Receiver<ServiceWorkerScriptMsg<TH>>,
                timer_event_chan: IpcSender<TimerEvent>,
                timer_event_port: Receiver<()>,
                swmanager_sender: IpcSender<ServiceWorkerMsg>,
@@ -141,8 +141,8 @@ impl<TH> ServiceWorkerGlobalScope<TH> {
 
     #[allow(unsafe_code)]
     pub fn run_serviceworker_scope(scope_things: ScopeThings,
-                            own_sender: Sender<ServiceWorkerScriptMsg>,
-                            receiver: Receiver<ServiceWorkerScriptMsg>,
+                            own_sender: Sender<ServiceWorkerScriptMsg<TH>>,
+                            receiver: Receiver<ServiceWorkerScriptMsg<TH>>,
                             devtools_receiver: IpcReceiver<DevtoolScriptControlMsg>,
                             swmanager_sender: IpcSender<ServiceWorkerMsg>,
                             scope_url: ServoUrl) {
@@ -226,7 +226,7 @@ impl<TH> ServiceWorkerGlobalScope<TH> {
         }).expect("Thread spawning failed");
     }
 
-    fn handle_event(&self, event: MixedMessage) -> bool {
+    fn handle_event(&self, event: MixedMessage<TH>) -> bool {
         match event {
             MixedMessage::FromDevtools(msg) => {
                 match msg {
@@ -251,7 +251,7 @@ impl<TH> ServiceWorkerGlobalScope<TH> {
         }
     }
 
-    fn handle_script_event(&self, msg: ServiceWorkerScriptMsg) {
+    fn handle_script_event(&self, msg: ServiceWorkerScriptMsg<TH>) {
         use self::ServiceWorkerScriptMsg::*;
 
         match msg {
@@ -277,7 +277,7 @@ impl<TH> ServiceWorkerGlobalScope<TH> {
     }
 
     #[allow(unsafe_code)]
-    fn receive_event(&self) -> Result<MixedMessage, RecvError> {
+    fn receive_event(&self) -> Result<MixedMessage<TH>, RecvError> {
         let scope = self.upcast::<WorkerGlobalScope<TH>>();
         let worker_port = &self.receiver;
         let devtools_port = scope.from_devtools_receiver();
@@ -331,7 +331,7 @@ unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext)
     !worker.is_closing()
 }
 
-impl<TH> ServiceWorkerGlobalScopeMethods for ServiceWorkerGlobalScope<TH> {
+impl<TH> ServiceWorkerGlobalScopeMethods<TH> for ServiceWorkerGlobalScope<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-global-scope-onmessage-attribute
     event_handler!(message, GetOnmessage, SetOnmessage);
 }

@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct FileReaderSync<TH: TypeHolderTrait> {
-    eventtarget: EventTarget
+    eventtarget: EventTarget<TH>
 }
 
 impl<TH> FileReaderSync<TH> {

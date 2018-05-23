@@ -36,7 +36,7 @@ impl<TH> DOMStringMap<TH> {
 }
 
 // https://html.spec.whatwg.org/multipage/#domstringmap
-impl<TH> DOMStringMapMethods for DOMStringMap<TH> {
+impl<TH> DOMStringMapMethods<TH> for DOMStringMap<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-domstringmap-removeitem
     fn NamedDeleter(&self, name: DOMString) {
         self.element.delete_custom_attr(name)

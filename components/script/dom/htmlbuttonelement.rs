@@ -269,7 +269,7 @@ impl<TH> Validatable for HTMLButtonElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Activatable for HTMLButtonElement<TH> {
+impl<TH: TypeHolderTrait> Activatable<TH> for HTMLButtonElement<TH> {
     fn as_element(&self) -> &Element<TH> {
         self.upcast()
     }

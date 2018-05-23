@@ -92,7 +92,7 @@ impl<TH: TypeHolderTrait> MutationRecord<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MutationRecordMethods for MutationRecord<TH> {
+impl<TH: TypeHolderTrait> MutationRecordMethods<TH> for MutationRecord<TH> {
     // https://dom.spec.whatwg.org/#dom-mutationrecord-type
     fn Type(&self) -> DOMString {
         self.record_type.clone()

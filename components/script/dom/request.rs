@@ -45,7 +45,7 @@ pub struct Request<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
     request: DomRefCell<NetTraitsRequest>,
     body_used: Cell<bool>,
-    headers: MutNullableDom<Headers, TH>,
+    headers: MutNullableDom<Headers<TH>, TH>,
     mime_type: DomRefCell<Vec<u8>>,
     #[ignore_malloc_size_of = "Rc"]
     body_promise: DomRefCell<Option<(Rc<Promise<TH>>, BodyType)>>,
@@ -74,7 +74,7 @@ impl<TH> Request<TH> {
     // https://fetch.spec.whatwg.org/#dom-request
     pub fn Constructor(global: &GlobalScope<TH>,
                        input: RequestInfo<TH>,
-                       init: RootedTraceableBox<RequestInit>)
+                       init: RootedTraceableBox<RequestInit<TH>>)
                        -> Fallible<DomRoot<Request<TH>>, TH> {
         // Step 1
         let temporary_request: NetTraitsRequest;
@@ -500,7 +500,7 @@ fn request_is_locked<TH: TypeHolderTrait>(_input: &Request<TH>) -> bool {
     false
 }
 
-impl<TH> RequestMethods for Request<TH> {
+impl<TH> RequestMethods<TH> for Request<TH> {
     // https://fetch.spec.whatwg.org/#dom-request-method
     fn Method(&self) -> ByteString {
         let r = self.request.borrow();
@@ -620,7 +620,7 @@ impl<TH> RequestMethods for Request<TH> {
     }
 }
 
-impl<TH> BodyOperations for Request<TH> {
+impl<TH> BodyOperations<TH> for Request<TH> {
     fn get_body_used(&self) -> bool {
         self.BodyUsed()
     }

@@ -260,7 +260,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLCollectionMethods for HTMLCollection<TH> {
+impl<TH: TypeHolderTrait> HTMLCollectionMethods<TH> for HTMLCollection<TH> {
     // https://dom.spec.whatwg.org/#dom-htmlcollection-length
     fn Length(&self) -> u32 {
         self.validate_cache();

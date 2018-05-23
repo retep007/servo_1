@@ -43,7 +43,7 @@ use typeholder::TypeHolderTrait;
 pub struct HTMLTextAreaElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "#7193"]
-    textinput: DomRefCell<TextInput<ScriptToConstellationChan>>,
+    textinput: DomRefCell<TextInput<ScriptToConstellationChan, TH>>,
     placeholder: DomRefCell<DOMString>,
     // https://html.spec.whatwg.org/multipage/#concept-textarea-dirty
     value_dirty: Cell<bool>,
@@ -146,7 +146,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
     }
 }
 
-impl<TH> TextControlElement for HTMLTextAreaElement<TH> {
+impl<TH> TextControlElement<TH> for HTMLTextAreaElement<TH> {
     fn selection_api_applies(&self) -> bool {
         true
     }
@@ -160,7 +160,7 @@ impl<TH> TextControlElement for HTMLTextAreaElement<TH> {
     }
 }
 
-impl<TH> HTMLTextAreaElementMethods for HTMLTextAreaElement<TH> {
+impl<TH> HTMLTextAreaElementMethods<TH> for HTMLTextAreaElement<TH> {
     // TODO A few of these attributes have default values and additional
     // constraints
 
@@ -337,7 +337,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTextAreaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -481,7 +481,7 @@ impl<TH: TypeHolderTrait> VirtualMethods for HTMLTextAreaElement<TH> {
     }
 }
 
-impl<TH> FormControl for HTMLTextAreaElement<TH> {
+impl<TH> FormControl<TH> for HTMLTextAreaElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }

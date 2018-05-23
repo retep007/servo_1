@@ -256,7 +256,7 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
 pub struct MouseEventInit<TH: TypeHolderTrait> {
-    pub parent: dom::bindings::codegen::Bindings::EventModifierInitBinding::EventModifierInit,
+    pub parent: dom::bindings::codegen::Bindings::EventModifierInitBinding::EventModifierInit<TH>,
     pub button: i16,
     pub clientX: i32,
     pub clientY: i32,

@@ -55,7 +55,7 @@ impl<TH> HTMLFieldSetElementMethods<TH> for HTMLFieldSetElement<TH> {
     fn Elements(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct ElementsFilter<TH>;
-        impl<TH> CollectionFilter for ElementsFilter<TH> {
+        impl<TH> CollectionFilter<TH> for ElementsFilter<TH> {
             fn filter<'a>(&self, elem: &'a Element<TH>, _root: &'a Node<TH>) -> bool {
                 elem.downcast::<HTMLElement<TH>>()
                     .map_or(false, HTMLElement::is_listed_element)

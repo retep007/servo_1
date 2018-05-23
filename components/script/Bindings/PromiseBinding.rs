@@ -254,10 +254,10 @@ use typeholder::TypeHolderTrait;
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
 pub struct PromiseJobCallback<TH: TypeHolderTrait> {
-    pub parent: CallbackFunction,
+    pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> PromiseJobCallback {
+impl<TH: TypeHolderTrait> PromiseJobCallback<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<PromiseJobCallback<TH>> {
         let mut ret = Rc::new(PromiseJobCallback {
             parent: CallbackFunction::new()
@@ -308,7 +308,7 @@ impl<TH: TypeHolderTrait> PromiseJobCallback {
 
     }
 }
-impl<TH> CallbackContainer for PromiseJobCallback<TH> {
+impl<TH> CallbackContainer<TH> for PromiseJobCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<PromiseJobCallback<TH>> {
         PromiseJobCallback::new(cx, callback)
     }
@@ -327,10 +327,10 @@ impl<TH> ToJSValConvertible for PromiseJobCallback<TH> {
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
 pub struct AnyCallback<TH: TypeHolderTrait> {
-    pub parent: CallbackFunction,
+    pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> AnyCallback {
+impl<TH: TypeHolderTrait> AnyCallback<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<AnyCallback<TH>> {
         let mut ret = Rc::new(AnyCallback {
             parent: CallbackFunction::new()
@@ -391,7 +391,7 @@ impl<TH: TypeHolderTrait> AnyCallback {
 
     }
 }
-impl<TH> CallbackContainer for AnyCallback<TH> {
+impl<TH> CallbackContainer<TH> for AnyCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<AnyCallback<TH>> {
         AnyCallback::new(cx, callback)
     }

@@ -58,7 +58,7 @@ impl<TH> Headers<TH> {
     }
 }
 
-impl<TH> HeadersMethods for Headers<TH> {
+impl<TH> HeadersMethods<TH> for Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-append
     fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult<TH> {
         // Step 1

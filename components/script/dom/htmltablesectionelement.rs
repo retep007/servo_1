@@ -45,14 +45,14 @@ impl<TH: TypeHolderTrait> HTMLTableSectionElement<TH> {
 
 #[derive(JSTraceable)]
 struct RowsFilter<TH: TypeHolderTrait>;
-impl<TH: TypeHolderTrait> CollectionFilter for RowsFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for RowsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
         elem.is::<HTMLTableRowElement<TH>>() &&
             elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods for HTMLTableSectionElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods<TH> for HTMLTableSectionElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tbody-rows
     fn Rows(&self) -> DomRoot<HTMLCollection<TH>> {
         HTMLCollection::create(&window_from_node(self), self.upcast(), Box::new(RowsFilter))

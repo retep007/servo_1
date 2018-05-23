@@ -23,7 +23,7 @@ const DEFAULT_HEIGHT: u32 = 150;
 
 #[dom_struct]
 pub struct SVGSVGElement<TH: TypeHolderTrait> {
-    svggraphicselement: SVGGraphicsElement
+    svggraphicselement: SVGGraphicsElement<TH>
 }
 
 impl<TH> SVGSVGElement<TH> {
@@ -66,7 +66,7 @@ impl<TH> LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement<TH>> {
     }
 }
 
-impl<TH> VirtualMethods for SVGSVGElement<TH> {
+impl<TH> VirtualMethods<TH> for SVGSVGElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<SVGGraphicsElement<TH>>() as &VirtualMethods<TH>)
     }

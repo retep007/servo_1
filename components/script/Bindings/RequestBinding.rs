@@ -528,11 +528,11 @@ pub use self::UnionTypes::RequestOrUSVString as RequestInfo;
 
 #[derive(JSTraceable, Default)]
 #[must_root]
-pub struct RequestInit {
-    pub body: Option<Option<UnionTypes::BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams>>,
+pub struct RequestInit<TH: TypeHolderTrait> {
+    pub body: Option<Option<UnionTypes::BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH>>>,
     pub cache: Option<RequestCache>,
     pub credentials: Option<RequestCredentials>,
-    pub headers: Option<UnionTypes::HeadersOrByteStringSequenceSequenceOrStringByteStringRecord>,
+    pub headers: Option<UnionTypes::HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH>>,
     pub integrity: Option<DOMString>,
     pub method: Option<ByteString>,
     pub mode: Option<RequestMode>,
@@ -541,15 +541,15 @@ pub struct RequestInit {
     pub referrerPolicy: Option<ReferrerPolicy>,
     pub window: RootedTraceableBox<Heap<JSVal>>,
 }
-impl RootedTraceableBox<RequestInit> {
-    pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<RequestInit> {
+impl<TH> RootedTraceableBox<RequestInit<TH>> {
+    pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<RequestInit<TH>> {
         match RequestInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
             _ => unreachable!(),
         }
     }
     pub unsafe fn new(cx: *mut JSContext, val: HandleValue)
-                      -> Result<ConversionResult<RootedTraceableBox<RequestInit>>, ()> {
+                      -> Result<ConversionResult<RootedTraceableBox<RequestInit<TH>>>, ()> {
         let object = if val.get().is_null_or_undefined() {
             ptr::null_mut()
         } else if val.get().is_object() {
@@ -739,15 +739,15 @@ impl RootedTraceableBox<RequestInit> {
     }
 }
 
-impl FromJSValConvertible for RootedTraceableBox<RequestInit> {
+impl<TH> FromJSValConvertible for RootedTraceableBox<RequestInit<TH>> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
-                         -> Result<ConversionResult<RootedTraceableBox<RequestInit>>, ()> {
+                         -> Result<ConversionResult<RootedTraceableBox<RequestInit<TH>>>, ()> {
         RequestInit::new(cx, value)
     }
 }
 
-impl ToJSValConvertible for RootedTraceableBox<RequestInit> {
+impl<TH> ToJSValConvertible for RootedTraceableBox<RequestInit<TH>> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         if let Some(ref body) = self.body {

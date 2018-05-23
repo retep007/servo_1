@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLLabelElement<TH: TypeHolderTrait> {
-    htmlelement: HTMLElement
+    htmlelement: HTMLElement<TH>
 }
 
 impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
     }
 }
 
-impl<TH> Activatable for HTMLLabelElement<TH> {
+impl<TH> Activatable<TH> for HTMLLabelElement<TH> {
     fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()
     }

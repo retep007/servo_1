@@ -186,7 +186,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
 
 }
 
-impl<TH> MutationObserverMethods for MutationObserver<TH> {
+impl<TH> MutationObserverMethods<TH> for MutationObserver<TH> {
     /// <https://dom.spec.whatwg.org/#dom-mutationobserver-observe>
     fn Observe(&self, target: &Node<TH>, options: &MutationObserverInit) -> Fallible<(), TH> {
         let attribute_filter = options.attributeFilter.clone().unwrap_or(vec![]);

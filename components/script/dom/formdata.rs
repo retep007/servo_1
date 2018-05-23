@@ -59,7 +59,7 @@ impl<TH> FormData<TH> {
     }
 }
 
-impl<TH> FormDataMethods for FormData<TH> {
+impl<TH> FormDataMethods<TH> for FormData<TH> {
     // https://xhr.spec.whatwg.org/#dom-formdata-append
     fn Append(&self, name: USVString, str_value: USVString) {
         let datum = FormDatum {

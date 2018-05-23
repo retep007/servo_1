@@ -646,7 +646,7 @@ impl<TH: TypeHolderTrait> HTMLScriptElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods for HTMLScriptElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLScriptElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

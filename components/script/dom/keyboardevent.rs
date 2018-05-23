@@ -103,7 +103,7 @@ impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &KeyboardEventBinding::KeyboardEventInit) -> Fallible<DomRoot<KeyboardEvent<TH>>, TH> {
+                       init: &KeyboardEventBinding::KeyboardEventInit<TH>) -> Fallible<DomRoot<KeyboardEvent<TH>>, TH> {
         let event = KeyboardEvent::new(window,
                                        type_,
                                        init.parent.parent.parent.bubbles,
@@ -757,7 +757,7 @@ impl KeyEventProperties {
     }
 }
 
-impl<TH: TypeHolderTrait> KeyboardEventMethods for KeyboardEvent<TH> {
+impl<TH: TypeHolderTrait> KeyboardEventMethods<TH> for KeyboardEvent<TH> {
     // https://w3c.github.io/uievents/#widl-KeyboardEvent-initKeyboardEvent
     fn InitKeyboardEvent(&self,
                          type_arg: DOMString,

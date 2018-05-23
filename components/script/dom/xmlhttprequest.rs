@@ -91,7 +91,7 @@ pub struct GenerationId(u32);
 /// Closure of required data for each async network event that comprises the
 /// XHR's response.
 struct XHRContext<TH: TypeHolderTrait> {
-    xhr: TrustedXHRAddress,
+    xhr: TrustedXHRAddress<TH>,
     gen_id: GenerationId,
     buf: DomRefCell<Vec<u8>>,
     sync_status: DomRefCell<Option<ErrorResult<TH>>>,
@@ -229,7 +229,7 @@ impl<TH> XMLHttpRequest<TH> {
                           global: &GlobalScope<TH>,
                           init: RequestInit,
                           cancellation_chan: ipc::IpcReceiver<()>) {
-        impl FetchResponseListener for XHRContext {
+        impl<TH> FetchResponseListener for XHRContext<TH> {
             fn process_request_body(&mut self) {
                 // todo
             }
@@ -258,7 +258,7 @@ impl<TH> XMLHttpRequest<TH> {
             }
         }
 
-        impl PreInvoke for XHRContext {
+        impl<TH> PreInvoke for XHRContext<TH> {
             fn should_invoke(&self) -> bool {
                 self.xhr.root().generation_id.get() == self.gen_id
             }
@@ -279,7 +279,7 @@ impl<TH> XMLHttpRequest<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
+impl<TH: TypeHolderTrait> XMLHttpRequestMethods<TH> for XMLHttpRequest<TH> {
     // https://xhr.spec.whatwg.org/#handler-xhr-onreadystatechange
     event_handler!(readystatechange, GetOnreadystatechange, SetOnreadystatechange);
 
@@ -829,7 +829,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods for XMLHttpRequest<TH> {
     }
 }
 
-pub type TrustedXHRAddress<TH> = Trusted<XMLHttpRequest<TH>>;
+pub type TrustedXHRAddress<TH> = Trusted<XMLHttpRequest<TH>, TH>;
 
 
 impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
@@ -1413,7 +1413,7 @@ impl Extractable for DOMString {
     }
 }
 
-impl Extractable for FormData {
+impl<TH> Extractable for FormData<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         let boundary = generate_boundary();
         let bytes = encode_multipart_form_data(&mut self.datums(), boundary.clone(), UTF_8);
@@ -1421,7 +1421,7 @@ impl Extractable for FormData {
     }
 }
 
-impl Extractable for URLSearchParams {
+impl<TH> Extractable for URLSearchParams<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         (self.serialize_utf8().into_bytes(),
             Some(DOMString::from("application/x-www-form-urlencoded;charset=UTF-8")))
@@ -1436,7 +1436,7 @@ fn serialize_document<TH: TypeHolderTrait>(doc: &Document<TH>) -> Fallible<DOMSt
     }
 }
 
-impl Extractable for BodyInit {
+impl<TH> Extractable for BodyInit<TH> {
     // https://fetch.spec.whatwg.org/#concept-bodyinit-extract
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         match *self {

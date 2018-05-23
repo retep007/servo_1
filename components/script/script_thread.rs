@@ -263,13 +263,13 @@ impl ScriptPort for Receiver<MainThreadScriptMsg> {
     }
 }
 
-impl ScriptPort for Receiver<(TrustedWorkerAddress, CommonScriptMsg)> {
+impl<TH> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, CommonScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         self.recv().map(|(_, msg)| msg).map_err(|_| ())
     }
 }
 
-impl ScriptPort for Receiver<(TrustedWorkerAddress, MainThreadScriptMsg)> {
+impl<TH> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, MainThreadScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         match self.recv().map(|(_, msg)| msg) {
             Ok(MainThreadScriptMsg::Common(script_msg)) => Ok(script_msg),
@@ -279,7 +279,7 @@ impl ScriptPort for Receiver<(TrustedWorkerAddress, MainThreadScriptMsg)> {
     }
 }
 
-impl ScriptPort for Receiver<(TrustedServiceWorkerAddress, CommonScriptMsg)> {
+impl<TH> ScriptPort for Receiver<(TrustedServiceWorkerAddress<TH>, CommonScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         self.recv().map(|(_, msg)| msg).map_err(|_| ())
     }

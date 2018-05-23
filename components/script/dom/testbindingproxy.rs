@@ -12,7 +12,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TestBindingProxy<TH: TypeHolderTrait> {
-    reflector_: Reflector
+    reflector_: Reflector<TH>
 }
 
 impl<TH> TestBindingProxyMethods for TestBindingProxy<TH> {

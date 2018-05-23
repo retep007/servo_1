@@ -33,7 +33,7 @@ use typeholder::TypeHolderTrait;
 #[must_root]
 pub struct Tokenizer<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Defined in html5ever"]
-    inner: HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink>>,
+    inner: HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>>,
 }
 
 impl<TH> Tokenizer<TH> {
@@ -99,7 +99,7 @@ impl<TH> Tokenizer<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink>> {
+unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         struct Tracer<TH>(*mut JSTracer);
         let tracer = Tracer(trc);

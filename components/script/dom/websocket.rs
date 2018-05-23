@@ -274,7 +274,7 @@ impl<TH: TypeHolderTrait> WebSocket<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebSocketMethods for WebSocket<TH> {
+impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
     // https://html.spec.whatwg.org/multipage/#handler-websocket-onopen
     event_handler!(open, GetOnopen, SetOnopen);
 

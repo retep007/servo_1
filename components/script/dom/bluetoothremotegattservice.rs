@@ -65,7 +65,7 @@ impl<TH> BluetoothRemoteGATTService<TH> {
     }
 }
 
-impl<TH> BluetoothRemoteGATTServiceMethods for BluetoothRemoteGATTService<TH> {
+impl<TH> BluetoothRemoteGATTServiceMethods<TH> for BluetoothRemoteGATTService<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattservice-device
     fn Device(&self) -> DomRoot<BluetoothDevice<TH>> {
         DomRoot::from_ref(&self.device)
@@ -128,7 +128,7 @@ impl<TH> BluetoothRemoteGATTServiceMethods for BluetoothRemoteGATTService<TH> {
     event_handler!(serviceremoved, GetOnserviceremoved, SetOnserviceremoved);
 }
 
-impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTService<TH> {
+impl<TH> AsyncBluetoothListener<TH> for BluetoothRemoteGATTService<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         let device = self.Device();
         match response {

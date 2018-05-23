@@ -58,7 +58,7 @@ impl<TH> VREyeParameters<TH> {
     }
 }
 
-impl<TH> VREyeParametersMethods for VREyeParameters<TH> {
+impl<TH> VREyeParametersMethods<TH> for VREyeParameters<TH> {
     #[allow(unsafe_code)]
     // https://w3c.github.io/webvr/#dom-vreyeparameters-offset
     unsafe fn Offset(&self, _cx: *mut JSContext) -> NonNull<JSObject> {

@@ -174,7 +174,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods for WorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods<TH> for WorkerGlobalScope<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-workerglobalscope-self
     fn Self_(&self) -> DomRoot<WorkerGlobalScope<TH>> {
         DomRoot::from_ref(self)
@@ -316,7 +316,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods for WorkerGlobalScope<TH> {
 
     #[allow(unrooted_must_root)]
     // https://fetch.spec.whatwg.org/#fetch-method
-    fn Fetch(&self, input: RequestOrUSVString<TH>, init: RootedTraceableBox<RequestInit>) -> Rc<Promise<TH>> {
+    fn Fetch(&self, input: RequestOrUSVString<TH>, init: RootedTraceableBox<RequestInit<TH>>) -> Rc<Promise<TH>> {
         fetch::Fetch(self.upcast(), input, init)
     }
 

@@ -228,7 +228,7 @@ pub fn response_async<T: AsyncBluetoothListener<TH> + DomObject<TH> + 'static, T
     }));
     ROUTER.add_route(action_receiver.to_opaque(), Box::new(move |message| {
         struct ListenerTask<T: AsyncBluetoothListener<TH> + DomObject<TH>, TH: TypeHolderTrait> {
-            context: Arc<Mutex<BluetoothContext<T>>>,
+            context: Arc<Mutex<BluetoothContext<T, TH>>>,
             action: BluetoothResponseResult,
         }
 
@@ -469,7 +469,7 @@ fn canonicalize_bluetooth_data_filter_init<TH: TypeHolderTrait>(bdfi: &Bluetooth
     Ok((data_prefix, mask))
 }
 
-impl From<BluetoothError> for Error {
+impl<TH> From<BluetoothError> for Error<TH> {
     fn from(error: BluetoothError) -> Self {
         match error {
             BluetoothError::Type(message) => Error::Type(message),
@@ -482,7 +482,7 @@ impl From<BluetoothError> for Error {
     }
 }
 
-impl<TH> BluetoothMethods for Bluetooth<TH> {
+impl<TH> BluetoothMethods<TH> for Bluetooth<TH> {
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetooth-requestdevice
     fn RequestDevice(&self, option: &RequestDeviceOptions) -> Rc<Promise<TH>> {
@@ -553,7 +553,7 @@ impl<TH> AsyncBluetoothListener<TH> for Bluetooth<TH> {
     }
 }
 
-impl<TH> PermissionAlgorithm for Bluetooth<TH> {
+impl<TH> PermissionAlgorithm<TH> for Bluetooth<TH> {
     type Descriptor = BluetoothPermissionDescriptor;
     type Status = BluetoothPermissionResult<TH>;
 

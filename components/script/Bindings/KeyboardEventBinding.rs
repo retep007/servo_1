@@ -255,23 +255,23 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct KeyboardEventInit {
-    pub parent: dom::bindings::codegen::Bindings::EventModifierInitBinding::EventModifierInit,
+pub struct KeyboardEventInit<TH: TypeHolderTrait> {
+    pub parent: dom::bindings::codegen::Bindings::EventModifierInitBinding::EventModifierInit<TH>,
     pub code: DOMString,
     pub isComposing: bool,
     pub key: DOMString,
     pub location: u32,
     pub repeat: bool,
 }
-impl KeyboardEventInit {
-    pub unsafe fn empty(cx: *mut JSContext) -> KeyboardEventInit {
+impl<TH> KeyboardEventInit<TH> {
+    pub unsafe fn empty(cx: *mut JSContext) -> KeyboardEventInit<TH> {
         match KeyboardEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
             _ => unreachable!(),
         }
     }
     pub unsafe fn new(cx: *mut JSContext, val: HandleValue)
-                      -> Result<ConversionResult<KeyboardEventInit>, ()> {
+                      -> Result<ConversionResult<KeyboardEventInit<TH>>, ()> {
         let object = if val.get().is_null_or_undefined() {
             ptr::null_mut()
         } else if val.get().is_object() {
@@ -385,15 +385,15 @@ impl KeyboardEventInit {
     }
 }
 
-impl FromJSValConvertible for KeyboardEventInit {
+impl<TH> FromJSValConvertible for KeyboardEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
-                         -> Result<ConversionResult<KeyboardEventInit>, ()> {
+                         -> Result<ConversionResult<KeyboardEventInit<TH>>, ()> {
         KeyboardEventInit::new(cx, value)
     }
 }
 
-impl ToJSValConvertible for KeyboardEventInit {
+impl<TH> ToJSValConvertible for KeyboardEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let code = &self.code;
@@ -1360,7 +1360,7 @@ impl<TH: TypeHolderTrait> PartialEq for KeyboardEvent<TH> {
     }
 }
 
-pub trait KeyboardEventMethods {
+pub trait KeyboardEventMethods<TH: TypeHolderTrait> {
     fn Key(&self) -> DOMString;
     fn Code(&self) -> DOMString;
     fn Location(&self) -> u32;

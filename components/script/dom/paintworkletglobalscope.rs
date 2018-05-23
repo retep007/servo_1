@@ -431,7 +431,7 @@ impl<TH> PaintDefinition<TH> {
     }
 }
 
-impl<TH> PaintWorkletGlobalScopeMethods for PaintWorkletGlobalScope<TH> {
+impl<TH> PaintWorkletGlobalScopeMethods<TH> for PaintWorkletGlobalScope<TH> {
     #[allow(unsafe_code)]
     #[allow(unrooted_must_root)]
     /// <https://drafts.css-houdini.org/css-paint-api/#dom-paintworkletglobalscope-registerpaint>

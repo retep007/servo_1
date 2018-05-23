@@ -39,7 +39,7 @@ impl<TH: TypeHolderTrait> CompositionEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &CompositionEventBinding::CompositionEventInit)
+                       init: &CompositionEventBinding::CompositionEventInit<TH>)
                        -> Fallible<DomRoot<Self>, TH> {
         let event = CompositionEvent::new(window,
                                     type_,

@@ -256,7 +256,7 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
 pub struct FocusEventInit<TH: TypeHolderTrait> {
-    pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit,
+    pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit<TH>,
     pub relatedTarget: Option<DomRoot<EventTarget<TH>>>,
 }
 impl<TH> FocusEventInit<TH> {

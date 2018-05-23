@@ -213,7 +213,7 @@ impl<TH> BluetoothDevice<TH> {
     }
 }
 
-impl<TH> BluetoothDeviceMethods for BluetoothDevice<TH> {
+impl<TH> BluetoothDeviceMethods<TH> for BluetoothDevice<TH> {
      // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothdevice-id
     fn Id(&self) -> DOMString {
         self.id.clone()
@@ -264,7 +264,7 @@ impl<TH> BluetoothDeviceMethods for BluetoothDevice<TH> {
     event_handler!(gattserverdisconnected, GetOngattserverdisconnected, SetOngattserverdisconnected);
 }
 
-impl<TH> AsyncBluetoothListener for BluetoothDevice<TH> {
+impl<TH> AsyncBluetoothListener<TH> for BluetoothDevice<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothdevice-unwatchadvertisements

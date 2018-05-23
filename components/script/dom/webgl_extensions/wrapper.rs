@@ -31,12 +31,12 @@ pub trait WebGLExtensionWrapper<TH: TypeHolderTrait>: JSTraceable + MallocSizeOf
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
 pub struct TypedWebGLExtensionWrapper<T: WebGLExtension<TH>, TH: TypeHolderTrait> {
-    extension: MutNullableDom<T::Extension<TH>, TH>
+    extension: MutNullableDom<T::Extension, TH>
 }
 
 /// Typed WebGL Extension implementation.
 /// Exposes the exact MutNullableDom<DOMObject, TH> type defined by the extension.
-impl<T: WebGLExtension, TH: TypeHolderTrait> TypedWebGLExtensionWrapper<T, TH> {
+impl<T: WebGLExtension<TH>, TH: TypeHolderTrait> TypedWebGLExtensionWrapper<T, TH> {
     pub fn new() -> TypedWebGLExtensionWrapper<T, TH> {
         TypedWebGLExtensionWrapper {
             extension: MutNullableDom::new(None)
@@ -44,8 +44,8 @@ impl<T: WebGLExtension, TH: TypeHolderTrait> TypedWebGLExtensionWrapper<T, TH> {
     }
 }
 
-impl<T, TH: TypeHolderTrait> WebGLExtensionWrapper for TypedWebGLExtensionWrapper<T, TH>
-                              where T: WebGLExtension + JSTraceable + MallocSizeOf + 'static {
+impl<T, TH: TypeHolderTrait> WebGLExtensionWrapper<TH> for TypedWebGLExtensionWrapper<T, TH>
+                              where T: WebGLExtension<TH> + JSTraceable + MallocSizeOf + 'static {
     #[allow(unsafe_code)]
     fn instance_or_init(&self,
                         ctx: &WebGLRenderingContext<TH>,
@@ -90,7 +90,7 @@ impl<T, TH: TypeHolderTrait> WebGLExtensionWrapper for TypedWebGLExtensionWrappe
 }
 
 impl<T, TH: TypeHolderTrait> TypedWebGLExtensionWrapper<T, TH>
-    where T: WebGLExtension + JSTraceable + MallocSizeOf + 'static
+    where T: WebGLExtension<TH> + JSTraceable + MallocSizeOf + 'static
 {
     pub fn dom_object(&self) -> Option<DomRoot<T::Extension>> {
         self.extension.get()

@@ -55,7 +55,7 @@ impl<TH> Navigator<TH> {
     }
 }
 
-impl<TH> NavigatorMethods for Navigator<TH> {
+impl<TH> NavigatorMethods<TH> for Navigator<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-navigator-product
     fn Product(&self) -> DOMString {
         navigatorinfo::Product()

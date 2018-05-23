@@ -255,20 +255,20 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct InputEventInit {
-    pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit,
+pub struct InputEventInit<TH> {
+    pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit<TH>,
     pub data: Option<DOMString>,
     pub isComposing: bool,
 }
-impl InputEventInit {
-    pub unsafe fn empty(cx: *mut JSContext) -> InputEventInit {
+impl<TH> InputEventInit<TH> {
+    pub unsafe fn empty(cx: *mut JSContext) -> InputEventInit<TH> {
         match InputEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
             _ => unreachable!(),
         }
     }
     pub unsafe fn new(cx: *mut JSContext, val: HandleValue)
-                      -> Result<ConversionResult<InputEventInit>, ()> {
+                      -> Result<ConversionResult<InputEventInit<TH>>, ()> {
         let object = if val.get().is_null_or_undefined() {
             ptr::null_mut()
         } else if val.get().is_object() {
@@ -328,15 +328,15 @@ impl InputEventInit {
     }
 }
 
-impl FromJSValConvertible for InputEventInit {
+impl<TH> FromJSValConvertible for InputEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
-                         -> Result<ConversionResult<InputEventInit>, ()> {
+                         -> Result<ConversionResult<InputEventInit<TH>>, ()> {
         InputEventInit::new(cx, value)
     }
 }
 
-impl ToJSValConvertible for InputEventInit {
+impl<TH> ToJSValConvertible for InputEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let data = &self.data;

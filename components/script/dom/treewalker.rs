@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 pub struct TreeWalker<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
     root_node: Dom<Node<TH>>,
-    current_node: MutDom<Node<TH>>,
+    current_node: MutDom<Node<TH>, TH>,
     what_to_show: u32,
     #[ignore_malloc_size_of = "function pointers and Rc<T> are hard"]
     filter: Filter<TH>,
@@ -65,7 +65,7 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TreeWalkerMethods for TreeWalker<TH> {
+impl<TH: TypeHolderTrait> TreeWalkerMethods<TH> for TreeWalker<TH> {
     // https://dom.spec.whatwg.org/#dom-treewalker-root
     fn Root(&self) -> DomRoot<Node<TH>> {
         DomRoot::from_ref(&*self.root_node)

@@ -90,7 +90,7 @@ impl<TH: TypeHolderTrait> StorageEvent<TH> {
     }
 }
 
-impl<TH> StorageEventMethods for StorageEvent<TH> {
+impl<TH> StorageEventMethods<TH> for StorageEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-storageevent-key
     fn GetKey(&self) -> Option<DOMString> {
         self.key.clone()

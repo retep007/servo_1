@@ -296,7 +296,7 @@ pub mod TestEnumValues {
 
 pub use self::UnionTypes::StringOrURLOrBlob as TestTypedef;
 
-pub type TestTypedefNullableUnion = Option<UnionTypes::StringOrURLOrBlob>;
+pub type TestTypedefNullableUnion<TH> = Option<UnionTypes::StringOrURLOrBlob<TH>>;
 
 pub type TestTypedefString = DOMString;
 
@@ -1799,10 +1799,10 @@ impl ToJSValConvertible for RootedTraceableBox<TestDictionaryDefaults> {
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
 pub struct SimpleCallback<TH: TypeHolderTrait> {
-    pub parent: CallbackFunction,
+    pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> SimpleCallback {
+impl<TH: TypeHolderTrait> SimpleCallback<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<SimpleCallback<TH>> {
         let mut ret = Rc::new(SimpleCallback {
             parent: CallbackFunction::new()
@@ -1863,7 +1863,7 @@ impl<TH: TypeHolderTrait> SimpleCallback {
 
     }
 }
-impl<TH> CallbackContainer for SimpleCallback<TH> {
+impl<TH> CallbackContainer<TH> for SimpleCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<SimpleCallback<TH>> {
         SimpleCallback::new(cx, callback)
     }

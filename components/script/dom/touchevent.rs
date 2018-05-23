@@ -20,9 +20,9 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct TouchEvent<TH: TypeHolderTrait> {
     uievent: UIEvent<TH>,
-    touches: MutDom<TouchList<TH>>,
-    target_touches: MutDom<TouchList<TH>>,
-    changed_touches: MutDom<TouchList<TH>>,
+    touches: MutDom<TouchList<TH>, TH>,
+    target_touches: MutDom<TouchList<TH>, TH>,
+    changed_touches: MutDom<TouchList<TH>, TH>,
     alt_key: Cell<bool>,
     meta_key: Cell<bool>,
     ctrl_key: Cell<bool>,
@@ -80,7 +80,7 @@ impl<TH: TypeHolderTrait> TouchEvent<TH> {
     }
 }
 
-impl<'a, TH> TouchEventMethods for &'a TouchEvent<TH> {
+impl<'a, TH> TouchEventMethods<TH> for &'a TouchEvent<TH> {
     /// <https://w3c.github.io/touch-events/#widl-TouchEvent-ctrlKey>
     fn CtrlKey(&self) -> bool {
         self.ctrl_key.get()

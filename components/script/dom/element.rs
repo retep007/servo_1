@@ -132,9 +132,7 @@ use typeholder::TypeHolderTrait;
 // and when the element enters or leaves a browsing context container.
 // https://html.spec.whatwg.org/multipage/#selector-focus
 
-#[derive(DenyPublicFields, DomObject, JSTraceable, MallocSizeOf)]
-        #[must_root]
-        #[repr(C)]
+#[dom_struct]
 pub struct Element<TH: TypeHolderTrait> {
     node: Node<TH>,
     local_name: LocalName,
@@ -156,7 +154,7 @@ pub struct Element<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "bitflags defined in rust-selectors"]
     selector_flags: Cell<ElementSelectorFlags>,
     /// <https://html.spec.whatwg.org/multipage/#custom-element-reaction-queue>
-    custom_element_reaction_queue: DomRefCell<Vec<CustomElementReaction>>,
+    custom_element_reaction_queue: DomRefCell<Vec<CustomElementReaction<TH>>>,
     /// <https://dom.spec.whatwg.org/#concept-element-custom-element-definition>
     #[ignore_malloc_size_of = "Rc"]
     custom_element_definition: DomRefCell<Option<Rc<CustomElementDefinition<TH>>>>,

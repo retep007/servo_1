@@ -53,7 +53,7 @@ impl<TH> BluetoothRemoteGATTServer<TH> {
     }
 }
 
-impl<TH> BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer<TH> {
+impl<TH> BluetoothRemoteGATTServerMethods<TH> for BluetoothRemoteGATTServer<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-device
     fn Device(&self) -> DomRoot<BluetoothDevice<TH>> {
         DomRoot::from_ref(&self.device)
@@ -119,7 +119,7 @@ impl<TH> BluetoothRemoteGATTServerMethods for BluetoothRemoteGATTServer<TH> {
     }
 }
 
-impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTServer<TH> {
+impl<TH> AsyncBluetoothListener<TH> for BluetoothRemoteGATTServer<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-connect

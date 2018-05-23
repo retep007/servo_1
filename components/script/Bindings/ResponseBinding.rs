@@ -296,20 +296,20 @@ pub mod ResponseTypeValues {
         } // mod ResponseTypeValues
 
 #[derive(JSTraceable)]
-pub struct ResponseInit {
-    pub headers: Option<UnionTypes::HeadersOrByteStringSequenceSequenceOrStringByteStringRecord>,
+pub struct ResponseInit<TH: TypeHolderTrait> {
+    pub headers: Option<UnionTypes::HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH>>,
     pub status: u16,
     pub statusText: ByteString,
 }
-impl ResponseInit {
-    pub unsafe fn empty(cx: *mut JSContext) -> ResponseInit {
+impl<TH> ResponseInit<TH> {
+    pub unsafe fn empty(cx: *mut JSContext) -> ResponseInit<TH> {
         match ResponseInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
             _ => unreachable!(),
         }
     }
     pub unsafe fn new(cx: *mut JSContext, val: HandleValue)
-                      -> Result<ConversionResult<ResponseInit>, ()> {
+                      -> Result<ConversionResult<ResponseInit<TH>>, ()> {
         let object = if val.get().is_null_or_undefined() {
             ptr::null_mut()
         } else if val.get().is_object() {
@@ -378,15 +378,15 @@ impl ResponseInit {
     }
 }
 
-impl FromJSValConvertible for ResponseInit {
+impl<TH> FromJSValConvertible for ResponseInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
-                         -> Result<ConversionResult<ResponseInit>, ()> {
+                         -> Result<ConversionResult<ResponseInit<TH>>, ()> {
         ResponseInit::new(cx, value)
     }
 }
 
-impl ToJSValConvertible for ResponseInit {
+impl<TH> ToJSValConvertible for ResponseInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         if let Some(ref headers) = self.headers {

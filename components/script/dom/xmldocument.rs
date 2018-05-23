@@ -91,7 +91,7 @@ impl<TH: TypeHolderTrait> XMLDocument<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> XMLDocumentMethods for XMLDocument<TH> {
+impl<TH: TypeHolderTrait> XMLDocumentMethods<TH> for XMLDocument<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-document-location
     fn GetLocation(&self) -> Option<DomRoot<Location<TH>>> {
         self.upcast::<Document<TH>>().GetLocation()

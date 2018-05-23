@@ -20,7 +20,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestEventTarget<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> XMLHttpRequestEventTargetMethods for XMLHttpRequestEventTarget<TH> {
+impl<TH: TypeHolderTrait> XMLHttpRequestEventTargetMethods<TH> for XMLHttpRequestEventTarget<TH> {
     // https://xhr.spec.whatwg.org/#handler-xhr-onloadstart
     event_handler!(loadstart, GetOnloadstart, SetOnloadstart);
 

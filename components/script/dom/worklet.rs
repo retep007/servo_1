@@ -107,7 +107,7 @@ impl<TH: TypeHolderTrait> Worklet<TH> {
     }
 }
 
-impl<TH> WorkletMethods for Worklet<TH> {
+impl<TH> WorkletMethods<TH> for Worklet<TH> {
     #[allow(unrooted_must_root)]
     /// <https://drafts.css-houdini.org/worklets/#dom-worklet-addmodule>
     fn AddModule(&self, module_url: USVString, options: &WorkletOptions) -> Rc<Promise<TH>> {

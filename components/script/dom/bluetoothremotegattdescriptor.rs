@@ -72,7 +72,7 @@ impl<TH> BluetoothRemoteGATTDescriptor<TH> {
     }
 }
 
-impl<TH> BluetoothRemoteGATTDescriptorMethods for BluetoothRemoteGATTDescriptor<TH> {
+impl<TH> BluetoothRemoteGATTDescriptorMethods<TH> for BluetoothRemoteGATTDescriptor<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattdescriptor-characteristic
     fn Characteristic(&self) -> DomRoot<BluetoothRemoteGATTCharacteristic<TH>> {
        DomRoot::from_ref(&self.characteristic)
@@ -151,7 +151,7 @@ impl<TH> BluetoothRemoteGATTDescriptorMethods for BluetoothRemoteGATTDescriptor<
     }
 }
 
-impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTDescriptor<TH> {
+impl<TH> AsyncBluetoothListener<TH> for BluetoothRemoteGATTDescriptor<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattdescriptor-readvalue

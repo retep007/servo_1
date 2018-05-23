@@ -454,10 +454,10 @@ impl ToJSValConvertible for ScrollToOptions {
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
 pub struct FrameRequestCallback<TH: TypeHolderTrait> {
-    pub parent: CallbackFunction,
+    pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> FrameRequestCallback {
+impl<TH: TypeHolderTrait> FrameRequestCallback<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<FrameRequestCallback<TH>> {
         let mut ret = Rc::new(FrameRequestCallback {
             parent: CallbackFunction::new()
@@ -518,7 +518,7 @@ impl<TH: TypeHolderTrait> FrameRequestCallback {
 
     }
 }
-impl<TH> CallbackContainer for FrameRequestCallback<TH> {
+impl<TH> CallbackContainer<TH> for FrameRequestCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<FrameRequestCallback<TH>> {
         FrameRequestCallback::new(cx, callback)
     }
@@ -9477,7 +9477,7 @@ pub trait WindowMethods<TH: TypeHolderTrait> {
     unsafe fn SetInterval(&self, cx: *mut JSContext, handler: Rc<Function<TH>>, timeout: i32, arguments: Vec<HandleValue>) -> i32;
     unsafe fn SetInterval_(&self, cx: *mut JSContext, handler: DOMString, timeout: i32, arguments: Vec<HandleValue>) -> i32;
     fn ClearInterval(&self, handle: i32) -> ();
-    fn Fetch(&self, input: UnionTypes::RequestOrUSVString<TH>, init: RootedTraceableBox<dom::bindings::codegen::Bindings::RequestBinding::RequestInit>) -> Rc<Promise<TH>>;
+    fn Fetch(&self, input: UnionTypes::RequestOrUSVString<TH>, init: RootedTraceableBox<dom::bindings::codegen::Bindings::RequestBinding::RequestInit<TH>>) -> Rc<Promise<TH>>;
     fn Performance(&self) -> DomRoot<Performance<TH>>;
     fn SessionStorage(&self) -> DomRoot<Storage<TH>>;
 }

@@ -87,7 +87,7 @@ impl<TH> CallbackObject<TH> {
     }
 }
 
-impl Drop for CallbackObject {
+impl<TH> Drop for CallbackObject<TH> {
     #[allow(unsafe_code)]
     fn drop(&mut self) {
         unsafe {

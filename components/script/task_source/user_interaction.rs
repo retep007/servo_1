@@ -27,7 +27,7 @@ impl<TH> fmt::Debug for UserInteractionTaskSource<TH> {
     }
 }
 
-impl<TH> TaskSource for UserInteractionTaskSource<TH> {
+impl<TH> TaskSource<TH> for UserInteractionTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,

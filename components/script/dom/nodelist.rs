@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 #[must_root]
 pub enum NodeListType<TH: TypeHolderTrait> {
     Simple(Vec<Dom<Node<TH>>>),
-    Children(ChildrenList),
+    Children(ChildrenList<TH>),
 }
 
 // https://dom.spec.whatwg.org/#interface-nodelist
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> NodeList<TH> {
     }
 }
 
-impl<TH> NodeListMethods for NodeList<TH> {
+impl<TH> NodeListMethods<TH> for NodeList<TH> {
     // https://dom.spec.whatwg.org/#dom-nodelist-length
     fn Length(&self) -> u32 {
         match self.list_type {
@@ -191,7 +191,7 @@ impl<TH: TypeHolderTrait> ChildrenList<TH> {
     }
 
     pub fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
-        fn prepend<TH>(list: &ChildrenList, added: &[&Node<TH>], next: &Node<TH>) {
+        fn prepend<TH>(list: &ChildrenList<TH>, added: &[&Node<TH>], next: &Node<TH>) {
             let len = added.len() as u32;
             if len == 0u32 {
                 return;

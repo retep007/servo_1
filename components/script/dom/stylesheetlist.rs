@@ -34,7 +34,7 @@ impl<TH: TypeHolderTrait> StyleSheetList<TH> {
     }
 }
 
-impl<TH> StyleSheetListMethods for StyleSheetList<TH> {
+impl<TH> StyleSheetListMethods<TH> for StyleSheetList<TH> {
     // https://drafts.csswg.org/cssom/#dom-stylesheetlist-length
     fn Length(&self) -> u32 {
        self.document.stylesheet_count() as u32

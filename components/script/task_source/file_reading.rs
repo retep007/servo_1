@@ -9,6 +9,7 @@ use script_runtime::{CommonScriptMsg, ScriptThreadEventCategory, ScriptChan};
 use std::sync::Arc;
 use task::{TaskCanceller, TaskOnce};
 use task_source::TaskSource;
+use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
 pub struct FileReadingTaskSource(pub Box<ScriptChan + Send + 'static>, pub PipelineId);
@@ -19,7 +20,7 @@ impl Clone for FileReadingTaskSource {
     }
 }
 
-impl TaskSource for FileReadingTaskSource {
+impl<TH> TaskSource<TH> for FileReadingTaskSource {
     fn queue_with_canceller<T>(
         &self,
         task: T,
@@ -36,21 +37,21 @@ impl TaskSource for FileReadingTaskSource {
     }
 }
 
-impl TaskOnce for FileReadingTask {
+impl<TH> TaskOnce for FileReadingTask<TH> {
     fn run_once(self) {
         self.handle_task();
     }
 }
 
 #[allow(dead_code)]
-pub enum FileReadingTask {
-    ProcessRead(TrustedFileReader, GenerationId),
-    ProcessReadData(TrustedFileReader, GenerationId),
-    ProcessReadError(TrustedFileReader, GenerationId, DOMErrorName),
-    ProcessReadEOF(TrustedFileReader, GenerationId, ReadMetaData, Arc<Vec<u8>>),
+pub enum FileReadingTask<TH: TypeHolderTrait> {
+    ProcessRead(TrustedFileReader<TH>, GenerationId),
+    ProcessReadData(TrustedFileReader<TH>, GenerationId),
+    ProcessReadError(TrustedFileReader<TH>, GenerationId, DOMErrorName),
+    ProcessReadEOF(TrustedFileReader<TH>, GenerationId, ReadMetaData, Arc<Vec<u8>>),
 }
 
-impl FileReadingTask {
+impl<TH> FileReadingTask<TH> {
     pub fn handle_task(self) {
         use self::FileReadingTask::*;
 

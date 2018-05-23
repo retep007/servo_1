@@ -41,7 +41,7 @@ impl<TH> Crypto<TH> {
     }
 }
 
-impl<TH> CryptoMethods for Crypto<TH> {
+impl<TH> CryptoMethods<TH> for Crypto<TH> {
     #[allow(unsafe_code)]
     // https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#Crypto-method-getRandomValues
     unsafe fn GetRandomValues(&self,

@@ -55,7 +55,7 @@ impl<TH> Drop for VR<TH> {
     }
 }
 
-impl<TH> VRMethods for VR<TH> {
+impl<TH> VRMethods<TH> for VR<TH> {
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/webvr/#interface-navigator
     fn GetDisplays(&self) -> Rc<Promise<TH>> {

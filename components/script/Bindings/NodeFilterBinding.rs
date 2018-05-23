@@ -607,10 +607,10 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
 pub struct NodeFilter<TH: TypeHolderTrait> {
-    pub parent: CallbackInterface,
+    pub parent: CallbackInterface<TH>,
 }
 
-impl<TH: TypeHolderTrait> NodeFilter {
+impl<TH: TypeHolderTrait> NodeFilter<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<NodeFilter<TH>> {
         let mut ret = Rc::new(NodeFilter {
             parent: CallbackInterface::new()
@@ -684,7 +684,7 @@ impl<TH: TypeHolderTrait> NodeFilter {
 
     }
 }
-impl<TH> CallbackContainer for NodeFilter<TH> {
+impl<TH> CallbackContainer<TH> for NodeFilter<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<NodeFilter<TH>> {
         NodeFilter::new(cx, callback)
     }

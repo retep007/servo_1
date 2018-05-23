@@ -69,7 +69,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe impl<TH: TypeHolderTrait> JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink>> {
+unsafe impl<TH: TypeHolderTrait> JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
     unsafe fn trace<TH>(&self, trc: *mut JSTracer) {
         struct Tracer<TH>(*mut JSTracer);
         let tracer = Tracer(trc);

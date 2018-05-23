@@ -295,7 +295,7 @@ fn queue_settle_promise<TH: TypeHolderTrait>(job: &Job<TH>, settle: SettleType<T
     }
 }
 
-fn reject_job_promise<TH>(job: &Job<TH>, err: Error, task_source: &DOMManipulationTaskSource<TH>) {
+fn reject_job_promise<TH: TypeHolderTrait>(job: &Job<TH>, err: Error<TH>, task_source: &DOMManipulationTaskSource<TH>) {
     queue_settle_promise(job, SettleType::Reject(err), task_source)
 }
 

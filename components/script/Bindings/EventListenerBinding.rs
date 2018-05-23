@@ -255,10 +255,10 @@ use typeholder::TypeHolderTrait;
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
 pub struct EventListener<TH: TypeHolderTrait> {
-    pub parent: CallbackInterface,
+    pub parent: CallbackInterface<TH>,
 }
 
-impl<TH: TypeHolderTrait> EventListener {
+impl<TH: TypeHolderTrait> EventListener<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<EventListener<TH>> {
         let mut ret = Rc::new(EventListener {
             parent: CallbackInterface::new()
@@ -325,7 +325,7 @@ impl<TH: TypeHolderTrait> EventListener {
 
     }
 }
-impl<TH> CallbackContainer for EventListener<TH> {
+impl<TH> CallbackContainer<TH> for EventListener<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<EventListener<TH>> {
         EventListener::new(cx, callback)
     }

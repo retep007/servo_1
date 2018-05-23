@@ -27,7 +27,7 @@ impl<TH> SVGElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods for SVGElement<TH> {
+impl<TH> VirtualMethods<TH> for SVGElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<Element<TH>>() as &VirtualMethods<TH>)
     }

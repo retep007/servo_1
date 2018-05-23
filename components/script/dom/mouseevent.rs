@@ -117,7 +117,7 @@ impl<TH: TypeHolderTrait> MouseEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MouseEventMethods for MouseEvent<TH> {
+impl<TH: TypeHolderTrait> MouseEventMethods<TH> for MouseEvent<TH> {
     // https://w3c.github.io/uievents/#widl-MouseEvent-screenX
     fn ScreenX(&self) -> i32 {
         self.screen_x.get()

@@ -1198,10 +1198,10 @@ impl<TH> Drop for WebGLRenderingContext<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe fn fallible_array_buffer_view_to_vec(
+unsafe fn fallible_array_buffer_view_to_vec<TH: TypeHolderTrait>(
     cx: *mut JSContext,
     abv: *mut JSObject,
-) -> Result<Vec<u8>, Error> {
+) -> Result<Vec<u8>, Error<TH>> {
     assert!(!abv.is_null());
     typedarray!(in(cx) let array_buffer_view: ArrayBufferView = abv);
     match array_buffer_view {
@@ -1210,7 +1210,7 @@ unsafe fn fallible_array_buffer_view_to_vec(
     }
 }
 
-impl<TH: TypeHolderTrait> WebGLRenderingContextMethods for WebGLRenderingContext<TH> {
+impl<TH: TypeHolderTrait> WebGLRenderingContextMethods<TH> for WebGLRenderingContext<TH> {
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.1
     fn Canvas(&self) -> DomRoot<HTMLCanvasElement<TH>> {
         DomRoot::from_ref(&*self.canvas)

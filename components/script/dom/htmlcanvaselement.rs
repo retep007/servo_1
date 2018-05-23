@@ -298,7 +298,7 @@ impl<TH: TypeHolderTrait> HTMLCanvasElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLCanvasElementMethods for HTMLCanvasElement<TH> {
+impl<TH: TypeHolderTrait> HTMLCanvasElementMethods<TH> for HTMLCanvasElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-canvas-width
     make_uint_getter!(Width, "width", DEFAULT_WIDTH);
 

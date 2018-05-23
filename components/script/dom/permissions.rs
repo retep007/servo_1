@@ -175,7 +175,7 @@ impl<TH> Permissions<TH> {
     }
 }
 
-impl<TH> PermissionsMethods for Permissions<TH> {
+impl<TH> PermissionsMethods<TH> for Permissions<TH> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     // https://w3c.github.io/permissions/#dom-permissions-query

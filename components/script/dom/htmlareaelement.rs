@@ -272,7 +272,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLAreaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLAreaElementMethods for HTMLAreaElement<TH> {
+impl<TH: TypeHolderTrait> HTMLAreaElementMethods<TH> for HTMLAreaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-area-rellist
     fn RelList(&self) -> DomRoot<DOMTokenList<TH>> {
         self.rel_list.or_init(|| {
@@ -281,7 +281,7 @@ impl<TH: TypeHolderTrait> HTMLAreaElementMethods for HTMLAreaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Activatable for HTMLAreaElement<TH> {
+impl<TH: TypeHolderTrait> Activatable<TH> for HTMLAreaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#the-area-element:activation-behaviour
     fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()

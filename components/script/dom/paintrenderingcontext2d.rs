@@ -86,7 +86,7 @@ impl<TH> PaintRenderingContext2D<TH> {
     }
 }
 
-impl<TH> PaintRenderingContext2DMethods for PaintRenderingContext2D<TH> {
+impl<TH> PaintRenderingContext2DMethods<TH> for PaintRenderingContext2D<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-save
     fn Save(&self) {
         self.context.Save()

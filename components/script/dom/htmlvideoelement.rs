@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct HTMLVideoElement<TH: TypeHolderTrait> {
-    htmlmediaelement: HTMLMediaElement
+    htmlmediaelement: HTMLMediaElement<TH>
 }
 
 impl<TH> HTMLVideoElement<TH> {

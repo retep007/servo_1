@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> HTMLOptionsCollection<TH> {
     }
 }
 
-impl<TH> HTMLOptionsCollectionMethods for HTMLOptionsCollection<TH> {
+impl<TH> HTMLOptionsCollectionMethods<TH> for HTMLOptionsCollection<TH> {
     // FIXME: This shouldn't need to be implemented here since HTMLCollection (the parent of
     // HTMLOptionsCollection) implements NamedGetter.
     // https://github.com/servo/servo/issues/5875

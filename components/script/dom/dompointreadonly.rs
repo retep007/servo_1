@@ -77,7 +77,7 @@ pub trait DOMPointWriteMethods {
     fn SetW(&self, value: f64);
 }
 
-impl DOMPointWriteMethods for DOMPointReadOnly {
+impl<TH> DOMPointWriteMethods for DOMPointReadOnly<TH> {
     fn SetX(&self, value: f64) {
         self.x.set(value);
     }

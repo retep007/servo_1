@@ -364,7 +364,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> DOMMatrixReadOnlyMethods for DOMMatrixReadOnly<TH> {
+impl<TH: TypeHolderTrait> DOMMatrixReadOnlyMethods<TH> for DOMMatrixReadOnly<TH> {
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-m11
     fn M11(&self) -> f64 {
         self.matrix.borrow().m11

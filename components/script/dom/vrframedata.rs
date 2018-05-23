@@ -111,7 +111,7 @@ impl<TH> VRFrameData<TH> {
     }
 }
 
-impl<TH> VRFrameDataMethods for VRFrameData<TH> {
+impl<TH> VRFrameDataMethods<TH> for VRFrameData<TH> {
     // https://w3c.github.io/webvr/#dom-vrframedata-timestamp
     fn Timestamp(&self) -> Finite<f64> {
         Finite::wrap(self.timestamp.get() - self.first_timestamp.get())

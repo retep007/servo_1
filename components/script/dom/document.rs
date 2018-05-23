@@ -270,7 +270,7 @@ pub struct Document<TH: TypeHolderTrait> {
     /// Can be acquired once for accessing many objects.
     style_shared_lock: StyleSharedRwLock,
     /// List of stylesheets associated with nodes in this document. |None| if the list needs to be refreshed.
-    stylesheets: DomRefCell<DocumentStylesheetSet<StyleSheetInDocument>>,
+    stylesheets: DomRefCell<DocumentStylesheetSet<StyleSheetInDocument<TH>>>,
     stylesheet_list: MutNullableDom<StyleSheetList<TH>, TH>,
     ready_state: Cell<DocumentReadyState>,
     /// Whether the DOMContentLoaded event has already been dispatched.
@@ -379,24 +379,24 @@ pub struct Document<TH: TypeHolderTrait> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct ImagesFilter;
-impl CollectionFilter for ImagesFilter {
+struct ImagesFilter<TH: TypeHolderTrait>;
+impl<TH> CollectionFilter<TH> for ImagesFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLImageElement<TH>>()
     }
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct EmbedsFilter;
-impl CollectionFilter for EmbedsFilter {
+struct EmbedsFilter<TH: TypeHolderTrait>;
+impl<TH> CollectionFilter<TH> for EmbedsFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLEmbedElement<TH>>()
     }
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct LinksFilter;
-impl CollectionFilter for LinksFilter {
+struct LinksFilter<TH: TypeHolderTrait>;
+impl<TH> CollectionFilter<TH> for LinksFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         (elem.is::<HTMLAnchorElement<TH>>() || elem.is::<HTMLAreaElement<TH>>()) &&
         elem.has_attribute(&local_name!("href"))
@@ -404,24 +404,24 @@ impl CollectionFilter for LinksFilter {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct FormsFilter;
-impl CollectionFilter for FormsFilter {
+struct FormsFilter<TH: TypeHolderTrait>;
+impl<TH> CollectionFilter<TH> for FormsFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLFormElement<TH>>()
     }
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct ScriptsFilter;
-impl CollectionFilter for ScriptsFilter {
+struct ScriptsFilter<TH: TypeHolderTrait>;
+impl<TH> CollectionFilter<TH> for ScriptsFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLScriptElement<TH>>()
     }
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct AnchorsFilter;
-impl CollectionFilter for AnchorsFilter {
+struct AnchorsFilter<TH: TypeHolderTrait>;
+impl<TH> CollectionFilter<TH> for AnchorsFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLAnchorElement<TH>>() && elem.has_attribute(&local_name!("href"))
     }
@@ -3522,10 +3522,10 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tree-accessors:dom-document-nameditem-filter
     unsafe fn NamedGetter(&self, _cx: *mut JSContext, name: DOMString) -> Option<NonNull<JSObject>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct NamedElementFilter {
+        struct NamedElementFilter<TH: TypeHolderTrait> {
             name: Atom,
         }
-        impl CollectionFilter for NamedElementFilter {
+        impl<TH> CollectionFilter<TH> for NamedElementFilter<TH> {
             fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                 filter_by_name(&self.name, elem.upcast())
             }

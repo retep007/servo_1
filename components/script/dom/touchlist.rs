@@ -31,7 +31,7 @@ impl<TH: TypeHolderTrait> TouchList<TH> {
     }
 }
 
-impl<TH> TouchListMethods for TouchList<TH> {
+impl<TH> TouchListMethods<TH> for TouchList<TH> {
     /// <https://w3c.github.io/touch-events/#widl-TouchList-length>
     fn Length(&self) -> u32 {
         self.touches.len() as u32

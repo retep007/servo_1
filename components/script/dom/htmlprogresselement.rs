@@ -38,7 +38,7 @@ impl<TH> HTMLProgressElement<TH> {
     }
 }
 
-impl<TH> HTMLProgressElementMethods for HTMLProgressElement<TH> {
+impl<TH> HTMLProgressElementMethods<TH> for HTMLProgressElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
     fn Labels(&self) -> DomRoot<NodeList<TH>> {
         self.upcast::<HTMLElement<TH>>().labels()

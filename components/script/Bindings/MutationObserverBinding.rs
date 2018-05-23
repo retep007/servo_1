@@ -464,10 +464,10 @@ impl ToJSValConvertible for MutationObserverInit {
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
 pub struct MutationCallback<TH: TypeHolderTrait> {
-    pub parent: CallbackFunction,
+    pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> MutationCallback {
+impl<TH: TypeHolderTrait> MutationCallback<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<MutationCallback<TH>> {
         let mut ret = Rc::new(MutationCallback {
             parent: CallbackFunction::new()
@@ -536,7 +536,7 @@ impl<TH: TypeHolderTrait> MutationCallback {
 
     }
 }
-impl<TH> CallbackContainer for MutationCallback<TH> {
+impl<TH> CallbackContainer<TH> for MutationCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<MutationCallback<TH>> {
         MutationCallback::new(cx, callback)
     }

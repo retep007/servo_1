@@ -85,7 +85,7 @@ impl<TH> BluetoothRemoteGATTCharacteristic<TH> {
     }
 }
 
-impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharacteristic<TH> {
+impl<TH> BluetoothRemoteGATTCharacteristicMethods<TH> for BluetoothRemoteGATTCharacteristic<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-properties
     fn Properties(&self) -> DomRoot<BluetoothCharacteristicProperties<TH>> {
         DomRoot::from_ref(&self.properties)
@@ -258,7 +258,7 @@ impl<TH> BluetoothRemoteGATTCharacteristicMethods for BluetoothRemoteGATTCharact
     event_handler!(characteristicvaluechanged, GetOncharacteristicvaluechanged, SetOncharacteristicvaluechanged);
 }
 
-impl<TH> AsyncBluetoothListener for BluetoothRemoteGATTCharacteristic<TH> {
+impl<TH> AsyncBluetoothListener<TH> for BluetoothRemoteGATTCharacteristic<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         let device = self.Service().Device();
         match response {

@@ -31,7 +31,7 @@ impl<TH> PluginArray<TH> {
     }
 }
 
-impl<TH> PluginArrayMethods for PluginArray<TH> {
+impl<TH> PluginArrayMethods<TH> for PluginArray<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-pluginarray-refresh
     fn Refresh(&self, _reload: bool) {
     }

@@ -492,7 +492,7 @@ fn invoke<TH: TypeHolderTrait>(window: Option<&Window<TH>>,
 fn inner_invoke<TH: TypeHolderTrait>(window: Option<&Window<TH>>,
                 object: &EventTarget<TH>,
                 event: &Event<TH>,
-                listeners: &[CompiledEventListener])
+                listeners: &[CompiledEventListener<TH>])
                 -> bool {
     // Step 1.
     let mut found = false;

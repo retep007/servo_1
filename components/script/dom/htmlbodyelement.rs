@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
 
 }
 
-impl<TH> HTMLBodyElementMethods for HTMLBodyElement<TH> {
+impl<TH> HTMLBodyElementMethods<TH> for HTMLBodyElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-body-bgcolor
     make_getter!(BgColor, "bgcolor");
 

@@ -255,19 +255,19 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct CompositionEventInit {
-    pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit,
+pub struct CompositionEventInit<TH: TypeHolderTrait> {
+    pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit<TH>,
     pub data: DOMString,
 }
-impl CompositionEventInit {
-    pub unsafe fn empty(cx: *mut JSContext) -> CompositionEventInit {
+impl<TH> CompositionEventInit<TH> {
+    pub unsafe fn empty(cx: *mut JSContext) -> CompositionEventInit<TH> {
         match CompositionEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
             _ => unreachable!(),
         }
     }
     pub unsafe fn new(cx: *mut JSContext, val: HandleValue)
-                      -> Result<ConversionResult<CompositionEventInit>, ()> {
+                      -> Result<ConversionResult<CompositionEventInit<TH>>, ()> {
         let object = if val.get().is_null_or_undefined() {
             ptr::null_mut()
         } else if val.get().is_object() {
@@ -309,15 +309,15 @@ impl CompositionEventInit {
     }
 }
 
-impl FromJSValConvertible for CompositionEventInit {
+impl<TH> FromJSValConvertible for CompositionEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
-                         -> Result<ConversionResult<CompositionEventInit>, ()> {
+                         -> Result<ConversionResult<CompositionEventInit<TH>>, ()> {
         CompositionEventInit::new(cx, value)
     }
 }
 
-impl ToJSValConvertible for CompositionEventInit {
+impl<TH> ToJSValConvertible for CompositionEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let data = &self.data;

@@ -23,7 +23,7 @@ unsafe_no_jsmanaged_fields!(RulesSource);
 
 unsafe_no_jsmanaged_fields!(CssRules);
 
-impl From<RulesMutateError> for Error {
+impl<TH> From<RulesMutateError> for Error<TH> {
     fn from(other: RulesMutateError) -> Self {
         match other {
             RulesMutateError::Syntax => Error::Syntax,
@@ -40,7 +40,7 @@ pub struct CSSRuleList<TH: TypeHolderTrait> {
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     rules: RulesSource,
-    dom_rules: DomRefCell<Vec<MutNullableDom<CSSRule<TH>>, TH>>
+    dom_rules: DomRefCell<Vec<MutNullableDom<CSSRule<TH>, TH>>>
 }
 
 pub enum RulesSource {
@@ -175,7 +175,7 @@ impl<TH: TypeHolderTrait> CSSRuleList<TH> {
     }
 }
 
-impl<TH> CSSRuleListMethods for CSSRuleList<TH> {
+impl<TH> CSSRuleListMethods<TH> for CSSRuleList<TH> {
     // https://drafts.csswg.org/cssom/#ref-for-dom-cssrulelist-item-1
     fn Item(&self, idx: u32) -> Option<DomRoot<CSSRule<TH>>> {
         self.item(idx)

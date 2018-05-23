@@ -345,10 +345,10 @@ impl ToJSValConvertible for PerformanceObserverInit {
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
 pub struct PerformanceObserverCallback<TH: TypeHolderTrait> {
-    pub parent: CallbackFunction,
+    pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> PerformanceObserverCallback {
+impl<TH: TypeHolderTrait> PerformanceObserverCallback<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<PerformanceObserverCallback<TH>> {
         let mut ret = Rc::new(PerformanceObserverCallback {
             parent: CallbackFunction::new()
@@ -417,7 +417,7 @@ impl<TH: TypeHolderTrait> PerformanceObserverCallback {
 
     }
 }
-impl<TH> CallbackContainer for PerformanceObserverCallback<TH> {
+impl<TH> CallbackContainer<TH> for PerformanceObserverCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<PerformanceObserverCallback<TH>> {
         PerformanceObserverCallback::new(cx, callback)
     }

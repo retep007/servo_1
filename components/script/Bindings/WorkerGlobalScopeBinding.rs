@@ -1714,7 +1714,7 @@ pub trait WorkerGlobalScopeMethods<TH: TypeHolderTrait> {
     unsafe fn SetInterval(&self, cx: *mut JSContext, handler: Rc<Function<TH>>, timeout: i32, arguments: Vec<HandleValue>) -> i32;
     unsafe fn SetInterval_(&self, cx: *mut JSContext, handler: DOMString, timeout: i32, arguments: Vec<HandleValue>) -> i32;
     fn ClearInterval(&self, handle: i32) -> ();
-    fn Fetch(&self, input: UnionTypes::RequestOrUSVString<TH>, init: RootedTraceableBox<dom::bindings::codegen::Bindings::RequestBinding::RequestInit>) -> Rc<Promise<TH>>;
+    fn Fetch(&self, input: UnionTypes::RequestOrUSVString<TH>, init: RootedTraceableBox<dom::bindings::codegen::Bindings::RequestBinding::RequestInit<TH>>) -> Rc<Promise<TH>>;
     fn Performance(&self) -> DomRoot<Performance<TH>>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[

@@ -59,7 +59,7 @@ pub trait StylesheetOwner {
 
 pub enum StylesheetContextSource<TH: TypeHolderTrait> {
     // NB: `media` is just an option so we avoid cloning it.
-    LinkElement { media: Option<MediaList<TH>>, },
+    LinkElement { media: Option<MediaList>, },
     Import(Arc<Stylesheet>),
 }
 

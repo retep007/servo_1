@@ -45,7 +45,7 @@ impl<TH: TypeHolderTrait> HTMLFormControlsCollection<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLFormControlsCollectionMethods for HTMLFormControlsCollection<TH> {
+impl<TH: TypeHolderTrait> HTMLFormControlsCollectionMethods<TH> for HTMLFormControlsCollection<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-htmlformcontrolscollection-nameditem
     fn NamedItem(&self, name: DOMString) -> Option<RadioNodeListOrElement<TH>> {
         // Step 1

@@ -124,7 +124,7 @@ impl<TH> InlineEventListener<TH> {
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
 enum EventListenerType<TH: TypeHolderTrait> {
     Additive(#[ignore_malloc_size_of = "Rc"] Rc<EventListener<TH>>),
-    Inline(InlineEventListener),
+    Inline(InlineEventListener<TH>),
 }
 
 impl<TH> EventListenerType<TH> {
@@ -231,24 +231,24 @@ impl<TH> CompiledEventListener<TH> {
 
 #[derive(Clone, DenyPublicFields, JSTraceable, MallocSizeOf, PartialEq)]
 /// A listener in a collection of event listeners.
-struct EventListenerEntry {
+struct EventListenerEntry<TH> {
     phase: ListenerPhase,
-    listener: EventListenerType
+    listener: EventListenerType<TH>
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
 /// A mix of potentially uncompiled and compiled event listeners of the same type.
-struct EventListeners<TH: TypeHolderTrait>(Vec<EventListenerEntry>);
+struct EventListeners<TH: TypeHolderTrait>(Vec<EventListenerEntry<TH>>);
 
 impl<TH> Deref for EventListeners<TH> {
-    type Target = Vec<EventListenerEntry>;
-    fn deref(&self) -> &Vec<EventListenerEntry> {
+    type Target = Vec<EventListenerEntry<TH>>;
+    fn deref(&self) -> &Vec<EventListenerEntry<TH>> {
         &self.0
     }
 }
 
 impl<TH> DerefMut for EventListeners<TH> {
-    fn deref_mut(&mut self) -> &mut Vec<EventListenerEntry> {
+    fn deref_mut(&mut self) -> &mut Vec<EventListenerEntry<TH>> {
         &mut self.0
     }
 }
@@ -284,7 +284,7 @@ impl<TH> EventListeners<TH> {
 #[dom_struct]
 pub struct EventTarget<TH: TypeHolderTrait> {
     reflector_: Reflector<TH>,
-    handlers: DomRefCell<HashMap<Atom, EventListeners, BuildHasherDefault<FnvHasher>>>,
+    handlers: DomRefCell<HashMap<Atom, EventListeners<TH>, BuildHasherDefault<FnvHasher>>>,
 }
 
 impl<TH: TypeHolderTrait> EventTarget<TH> {
@@ -659,7 +659,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 }
 
-impl<TH> EventTargetMethods for EventTarget<TH> {
+impl<TH> EventTargetMethods<TH> for EventTarget<TH> {
     // https://dom.spec.whatwg.org/#dom-eventtarget-addeventlistener
     fn AddEventListener(
         &self,

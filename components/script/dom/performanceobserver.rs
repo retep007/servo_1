@@ -95,7 +95,7 @@ impl<TH> PerformanceObserver<TH> {
     }
 }
 
-impl<TH> PerformanceObserverMethods for PerformanceObserver<TH> {
+impl<TH> PerformanceObserverMethods<TH> for PerformanceObserver<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver-observe()
     fn Observe(&self, options: &PerformanceObserverInit) -> Fallible<(), TH> {
         // step 1

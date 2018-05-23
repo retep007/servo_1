@@ -401,7 +401,7 @@ unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext)
     !worker.is_closing()
 }
 
-impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScopeMethods for DedicatedWorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScopeMethods<TH> for DedicatedWorkerGlobalScope<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-dedicatedworkerglobalscope-postmessage
     unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {

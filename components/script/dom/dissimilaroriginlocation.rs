@@ -52,7 +52,7 @@ impl<TH> DissimilarOriginLocation<TH> {
     }
 }
 
-impl<TH> DissimilarOriginLocationMethods for DissimilarOriginLocation<TH> {
+impl<TH> DissimilarOriginLocationMethods<TH> for DissimilarOriginLocation<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-href
     fn GetHref(&self) -> Fallible<USVString, TH> {
         Err(Error::Security)
