@@ -90,7 +90,7 @@ impl<TH: TypeHolderTrait> WebGLTexture<TH> {
 }
 
 
-impl<TH> WebGLTexture<TH> {
+impl<TH: TypeHolderTrait> WebGLTexture<TH> {
     pub fn id(&self) -> WebGLTextureId {
         self.id
     }
@@ -389,7 +389,7 @@ impl<TH> WebGLTexture<TH> {
     }
 }
 
-impl<TH> Drop for WebGLTexture<TH> {
+impl<TH: TypeHolderTrait> Drop for WebGLTexture<TH> {
     fn drop(&mut self) {
         self.delete();
     }

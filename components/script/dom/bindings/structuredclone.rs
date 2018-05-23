@@ -200,7 +200,7 @@ pub enum StructuredCloneData<TH: TypeHolderTrait> {
     Vector(Vec<u8>)
 }
 
-impl<TH> StructuredCloneData<TH> {
+impl<TH: TypeHolderTrait> StructuredCloneData<TH> {
     /// Writes a structured clone. Returns a `DataClone` error if that fails.
     pub fn write(cx: *mut JSContext, message: HandleValue) -> Fallible<StructuredCloneData<TH>, TH> {
         let mut data = ptr::null_mut();
@@ -269,4 +269,4 @@ impl<TH> StructuredCloneData<TH> {
     }
 }
 
-unsafe impl<TH> Send for StructuredCloneData<TH> {}
+unsafe impl<TH: TypeHolderTrait> Send for StructuredCloneData<TH> {}

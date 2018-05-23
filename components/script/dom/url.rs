@@ -34,7 +34,7 @@ pub struct URL<TH: TypeHolderTrait> {
     search_params: MutNullableDom<URLSearchParams<TH>, TH>,
 }
 
-impl<TH> URL<TH> {
+impl<TH: TypeHolderTrait> URL<TH> {
     fn new_inherited(url: ServoUrl) -> URL<TH> {
         URL {
             reflector_: Reflector::new(),
@@ -58,7 +58,7 @@ impl<TH> URL<TH> {
     }
 }
 
-impl<TH> URL<TH> {
+impl<TH: TypeHolderTrait> URL<TH> {
     // https://url.spec.whatwg.org/#constructors
     pub fn Constructor(global: &GlobalScope<TH>, url: USVString,
                        base: Option<USVString>)
@@ -146,7 +146,7 @@ impl<TH> URL<TH> {
     }
 }
 
-impl<TH> URLMethods<TH> for URL<TH> {
+impl<TH: TypeHolderTrait> URLMethods<TH> for URL<TH> {
     // https://url.spec.whatwg.org/#dom-url-hash
     fn Hash(&self) -> USVString {
         UrlHelper::Hash(&self.url.borrow())

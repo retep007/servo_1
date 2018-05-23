@@ -76,7 +76,7 @@ impl<TH: TypeHolderTrait> CSSSupportsRule<TH> {
     }
 }
 
-impl<TH> SpecificCSSRule for CSSSupportsRule<TH> {
+impl<TH: TypeHolderTrait> SpecificCSSRule for CSSSupportsRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::SUPPORTS_RULE

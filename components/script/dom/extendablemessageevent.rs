@@ -30,7 +30,7 @@ pub struct ExtendableMessageEvent<TH: TypeHolderTrait> {
     lastEventId: DOMString,
 }
 
-impl<TH> ExtendableMessageEvent<TH> {
+impl<TH: TypeHolderTrait> ExtendableMessageEvent<TH> {
     pub fn new(global: &GlobalScope<TH>, type_: Atom,
                bubbles: bool, cancelable: bool,
                data: HandleValue, origin: DOMString, lastEventId: DOMString)
@@ -67,7 +67,7 @@ impl<TH> ExtendableMessageEvent<TH> {
     }
 }
 
-impl<TH> ExtendableMessageEvent<TH> {
+impl<TH: TypeHolderTrait> ExtendableMessageEvent<TH> {
     pub fn dispatch_jsval(target: &EventTarget<TH>,
                           scope: &GlobalScope<TH>,
                           message: HandleValue) {
@@ -78,7 +78,7 @@ impl<TH> ExtendableMessageEvent<TH> {
     }
 }
 
-impl<TH> ExtendableMessageEventMethods for ExtendableMessageEvent<TH> {
+impl<TH: TypeHolderTrait> ExtendableMessageEventMethods for ExtendableMessageEvent<TH> {
     #[allow(unsafe_code)]
     // https://w3c.github.io/ServiceWorker/#extendablemessage-event-data-attribute
     unsafe fn Data(&self, _cx: *mut JSContext) -> JSVal {

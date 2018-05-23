@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> HTMLTableRowElement<TH> {
     }
 }
 
-impl<TH> HTMLTableRowElementMethods<TH> for HTMLTableRowElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTableRowElementMethods<TH> for HTMLTableRowElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tr-bgcolor
     make_getter!(BgColor, "bgcolor");
 
@@ -143,7 +143,7 @@ pub trait HTMLTableRowElementLayoutHelpers {
 }
 
 #[allow(unsafe_code)]
-impl<TH> HTMLTableRowElementLayoutHelpers for LayoutDom<HTMLTableRowElement<TH>> {
+impl<TH: TypeHolderTrait> HTMLTableRowElementLayoutHelpers for LayoutDom<HTMLTableRowElement<TH>> {
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
             (&*self.upcast::<Element<TH>>().unsafe_get())
@@ -154,7 +154,7 @@ impl<TH> HTMLTableRowElementLayoutHelpers for LayoutDom<HTMLTableRowElement<TH>>
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLTableRowElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTableRowElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

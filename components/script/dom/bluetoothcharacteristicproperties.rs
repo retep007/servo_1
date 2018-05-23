@@ -26,7 +26,7 @@ pub struct BluetoothCharacteristicProperties<TH: TypeHolderTrait> {
     writable_auxiliaries: bool,
 }
 
-impl<TH> BluetoothCharacteristicProperties<TH> {
+impl<TH: TypeHolderTrait> BluetoothCharacteristicProperties<TH> {
     pub fn new_inherited(broadcast: bool,
                          read: bool,
                          write_without_response: bool,
@@ -80,7 +80,7 @@ impl<TH> BluetoothCharacteristicProperties<TH> {
     }
 }
 
-impl<TH> BluetoothCharacteristicPropertiesMethods for BluetoothCharacteristicProperties<TH> {
+impl<TH: TypeHolderTrait> BluetoothCharacteristicPropertiesMethods for BluetoothCharacteristicProperties<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothcharacteristicproperties-broadcast
     fn Broadcast(&self) -> bool {
         self.broadcast

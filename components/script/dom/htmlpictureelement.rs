@@ -16,7 +16,7 @@ pub struct HTMLPictureElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH> HTMLPictureElement<TH> {
+impl<TH: TypeHolderTrait> HTMLPictureElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLPictureElement<TH> {

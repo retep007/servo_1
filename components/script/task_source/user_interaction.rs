@@ -21,13 +21,13 @@ use typeholder::TypeHolderTrait;
 #[derive(Clone, JSTraceable)]
 pub struct UserInteractionTaskSource<TH: TypeHolderTrait>(pub Sender<MainThreadScriptMsg>, pub PipelineId);
 
-impl<TH> fmt::Debug for UserInteractionTaskSource<TH> {
+impl<TH: TypeHolderTrait> fmt::Debug for UserInteractionTaskSource<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "UserInteractionTaskSource(...)")
     }
 }
 
-impl<TH> TaskSource<TH> for UserInteractionTaskSource<TH> {
+impl<TH: TypeHolderTrait> TaskSource<TH> for UserInteractionTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,

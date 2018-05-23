@@ -66,7 +66,7 @@ pub enum CommonEventHandler<TH: TypeHolderTrait> {
         Rc<OnBeforeUnloadEventHandlerNonNull<TH>>),
 }
 
-impl<TH> CommonEventHandler<TH> {
+impl<TH: TypeHolderTrait> CommonEventHandler<TH> {
     fn parent(&self) -> &CallbackFunction<TH> {
         match *self {
             CommonEventHandler::EventHandler(ref handler) => &handler.parent,
@@ -98,7 +98,7 @@ enum InlineEventListener<TH: TypeHolderTrait> {
     Null,
 }
 
-impl<TH> InlineEventListener<TH> {
+impl<TH: TypeHolderTrait> InlineEventListener<TH> {
     /// Get a compiled representation of this event handler, compiling it from its
     /// raw source if necessary.
     /// <https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler>
@@ -127,7 +127,7 @@ enum EventListenerType<TH: TypeHolderTrait> {
     Inline(InlineEventListener<TH>),
 }
 
-impl<TH> EventListenerType<TH> {
+impl<TH: TypeHolderTrait> EventListenerType<TH> {
     fn get_compiled_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom)
                              -> Option<CompiledEventListener<TH>> {
         match self {
@@ -147,7 +147,7 @@ pub enum CompiledEventListener<TH: TypeHolderTrait> {
     Handler(CommonEventHandler<TH>),
 }
 
-impl<TH> CompiledEventListener<TH> {
+impl<TH: TypeHolderTrait> CompiledEventListener<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#the-event-handler-processing-algorithm
     pub fn call_or_handle_event<T: DomObject, TH: TypeHolderTrait>(&self,
@@ -240,20 +240,20 @@ struct EventListenerEntry<TH> {
 /// A mix of potentially uncompiled and compiled event listeners of the same type.
 struct EventListeners<TH: TypeHolderTrait>(Vec<EventListenerEntry<TH>>);
 
-impl<TH> Deref for EventListeners<TH> {
+impl<TH: TypeHolderTrait> Deref for EventListeners<TH> {
     type Target = Vec<EventListenerEntry<TH>>;
     fn deref(&self) -> &Vec<EventListenerEntry<TH>> {
         &self.0
     }
 }
 
-impl<TH> DerefMut for EventListeners<TH> {
+impl<TH: TypeHolderTrait> DerefMut for EventListeners<TH> {
     fn deref_mut(&mut self) -> &mut Vec<EventListenerEntry<TH>> {
         &mut self.0
     }
 }
 
-impl<TH> EventListeners<TH> {
+impl<TH: TypeHolderTrait> EventListeners<TH> {
     // https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler
     fn get_inline_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom) -> Option<CommonEventHandler<TH>> {
         for entry in &mut self.0 {
@@ -659,7 +659,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 }
 
-impl<TH> EventTargetMethods<TH> for EventTarget<TH> {
+impl<TH: TypeHolderTrait> EventTargetMethods<TH> for EventTarget<TH> {
     // https://dom.spec.whatwg.org/#dom-eventtarget-addeventlistener
     fn AddEventListener(
         &self,
@@ -693,7 +693,7 @@ impl<TH> EventTargetMethods<TH> for EventTarget<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for EventTarget<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for EventTarget<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         None
     }

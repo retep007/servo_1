@@ -846,7 +846,7 @@ pub trait MediaQueryListMethods<TH: TypeHolderTrait> {
     fn GetOnchange(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnchange(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
-impl<TH> WeakReferenceable<TH> for MediaQueryList<TH> {}
+impl<TH: TypeHolderTrait> WeakReferenceable<TH> for MediaQueryList<TH> {}
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {

@@ -14,7 +14,7 @@ pub struct OESTextureFloatLinear<TH> {
     reflector_: Reflector,
 }
 
-impl<TH> OESTextureFloatLinear<TH> {
+impl<TH: TypeHolderTrait> OESTextureFloatLinear<TH> {
     fn new_inherited() -> OESTextureFloatLinear<TH> {
         Self {
             reflector_: Reflector::new(),
@@ -22,7 +22,7 @@ impl<TH> OESTextureFloatLinear<TH> {
     }
 }
 
-impl<TH> WebGLExtension<TH> for OESTextureFloatLinear<TH> {
+impl<TH: TypeHolderTrait> WebGLExtension<TH> for OESTextureFloatLinear<TH> {
     type Extension = OESTextureFloatLinear<TH>;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESTextureFloatLinear<TH>> {
         reflect_dom_object(Box::new(OESTextureFloatLinear::new_inherited()),

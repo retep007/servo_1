@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> HTMLDataListElementMethods<TH> for HTMLDataListElement
     fn Options(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct HTMLDataListOptionsFilter<TH>;
-        impl<TH> CollectionFilter<TH> for HTMLDataListOptionsFilter<TH> {
+        impl<TH: TypeHolderTrait> CollectionFilter<TH> for HTMLDataListOptionsFilter<TH> {
             fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                 elem.is::<HTMLOptionElement<TH>>()
             }

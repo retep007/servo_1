@@ -332,7 +332,7 @@ pub struct TestDictionary<TH: TypeHolderTrait> {
     pub unsignedShortValue: Option<u16>,
     pub usvstringValue: Option<USVString>,
 }
-impl<TH> TestDictionary<TH> {
+impl<TH: TypeHolderTrait> TestDictionary<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<TestDictionary<TH>> {
         match TestDictionary::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -816,7 +816,7 @@ impl<TH> TestDictionary<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for RootedTraceableBox<TestDictionary<TH>> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for RootedTraceableBox<TestDictionary<TH>> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<RootedTraceableBox<TestDictionary<TH>>>, ()> {
@@ -824,7 +824,7 @@ impl<TH> FromJSValConvertible for RootedTraceableBox<TestDictionary<TH>> {
     }
 }
 
-impl<TH> ToJSValConvertible for RootedTraceableBox<TestDictionary<TH>> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for RootedTraceableBox<TestDictionary<TH>> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let anyValue = &self.anyValue;
@@ -1863,7 +1863,7 @@ impl<TH: TypeHolderTrait> SimpleCallback<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for SimpleCallback<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for SimpleCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<SimpleCallback<TH>> {
         SimpleCallback::new(cx, callback)
     }
@@ -1873,7 +1873,7 @@ impl<TH> CallbackContainer<TH> for SimpleCallback<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for SimpleCallback<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for SimpleCallback<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

@@ -260,7 +260,7 @@ pub struct InputEventInit<TH> {
     pub data: Option<DOMString>,
     pub isComposing: bool,
 }
-impl<TH> InputEventInit<TH> {
+impl<TH: TypeHolderTrait> InputEventInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> InputEventInit<TH> {
         match InputEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -328,7 +328,7 @@ impl<TH> InputEventInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for InputEventInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for InputEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<InputEventInit<TH>>, ()> {
@@ -336,7 +336,7 @@ impl<TH> FromJSValConvertible for InputEventInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for InputEventInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for InputEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let data = &self.data;

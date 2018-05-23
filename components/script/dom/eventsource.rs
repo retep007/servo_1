@@ -91,7 +91,7 @@ struct EventSourceContext<TH: TypeHolderTrait> {
     last_event_id: String,
 }
 
-impl<TH> EventSourceContext<TH> {
+impl<TH: TypeHolderTrait> EventSourceContext<TH> {
     /// <https://html.spec.whatwg.org/multipage/#announce-the-connection>
     fn announce_the_connection(&self) {
         let event_source = self.event_source.root();
@@ -320,7 +320,7 @@ impl<TH> EventSourceContext<TH> {
     }
 }
 
-impl<TH> FetchResponseListener for EventSourceContext<TH> {
+impl<TH: TypeHolderTrait> FetchResponseListener for EventSourceContext<TH> {
     fn process_request_body(&mut self) {
         // TODO
     }
@@ -393,13 +393,13 @@ impl<TH> FetchResponseListener for EventSourceContext<TH> {
     }
 }
 
-impl<TH> PreInvoke for EventSourceContext<TH> {
+impl<TH: TypeHolderTrait> PreInvoke for EventSourceContext<TH> {
     fn should_invoke(&self) -> bool {
         self.event_source.root().generation_id.get() == self.gen_id
     }
 }
 
-impl<TH> EventSource<TH> {
+impl<TH: TypeHolderTrait> EventSource<TH> {
     fn new_inherited(url: ServoUrl, with_credentials: bool) -> EventSource<TH> {
         EventSource {
             eventtarget: EventTarget::new_inherited(),
@@ -498,7 +498,7 @@ impl<TH> EventSource<TH> {
     }
 }
 
-impl<TH> EventSourceMethods<TH> for EventSource<TH> {
+impl<TH: TypeHolderTrait> EventSourceMethods<TH> for EventSource<TH> {
     // https://html.spec.whatwg.org/multipage/#handler-eventsource-onopen
     event_handler!(open, GetOnopen, SetOnopen);
 
@@ -539,7 +539,7 @@ pub struct EventSourceTimeoutCallback<TH: TypeHolderTrait> {
     action_sender: ipc::IpcSender<FetchResponseMsg>,
 }
 
-impl<TH> EventSourceTimeoutCallback<TH> {
+impl<TH: TypeHolderTrait> EventSourceTimeoutCallback<TH> {
     // https://html.spec.whatwg.org/multipage/#reestablish-the-connection
     pub fn invoke(self) {
         let event_source = self.event_source.root();

@@ -962,7 +962,7 @@ impl<TH: TypeHolderTrait> BoundaryPoint<TH> {
 }
 
 #[allow(unrooted_must_root)]
-impl<TH> PartialOrd for BoundaryPoint<TH> {
+impl<TH: TypeHolderTrait> PartialOrd for BoundaryPoint<TH> {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         bp_position(&self.node.get(), self.offset.get(),
                     &other.node.get(), other.offset.get())
@@ -970,7 +970,7 @@ impl<TH> PartialOrd for BoundaryPoint<TH> {
 }
 
 #[allow(unrooted_must_root)]
-impl<TH> PartialEq for BoundaryPoint<TH> {
+impl<TH: TypeHolderTrait> PartialEq for BoundaryPoint<TH> {
     fn eq(&self, other: &Self) -> bool {
         self.node.get() == other.node.get() &&
         self.offset.get() == other.offset.get()
@@ -1252,14 +1252,14 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
 }
 
 #[allow(unsafe_code)]
-impl<TH> MallocSizeOf for WeakRangeVec<TH> {
+impl<TH: TypeHolderTrait> MallocSizeOf for WeakRangeVec<TH> {
     fn size_of(&self, ops: &mut MallocSizeOfOps) -> usize {
         unsafe { (*self.cell.get()).size_of(ops) }
     }
 }
 
 #[allow(unsafe_code)]
-unsafe impl<TH> JSTraceable for WeakRangeVec<TH> {
+unsafe impl<TH: TypeHolderTrait> JSTraceable for WeakRangeVec<TH> {
     unsafe fn trace(&self, _: *mut JSTracer) {
         (*self.cell.get()).retain_alive()
     }

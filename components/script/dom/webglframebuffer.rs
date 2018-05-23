@@ -92,7 +92,7 @@ impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
 }
 
 
-impl<TH> WebGLFramebuffer<TH> {
+impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
     pub fn id(&self) -> WebGLFramebufferId {
         self.id
     }
@@ -394,7 +394,7 @@ impl<TH> WebGLFramebuffer<TH> {
     }
 }
 
-impl<TH> Drop for WebGLFramebuffer<TH> {
+impl<TH: TypeHolderTrait> Drop for WebGLFramebuffer<TH> {
     fn drop(&mut self) {
         self.delete();
     }

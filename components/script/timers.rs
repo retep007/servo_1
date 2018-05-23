@@ -87,7 +87,7 @@ impl<TH: TypeHolderTrait> OneshotTimerCallback<TH> {
     }
 }
 
-impl<TH> Ord for OneshotTimer<TH> {
+impl<TH: TypeHolderTrait> Ord for OneshotTimer<TH> {
     fn cmp(&self, other: &OneshotTimer<TH>) -> Ordering {
         match self.scheduled_for.cmp(&other.scheduled_for).reverse() {
             Ordering::Equal => self.handle.cmp(&other.handle).reverse(),
@@ -96,14 +96,14 @@ impl<TH> Ord for OneshotTimer<TH> {
     }
 }
 
-impl<TH> PartialOrd for OneshotTimer<TH> {
+impl<TH: TypeHolderTrait> PartialOrd for OneshotTimer<TH> {
     fn partial_cmp(&self, other: &OneshotTimer<TH>) -> Option<Ordering> {
         Some(self.cmp(other))
     }
 }
 
-impl<TH> Eq for OneshotTimer<TH> {}
-impl<TH> PartialEq for OneshotTimer<TH> {
+impl<TH: TypeHolderTrait> Eq for OneshotTimer<TH> {}
+impl<TH: TypeHolderTrait> PartialEq for OneshotTimer<TH> {
     fn eq(&self, other: &OneshotTimer<TH>) -> bool {
         self as *const OneshotTimer<TH> == other as *const OneshotTimer<TH>
     }

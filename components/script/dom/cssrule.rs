@@ -114,7 +114,7 @@ impl<TH: TypeHolderTrait> CSSRule<TH> {
     }
 }
 
-impl<TH> CSSRuleMethods<TH> for CSSRule<TH> {
+impl<TH: TypeHolderTrait> CSSRuleMethods<TH> for CSSRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssrule-type
     fn Type(&self) -> u16 {
         self.as_specific().ty()

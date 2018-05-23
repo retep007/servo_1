@@ -16,7 +16,7 @@ pub struct HTMLVideoElement<TH: TypeHolderTrait> {
     htmlmediaelement: HTMLMediaElement<TH>
 }
 
-impl<TH> HTMLVideoElement<TH> {
+impl<TH: TypeHolderTrait> HTMLVideoElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLVideoElement<TH> {
         HTMLVideoElement {
             htmlmediaelement:

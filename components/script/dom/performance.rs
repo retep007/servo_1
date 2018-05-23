@@ -57,7 +57,7 @@ pub struct PerformanceEntryList<TH: TypeHolderTrait> {
     entries: DOMPerformanceEntryList<TH>,
 }
 
-impl<TH> PerformanceEntryList<TH> {
+impl<TH: TypeHolderTrait> PerformanceEntryList<TH> {
     pub fn new(entries: DOMPerformanceEntryList<TH>) -> Self {
         PerformanceEntryList {
             entries,
@@ -94,7 +94,7 @@ impl<TH> PerformanceEntryList<TH> {
     }
 }
 
-impl<TH> IntoIterator for PerformanceEntryList<TH> {
+impl<TH: TypeHolderTrait> IntoIterator for PerformanceEntryList<TH> {
     type Item = DomRoot<PerformanceEntry<TH>>;
     type IntoIter = ::std::vec::IntoIter<DomRoot<PerformanceEntry<TH>>>;
 

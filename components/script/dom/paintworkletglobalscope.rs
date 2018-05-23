@@ -93,7 +93,7 @@ pub struct PaintWorkletGlobalScope<TH: TypeHolderTrait> {
     cached_result: DomRefCell<DrawAPaintImageResult>,
 }
 
-impl<TH> PaintWorkletGlobalScope<TH> {
+impl<TH: TypeHolderTrait> PaintWorkletGlobalScope<TH> {
     #[allow(unsafe_code)]
     pub fn new(runtime: &Runtime,
                pipeline_id: PipelineId,
@@ -409,7 +409,7 @@ struct PaintDefinition<TH: TypeHolderTrait> {
     context: Dom<PaintRenderingContext2D<TH>>,
 }
 
-impl<TH> PaintDefinition<TH> {
+impl<TH: TypeHolderTrait> PaintDefinition<TH> {
     fn new(class_constructor: HandleValue,
            paint_function: HandleValue,
            alpha: bool,
@@ -431,7 +431,7 @@ impl<TH> PaintDefinition<TH> {
     }
 }
 
-impl<TH> PaintWorkletGlobalScopeMethods<TH> for PaintWorkletGlobalScope<TH> {
+impl<TH: TypeHolderTrait> PaintWorkletGlobalScopeMethods<TH> for PaintWorkletGlobalScope<TH> {
     #[allow(unsafe_code)]
     #[allow(unrooted_must_root)]
     /// <https://drafts.css-houdini.org/css-paint-api/#dom-paintworkletglobalscope-registerpaint>

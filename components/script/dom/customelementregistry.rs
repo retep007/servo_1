@@ -599,7 +599,7 @@ pub enum CustomElementReaction<TH: TypeHolderTrait> {
     ),
 }
 
-impl<TH> CustomElementReaction<TH> {
+impl<TH: TypeHolderTrait> CustomElementReaction<TH> {
     /// <https://html.spec.whatwg.org/multipage/#invoke-custom-element-reactions>
     #[allow(unsafe_code)]
     pub fn invoke(&self, element: &Element<TH>) {
@@ -785,7 +785,7 @@ struct ElementQueue<TH: TypeHolderTrait> {
     queue: DomRefCell<VecDeque<Dom<Element<TH>>>>,
 }
 
-impl<TH> ElementQueue<TH> {
+impl<TH: TypeHolderTrait> ElementQueue<TH> {
     fn new() -> ElementQueue<TH> {
         ElementQueue {
             queue: Default::default(),

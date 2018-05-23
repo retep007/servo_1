@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> TestWorklet<TH> {
     }
 }
 
-impl<TH> TestWorkletMethods<TH> for TestWorklet<TH> {
+impl<TH: TypeHolderTrait> TestWorkletMethods<TH> for TestWorklet<TH> {
     #[allow(unrooted_must_root)]
     fn AddModule(&self, moduleURL: USVString, options: &WorkletOptions) -> Rc<Promise<TH>> {
         self.worklet.AddModule(moduleURL, options)

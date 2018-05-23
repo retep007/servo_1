@@ -417,7 +417,7 @@ impl<TH: TypeHolderTrait> PerformanceObserverCallback<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for PerformanceObserverCallback<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for PerformanceObserverCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<PerformanceObserverCallback<TH>> {
         PerformanceObserverCallback::new(cx, callback)
     }
@@ -427,7 +427,7 @@ impl<TH> CallbackContainer<TH> for PerformanceObserverCallback<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for PerformanceObserverCallback<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for PerformanceObserverCallback<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

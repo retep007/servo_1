@@ -27,7 +27,7 @@ pub struct ServiceWorkerContainer<TH: TypeHolderTrait> {
     client: Dom<Client<TH>>
 }
 
-impl<TH> ServiceWorkerContainer<TH> {
+impl<TH: TypeHolderTrait> ServiceWorkerContainer<TH> {
     fn new_inherited(client: &Client<TH>) -> ServiceWorkerContainer<TH> {
         ServiceWorkerContainer {
             eventtarget: EventTarget::new_inherited(),
@@ -44,7 +44,7 @@ impl<TH> ServiceWorkerContainer<TH> {
     }
 }
 
-impl<TH> ServiceWorkerContainerMethods<TH> for ServiceWorkerContainer<TH> {
+impl<TH: TypeHolderTrait> ServiceWorkerContainerMethods<TH> for ServiceWorkerContainer<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-container-controller-attribute
     fn GetController(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.client.get_controller()

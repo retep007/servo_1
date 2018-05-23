@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 // https://developer.mozilla.org/en-US/docs/Web/API/Console
 pub struct Console<TH: TypeHolderTrait>(());
 
-impl<TH> Console<TH> {
+impl<TH: TypeHolderTrait> Console<TH> {
     fn send_to_devtools(global: &GlobalScope<TH>, level: LogLevel, message: DOMString) {
         if let Some(chan) = global.devtools_chan() {
             let console_message = prepare_message(level, message);
@@ -40,7 +40,7 @@ fn with_stderr_lock<F>(f: F) where F: FnOnce() {
     f()
 }
 
-impl<TH> Console<TH> {
+impl<TH: TypeHolderTrait> Console<TH> {
     // https://developer.mozilla.org/en-US/docs/Web/API/Console/log
     pub fn Log(global: &GlobalScope<TH>, messages: Vec<DOMString>) {
         with_stderr_lock(move || {

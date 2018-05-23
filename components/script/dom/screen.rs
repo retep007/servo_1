@@ -58,7 +58,7 @@ impl<TH: TypeHolderTrait> Screen<TH> {
     }
 }
 
-impl<TH> ScreenMethods for Screen<TH> {
+impl<TH: TypeHolderTrait> ScreenMethods for Screen<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-screen-availwidth
     fn AvailWidth(&self) -> Finite<f64> {
         Finite::wrap(self.screen_avail_size().width as f64)

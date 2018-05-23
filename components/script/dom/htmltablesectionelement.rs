@@ -82,7 +82,7 @@ pub trait HTMLTableSectionElementLayoutHelpers {
 }
 
 #[allow(unsafe_code)]
-impl<TH> HTMLTableSectionElementLayoutHelpers for LayoutDom<HTMLTableSectionElement<TH>> {
+impl<TH: TypeHolderTrait> HTMLTableSectionElementLayoutHelpers for LayoutDom<HTMLTableSectionElement<TH>> {
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
             (&*self.upcast::<Element<TH>>().unsafe_get())
@@ -93,7 +93,7 @@ impl<TH> HTMLTableSectionElementLayoutHelpers for LayoutDom<HTMLTableSectionElem
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLTableSectionElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTableSectionElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

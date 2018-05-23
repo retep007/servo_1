@@ -259,7 +259,7 @@ pub struct FocusEventInit<TH: TypeHolderTrait> {
     pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit<TH>,
     pub relatedTarget: Option<DomRoot<EventTarget<TH>>>,
 }
-impl<TH> FocusEventInit<TH> {
+impl<TH: TypeHolderTrait> FocusEventInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> FocusEventInit<TH> {
         match FocusEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -316,7 +316,7 @@ impl<TH> FocusEventInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for FocusEventInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for FocusEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<FocusEventInit<TH>>, ()> {
@@ -324,7 +324,7 @@ impl<TH> FromJSValConvertible for FocusEventInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for FocusEventInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for FocusEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let relatedTarget = &self.relatedTarget;

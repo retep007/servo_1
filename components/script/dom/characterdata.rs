@@ -254,7 +254,7 @@ pub trait LayoutCharacterDataHelpers {
 }
 
 #[allow(unsafe_code)]
-impl<TH> LayoutCharacterDataHelpers for LayoutDom<CharacterData<TH>> {
+impl<TH: TypeHolderTrait> LayoutCharacterDataHelpers for LayoutDom<CharacterData<TH>> {
     #[inline]
     unsafe fn data_for_layout(&self) -> &str {
         &(*self.unsafe_get()).data.borrow_for_layout()

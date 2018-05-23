@@ -16,7 +16,7 @@ pub struct HTMLOListElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH> HTMLOListElement<TH> {
+impl<TH: TypeHolderTrait> HTMLOListElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLOListElement<TH> {

@@ -41,7 +41,7 @@ pub struct ServiceWorkerManager<TH: TypeHolderTrait> {
     resource_receiver: Receiver<CustomResponseMediator>
 }
 
-impl<TH> ServiceWorkerManager<TH> {
+impl<TH: TypeHolderTrait> ServiceWorkerManager<TH> {
     fn new(own_sender: IpcSender<ServiceWorkerMsg>,
            from_constellation_receiver: Receiver<ServiceWorkerMsg>,
            resource_port: Receiver<CustomResponseMediator>) -> ServiceWorkerManager<TH> {

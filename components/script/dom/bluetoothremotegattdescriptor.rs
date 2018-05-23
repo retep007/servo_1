@@ -35,7 +35,7 @@ pub struct BluetoothRemoteGATTDescriptor<TH: TypeHolderTrait> {
     instance_id: String,
 }
 
-impl<TH> BluetoothRemoteGATTDescriptor<TH> {
+impl<TH: TypeHolderTrait> BluetoothRemoteGATTDescriptor<TH> {
     pub fn new_inherited(characteristic: &BluetoothRemoteGATTCharacteristic<TH>,
                          uuid: DOMString,
                          instance_id: String)
@@ -72,7 +72,7 @@ impl<TH> BluetoothRemoteGATTDescriptor<TH> {
     }
 }
 
-impl<TH> BluetoothRemoteGATTDescriptorMethods<TH> for BluetoothRemoteGATTDescriptor<TH> {
+impl<TH: TypeHolderTrait> BluetoothRemoteGATTDescriptorMethods<TH> for BluetoothRemoteGATTDescriptor<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattdescriptor-characteristic
     fn Characteristic(&self) -> DomRoot<BluetoothRemoteGATTCharacteristic<TH>> {
        DomRoot::from_ref(&self.characteristic)
@@ -151,7 +151,7 @@ impl<TH> BluetoothRemoteGATTDescriptorMethods<TH> for BluetoothRemoteGATTDescrip
     }
 }
 
-impl<TH> AsyncBluetoothListener<TH> for BluetoothRemoteGATTDescriptor<TH> {
+impl<TH: TypeHolderTrait> AsyncBluetoothListener<TH> for BluetoothRemoteGATTDescriptor<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattdescriptor-readvalue

@@ -26,7 +26,7 @@ pub struct SVGSVGElement<TH: TypeHolderTrait> {
     svggraphicselement: SVGGraphicsElement<TH>
 }
 
-impl<TH> SVGSVGElement<TH> {
+impl<TH: TypeHolderTrait> SVGSVGElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> SVGSVGElement<TH> {
@@ -50,7 +50,7 @@ pub trait LayoutSVGSVGElementHelpers {
     fn data(&self) -> SVGSVGData;
 }
 
-impl<TH> LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement<TH>> {
+impl<TH: TypeHolderTrait> LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement<TH>> {
     #[allow(unsafe_code)]
     fn data(&self) -> SVGSVGData {
         unsafe {
@@ -66,7 +66,7 @@ impl<TH> LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement<TH>> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for SVGSVGElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for SVGSVGElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<SVGGraphicsElement<TH>>() as &VirtualMethods<TH>)
     }

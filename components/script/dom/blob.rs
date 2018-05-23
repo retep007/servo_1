@@ -47,7 +47,7 @@ pub enum BlobImpl<TH: TypeHolderTrait> {
     Sliced(Dom<Blob<TH>>, RelativePos)
 }
 
-impl<TH> BlobImpl<TH> {
+impl<TH: TypeHolderTrait> BlobImpl<TH> {
     /// Construct memory-backed BlobImpl
     #[allow(unrooted_must_root)]
     pub fn new_from_bytes(bytes: Vec<u8>) -> BlobImpl<TH> {
@@ -75,7 +75,7 @@ pub struct Blob<TH: TypeHolderTrait> {
     type_string: String,
 }
 
-impl<TH> Blob<TH> {
+impl<TH: TypeHolderTrait> Blob<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(
             global: &GlobalScope<TH>, blob_impl: BlobImpl<TH>, typeString: String)
@@ -296,7 +296,7 @@ impl<TH> Blob<TH> {
     }
 }
 
-impl<TH> Drop for Blob<TH> {
+impl<TH: TypeHolderTrait> Drop for Blob<TH> {
     fn drop(&mut self) {
         self.clean_up_file_resource();
     }
@@ -356,7 +356,7 @@ pub fn blob_parts_to_bytes<TH: TypeHolderTrait>(mut blobparts: Vec<ArrayBufferOr
     Ok(ret)
 }
 
-impl<TH> BlobMethods<TH> for Blob<TH> {
+impl<TH: TypeHolderTrait> BlobMethods<TH> for Blob<TH> {
     // https://w3c.github.io/FileAPI/#dfn-size
     fn Size(&self) -> u64 {
         match *self.blob_impl.borrow() {

@@ -222,7 +222,7 @@ impl<TH: TypeHolderTrait> Event<TH> {
     }
 }
 
-impl<TH> EventMethods<TH> for Event<TH> {
+impl<TH: TypeHolderTrait> EventMethods<TH> for Event<TH> {
     // https://dom.spec.whatwg.org/#dom-event-eventphase
     fn EventPhase(&self) -> u16 {
         self.phase.get() as u16
@@ -389,7 +389,7 @@ pub struct EventTask<TH: TypeHolderTrait> {
     pub cancelable: EventCancelable,
 }
 
-impl<TH> TaskOnce for EventTask<TH> {
+impl<TH: TypeHolderTrait> TaskOnce for EventTask<TH> {
     fn run_once(self) {
         let target = self.target.root();
         let bubbles = self.bubbles;
@@ -404,7 +404,7 @@ pub struct SimpleEventTask<TH: TypeHolderTrait> {
     pub name: Atom,
 }
 
-impl<TH> TaskOnce for SimpleEventTask<TH> {
+impl<TH: TypeHolderTrait> TaskOnce for SimpleEventTask<TH> {
     fn run_once(self) {
         let target = self.target.root();
         target.fire_event(self.name);

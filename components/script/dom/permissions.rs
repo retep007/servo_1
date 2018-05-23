@@ -57,7 +57,7 @@ pub struct Permissions<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> Permissions<TH> {
+impl<TH: TypeHolderTrait> Permissions<TH> {
     pub fn new_inherited() -> Permissions<TH> {
         Permissions {
             reflector_: Reflector::new(),
@@ -175,7 +175,7 @@ impl<TH> Permissions<TH> {
     }
 }
 
-impl<TH> PermissionsMethods<TH> for Permissions<TH> {
+impl<TH: TypeHolderTrait> PermissionsMethods<TH> for Permissions<TH> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     // https://w3c.github.io/permissions/#dom-permissions-query
@@ -198,7 +198,7 @@ impl<TH> PermissionsMethods<TH> for Permissions<TH> {
     }
 }
 
-impl<TH> PermissionAlgorithm<TH> for Permissions<TH> {
+impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Permissions<TH> {
     type Descriptor = PermissionDescriptor;
     type Status = PermissionStatus<TH>;
 

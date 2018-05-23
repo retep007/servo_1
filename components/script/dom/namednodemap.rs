@@ -37,7 +37,7 @@ impl<TH: TypeHolderTrait> NamedNodeMap<TH> {
     }
 }
 
-impl<TH> NamedNodeMapMethods<TH> for NamedNodeMap<TH> {
+impl<TH: TypeHolderTrait> NamedNodeMapMethods<TH> for NamedNodeMap<TH> {
     // https://dom.spec.whatwg.org/#dom-namednodemap-length
     fn Length(&self) -> u32 {
         self.owner.attrs().len() as u32

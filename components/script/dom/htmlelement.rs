@@ -115,7 +115,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 }
 
-impl<TH> HTMLElementMethods<TH> for HTMLElement<TH> {
+impl<TH: TypeHolderTrait> HTMLElementMethods<TH> for HTMLElement<TH> {
     // https://html.spec.whatwg.org/multipage/#the-style-attribute
     fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {
@@ -661,7 +661,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<Element<TH>>() as &VirtualMethods<TH>)
     }

@@ -49,7 +49,7 @@ pub struct AutoEntryScript<TH: TypeHolderTrait> {
     global: DomRoot<GlobalScope<TH>>,
 }
 
-impl<TH> AutoEntryScript<TH> {
+impl<TH: TypeHolderTrait> AutoEntryScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#prepare-to-run-script>
     pub fn new(global: &GlobalScope<TH>) -> Self {
         STACK.with(|stack| {
@@ -66,7 +66,7 @@ impl<TH> AutoEntryScript<TH> {
     }
 }
 
-impl<TH> Drop for AutoEntryScript<TH> {
+impl<TH: TypeHolderTrait> Drop for AutoEntryScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#clean-up-after-running-script>
     fn drop(&mut self) {
         STACK.with(|stack| {
@@ -104,7 +104,7 @@ pub struct AutoIncumbentScript<TH: TypeHolderTrait> {
     global: usize,
 }
 
-impl<TH> AutoIncumbentScript<TH> {
+impl<TH: TypeHolderTrait> AutoIncumbentScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#prepare-to-run-a-callback>
     pub fn new(global: &GlobalScope<TH>) -> Self {
         // Step 2-3.
@@ -128,7 +128,7 @@ impl<TH> AutoIncumbentScript<TH> {
     }
 }
 
-impl<TH> Drop for AutoIncumbentScript<TH> {
+impl<TH: TypeHolderTrait> Drop for AutoIncumbentScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#clean-up-after-running-a-callback>
     fn drop(&mut self) {
         STACK.with(|stack| {

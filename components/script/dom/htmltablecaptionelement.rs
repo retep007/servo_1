@@ -16,7 +16,7 @@ pub struct HTMLTableCaptionElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLTableCaptionElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTableCaptionElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLTableCaptionElement<TH> {

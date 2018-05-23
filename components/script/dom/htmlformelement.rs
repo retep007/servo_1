@@ -93,7 +93,7 @@ impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
     }
 }
 
-impl<TH> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
+impl<TH: TypeHolderTrait> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-form-acceptcharset
     make_getter!(AcceptCharset, "accept-charset");
 
@@ -171,7 +171,7 @@ impl<TH> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
         struct ElementsFilter<TH> {
             form: DomRoot<HTMLFormElement<TH>>
         }
-        impl<TH> CollectionFilter<TH> for ElementsFilter<TH> {
+        impl<TH: TypeHolderTrait> CollectionFilter<TH> for ElementsFilter<TH> {
             fn filter<'a, TH>(&self, elem: &'a Element<TH>, _root: &'a Node<TH>) -> bool {
                 let form_owner = match elem.upcast::<Node<TH>>().type_id() {
                     NodeTypeId::Element(ElementTypeId::HTMLElement(t)) => {
@@ -249,7 +249,7 @@ pub enum ResetFrom {
 }
 
 
-impl<TH> HTMLFormElement<TH> {
+impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#picking-an-encoding-for-the-form
     fn pick_encoding(&self) -> &'static Encoding {
         // Step 2
@@ -693,7 +693,7 @@ pub struct FormDatum<TH: TypeHolderTrait> {
     pub value: FormDatumValue<TH>
 }
 
-impl<TH> FormDatum<TH> {
+impl<TH: TypeHolderTrait> FormDatum<TH> {
     pub fn replace_value(&self, charset: &str) -> String {
         if self.name == "_charset_" && self.ty == "hidden" {
             return charset.to_string();
@@ -732,7 +732,7 @@ pub enum FormSubmittableElement<TH: TypeHolderTrait> {
     TextAreaElement(DomRoot<HTMLTextAreaElement<TH>>),
 }
 
-impl<TH> FormSubmittableElement<TH> {
+impl<TH: TypeHolderTrait> FormSubmittableElement<TH> {
     fn as_event_target(&self) -> &EventTarget<TH> {
         match *self {
             FormSubmittableElement::ButtonElement(ref button) => button.upcast(),
@@ -1036,7 +1036,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
     // fn satisfies_constraints(&self) -> bool;
 }
 
-impl<TH> VirtualMethods<TH> for HTMLFormElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLFormElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

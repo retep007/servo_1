@@ -21,7 +21,7 @@ pub struct DOMMatrix<TH: TypeHolderTrait> {
     parent: DOMMatrixReadOnly<TH>
 }
 
-impl<TH> DOMMatrix<TH> {
+impl<TH: TypeHolderTrait> DOMMatrix<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(global: &GlobalScope<TH>, is2D: bool, matrix: Transform3D<f64>) -> DomRoot<Self> {
         let dommatrix = Self::new_inherited(is2D, matrix);
@@ -78,7 +78,7 @@ impl<TH> DOMMatrix<TH> {
     }
 }
 
-impl<TH> DOMMatrixMethods<TH> for DOMMatrix<TH> {
+impl<TH: TypeHolderTrait> DOMMatrixMethods<TH> for DOMMatrix<TH> {
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-m11
     fn M11(&self) -> f64 {
         self.upcast::<DOMMatrixReadOnly<TH>>().M11()

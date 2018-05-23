@@ -125,7 +125,7 @@ pub struct Bluetooth<TH: TypeHolderTrait> {
     device_instance_map: DomRefCell<HashMap<String, Dom<BluetoothDevice<TH>>>>,
 }
 
-impl<TH> Bluetooth<TH> {
+impl<TH: TypeHolderTrait> Bluetooth<TH> {
     pub fn new_inherited() -> Bluetooth<TH> {
         Bluetooth {
             eventtarget: EventTarget::new_inherited(),
@@ -469,7 +469,7 @@ fn canonicalize_bluetooth_data_filter_init<TH: TypeHolderTrait>(bdfi: &Bluetooth
     Ok((data_prefix, mask))
 }
 
-impl<TH> From<BluetoothError> for Error<TH> {
+impl<TH: TypeHolderTrait> From<BluetoothError> for Error<TH> {
     fn from(error: BluetoothError) -> Self {
         match error {
             BluetoothError::Type(message) => Error::Type(message),
@@ -482,7 +482,7 @@ impl<TH> From<BluetoothError> for Error<TH> {
     }
 }
 
-impl<TH> BluetoothMethods<TH> for Bluetooth<TH> {
+impl<TH: TypeHolderTrait> BluetoothMethods<TH> for Bluetooth<TH> {
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetooth-requestdevice
     fn RequestDevice(&self, option: &RequestDeviceOptions) -> Rc<Promise<TH>> {
@@ -517,7 +517,7 @@ impl<TH> BluetoothMethods<TH> for Bluetooth<TH> {
     event_handler!(availabilitychanged, GetOnavailabilitychanged, SetOnavailabilitychanged);
 }
 
-impl<TH> AsyncBluetoothListener<TH> for Bluetooth<TH> {
+impl<TH: TypeHolderTrait> AsyncBluetoothListener<TH> for Bluetooth<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#request-bluetooth-devices
@@ -553,7 +553,7 @@ impl<TH> AsyncBluetoothListener<TH> for Bluetooth<TH> {
     }
 }
 
-impl<TH> PermissionAlgorithm<TH> for Bluetooth<TH> {
+impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Bluetooth<TH> {
     type Descriptor = BluetoothPermissionDescriptor;
     type Status = BluetoothPermissionResult<TH>;
 

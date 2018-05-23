@@ -17,7 +17,7 @@ pub struct MimeTypeArray<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> MimeTypeArray<TH> {
+impl<TH: TypeHolderTrait> MimeTypeArray<TH> {
     pub fn new_inherited() -> MimeTypeArray<TH> {
         MimeTypeArray {
             reflector_: Reflector::new()
@@ -31,7 +31,7 @@ impl<TH> MimeTypeArray<TH> {
     }
 }
 
-impl<TH> MimeTypeArrayMethods<TH> for MimeTypeArray<TH> {
+impl<TH: TypeHolderTrait> MimeTypeArrayMethods<TH> for MimeTypeArray<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-mimetypearray-length
     fn Length(&self) -> u32 {
         0

@@ -19,7 +19,7 @@ pub struct GamepadButtonList<TH: TypeHolderTrait> {
     list: Vec<Dom<GamepadButton<TH>>>
 }
 
-impl<TH> GamepadButtonList<TH> {
+impl<TH: TypeHolderTrait> GamepadButtonList<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(list: &[&GamepadButton<TH>]) -> GamepadButtonList<TH> {
         GamepadButtonList {
@@ -44,7 +44,7 @@ impl<TH> GamepadButtonList<TH> {
     }
 }
 
-impl<TH> GamepadButtonListMethods<TH> for GamepadButtonList<TH> {
+impl<TH: TypeHolderTrait> GamepadButtonListMethods<TH> for GamepadButtonList<TH> {
     // https://w3c.github.io/gamepad/#dom-gamepad-buttons
     fn Length(&self) -> u32 {
         self.list.len() as u32

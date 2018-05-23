@@ -16,7 +16,7 @@ pub struct SVGGraphicsElement<TH: TypeHolderTrait> {
     svgelement: SVGElement<TH>,
 }
 
-impl<TH> SVGGraphicsElement<TH> {
+impl<TH: TypeHolderTrait> SVGGraphicsElement<TH> {
     pub fn new_inherited(tag_name: LocalName, prefix: Option<Prefix>,
                          document: &Document<TH>) -> SVGGraphicsElement<TH> {
         SVGGraphicsElement::new_inherited_with_state(ElementState::empty(), tag_name, prefix, document)
@@ -32,7 +32,7 @@ impl<TH> SVGGraphicsElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for SVGGraphicsElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for SVGGraphicsElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<SVGElement<TH>>() as &VirtualMethods<TH>)
     }

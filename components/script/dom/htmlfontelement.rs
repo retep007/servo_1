@@ -97,7 +97,7 @@ pub trait HTMLFontElementLayoutHelpers {
     fn get_size(&self) -> Option<u32>;
 }
 
-impl<TH> HTMLFontElementLayoutHelpers for LayoutDom<HTMLFontElement<TH>> {
+impl<TH: TypeHolderTrait> HTMLFontElementLayoutHelpers for LayoutDom<HTMLFontElement<TH>> {
     #[allow(unsafe_code)]
     fn get_color(&self) -> Option<RGBA> {
         unsafe {

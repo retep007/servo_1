@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> CSSKeyframeRule<TH> {
     }
 }
 
-impl<TH> CSSKeyframeRuleMethods<TH> for CSSKeyframeRule<TH> {
+impl<TH: TypeHolderTrait> CSSKeyframeRuleMethods<TH> for CSSKeyframeRule<TH> {
     // https://drafts.csswg.org/css-animations/#dom-csskeyframerule-style
     fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {

@@ -259,7 +259,7 @@ pub struct CompositionEventInit<TH: TypeHolderTrait> {
     pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit<TH>,
     pub data: DOMString,
 }
-impl<TH> CompositionEventInit<TH> {
+impl<TH: TypeHolderTrait> CompositionEventInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> CompositionEventInit<TH> {
         match CompositionEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -309,7 +309,7 @@ impl<TH> CompositionEventInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for CompositionEventInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for CompositionEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<CompositionEventInit<TH>>, ()> {
@@ -317,7 +317,7 @@ impl<TH> FromJSValConvertible for CompositionEventInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for CompositionEventInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for CompositionEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let data = &self.data;

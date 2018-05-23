@@ -16,7 +16,7 @@ pub struct HTMLParagraphElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLParagraphElement<TH> {
+impl<TH: TypeHolderTrait> HTMLParagraphElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLParagraphElement<TH> {

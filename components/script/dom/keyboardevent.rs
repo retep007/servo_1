@@ -132,7 +132,7 @@ impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
 }
 
 
-impl<TH> KeyboardEvent<TH> {
+impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
     pub fn printable(&self) -> Option<char> {
         self.printable.get()
     }

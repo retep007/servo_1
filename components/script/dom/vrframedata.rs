@@ -32,7 +32,7 @@ pub struct VRFrameData<TH: TypeHolderTrait> {
     first_timestamp: Cell<f64>
 }
 
-impl<TH> VRFrameData<TH> {
+impl<TH: TypeHolderTrait> VRFrameData<TH> {
     fn new_inherited(pose: &VRPose<TH>) -> VRFrameData<TH> {
         VRFrameData {
             reflector_: Reflector::new(),
@@ -81,7 +81,7 @@ fn create_typed_array(cx: *mut JSContext, src: &[f32], dst: &Heap<*mut JSObject>
     (*dst).set(array.get());
 }
 
-impl<TH> VRFrameData<TH> {
+impl<TH: TypeHolderTrait> VRFrameData<TH> {
     #[allow(unsafe_code)]
     pub fn update(&self, data: &WebVRFrameData) {
         unsafe {
@@ -111,7 +111,7 @@ impl<TH> VRFrameData<TH> {
     }
 }
 
-impl<TH> VRFrameDataMethods<TH> for VRFrameData<TH> {
+impl<TH: TypeHolderTrait> VRFrameDataMethods<TH> for VRFrameData<TH> {
     // https://w3c.github.io/webvr/#dom-vrframedata-timestamp
     fn Timestamp(&self) -> Finite<f64> {
         Finite::wrap(self.timestamp.get() - self.first_timestamp.get())

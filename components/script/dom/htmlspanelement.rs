@@ -16,7 +16,7 @@ pub struct HTMLSpanElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLSpanElement<TH> {
+impl<TH: TypeHolderTrait> HTMLSpanElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLSpanElement<TH> {
         HTMLSpanElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)

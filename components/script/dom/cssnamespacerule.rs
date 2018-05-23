@@ -41,7 +41,7 @@ impl<TH: TypeHolderTrait> CSSNamespaceRule<TH> {
     }
 }
 
-impl<TH> CSSNamespaceRuleMethods for CSSNamespaceRule<TH> {
+impl<TH: TypeHolderTrait> CSSNamespaceRuleMethods for CSSNamespaceRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssnamespacerule-prefix
     fn Prefix(&self) -> DOMString {
         let guard = self.cssrule.shared_lock().read();
@@ -57,7 +57,7 @@ impl<TH> CSSNamespaceRuleMethods for CSSNamespaceRule<TH> {
     }
 }
 
-impl<TH> SpecificCSSRule for CSSNamespaceRule<TH> {
+impl<TH: TypeHolderTrait> SpecificCSSRule for CSSNamespaceRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::NAMESPACE_RULE

@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> HTMLOptGroupElement<TH> {
     }
 }
 
-impl<TH> HTMLOptGroupElementMethods for HTMLOptGroupElement<TH> {
+impl<TH: TypeHolderTrait> HTMLOptGroupElementMethods for HTMLOptGroupElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-optgroup-disabled
     make_bool_getter!(Disabled, "disabled");
 
@@ -52,7 +52,7 @@ impl<TH> HTMLOptGroupElementMethods for HTMLOptGroupElement<TH> {
     make_bool_setter!(SetDisabled, "disabled");
 }
 
-impl<TH> VirtualMethods<TH> for HTMLOptGroupElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLOptGroupElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

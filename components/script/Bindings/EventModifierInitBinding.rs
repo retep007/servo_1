@@ -273,7 +273,7 @@ pub struct EventModifierInit<TH: TypeHolderTrait> {
     pub metaKey: bool,
     pub shiftKey: bool,
 }
-impl<TH> EventModifierInit<TH> {
+impl<TH: TypeHolderTrait> EventModifierInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> EventModifierInit<TH>{
         match EventModifierInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -575,7 +575,7 @@ impl<TH> EventModifierInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for EventModifierInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for EventModifierInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<EventModifierInit<TH>>, ()> {
@@ -583,7 +583,7 @@ impl<TH> FromJSValConvertible for EventModifierInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for EventModifierInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for EventModifierInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let altKey = &self.altKey;

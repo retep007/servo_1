@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> MediaQueryList<TH> {
     }
 }
 
-impl<TH> MediaQueryList<TH> {
+impl<TH: TypeHolderTrait> MediaQueryList<TH> {
     fn evaluate_changes(&self) -> MediaQueryListMatchState {
         let matches = self.evaluate();
 
@@ -81,7 +81,7 @@ impl<TH> MediaQueryList<TH> {
     }
 }
 
-impl<TH> MediaQueryListMethods<TH> for MediaQueryList<TH> {
+impl<TH: TypeHolderTrait> MediaQueryListMethods<TH> for MediaQueryList<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylist-media
     fn Media(&self) -> DOMString {
         self.media_query_list.to_css_string().into()
@@ -156,7 +156,7 @@ impl<TH: TypeHolderTrait> WeakMediaQueryListVec<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe impl<TH> JSTraceable for WeakMediaQueryListVec<TH> {
+unsafe impl<TH: TypeHolderTrait> JSTraceable for WeakMediaQueryListVec<TH> {
     unsafe fn trace(&self, _: *mut JSTracer) {
         self.cell.borrow_mut().retain_alive()
     }

@@ -18,7 +18,7 @@ pub struct DOMRect<TH: TypeHolderTrait> {
     rect: DOMRectReadOnly<TH>,
 }
 
-impl<TH> DOMRect<TH> {
+impl<TH: TypeHolderTrait> DOMRect<TH> {
     fn new_inherited(x: f64, y: f64, width: f64, height: f64) -> DOMRect<TH> {
         DOMRect {
             rect: DOMRectReadOnly::new_inherited(x, y, width, height),
@@ -41,7 +41,7 @@ impl<TH> DOMRect<TH> {
     }
 }
 
-impl<TH> DOMRectMethods for DOMRect<TH> {
+impl<TH: TypeHolderTrait> DOMRectMethods for DOMRect<TH> {
     // https://drafts.fxtf.org/geometry/#dom-domrect-x
     fn X(&self) -> f64 {
         self.rect.X()

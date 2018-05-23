@@ -242,7 +242,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLinkElement<TH> {
 }
 
 
-impl<TH> HTMLLinkElement<TH> {
+impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#concept-link-obtain>
     fn handle_stylesheet_url(&self, href: &str) {
         let document = document_from_node(self);
@@ -315,7 +315,7 @@ impl<TH> HTMLLinkElement<TH> {
     }
 }
 
-impl<TH> StylesheetOwner for HTMLLinkElement<TH> {
+impl<TH: TypeHolderTrait> StylesheetOwner for HTMLLinkElement<TH> {
     fn increment_pending_loads_count(&self) {
         self.pending_loads.set(self.pending_loads.get() + 1)
     }
@@ -355,7 +355,7 @@ impl<TH> StylesheetOwner for HTMLLinkElement<TH> {
     }
 }
 
-impl<TH> HTMLLinkElementMethods<TH> for HTMLLinkElement<TH> {
+impl<TH: TypeHolderTrait> HTMLLinkElementMethods<TH> for HTMLLinkElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-link-href
     make_url_getter!(Href, "href");
 

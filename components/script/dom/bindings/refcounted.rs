@@ -71,9 +71,9 @@ pub struct TrustedPromise<TH> {
     owner_thread: *const libc::c_void,
 }
 
-unsafe impl<TH> Send for TrustedPromise<TH> {}
+unsafe impl<TH: TypeHolderTrait> Send for TrustedPromise<TH> {}
 
-impl<TH> TrustedPromise<TH> {
+impl<TH: TypeHolderTrait> TrustedPromise<TH> {
     /// Create a new `TrustedPromise` instance from an existing DOM object. The object will
     /// be prevented from being GCed for the duration of the resulting `TrustedPromise` object's
     /// lifetime.
@@ -212,7 +212,7 @@ pub trait LiveDOMReferencesTrait {
 
 }
 
-impl<TH> LiveDOMReferences<TH> {
+impl<TH: TypeHolderTrait> LiveDOMReferences<TH> {
     /// Set up the thread-local data required for storing the outstanding DOM references.
     pub fn initialize() {
         LIVE_REFERENCES.with(|ref r| {

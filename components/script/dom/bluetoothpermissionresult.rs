@@ -30,7 +30,7 @@ pub struct BluetoothPermissionResult<TH: TypeHolderTrait> {
     devices: DomRefCell<Vec<Dom<BluetoothDevice<TH>>>>,
 }
 
-impl<TH> BluetoothPermissionResult<TH> {
+impl<TH: TypeHolderTrait> BluetoothPermissionResult<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(status: &PermissionStatus<TH>) -> BluetoothPermissionResult<TH> {
         let result = BluetoothPermissionResult {
@@ -73,7 +73,7 @@ impl<TH> BluetoothPermissionResult<TH> {
     }
 }
 
-impl<TH> BluetoothPermissionResultMethods<TH> for BluetoothPermissionResult<TH> {
+impl<TH: TypeHolderTrait> BluetoothPermissionResultMethods<TH> for BluetoothPermissionResult<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothpermissionresult-devices
     fn Devices(&self) -> Vec<DomRoot<BluetoothDevice<TH>>> {
         let device_vec: Vec<DomRoot<BluetoothDevice<TH>>> =
@@ -82,7 +82,7 @@ impl<TH> BluetoothPermissionResultMethods<TH> for BluetoothPermissionResult<TH> 
     }
 }
 
-impl<TH> AsyncBluetoothListener<TH> for BluetoothPermissionResult<TH> {
+impl<TH: TypeHolderTrait> AsyncBluetoothListener<TH> for BluetoothPermissionResult<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#request-bluetooth-devices

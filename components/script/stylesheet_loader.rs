@@ -80,9 +80,9 @@ pub struct StylesheetContext<TH: TypeHolderTrait> {
     request_generation_id: Option<RequestGenerationId>,
 }
 
-impl<TH> PreInvoke for StylesheetContext<TH> {}
+impl<TH: TypeHolderTrait> PreInvoke for StylesheetContext<TH> {}
 
-impl<TH> FetchResponseListener for StylesheetContext<TH> {
+impl<TH: TypeHolderTrait> FetchResponseListener for StylesheetContext<TH> {
     fn process_request_body(&mut self) {}
 
     fn process_request_eof(&mut self) {}

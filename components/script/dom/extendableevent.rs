@@ -24,7 +24,7 @@ pub struct ExtendableEvent<TH: TypeHolderTrait> {
     extensions_allowed: bool
 }
 
-impl<TH> ExtendableEvent<TH> {
+impl<TH: TypeHolderTrait> ExtendableEvent<TH> {
     pub fn new_inherited() -> ExtendableEvent<TH> {
         ExtendableEvent {
             event: Event::new_inherited(),

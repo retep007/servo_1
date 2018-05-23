@@ -167,9 +167,9 @@ pub fn Fetch<TH: TypeHolderTrait>(global: &GlobalScope<TH>, input: RequestInfo<T
     promise
 }
 
-impl<TH> PreInvoke for FetchContext<TH> {}
+impl<TH: TypeHolderTrait> PreInvoke for FetchContext<TH> {}
 
-impl<TH> FetchResponseListener for FetchContext<TH> {
+impl<TH: TypeHolderTrait> FetchResponseListener for FetchContext<TH> {
     fn process_request_body(&mut self) {
         // TODO
     }

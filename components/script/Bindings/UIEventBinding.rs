@@ -260,7 +260,7 @@ pub struct UIEventInit<TH: TypeHolderTrait> {
     pub detail: i32,
     pub view: Option<DomRoot<Window<TH>>>,
 }
-impl<TH> UIEventInit<TH> {
+impl<TH: TypeHolderTrait> UIEventInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> UIEventInit<TH> {
         match UIEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -335,7 +335,7 @@ impl<TH> UIEventInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for UIEventInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for UIEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<UIEventInit<TH>>, ()> {
@@ -343,7 +343,7 @@ impl<TH> FromJSValConvertible for UIEventInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for UIEventInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for UIEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let detail = &self.detail;

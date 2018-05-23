@@ -941,7 +941,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods<TH> for WebGL2RenderingC
 }
 
 
-impl<TH> LayoutCanvasWebGLRenderingContextHelpers for LayoutDom<WebGL2RenderingContext<TH>> {
+impl<TH: TypeHolderTrait> LayoutCanvasWebGLRenderingContextHelpers for LayoutDom<WebGL2RenderingContext<TH>> {
     #[allow(unsafe_code)]
     unsafe fn canvas_data_source(&self) -> HTMLCanvasDataSource {
         let this = &*self.unsafe_get();

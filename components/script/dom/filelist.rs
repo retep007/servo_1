@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> FileList<TH> {
     }
 }
 
-impl<TH> FileListMethods<TH> for FileList<TH> {
+impl<TH: TypeHolderTrait> FileListMethods<TH> for FileList<TH> {
     // https://w3c.github.io/FileAPI/#dfn-length
     fn Length(&self) -> u32 {
         self.list.len() as u32

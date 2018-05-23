@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> LoadBlocker<TH> {
     }
 }
 
-impl<TH> Drop for LoadBlocker<TH> {
+impl<TH: TypeHolderTrait> Drop for LoadBlocker<TH> {
     fn drop(&mut self) {
         if !thread::panicking() {
             debug_assert!(self.load.is_none());

@@ -55,7 +55,7 @@ pub struct TestBinding<TH: TypeHolderTrait> {
     url: MutableWeakRef<URL<TH>, TH>,
 }
 
-impl<TH> TestBinding<TH> {
+impl<TH: TypeHolderTrait> TestBinding<TH> {
     fn new_inherited() -> TestBinding<TH> {
         TestBinding {
             reflector_: Reflector::new(),
@@ -83,7 +83,7 @@ impl<TH> TestBinding<TH> {
     }
 }
 
-impl<TH> TestBindingMethods<TH> for TestBinding<TH> {
+impl<TH: TypeHolderTrait> TestBindingMethods<TH> for TestBinding<TH> {
     fn BooleanAttribute(&self) -> bool { false }
     fn SetBooleanAttribute(&self, _: bool) {}
     fn ByteAttribute(&self) -> i8 { 0 }
@@ -757,12 +757,12 @@ impl<TH> TestBindingMethods<TH> for TestBinding<TH> {
             #[ignore_malloc_size_of = "Rc has unclear ownership semantics"]
             handler: Rc<SimpleCallback<TH>>,
         }
-        impl<TH> SimpleHandler<TH> {
+        impl<TH: TypeHolderTrait> SimpleHandler<TH> {
             fn new(callback: Rc<SimpleCallback<TH>>) -> Box<Callback> {
                 Box::new(SimpleHandler { handler: callback })
             }
         }
-        impl<TH> Callback for SimpleHandler<TH> {
+        impl<TH: TypeHolderTrait> Callback for SimpleHandler<TH> {
             #[allow(unsafe_code)]
             fn callback(&self, cx: *mut JSContext, v: HandleValue) {
                 let global = unsafe { GlobalScope::from_context(cx) };
@@ -813,7 +813,7 @@ impl<TH> TestBindingMethods<TH> for TestBinding<TH> {
     }
 }
 
-impl<TH> TestBinding<TH> {
+impl<TH: TypeHolderTrait> TestBinding<TH> {
     pub fn BooleanAttributeStatic(_: &GlobalScope<TH>) -> bool { false }
     pub fn SetBooleanAttributeStatic(_: &GlobalScope<TH>, _: bool) {}
     pub fn ReceiveVoidStatic(_: &GlobalScope<TH>) {}
@@ -828,7 +828,7 @@ impl<TH> TestBinding<TH> {
 }
 
 #[allow(unsafe_code)]
-impl<TH> TestBinding<TH> {
+impl<TH: TypeHolderTrait> TestBinding<TH> {
     pub unsafe fn condition_satisfied(_: *mut JSContext, _: HandleObject) -> bool { true }
     pub unsafe fn condition_unsatisfied(_: *mut JSContext, _: HandleObject) -> bool { false }
 }
@@ -840,7 +840,7 @@ pub struct TestBindingCallback<TH: TypeHolderTrait> {
     value: DOMString,
 }
 
-impl<TH> TestBindingCallback<TH> {
+impl<TH: TypeHolderTrait> TestBindingCallback<TH> {
     #[allow(unrooted_must_root)]
     pub fn invoke(self) {
         self.promise.root().resolve_native(&self.value);

@@ -143,7 +143,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
     }
 }
 
-impl<TH> WorkerMethods<TH> for Worker<TH> {
+impl<TH: TypeHolderTrait> WorkerMethods<TH> for Worker<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-worker-postmessage
     unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {
@@ -179,7 +179,7 @@ impl<TH> WorkerMethods<TH> for Worker<TH> {
     event_handler!(error, GetOnerror, SetOnerror);
 }
 
-impl<TH> TaskOnce for SimpleWorkerErrorHandler<Worker<TH>, TH> {
+impl<TH: TypeHolderTrait> TaskOnce for SimpleWorkerErrorHandler<Worker<TH>, TH> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         Worker::dispatch_simple_error(self.addr);

@@ -26,7 +26,7 @@ pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait> {
     bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>, TH>,
 }
 
-impl<TH> WebGLVertexArrayObjectOES<TH> {
+impl<TH: TypeHolderTrait> WebGLVertexArrayObjectOES<TH> {
     fn new_inherited(id: WebGLVertexArrayId) -> WebGLVertexArrayObjectOES<TH> {
         Self {
             webgl_object_: WebGLObject::new_inherited(),

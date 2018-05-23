@@ -27,7 +27,7 @@ pub struct VRStageParameters<TH: TypeHolderTrait> {
 
 unsafe_no_jsmanaged_fields!(WebVRStageParameters);
 
-impl<TH> VRStageParameters<TH> {
+impl<TH: TypeHolderTrait> VRStageParameters<TH> {
     fn new_inherited(parameters: WebVRStageParameters) -> VRStageParameters<TH> {
         VRStageParameters {
             reflector_: Reflector::new(),
@@ -67,7 +67,7 @@ impl<TH> VRStageParameters<TH> {
     }
 }
 
-impl<TH> VRStageParametersMethods for VRStageParameters<TH> {
+impl<TH: TypeHolderTrait> VRStageParametersMethods for VRStageParameters<TH> {
     #[allow(unsafe_code)]
     // https://w3c.github.io/webvr/#dom-vrstageparameters-sittingtostandingtransform
     unsafe fn SittingToStandingTransform(&self, _cx: *mut JSContext) -> NonNull<JSObject> {

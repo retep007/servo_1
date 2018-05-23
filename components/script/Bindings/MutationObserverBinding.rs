@@ -536,7 +536,7 @@ impl<TH: TypeHolderTrait> MutationCallback<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for MutationCallback<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for MutationCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<MutationCallback<TH>> {
         MutationCallback::new(cx, callback)
     }
@@ -546,7 +546,7 @@ impl<TH> CallbackContainer<TH> for MutationCallback<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for MutationCallback<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for MutationCallback<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

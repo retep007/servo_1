@@ -29,7 +29,7 @@ pub struct VREyeParameters<TH: TypeHolderTrait> {
 
 unsafe_no_jsmanaged_fields!(WebVREyeParameters);
 
-impl<TH> VREyeParameters<TH> {
+impl<TH: TypeHolderTrait> VREyeParameters<TH> {
     fn new_inherited(parameters: WebVREyeParameters, fov: &VRFieldOfView<TH>) -> VREyeParameters<TH> {
         VREyeParameters {
             reflector_: Reflector::new(),
@@ -58,7 +58,7 @@ impl<TH> VREyeParameters<TH> {
     }
 }
 
-impl<TH> VREyeParametersMethods<TH> for VREyeParameters<TH> {
+impl<TH: TypeHolderTrait> VREyeParametersMethods<TH> for VREyeParameters<TH> {
     #[allow(unsafe_code)]
     // https://w3c.github.io/webvr/#dom-vreyeparameters-offset
     unsafe fn Offset(&self, _cx: *mut JSContext) -> NonNull<JSObject> {

@@ -79,7 +79,7 @@ pub struct HTMLIFrameElement<TH: TypeHolderTrait> {
     visibility: Cell<bool>,
 }
 
-impl<TH> HTMLIFrameElement<TH> {
+impl<TH: TypeHolderTrait> HTMLIFrameElement<TH> {
     pub fn is_sandboxed(&self) -> bool {
         self.sandbox_allowance.get().is_some()
     }
@@ -370,7 +370,7 @@ pub trait HTMLIFrameElementLayoutMethods {
     fn get_height(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl<TH> HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement<TH>> {
+impl<TH: TypeHolderTrait> HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement<TH>> {
     #[inline]
     #[allow(unsafe_code)]
     fn pipeline_id(&self) -> Option<PipelineId> {

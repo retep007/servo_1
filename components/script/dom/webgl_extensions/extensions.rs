@@ -62,7 +62,7 @@ struct WebGLExtensionFeatures<TH: TypeHolderTrait> {
     element_index_uint_enabled: bool,
 }
 
-impl<TH> WebGLExtensionFeatures<TH> {
+impl<TH: TypeHolderTrait> WebGLExtensionFeatures<TH> {
     fn new(webgl_version: WebGLVersion) -> Self {
         let (disabled_tex_types, disabled_get_parameter_names, element_index_uint_enabled) = match webgl_version {
             WebGLVersion::WebGL1 => {
@@ -96,7 +96,7 @@ pub struct WebGLExtensions<TH: TypeHolderTrait> {
     webgl_version: WebGLVersion,
 }
 
-impl<TH> WebGLExtensions<TH> {
+impl<TH: TypeHolderTrait> WebGLExtensions<TH> {
     pub fn new(webgl_version: WebGLVersion) -> WebGLExtensions<TH> {
         Self {
             extensions: DomRefCell::new(HashMap::new()),

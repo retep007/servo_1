@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
 
 }
 
-impl<TH> HTMLBodyElementMethods<TH> for HTMLBodyElement<TH> {
+impl<TH: TypeHolderTrait> HTMLBodyElementMethods<TH> for HTMLBodyElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-body-bgcolor
     make_getter!(BgColor, "bgcolor");
 
@@ -95,7 +95,7 @@ pub trait HTMLBodyElementLayoutHelpers {
     fn get_background(&self) -> Option<ServoUrl>;
 }
 
-impl<TH> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
+impl<TH: TypeHolderTrait> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
     #[allow(unsafe_code)]
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
@@ -127,7 +127,7 @@ impl<TH> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLBodyElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLBodyElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

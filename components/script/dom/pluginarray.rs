@@ -17,7 +17,7 @@ pub struct PluginArray<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> PluginArray<TH> {
+impl<TH: TypeHolderTrait> PluginArray<TH> {
     pub fn new_inherited() -> PluginArray<TH> {
         PluginArray {
             reflector_: Reflector::new()
@@ -31,7 +31,7 @@ impl<TH> PluginArray<TH> {
     }
 }
 
-impl<TH> PluginArrayMethods<TH> for PluginArray<TH> {
+impl<TH: TypeHolderTrait> PluginArrayMethods<TH> for PluginArray<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-pluginarray-refresh
     fn Refresh(&self, _reload: bool) {
     }

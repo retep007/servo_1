@@ -18,7 +18,7 @@ pub struct HTMLDataElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLDataElement<TH> {
+impl<TH: TypeHolderTrait> HTMLDataElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLDataElement<TH> {
@@ -37,7 +37,7 @@ impl<TH> HTMLDataElement<TH> {
     }
 }
 
-impl<TH> HTMLDataElementMethods for HTMLDataElement<TH> {
+impl<TH: TypeHolderTrait> HTMLDataElementMethods for HTMLDataElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-data-value
     make_getter!(Value, "value");
 

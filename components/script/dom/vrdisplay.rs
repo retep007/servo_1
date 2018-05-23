@@ -89,7 +89,7 @@ enum VRFrameDataStatus {
 
 unsafe_no_jsmanaged_fields!(VRFrameDataStatus);
 
-impl<TH> VRDisplay<TH> {
+impl<TH: TypeHolderTrait> VRDisplay<TH> {
     fn new_inherited(global: &GlobalScope<TH>, display: WebVRDisplayData) -> VRDisplay<TH> {
         let stage = match display.stage_parameters {
             Some(ref params) => Some(VRStageParameters::new(params.clone(), &global)),
@@ -130,7 +130,7 @@ impl<TH> VRDisplay<TH> {
     }
 }
 
-impl<TH> Drop for VRDisplay<TH> {
+impl<TH: TypeHolderTrait> Drop for VRDisplay<TH> {
     fn drop(&mut self) {
         if self.presenting.get() {
             self.force_stop_present();
@@ -138,7 +138,7 @@ impl<TH> Drop for VRDisplay<TH> {
     }
 }
 
-impl<TH> VRDisplayMethods<TH> for VRDisplay<TH> {
+impl<TH: TypeHolderTrait> VRDisplayMethods<TH> for VRDisplay<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplay-isconnected
     fn IsConnected(&self) -> bool {
         self.display.borrow().connected
@@ -408,7 +408,7 @@ impl<TH> VRDisplayMethods<TH> for VRDisplay<TH> {
     }
 }
 
-impl<TH> VRDisplay<TH> {
+impl<TH: TypeHolderTrait> VRDisplay<TH> {
     fn webvr_thread(&self) -> IpcSender<WebVRMsg> {
         self.global().as_window().webvr_thread().expect("Shouldn't arrive here with WebVR disabled")
     }

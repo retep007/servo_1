@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> MediaList<TH> {
     }
 }
 
-impl<TH> MediaListMethods for MediaList<TH> {
+impl<TH: TypeHolderTrait> MediaListMethods for MediaList<TH> {
     // https://drafts.csswg.org/cssom/#dom-medialist-mediatext
     fn MediaText(&self) -> DOMString {
         let guard = self.shared_lock().read();

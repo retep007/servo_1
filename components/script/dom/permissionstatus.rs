@@ -22,7 +22,7 @@ pub struct PermissionStatus<TH: TypeHolderTrait> {
     query: Cell<PermissionName>,
 }
 
-impl<TH> PermissionStatus<TH> {
+impl<TH: TypeHolderTrait> PermissionStatus<TH> {
     pub fn new_inherited(query: PermissionName) -> PermissionStatus<TH> {
         PermissionStatus {
             eventtarget: EventTarget::new_inherited(),
@@ -46,7 +46,7 @@ impl<TH> PermissionStatus<TH> {
     }
 }
 
-impl<TH> PermissionStatusMethods<TH> for PermissionStatus<TH> {
+impl<TH: TypeHolderTrait> PermissionStatusMethods<TH> for PermissionStatus<TH> {
     // https://w3c.github.io/permissions/#dom-permissionstatus-state
     fn State(&self) -> PermissionState {
         self.state.get()

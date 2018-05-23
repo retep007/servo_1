@@ -15,7 +15,7 @@ pub struct Plugin<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> PluginMethods<TH> for Plugin<TH> {
+impl<TH: TypeHolderTrait> PluginMethods<TH> for Plugin<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-plugin-name
     fn Name(&self) -> DOMString {
         unreachable!()

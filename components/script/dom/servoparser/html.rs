@@ -36,7 +36,7 @@ pub struct Tokenizer<TH: TypeHolderTrait> {
     inner: HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>>,
 }
 
-impl<TH> Tokenizer<TH> {
+impl<TH: TypeHolderTrait> Tokenizer<TH> {
     pub fn new(
             document: &Document<TH>,
             url: ServoUrl,
@@ -104,7 +104,7 @@ unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<N
         struct Tracer<TH>(*mut JSTracer);
         let tracer = Tracer(trc);
 
-        impl<TH> HtmlTracer for Tracer<TH> {
+        impl<TH: TypeHolderTrait> HtmlTracer for Tracer<TH> {
             type Handle = Dom<Node<TH>>;
             #[allow(unrooted_must_root)]
             fn trace_handle(&self, node: &Dom<Node<TH>>) {

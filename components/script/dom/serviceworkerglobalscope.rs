@@ -54,7 +54,7 @@ pub struct ServiceWorkerChan<TH: TypeHolderTrait> {
     pub sender: Sender<ServiceWorkerScriptMsg<TH>>
 }
 
-impl<TH> ScriptChan for ServiceWorkerChan<TH> {
+impl<TH: TypeHolderTrait> ScriptChan for ServiceWorkerChan<TH> {
     fn send(&self, msg: CommonScriptMsg) -> Result<(), ()> {
         self.sender
             .send(ServiceWorkerScriptMsg::CommonWorker(WorkerScriptMsg::Common(msg)))
@@ -82,7 +82,7 @@ pub struct ServiceWorkerGlobalScope<TH: TypeHolderTrait> {
     scope_url: ServoUrl,
 }
 
-impl<TH> ServiceWorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait> ServiceWorkerGlobalScope<TH> {
     fn new_inherited(init: WorkerGlobalScopeInit,
                      worker_url: ServoUrl,
                      from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
@@ -331,7 +331,7 @@ unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext)
     !worker.is_closing()
 }
 
-impl<TH> ServiceWorkerGlobalScopeMethods<TH> for ServiceWorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait> ServiceWorkerGlobalScopeMethods<TH> for ServiceWorkerGlobalScope<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-global-scope-onmessage-attribute
     event_handler!(message, GetOnmessage, SetOnmessage);
 }

@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> WebGLRenderbuffer<TH> {
 }
 
 
-impl<TH> WebGLRenderbuffer<TH> {
+impl<TH: TypeHolderTrait> WebGLRenderbuffer<TH> {
     pub fn id(&self) -> WebGLRenderbufferId {
         self.id
     }

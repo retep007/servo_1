@@ -191,7 +191,7 @@ impl<TH: TypeHolderTrait> DissimilarOriginWindowMethods<TH> for DissimilarOrigin
     }
 }
 
-impl<TH> DissimilarOriginWindow<TH> {
+impl<TH: TypeHolderTrait> DissimilarOriginWindow<TH> {
     pub fn post_message(&self, origin: Option<ImmutableOrigin>, data: StructuredCloneData<TH>) {
         let incumbent = match GlobalScope::incumbent() {
             None => return warn!("postMessage called with no incumbent global"),

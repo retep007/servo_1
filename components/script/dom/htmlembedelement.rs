@@ -16,7 +16,7 @@ pub struct HTMLEmbedElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLEmbedElement<TH> {
+impl<TH: TypeHolderTrait> HTMLEmbedElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLEmbedElement<TH> {
         HTMLEmbedElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)

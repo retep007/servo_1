@@ -25,7 +25,7 @@ pub struct HTMLTemplateElement<TH: TypeHolderTrait> {
     contents: MutNullableDom<DocumentFragment<TH>, TH>,
 }
 
-impl<TH> HTMLTemplateElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTemplateElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLTemplateElement<TH> {
@@ -46,7 +46,7 @@ impl<TH> HTMLTemplateElement<TH> {
     }
 }
 
-impl<TH> HTMLTemplateElementMethods<TH> for HTMLTemplateElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTemplateElementMethods<TH> for HTMLTemplateElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#dom-template-content>
     fn Content(&self) -> DomRoot<DocumentFragment<TH>> {
         self.contents.or_init(|| {

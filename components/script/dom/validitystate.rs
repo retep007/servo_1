@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> ValidityState<TH> {
     }
 }
 
-impl<TH> ValidityStateMethods for ValidityState<TH> {
+impl<TH: TypeHolderTrait> ValidityStateMethods for ValidityState<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-validitystate-valuemissing
     fn ValueMissing(&self) -> bool {
         false

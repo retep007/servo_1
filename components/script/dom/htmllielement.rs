@@ -21,7 +21,7 @@ pub struct HTMLLIElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH> HTMLLIElement<TH> {
+impl<TH: TypeHolderTrait> HTMLLIElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLLIElement<TH> {
         HTMLLIElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
@@ -38,7 +38,7 @@ impl<TH> HTMLLIElement<TH> {
     }
 }
 
-impl<TH> HTMLLIElementMethods for HTMLLIElement<TH> {
+impl<TH: TypeHolderTrait> HTMLLIElementMethods for HTMLLIElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-li-value
     make_int_getter!(Value, "value");
 
@@ -46,7 +46,7 @@ impl<TH> HTMLLIElementMethods for HTMLLIElement<TH> {
     make_int_setter!(SetValue, "value");
 }
 
-impl<TH> VirtualMethods<TH> for HTMLLIElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLIElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement>() as &VirtualMethods)
     }

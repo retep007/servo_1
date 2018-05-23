@@ -20,7 +20,7 @@ pub struct DOMRectReadOnly<TH: TypeHolderTrait> {
     height: Cell<f64>,
 }
 
-impl<TH> DOMRectReadOnly<TH> {
+impl<TH: TypeHolderTrait> DOMRectReadOnly<TH> {
     pub fn new_inherited(x: f64, y: f64, width: f64, height: f64) -> DOMRectReadOnly<TH> {
         DOMRectReadOnly {
             x: Cell::new(x),
@@ -66,7 +66,7 @@ impl<TH> DOMRectReadOnly<TH> {
     }
 }
 
-impl<TH> DOMRectReadOnlyMethods for DOMRectReadOnly<TH> {
+impl<TH: TypeHolderTrait> DOMRectReadOnlyMethods for DOMRectReadOnly<TH> {
     // https://drafts.fxtf.org/geometry/#dom-domrectreadonly-x
     fn X(&self) -> f64 {
         self.x.get()

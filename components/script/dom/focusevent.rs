@@ -70,7 +70,7 @@ impl<TH: TypeHolderTrait> FocusEvent<TH> {
     }
 }
 
-impl<TH> FocusEventMethods<TH> for FocusEvent<TH> {
+impl<TH: TypeHolderTrait> FocusEventMethods<TH> for FocusEvent<TH> {
     // https://w3c.github.io/uievents/#widl-FocusEvent-relatedTarget
     fn GetRelatedTarget(&self) -> Option<DomRoot<EventTarget<TH>>> {
         self.related_target.get()

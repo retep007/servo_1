@@ -28,7 +28,7 @@ pub struct URLSearchParams<TH: TypeHolderTrait> {
     url: MutableWeakRef<URL<TH>, TH>,
 }
 
-impl<TH> URLSearchParams<TH> {
+impl<TH: TypeHolderTrait> URLSearchParams<TH> {
     fn new_inherited(url: Option<&URL<TH>>) -> URLSearchParams<TH> {
         URLSearchParams {
             reflector_: Reflector::new(),
@@ -68,7 +68,7 @@ impl<TH> URLSearchParams<TH> {
     }
 }
 
-impl<TH> URLSearchParamsMethods for URLSearchParams<TH> {
+impl<TH: TypeHolderTrait> URLSearchParamsMethods for URLSearchParams<TH> {
     // https://url.spec.whatwg.org/#dom-urlsearchparams-append
     fn Append(&self, name: USVString, value: USVString) {
         // Step 1.
@@ -145,7 +145,7 @@ impl<TH> URLSearchParamsMethods for URLSearchParams<TH> {
 }
 
 
-impl<TH> URLSearchParams<TH> {
+impl<TH: TypeHolderTrait> URLSearchParams<TH> {
     // https://url.spec.whatwg.org/#concept-urlencoded-serializer
     pub fn serialize_utf8(&self) -> String {
         let list = self.list.borrow();
@@ -156,7 +156,7 @@ impl<TH> URLSearchParams<TH> {
 }
 
 
-impl<TH> URLSearchParams<TH> {
+impl<TH: TypeHolderTrait> URLSearchParams<TH> {
     // https://url.spec.whatwg.org/#concept-urlsearchparams-update
     fn update_steps(&self) {
         if let Some(url) = self.url.root() {
@@ -166,7 +166,7 @@ impl<TH> URLSearchParams<TH> {
 }
 
 
-impl<TH> Iterable for URLSearchParams<TH> {
+impl<TH: TypeHolderTrait> Iterable for URLSearchParams<TH> {
     type Key = USVString;
     type Value = USVString;
 

@@ -18,7 +18,7 @@ pub struct HTMLProgressElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH> HTMLProgressElement<TH> {
+impl<TH: TypeHolderTrait> HTMLProgressElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLProgressElement<TH> {
@@ -38,7 +38,7 @@ impl<TH> HTMLProgressElement<TH> {
     }
 }
 
-impl<TH> HTMLProgressElementMethods<TH> for HTMLProgressElement<TH> {
+impl<TH: TypeHolderTrait> HTMLProgressElementMethods<TH> for HTMLProgressElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
     fn Labels(&self) -> DomRoot<NodeList<TH>> {
         self.upcast::<HTMLElement<TH>>().labels()

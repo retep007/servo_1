@@ -45,7 +45,7 @@ impl<TH: TypeHolderTrait> StyleSheet<TH> {
 }
 
 
-impl<TH> StyleSheetMethods for StyleSheet<TH> {
+impl<TH: TypeHolderTrait> StyleSheetMethods for StyleSheet<TH> {
     // https://drafts.csswg.org/cssom/#dom-stylesheet-type
     fn Type_(&self) -> DOMString {
         self.type_.clone()

@@ -39,7 +39,7 @@ impl<TH: TypeHolderTrait> CSSViewportRule<TH> {
     }
 }
 
-impl<TH> SpecificCSSRule for CSSViewportRule<TH> {
+impl<TH: TypeHolderTrait> SpecificCSSRule for CSSViewportRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::VIEWPORT_RULE

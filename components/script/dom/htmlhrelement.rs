@@ -39,7 +39,7 @@ impl<TH: TypeHolderTrait> HTMLHRElement<TH> {
     }
 }
 
-impl<TH> HTMLHRElementMethods for HTMLHRElement<TH> {
+impl<TH: TypeHolderTrait> HTMLHRElementMethods for HTMLHRElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-hr-align
     make_getter!(Align, "align");
 
@@ -64,7 +64,7 @@ pub trait HTMLHRLayoutHelpers {
     fn get_width(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl<TH> HTMLHRLayoutHelpers for LayoutDom<HTMLHRElement<TH>> {
+impl<TH: TypeHolderTrait> HTMLHRLayoutHelpers for LayoutDom<HTMLHRElement<TH>> {
     #[allow(unsafe_code)]
     fn get_color(&self) -> Option<RGBA> {
         unsafe {

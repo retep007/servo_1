@@ -21,7 +21,7 @@ pub struct TestRunner<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> TestRunner<TH> {
+impl<TH: TypeHolderTrait> TestRunner<TH> {
     pub fn new_inherited() -> TestRunner<TH> {
         TestRunner {
             reflector_: Reflector::new(),
@@ -39,7 +39,7 @@ impl<TH> TestRunner<TH> {
     }
 }
 
-impl<TH> TestRunnerMethods<TH> for TestRunner<TH> {
+impl<TH: TypeHolderTrait> TestRunnerMethods<TH> for TestRunner<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/tests#setBluetoothMockDataSet
     fn SetBluetoothMockDataSet(&self, dataSetName: DOMString) -> ErrorResult<TH> {
         let (sender, receiver) = ipc::channel(self.global().time_profiler_chan().clone()).unwrap();

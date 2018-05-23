@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> Attr<TH> {
     }
 }
 
-impl<TH> AttrMethods<TH> for Attr<TH> {
+impl<TH: TypeHolderTrait> AttrMethods<TH> for Attr<TH> {
     // https://dom.spec.whatwg.org/#dom-attr-localname
     fn LocalName(&self) -> DOMString {
         // FIXME(ajeffrey): convert directly from LocalName to DOMString
@@ -261,7 +261,7 @@ pub trait AttrHelpersForLayout {
 }
 
 #[allow(unsafe_code)]
-impl<TH> AttrHelpersForLayout for LayoutDom<Attr<TH>> {
+impl<TH: TypeHolderTrait> AttrHelpersForLayout for LayoutDom<Attr<TH>> {
     #[inline]
     unsafe fn value_forever(&self) -> &'static AttrValue {
         // This transmute is used to cheat the lifetime restriction.

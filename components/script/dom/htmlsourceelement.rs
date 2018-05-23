@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> HTMLSourceElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLSourceElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLSourceElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

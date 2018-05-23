@@ -145,7 +145,7 @@ impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
     }
 }
 
-impl<TH> HTMLMetaElementMethods for HTMLMetaElement<TH> {
+impl<TH: TypeHolderTrait> HTMLMetaElementMethods for HTMLMetaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-meta-name
     make_getter!(Name, "name");
 
@@ -159,7 +159,7 @@ impl<TH> HTMLMetaElementMethods for HTMLMetaElement<TH> {
     make_setter!(SetContent, "content");
 }
 
-impl<TH> VirtualMethods<TH> for HTMLMetaElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLMetaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

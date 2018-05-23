@@ -15,7 +15,7 @@ pub struct MimeType<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> MimeTypeMethods<TH> for MimeType<TH> {
+impl<TH: TypeHolderTrait> MimeTypeMethods<TH> for MimeType<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-mimetype-type
     fn Type(&self) -> DOMString {
         unreachable!()

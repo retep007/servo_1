@@ -325,7 +325,7 @@ impl<TH: TypeHolderTrait> EventListener<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for EventListener<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for EventListener<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<EventListener<TH>> {
         EventListener::new(cx, callback)
     }
@@ -335,7 +335,7 @@ impl<TH> CallbackContainer<TH> for EventListener<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for EventListener<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for EventListener<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

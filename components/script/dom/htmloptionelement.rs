@@ -100,7 +100,7 @@ fn collect_text<TH: TypeHolderTrait>(element: &Element<TH>, value: &mut String) 
     }
 }
 
-impl<TH> HTMLOptionElementMethods<TH> for HTMLOptionElement<TH> {
+impl<TH: TypeHolderTrait> HTMLOptionElementMethods<TH> for HTMLOptionElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-option-disabled
     make_bool_getter!(Disabled, "disabled");
 
@@ -179,7 +179,7 @@ impl<TH> HTMLOptionElementMethods<TH> for HTMLOptionElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLOptionElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLOptionElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

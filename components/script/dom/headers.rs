@@ -36,7 +36,7 @@ pub enum Guard {
     None,
 }
 
-impl<TH> Headers<TH> {
+impl<TH: TypeHolderTrait> Headers<TH> {
     pub fn new_inherited() -> Headers<TH> {
         Headers {
             reflector_: Reflector::new(),
@@ -58,7 +58,7 @@ impl<TH> Headers<TH> {
     }
 }
 
-impl<TH> HeadersMethods<TH> for Headers<TH> {
+impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-append
     fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult<TH> {
         // Step 1
@@ -166,7 +166,7 @@ impl<TH> HeadersMethods<TH> for Headers<TH> {
     }
 }
 
-impl<TH> Headers<TH> {
+impl<TH: TypeHolderTrait> Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-fill
     pub fn fill(&self, filler: Option<HeadersInit<TH>>) -> ErrorResult<TH> {
         match filler {
@@ -261,7 +261,7 @@ impl<TH> Headers<TH> {
     }
 }
 
-impl<TH> Iterable for Headers<TH> {
+impl<TH: TypeHolderTrait> Iterable for Headers<TH> {
     type Key = ByteString;
     type Value = ByteString;
 

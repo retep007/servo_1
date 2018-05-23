@@ -20,7 +20,7 @@ pub struct GamepadButton<TH: TypeHolderTrait> {
     value: Cell<f64>,
 }
 
-impl<TH> GamepadButton<TH> {
+impl<TH: TypeHolderTrait> GamepadButton<TH> {
     pub fn new_inherited(pressed: bool, touched: bool) -> GamepadButton<TH> {
         Self {
             reflector_: Reflector::new(),
@@ -37,7 +37,7 @@ impl<TH> GamepadButton<TH> {
     }
 }
 
-impl<TH> GamepadButtonMethods for GamepadButton<TH> {
+impl<TH: TypeHolderTrait> GamepadButtonMethods for GamepadButton<TH> {
     // https://www.w3.org/TR/gamepad/#widl-GamepadButton-pressed
     fn Pressed(&self) -> bool {
         self.pressed.get()
@@ -54,7 +54,7 @@ impl<TH> GamepadButtonMethods for GamepadButton<TH> {
     }
 }
 
-impl<TH> GamepadButton<TH> {
+impl<TH: TypeHolderTrait> GamepadButton<TH> {
     pub fn update(&self, pressed: bool, touched: bool) {
         self.pressed.set(pressed);
         self.touched.set(touched);

@@ -308,7 +308,7 @@ impl<TH: TypeHolderTrait> VoidFunction<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for VoidFunction<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for VoidFunction<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<VoidFunction<TH>> {
         VoidFunction::new(cx, callback)
     }
@@ -318,7 +318,7 @@ impl<TH> CallbackContainer<TH> for VoidFunction<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for VoidFunction<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for VoidFunction<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

@@ -29,7 +29,7 @@ pub struct FormData<TH: TypeHolderTrait> {
     data: DomRefCell<HashMap<LocalName, Vec<FormDatum<TH>>>>,
 }
 
-impl<TH> FormData<TH> {
+impl<TH: TypeHolderTrait> FormData<TH> {
     fn new_inherited(opt_form: Option<&HTMLFormElement<TH>>) -> FormData<TH> {
         let mut hashmap: HashMap<LocalName, Vec<FormDatum<TH>>> = HashMap::new();
 
@@ -59,7 +59,7 @@ impl<TH> FormData<TH> {
     }
 }
 
-impl<TH> FormDataMethods<TH> for FormData<TH> {
+impl<TH: TypeHolderTrait> FormDataMethods<TH> for FormData<TH> {
     // https://xhr.spec.whatwg.org/#dom-formdata-append
     fn Append(&self, name: USVString, str_value: USVString) {
         let datum = FormDatum {
@@ -146,7 +146,7 @@ impl<TH> FormDataMethods<TH> for FormData<TH> {
 }
 
 
-impl<TH> FormData<TH> {
+impl<TH: TypeHolderTrait> FormData<TH> {
     // https://xhr.spec.whatwg.org/#create-an-entry
     // Steps 3-4.
     fn create_an_entry(&self, blob: &Blob<TH>, opt_filename: Option<USVString>) -> DomRoot<File<TH>> {
@@ -169,7 +169,7 @@ impl<TH> FormData<TH> {
     }
 }
 
-impl<TH> Iterable for FormData<TH> {
+impl<TH: TypeHolderTrait> Iterable for FormData<TH> {
     type Key = USVString;
     type Value = FileOrUSVString<TH>;
 

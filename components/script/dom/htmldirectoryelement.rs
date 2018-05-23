@@ -16,7 +16,7 @@ pub struct HTMLDirectoryElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLDirectoryElement<TH> {
+impl<TH: TypeHolderTrait> HTMLDirectoryElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLDirectoryElement<TH> {

@@ -17,7 +17,7 @@ pub struct OESStandardDerivatives<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> OESStandardDerivatives<TH> {
+impl<TH: TypeHolderTrait> OESStandardDerivatives<TH> {
     fn new_inherited() -> OESStandardDerivatives<TH> {
         Self {
             reflector_: Reflector::new(),
@@ -25,7 +25,7 @@ impl<TH> OESStandardDerivatives<TH> {
     }
 }
 
-impl<TH> WebGLExtension<TH> for OESStandardDerivatives<TH> {
+impl<TH: TypeHolderTrait> WebGLExtension<TH> for OESStandardDerivatives<TH> {
     type Extension = OESStandardDerivatives<TH>;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESStandardDerivatives<TH>> {
         reflect_dom_object(Box::new(OESStandardDerivatives::new_inherited()),

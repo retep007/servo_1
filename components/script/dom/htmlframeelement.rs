@@ -16,7 +16,7 @@ pub struct HTMLFrameElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLFrameElement<TH> {
+impl<TH: TypeHolderTrait> HTMLFrameElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLFrameElement<TH> {
         HTMLFrameElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)

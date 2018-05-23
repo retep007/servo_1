@@ -21,7 +21,7 @@ pub struct PaintSize<TH: TypeHolderTrait> {
     height: Finite<f64>,
 }
 
-impl<TH> PaintSize<TH> {
+impl<TH: TypeHolderTrait> PaintSize<TH> {
     fn new_inherited(size: TypedSize2D<f32, CSSPixel>) -> PaintSize<TH> {
         PaintSize {
             reflector: Reflector::new(),
@@ -35,7 +35,7 @@ impl<TH> PaintSize<TH> {
     }
 }
 
-impl<TH> PaintSizeMethods for PaintSize<TH> {
+impl<TH: TypeHolderTrait> PaintSizeMethods for PaintSize<TH> {
     /// <https://drafts.css-houdini.org/css-paint-api/#paintsize>
     fn Width(&self) -> Finite<f64> {
         self.width

@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> InputEvent<TH> {
     }
 }
 
-impl<TH> InputEventMethods for InputEvent<TH> {
+impl<TH: TypeHolderTrait> InputEventMethods for InputEvent<TH> {
     // https://w3c.github.io/uievents/#dom-inputevent-data
     fn GetData(&self) -> Option<DOMString> {
         self.data.clone()

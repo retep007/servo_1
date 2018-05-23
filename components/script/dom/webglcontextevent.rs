@@ -23,7 +23,7 @@ pub struct WebGLContextEvent<TH: TypeHolderTrait> {
     status_message: DOMString,
 }
 
-impl<TH> WebGLContextEventMethods for WebGLContextEvent<TH> {
+impl<TH: TypeHolderTrait> WebGLContextEventMethods for WebGLContextEvent<TH> {
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15
     fn StatusMessage(&self) -> DOMString {
         self.status_message.clone()

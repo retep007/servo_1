@@ -16,7 +16,7 @@ pub struct HTMLModElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLModElement<TH> {
+impl<TH: TypeHolderTrait> HTMLModElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLModElement<TH> {

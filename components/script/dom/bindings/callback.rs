@@ -57,14 +57,14 @@ pub struct CallbackObject<TH: TypeHolderTrait> {
     incumbent: Option<Dom<GlobalScope<TH>>>
 }
 
-impl<TH> Default for CallbackObject<TH> {
+impl<TH: TypeHolderTrait> Default for CallbackObject<TH> {
     #[allow(unrooted_must_root)]
     fn default() -> CallbackObject<TH> {
         CallbackObject::new()
     }
 }
 
-impl<TH> CallbackObject<TH> {
+impl<TH: TypeHolderTrait> CallbackObject<TH> {
     #[allow(unrooted_must_root)]
     fn new() -> CallbackObject<TH> {
         CallbackObject {
@@ -87,7 +87,7 @@ impl<TH> CallbackObject<TH> {
     }
 }
 
-impl<TH> Drop for CallbackObject<TH> {
+impl<TH: TypeHolderTrait> Drop for CallbackObject<TH> {
     #[allow(unsafe_code)]
     fn drop(&mut self) {
         unsafe {
@@ -98,7 +98,7 @@ impl<TH> Drop for CallbackObject<TH> {
 
 }
 
-impl<TH> PartialEq for CallbackObject<TH> {
+impl<TH: TypeHolderTrait> PartialEq for CallbackObject<TH> {
     fn eq(&self, other: &CallbackObject<TH>) -> bool {
         self.callback.get() == other.callback.get()
     }
@@ -133,7 +133,7 @@ pub struct CallbackFunction<TH: TypeHolderTrait> {
     object: CallbackObject<TH>,
 }
 
-impl<TH> CallbackFunction<TH> {
+impl<TH: TypeHolderTrait> CallbackFunction<TH> {
     /// Create a new `CallbackFunction` for this object.
     #[allow(unrooted_must_root)]
     pub fn new() -> CallbackFunction<TH> {
@@ -164,7 +164,7 @@ pub struct CallbackInterface<TH: TypeHolderTrait> {
     object: CallbackObject<TH>,
 }
 
-impl<TH> CallbackInterface<TH> {
+impl<TH: TypeHolderTrait> CallbackInterface<TH> {
     /// Create a new CallbackInterface object for the given `JSObject`.
     pub fn new() -> CallbackInterface<TH> {
         CallbackInterface {
@@ -239,7 +239,7 @@ pub struct CallSetup<TH: TypeHolderTrait> {
     incumbent_script: Option<AutoIncumbentScript<TH>>,
 }
 
-impl<TH> CallSetup<TH> {
+impl<TH: TypeHolderTrait> CallSetup<TH> {
     /// Performs the setup needed to make a call.
     #[allow(unrooted_must_root)]
     pub fn new<T: CallbackContainer<TH>>(callback: &T,
@@ -266,7 +266,7 @@ impl<TH> CallSetup<TH> {
     }
 }
 
-impl<TH> Drop for CallSetup<TH> {
+impl<TH: TypeHolderTrait> Drop for CallSetup<TH> {
     fn drop(&mut self) {
         unsafe {
             JS_LeaveCompartment(self.cx, self.old_compartment);

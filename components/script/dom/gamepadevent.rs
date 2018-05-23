@@ -80,7 +80,7 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
     }
 }
 
-impl<TH> GamepadEventMethods<TH> for GamepadEvent<TH> {
+impl<TH: TypeHolderTrait> GamepadEventMethods<TH> for GamepadEvent<TH> {
     // https://w3c.github.io/gamepad/#gamepadevent-interface
     fn Gamepad(&self) -> DomRoot<Gamepad<TH>> {
         DomRoot::from_ref(&*self.gamepad)

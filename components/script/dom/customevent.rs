@@ -28,7 +28,7 @@ pub struct CustomEvent<TH: TypeHolderTrait> {
     detail: Heap<JSVal>,
 }
 
-impl<TH> CustomEvent<TH> {
+impl<TH: TypeHolderTrait> CustomEvent<TH> {
     fn new_inherited() -> CustomEvent<TH> {
         CustomEvent {
             event: Event::new_inherited(),
@@ -77,7 +77,7 @@ impl<TH> CustomEvent<TH> {
     }
 }
 
-impl<TH> CustomEventMethods for CustomEvent<TH> {
+impl<TH: TypeHolderTrait> CustomEventMethods for CustomEvent<TH> {
     #[allow(unsafe_code)]
     // https://dom.spec.whatwg.org/#dom-customevent-detail
     unsafe fn Detail(&self, _cx: *mut JSContext) -> JSVal {

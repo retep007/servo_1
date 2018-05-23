@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> Touch<TH> {
     }
 }
 
-impl<TH> TouchMethods<TH> for Touch<TH> {
+impl<TH: TypeHolderTrait> TouchMethods<TH> for Touch<TH> {
     /// <https://w3c.github.io/touch-events/#widl-Touch-identifier>
     fn Identifier(&self) -> i32 {
         self.identifier

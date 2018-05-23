@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> TransitionEvent<TH> {
     }
 }
 
-impl<TH> TransitionEventMethods for TransitionEvent<TH> {
+impl<TH: TypeHolderTrait> TransitionEventMethods for TransitionEvent<TH> {
     // https://drafts.csswg.org/css-transitions/#Events-TransitionEvent-propertyName
     fn PropertyName(&self) -> DOMString {
         DOMString::from(&*self.property_name)

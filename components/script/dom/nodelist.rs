@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> NodeList<TH> {
     }
 }
 
-impl<TH> NodeListMethods<TH> for NodeList<TH> {
+impl<TH: TypeHolderTrait> NodeListMethods<TH> for NodeList<TH> {
     // https://dom.spec.whatwg.org/#dom-nodelist-length
     fn Length(&self) -> u32 {
         match self.list_type {

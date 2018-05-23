@@ -263,7 +263,7 @@ pub struct BluetoothAdvertisingEventInit<TH: TypeHolderTrait> {
     pub rssi: Option<i8>,
     pub txPower: Option<i8>,
 }
-impl<TH> BluetoothAdvertisingEventInit<TH> {
+impl<TH: TypeHolderTrait> BluetoothAdvertisingEventInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> BluetoothAdvertisingEventInit<TH> {
         match BluetoothAdvertisingEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -391,7 +391,7 @@ impl<TH> BluetoothAdvertisingEventInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for BluetoothAdvertisingEventInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for BluetoothAdvertisingEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<BluetoothAdvertisingEventInit<TH>>, ()> {
@@ -399,7 +399,7 @@ impl<TH> FromJSValConvertible for BluetoothAdvertisingEventInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for BluetoothAdvertisingEventInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for BluetoothAdvertisingEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         if let Some(ref appearance) = self.appearance {

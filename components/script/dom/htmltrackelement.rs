@@ -16,7 +16,7 @@ pub struct HTMLTrackElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH> HTMLTrackElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTrackElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLTrackElement<TH> {
         HTMLTrackElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)

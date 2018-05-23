@@ -257,7 +257,7 @@ pub struct GamepadEventInit<TH: TypeHolderTrait> {
     pub parent: dom::bindings::codegen::Bindings::EventBinding::EventInit,
     pub gamepad: DomRoot<Gamepad<TH>>,
 }
-impl<TH> GamepadEventInit<TH> {
+impl<TH: TypeHolderTrait> GamepadEventInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> GamepadEventInit<TH> {
         match GamepadEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -313,7 +313,7 @@ impl<TH> GamepadEventInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for GamepadEventInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for GamepadEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<GamepadEventInit<TH>>, ()> {
@@ -321,7 +321,7 @@ impl<TH> FromJSValConvertible for GamepadEventInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for GamepadEventInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for GamepadEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let gamepad = &self.gamepad;

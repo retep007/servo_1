@@ -992,7 +992,7 @@ struct HTMLMediaElementContext<TH: TypeHolderTrait> {
 }
 
 // https://html.spec.whatwg.org/multipage/#media-data-processing-steps-list
-impl<TH> FetchResponseListener for HTMLMediaElementContext<TH> {
+impl<TH: TypeHolderTrait> FetchResponseListener for HTMLMediaElementContext<TH> {
     fn process_request_body(&mut self) {}
 
     fn process_request_eof(&mut self) {}
@@ -1093,14 +1093,14 @@ impl<TH> FetchResponseListener for HTMLMediaElementContext<TH> {
     }
 }
 
-impl<TH> PreInvoke for HTMLMediaElementContext<TH> {
+impl<TH: TypeHolderTrait> PreInvoke for HTMLMediaElementContext<TH> {
     fn should_invoke(&self) -> bool {
         //TODO: finish_load needs to run at some point if the generation changes.
         self.elem.root().generation_id.get() == self.generation_id
     }
 }
 
-impl<TH> HTMLMediaElementContext<TH> {
+impl<TH: TypeHolderTrait> HTMLMediaElementContext<TH> {
     fn new(elem: &HTMLMediaElement<TH>) -> HTMLMediaElementContext<TH> {
         HTMLMediaElementContext {
             elem: Trusted::new(elem),

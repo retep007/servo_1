@@ -261,7 +261,7 @@ pub struct StorageEventInit<TH: TypeHolderTrait> {
     pub storageArea: Option<DomRoot<Storage<TH>>>,
     pub url: DOMString,
 }
-impl<TH> StorageEventInit<TH> {
+impl<TH: TypeHolderTrait> StorageEventInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> StorageEventInit<TH> {
         match StorageEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -390,7 +390,7 @@ impl<TH> StorageEventInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for StorageEventInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for StorageEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<StorageEventInit<TH>>, ()> {
@@ -398,7 +398,7 @@ impl<TH> FromJSValConvertible for StorageEventInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for StorageEventInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for StorageEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let key = &self.key;

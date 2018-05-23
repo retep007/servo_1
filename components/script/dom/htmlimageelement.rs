@@ -128,7 +128,7 @@ pub struct HTMLImageElement<TH: TypeHolderTrait> {
     generation: Cell<u32>,
 }
 
-impl<TH> HTMLImageElement<TH> {
+impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
     pub fn get_url(&self) -> Option<ServoUrl> {
         self.current_request.borrow().parsed_url.clone()
     }
@@ -700,7 +700,7 @@ pub enum ImageElementMicrotask<TH: TypeHolderTrait> {
     }
 }
 
-impl<TH> MicrotaskRunnable for ImageElementMicrotask<TH> {
+impl<TH: TypeHolderTrait> MicrotaskRunnable for ImageElementMicrotask<TH> {
     fn handler(&self) {
         match self {
             &ImageElementMicrotask::StableStateUpdateImageDataTask { ref elem, ref generation } => {
@@ -725,7 +725,7 @@ pub trait LayoutHTMLImageElementHelpers {
     fn get_height(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl<TH> LayoutHTMLImageElementHelpers for LayoutDom<HTMLImageElement<TH>> {
+impl<TH: TypeHolderTrait> LayoutHTMLImageElementHelpers for LayoutDom<HTMLImageElement<TH>> {
     #[allow(unsafe_code)]
     unsafe fn image(&self) -> Option<Arc<Image>> {
         (*self.unsafe_get()).current_request.borrow_for_layout().image.clone()

@@ -38,7 +38,7 @@ pub struct PerformanceObserver<TH: TypeHolderTrait> {
     entries: DomRefCell<DOMPerformanceEntryList<TH>>,
 }
 
-impl<TH> PerformanceObserver<TH> {
+impl<TH: TypeHolderTrait> PerformanceObserver<TH> {
     fn new_inherited(callback: Rc<PerformanceObserverCallback<TH>>,
                      entries: DomRefCell<DOMPerformanceEntryList<TH>>)
         -> PerformanceObserver<TH> {
@@ -95,7 +95,7 @@ impl<TH> PerformanceObserver<TH> {
     }
 }
 
-impl<TH> PerformanceObserverMethods<TH> for PerformanceObserver<TH> {
+impl<TH: TypeHolderTrait> PerformanceObserverMethods<TH> for PerformanceObserver<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver-observe()
     fn Observe(&self, options: &PerformanceObserverInit) -> Fallible<(), TH> {
         // step 1

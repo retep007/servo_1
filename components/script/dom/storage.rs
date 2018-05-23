@@ -51,7 +51,7 @@ impl<TH: TypeHolderTrait> Storage<TH> {
 
 }
 
-impl<TH> StorageMethods<TH> for Storage<TH> {
+impl<TH: TypeHolderTrait> StorageMethods<TH> for Storage<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-storage-length
     fn Length(&self) -> u32 {
         let (sender, receiver) = ipc::channel(self.global().time_profiler_chan().clone()).unwrap();
@@ -148,7 +148,7 @@ impl<TH> StorageMethods<TH> for Storage<TH> {
 }
 
 
-impl<TH> Storage<TH> {
+impl<TH: TypeHolderTrait> Storage<TH> {
     /// <https://html.spec.whatwg.org/multipage/#send-a-storage-notification>
     fn broadcast_change_notification(&self, key: Option<String>, old_value: Option<String>,
                                      new_value: Option<String>) {

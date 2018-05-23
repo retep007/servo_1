@@ -146,7 +146,7 @@ pub struct ErrorInfo<TH: TypeHolderTrait> {
     pub column: c_uint,
 }
 
-impl<TH> ErrorInfo<TH> {
+impl<TH: TypeHolderTrait> ErrorInfo<TH> {
     unsafe fn from_native_error(cx: *mut JSContext, object: HandleObject)
                                 -> Option<ErrorInfo<TH>> {
         let report = JS_ErrorFromException(cx, object);
@@ -270,7 +270,7 @@ pub unsafe fn throw_invalid_this(cx: *mut JSContext, proto_id: u16) {
     throw_type_error(cx, &error);
 }
 
-impl<TH> Error<TH> {
+impl<TH: TypeHolderTrait> Error<TH> {
     /// Convert this error value to a JS value, consuming it in the process.
     pub unsafe fn to_jsval(self, cx: *mut JSContext, global: &GlobalScope<TH>, rval: MutableHandleValue) {
         assert!(!JS_IsExceptionPending(cx));

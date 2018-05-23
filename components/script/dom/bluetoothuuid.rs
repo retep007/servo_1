@@ -305,7 +305,7 @@ impl<TH: TypeHolderTrait> BluetoothUUID<TH> {
     }
 }
 
-impl<TH> BluetoothUUID<TH> {
+impl<TH: TypeHolderTrait> BluetoothUUID<TH> {
     pub fn service(name: BluetoothServiceUUID) -> Fallible<UUID, TH> {
         resolve_uuid_name(name, BLUETOOTH_ASSIGNED_SERVICES, SERVICE_PREFIX)
     }

@@ -91,7 +91,7 @@ impl<TH: TypeHolderTrait> CSSStyleSheet<TH> {
     }
 }
 
-impl<TH> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
+impl<TH: TypeHolderTrait> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-cssrules
     fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList<TH>>, TH> {
         if !self.origin_clean.get() {

@@ -188,7 +188,7 @@ impl NodeFlags {
     }
 }
 
-impl<TH> Drop for Node<TH> {
+impl<TH: TypeHolderTrait> Drop for Node<TH> {
     #[allow(unsafe_code)]
     fn drop(&mut self) {
         self.style_and_layout_data.get().map(|d| self.dispose(d));
@@ -204,7 +204,7 @@ enum SuppressObserver {
     Unsuppressed
 }
 
-impl<TH> Node<TH> {
+impl<TH: TypeHolderTrait> Node<TH> {
     /// Sends the style and layout data, if any, back to the layout thread to be destroyed.
     pub fn dispose(&self, data: OpaqueStyleAndLayoutData) {
         debug_assert!(thread_state::get().is_script());
@@ -2498,7 +2498,7 @@ pub fn window_from_node<TH: TypeHolderTrait, T: DerivedFrom<Node<TH>> + DomObjec
     DomRoot::from_ref(document.window())
 }
 
-impl<TH> VirtualMethods<TH> for Node<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for Node<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<EventTarget<TH>>() as &VirtualMethods<TH>)
     }

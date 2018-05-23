@@ -51,7 +51,7 @@ pub struct Job<TH: TypeHolderTrait> {
     pub referrer: ServoUrl
 }
 
-impl<TH> Job<TH> {
+impl<TH: TypeHolderTrait> Job<TH> {
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/ServiceWorker/#create-job-algorithm
     pub fn create_job(job_type: JobType,
@@ -75,7 +75,7 @@ impl<TH> Job<TH> {
     }
 }
 
-impl<TH> PartialEq for Job<TH> {
+impl<TH: TypeHolderTrait> PartialEq for Job<TH> {
     // Equality criteria as described in https://w3c.github.io/ServiceWorker/#dfn-job-equivalent
     fn eq(&self, other: &Self) -> bool {
         let same_job = self.job_type == other.job_type;

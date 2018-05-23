@@ -16,7 +16,7 @@ pub struct HTMLHtmlElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLHtmlElement<TH> {
+impl<TH: TypeHolderTrait> HTMLHtmlElement<TH> {
     fn new_inherited(localName: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLHtmlElement<TH> {
         HTMLHtmlElement {
             htmlelement: HTMLElement::new_inherited(localName, prefix, document)

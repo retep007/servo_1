@@ -16,7 +16,7 @@ pub struct HTMLTableHeaderCellElement<TH: TypeHolderTrait> {
     htmltablecellelement: HTMLTableCellElement<TH>,
 }
 
-impl<TH> HTMLTableHeaderCellElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTableHeaderCellElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLTableHeaderCellElement<TH> {

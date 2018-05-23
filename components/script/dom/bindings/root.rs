@@ -92,7 +92,7 @@ where
         // T pointer in Dom<T>.
         #[allow(unrooted_must_root)]
         struct ReflectorStackRoot<TH>(Reflector);
-        unsafe impl<TH> JSTraceable for ReflectorStackRoot<TH> {
+        unsafe impl<TH: TypeHolderTrait> JSTraceable for ReflectorStackRoot<TH> {
             unsafe fn trace(&self, tracer: *mut JSTracer) {
                 trace_reflector(tracer, "on stack", &self.0);
             }

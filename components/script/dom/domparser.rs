@@ -29,7 +29,7 @@ pub struct DOMParser<TH: TypeHolderTrait> {
     window: Dom<Window<TH>>, // XXXjdm Document instead?
 }
 
-impl<TH> DOMParser<TH> {
+impl<TH: TypeHolderTrait> DOMParser<TH> {
     fn new_inherited(window: &Window<TH>) -> DOMParser<TH> {
         DOMParser {
             reflector_: Reflector::new(),

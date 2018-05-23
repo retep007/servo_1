@@ -162,7 +162,7 @@ pub struct Element<TH: TypeHolderTrait> {
     custom_element_state: Cell<CustomElementState>,
 }
 
-impl<TH> fmt::Debug for Element<TH> {
+impl<TH: TypeHolderTrait> fmt::Debug for Element<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "<{}", self.local_name)?;
         if let Some(ref id) = *self.id_attribute.borrow() {
@@ -172,7 +172,7 @@ impl<TH> fmt::Debug for Element<TH> {
     }
 }
 
-impl<TH> fmt::Debug for DomRoot<Element<TH>> {
+impl<TH: TypeHolderTrait> fmt::Debug for DomRoot<Element<TH>> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         (**self).fmt(f)
     }
@@ -220,7 +220,7 @@ pub enum AdjacentPosition<TH> {
     BeforeEnd,
 }
 
-impl<TH> FromStr for AdjacentPosition<TH> {
+impl<TH: TypeHolderTrait> FromStr for AdjacentPosition<TH> {
     type Err = Error<TH>;
 
     fn from_str(position: &str) -> Result<Self, Self::Err> {
@@ -430,7 +430,7 @@ pub unsafe fn get_attr_for_layout<'a, TH: TypeHolderTrait>(elem: &'a Element<TH>
 }
 
 #[allow(unsafe_code)]
-impl<TH> RawLayoutElementHelpers<TH> for Element<TH> {
+impl<TH: TypeHolderTrait> RawLayoutElementHelpers<TH> for Element<TH> {
     #[inline]
     unsafe fn get_attr_for_layout<'a>(&'a self, namespace: &Namespace, name: &LocalName)
                                       -> Option<&'a AttrValue> {
@@ -2383,7 +2383,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for Element<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for Element<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<Node<TH>>() as &VirtualMethods<TH>)
     }
@@ -2749,7 +2749,7 @@ impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
 }
 
 
-impl<TH> Element<TH> {
+impl<TH: TypeHolderTrait> Element<TH> {
     pub fn as_maybe_activatable(&self) -> Option<&Activatable<TH>> {
         let element = match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
@@ -3135,7 +3135,7 @@ pub struct ElementPerformFullscreenEnter<TH: TypeHolderTrait> {
     error: bool,
 }
 
-impl<TH> ElementPerformFullscreenEnter<TH> {
+impl<TH: TypeHolderTrait> ElementPerformFullscreenEnter<TH> {
     pub fn new(element: Trusted<Element<TH>, TH>, promise: TrustedPromise<TH>, error: bool) -> Box<ElementPerformFullscreenEnter<TH>> {
         Box::new(ElementPerformFullscreenEnter {
             element: element,
@@ -3145,7 +3145,7 @@ impl<TH> ElementPerformFullscreenEnter<TH> {
     }
 }
 
-impl<TH> TaskOnce for ElementPerformFullscreenEnter<TH> {
+impl<TH: TypeHolderTrait> TaskOnce for ElementPerformFullscreenEnter<TH> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         let element = self.element.root();
@@ -3178,7 +3178,7 @@ pub struct ElementPerformFullscreenExit<TH: TypeHolderTrait> {
     promise: TrustedPromise<TH>,
 }
 
-impl<TH> ElementPerformFullscreenExit<TH> {
+impl<TH: TypeHolderTrait> ElementPerformFullscreenExit<TH> {
     pub fn new(element: Trusted<Element<TH>, TH>, promise: TrustedPromise<TH>) -> Box<ElementPerformFullscreenExit<TH>> {
         Box::new(ElementPerformFullscreenExit {
             element: element,
@@ -3187,7 +3187,7 @@ impl<TH> ElementPerformFullscreenExit<TH> {
     }
 }
 
-impl<TH> TaskOnce for ElementPerformFullscreenExit<TH> {
+impl<TH: TypeHolderTrait> TaskOnce for ElementPerformFullscreenExit<TH> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         let element = self.element.root();

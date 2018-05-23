@@ -300,7 +300,7 @@ pub struct VRDisplayEventInit<TH: TypeHolderTrait> {
     pub display: DomRoot<VRDisplay<TH>>,
     pub reason: Option<VRDisplayEventReason>,
 }
-impl<TH> VRDisplayEventInit<TH> {
+impl<TH: TypeHolderTrait> VRDisplayEventInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> VRDisplayEventInit<TH> {
         match VRDisplayEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -371,7 +371,7 @@ impl<TH> VRDisplayEventInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for VRDisplayEventInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for VRDisplayEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<VRDisplayEventInit<TH>>, ()> {
@@ -379,7 +379,7 @@ impl<TH> FromJSValConvertible for VRDisplayEventInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for VRDisplayEventInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for VRDisplayEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let display = &self.display;

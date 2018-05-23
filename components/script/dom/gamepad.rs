@@ -41,7 +41,7 @@ pub struct Gamepad<TH: TypeHolderTrait> {
     display_id: u32
 }
 
-impl<TH> Gamepad<TH> {
+impl<TH: TypeHolderTrait> Gamepad<TH> {
     fn new_inherited(gamepad_id: u32,
                      id: String,
                      index: i32,
@@ -104,7 +104,7 @@ impl<TH> Gamepad<TH> {
     }
 }
 
-impl<TH> GamepadMethods<TH> for Gamepad<TH> {
+impl<TH: TypeHolderTrait> GamepadMethods<TH> for Gamepad<TH> {
     // https://w3c.github.io/gamepad/#dom-gamepad-id
     fn Id(&self) -> DOMString {
         DOMString::from(self.id.clone())
@@ -162,7 +162,7 @@ impl<TH> GamepadMethods<TH> for Gamepad<TH> {
     }
 }
 
-impl<TH> Gamepad<TH> {
+impl<TH: TypeHolderTrait> Gamepad<TH> {
     #[allow(unsafe_code)]
     pub fn update_from_vr(&self, state: &WebVRGamepadState) {
         self.timestamp.set(state.timestamp);

@@ -42,7 +42,7 @@ pub struct PaintRenderingContext2D<TH: TypeHolderTrait> {
     device_pixel_ratio: Cell<TypedScale<f32, CSSPixel, DevicePixel>>,
 }
 
-impl<TH> PaintRenderingContext2D<TH> {
+impl<TH: TypeHolderTrait> PaintRenderingContext2D<TH> {
     fn new_inherited(global: &PaintWorkletGlobalScope<TH>) -> PaintRenderingContext2D<TH> {
         let size = Size2D::zero();
         let image_cache = global.image_cache();
@@ -86,7 +86,7 @@ impl<TH> PaintRenderingContext2D<TH> {
     }
 }
 
-impl<TH> PaintRenderingContext2DMethods<TH> for PaintRenderingContext2D<TH> {
+impl<TH: TypeHolderTrait> PaintRenderingContext2DMethods<TH> for PaintRenderingContext2D<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-save
     fn Save(&self) {
         self.context.Save()

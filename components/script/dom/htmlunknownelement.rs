@@ -16,7 +16,7 @@ pub struct HTMLUnknownElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLUnknownElement<TH> {
+impl<TH: TypeHolderTrait> HTMLUnknownElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLUnknownElement<TH> {

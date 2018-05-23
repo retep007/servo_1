@@ -23,7 +23,7 @@ pub struct CanvasPattern<TH: TypeHolderTrait> {
     origin_clean: bool,
 }
 
-impl<TH> CanvasPattern<TH> {
+impl<TH: TypeHolderTrait> CanvasPattern<TH> {
     fn new_inherited(surface_data: Vec<u8>,
                      surface_size: Size2D<i32>,
                      repeat: RepetitionStyle,

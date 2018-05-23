@@ -21,7 +21,7 @@ pub struct PerformanceEntry<TH: TypeHolderTrait> {
     duration: f64,
 }
 
-impl<TH> PerformanceEntry<TH> {
+impl<TH: TypeHolderTrait> PerformanceEntry<TH> {
     pub fn new_inherited(name: DOMString,
                          entry_type: DOMString,
                          start_time: f64,
@@ -58,7 +58,7 @@ impl<TH> PerformanceEntry<TH> {
     }
 }
 
-impl<TH> PerformanceEntryMethods for PerformanceEntry<TH> {
+impl<TH: TypeHolderTrait> PerformanceEntryMethods for PerformanceEntry<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceentry-name
     fn Name(&self) -> DOMString {
         DOMString::from(self.name.clone())

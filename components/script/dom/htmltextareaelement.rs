@@ -61,7 +61,7 @@ pub trait LayoutHTMLTextAreaElementHelpers {
     fn get_rows(self) -> u32;
 }
 
-impl<TH> LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement<TH>> {
+impl<TH: TypeHolderTrait> LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement<TH>> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     unsafe fn value_for_layout(self) -> String {
@@ -146,7 +146,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
     }
 }
 
-impl<TH> TextControlElement<TH> for HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait> TextControlElement<TH> for HTMLTextAreaElement<TH> {
     fn selection_api_applies(&self) -> bool {
         true
     }
@@ -160,7 +160,7 @@ impl<TH> TextControlElement<TH> for HTMLTextAreaElement<TH> {
     }
 }
 
-impl<TH> HTMLTextAreaElementMethods<TH> for HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTextAreaElementMethods<TH> for HTMLTextAreaElement<TH> {
     // TODO A few of these attributes have default values and additional
     // constraints
 
@@ -481,7 +481,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTextAreaElement<TH> {
     }
 }
 
-impl<TH> FormControl<TH> for HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait> FormControl<TH> for HTMLTextAreaElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -496,4 +496,4 @@ impl<TH> FormControl<TH> for HTMLTextAreaElement<TH> {
 }
 
 
-impl<TH> Validatable for HTMLTextAreaElement<TH> {}
+impl<TH: TypeHolderTrait> Validatable for HTMLTextAreaElement<TH> {}

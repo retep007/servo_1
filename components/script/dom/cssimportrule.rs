@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> CSSImportRule<TH> {
     }
 }
 
-impl<TH> SpecificCSSRule for CSSImportRule<TH> {
+impl<TH: TypeHolderTrait> SpecificCSSRule for CSSImportRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::IMPORT_RULE

@@ -24,7 +24,7 @@ pub struct DOMQuad<TH: TypeHolderTrait> {
     p4: Dom<DOMPoint<TH>>,
 }
 
-impl<TH> DOMQuad<TH> {
+impl<TH: TypeHolderTrait> DOMQuad<TH> {
     fn new_inherited(p1: &DOMPoint<TH>,
                      p2: &DOMPoint<TH>,
                      p3: &DOMPoint<TH>,
@@ -79,7 +79,7 @@ impl<TH> DOMQuad<TH> {
     }
 }
 
-impl<TH> DOMQuadMethods<TH> for DOMQuad<TH> {
+impl<TH: TypeHolderTrait> DOMQuadMethods<TH> for DOMQuad<TH> {
     // https://drafts.fxtf.org/geometry/#dom-domquad-p1
     fn P1(&self) -> DomRoot<DOMPoint<TH>> {
         DomRoot::from_ref(&self.p1)

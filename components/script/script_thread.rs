@@ -263,13 +263,13 @@ impl ScriptPort for Receiver<MainThreadScriptMsg> {
     }
 }
 
-impl<TH> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, CommonScriptMsg)> {
+impl<TH: TypeHolderTrait> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, CommonScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         self.recv().map(|(_, msg)| msg).map_err(|_| ())
     }
 }
 
-impl<TH> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, MainThreadScriptMsg)> {
+impl<TH: TypeHolderTrait> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, MainThreadScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         match self.recv().map(|(_, msg)| msg) {
             Ok(MainThreadScriptMsg::Common(script_msg)) => Ok(script_msg),
@@ -279,7 +279,7 @@ impl<TH> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, MainThreadScriptMsg)
     }
 }
 
-impl<TH> ScriptPort for Receiver<(TrustedServiceWorkerAddress<TH>, CommonScriptMsg)> {
+impl<TH: TypeHolderTrait> ScriptPort for Receiver<(TrustedServiceWorkerAddress<TH>, CommonScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         self.recv().map(|(_, msg)| msg).map_err(|_| ())
     }
@@ -544,7 +544,7 @@ impl<'a, TH> Drop for ScriptMemoryFailsafe<'a, TH> {
     }
 }
 
-impl<TH> ScriptThreadFactory for ScriptThread<TH> {
+impl<TH: TypeHolderTrait> ScriptThreadFactory for ScriptThread<TH> {
     type Message = message::Msg;
 
     fn create(state: InitialScriptState,
@@ -2649,7 +2649,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     }
 }
 
-impl<TH> Drop for ScriptThread<TH> {
+impl<TH: TypeHolderTrait> Drop for ScriptThread<TH> {
     fn drop(&mut self) {
         SCRIPT_THREAD_ROOT.with(|root| {
             root.set(None);

@@ -37,7 +37,7 @@ impl<TH: TypeHolderTrait> CSSConditionRule<TH> {
     }
 }
 
-impl<TH> CSSConditionRuleMethods for CSSConditionRule<TH> {
+impl<TH: TypeHolderTrait> CSSConditionRuleMethods for CSSConditionRule<TH> {
     /// <https://drafts.csswg.org/css-conditional-3/#dom-cssconditionrule-conditiontext>
     fn ConditionText(&self) -> DOMString {
         if let Some(rule) = self.downcast::<CSSMediaRule<TH>>() {

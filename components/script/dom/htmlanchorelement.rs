@@ -88,7 +88,7 @@ impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLAnchorElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLAnchorElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -101,7 +101,7 @@ impl<TH> VirtualMethods<TH> for HTMLAnchorElement<TH> {
     }
 }
 
-impl<TH> HTMLAnchorElementMethods<TH> for HTMLAnchorElement<TH> {
+impl<TH: TypeHolderTrait> HTMLAnchorElementMethods<TH> for HTMLAnchorElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-a-text
     fn Text(&self) -> DOMString {
         self.upcast::<Node<TH>>().GetTextContent().unwrap()
@@ -511,7 +511,7 @@ impl<TH> HTMLAnchorElementMethods<TH> for HTMLAnchorElement<TH> {
     }
 }
 
-impl<TH> Activatable<TH> for HTMLAnchorElement<TH> {
+impl<TH: TypeHolderTrait> Activatable<TH> for HTMLAnchorElement<TH> {
     fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()
     }

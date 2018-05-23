@@ -16,7 +16,7 @@ pub struct FileReaderSync<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>
 }
 
-impl<TH> FileReaderSync<TH> {
+impl<TH: TypeHolderTrait> FileReaderSync<TH> {
     pub fn new_inherited() -> FileReaderSync<TH> {
         FileReaderSync {
             eventtarget: EventTarget::new_inherited(),

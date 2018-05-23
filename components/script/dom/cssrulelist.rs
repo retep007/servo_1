@@ -23,7 +23,7 @@ unsafe_no_jsmanaged_fields!(RulesSource);
 
 unsafe_no_jsmanaged_fields!(CssRules);
 
-impl<TH> From<RulesMutateError> for Error<TH> {
+impl<TH: TypeHolderTrait> From<RulesMutateError> for Error<TH> {
     fn from(other: RulesMutateError) -> Self {
         match other {
             RulesMutateError::Syntax => Error::Syntax,
@@ -175,7 +175,7 @@ impl<TH: TypeHolderTrait> CSSRuleList<TH> {
     }
 }
 
-impl<TH> CSSRuleListMethods<TH> for CSSRuleList<TH> {
+impl<TH: TypeHolderTrait> CSSRuleListMethods<TH> for CSSRuleList<TH> {
     // https://drafts.csswg.org/cssom/#ref-for-dom-cssrulelist-item-1
     fn Item(&self, idx: u32) -> Option<DomRoot<CSSRule<TH>>> {
         self.item(idx)

@@ -16,7 +16,7 @@ pub struct HTMLAudioElement<TH: TypeHolderTrait> {
     htmlmediaelement: HTMLMediaElement<TH>
 }
 
-impl<TH> HTMLAudioElement<TH> {
+impl<TH: TypeHolderTrait> HTMLAudioElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLAudioElement<TH> {

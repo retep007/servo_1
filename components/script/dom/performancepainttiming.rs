@@ -18,7 +18,7 @@ pub struct PerformancePaintTiming<TH: TypeHolderTrait> {
     entry: PerformanceEntry<TH>,
 }
 
-impl<TH> PerformancePaintTiming<TH> {
+impl<TH: TypeHolderTrait> PerformancePaintTiming<TH> {
     fn new_inherited(metric_type: ProgressiveWebMetricType, start_time: u64) -> PerformancePaintTiming<TH> {
         let name = match metric_type {
             ProgressiveWebMetricType::FirstPaint => DOMString::from("first-paint"),

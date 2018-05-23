@@ -21,7 +21,7 @@ pub struct DOMPointReadOnly<TH: TypeHolderTrait> {
     w: Cell<f64>,
 }
 
-impl<TH> DOMPointReadOnly<TH> {
+impl<TH: TypeHolderTrait> DOMPointReadOnly<TH> {
     pub fn new_inherited(x: f64, y: f64, z: f64, w: f64) -> DOMPointReadOnly<TH> {
         DOMPointReadOnly {
             x: Cell::new(x),
@@ -48,7 +48,7 @@ impl<TH> DOMPointReadOnly<TH> {
     }
 }
 
-impl<TH> DOMPointReadOnlyMethods for DOMPointReadOnly<TH> {
+impl<TH: TypeHolderTrait> DOMPointReadOnlyMethods for DOMPointReadOnly<TH> {
     // https://dev.w3.org/fxtf/geometry/Overview.html#dom-dompointreadonly-x
     fn X(&self) -> f64 {
         self.x.get()
@@ -77,7 +77,7 @@ pub trait DOMPointWriteMethods {
     fn SetW(&self, value: f64);
 }
 
-impl<TH> DOMPointWriteMethods for DOMPointReadOnly<TH> {
+impl<TH: TypeHolderTrait> DOMPointWriteMethods for DOMPointReadOnly<TH> {
     fn SetX(&self, value: f64) {
         self.x.set(value);
     }

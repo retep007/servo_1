@@ -21,7 +21,7 @@ pub struct TextEncoder<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> TextEncoder<TH> {
+impl<TH: TypeHolderTrait> TextEncoder<TH> {
     fn new_inherited() -> TextEncoder<TH> {
         TextEncoder {
             reflector_: Reflector::new(),
@@ -40,7 +40,7 @@ impl<TH> TextEncoder<TH> {
     }
 }
 
-impl<TH> TextEncoderMethods for TextEncoder<TH> {
+impl<TH: TypeHolderTrait> TextEncoderMethods for TextEncoder<TH> {
     // https://encoding.spec.whatwg.org/#dom-textencoder-encoding
     fn Encoding(&self) -> DOMString {
         DOMString::from("utf-8")

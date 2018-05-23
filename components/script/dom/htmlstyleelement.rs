@@ -143,7 +143,7 @@ impl<TH: TypeHolderTrait> HTMLStyleElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLStyleElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLStyleElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -198,7 +198,7 @@ impl<TH> VirtualMethods<TH> for HTMLStyleElement<TH> {
     }
 }
 
-impl<TH> StylesheetOwner for HTMLStyleElement<TH> {
+impl<TH: TypeHolderTrait> StylesheetOwner for HTMLStyleElement<TH> {
     fn increment_pending_loads_count(&self) {
         self.pending_loads.set(self.pending_loads.get() + 1)
     }
@@ -235,7 +235,7 @@ impl<TH> StylesheetOwner for HTMLStyleElement<TH> {
 }
 
 
-impl<TH> HTMLStyleElementMethods<TH> for HTMLStyleElement<TH> {
+impl<TH: TypeHolderTrait> HTMLStyleElementMethods<TH> for HTMLStyleElement<TH> {
     // https://drafts.csswg.org/cssom/#dom-linkstyle-sheet
     fn GetSheet(&self) -> Option<DomRoot<DOMStyleSheet<TH>>> {
         self.get_cssom_stylesheet().map(DomRoot::upcast)

@@ -16,13 +16,13 @@ pub struct OESElementIndexUint<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> OESElementIndexUint<TH> {
+impl<TH: TypeHolderTrait> OESElementIndexUint<TH> {
     fn new_inherited() -> Self {
         Self { reflector_: Reflector::new() }
     }
 }
 
-impl<TH> WebGLExtension<TH> for OESElementIndexUint<TH> {
+impl<TH: TypeHolderTrait> WebGLExtension<TH> for OESElementIndexUint<TH> {
     type Extension = Self;
 
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<Self> {

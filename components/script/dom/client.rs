@@ -25,7 +25,7 @@ pub struct Client<TH: TypeHolderTrait> {
     id: Uuid
 }
 
-impl<TH> Client<TH> {
+impl<TH: TypeHolderTrait> Client<TH> {
     fn new_inherited(url: ServoUrl) -> Client<TH> {
         Client {
             reflector_: Reflector::new(),
@@ -55,7 +55,7 @@ impl<TH> Client<TH> {
     }
 }
 
-impl<TH> ClientMethods for Client<TH> {
+impl<TH: TypeHolderTrait> ClientMethods for Client<TH> {
     // https://w3c.github.io/ServiceWorker/#client-url-attribute
     fn Url(&self) -> USVString {
         USVString(self.url.as_str().to_owned())

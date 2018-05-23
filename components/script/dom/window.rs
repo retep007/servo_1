@@ -293,7 +293,7 @@ pub struct Window<TH: TypeHolderTrait> {
     exists_mut_observer: Cell<bool>,
 }
 
-impl<TH> Window<TH> {
+impl<TH: TypeHolderTrait> Window<TH> {
     pub fn get_exists_mut_observer(&self) -> bool {
         self.exists_mut_observer.get()
     }
@@ -1930,7 +1930,7 @@ fn debug_reflow_events(id: PipelineId, reflow_goal: &ReflowGoal, reason: &Reflow
     println!("{}", debug_msg);
 }
 
-impl<TH> Window<TH> {
+impl<TH: TypeHolderTrait> Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-window-postmessage step 7.
     pub fn post_message(
         &self,

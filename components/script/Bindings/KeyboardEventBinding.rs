@@ -263,7 +263,7 @@ pub struct KeyboardEventInit<TH: TypeHolderTrait> {
     pub location: u32,
     pub repeat: bool,
 }
-impl<TH> KeyboardEventInit<TH> {
+impl<TH: TypeHolderTrait> KeyboardEventInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> KeyboardEventInit<TH> {
         match KeyboardEventInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -385,7 +385,7 @@ impl<TH> KeyboardEventInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for KeyboardEventInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for KeyboardEventInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<KeyboardEventInit<TH>>, ()> {
@@ -393,7 +393,7 @@ impl<TH> FromJSValConvertible for KeyboardEventInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for KeyboardEventInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for KeyboardEventInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         let code = &self.code;

@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> CompositionEvent<TH> {
     }
 }
 
-impl<TH> CompositionEventMethods for CompositionEvent<TH> {
+impl<TH: TypeHolderTrait> CompositionEventMethods for CompositionEvent<TH> {
     // https://w3c.github.io/uievents/#dom-compositionevent-data
     fn Data(&self) -> DOMString {
         self.data.clone()

@@ -77,7 +77,7 @@ impl<TH: TypeHolderTrait> PopStateEvent<TH> {
     }
 }
 
-impl<TH> PopStateEventMethods for PopStateEvent<TH> {
+impl<TH: TypeHolderTrait> PopStateEventMethods for PopStateEvent<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-popstateevent-state
     unsafe fn State(&self, _cx: *mut JSContext) -> JSVal {

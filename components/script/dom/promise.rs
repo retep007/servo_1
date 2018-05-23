@@ -51,7 +51,7 @@ trait PromiseHelper {
     unsafe fn initialize(&self, cx: *mut JSContext);
 }
 
-impl<TH> PromiseHelper for Rc<Promise<TH>> {
+impl<TH: TypeHolderTrait> PromiseHelper for Rc<Promise<TH>> {
     #[allow(unsafe_code)]
     unsafe fn initialize(&self, cx: *mut JSContext) {
         let obj = self.reflector().get_jsobject();
@@ -62,7 +62,7 @@ impl<TH> PromiseHelper for Rc<Promise<TH>> {
     }
 }
 
-impl<TH> Drop for Promise<TH> {
+impl<TH: TypeHolderTrait> Drop for Promise<TH> {
     #[allow(unsafe_code)]
     fn drop(&mut self) {
         unsafe {
@@ -77,7 +77,7 @@ impl<TH> Drop for Promise<TH> {
     }
 }
 
-impl<TH> Promise<TH> {
+impl<TH: TypeHolderTrait> Promise<TH> {
     #[allow(unsafe_code)]
     pub fn new(global: &GlobalScope<TH>) -> Rc<Promise<TH>> {
         let cx = global.get_cx();

@@ -21,13 +21,13 @@ use typeholder::TypeHolderTrait;
 #[derive(Clone, JSTraceable)]
 pub struct DOMManipulationTaskSource<TH: TypeHolderTrait>(pub Sender<MainThreadScriptMsg>, pub PipelineId);
 
-impl<TH> fmt::Debug for DOMManipulationTaskSource<TH> {
+impl<TH: TypeHolderTrait> fmt::Debug for DOMManipulationTaskSource<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "DOMManipulationTaskSource(...)")
     }
 }
 
-impl<TH> TaskSource<TH> for DOMManipulationTaskSource<TH> {
+impl<TH: TypeHolderTrait> TaskSource<TH> for DOMManipulationTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,

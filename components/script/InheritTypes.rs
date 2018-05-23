@@ -7,7 +7,7 @@ use dom::bindings::root::{Dom, DomRoot, LayoutDom};
 use dom::bindings::trace::JSTraceable;
 use dom::bindings::reflector::DomObject;
 use js::jsapi::JSTracer;
-
+use typeholder::TypeHolderTrait;
 use std::mem;
 
 #[derive(Copy)]
@@ -61,7 +61,7 @@ pub enum NodeListTypeId {
     RadioNodeList
 }
 
-impl<TH> NodeList<TH> {
+impl<TH: TypeHolderTrait> NodeList<TH> {
     pub fn type_id(&self) -> &'static NodeListTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -107,7 +107,7 @@ pub enum DOMRectReadOnlyTypeId {
     DOMRect
 }
 
-impl<TH> DOMRectReadOnly<TH> {
+impl<TH: TypeHolderTrait> DOMRectReadOnly<TH> {
     pub fn type_id(&self) -> &'static DOMRectReadOnlyTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -124,7 +124,7 @@ pub enum BlobTypeId {
     File
 }
 
-impl<TH> Blob<TH> {
+impl<TH: TypeHolderTrait> Blob<TH> {
     pub fn type_id(&self) -> &'static BlobTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -170,7 +170,7 @@ pub enum CSSRuleTypeId {
     CSSViewportRule
 }
 
-impl<TH> CSSRule<TH> {
+impl<TH: TypeHolderTrait> CSSRule<TH> {
     pub fn type_id(&self) -> &'static CSSRuleTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -188,7 +188,7 @@ pub enum HTMLCollectionTypeId {
     HTMLOptionsCollection
 }
 
-impl<TH> HTMLCollection<TH> {
+impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     pub fn type_id(&self) -> &'static HTMLCollectionTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -205,7 +205,7 @@ pub enum DOMMatrixReadOnlyTypeId {
     DOMMatrix
 }
 
-impl<TH> DOMMatrixReadOnly<TH> {
+impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
     pub fn type_id(&self) -> &'static DOMMatrixReadOnlyTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -246,7 +246,7 @@ pub enum WebGLObjectTypeId {
     WebGLVertexArrayObjectOES
 }
 
-impl<TH> WebGLObject<TH> {
+impl<TH: TypeHolderTrait> WebGLObject<TH> {
     pub fn type_id(&self) -> &'static WebGLObjectTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -286,7 +286,7 @@ pub enum EventTargetTypeId {
     XMLHttpRequestEventTarget(XMLHttpRequestEventTargetTypeId)
 }
 
-impl<TH> EventTarget<TH> {
+impl<TH: TypeHolderTrait> EventTarget<TH> {
     pub fn type_id(&self) -> &'static EventTargetTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -379,7 +379,7 @@ pub enum TestBindingTypeId {
     TestBindingProxy
 }
 
-impl<TH> TestBinding<TH> {
+impl<TH: TypeHolderTrait> TestBinding<TH> {
     pub fn type_id(&self) -> &'static TestBindingTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -407,7 +407,7 @@ pub enum DOMPointReadOnlyTypeId {
     DOMPoint
 }
 
-impl<TH> DOMPointReadOnly<TH> {
+impl<TH: TypeHolderTrait> DOMPointReadOnly<TH> {
     pub fn type_id(&self) -> &'static DOMPointReadOnlyTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -431,7 +431,7 @@ pub enum PerformanceEntryTypeId {
     PerformancePaintTiming
 }
 
-impl<TH> PerformanceEntry<TH> {
+impl<TH: TypeHolderTrait> PerformanceEntry<TH> {
     pub fn type_id(&self) -> &'static PerformanceEntryTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -453,7 +453,7 @@ pub enum StyleSheetTypeId {
     CSSStyleSheet
 }
 
-impl<TH> StyleSheet<TH> {
+impl<TH: TypeHolderTrait> StyleSheet<TH> {
     pub fn type_id(&self) -> &'static StyleSheetTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -487,7 +487,7 @@ pub enum EventTypeId {
     WebGLContextEvent
 }
 
-impl<TH> Event<TH> {
+impl<TH: TypeHolderTrait> Event<TH> {
     pub fn type_id(&self) -> &'static EventTypeId {
         unsafe {
             &get_dom_class(self.reflector().get_jsobject().get())
@@ -498,817 +498,817 @@ impl<TH> Event<TH> {
     }
 }
 
-impl<TH> Castable for BeforeUnloadEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for BeforeUnloadEvent<TH> {}
+impl<TH: TypeHolderTrait> Castable for BeforeUnloadEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for BeforeUnloadEvent<TH> {}
 
-impl<TH> Castable for Blob<TH> {}
-impl<TH> DerivedFrom<Blob<TH>> for Blob<TH> {}
+impl<TH: TypeHolderTrait> Castable for Blob<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Blob<TH>> for Blob<TH> {}
 
-impl<TH> Castable for Bluetooth<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for Bluetooth<TH> {}
+impl<TH: TypeHolderTrait> Castable for Bluetooth<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Bluetooth<TH> {}
 
-impl<TH> Castable for BluetoothAdvertisingEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for BluetoothAdvertisingEvent<TH> {}
+impl<TH: TypeHolderTrait> Castable for BluetoothAdvertisingEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for BluetoothAdvertisingEvent<TH> {}
 
-impl<TH> Castable for BluetoothDevice<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for BluetoothDevice<TH> {}
+impl<TH: TypeHolderTrait> Castable for BluetoothDevice<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for BluetoothDevice<TH> {}
 
-impl<TH> Castable for BluetoothPermissionResult<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for BluetoothPermissionResult<TH> {}
-impl<TH> DerivedFrom<PermissionStatus<TH>> for BluetoothPermissionResult<TH> {}
+impl<TH: TypeHolderTrait> Castable for BluetoothPermissionResult<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for BluetoothPermissionResult<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<PermissionStatus<TH>> for BluetoothPermissionResult<TH> {}
 
-impl<TH> Castable for BluetoothRemoteGATTCharacteristic<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for BluetoothRemoteGATTCharacteristic<TH> {}
+impl<TH: TypeHolderTrait> Castable for BluetoothRemoteGATTCharacteristic<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for BluetoothRemoteGATTCharacteristic<TH> {}
 
-impl<TH> Castable for BluetoothRemoteGATTService<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for BluetoothRemoteGATTService<TH> {}
+impl<TH: TypeHolderTrait> Castable for BluetoothRemoteGATTService<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for BluetoothRemoteGATTService<TH> {}
 
-impl<TH> Castable for CSSConditionRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSConditionRule<TH> {}
-impl<TH> DerivedFrom<CSSGroupingRule<TH>> for CSSConditionRule<TH> {}
-impl<TH> DerivedFrom<CSSConditionRule<TH>> for CSSConditionRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSConditionRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSConditionRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSGroupingRule<TH>> for CSSConditionRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSConditionRule<TH>> for CSSConditionRule<TH> {}
 
-impl<TH> Castable for CSSFontFaceRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSFontFaceRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSFontFaceRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSFontFaceRule<TH> {}
 
-impl<TH> Castable for CSSGroupingRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSGroupingRule<TH> {}
-impl<TH> DerivedFrom<CSSGroupingRule<TH>> for CSSGroupingRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSGroupingRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSGroupingRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSGroupingRule<TH>> for CSSGroupingRule<TH> {}
 
-impl<TH> Castable for CSSImportRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSImportRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSImportRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSImportRule<TH> {}
 
-impl<TH> Castable for CSSKeyframeRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSKeyframeRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSKeyframeRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSKeyframeRule<TH> {}
 
-impl<TH> Castable for CSSKeyframesRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSKeyframesRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSKeyframesRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSKeyframesRule<TH> {}
 
-impl<TH> Castable for CSSMediaRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSMediaRule<TH> {}
-impl<TH> DerivedFrom<CSSGroupingRule<TH>> for CSSMediaRule<TH> {}
-impl<TH> DerivedFrom<CSSConditionRule<TH>> for CSSMediaRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSMediaRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSMediaRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSGroupingRule<TH>> for CSSMediaRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSConditionRule<TH>> for CSSMediaRule<TH> {}
 
-impl<TH> Castable for CSSNamespaceRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSNamespaceRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSNamespaceRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSNamespaceRule<TH> {}
 
-impl<TH> Castable for CSSRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSRule<TH> {}
 
-impl<TH> Castable for CSSStyleRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSStyleRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSStyleRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSStyleRule<TH> {}
 
-impl<TH> Castable for CSSStyleSheet<TH> {}
-impl<TH> DerivedFrom<StyleSheet<TH>> for CSSStyleSheet<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSStyleSheet<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<StyleSheet<TH>> for CSSStyleSheet<TH> {}
 
-impl<TH> Castable for CSSSupportsRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSSupportsRule<TH> {}
-impl<TH> DerivedFrom<CSSGroupingRule<TH>> for CSSSupportsRule<TH> {}
-impl<TH> DerivedFrom<CSSConditionRule<TH>> for CSSSupportsRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSSupportsRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSSupportsRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSGroupingRule<TH>> for CSSSupportsRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSConditionRule<TH>> for CSSSupportsRule<TH> {}
 
-impl<TH> Castable for CSSViewportRule<TH> {}
-impl<TH> DerivedFrom<CSSRule<TH>> for CSSViewportRule<TH> {}
+impl<TH: TypeHolderTrait> Castable for CSSViewportRule<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CSSRule<TH>> for CSSViewportRule<TH> {}
 
-impl<TH> Castable for CharacterData<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for CharacterData<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for CharacterData<TH> {}
-impl<TH> DerivedFrom<CharacterData<TH>> for CharacterData<TH> {}
+impl<TH: TypeHolderTrait> Castable for CharacterData<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for CharacterData<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for CharacterData<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CharacterData<TH>> for CharacterData<TH> {}
 
-impl<TH> Castable for CloseEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for CloseEvent<TH> {}
+impl<TH: TypeHolderTrait> Castable for CloseEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for CloseEvent<TH> {}
 
-impl<TH> Castable for Comment<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for Comment<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for Comment<TH> {}
-impl<TH> DerivedFrom<CharacterData<TH>> for Comment<TH> {}
+impl<TH: TypeHolderTrait> Castable for Comment<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Comment<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for Comment<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CharacterData<TH>> for Comment<TH> {}
 
-impl<TH> Castable for CompositionEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for CompositionEvent<TH> {}
-impl<TH> DerivedFrom<UIEvent<TH>> for CompositionEvent<TH> {}
+impl<TH: TypeHolderTrait> Castable for CompositionEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for CompositionEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<UIEvent<TH>> for CompositionEvent<TH> {}
 
-impl<TH> Castable for CustomEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for CustomEvent<TH> {}
+impl<TH: TypeHolderTrait> Castable for CustomEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for CustomEvent<TH> {}
 
-impl<TH> Castable for DOMMatrix<TH> {}
-impl<TH> DerivedFrom<DOMMatrixReadOnly<TH>> for DOMMatrix<TH> {}
+impl<TH: TypeHolderTrait> Castable for DOMMatrix<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<DOMMatrixReadOnly<TH>> for DOMMatrix<TH> {}
 
-impl<TH> Castable for DOMMatrixReadOnly<TH> {}
-impl<TH> DerivedFrom<DOMMatrixReadOnly<TH>> for DOMMatrixReadOnly<TH> {}
+impl<TH: TypeHolderTrait> Castable for DOMMatrixReadOnly<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<DOMMatrixReadOnly<TH>> for DOMMatrixReadOnly<TH> {}
 
-impl<TH> Castable for DOMPoint<TH> {}
-impl<TH> DerivedFrom<DOMPointReadOnly<TH>> for DOMPoint<TH> {}
+impl<TH: TypeHolderTrait> Castable for DOMPoint<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<DOMPointReadOnly<TH>> for DOMPoint<TH> {}
 
-impl<TH> Castable for DOMPointReadOnly<TH> {}
-impl<TH> DerivedFrom<DOMPointReadOnly<TH>> for DOMPointReadOnly<TH> {}
-
-impl<TH> Castable for DOMRect<TH> {}
-impl<TH> DerivedFrom<DOMRectReadOnly<TH>> for DOMRect<TH> {}
-
-impl<TH> Castable for DOMRectReadOnly<TH> {}
-impl<TH> DerivedFrom<DOMRectReadOnly<TH>> for DOMRectReadOnly<TH> {}
-
-impl<TH> Castable for DedicatedWorkerGlobalScope<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for DedicatedWorkerGlobalScope<TH> {}
-impl<TH> DerivedFrom<GlobalScope<TH>> for DedicatedWorkerGlobalScope<TH> {}
-impl<TH> DerivedFrom<WorkerGlobalScope<TH>> for DedicatedWorkerGlobalScope<TH> {}
-
-impl<TH> Castable for DissimilarOriginWindow<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for DissimilarOriginWindow<TH> {}
-impl<TH> DerivedFrom<GlobalScope<TH>> for DissimilarOriginWindow<TH> {}
-
-impl<TH> Castable for Document<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for Document<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for Document<TH> {}
-impl<TH> DerivedFrom<Document<TH>> for Document<TH> {}
-
-impl<TH> Castable for DocumentFragment<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for DocumentFragment<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for DocumentFragment<TH> {}
-
-impl<TH> Castable for DocumentType<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for DocumentType<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for DocumentType<TH> {}
-
-impl<TH> Castable for Element<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for Element<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for Element<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for Element<TH> {}
-
-impl<TH> Castable for ErrorEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for ErrorEvent<TH> {}
-
-impl<TH> Castable for Event<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for Event<TH> {}
-
-impl<TH> Castable for EventSource<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for EventSource<TH> {}
-
-impl<TH> Castable for EventTarget<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for EventTarget<TH> {}
-
-impl<TH> Castable for ExtendableEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for ExtendableEvent<TH> {}
-impl<TH> DerivedFrom<ExtendableEvent<TH>> for ExtendableEvent<TH> {}
-
-impl<TH> Castable for ExtendableMessageEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for ExtendableMessageEvent<TH> {}
-impl<TH> DerivedFrom<ExtendableEvent<TH>> for ExtendableMessageEvent<TH> {}
-
-impl<TH> Castable for File<TH> {}
-impl<TH> DerivedFrom<Blob<TH>> for File<TH> {}
-
-impl<TH> Castable for FileReader<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for FileReader<TH> {}
-
-impl<TH> Castable for FocusEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for FocusEvent<TH> {}
-impl<TH> DerivedFrom<UIEvent<TH>> for FocusEvent<TH> {}
-
-impl<TH> Castable for GamepadEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for GamepadEvent<TH> {}
-
-impl<TH> Castable for GlobalScope<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for GlobalScope<TH> {}
-impl<TH> DerivedFrom<GlobalScope<TH>> for GlobalScope<TH> {}
-
-impl<TH> Castable for HTMLAnchorElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLAnchorElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLAnchorElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLAnchorElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLAnchorElement<TH> {}
-
-impl<TH> Castable for HTMLAreaElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLAreaElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLAreaElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLAreaElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLAreaElement<TH> {}
-
-impl<TH> Castable for HTMLAudioElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLAudioElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLAudioElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLAudioElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLAudioElement<TH> {}
-impl<TH> DerivedFrom<HTMLMediaElement<TH>> for HTMLAudioElement<TH> {}
-
-impl<TH> Castable for HTMLBRElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLBRElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLBRElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLBRElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLBRElement<TH> {}
-
-impl<TH> Castable for HTMLBaseElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLBaseElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLBaseElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLBaseElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLBaseElement<TH> {}
-
-impl<TH> Castable for HTMLBodyElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLBodyElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLBodyElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLBodyElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLBodyElement<TH> {}
-
-impl<TH> Castable for HTMLButtonElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLButtonElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLButtonElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLButtonElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLButtonElement<TH> {}
-
-impl<TH> Castable for HTMLCanvasElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLCanvasElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLCanvasElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLCanvasElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLCanvasElement<TH> {}
-
-impl<TH> Castable for HTMLCollection<TH> {}
-impl<TH> DerivedFrom<HTMLCollection<TH>> for HTMLCollection<TH> {}
-
-impl<TH> Castable for HTMLDListElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLDListElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLDListElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLDListElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLDListElement<TH> {}
-
-impl<TH> Castable for HTMLDataElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLDataElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLDataElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLDataElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLDataElement<TH> {}
-
-impl<TH> Castable for HTMLDataListElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLDataListElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLDataListElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLDataListElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLDataListElement<TH> {}
-
-impl<TH> Castable for HTMLDetailsElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLDetailsElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLDetailsElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLDetailsElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLDetailsElement<TH> {}
-
-impl<TH> Castable for HTMLDialogElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLDialogElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLDialogElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLDialogElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLDialogElement<TH> {}
-
-impl<TH> Castable for HTMLDirectoryElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLDirectoryElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLDirectoryElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLDirectoryElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLDirectoryElement<TH> {}
-
-impl<TH> Castable for HTMLDivElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLDivElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLDivElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLDivElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLDivElement<TH> {}
-
-impl<TH> Castable for HTMLElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLElement<TH> {}
-
-impl<TH> Castable for HTMLEmbedElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLEmbedElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLEmbedElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLEmbedElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLEmbedElement<TH> {}
-
-impl<TH> Castable for HTMLFieldSetElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLFieldSetElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLFieldSetElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLFieldSetElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLFieldSetElement<TH> {}
-
-impl<TH> Castable for HTMLFontElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLFontElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLFontElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLFontElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLFontElement<TH> {}
-
-impl<TH> Castable for HTMLFormControlsCollection<TH> {}
-impl<TH> DerivedFrom<HTMLCollection<TH>> for HTMLFormControlsCollection<TH> {}
-
-impl<TH> Castable for HTMLFormElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLFormElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLFormElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLFormElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLFormElement<TH> {}
-
-impl<TH> Castable for HTMLFrameElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLFrameElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLFrameElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLFrameElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLFrameElement<TH> {}
-
-impl<TH> Castable for HTMLFrameSetElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLFrameSetElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLFrameSetElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLFrameSetElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLFrameSetElement<TH> {}
-
-impl<TH> Castable for HTMLHRElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLHRElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLHRElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLHRElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLHRElement<TH> {}
-
-impl<TH> Castable for HTMLHeadElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLHeadElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLHeadElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLHeadElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLHeadElement<TH> {}
-
-impl<TH> Castable for HTMLHeadingElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLHeadingElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLHeadingElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLHeadingElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLHeadingElement<TH> {}
-
-impl<TH> Castable for HTMLHtmlElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLHtmlElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLHtmlElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLHtmlElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLHtmlElement<TH> {}
-
-impl<TH> Castable for HTMLIFrameElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLIFrameElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLIFrameElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLIFrameElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLIFrameElement<TH> {}
-
-impl<TH> Castable for HTMLImageElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLImageElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLImageElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLImageElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLImageElement<TH> {}
-
-impl<TH> Castable for HTMLInputElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLInputElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLInputElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLInputElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLInputElement<TH> {}
-
-impl<TH> Castable for HTMLLIElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLLIElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLLIElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLLIElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLLIElement<TH> {}
-
-impl<TH> Castable for HTMLLabelElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLLabelElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLLabelElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLLabelElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLLabelElement<TH> {}
-
-impl<TH> Castable for HTMLLegendElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLLegendElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLLegendElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLLegendElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLLegendElement<TH> {}
-
-impl<TH> Castable for HTMLLinkElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLLinkElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLLinkElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLLinkElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLLinkElement<TH> {}
-
-impl<TH> Castable for HTMLMapElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLMapElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLMapElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLMapElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLMapElement<TH> {}
-
-impl<TH> Castable for HTMLMediaElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLMediaElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLMediaElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLMediaElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLMediaElement<TH> {}
-impl<TH> DerivedFrom<HTMLMediaElement<TH>> for HTMLMediaElement<TH> {}
-
-impl<TH> Castable for HTMLMetaElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLMetaElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLMetaElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLMetaElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLMetaElement<TH> {}
-
-impl<TH> Castable for HTMLMeterElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLMeterElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLMeterElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLMeterElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLMeterElement<TH> {}
-
-impl<TH> Castable for HTMLModElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLModElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLModElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLModElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLModElement<TH> {}
-
-impl<TH> Castable for HTMLOListElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLOListElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLOListElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLOListElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLOListElement<TH> {}
-
-impl<TH> Castable for HTMLObjectElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLObjectElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLObjectElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLObjectElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLObjectElement<TH> {}
-
-impl<TH> Castable for HTMLOptGroupElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLOptGroupElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLOptGroupElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLOptGroupElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLOptGroupElement<TH> {}
-
-impl<TH> Castable for HTMLOptionElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLOptionElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLOptionElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLOptionElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLOptionElement<TH> {}
-
-impl<TH> Castable for HTMLOptionsCollection<TH> {}
-impl<TH> DerivedFrom<HTMLCollection<TH>> for HTMLOptionsCollection<TH> {}
-
-impl<TH> Castable for HTMLOutputElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLOutputElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLOutputElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLOutputElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLOutputElement<TH> {}
-
-impl<TH> Castable for HTMLParagraphElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLParagraphElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLParagraphElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLParagraphElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLParagraphElement<TH> {}
-
-impl<TH> Castable for HTMLParamElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLParamElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLParamElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLParamElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLParamElement<TH> {}
-
-impl<TH> Castable for HTMLPictureElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLPictureElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLPictureElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLPictureElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLPictureElement<TH> {}
-
-impl<TH> Castable for HTMLPreElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLPreElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLPreElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLPreElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLPreElement<TH> {}
-
-impl<TH> Castable for HTMLProgressElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLProgressElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLProgressElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLProgressElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLProgressElement<TH> {}
-
-impl<TH> Castable for HTMLQuoteElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLQuoteElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLQuoteElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLQuoteElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLQuoteElement<TH> {}
-
-impl<TH> Castable for HTMLScriptElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLScriptElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLScriptElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLScriptElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLScriptElement<TH> {}
-
-impl<TH> Castable for HTMLSelectElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLSelectElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLSelectElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLSelectElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLSelectElement<TH> {}
-
-impl<TH> Castable for HTMLSourceElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLSourceElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLSourceElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLSourceElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLSourceElement<TH> {}
-
-impl<TH> Castable for HTMLSpanElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLSpanElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLSpanElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLSpanElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLSpanElement<TH> {}
-
-impl<TH> Castable for HTMLStyleElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLStyleElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLStyleElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLStyleElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLStyleElement<TH> {}
-
-impl<TH> Castable for HTMLTableCaptionElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTableCaptionElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTableCaptionElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTableCaptionElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTableCaptionElement<TH> {}
-
-impl<TH> Castable for HTMLTableCellElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTableCellElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTableCellElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTableCellElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTableCellElement<TH> {}
-impl<TH> DerivedFrom<HTMLTableCellElement<TH>> for HTMLTableCellElement<TH> {}
-
-impl<TH> Castable for HTMLTableColElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTableColElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTableColElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTableColElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTableColElement<TH> {}
-
-impl<TH> Castable for HTMLTableDataCellElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTableDataCellElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTableDataCellElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTableDataCellElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTableDataCellElement<TH> {}
-impl<TH> DerivedFrom<HTMLTableCellElement<TH>> for HTMLTableDataCellElement<TH> {}
-
-impl<TH> Castable for HTMLTableElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTableElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTableElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTableElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTableElement<TH> {}
-
-impl<TH> Castable for HTMLTableHeaderCellElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTableHeaderCellElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTableHeaderCellElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTableHeaderCellElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTableHeaderCellElement<TH> {}
-impl<TH> DerivedFrom<HTMLTableCellElement<TH>> for HTMLTableHeaderCellElement<TH> {}
-
-impl<TH> Castable for HTMLTableRowElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTableRowElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTableRowElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTableRowElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTableRowElement<TH> {}
-
-impl<TH> Castable for HTMLTableSectionElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTableSectionElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTableSectionElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTableSectionElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTableSectionElement<TH> {}
-
-impl<TH> Castable for HTMLTemplateElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTemplateElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTemplateElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTemplateElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTemplateElement<TH> {}
-
-impl<TH> Castable for HTMLTextAreaElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTextAreaElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTextAreaElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTextAreaElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTextAreaElement<TH> {}
-
-impl<TH> Castable for HTMLTimeElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTimeElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTimeElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTimeElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTimeElement<TH> {}
-
-impl<TH> Castable for HTMLTitleElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTitleElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTitleElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTitleElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTitleElement<TH> {}
-
-impl<TH> Castable for HTMLTrackElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLTrackElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLTrackElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLTrackElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLTrackElement<TH> {}
-
-impl<TH> Castable for HTMLUListElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLUListElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLUListElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLUListElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLUListElement<TH> {}
-
-impl<TH> Castable for HTMLUnknownElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLUnknownElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLUnknownElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLUnknownElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLUnknownElement<TH> {}
-
-impl<TH> Castable for HTMLVideoElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for HTMLVideoElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for HTMLVideoElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for HTMLVideoElement<TH> {}
-impl<TH> DerivedFrom<HTMLElement<TH>> for HTMLVideoElement<TH> {}
-impl<TH> DerivedFrom<HTMLMediaElement<TH>> for HTMLVideoElement<TH> {}
-
-impl<TH> Castable for HashChangeEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for HashChangeEvent<TH> {}
-
-impl<TH> Castable for InputEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for InputEvent<TH> {}
-impl<TH> DerivedFrom<UIEvent<TH>> for InputEvent<TH> {}
-
-impl<TH> Castable for KeyboardEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for KeyboardEvent<TH> {}
-impl<TH> DerivedFrom<UIEvent<TH>> for KeyboardEvent<TH> {}
-
-impl<TH> Castable for MediaQueryList<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for MediaQueryList<TH> {}
-
-impl<TH> Castable for MediaQueryListEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for MediaQueryListEvent<TH> {}
-
-impl<TH> Castable for MessageEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for MessageEvent<TH> {}
-
-impl<TH> Castable for MouseEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for MouseEvent<TH> {}
-impl<TH> DerivedFrom<UIEvent<TH>> for MouseEvent<TH> {}
-
-impl<TH> Castable for Node<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for Node<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for Node<TH> {}
-
-impl<TH> Castable for NodeList<TH> {}
-impl<TH> DerivedFrom<NodeList<TH>> for NodeList<TH> {}
-
-impl<TH> Castable for PageTransitionEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for PageTransitionEvent<TH> {}
-
-impl<TH> Castable for PaintWorkletGlobalScope<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for PaintWorkletGlobalScope<TH> {}
-impl<TH> DerivedFrom<GlobalScope<TH>> for PaintWorkletGlobalScope<TH> {}
-impl<TH> DerivedFrom<WorkletGlobalScope<TH>> for PaintWorkletGlobalScope<TH> {}
-
-impl<TH> Castable for PerformanceEntry<TH> {}
-impl<TH> DerivedFrom<PerformanceEntry<TH>> for PerformanceEntry<TH> {}
-
-impl<TH> Castable for PerformanceMark<TH> {}
-impl<TH> DerivedFrom<PerformanceEntry<TH>> for PerformanceMark<TH> {}
-
-impl<TH> Castable for PerformanceMeasure<TH> {}
-impl<TH> DerivedFrom<PerformanceEntry<TH>> for PerformanceMeasure<TH> {}
-
-impl<TH> Castable for PerformancePaintTiming<TH> {}
-impl<TH> DerivedFrom<PerformanceEntry<TH>> for PerformancePaintTiming<TH> {}
-
-impl<TH> Castable for PermissionStatus<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for PermissionStatus<TH> {}
-impl<TH> DerivedFrom<PermissionStatus<TH>> for PermissionStatus<TH> {}
-
-impl<TH> Castable for PopStateEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for PopStateEvent<TH> {}
-
-impl<TH> Castable for ProcessingInstruction<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for ProcessingInstruction<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for ProcessingInstruction<TH> {}
-impl<TH> DerivedFrom<CharacterData<TH>> for ProcessingInstruction<TH> {}
-
-impl<TH> Castable for ProgressEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for ProgressEvent<TH> {}
-
-impl<TH> Castable for RadioNodeList<TH> {}
-impl<TH> DerivedFrom<NodeList<TH>> for RadioNodeList<TH> {}
-
-impl<TH> Castable for SVGElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for SVGElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for SVGElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for SVGElement<TH> {}
-impl<TH> DerivedFrom<SVGElement<TH>> for SVGElement<TH> {}
-
-impl<TH> Castable for SVGGraphicsElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for SVGGraphicsElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for SVGGraphicsElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for SVGGraphicsElement<TH> {}
-impl<TH> DerivedFrom<SVGElement<TH>> for SVGGraphicsElement<TH> {}
-impl<TH> DerivedFrom<SVGGraphicsElement<TH>> for SVGGraphicsElement<TH> {}
-
-impl<TH> Castable for SVGSVGElement<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for SVGSVGElement<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for SVGSVGElement<TH> {}
-impl<TH> DerivedFrom<Element<TH>> for SVGSVGElement<TH> {}
-impl<TH> DerivedFrom<SVGElement<TH>> for SVGSVGElement<TH> {}
-impl<TH> DerivedFrom<SVGGraphicsElement<TH>> for SVGSVGElement<TH> {}
-
-impl<TH> Castable for ServiceWorker<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for ServiceWorker<TH> {}
-
-impl<TH> Castable for ServiceWorkerContainer<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for ServiceWorkerContainer<TH> {}
-
-impl<TH> Castable for ServiceWorkerGlobalScope<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for ServiceWorkerGlobalScope<TH> {}
-impl<TH> DerivedFrom<GlobalScope<TH>> for ServiceWorkerGlobalScope<TH> {}
-impl<TH> DerivedFrom<WorkerGlobalScope<TH>> for ServiceWorkerGlobalScope<TH> {}
-
-impl<TH> Castable for ServiceWorkerRegistration<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for ServiceWorkerRegistration<TH> {}
-
-impl<TH> Castable for StorageEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for StorageEvent<TH> {}
-
-impl<TH> Castable for StyleSheet<TH> {}
-impl<TH> DerivedFrom<StyleSheet<TH>> for StyleSheet<TH> {}
-
-impl<TH> Castable for TestBinding<TH> {}
-impl<TH> DerivedFrom<TestBinding<TH>> for TestBinding<TH> {}
-
-impl<TH> Castable for TestBindingProxy<TH> {}
-impl<TH> DerivedFrom<TestBinding<TH>> for TestBindingProxy<TH> {}
-
-impl<TH> Castable for TestWorkletGlobalScope<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for TestWorkletGlobalScope<TH> {}
-impl<TH> DerivedFrom<GlobalScope<TH>> for TestWorkletGlobalScope<TH> {}
-impl<TH> DerivedFrom<WorkletGlobalScope<TH>> for TestWorkletGlobalScope<TH> {}
-
-impl<TH> Castable for Text<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for Text<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for Text<TH> {}
-impl<TH> DerivedFrom<CharacterData<TH>> for Text<TH> {}
-
-impl<TH> Castable for TouchEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for TouchEvent<TH> {}
-impl<TH> DerivedFrom<UIEvent<TH>> for TouchEvent<TH> {}
-
-impl<TH> Castable for TransitionEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for TransitionEvent<TH> {}
-
-impl<TH> Castable for UIEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for UIEvent<TH> {}
-impl<TH> DerivedFrom<UIEvent<TH>> for UIEvent<TH> {}
-
-impl<TH> Castable for VRDisplay<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for VRDisplay<TH> {}
-
-impl<TH> Castable for VRDisplayEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for VRDisplayEvent<TH> {}
-
-impl<TH> Castable for WebGLBuffer<TH> {}
-impl<TH> DerivedFrom<WebGLObject<TH>> for WebGLBuffer<TH> {}
-
-impl<TH> Castable for WebGLContextEvent<TH> {}
-impl<TH> DerivedFrom<Event<TH>> for WebGLContextEvent<TH> {}
-
-impl<TH> Castable for WebGLFramebuffer<TH> {}
-impl<TH> DerivedFrom<WebGLObject<TH>> for WebGLFramebuffer<TH> {}
-
-impl<TH> Castable for WebGLObject<TH> {}
-impl<TH> DerivedFrom<WebGLObject<TH>> for WebGLObject<TH> {}
-
-impl<TH> Castable for WebGLProgram<TH> {}
-impl<TH> DerivedFrom<WebGLObject<TH>> for WebGLProgram<TH> {}
-
-impl<TH> Castable for WebGLRenderbuffer<TH> {}
-impl<TH> DerivedFrom<WebGLObject<TH>> for WebGLRenderbuffer<TH> {}
-
-impl<TH> Castable for WebGLShader<TH> {}
-impl<TH> DerivedFrom<WebGLObject<TH>> for WebGLShader<TH> {}
-
-impl<TH> Castable for WebGLTexture<TH> {}
-impl<TH> DerivedFrom<WebGLObject<TH>> for WebGLTexture<TH> {}
-
-impl<TH> Castable for WebGLVertexArrayObjectOES<TH> {}
-impl<TH> DerivedFrom<WebGLObject<TH>> for WebGLVertexArrayObjectOES<TH> {}
-
-impl<TH> Castable for WebSocket<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for WebSocket<TH> {}
-
-impl<TH> Castable for Window<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for Window<TH> {}
-impl<TH> DerivedFrom<GlobalScope<TH>> for Window<TH> {}
-
-impl<TH> Castable for Worker<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for Worker<TH> {}
-
-impl<TH> Castable for WorkerGlobalScope<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for WorkerGlobalScope<TH> {}
-impl<TH> DerivedFrom<GlobalScope<TH>> for WorkerGlobalScope<TH> {}
-impl<TH> DerivedFrom<WorkerGlobalScope<TH>> for WorkerGlobalScope<TH> {}
-
-impl<TH> Castable for WorkletGlobalScope<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for WorkletGlobalScope<TH> {}
-impl<TH> DerivedFrom<GlobalScope<TH>> for WorkletGlobalScope<TH> {}
-impl<TH> DerivedFrom<WorkletGlobalScope<TH>> for WorkletGlobalScope<TH> {}
-
-impl<TH> Castable for XMLDocument<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for XMLDocument<TH> {}
-impl<TH> DerivedFrom<Node<TH>> for XMLDocument<TH> {}
-impl<TH> DerivedFrom<Document<TH>> for XMLDocument<TH> {}
-
-impl<TH> Castable for XMLHttpRequest<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for XMLHttpRequest<TH> {}
-impl<TH> DerivedFrom<XMLHttpRequestEventTarget<TH>> for XMLHttpRequest<TH> {}
-
-impl<TH> Castable for XMLHttpRequestEventTarget<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for XMLHttpRequestEventTarget<TH> {}
-impl<TH> DerivedFrom<XMLHttpRequestEventTarget<TH>> for XMLHttpRequestEventTarget<TH> {}
-
-impl<TH> Castable for XMLHttpRequestUpload<TH> {}
-impl<TH> DerivedFrom<EventTarget<TH>> for XMLHttpRequestUpload<TH> {}
-impl<TH> DerivedFrom<XMLHttpRequestEventTarget<TH>> for XMLHttpRequestUpload<TH> {}
+impl<TH: TypeHolderTrait> Castable for DOMPointReadOnly<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<DOMPointReadOnly<TH>> for DOMPointReadOnly<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for DOMRect<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<DOMRectReadOnly<TH>> for DOMRect<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for DOMRectReadOnly<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<DOMRectReadOnly<TH>> for DOMRectReadOnly<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for DedicatedWorkerGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for DedicatedWorkerGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<GlobalScope<TH>> for DedicatedWorkerGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WorkerGlobalScope<TH>> for DedicatedWorkerGlobalScope<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for DissimilarOriginWindow<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for DissimilarOriginWindow<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<GlobalScope<TH>> for DissimilarOriginWindow<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for Document<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Document<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for Document<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Document<TH>> for Document<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for DocumentFragment<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for DocumentFragment<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for DocumentFragment<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for DocumentType<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for DocumentType<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for DocumentType<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for Element<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Element<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for Element<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for Element<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for ErrorEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for ErrorEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for Event<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for Event<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for EventSource<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for EventSource<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for EventTarget<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for EventTarget<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for ExtendableEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for ExtendableEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<ExtendableEvent<TH>> for ExtendableEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for ExtendableMessageEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for ExtendableMessageEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<ExtendableEvent<TH>> for ExtendableMessageEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for File<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Blob<TH>> for File<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for FileReader<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for FileReader<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for FocusEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for FocusEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<UIEvent<TH>> for FocusEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for GamepadEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for GamepadEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for GlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for GlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<GlobalScope<TH>> for GlobalScope<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLAnchorElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLAnchorElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLAnchorElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLAnchorElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLAnchorElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLAreaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLAreaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLAreaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLAreaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLAreaElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLAudioElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLAudioElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLAudioElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLAudioElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLAudioElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLMediaElement<TH>> for HTMLAudioElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLBRElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLBRElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLBRElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLBRElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLBRElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLBaseElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLBaseElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLBaseElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLBaseElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLBaseElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLBodyElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLBodyElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLBodyElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLBodyElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLBodyElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLButtonElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLButtonElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLButtonElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLButtonElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLButtonElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLCanvasElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLCanvasElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLCanvasElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLCanvasElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLCanvasElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLCollection<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLCollection<TH>> for HTMLCollection<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLDListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLDListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLDListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLDListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLDListElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLDataElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLDataElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLDataElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLDataElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLDataElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLDataListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLDataListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLDataListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLDataListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLDataListElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLDetailsElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLDetailsElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLDetailsElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLDetailsElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLDetailsElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLDialogElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLDialogElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLDialogElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLDialogElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLDialogElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLDirectoryElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLDirectoryElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLDirectoryElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLDirectoryElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLDirectoryElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLDivElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLDivElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLDivElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLDivElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLDivElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLEmbedElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLEmbedElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLEmbedElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLEmbedElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLEmbedElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLFieldSetElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLFieldSetElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLFieldSetElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLFieldSetElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLFieldSetElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLFontElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLFontElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLFontElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLFontElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLFontElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLFormControlsCollection<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLCollection<TH>> for HTMLFormControlsCollection<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLFormElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLFormElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLFormElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLFormElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLFormElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLFrameElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLFrameElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLFrameElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLFrameElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLFrameElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLFrameSetElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLFrameSetElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLFrameSetElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLFrameSetElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLFrameSetElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLHRElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLHRElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLHRElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLHRElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLHRElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLHeadElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLHeadElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLHeadElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLHeadElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLHeadElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLHeadingElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLHeadingElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLHeadingElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLHeadingElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLHeadingElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLHtmlElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLHtmlElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLHtmlElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLHtmlElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLHtmlElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLIFrameElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLIFrameElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLIFrameElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLIFrameElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLIFrameElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLImageElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLImageElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLImageElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLImageElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLImageElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLInputElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLInputElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLInputElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLInputElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLInputElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLLIElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLLIElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLLIElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLLIElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLLIElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLLabelElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLLabelElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLLabelElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLLabelElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLLabelElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLLegendElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLLegendElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLLegendElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLLegendElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLLegendElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLLinkElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLLinkElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLLinkElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLLinkElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLLinkElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLMapElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLMapElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLMapElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLMapElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLMapElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLMediaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLMediaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLMediaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLMediaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLMediaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLMediaElement<TH>> for HTMLMediaElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLMetaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLMetaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLMetaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLMetaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLMetaElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLMeterElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLMeterElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLMeterElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLMeterElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLMeterElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLModElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLModElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLModElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLModElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLModElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLOListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLOListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLOListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLOListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLOListElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLObjectElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLObjectElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLObjectElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLObjectElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLObjectElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLOptGroupElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLOptGroupElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLOptGroupElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLOptGroupElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLOptGroupElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLOptionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLOptionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLOptionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLOptionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLOptionElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLOptionsCollection<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLCollection<TH>> for HTMLOptionsCollection<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLOutputElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLOutputElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLOutputElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLOutputElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLOutputElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLParagraphElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLParagraphElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLParagraphElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLParagraphElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLParagraphElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLParamElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLParamElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLParamElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLParamElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLParamElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLPictureElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLPictureElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLPictureElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLPictureElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLPictureElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLPreElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLPreElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLPreElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLPreElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLPreElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLProgressElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLProgressElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLProgressElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLProgressElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLProgressElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLQuoteElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLQuoteElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLQuoteElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLQuoteElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLQuoteElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLScriptElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLScriptElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLScriptElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLScriptElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLScriptElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLSelectElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLSelectElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLSelectElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLSelectElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLSelectElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLSourceElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLSourceElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLSourceElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLSourceElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLSourceElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLSpanElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLSpanElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLSpanElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLSpanElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLSpanElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLStyleElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLStyleElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLStyleElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLStyleElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLStyleElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTableCaptionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTableCaptionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTableCaptionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTableCaptionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTableCaptionElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTableCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTableCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTableCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTableCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTableCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLTableCellElement<TH>> for HTMLTableCellElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTableColElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTableColElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTableColElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTableColElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTableColElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTableDataCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTableDataCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTableDataCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTableDataCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTableDataCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLTableCellElement<TH>> for HTMLTableDataCellElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTableElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTableElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTableElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTableElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTableElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTableHeaderCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTableHeaderCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTableHeaderCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTableHeaderCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTableHeaderCellElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLTableCellElement<TH>> for HTMLTableHeaderCellElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTableRowElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTableRowElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTableRowElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTableRowElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTableRowElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTableSectionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTableSectionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTableSectionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTableSectionElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTableSectionElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTemplateElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTemplateElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTemplateElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTemplateElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTemplateElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTextAreaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTextAreaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTextAreaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTextAreaElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTextAreaElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTimeElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTimeElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTimeElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTimeElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTimeElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTitleElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTitleElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTitleElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTitleElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTitleElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLTrackElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLTrackElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLTrackElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLTrackElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLTrackElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLUListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLUListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLUListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLUListElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLUListElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLUnknownElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLUnknownElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLUnknownElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLUnknownElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLUnknownElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HTMLVideoElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLVideoElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLVideoElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLVideoElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLVideoElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<HTMLMediaElement<TH>> for HTMLVideoElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for HashChangeEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for HashChangeEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for InputEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for InputEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<UIEvent<TH>> for InputEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for KeyboardEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for KeyboardEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<UIEvent<TH>> for KeyboardEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for MediaQueryList<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for MediaQueryList<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for MediaQueryListEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for MediaQueryListEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for MessageEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for MessageEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for MouseEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for MouseEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<UIEvent<TH>> for MouseEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for Node<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Node<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for Node<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for NodeList<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<NodeList<TH>> for NodeList<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for PageTransitionEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for PageTransitionEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for PaintWorkletGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for PaintWorkletGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<GlobalScope<TH>> for PaintWorkletGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WorkletGlobalScope<TH>> for PaintWorkletGlobalScope<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for PerformanceEntry<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<PerformanceEntry<TH>> for PerformanceEntry<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for PerformanceMark<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<PerformanceEntry<TH>> for PerformanceMark<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for PerformanceMeasure<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<PerformanceEntry<TH>> for PerformanceMeasure<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for PerformancePaintTiming<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<PerformanceEntry<TH>> for PerformancePaintTiming<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for PermissionStatus<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for PermissionStatus<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<PermissionStatus<TH>> for PermissionStatus<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for PopStateEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for PopStateEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for ProcessingInstruction<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for ProcessingInstruction<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for ProcessingInstruction<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CharacterData<TH>> for ProcessingInstruction<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for ProgressEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for ProgressEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for RadioNodeList<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<NodeList<TH>> for RadioNodeList<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for SVGElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for SVGElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for SVGElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for SVGElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<SVGElement<TH>> for SVGElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for SVGGraphicsElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for SVGGraphicsElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for SVGGraphicsElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for SVGGraphicsElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<SVGElement<TH>> for SVGGraphicsElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<SVGGraphicsElement<TH>> for SVGGraphicsElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for SVGSVGElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for SVGSVGElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for SVGSVGElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for SVGSVGElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<SVGElement<TH>> for SVGSVGElement<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<SVGGraphicsElement<TH>> for SVGSVGElement<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for ServiceWorker<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for ServiceWorker<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for ServiceWorkerContainer<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for ServiceWorkerContainer<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for ServiceWorkerGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for ServiceWorkerGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<GlobalScope<TH>> for ServiceWorkerGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WorkerGlobalScope<TH>> for ServiceWorkerGlobalScope<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for ServiceWorkerRegistration<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for ServiceWorkerRegistration<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for StorageEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for StorageEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for StyleSheet<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<StyleSheet<TH>> for StyleSheet<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for TestBinding<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<TestBinding<TH>> for TestBinding<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for TestBindingProxy<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<TestBinding<TH>> for TestBindingProxy<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for TestWorkletGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for TestWorkletGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<GlobalScope<TH>> for TestWorkletGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WorkletGlobalScope<TH>> for TestWorkletGlobalScope<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for Text<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Text<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for Text<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<CharacterData<TH>> for Text<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for TouchEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for TouchEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<UIEvent<TH>> for TouchEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for TransitionEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for TransitionEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for UIEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for UIEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<UIEvent<TH>> for UIEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for VRDisplay<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for VRDisplay<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for VRDisplayEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for VRDisplayEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebGLBuffer<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WebGLObject<TH>> for WebGLBuffer<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebGLContextEvent<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Event<TH>> for WebGLContextEvent<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebGLFramebuffer<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WebGLObject<TH>> for WebGLFramebuffer<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebGLObject<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WebGLObject<TH>> for WebGLObject<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebGLProgram<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WebGLObject<TH>> for WebGLProgram<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebGLRenderbuffer<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WebGLObject<TH>> for WebGLRenderbuffer<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebGLShader<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WebGLObject<TH>> for WebGLShader<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebGLTexture<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WebGLObject<TH>> for WebGLTexture<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebGLVertexArrayObjectOES<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WebGLObject<TH>> for WebGLVertexArrayObjectOES<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WebSocket<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for WebSocket<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for Window<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Window<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<GlobalScope<TH>> for Window<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for Worker<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Worker<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WorkerGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for WorkerGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<GlobalScope<TH>> for WorkerGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WorkerGlobalScope<TH>> for WorkerGlobalScope<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for WorkletGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for WorkletGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<GlobalScope<TH>> for WorkletGlobalScope<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<WorkletGlobalScope<TH>> for WorkletGlobalScope<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for XMLDocument<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for XMLDocument<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for XMLDocument<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<Document<TH>> for XMLDocument<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for XMLHttpRequest<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for XMLHttpRequest<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<XMLHttpRequestEventTarget<TH>> for XMLHttpRequest<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for XMLHttpRequestEventTarget<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for XMLHttpRequestEventTarget<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<XMLHttpRequestEventTarget<TH>> for XMLHttpRequestEventTarget<TH> {}
+
+impl<TH: TypeHolderTrait> Castable for XMLHttpRequestUpload<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for XMLHttpRequestUpload<TH> {}
+impl<TH: TypeHolderTrait> DerivedFrom<XMLHttpRequestEventTarget<TH>> for XMLHttpRequestUpload<TH> {}
 

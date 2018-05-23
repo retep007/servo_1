@@ -24,7 +24,7 @@ pub struct OESVertexArrayObject<TH: TypeHolderTrait> {
     bound_vao: MutNullableDom<WebGLVertexArrayObjectOES<TH>, TH>,
 }
 
-impl<TH> OESVertexArrayObject<TH> {
+impl<TH: TypeHolderTrait> OESVertexArrayObject<TH> {
     fn new_inherited(ctx: &WebGLRenderingContext<TH>) -> OESVertexArrayObject<TH> {
         Self {
             reflector_: Reflector::new(),
@@ -45,7 +45,7 @@ impl<TH> OESVertexArrayObject<TH> {
     }
 }
 
-impl<TH> OESVertexArrayObjectMethods<TH> for OESVertexArrayObject<TH> {
+impl<TH: TypeHolderTrait> OESVertexArrayObjectMethods<TH> for OESVertexArrayObject<TH> {
     // https://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/
     fn CreateVertexArrayOES(&self) -> Option<DomRoot<WebGLVertexArrayObjectOES<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
@@ -131,7 +131,7 @@ impl<TH> OESVertexArrayObjectMethods<TH> for OESVertexArrayObject<TH> {
     }
 }
 
-impl<TH> WebGLExtension<TH> for OESVertexArrayObject<TH> {
+impl<TH: TypeHolderTrait> WebGLExtension<TH> for OESVertexArrayObject<TH> {
     type Extension = OESVertexArrayObject<TH>;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESVertexArrayObject<TH>> {
         reflect_dom_object(Box::new(OESVertexArrayObject::new_inherited(ctx)),

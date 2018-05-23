@@ -69,7 +69,7 @@ impl<TH: TypeHolderTrait> HashChangeEvent<TH> {
     }
 }
 
-impl<TH> HashChangeEventMethods for HashChangeEvent<TH> {
+impl<TH: TypeHolderTrait> HashChangeEventMethods for HashChangeEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-hashchangeevent-oldurl
     fn OldURL(&self) -> USVString {
         USVString(self.old_url.clone())

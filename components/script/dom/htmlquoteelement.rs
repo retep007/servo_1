@@ -16,7 +16,7 @@ pub struct HTMLQuoteElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH> HTMLQuoteElement<TH> {
+impl<TH: TypeHolderTrait> HTMLQuoteElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLQuoteElement<TH> {

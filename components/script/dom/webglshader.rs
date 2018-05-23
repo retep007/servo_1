@@ -86,7 +86,7 @@ impl<TH: TypeHolderTrait> WebGLShader<TH> {
 }
 
 
-impl<TH> WebGLShader<TH> {
+impl<TH: TypeHolderTrait> WebGLShader<TH> {
     pub fn id(&self) -> WebGLShaderId {
         self.id
     }
@@ -236,7 +236,7 @@ impl<TH> WebGLShader<TH> {
     }
 }
 
-impl<TH> Drop for WebGLShader<TH> {
+impl<TH: TypeHolderTrait> Drop for WebGLShader<TH> {
     fn drop(&mut self) {
         assert_eq!(self.attached_counter.get(), 0);
         self.delete();

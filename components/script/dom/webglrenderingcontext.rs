@@ -1191,7 +1191,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
     }
 }
 
-impl<TH> Drop for WebGLRenderingContext<TH> {
+impl<TH: TypeHolderTrait> Drop for WebGLRenderingContext<TH> {
     fn drop(&mut self) {
         self.webgl_sender.send_remove().unwrap();
     }

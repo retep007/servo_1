@@ -31,7 +31,7 @@ impl<TH: TypeHolderTrait> MediaError<TH> {
     }
 }
 
-impl<TH> MediaErrorMethods for MediaError<TH> {
+impl<TH: TypeHolderTrait> MediaErrorMethods for MediaError<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-mediaerror-code
     fn Code(&self) -> u16 {
         self.code

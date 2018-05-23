@@ -320,7 +320,7 @@ impl<TH: TypeHolderTrait> Function<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for Function<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for Function<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<Function<TH>> {
         Function::new(cx, callback)
     }
@@ -330,7 +330,7 @@ impl<TH> CallbackContainer<TH> for Function<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for Function<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for Function<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

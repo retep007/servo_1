@@ -110,7 +110,7 @@ impl<TH: TypeHolderTrait> ServiceWorkerMethods<TH> for ServiceWorker<TH> {
     event_handler!(statechange, GetOnstatechange, SetOnstatechange);
 }
 
-impl<TH> TaskOnce for SimpleWorkerErrorHandler<ServiceWorker<TH>, TH> {
+impl<TH: TypeHolderTrait> TaskOnce for SimpleWorkerErrorHandler<ServiceWorker<TH>, TH> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         ServiceWorker::dispatch_simple_error(self.addr);

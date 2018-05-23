@@ -518,7 +518,7 @@ impl<TH: TypeHolderTrait> FrameRequestCallback<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for FrameRequestCallback<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for FrameRequestCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<FrameRequestCallback<TH>> {
         FrameRequestCallback::new(cx, callback)
     }
@@ -528,7 +528,7 @@ impl<TH> CallbackContainer<TH> for FrameRequestCallback<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for FrameRequestCallback<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for FrameRequestCallback<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

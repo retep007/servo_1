@@ -27,7 +27,7 @@ pub struct TestWorkletGlobalScope<TH: TypeHolderTrait> {
     lookup_table: DomRefCell<HashMap<String, String>>,
 }
 
-impl<TH> TestWorkletGlobalScope<TH> {
+impl<TH: TypeHolderTrait> TestWorkletGlobalScope<TH> {
     #[allow(unsafe_code)]
     pub fn new(runtime: &Runtime,
                pipeline_id: PipelineId,
@@ -55,7 +55,7 @@ impl<TH> TestWorkletGlobalScope<TH> {
     }
 }
 
-impl<TH> TestWorkletGlobalScopeMethods for TestWorkletGlobalScope<TH> {
+impl<TH: TypeHolderTrait> TestWorkletGlobalScopeMethods for TestWorkletGlobalScope<TH> {
     fn RegisterKeyValue(&self, key: DOMString, value: DOMString) {
         debug!("Registering test worklet key/value {}/{}.", key, value);
         self.lookup_table.borrow_mut().insert(String::from(key), String::from(value));

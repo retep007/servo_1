@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> CSSKeyframesRule<TH> {
     }
 }
 
-impl<TH> CSSKeyframesRuleMethods<TH> for CSSKeyframesRule<TH> {
+impl<TH: TypeHolderTrait> CSSKeyframesRuleMethods<TH> for CSSKeyframesRule<TH> {
     // https://drafts.csswg.org/css-animations/#dom-csskeyframesrule-cssrules
     fn CssRules(&self) -> DomRoot<CSSRuleList<TH>> {
         self.rulelist()
@@ -129,7 +129,7 @@ impl<TH> CSSKeyframesRuleMethods<TH> for CSSKeyframesRule<TH> {
     }
 }
 
-impl<TH> SpecificCSSRule for CSSKeyframesRule<TH> {
+impl<TH: TypeHolderTrait> SpecificCSSRule for CSSKeyframesRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::KEYFRAMES_RULE

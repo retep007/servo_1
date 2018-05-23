@@ -15,7 +15,7 @@ pub struct TestBindingProxy<TH: TypeHolderTrait> {
     reflector_: Reflector
 }
 
-impl<TH> TestBindingProxyMethods for TestBindingProxy<TH> {
+impl<TH: TypeHolderTrait> TestBindingProxyMethods for TestBindingProxy<TH> {
     fn Length(&self) -> u32 { 0 }
     fn SupportedPropertyNames(&self) -> Vec<DOMString> { vec![] }
     fn GetNamedItem(&self, _: DOMString) -> DOMString { DOMString::new() }

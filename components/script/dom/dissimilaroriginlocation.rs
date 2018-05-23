@@ -31,7 +31,7 @@ pub struct DissimilarOriginLocation<TH: TypeHolderTrait> {
     window: Dom<DissimilarOriginWindow<TH>>,
 }
 
-impl<TH> DissimilarOriginLocation<TH> {
+impl<TH: TypeHolderTrait> DissimilarOriginLocation<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(window: &DissimilarOriginWindow<TH>) -> DissimilarOriginLocation<TH> {
         DissimilarOriginLocation {
@@ -52,7 +52,7 @@ impl<TH> DissimilarOriginLocation<TH> {
     }
 }
 
-impl<TH> DissimilarOriginLocationMethods<TH> for DissimilarOriginLocation<TH> {
+impl<TH: TypeHolderTrait> DissimilarOriginLocationMethods<TH> for DissimilarOriginLocation<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-href
     fn GetHref(&self) -> Fallible<USVString, TH> {
         Err(Error::Security)

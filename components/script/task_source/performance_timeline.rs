@@ -19,19 +19,19 @@ use typeholder::TypeHolderTrait;
 #[derive(JSTraceable)]
 pub struct PerformanceTimelineTaskSource<TH: TypeHolderTrait>(pub Box<ScriptChan + Send + 'static>, pub PipelineId);
 
-impl<TH> Clone for PerformanceTimelineTaskSource<TH> {
+impl<TH: TypeHolderTrait> Clone for PerformanceTimelineTaskSource<TH> {
     fn clone(&self) -> PerformanceTimelineTaskSource<TH> {
         PerformanceTimelineTaskSource(self.0.clone(), self.1.clone())
     }
 }
 
-impl<TH> fmt::Debug for PerformanceTimelineTaskSource<TH> {
+impl<TH: TypeHolderTrait> fmt::Debug for PerformanceTimelineTaskSource<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "PerformanceTimelineTaskSource(...)")
     }
 }
 
-impl<TH> TaskSource<TH> for PerformanceTimelineTaskSource<TH> {
+impl<TH: TypeHolderTrait> TaskSource<TH> for PerformanceTimelineTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,

@@ -19,7 +19,7 @@ pub struct ProcessingInstruction<TH: TypeHolderTrait> {
     target: DOMString,
 }
 
-impl<TH> ProcessingInstruction<TH> {
+impl<TH: TypeHolderTrait> ProcessingInstruction<TH> {
     fn new_inherited(target: DOMString, data: DOMString, document: &Document<TH>) -> ProcessingInstruction<TH> {
         ProcessingInstruction {
             characterdata: CharacterData::new_inherited(data, document),
@@ -34,13 +34,13 @@ impl<TH> ProcessingInstruction<TH> {
 }
 
 
-impl<TH> ProcessingInstruction<TH> {
+impl<TH: TypeHolderTrait> ProcessingInstruction<TH> {
     pub fn target(&self) -> &DOMString {
         &self.target
     }
 }
 
-impl<TH> ProcessingInstructionMethods for ProcessingInstruction<TH> {
+impl<TH: TypeHolderTrait> ProcessingInstructionMethods for ProcessingInstruction<TH> {
     // https://dom.spec.whatwg.org/#dom-processinginstruction-target
     fn Target(&self) -> DOMString {
         self.target.clone()

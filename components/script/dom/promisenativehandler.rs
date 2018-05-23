@@ -24,7 +24,7 @@ pub struct PromiseNativeHandler<TH: TypeHolderTrait> {
     reject: Option<Box<Callback>>,
 }
 
-impl<TH> PromiseNativeHandler<TH> {
+impl<TH: TypeHolderTrait> PromiseNativeHandler<TH> {
     pub fn new(global: &GlobalScope<TH>,
                resolve: Option<Box<Callback>>,
                reject: Option<Box<Callback>>)

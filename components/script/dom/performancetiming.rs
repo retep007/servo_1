@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> PerformanceTiming<TH> {
     }
 }
 
-impl<TH> PerformanceTimingMethods for PerformanceTiming<TH> {
+impl<TH: TypeHolderTrait> PerformanceTimingMethods for PerformanceTiming<TH> {
     // https://w3c.github.io/navigation-timing/#widl-PerformanceTiming-navigationStart
     fn NavigationStart(&self) -> u64 {
         self.navigation_start
@@ -96,7 +96,7 @@ impl<TH> PerformanceTimingMethods for PerformanceTiming<TH> {
 }
 
 
-impl<TH> PerformanceTiming<TH> {
+impl<TH: TypeHolderTrait> PerformanceTiming<TH> {
     pub fn navigation_start_precise(&self) -> u64 {
         self.navigation_start_precise
     }

@@ -34,7 +34,7 @@ pub struct Navigator<TH: TypeHolderTrait> {
     permissions: MutNullableDom<Permissions<TH>, TH>,
 }
 
-impl<TH> Navigator<TH> {
+impl<TH: TypeHolderTrait> Navigator<TH> {
     fn new_inherited() -> Navigator<TH> {
         Navigator {
             reflector_: Reflector::new(),
@@ -55,7 +55,7 @@ impl<TH> Navigator<TH> {
     }
 }
 
-impl<TH> NavigatorMethods<TH> for Navigator<TH> {
+impl<TH: TypeHolderTrait> NavigatorMethods<TH> for Navigator<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-navigator-product
     fn Product(&self) -> DOMString {
         navigatorinfo::Product()
@@ -151,7 +151,7 @@ impl<TH> NavigatorMethods<TH> for Navigator<TH> {
     }
 }
 
-impl<TH> Navigator<TH> {
+impl<TH: TypeHolderTrait> Navigator<TH> {
     pub fn Vr(&self) -> DomRoot<VR<TH>> {
         self.vr.or_init(|| VR::new(&self.global()))
     }

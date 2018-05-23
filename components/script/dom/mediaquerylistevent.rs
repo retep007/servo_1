@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> MediaQueryListEvent<TH> {
     }
 }
 
-impl<TH> MediaQueryListEventMethods for MediaQueryListEvent<TH> {
+impl<TH: TypeHolderTrait> MediaQueryListEventMethods for MediaQueryListEvent<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylistevent-media
     fn Media(&self) -> DOMString {
         self.media.clone()

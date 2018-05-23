@@ -16,7 +16,7 @@ pub struct HTMLBRElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH> HTMLBRElement<TH> {
+impl<TH: TypeHolderTrait> HTMLBRElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLBRElement<TH> {
         HTMLBRElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)

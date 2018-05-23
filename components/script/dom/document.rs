@@ -210,13 +210,13 @@ struct StyleSheetInDocument<TH: TypeHolderTrait> {
     owner: Dom<Element<TH>>,
 }
 
-impl<TH> PartialEq for StyleSheetInDocument<TH> {
+impl<TH: TypeHolderTrait> PartialEq for StyleSheetInDocument<TH> {
     fn eq(&self, other: &Self) -> bool {
         Arc::ptr_eq(&self.sheet, &other.sheet)
     }
 }
 
-impl<TH> ::style::stylesheets::StylesheetInDocument for StyleSheetInDocument<TH> {
+impl<TH: TypeHolderTrait> ::style::stylesheets::StylesheetInDocument for StyleSheetInDocument<TH> {
     fn origin(&self, guard: &SharedRwLockReadGuard) -> Origin {
         self.sheet.origin(guard)
     }
@@ -380,7 +380,7 @@ pub struct Document<TH: TypeHolderTrait> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 struct ImagesFilter<TH: TypeHolderTrait>;
-impl<TH> CollectionFilter<TH> for ImagesFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for ImagesFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLImageElement<TH>>()
     }
@@ -388,7 +388,7 @@ impl<TH> CollectionFilter<TH> for ImagesFilter<TH> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 struct EmbedsFilter<TH: TypeHolderTrait>;
-impl<TH> CollectionFilter<TH> for EmbedsFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for EmbedsFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLEmbedElement<TH>>()
     }
@@ -396,7 +396,7 @@ impl<TH> CollectionFilter<TH> for EmbedsFilter<TH> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 struct LinksFilter<TH: TypeHolderTrait>;
-impl<TH> CollectionFilter<TH> for LinksFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for LinksFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         (elem.is::<HTMLAnchorElement<TH>>() || elem.is::<HTMLAreaElement<TH>>()) &&
         elem.has_attribute(&local_name!("href"))
@@ -405,7 +405,7 @@ impl<TH> CollectionFilter<TH> for LinksFilter<TH> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 struct FormsFilter<TH: TypeHolderTrait>;
-impl<TH> CollectionFilter<TH> for FormsFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for FormsFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLFormElement<TH>>()
     }
@@ -413,7 +413,7 @@ impl<TH> CollectionFilter<TH> for FormsFilter<TH> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 struct ScriptsFilter<TH: TypeHolderTrait>;
-impl<TH> CollectionFilter<TH> for ScriptsFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for ScriptsFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLScriptElement<TH>>()
     }
@@ -421,13 +421,13 @@ impl<TH> CollectionFilter<TH> for ScriptsFilter<TH> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 struct AnchorsFilter<TH: TypeHolderTrait>;
-impl<TH> CollectionFilter<TH> for AnchorsFilter<TH> {
+impl<TH: TypeHolderTrait> CollectionFilter<TH> for AnchorsFilter<TH> {
     fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLAnchorElement<TH>>() && elem.has_attribute(&local_name!("href"))
     }
 }
 
-impl<TH> Document<TH> {
+impl<TH: TypeHolderTrait> Document<TH> {
     #[inline]
     pub fn loader(&self) -> Ref<DocumentLoader> {
         self.loader.borrow()
@@ -2156,7 +2156,7 @@ pub enum HasBrowsingContext {
     Yes,
 }
 
-impl<TH> Document<TH> {
+impl<TH: TypeHolderTrait> Document<TH> {
     pub fn new_inherited(window: &Window<TH>,
                          has_browsing_context: HasBrowsingContext,
                          url: Option<ServoUrl>,
@@ -2721,7 +2721,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 }
 
-impl<TH> ProfilerMetadataFactory for Document<TH> {
+impl<TH: TypeHolderTrait> ProfilerMetadataFactory for Document<TH> {
     fn new_metadata(&self) -> Option<TimerMetadata> {
         Some(TimerMetadata {
             url: String::from(self.url().as_str()),
@@ -3525,7 +3525,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
         struct NamedElementFilter<TH: TypeHolderTrait> {
             name: Atom,
         }
-        impl<TH> CollectionFilter<TH> for NamedElementFilter<TH> {
+        impl<TH: TypeHolderTrait> CollectionFilter<TH> for NamedElementFilter<TH> {
             fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                 filter_by_name(&self.name, elem.upcast())
             }
@@ -3991,7 +3991,7 @@ pub struct FakeRequestAnimationFrameCallback<TH: TypeHolderTrait> {
     document: Trusted<Document<TH>, TH>,
 }
 
-impl<TH> FakeRequestAnimationFrameCallback<TH> {
+impl<TH: TypeHolderTrait> FakeRequestAnimationFrameCallback<TH> {
     pub fn invoke(self) {
         let document = self.document.root();
         document.run_the_animation_frame_callbacks();
@@ -4030,7 +4030,7 @@ struct PendingInOrderScriptVec<TH: TypeHolderTrait> {
     scripts: DomRefCell<VecDeque<PendingScript<TH>>>,
 }
 
-impl<TH> PendingInOrderScriptVec<TH> {
+impl<TH: TypeHolderTrait> PendingInOrderScriptVec<TH> {
     fn is_empty(&self) -> bool {
         self.scripts.borrow().is_empty()
     }
@@ -4064,7 +4064,7 @@ struct PendingScript<TH: TypeHolderTrait> {
     load: Option<ScriptResult>,
 }
 
-impl<TH> PendingScript<TH> {
+impl<TH: TypeHolderTrait> PendingScript<TH> {
     fn new(element: &HTMLScriptElement<TH>) -> Self {
         Self { element: Dom::from_ref(element), load: None }
     }

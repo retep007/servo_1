@@ -188,7 +188,7 @@ impl<TH: TypeHolderTrait> HTMLSelectElement<TH> {
      }
 }
 
-impl<TH> HTMLSelectElementMethods<TH> for HTMLSelectElement<TH> {
+impl<TH: TypeHolderTrait> HTMLSelectElementMethods<TH> for HTMLSelectElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
@@ -398,7 +398,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLSelectElement<TH> {
     }
 }
 
-impl<TH> FormControl<TH> for HTMLSelectElement<TH> {
+impl<TH: TypeHolderTrait> FormControl<TH> for HTMLSelectElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -412,7 +412,7 @@ impl<TH> FormControl<TH> for HTMLSelectElement<TH> {
     }
 }
 
-impl<TH> Validatable for HTMLSelectElement<TH> {
+impl<TH: TypeHolderTrait> Validatable for HTMLSelectElement<TH> {
     fn is_instance_validatable(&self) -> bool {
         true
     }

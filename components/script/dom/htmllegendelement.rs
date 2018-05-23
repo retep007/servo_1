@@ -84,7 +84,7 @@ impl<TH: TypeHolderTrait> HTMLLegendElementMethods<TH> for HTMLLegendElement<TH>
     }
 }
 
-impl<TH> FormControl<TH> for HTMLLegendElement<TH> {
+impl<TH: TypeHolderTrait> FormControl<TH> for HTMLLegendElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }

@@ -237,7 +237,7 @@ struct InputActivationState<TH: TypeHolderTrait> {
     old_type: InputType,
 }
 
-impl<TH> InputActivationState<TH> {
+impl<TH: TypeHolderTrait> InputActivationState<TH> {
     fn new() -> InputActivationState<TH> {
         InputActivationState {
             indeterminate: false,
@@ -254,7 +254,7 @@ static DEFAULT_INPUT_SIZE: u32 = 20;
 static DEFAULT_MAX_LENGTH: i32 = -1;
 static DEFAULT_MIN_LENGTH: i32 = -1;
 
-impl<TH> HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait> HTMLInputElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLInputElement<TH> {
         let chan = document.window().upcast::<GlobalScope<TH>>().script_to_constellation_chan().clone();
         HTMLInputElement {
@@ -339,7 +339,7 @@ unsafe fn get_raw_textinput_value<TH: TypeHolderTrait>(input: LayoutDom<HTMLInpu
     (*input.unsafe_get()).textinput.borrow_for_layout().get_content()
 }
 
-impl<TH> LayoutHTMLInputElementHelpers for LayoutDom<HTMLInputElement<TH>> {
+impl<TH: TypeHolderTrait> LayoutHTMLInputElementHelpers for LayoutDom<HTMLInputElement<TH>> {
     #[allow(unsafe_code)]
     unsafe fn value_for_layout(self) -> String {
         #[allow(unsafe_code)]
@@ -421,7 +421,7 @@ impl<TH> LayoutHTMLInputElementHelpers for LayoutDom<HTMLInputElement<TH>> {
     }
 }
 
-impl<TH> TextControlElement<TH> for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait> TextControlElement<TH> for HTMLInputElement<TH> {
     // https://html.spec.whatwg.org/multipage/#concept-input-apply
     fn selection_api_applies(&self) -> bool {
         match self.input_type() {
@@ -1115,7 +1115,7 @@ impl<TH: TypeHolderTrait> HTMLInputElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLInputElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -1420,7 +1420,7 @@ impl<TH> VirtualMethods<TH> for HTMLInputElement<TH> {
     }
 }
 
-impl<TH> FormControl<TH> for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait> FormControl<TH> for HTMLInputElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -1434,7 +1434,7 @@ impl<TH> FormControl<TH> for HTMLInputElement<TH> {
     }
 }
 
-impl<TH> Validatable for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait> Validatable for HTMLInputElement<TH> {
     fn is_instance_validatable(&self) -> bool {
         // https://html.spec.whatwg.org/multipage/#candidate-for-constraint-validation
         true

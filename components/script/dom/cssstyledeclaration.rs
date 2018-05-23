@@ -42,7 +42,7 @@ pub enum CSSStyleOwner<TH: TypeHolderTrait> {
             Arc<Locked<PropertyDeclarationBlock>>),
 }
 
-impl<TH> CSSStyleOwner<TH> {
+impl<TH: TypeHolderTrait> CSSStyleOwner<TH> {
     // Mutate the declaration block associated to this style owner, and
     // optionally indicate if it has changed (assumed to be true).
     fn mutate_associated_block<F, R>(&self, f: F) -> R
@@ -298,7 +298,7 @@ impl<TH: TypeHolderTrait> CSSStyleDeclaration<TH> {
     }
 }
 
-impl<TH> CSSStyleDeclarationMethods<TH> for CSSStyleDeclaration<TH> {
+impl<TH: TypeHolderTrait> CSSStyleDeclarationMethods<TH> for CSSStyleDeclaration<TH> {
     // https://dev.w3.org/csswg/cssom/#dom-cssstyledeclaration-length
     fn Length(&self) -> u32 {
         self.owner.with_block(|pdb| {

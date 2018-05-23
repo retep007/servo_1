@@ -24,7 +24,7 @@ pub struct CloseEvent<TH: TypeHolderTrait> {
     reason: DOMString,
 }
 
-impl<TH> CloseEvent<TH> {
+impl<TH: TypeHolderTrait> CloseEvent<TH> {
     pub fn new_inherited(was_clean: bool, code: u16, reason: DOMString) -> CloseEvent<TH> {
         CloseEvent {
             event: Event::new_inherited(),
@@ -76,7 +76,7 @@ impl<TH> CloseEvent<TH> {
 
 }
 
-impl<TH> CloseEventMethods for CloseEvent<TH> {
+impl<TH: TypeHolderTrait> CloseEventMethods for CloseEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-closeevent-wasclean
     fn WasClean(&self) -> bool {
         self.was_clean

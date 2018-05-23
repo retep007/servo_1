@@ -27,7 +27,7 @@ pub struct ImageData<TH: TypeHolderTrait> {
     data: Heap<*mut JSObject>,
 }
 
-impl<TH> ImageData<TH> {
+impl<TH: TypeHolderTrait> ImageData<TH> {
     #[allow(unsafe_code)]
     pub fn new(global: &GlobalScope<TH>,
                width: u32,
@@ -147,7 +147,7 @@ impl<TH> ImageData<TH> {
     }
 }
 
-impl<TH> ImageDataMethods for ImageData<TH> {
+impl<TH: TypeHolderTrait> ImageDataMethods for ImageData<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-imagedata-width
     fn Width(&self) -> u32 {
         self.width

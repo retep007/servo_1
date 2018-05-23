@@ -74,7 +74,7 @@ unsafe impl<TH: TypeHolderTrait> JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom
         struct Tracer<TH>(*mut JSTracer);
         let tracer = Tracer(trc);
 
-        impl<TH> XmlTracer for Tracer<TH> {
+        impl<TH: TypeHolderTrait> XmlTracer for Tracer<TH> {
             type Handle = Dom<Node<TH>>;
             #[allow(unrooted_must_root)]
             fn trace_handle(&self, node: &Dom<Node<TH>>) {

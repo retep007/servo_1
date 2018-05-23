@@ -17,7 +17,7 @@ pub struct HTMLDivElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLDivElement<TH> {
+impl<TH: TypeHolderTrait> HTMLDivElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLDivElement<TH> {
@@ -36,7 +36,7 @@ impl<TH> HTMLDivElement<TH> {
     }
 }
 
-impl<TH> HTMLDivElementMethods for HTMLDivElement<TH> {
+impl<TH: TypeHolderTrait> HTMLDivElementMethods for HTMLDivElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-div-align
     make_getter!(Align, "align");
 

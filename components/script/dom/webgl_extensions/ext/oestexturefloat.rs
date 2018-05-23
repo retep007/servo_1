@@ -16,7 +16,7 @@ pub struct OESTextureFloat<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> OESTextureFloat<TH> {
+impl<TH: TypeHolderTrait> OESTextureFloat<TH> {
     fn new_inherited() -> OESTextureFloat<TH> {
         Self {
             reflector_: Reflector::new(),
@@ -24,7 +24,7 @@ impl<TH> OESTextureFloat<TH> {
     }
 }
 
-impl<TH> WebGLExtension<TH> for OESTextureFloat<TH> {
+impl<TH: TypeHolderTrait> WebGLExtension<TH> for OESTextureFloat<TH> {
     type Extension = OESTextureFloat<TH>;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESTextureFloat<TH>> {
         reflect_dom_object(Box::new(OESTextureFloat::new_inherited()),

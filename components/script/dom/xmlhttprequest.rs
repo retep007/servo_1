@@ -109,7 +109,7 @@ pub enum XHRProgress<TH: TypeHolderTrait> {
     Errored(GenerationId, Error<TH>),
 }
 
-impl<TH> XHRProgress<TH> {
+impl<TH: TypeHolderTrait> XHRProgress<TH> {
     fn generation_id(&self) -> GenerationId {
         match *self {
             XHRProgress::HeadersReceived(id, _, _) |
@@ -163,7 +163,7 @@ pub struct XMLHttpRequest<TH: TypeHolderTrait> {
     canceller: DomRefCell<FetchCanceller>,
 }
 
-impl<TH> XMLHttpRequest<TH> {
+impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
     fn new_inherited(global: &GlobalScope<TH>) -> XMLHttpRequest<TH> {
         //TODO - update this when referrer policy implemented for workers
         let (referrer_url, referrer_policy) = if let Some(window) = global.downcast::<Window<TH>>() {
@@ -229,7 +229,7 @@ impl<TH> XMLHttpRequest<TH> {
                           global: &GlobalScope<TH>,
                           init: RequestInit,
                           cancellation_chan: ipc::IpcReceiver<()>) {
-        impl<TH> FetchResponseListener for XHRContext<TH> {
+        impl<TH: TypeHolderTrait> FetchResponseListener for XHRContext<TH> {
             fn process_request_body(&mut self) {
                 // todo
             }
@@ -258,7 +258,7 @@ impl<TH> XMLHttpRequest<TH> {
             }
         }
 
-        impl<TH> PreInvoke for XHRContext<TH> {
+        impl<TH: TypeHolderTrait> PreInvoke for XHRContext<TH> {
             fn should_invoke(&self) -> bool {
                 self.xhr.root().generation_id.get() == self.gen_id
             }
@@ -1380,7 +1380,7 @@ pub struct XHRTimeoutCallback<TH: TypeHolderTrait> {
     generation_id: GenerationId,
 }
 
-impl<TH> XHRTimeoutCallback<TH> {
+impl<TH: TypeHolderTrait> XHRTimeoutCallback<TH> {
     pub fn invoke(self) {
         let xhr = self.xhr.root();
         if xhr.ready_state.get() != XMLHttpRequestState::Done {
@@ -1393,7 +1393,7 @@ pub trait Extractable {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>);
 }
 
-impl<TH> Extractable for Blob<TH> {
+impl<TH: TypeHolderTrait> Extractable for Blob<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         let content_type = if self.Type().as_ref().is_empty() {
             None
@@ -1413,7 +1413,7 @@ impl Extractable for DOMString {
     }
 }
 
-impl<TH> Extractable for FormData<TH> {
+impl<TH: TypeHolderTrait> Extractable for FormData<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         let boundary = generate_boundary();
         let bytes = encode_multipart_form_data(&mut self.datums(), boundary.clone(), UTF_8);
@@ -1421,7 +1421,7 @@ impl<TH> Extractable for FormData<TH> {
     }
 }
 
-impl<TH> Extractable for URLSearchParams<TH> {
+impl<TH: TypeHolderTrait> Extractable for URLSearchParams<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         (self.serialize_utf8().into_bytes(),
             Some(DOMString::from("application/x-www-form-urlencoded;charset=UTF-8")))
@@ -1436,7 +1436,7 @@ fn serialize_document<TH: TypeHolderTrait>(doc: &Document<TH>) -> Fallible<DOMSt
     }
 }
 
-impl<TH> Extractable for BodyInit<TH> {
+impl<TH: TypeHolderTrait> Extractable for BodyInit<TH> {
     // https://fetch.spec.whatwg.org/#concept-bodyinit-extract
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         match *self {

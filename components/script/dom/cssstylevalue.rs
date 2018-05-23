@@ -21,7 +21,7 @@ pub struct CSSStyleValue<TH: TypeHolderTrait> {
     value: String,
 }
 
-impl<TH> CSSStyleValue<TH> {
+impl<TH: TypeHolderTrait> CSSStyleValue<TH> {
     fn new_inherited(value: String) -> CSSStyleValue<TH> {
         CSSStyleValue {
             reflector: Reflector::new(),
@@ -34,14 +34,14 @@ impl<TH> CSSStyleValue<TH> {
     }
 }
 
-impl<TH> CSSStyleValueMethods for CSSStyleValue<TH> {
+impl<TH: TypeHolderTrait> CSSStyleValueMethods for CSSStyleValue<TH> {
     /// <https://drafts.css-houdini.org/css-typed-om-1/#CSSStyleValue-stringification-behavior>
     fn Stringifier(&self) -> DOMString {
         DOMString::from(&*self.value)
     }
 }
 
-impl<TH> CSSStyleValue<TH> {
+impl<TH: TypeHolderTrait> CSSStyleValue<TH> {
     /// Parse the value as a `url()`.
     /// TODO: This should really always be an absolute URL, but we currently
     /// return relative URLs for computed values, so we pass in a base.

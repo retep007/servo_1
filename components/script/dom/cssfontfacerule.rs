@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> CSSFontFaceRule<TH> {
     }
 }
 
-impl<TH> SpecificCSSRule for CSSFontFaceRule<TH> {
+impl<TH: TypeHolderTrait> SpecificCSSRule for CSSFontFaceRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::FONT_FACE_RULE

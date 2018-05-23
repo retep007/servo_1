@@ -16,7 +16,7 @@ pub struct SVGElement<TH: TypeHolderTrait> {
     element: Element<TH>,
 }
 
-impl<TH> SVGElement<TH> {
+impl<TH: TypeHolderTrait> SVGElement<TH> {
     pub fn new_inherited_with_state(state: ElementState, tag_name: LocalName,
                                     prefix: Option<Prefix>, document: &Document<TH>)
                                     -> SVGElement<TH> {
@@ -27,7 +27,7 @@ impl<TH> SVGElement<TH> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for SVGElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for SVGElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<Element<TH>>() as &VirtualMethods<TH>)
     }

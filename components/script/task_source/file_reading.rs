@@ -20,7 +20,7 @@ impl Clone for FileReadingTaskSource {
     }
 }
 
-impl<TH> TaskSource<TH> for FileReadingTaskSource {
+impl<TH: TypeHolderTrait> TaskSource<TH> for FileReadingTaskSource {
     fn queue_with_canceller<T>(
         &self,
         task: T,
@@ -37,7 +37,7 @@ impl<TH> TaskSource<TH> for FileReadingTaskSource {
     }
 }
 
-impl<TH> TaskOnce for FileReadingTask<TH> {
+impl<TH: TypeHolderTrait> TaskOnce for FileReadingTask<TH> {
     fn run_once(self) {
         self.handle_task();
     }
@@ -51,7 +51,7 @@ pub enum FileReadingTask<TH: TypeHolderTrait> {
     ProcessReadEOF(TrustedFileReader<TH>, GenerationId, ReadMetaData, Arc<Vec<u8>>),
 }
 
-impl<TH> FileReadingTask<TH> {
+impl<TH: TypeHolderTrait> FileReadingTask<TH> {
     pub fn handle_task(self) {
         use self::FileReadingTask::*;
 

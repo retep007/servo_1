@@ -16,7 +16,7 @@ pub struct HTMLParamElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH> HTMLParamElement<TH> {
+impl<TH: TypeHolderTrait> HTMLParamElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLParamElement<TH> {

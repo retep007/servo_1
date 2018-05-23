@@ -19,7 +19,7 @@ pub struct DOMStringMap<TH: TypeHolderTrait> {
     element: Dom<HTMLElement<TH>>,
 }
 
-impl<TH> DOMStringMap<TH> {
+impl<TH: TypeHolderTrait> DOMStringMap<TH> {
     fn new_inherited(element: &HTMLElement<TH>) -> DOMStringMap<TH> {
         DOMStringMap {
             reflector_: Reflector::new(),
@@ -36,7 +36,7 @@ impl<TH> DOMStringMap<TH> {
 }
 
 // https://html.spec.whatwg.org/multipage/#domstringmap
-impl<TH> DOMStringMapMethods<TH> for DOMStringMap<TH> {
+impl<TH: TypeHolderTrait> DOMStringMapMethods<TH> for DOMStringMap<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-domstringmap-removeitem
     fn NamedDeleter(&self, name: DOMString) {
         self.element.delete_custom_attr(name)

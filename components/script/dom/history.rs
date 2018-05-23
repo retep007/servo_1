@@ -64,7 +64,7 @@ impl <TH: TypeHolderTrait> History<TH> {
     }
 }
 
-impl<TH> History<TH> {
+impl<TH: TypeHolderTrait> History<TH> {
     fn traverse_history(&self, direction: TraversalDirection) -> ErrorResult<TH> {
         if !self.window.Document().is_fully_active() {
             return Err(Error::Security);

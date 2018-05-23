@@ -255,7 +255,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
     fn TBodies(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable)]
         struct TBodiesFilter<TH: TypeHolderTrait>;
-        impl<TH> CollectionFilter<TH> for TBodiesFilter<TH> {
+        impl<TH: TypeHolderTrait> CollectionFilter<TH> for TBodiesFilter<TH> {
             fn filter<TH>(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
                 elem.is::<HTMLTableSectionElement<TH>>() &&
                     elem.local_name() == &local_name!("tbody") &&
@@ -380,7 +380,7 @@ pub trait HTMLTableElementLayoutHelpers {
     fn get_width(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl<TH> HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement<TH>> {
+impl<TH: TypeHolderTrait> HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement<TH>> {
     #[allow(unsafe_code)]
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
@@ -417,7 +417,7 @@ impl<TH> HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement<TH>> {
     }
 }
 
-impl<TH> VirtualMethods<TH> for HTMLTableElement<TH> {
+impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTableElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

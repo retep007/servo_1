@@ -301,7 +301,7 @@ pub struct ResponseInit<TH: TypeHolderTrait> {
     pub status: u16,
     pub statusText: ByteString,
 }
-impl<TH> ResponseInit<TH> {
+impl<TH: TypeHolderTrait> ResponseInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> ResponseInit<TH> {
         match ResponseInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -378,7 +378,7 @@ impl<TH> ResponseInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for ResponseInit<TH> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for ResponseInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<ResponseInit<TH>>, ()> {
@@ -386,7 +386,7 @@ impl<TH> FromJSValConvertible for ResponseInit<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for ResponseInit<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for ResponseInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         if let Some(ref headers) = self.headers {

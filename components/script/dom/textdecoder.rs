@@ -28,7 +28,7 @@ pub struct TextDecoder<TH: TypeHolderTrait> {
     do_not_flush: Cell<bool>,
 }
 
-impl<TH> TextDecoder<TH> {
+impl<TH: TypeHolderTrait> TextDecoder<TH> {
     fn new_inherited(encoding: &'static Encoding, fatal: bool, ignoreBOM: bool) -> TextDecoder<TH> {
         TextDecoder {
             reflector_: Reflector::new(),
@@ -68,7 +68,7 @@ impl<TH> TextDecoder<TH> {
 }
 
 
-impl<TH> TextDecoderMethods<TH> for TextDecoder<TH> {
+impl<TH: TypeHolderTrait> TextDecoderMethods<TH> for TextDecoder<TH> {
     // https://encoding.spec.whatwg.org/#dom-textdecoder-encoding
     fn Encoding(&self) -> DOMString {
         DOMString::from(self.encoding.name().to_ascii_lowercase())

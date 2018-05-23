@@ -89,7 +89,7 @@ impl<TH: TypeHolderTrait> File<TH> {
     }
 }
 
-impl<TH> FileMethods for File<TH> {
+impl<TH: TypeHolderTrait> FileMethods for File<TH> {
     // https://w3c.github.io/FileAPI/#dfn-name
     fn Name(&self) -> DOMString {
         self.name.clone()

@@ -16,7 +16,7 @@ pub struct HTMLTableColElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH> HTMLTableColElement<TH> {
+impl<TH: TypeHolderTrait> HTMLTableColElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLTableColElement<TH> {

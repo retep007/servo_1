@@ -308,7 +308,7 @@ impl<TH: TypeHolderTrait> PromiseJobCallback<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for PromiseJobCallback<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for PromiseJobCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<PromiseJobCallback<TH>> {
         PromiseJobCallback::new(cx, callback)
     }
@@ -318,7 +318,7 @@ impl<TH> CallbackContainer<TH> for PromiseJobCallback<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for PromiseJobCallback<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for PromiseJobCallback<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }
@@ -391,7 +391,7 @@ impl<TH: TypeHolderTrait> AnyCallback<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for AnyCallback<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for AnyCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<AnyCallback<TH>> {
         AnyCallback::new(cx, callback)
     }
@@ -401,7 +401,7 @@ impl<TH> CallbackContainer<TH> for AnyCallback<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for AnyCallback<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for AnyCallback<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

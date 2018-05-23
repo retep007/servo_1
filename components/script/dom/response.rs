@@ -49,7 +49,7 @@ pub struct Response<TH: TypeHolderTrait> {
     body_promise: DomRefCell<Option<(Rc<Promise<TH>>, BodyType)>>,
 }
 
-impl<TH> Response<TH> {
+impl<TH: TypeHolderTrait> Response<TH> {
     pub fn new_inherited() -> Response<TH> {
         Response {
             reflector_: Reflector::new(),
@@ -192,7 +192,7 @@ impl<TH> Response<TH> {
     }
 }
 
-impl<TH> BodyOperations<TH> for Response<TH> {
+impl<TH: TypeHolderTrait> BodyOperations<TH> for Response<TH> {
     fn get_body_used(&self) -> bool {
         self.BodyUsed()
     }
@@ -246,7 +246,7 @@ fn is_null_body_status(status: u16) -> bool {
     status == 101 || status == 204 || status == 205 || status == 304
 }
 
-impl<TH> ResponseMethods<TH> for Response<TH> {
+impl<TH: TypeHolderTrait> ResponseMethods<TH> for Response<TH> {
     // https://fetch.spec.whatwg.org/#dom-response-type
     fn Type(&self) -> DOMResponseType {
         *self.response_type.borrow()//into()
@@ -367,7 +367,7 @@ fn serialize_without_fragment(url: &ServoUrl) -> &str {
     &url[..Position::AfterQuery]
 }
 
-impl<TH> Response<TH> {
+impl<TH: TypeHolderTrait> Response<TH> {
     pub fn set_type(&self, new_response_type: DOMResponseType) {
         *self.response_type.borrow_mut() = new_response_type;
     }

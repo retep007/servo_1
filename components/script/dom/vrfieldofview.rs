@@ -22,7 +22,7 @@ pub struct VRFieldOfView<TH: TypeHolderTrait> {
 
 unsafe_no_jsmanaged_fields!(WebVRFieldOfView);
 
-impl<TH> VRFieldOfView<TH> {
+impl<TH: TypeHolderTrait> VRFieldOfView<TH> {
     fn new_inherited(fov: WebVRFieldOfView) -> VRFieldOfView<TH> {
         VRFieldOfView {
             reflector_: Reflector::new(),
@@ -37,7 +37,7 @@ impl<TH> VRFieldOfView<TH> {
     }
 }
 
-impl<TH> VRFieldOfViewMethods for VRFieldOfView<TH> {
+impl<TH: TypeHolderTrait> VRFieldOfViewMethods for VRFieldOfView<TH> {
     // https://w3c.github.io/webvr/#interface-interface-vrfieldofview
     fn UpDegrees(&self) -> Finite<f64> {
         Finite::wrap(self.fov.borrow().up_degrees)

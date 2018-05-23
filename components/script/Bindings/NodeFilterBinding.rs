@@ -684,7 +684,7 @@ impl<TH: TypeHolderTrait> NodeFilter<TH> {
 
     }
 }
-impl<TH> CallbackContainer<TH> for NodeFilter<TH> {
+impl<TH: TypeHolderTrait> CallbackContainer<TH> for NodeFilter<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<NodeFilter<TH>> {
         NodeFilter::new(cx, callback)
     }
@@ -694,7 +694,7 @@ impl<TH> CallbackContainer<TH> for NodeFilter<TH> {
     }
 }
 
-impl<TH> ToJSValConvertible for NodeFilter<TH> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for NodeFilter<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

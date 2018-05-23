@@ -107,7 +107,7 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
     }
 }
 
-impl<TH> VRDisplayEventMethods<TH> for VRDisplayEvent<TH> {
+impl<TH: TypeHolderTrait> VRDisplayEventMethods<TH> for VRDisplayEvent<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplayevent-display
     fn Display(&self) -> DomRoot<VRDisplay<TH>> {
         DomRoot::from_ref(&*self.display)

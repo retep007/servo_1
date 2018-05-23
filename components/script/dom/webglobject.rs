@@ -12,7 +12,7 @@ pub struct WebGLObject<TH: TypeHolderTrait> {
     reflector_: Reflector,
 }
 
-impl<TH> WebGLObject<TH> {
+impl<TH: TypeHolderTrait> WebGLObject<TH> {
     pub fn new_inherited() -> WebGLObject<TH> {
         WebGLObject {
             reflector_: Reflector::new(),

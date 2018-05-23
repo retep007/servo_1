@@ -24,7 +24,7 @@ pub struct ProgressEvent<TH: TypeHolderTrait> {
     total: u64
 }
 
-impl<TH> ProgressEvent<TH> {
+impl<TH: TypeHolderTrait> ProgressEvent<TH> {
     fn new_inherited(length_computable: bool, loaded: u64, total: u64) -> ProgressEvent<TH> {
         ProgressEvent {
             event: Event::new_inherited(),
@@ -62,7 +62,7 @@ impl<TH> ProgressEvent<TH> {
     }
 }
 
-impl<TH> ProgressEventMethods for ProgressEvent<TH> {
+impl<TH: TypeHolderTrait> ProgressEventMethods for ProgressEvent<TH> {
     // https://xhr.spec.whatwg.org/#dom-progressevent-lengthcomputable
     fn LengthComputable(&self) -> bool {
         self.length_computable

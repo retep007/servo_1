@@ -541,7 +541,7 @@ pub struct RequestInit<TH: TypeHolderTrait> {
     pub referrerPolicy: Option<ReferrerPolicy>,
     pub window: RootedTraceableBox<Heap<JSVal>>,
 }
-impl<TH> RequestInit<TH> {
+impl<TH: TypeHolderTrait> RequestInit<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<RequestInit<TH>> {
         match RequestInit::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -739,7 +739,7 @@ impl<TH> RequestInit<TH> {
     }
 }
 
-impl<TH> FromJSValConvertible for RootedTraceableBox<RequestInit<TH>> {
+impl<TH: TypeHolderTrait> FromJSValConvertible for RootedTraceableBox<RequestInit<TH>> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<RootedTraceableBox<RequestInit<TH>>>, ()> {
@@ -747,7 +747,7 @@ impl<TH> FromJSValConvertible for RootedTraceableBox<RequestInit<TH>> {
     }
 }
 
-impl<TH> ToJSValConvertible for RootedTraceableBox<RequestInit<TH>> {
+impl<TH: TypeHolderTrait> ToJSValConvertible for RootedTraceableBox<RequestInit<TH>> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         if let Some(ref body) = self.body {

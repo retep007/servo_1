@@ -184,7 +184,7 @@ enum Tokenizer<TH: TypeHolderTrait> {
     Xml(self::xml::Tokenizer<TH>),
 }
 
-impl<TH> Tokenizer<TH> {
+impl<TH: TypeHolderTrait> Tokenizer<TH> {
     fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         match *self {
             Tokenizer::Html(ref mut tokenizer) => tokenizer.feed(input),
@@ -240,7 +240,7 @@ pub struct ParserContext<TH: TypeHolderTrait> {
     url: ServoUrl,
 }
 
-impl<TH> ParserContext<TH> {
+impl<TH: TypeHolderTrait> ParserContext<TH> {
     pub fn new(id: PipelineId, url: ServoUrl) -> ParserContext<TH> {
         ParserContext {
             parser: None,
@@ -386,7 +386,7 @@ impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
     }
 }
 
-impl<TH> PreInvoke for ParserContext<TH> {}
+impl<TH: TypeHolderTrait> PreInvoke for ParserContext<TH> {}
 
 pub struct FragmentContext<'a, TH: TypeHolderTrait> {
     pub context_elem: &'a Node<TH>,

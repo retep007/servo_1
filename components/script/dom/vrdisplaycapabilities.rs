@@ -21,7 +21,7 @@ pub struct VRDisplayCapabilities<TH: TypeHolderTrait> {
 
 unsafe_no_jsmanaged_fields!(WebVRDisplayCapabilities);
 
-impl<TH> VRDisplayCapabilities<TH> {
+impl<TH: TypeHolderTrait> VRDisplayCapabilities<TH> {
     fn new_inherited(capabilities: WebVRDisplayCapabilities) -> VRDisplayCapabilities<TH> {
         VRDisplayCapabilities {
             reflector_: Reflector::new(),
@@ -36,7 +36,7 @@ impl<TH> VRDisplayCapabilities<TH> {
     }
 }
 
-impl<TH> VRDisplayCapabilitiesMethods for VRDisplayCapabilities<TH> {
+impl<TH: TypeHolderTrait> VRDisplayCapabilitiesMethods for VRDisplayCapabilities<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplaycapabilities-hasposition
     fn HasPosition(&self) -> bool {
         self.capabilities.borrow().has_position

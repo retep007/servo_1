@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> WebGLActiveInfo<TH> {
     }
 }
 
-impl<TH> WebGLActiveInfoMethods for WebGLActiveInfo<TH> {
+impl<TH: TypeHolderTrait> WebGLActiveInfoMethods for WebGLActiveInfo<TH> {
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.11.1
     fn Size(&self) -> i32 {
         self.size

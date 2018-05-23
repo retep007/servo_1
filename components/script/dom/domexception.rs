@@ -44,7 +44,7 @@ pub struct DOMException<TH: TypeHolderTrait> {
     code: DOMErrorName,
 }
 
-impl<TH> DOMException<TH> {
+impl<TH: TypeHolderTrait> DOMException<TH> {
     fn new_inherited(code: DOMErrorName) -> DOMException<TH> {
         DOMException {
             reflector_: Reflector::new(),
@@ -59,7 +59,7 @@ impl<TH> DOMException<TH> {
     }
 }
 
-impl<TH> DOMExceptionMethods for DOMException<TH> {
+impl<TH: TypeHolderTrait> DOMExceptionMethods for DOMException<TH> {
     // https://heycam.github.io/webidl/#dfn-DOMException
     fn Code(&self) -> u16 {
         self.code as u16

@@ -108,7 +108,7 @@ impl<TH: TypeHolderTrait> WebGLProgram<TH> {
 }
 
 
-impl<TH> WebGLProgram<TH> {
+impl<TH: TypeHolderTrait> WebGLProgram<TH> {
     pub fn id(&self) -> WebGLProgramId {
         self.id
     }
@@ -384,7 +384,7 @@ impl<TH> WebGLProgram<TH> {
     }
 }
 
-impl<TH> Drop for WebGLProgram<TH> {
+impl<TH: TypeHolderTrait> Drop for WebGLProgram<TH> {
     fn drop(&mut self) {
         self.delete();
     }

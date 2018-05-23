@@ -107,7 +107,7 @@ impl<TH: TypeHolderTrait> Worklet<TH> {
     }
 }
 
-impl<TH> WorkletMethods<TH> for Worklet<TH> {
+impl<TH: TypeHolderTrait> WorkletMethods<TH> for Worklet<TH> {
     #[allow(unrooted_must_root)]
     /// <https://drafts.css-houdini.org/worklets/#dom-worklet-addmodule>
     fn AddModule(&self, module_url: USVString, options: &WorkletOptions) -> Rc<Promise<TH>> {
@@ -238,7 +238,7 @@ pub struct WorkletThreadPool<TH: TypeHolderTrait> {
     control_sender_2: Sender<WorkletControl<TH>>,
 }
 
-impl<TH> Drop for WorkletThreadPool<TH> {
+impl<TH: TypeHolderTrait> Drop for WorkletThreadPool<TH> {
     fn drop(&mut self) {
         let _ = self.cold_backup_sender.send(WorkletData::Quit);
         let _ = self.hot_backup_sender.send(WorkletData::Quit);
@@ -246,7 +246,7 @@ impl<TH> Drop for WorkletThreadPool<TH> {
     }
 }
 
-impl<TH> WorkletThreadPool<TH> {
+impl<TH: TypeHolderTrait> WorkletThreadPool<TH> {
     /// Create a new thread pool and spawn the threads.
     /// When the thread pool is dropped, the threads will be asked to quit.
     pub fn spawn(global_init: WorkletGlobalScopeInit) -> WorkletThreadPool<TH> {

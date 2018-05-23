@@ -22,7 +22,7 @@ pub struct TestBindingPairIterable<TH> {
     map: DomRefCell<Vec<(DOMString, u32)>>,
 }
 
-impl<TH> Iterable for TestBindingPairIterable<TH> {
+impl<TH: TypeHolderTrait> Iterable for TestBindingPairIterable<TH> {
     type Key = DOMString;
     type Value = u32;
     fn get_iterable_length(&self) -> u32 {
@@ -36,7 +36,7 @@ impl<TH> Iterable for TestBindingPairIterable<TH> {
     }
 }
 
-impl<TH> TestBindingPairIterable<TH> {
+impl<TH: TypeHolderTrait> TestBindingPairIterable<TH> {
     fn new(global: &GlobalScope<TH>) -> DomRoot<TestBindingPairIterable<TH>> {
         reflect_dom_object(Box::new(TestBindingPairIterable {
             reflector: Reflector::new(),
@@ -49,7 +49,7 @@ impl<TH> TestBindingPairIterable<TH> {
     }
 }
 
-impl<TH> TestBindingPairIterableMethods for TestBindingPairIterable<TH> {
+impl<TH: TypeHolderTrait> TestBindingPairIterableMethods for TestBindingPairIterable<TH> {
     fn Add(&self, key: DOMString, value: u32) {
         self.map.borrow_mut().push((key, value));
     }

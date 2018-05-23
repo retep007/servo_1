@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> CSSMediaRule<TH> {
     }
 }
 
-impl<TH> SpecificCSSRule for CSSMediaRule<TH> {
+impl<TH: TypeHolderTrait> SpecificCSSRule for CSSMediaRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::MEDIA_RULE

@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> PageTransitionEvent<TH> {
     }
 }
 
-impl<TH> PageTransitionEventMethods for PageTransitionEvent<TH> {
+impl<TH: TypeHolderTrait> PageTransitionEventMethods for PageTransitionEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-pagetransitionevent-persisted
     fn Persisted(&self) -> bool {
         self.persisted.get()

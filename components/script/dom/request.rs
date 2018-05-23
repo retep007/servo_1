@@ -51,7 +51,7 @@ pub struct Request<TH: TypeHolderTrait> {
     body_promise: DomRefCell<Option<(Rc<Promise<TH>>, BodyType)>>,
 }
 
-impl<TH> Request<TH> {
+impl<TH: TypeHolderTrait> Request<TH> {
     fn new_inherited(global: &GlobalScope<TH>,
                      url: ServoUrl) -> Request<TH> {
         Request {
@@ -404,7 +404,7 @@ impl<TH> Request<TH> {
     }
 }
 
-impl<TH> Request<TH> {
+impl<TH: TypeHolderTrait> Request<TH> {
     fn from_net_request(global: &GlobalScope<TH>,
                         net_request: NetTraitsRequest) -> DomRoot<Request<TH>> {
         let r = Request::new(global,
@@ -500,7 +500,7 @@ fn request_is_locked<TH: TypeHolderTrait>(_input: &Request<TH>) -> bool {
     false
 }
 
-impl<TH> RequestMethods<TH> for Request<TH> {
+impl<TH: TypeHolderTrait> RequestMethods<TH> for Request<TH> {
     // https://fetch.spec.whatwg.org/#dom-request-method
     fn Method(&self) -> ByteString {
         let r = self.request.borrow();
@@ -620,7 +620,7 @@ impl<TH> RequestMethods<TH> for Request<TH> {
     }
 }
 
-impl<TH> BodyOperations<TH> for Request<TH> {
+impl<TH: TypeHolderTrait> BodyOperations<TH> for Request<TH> {
     fn get_body_used(&self) -> bool {
         self.BodyUsed()
     }
@@ -820,7 +820,7 @@ impl Into<RequestRedirect> for NetTraitsRequestRedirect {
     }
 }
 
-impl<TH> Clone for HeadersInit<TH> {
+impl<TH: TypeHolderTrait> Clone for HeadersInit<TH> {
     fn clone(&self) -> HeadersInit<TH> {
     match self {
         &HeadersInit::Headers(ref h) =>

@@ -157,7 +157,7 @@ struct ScriptContext<TH: TypeHolderTrait> {
     status: Result<(), NetworkError>
 }
 
-impl<TH> FetchResponseListener for ScriptContext<TH> {
+impl<TH: TypeHolderTrait> FetchResponseListener for ScriptContext<TH> {
     fn process_request_body(&mut self) {} // TODO(KiChjang): Perhaps add custom steps to perform fetch here?
 
     fn process_request_eof(&mut self) {} // TODO(KiChjang): Perhaps add custom steps to perform fetch here?
@@ -223,7 +223,7 @@ impl<TH> FetchResponseListener for ScriptContext<TH> {
     }
 }
 
-impl<TH> PreInvoke for ScriptContext<TH> {}
+impl<TH: TypeHolderTrait> PreInvoke for ScriptContext<TH> {}
 
 /// <https://html.spec.whatwg.org/multipage/#fetch-a-classic-script>
 fn fetch_a_classic_script<TH: TypeHolderTrait>(script: &HTMLScriptElement<TH>,

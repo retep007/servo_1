@@ -70,7 +70,7 @@ impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
 }
 
 
-impl<TH> WebGLBuffer<TH> {
+impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
     pub fn id(&self) -> WebGLBufferId {
         self.id
     }
@@ -168,7 +168,7 @@ impl<TH> WebGLBuffer<TH> {
     }
 }
 
-impl<TH> Drop for WebGLBuffer<TH> {
+impl<TH: TypeHolderTrait> Drop for WebGLBuffer<TH> {
     fn drop(&mut self) {
         self.delete();
     }

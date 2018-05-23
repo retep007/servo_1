@@ -28,7 +28,7 @@ pub struct HTMLFieldSetElement<TH: TypeHolderTrait> {
     form_owner: MutNullableDom<HTMLFormElement<TH>, TH>,
 }
 
-impl<TH> HTMLFieldSetElement<TH> {
+impl<TH: TypeHolderTrait> HTMLFieldSetElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLFieldSetElement<TH> {
@@ -50,12 +50,12 @@ impl<TH> HTMLFieldSetElement<TH> {
     }
 }
 
-impl<TH> HTMLFieldSetElementMethods<TH> for HTMLFieldSetElement<TH> {
+impl<TH: TypeHolderTrait> HTMLFieldSetElementMethods<TH> for HTMLFieldSetElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-fieldset-elements
     fn Elements(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
         struct ElementsFilter<TH>;
-        impl<TH> CollectionFilter<TH> for ElementsFilter<TH> {
+        impl<TH: TypeHolderTrait> CollectionFilter<TH> for ElementsFilter<TH> {
             fn filter<'a>(&self, elem: &'a Element<TH>, _root: &'a Node<TH>) -> bool {
                 elem.downcast::<HTMLElement<TH>>()
                     .map_or(false, HTMLElement::is_listed_element)
@@ -159,7 +159,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLFieldSetElement<TH> {
     }
 }
 
-impl<TH> FormControl<TH> for HTMLFieldSetElement<TH> {
+impl<TH: TypeHolderTrait> FormControl<TH> for HTMLFieldSetElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }

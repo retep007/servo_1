@@ -24,7 +24,7 @@ pub struct DOMTokenList<TH: TypeHolderTrait> {
     local_name: LocalName,
 }
 
-impl<TH> DOMTokenList<TH> {
+impl<TH: TypeHolderTrait> DOMTokenList<TH> {
     pub fn new_inherited(element: &Element<TH>, local_name: LocalName) -> DOMTokenList<TH> {
         DOMTokenList {
             reflector_: Reflector::new(),
@@ -54,7 +54,7 @@ impl<TH> DOMTokenList<TH> {
 }
 
 // https://dom.spec.whatwg.org/#domtokenlist
-impl<TH> DOMTokenListMethods<TH> for DOMTokenList<TH> {
+impl<TH: TypeHolderTrait> DOMTokenListMethods<TH> for DOMTokenList<TH> {
     // https://dom.spec.whatwg.org/#dom-domtokenlist-length
     fn Length(&self) -> u32 {
         self.attribute().map_or(0, |attr| {
