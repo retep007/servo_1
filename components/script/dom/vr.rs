@@ -27,7 +27,7 @@ use webvr_traits::{WebVRGamepadData, WebVRGamepadEvent, WebVRGamepadState};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VR<TH: TypeHolderTrait> {
+pub struct VR<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     displays: DomRefCell<Vec<Dom<VRDisplay<TH>>>>,
     gamepads: DomRefCell<Vec<Dom<Gamepad<TH>>>>

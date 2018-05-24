@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 /// An HTML comment.
 #[dom_struct]
-pub struct Comment<TH: TypeHolderTrait> {
+pub struct Comment<TH: TypeHolderTrait + 'static> {
     characterdata: CharacterData<TH>,
 }
 

@@ -23,7 +23,7 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ExtendableMessageEvent<TH: TypeHolderTrait> {
+pub struct ExtendableMessageEvent<TH: TypeHolderTrait + 'static> {
     event: ExtendableEvent<TH>,
     data: Heap<JSVal>,
     origin: DOMString,

@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#interface-treewalker
 #[dom_struct]
-pub struct TreeWalker<TH: TypeHolderTrait> {
+pub struct TreeWalker<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     root_node: Dom<Node<TH>>,
     current_node: MutDom<Node<TH>>,

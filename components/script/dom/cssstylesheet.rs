@@ -21,7 +21,7 @@ use style::stylesheets::Stylesheet as StyleStyleSheet;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSStyleSheet<TH: TypeHolderTrait> {
+pub struct CSSStyleSheet<TH: TypeHolderTrait + 'static> {
     stylesheet: StyleSheet<TH>,
     owner: Dom<Element<TH>>,
     rulelist: MutNullableDom<CSSRuleList<TH>>,

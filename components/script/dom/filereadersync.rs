@@ -12,7 +12,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct FileReaderSync<TH: TypeHolderTrait> {
+pub struct FileReaderSync<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>
 }
 

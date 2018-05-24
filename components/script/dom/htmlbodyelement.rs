@@ -29,7 +29,7 @@ use typeholder::TypeHolderTrait;
 const INITIAL_REFLOW_DELAY: u64 = 200_000_000;
 
 #[dom_struct]
-pub struct HTMLBodyElement<TH: TypeHolderTrait> {
+pub struct HTMLBodyElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 

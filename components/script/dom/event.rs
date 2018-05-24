@@ -28,7 +28,7 @@ use time;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Event<TH: TypeHolderTrait> {
+pub struct Event<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     current_target: MutNullableDom<EventTarget<TH>>,
     target: MutNullableDom<EventTarget<TH>>,
@@ -382,7 +382,7 @@ pub enum EventStatus {
 }
 
 // https://dom.spec.whatwg.org/#concept-event-fire
-pub struct EventTask<TH: TypeHolderTrait> {
+pub struct EventTask<TH: TypeHolderTrait + 'static> {
     pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
     pub bubbles: EventBubbles,
@@ -399,7 +399,7 @@ impl<TH: TypeHolderTrait> TaskOnce for EventTask<TH> {
 }
 
 // https://html.spec.whatwg.org/multipage/#fire-a-simple-event
-pub struct SimpleEventTask<TH: TypeHolderTrait> {
+pub struct SimpleEventTask<TH: TypeHolderTrait + 'static> {
     pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
 }

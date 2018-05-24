@@ -48,7 +48,7 @@ impl RequestGenerationId {
 }
 
 #[dom_struct]
-pub struct HTMLLinkElement<TH: TypeHolderTrait> {
+pub struct HTMLLinkElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     rel_list: MutNullableDom<DOMTokenList<TH>>,
     #[ignore_malloc_size_of = "Arc"]

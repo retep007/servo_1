@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#worker-locations
 #[dom_struct]
-pub struct WorkerLocation<TH: TypeHolderTrait> {
+pub struct WorkerLocation<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     url: ServoUrl,
 }

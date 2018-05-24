@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 // http://dev.w3.org/fxtf/geometry/Overview.html#dompoint
 #[dom_struct]
-pub struct DOMPoint<TH: TypeHolderTrait> {
+pub struct DOMPoint<TH: TypeHolderTrait + 'static> {
     point: DOMPointReadOnly<TH>,
 }
 

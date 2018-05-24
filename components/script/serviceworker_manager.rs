@@ -28,7 +28,7 @@ enum Message {
     FromConstellation(ServiceWorkerMsg)
 }
 
-pub struct ServiceWorkerManager<TH: TypeHolderTrait> {
+pub struct ServiceWorkerManager<TH: TypeHolderTrait + 'static> {
     // map of registered service worker descriptors
     registered_workers: HashMap<ServoUrl, ScopeThings>,
     // map of active service worker descriptors

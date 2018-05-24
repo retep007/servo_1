@@ -53,7 +53,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 // FIXME(nox): A lot of tasks queued for this element should probably be in the
 // media element event task source.
-pub struct HTMLMediaElement<TH: TypeHolderTrait> {
+pub struct HTMLMediaElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-networkstate>
     network_state: Cell<NetworkState>,
@@ -974,7 +974,7 @@ enum Resource {
     Url(ServoUrl),
 }
 
-struct HTMLMediaElementContext<TH: TypeHolderTrait> {
+struct HTMLMediaElementContext<TH: TypeHolderTrait + 'static> {
     /// The element that initiated the request.
     elem: Trusted<HTMLMediaElement<TH>>,
     /// The response body received to date.

@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for OptionsFilter<TH> {
 }
 
 #[dom_struct]
-pub struct HTMLSelectElement<TH: TypeHolderTrait> {
+pub struct HTMLSelectElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     options: MutNullableDom<HTMLOptionsCollection<TH>>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,

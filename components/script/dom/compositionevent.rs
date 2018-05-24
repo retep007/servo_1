@@ -14,7 +14,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CompositionEvent<TH: TypeHolderTrait> {
+pub struct CompositionEvent<TH: TypeHolderTrait + 'static> {
     uievent: UIEvent<TH>,
     data: DOMString,
 }

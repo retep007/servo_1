@@ -20,7 +20,7 @@ use webrender_api::DeviceUintSize;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Screen<TH: TypeHolderTrait> {
+pub struct Screen<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     window: Dom<Window<TH>>,
 }

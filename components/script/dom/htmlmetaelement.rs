@@ -30,7 +30,7 @@ use style::stylesheets::{Stylesheet, StylesheetContents, CssRule, CssRules, Orig
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLMetaElement<TH: TypeHolderTrait> {
+pub struct HTMLMetaElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,

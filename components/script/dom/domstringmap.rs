@@ -14,7 +14,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMStringMap<TH: TypeHolderTrait> {
+pub struct DOMStringMap<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     element: Dom<HTMLElement<TH>>,
 }

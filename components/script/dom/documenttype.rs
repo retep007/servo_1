@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 // https://dom.spec.whatwg.org/#documenttype
 /// The `DOCTYPE` tag.
 #[dom_struct]
-pub struct DocumentType<TH: TypeHolderTrait> {
+pub struct DocumentType<TH: TypeHolderTrait + 'static> {
     node: Node<TH>,
     name: DOMString,
     public_id: DOMString,

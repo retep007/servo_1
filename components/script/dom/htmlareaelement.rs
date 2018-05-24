@@ -216,7 +216,7 @@ impl Area {
 }
 
 #[dom_struct]
-pub struct HTMLAreaElement<TH: TypeHolderTrait> {
+pub struct HTMLAreaElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     rel_list: MutNullableDom<DOMTokenList<TH>>,
 }

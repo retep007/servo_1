@@ -17,7 +17,7 @@ use std::cell::{Cell, RefCell};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TextDecoder<TH: TypeHolderTrait> {
+pub struct TextDecoder<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     encoding: &'static Encoding,
     fatal: bool,

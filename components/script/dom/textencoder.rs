@@ -17,7 +17,7 @@ use std::ptr::NonNull;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TextEncoder<TH: TypeHolderTrait> {
+pub struct TextEncoder<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

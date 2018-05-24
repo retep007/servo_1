@@ -253,7 +253,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct StorageEventInit<TH: TypeHolderTrait> {
+pub struct StorageEventInit<TH: TypeHolderTrait + 'static> {
     pub parent: dom::bindings::codegen::Bindings::EventBinding::EventInit,
     pub key: Option<DOMString>,
     pub newValue: Option<DOMString>,

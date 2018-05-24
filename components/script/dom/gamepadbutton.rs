@@ -13,7 +13,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct GamepadButton<TH: TypeHolderTrait> {
+pub struct GamepadButton<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     pressed: Cell<bool>,
     touched: Cell<bool>,

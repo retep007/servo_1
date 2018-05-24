@@ -253,7 +253,7 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct PromiseJobCallback<TH: TypeHolderTrait> {
+pub struct PromiseJobCallback<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 
@@ -326,7 +326,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for PromiseJobCallback<TH> {
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct AnyCallback<TH: TypeHolderTrait> {
+pub struct AnyCallback<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 

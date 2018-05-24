@@ -21,7 +21,7 @@ use webvr_traits::{WebVRDisplayEvent, WebVRDisplayEventReason};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRDisplayEvent<TH: TypeHolderTrait> {
+pub struct VRDisplayEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     display: Dom<VRDisplay<TH>>,
     reason: Option<VRDisplayEventReason>

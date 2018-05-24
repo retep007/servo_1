@@ -23,7 +23,7 @@ use style::attr::AttrValue;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLLabelElement<TH: TypeHolderTrait> {
+pub struct HTMLLabelElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>
 }
 

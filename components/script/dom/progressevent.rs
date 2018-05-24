@@ -17,7 +17,7 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ProgressEvent<TH: TypeHolderTrait> {
+pub struct ProgressEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     length_computable: bool,
     loaded: u64,

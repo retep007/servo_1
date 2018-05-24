@@ -18,7 +18,7 @@ use std::collections::HashSet;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLBuffer<TH: TypeHolderTrait> {
+pub struct WebGLBuffer<TH: TypeHolderTrait + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLBufferId,
     /// The target to which this buffer was bound the first time

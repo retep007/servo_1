@@ -22,7 +22,7 @@ use std::default::Default;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MouseEvent<TH: TypeHolderTrait> {
+pub struct MouseEvent<TH: TypeHolderTrait + 'static> {
     uievent: UIEvent<TH>,
     screen_x: Cell<i32>,
     screen_y: Cell<i32>,

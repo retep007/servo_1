@@ -70,7 +70,7 @@ pub fn prepare_workerscope_init<TH: TypeHolderTrait>(global: &GlobalScope<TH>,
 
 // https://html.spec.whatwg.org/multipage/#the-workerglobalscope-common-interface
 #[dom_struct]
-pub struct WorkerGlobalScope<TH: TypeHolderTrait> {
+pub struct WorkerGlobalScope<TH: TypeHolderTrait + 'static> {
     globalscope: GlobalScope<TH>,
 
     worker_id: WorkerId,

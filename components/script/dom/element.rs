@@ -133,7 +133,7 @@ use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#selector-focus
 
 #[dom_struct]
-pub struct Element<TH: TypeHolderTrait> {
+pub struct Element<TH: TypeHolderTrait + 'static> {
     node: Node<TH>,
     local_name: LocalName,
     tag_name: TagName,
@@ -3129,7 +3129,7 @@ impl TagName {
     }
 }
 
-pub struct ElementPerformFullscreenEnter<TH: TypeHolderTrait> {
+pub struct ElementPerformFullscreenEnter<TH: TypeHolderTrait + 'static> {
     element: Trusted<Element<TH>>,
     promise: TrustedPromise<TH>,
     error: bool,
@@ -3173,7 +3173,7 @@ impl<TH: TypeHolderTrait> TaskOnce for ElementPerformFullscreenEnter<TH> {
     }
 }
 
-pub struct ElementPerformFullscreenExit<TH: TypeHolderTrait> {
+pub struct ElementPerformFullscreenExit<TH: TypeHolderTrait + 'static> {
     element: Trusted<Element<TH>>,
     promise: TrustedPromise<TH>,
 }

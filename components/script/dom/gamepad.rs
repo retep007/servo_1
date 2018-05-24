@@ -25,7 +25,7 @@ use webvr_traits::{WebVRGamepadData, WebVRGamepadHand, WebVRGamepadState};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Gamepad<TH: TypeHolderTrait> {
+pub struct Gamepad<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     gamepad_id: u32,
     id: String,

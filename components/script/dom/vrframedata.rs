@@ -21,7 +21,7 @@ use webvr_traits::WebVRFrameData;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRFrameData<TH: TypeHolderTrait> {
+pub struct VRFrameData<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     left_proj: Heap<*mut JSObject>,
     left_view: Heap<*mut JSObject>,

@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothpermissionresult
 #[dom_struct]
-pub struct BluetoothPermissionResult<TH: TypeHolderTrait> {
+pub struct BluetoothPermissionResult<TH: TypeHolderTrait + 'static> {
     status: PermissionStatus<TH>,
     devices: DomRefCell<Vec<Dom<BluetoothDevice<TH>>>>,
 }

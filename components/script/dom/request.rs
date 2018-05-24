@@ -41,7 +41,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Request<TH: TypeHolderTrait> {
+pub struct Request<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     request: DomRefCell<NetTraitsRequest>,
     body_used: Cell<bool>,

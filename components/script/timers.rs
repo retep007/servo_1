@@ -32,7 +32,7 @@ use typeholder::TypeHolderTrait;
 pub struct OneshotTimerHandle(i32);
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
-pub struct OneshotTimers<TH: TypeHolderTrait> {
+pub struct OneshotTimers<TH: TypeHolderTrait + 'static> {
     js_timers: JsTimers<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
     timer_event_chan: IpcSender<TimerEvent>,
@@ -56,7 +56,7 @@ pub struct OneshotTimers<TH: TypeHolderTrait> {
 }
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
-struct OneshotTimer<TH: TypeHolderTrait> {
+struct OneshotTimer<TH: TypeHolderTrait + 'static> {
     handle: OneshotTimerHandle,
     source: TimerSource,
     callback: OneshotTimerCallback<TH>,
@@ -306,7 +306,7 @@ impl<TH: TypeHolderTrait> OneshotTimers<TH> {
 pub struct JsTimerHandle(i32);
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
-pub struct JsTimers<TH: TypeHolderTrait> {
+pub struct JsTimers<TH: TypeHolderTrait + 'static> {
     next_timer_handle: Cell<JsTimerHandle>,
     active_timers: DomRefCell<HashMap<JsTimerHandle, JsTimerEntry>>,
     /// The nesting level of the currently executing timer task or 0.
@@ -325,7 +325,7 @@ struct JsTimerEntry {
 //      to the function when calling it)
 // TODO: Handle rooting during invocation when movable GC is turned on
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct JsTimerTask<TH: TypeHolderTrait> {
+pub struct JsTimerTask<TH: TypeHolderTrait + 'static> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
     handle: JsTimerHandle,
     source: TimerSource,

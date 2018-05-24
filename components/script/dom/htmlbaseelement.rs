@@ -19,7 +19,7 @@ use servo_url::ServoUrl;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLBaseElement<TH: TypeHolderTrait> {
+pub struct HTMLBaseElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>
 }
 

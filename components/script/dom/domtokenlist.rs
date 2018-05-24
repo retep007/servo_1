@@ -18,7 +18,7 @@ use style::str::HTML_SPACE_CHARACTERS;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMTokenList<TH: TypeHolderTrait> {
+pub struct DOMTokenList<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     element: Dom<Element<TH>>,
     local_name: LocalName,

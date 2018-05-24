@@ -19,7 +19,7 @@ use webvr_traits::WebVREyeParameters;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VREyeParameters<TH: TypeHolderTrait> {
+pub struct VREyeParameters<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     parameters: DomRefCell<WebVREyeParameters>,

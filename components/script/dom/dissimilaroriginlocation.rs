@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 /// still need to function.
 
 #[dom_struct]
-pub struct DissimilarOriginLocation<TH: TypeHolderTrait> {
+pub struct DissimilarOriginLocation<TH: TypeHolderTrait + 'static> {
     /// The reflector. Once we have XOWs, this will have a cross-origin
     /// wrapper placed around it.
     reflector: Reflector,

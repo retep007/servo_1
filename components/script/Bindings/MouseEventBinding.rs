@@ -255,7 +255,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct MouseEventInit<TH: TypeHolderTrait> {
+pub struct MouseEventInit<TH: TypeHolderTrait + 'static> {
     pub parent: dom::bindings::codegen::Bindings::EventModifierInitBinding::EventModifierInit<TH>,
     pub button: i16,
     pub clientX: i32,

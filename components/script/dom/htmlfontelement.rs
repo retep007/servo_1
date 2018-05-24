@@ -22,7 +22,7 @@ use style::str::{HTML_SPACE_CHARACTERS, read_numbers};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFontElement<TH: TypeHolderTrait> {
+pub struct HTMLFontElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 

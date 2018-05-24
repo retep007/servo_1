@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#beforeunloadevent
 #[dom_struct]
-pub struct BeforeUnloadEvent<TH: TypeHolderTrait> {
+pub struct BeforeUnloadEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     return_value: DomRefCell<DOMString>,
 }

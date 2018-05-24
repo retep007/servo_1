@@ -40,7 +40,7 @@ enum ButtonType {
 }
 
 #[dom_struct]
-pub struct HTMLButtonElement<TH: TypeHolderTrait> {
+pub struct HTMLButtonElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     button_type: Cell<ButtonType>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,

@@ -13,7 +13,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Touch<TH: TypeHolderTrait> {
+pub struct Touch<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     identifier: i32,
     target: MutDom<EventTarget<TH>>,

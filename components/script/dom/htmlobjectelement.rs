@@ -25,7 +25,7 @@ use std::default::Default;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLObjectElement<TH: TypeHolderTrait> {
+pub struct HTMLObjectElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     image: DomRefCell<Option<Arc<Image>>>,

@@ -16,7 +16,7 @@ use webvr_traits::webvr;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRPose<TH: TypeHolderTrait> {
+pub struct VRPose<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     position: Heap<*mut JSObject>,
     orientation: Heap<*mut JSObject>,

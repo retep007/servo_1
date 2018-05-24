@@ -23,7 +23,7 @@ use style::element_state::ElementState;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFieldSetElement<TH: TypeHolderTrait> {
+pub struct HTMLFieldSetElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }

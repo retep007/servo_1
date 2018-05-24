@@ -17,7 +17,7 @@ use style::attr::AttrValue;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLLIElement<TH: TypeHolderTrait> {
+pub struct HTMLLIElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 

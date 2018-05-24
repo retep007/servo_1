@@ -255,7 +255,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct FocusEventInit<TH: TypeHolderTrait> {
+pub struct FocusEventInit<TH: TypeHolderTrait + 'static> {
     pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit<TH>,
     pub relatedTarget: Option<DomRoot<EventTarget<TH>>>,
 }

@@ -30,7 +30,7 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#domimplementation
 #[dom_struct]
-pub struct DOMImplementation<TH: TypeHolderTrait> {
+pub struct DOMImplementation<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     document: Dom<Document<TH>>,
 }

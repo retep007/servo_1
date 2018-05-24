@@ -72,7 +72,7 @@ impl Drop for AutoCloseWorker {
 }
 
 #[dom_struct]
-pub struct GlobalScope<TH: TypeHolderTrait> {
+pub struct GlobalScope<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     crypto: MutNullableDom<Crypto<TH>>,
     next_worker_id: Cell<WorkerId>,

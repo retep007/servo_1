@@ -13,7 +13,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct StyleSheetList<TH: TypeHolderTrait> {
+pub struct StyleSheetList<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     document: Dom<Document<TH>>,
 }

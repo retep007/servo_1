@@ -18,7 +18,7 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct StorageEvent<TH: TypeHolderTrait> {
+pub struct StorageEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     key: Option<DOMString>,
     old_value: Option<DOMString>,

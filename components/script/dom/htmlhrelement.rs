@@ -18,7 +18,7 @@ use style::attr::{AttrValue, LengthOrPercentageOrAuto};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLHRElement<TH: TypeHolderTrait> {
+pub struct HTMLHRElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 

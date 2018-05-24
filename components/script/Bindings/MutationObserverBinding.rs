@@ -463,7 +463,7 @@ impl ToJSValConvertible for MutationObserverInit {
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct MutationCallback<TH: TypeHolderTrait> {
+pub struct MutationCallback<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 

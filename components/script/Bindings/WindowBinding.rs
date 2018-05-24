@@ -453,7 +453,7 @@ impl ToJSValConvertible for ScrollToOptions {
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct FrameRequestCallback<TH: TypeHolderTrait> {
+pub struct FrameRequestCallback<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 

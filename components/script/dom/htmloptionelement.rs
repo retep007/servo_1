@@ -30,7 +30,7 @@ use style::str::{split_html_space_chars, str_join};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOptionElement<TH: TypeHolderTrait> {
+pub struct HTMLOptionElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#attr-option-selected>

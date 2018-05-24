@@ -23,7 +23,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ErrorEvent<TH: TypeHolderTrait> {
+pub struct ErrorEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     message: DomRefCell<DOMString>,
     filename: DomRefCell<DOMString>,

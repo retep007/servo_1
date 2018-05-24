@@ -31,7 +31,7 @@ const VALID_ENTRY_TYPES: &'static [&'static str] = &[
 ];
 
 #[dom_struct]
-pub struct PerformanceObserver<TH: TypeHolderTrait> {
+pub struct PerformanceObserver<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<PerformanceObserverCallback<TH>>,

@@ -295,7 +295,7 @@ pub mod VRDisplayEventReasonValues {
         } // mod VRDisplayEventReasonValues
 
 #[derive(JSTraceable)]
-pub struct VRDisplayEventInit<TH: TypeHolderTrait> {
+pub struct VRDisplayEventInit<TH: TypeHolderTrait + 'static> {
     pub parent: dom::bindings::codegen::Bindings::EventBinding::EventInit,
     pub display: DomRoot<VRDisplay<TH>>,
     pub reason: Option<VRDisplayEventReason>,

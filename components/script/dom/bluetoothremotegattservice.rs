@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattservice
 #[dom_struct]
-pub struct BluetoothRemoteGATTService<TH: TypeHolderTrait> {
+pub struct BluetoothRemoteGATTService<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     device: Dom<BluetoothDevice<TH>>,
     uuid: DOMString,

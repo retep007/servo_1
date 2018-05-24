@@ -48,7 +48,7 @@ const DEFAULT_DISABLED_GET_PARAMETER_NAMES_WEBGL1: [GLenum; 1] = [
 
 /// WebGL features that are enabled/disabled by WebGL Extensions.
 #[derive(JSTraceable, MallocSizeOf)]
-struct WebGLExtensionFeatures<TH: TypeHolderTrait> {
+struct WebGLExtensionFeatures<TH: TypeHolderTrait + 'static> {
     gl_extensions: FnvHashSet<String>,
     disabled_tex_types: FnvHashSet<GLenum>,
     not_filterable_tex_types: FnvHashSet<GLenum>,
@@ -90,7 +90,7 @@ impl<TH: TypeHolderTrait> WebGLExtensionFeatures<TH> {
 /// Handles the list of implemented, supported and enabled WebGL extensions.
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct WebGLExtensions<TH: TypeHolderTrait> {
+pub struct WebGLExtensions<TH: TypeHolderTrait + 'static> {
     extensions: DomRefCell<HashMap<String, Box<WebGLExtensionWrapper<TH>>>>,
     features: DomRefCell<WebGLExtensionFeatures<TH>>,
     webgl_version: WebGLVersion,
@@ -263,7 +263,7 @@ type WebGLQueryParameterFunc<TH> = Fn(*mut JSContext, &WebGLRenderingContext<TH>
                                -> Result<JSVal, WebGLError>;
 
 #[derive(MallocSizeOf)]
-struct WebGLQueryParameterHandler<TH: TypeHolderTrait> {
+struct WebGLQueryParameterHandler<TH: TypeHolderTrait + 'static> {
     #[ignore_malloc_size_of = "Closures are hard"]
     func: Box<WebGLQueryParameterFunc<TH>>
 }

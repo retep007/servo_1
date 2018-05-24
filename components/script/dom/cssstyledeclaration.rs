@@ -26,7 +26,7 @@ use typeholder::TypeHolderTrait;
 
 // http://dev.w3.org/csswg/cssom/#the-cssstyledeclaration-interface
 #[dom_struct]
-pub struct CSSStyleDeclaration<TH: TypeHolderTrait> {
+pub struct CSSStyleDeclaration<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     owner: CSSStyleOwner<TH>,
     readonly: bool,

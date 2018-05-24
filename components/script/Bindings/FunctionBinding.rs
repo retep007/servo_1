@@ -253,7 +253,7 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct Function<TH: TypeHolderTrait> {
+pub struct Function<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 

@@ -40,7 +40,7 @@ use textinput::{Direction, KeyReaction, Lines, SelectionDirection, TextInput};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTextAreaElement<TH: TypeHolderTrait> {
+pub struct HTMLTextAreaElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "#7193"]
     textinput: DomRefCell<TextInput<ScriptToConstellationChan, TH>>,

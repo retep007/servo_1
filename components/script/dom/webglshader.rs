@@ -29,7 +29,7 @@ pub enum ShaderCompilationStatus {
 }
 
 #[dom_struct]
-pub struct WebGLShader<TH: TypeHolderTrait> {
+pub struct WebGLShader<TH: TypeHolderTrait + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLShaderId,
     gl_type: u32,

@@ -13,7 +13,7 @@ use webvr_traits::WebVRDisplayCapabilities;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRDisplayCapabilities<TH: TypeHolderTrait> {
+pub struct VRDisplayCapabilities<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     capabilities: DomRefCell<WebVRDisplayCapabilities>

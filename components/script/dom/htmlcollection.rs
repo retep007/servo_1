@@ -52,7 +52,7 @@ impl OptionU32 {
 }
 
 #[dom_struct]
-pub struct HTMLCollection<TH: TypeHolderTrait> {
+pub struct HTMLCollection<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     root: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Contains a trait object; can't measure due to #6870"]
@@ -184,7 +184,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
 
     pub fn by_qual_tag_name(window: &Window<TH>, root: &Node<TH>, qname: QualName) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct TagNameNSFilter<TH: TypeHolderTrait> {
+        struct TagNameNSFilter<TH: TypeHolderTrait + 'static> {
             qname: QualName
         }
         impl CollectionFilter<TH> for TagNameNSFilter<TH> {

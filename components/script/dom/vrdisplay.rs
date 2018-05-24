@@ -46,7 +46,7 @@ use webvr_traits::{WebVRDisplayData, WebVRDisplayEvent, WebVRFrameData, WebVRLay
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRDisplay<TH: TypeHolderTrait> {
+pub struct VRDisplay<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     display: DomRefCell<WebVRDisplayData>,

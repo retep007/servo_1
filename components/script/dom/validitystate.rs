@@ -45,7 +45,7 @@ bitflags!{
 
 // https://html.spec.whatwg.org/multipage/#validitystate
 #[dom_struct]
-pub struct ValidityState<TH: TypeHolderTrait> {
+pub struct ValidityState<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     element: Dom<Element<TH>>,
     state: ValidityStatus

@@ -13,7 +13,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PerformanceTiming<TH: TypeHolderTrait> {
+pub struct PerformanceTiming<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     navigation_start: u64,
     navigation_start_precise: u64,

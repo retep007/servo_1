@@ -32,7 +32,7 @@ pub enum MediaQueryListMatchState {
 }
 
 #[dom_struct]
-pub struct MediaQueryList<TH: TypeHolderTrait> {
+pub struct MediaQueryList<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     document: Dom<Document<TH>>,
     media_query_list: MediaList,
@@ -118,7 +118,7 @@ impl<TH: TypeHolderTrait> MediaQueryListMethods<TH> for MediaQueryList<TH> {
 }
 
 #[derive(MallocSizeOf)]
-pub struct WeakMediaQueryListVec<TH: TypeHolderTrait> {
+pub struct WeakMediaQueryListVec<TH: TypeHolderTrait + 'static> {
     cell: DomRefCell<WeakRefVec<MediaQueryList<TH>, TH>>,
 }
 

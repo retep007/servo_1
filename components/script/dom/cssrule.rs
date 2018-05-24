@@ -25,7 +25,7 @@ use style::stylesheets::CssRule as StyleCssRule;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSRule<TH: TypeHolderTrait> {
+pub struct CSSRule<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
 

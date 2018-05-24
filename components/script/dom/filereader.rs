@@ -84,7 +84,7 @@ pub enum FileReaderResult {
 }
 
 #[dom_struct]
-pub struct FileReader<TH: TypeHolderTrait> {
+pub struct FileReader<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     ready_state: Cell<FileReaderReadyState>,
     error: MutNullableDom<DOMException<TH>>,

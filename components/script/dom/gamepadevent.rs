@@ -19,7 +19,7 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct GamepadEvent<TH: TypeHolderTrait> {
+pub struct GamepadEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     gamepad: Dom<Gamepad<TH>>,
 }

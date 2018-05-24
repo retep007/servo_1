@@ -23,7 +23,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MutationObserver<TH: TypeHolderTrait> {
+pub struct MutationObserver<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<MutationCallback<TH>>,
@@ -37,7 +37,7 @@ pub enum Mutation<'a, TH: TypeHolderTrait> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct RegisteredObserver<TH: TypeHolderTrait> {
+pub struct RegisteredObserver<TH: TypeHolderTrait + 'static> {
     observer: DomRoot<MutationObserver<TH>>,
     options: ObserverOptions,
 }

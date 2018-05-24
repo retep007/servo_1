@@ -50,7 +50,7 @@ use timers::OneshotTimerCallback;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TestBinding<TH: TypeHolderTrait> {
+pub struct TestBinding<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     url: MutableWeakRef<URL<TH>, TH>,
 }
@@ -834,7 +834,7 @@ impl<TH: TypeHolderTrait> TestBinding<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct TestBindingCallback<TH: TypeHolderTrait> {
+pub struct TestBindingCallback<TH: TypeHolderTrait + 'static> {
     #[ignore_malloc_size_of = "unclear ownership semantics"]
     promise: TrustedPromise<TH>,
     value: DOMString,

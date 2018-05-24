@@ -16,7 +16,7 @@ use style::stylesheets::FontFaceRule;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSFontFaceRule<TH: TypeHolderTrait> {
+pub struct CSSFontFaceRule<TH: TypeHolderTrait + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     fontfacerule: Arc<Locked<FontFaceRule>>,

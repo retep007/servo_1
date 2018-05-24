@@ -528,7 +528,7 @@ pub use self::UnionTypes::RequestOrUSVString as RequestInfo;
 
 #[derive(JSTraceable, Default)]
 #[must_root]
-pub struct RequestInit<TH: TypeHolderTrait> {
+pub struct RequestInit<TH: TypeHolderTrait + 'static> {
     pub body: Option<Option<UnionTypes::BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH>>>,
     pub cache: Option<RequestCache>,
     pub credentials: Option<RequestCredentials>,

@@ -14,7 +14,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct InputEvent<TH: TypeHolderTrait> {
+pub struct InputEvent<TH: TypeHolderTrait + 'static> {
     uievent: UIEvent<TH>,
     data: Option<DOMString>,
     is_composing: bool,

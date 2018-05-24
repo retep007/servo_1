@@ -155,7 +155,7 @@ pub enum ReflowReason {
 }
 
 #[dom_struct]
-pub struct Window<TH: TypeHolderTrait> {
+pub struct Window<TH: TypeHolderTrait + 'static> {
     globalscope: GlobalScope<TH>,
     #[ignore_malloc_size_of = "trait objects are hard"]
     script_chan: MainThreadScriptChan,

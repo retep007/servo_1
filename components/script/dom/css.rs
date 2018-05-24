@@ -19,7 +19,7 @@ use style_traits::ParsingMode;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSS<TH: TypeHolderTrait> {
+pub struct CSS<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

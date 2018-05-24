@@ -168,7 +168,7 @@ fn create_buffer_queue(mut buffers: VecDeque<SendTendril<UTF8>>) -> BufferQueue 
 //
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer<TH: TypeHolderTrait> {
+pub struct Tokenizer<TH: TypeHolderTrait + 'static> {
     document: Dom<Document<TH>>,
     #[ignore_malloc_size_of = "Defined in std"]
     receiver: Receiver<ToTokenizerMsg>,

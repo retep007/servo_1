@@ -34,7 +34,7 @@ use style::attr::AttrValue;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLAnchorElement<TH: TypeHolderTrait> {
+pub struct HTMLAnchorElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     rel_list: MutNullableDom<DOMTokenList<TH>>,
     url: DomRefCell<Option<ServoUrl>>,

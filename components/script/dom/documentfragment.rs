@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#documentfragment
 #[dom_struct]
-pub struct DocumentFragment<TH: TypeHolderTrait> {
+pub struct DocumentFragment<TH: TypeHolderTrait + 'static> {
     node: Node<TH>,
 }
 

@@ -24,7 +24,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOptionsCollection<TH: TypeHolderTrait> {
+pub struct HTMLOptionsCollection<TH: TypeHolderTrait + 'static> {
     collection: HTMLCollection<TH>,
 }
 

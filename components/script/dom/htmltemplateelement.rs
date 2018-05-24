@@ -18,7 +18,7 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTemplateElement<TH: TypeHolderTrait> {
+pub struct HTMLTemplateElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#template-contents>

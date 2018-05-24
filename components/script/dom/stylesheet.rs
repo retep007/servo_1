@@ -14,7 +14,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct StyleSheet<TH: TypeHolderTrait> {
+pub struct StyleSheet<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     type_: DOMString,
     href: Option<DOMString>,

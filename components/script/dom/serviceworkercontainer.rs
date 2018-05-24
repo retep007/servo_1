@@ -21,7 +21,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ServiceWorkerContainer<TH: TypeHolderTrait> {
+pub struct ServiceWorkerContainer<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     controller: MutNullableDom<ServiceWorker<TH>>,
     client: Dom<Client<TH>>

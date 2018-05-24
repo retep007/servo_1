@@ -15,7 +15,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TestBindingIterable<TH: TypeHolderTrait> {
+pub struct TestBindingIterable<TH: TypeHolderTrait + 'static> {
     reflector: Reflector,
     vals: DomRefCell<Vec<DOMString>>,
 }

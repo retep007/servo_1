@@ -44,7 +44,7 @@ impl LoadType {
 /// that the owner is destroyed.
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct LoadBlocker<TH: TypeHolderTrait> {
+pub struct LoadBlocker<TH: TypeHolderTrait + 'static> {
     /// The document whose load event is blocked by this object existing.
     doc: Dom<Document<TH>>,
     /// The load that is blocking the document's load event.

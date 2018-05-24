@@ -13,7 +13,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLActiveInfo<TH: TypeHolderTrait> {
+pub struct WebGLActiveInfo<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     size: i32,
     // NOTE: `ty` stands for `type`, which is a reserved keyword

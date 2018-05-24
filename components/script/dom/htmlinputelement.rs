@@ -205,7 +205,7 @@ enum ValueMode {
 }
 
 #[dom_struct]
-pub struct HTMLInputElement<TH: TypeHolderTrait> {
+pub struct HTMLInputElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     input_type: Cell<InputType>,
     checked_changed: Cell<bool>,
@@ -226,7 +226,7 @@ pub struct HTMLInputElement<TH: TypeHolderTrait> {
 #[derive(JSTraceable)]
 #[must_root]
 #[derive(MallocSizeOf)]
-struct InputActivationState<TH: TypeHolderTrait> {
+struct InputActivationState<TH: TypeHolderTrait + 'static> {
     indeterminate: bool,
     checked: bool,
     checked_changed: bool,

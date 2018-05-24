@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 /// An HTML text node.
 #[dom_struct]
-pub struct Text<TH: TypeHolderTrait> {
+pub struct Text<TH: TypeHolderTrait + 'static> {
     characterdata: CharacterData<TH>,
 }
 

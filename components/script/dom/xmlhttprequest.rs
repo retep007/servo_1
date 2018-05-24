@@ -90,7 +90,7 @@ pub struct GenerationId(u32);
 
 /// Closure of required data for each async network event that comprises the
 /// XHR's response.
-struct XHRContext<TH: TypeHolderTrait> {
+struct XHRContext<TH: TypeHolderTrait + 'static> {
     xhr: TrustedXHRAddress<TH>,
     gen_id: GenerationId,
     buf: DomRefCell<Vec<u8>>,
@@ -121,7 +121,7 @@ impl<TH: TypeHolderTrait> XHRProgress<TH> {
 }
 
 #[dom_struct]
-pub struct XMLHttpRequest<TH: TypeHolderTrait> {
+pub struct XMLHttpRequest<TH: TypeHolderTrait + 'static> {
     eventtarget: XMLHttpRequestEventTarget<TH>,
     ready_state: Cell<XMLHttpRequestState>,
     timeout: Cell<u32>,
@@ -1374,7 +1374,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct XHRTimeoutCallback<TH: TypeHolderTrait> {
+pub struct XHRTimeoutCallback<TH: TypeHolderTrait + 'static> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
     xhr: Trusted<XMLHttpRequest<TH>>,
     generation_id: GenerationId,

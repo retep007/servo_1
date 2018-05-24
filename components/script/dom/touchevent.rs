@@ -18,7 +18,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TouchEvent<TH: TypeHolderTrait> {
+pub struct TouchEvent<TH: TypeHolderTrait + 'static> {
     uievent: UIEvent<TH>,
     touches: MutDom<TouchList<TH>>,
     target_touches: MutDom<TouchList<TH>>,

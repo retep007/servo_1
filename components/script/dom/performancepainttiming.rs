@@ -14,7 +14,7 @@ use script_traits::ProgressiveWebMetricType;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PerformancePaintTiming<TH: TypeHolderTrait> {
+pub struct PerformancePaintTiming<TH: TypeHolderTrait + 'static> {
     entry: PerformanceEntry<TH>,
 }
 

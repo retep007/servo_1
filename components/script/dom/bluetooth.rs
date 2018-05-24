@@ -120,7 +120,7 @@ where
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetooth
 #[dom_struct]
-pub struct Bluetooth<TH: TypeHolderTrait> {
+pub struct Bluetooth<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     device_instance_map: DomRefCell<HashMap<String, Dom<BluetoothDevice<TH>>>>,
 }

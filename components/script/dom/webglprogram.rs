@@ -20,7 +20,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLProgram<TH: TypeHolderTrait> {
+pub struct WebGLProgram<TH: TypeHolderTrait + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLProgramId,
     is_deleted: Cell<bool>,

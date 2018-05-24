@@ -108,7 +108,7 @@ enum ImageRequestPhase {
 }
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-struct ImageRequest<TH: TypeHolderTrait> {
+struct ImageRequest<TH: TypeHolderTrait + 'static> {
     state: State,
     parsed_url: Option<ServoUrl>,
     source_url: Option<DOMString>,
@@ -119,7 +119,7 @@ struct ImageRequest<TH: TypeHolderTrait> {
     final_url: Option<ServoUrl>,
 }
 #[dom_struct]
-pub struct HTMLImageElement<TH: TypeHolderTrait> {
+pub struct HTMLImageElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     image_request: Cell<ImageRequestPhase>,
     current_request: DomRefCell<ImageRequest<TH>>,

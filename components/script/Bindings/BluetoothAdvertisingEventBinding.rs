@@ -255,7 +255,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct BluetoothAdvertisingEventInit<TH: TypeHolderTrait> {
+pub struct BluetoothAdvertisingEventInit<TH: TypeHolderTrait + 'static> {
     pub parent: dom::bindings::codegen::Bindings::EventBinding::EventInit,
     pub appearance: Option<u16>,
     pub device: DomRoot<BluetoothDevice<TH>>,

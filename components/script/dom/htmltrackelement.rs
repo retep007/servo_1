@@ -12,7 +12,7 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTrackElement<TH: TypeHolderTrait> {
+pub struct HTMLTrackElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 

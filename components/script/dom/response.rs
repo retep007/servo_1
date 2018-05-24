@@ -31,7 +31,7 @@ use url::Position;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Response<TH: TypeHolderTrait> {
+pub struct Response<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     headers_reflector: MutNullableDom<Headers<TH>>,
     mime_type: DomRefCell<Vec<u8>>,

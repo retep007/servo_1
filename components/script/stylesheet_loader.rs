@@ -64,7 +64,7 @@ pub enum StylesheetContextSource<TH: TypeHolderTrait> {
 }
 
 /// The context required for asynchronously loading an external stylesheet.
-pub struct StylesheetContext<TH: TypeHolderTrait> {
+pub struct StylesheetContext<TH: TypeHolderTrait + 'static> {
     /// The element that initiated the request.
     elem: Trusted<HTMLElement<TH>>,
     source: StylesheetContextSource<TH>,

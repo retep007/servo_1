@@ -55,7 +55,7 @@ pub enum CanvasContext<TH: TypeHolderTrait> {
 }
 
 #[dom_struct]
-pub struct HTMLCanvasElement<TH: TypeHolderTrait> {
+pub struct HTMLCanvasElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     context: DomRefCell<Option<CanvasContext<TH>>>,
 }

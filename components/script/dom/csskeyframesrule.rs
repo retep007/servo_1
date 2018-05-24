@@ -23,7 +23,7 @@ use style::values::KeyframesName;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSKeyframesRule<TH: TypeHolderTrait> {
+pub struct CSSKeyframesRule<TH: TypeHolderTrait + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     keyframesrule: Arc<Locked<KeyframesRule>>,

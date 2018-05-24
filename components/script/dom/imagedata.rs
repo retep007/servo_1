@@ -20,7 +20,7 @@ use std::vec::Vec;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ImageData<TH: TypeHolderTrait> {
+pub struct ImageData<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     width: u32,
     height: u32,

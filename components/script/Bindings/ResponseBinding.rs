@@ -296,7 +296,7 @@ pub mod ResponseTypeValues {
         } // mod ResponseTypeValues
 
 #[derive(JSTraceable)]
-pub struct ResponseInit<TH: TypeHolderTrait> {
+pub struct ResponseInit<TH: TypeHolderTrait + 'static> {
     pub headers: Option<UnionTypes::HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH>>,
     pub status: u16,
     pub statusText: ByteString,

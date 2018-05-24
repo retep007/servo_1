@@ -12,7 +12,7 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLAudioElement<TH: TypeHolderTrait> {
+pub struct HTMLAudioElement<TH: TypeHolderTrait + 'static> {
     htmlmediaelement: HTMLMediaElement<TH>
 }
 

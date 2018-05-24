@@ -14,7 +14,7 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFrameSetElement<TH: TypeHolderTrait> {
+pub struct HTMLFrameSetElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>
 }
 

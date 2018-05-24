@@ -18,7 +18,7 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLContextEvent<TH: TypeHolderTrait> {
+pub struct WebGLContextEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     status_message: DOMString,
 }

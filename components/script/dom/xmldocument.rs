@@ -24,7 +24,7 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#xmldocument
 #[dom_struct]
-pub struct XMLDocument<TH: TypeHolderTrait> {
+pub struct XMLDocument<TH: TypeHolderTrait + 'static> {
     document: Document<TH>,
 }
 

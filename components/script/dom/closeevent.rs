@@ -17,7 +17,7 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CloseEvent<TH: TypeHolderTrait> {
+pub struct CloseEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     was_clean: bool,
     code: u16,

@@ -19,7 +19,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct NodeIterator<TH: TypeHolderTrait> {
+pub struct NodeIterator<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     root_node: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]

@@ -16,7 +16,7 @@ use servo_url::ServoUrl;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSStyleValue<TH: TypeHolderTrait> {
+pub struct CSSStyleValue<TH: TypeHolderTrait + 'static> {
     reflector: Reflector,
     value: String,
 }

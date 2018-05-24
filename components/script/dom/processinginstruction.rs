@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 /// An HTML processing instruction node.
 #[dom_struct]
-pub struct ProcessingInstruction<TH: TypeHolderTrait> {
+pub struct ProcessingInstruction<TH: TypeHolderTrait + 'static> {
     characterdata: CharacterData<TH>,
     target: DOMString,
 }

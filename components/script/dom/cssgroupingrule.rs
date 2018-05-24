@@ -18,7 +18,7 @@ use style::stylesheets::CssRules as StyleCssRules;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSGroupingRule<TH: TypeHolderTrait> {
+pub struct CSSGroupingRule<TH: TypeHolderTrait + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     rules: Arc<Locked<StyleCssRules>>,

@@ -19,7 +19,7 @@ use time;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct File<TH: TypeHolderTrait> {
+pub struct File<TH: TypeHolderTrait + 'static> {
     blob: Blob<TH>,
     name: DOMString,
     modified: i64,

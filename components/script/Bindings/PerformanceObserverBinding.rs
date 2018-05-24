@@ -344,7 +344,7 @@ impl ToJSValConvertible for PerformanceObserverInit {
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct PerformanceObserverCallback<TH: TypeHolderTrait> {
+pub struct PerformanceObserverCallback<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 

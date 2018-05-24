@@ -204,7 +204,7 @@ impl PendingRestyle {
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
 #[must_root]
-struct StyleSheetInDocument<TH: TypeHolderTrait> {
+struct StyleSheetInDocument<TH: TypeHolderTrait + 'static> {
     #[ignore_malloc_size_of = "Arc"]
     sheet: Arc<Stylesheet>,
     owner: Dom<Element<TH>>,
@@ -240,7 +240,7 @@ impl<TH: TypeHolderTrait> ::style::stylesheets::StylesheetInDocument for StyleSh
 
 /// <https://dom.spec.whatwg.org/#document>
 #[dom_struct]
-pub struct Document<TH: TypeHolderTrait> {
+pub struct Document<TH: TypeHolderTrait + 'static> {
     node: Node<TH>,
     window: Dom<Window<TH>>,
     implementation: MutNullableDom<DOMImplementation<TH>>,
@@ -3522,7 +3522,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tree-accessors:dom-document-nameditem-filter
     unsafe fn NamedGetter(&self, _cx: *mut JSContext, name: DOMString) -> Option<NonNull<JSObject>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct NamedElementFilter<TH: TypeHolderTrait> {
+        struct NamedElementFilter<TH: TypeHolderTrait + 'static> {
             name: Atom,
         }
         impl<TH: TypeHolderTrait> CollectionFilter<TH> for NamedElementFilter<TH> {
@@ -3985,7 +3985,7 @@ pub enum FocusEventType {
 /// without mutating the DOM), then we fall back to simple timeouts to save energy over video
 /// refresh.
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct FakeRequestAnimationFrameCallback<TH: TypeHolderTrait> {
+pub struct FakeRequestAnimationFrameCallback<TH: TypeHolderTrait + 'static> {
     /// The document.
     #[ignore_malloc_size_of = "non-owning"]
     document: Trusted<Document<TH>>,
@@ -4026,7 +4026,7 @@ impl<TH: TypeHolderTrait> AnimationFrameCallback<TH> {
 
 #[derive(Default, JSTraceable, MallocSizeOf)]
 #[must_root]
-struct PendingInOrderScriptVec<TH: TypeHolderTrait> {
+struct PendingInOrderScriptVec<TH: TypeHolderTrait + 'static> {
     scripts: DomRefCell<VecDeque<PendingScript<TH>>>,
 }
 
@@ -4059,7 +4059,7 @@ impl<TH: TypeHolderTrait> PendingInOrderScriptVec<TH> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-struct PendingScript<TH: TypeHolderTrait> {
+struct PendingScript<TH: TypeHolderTrait + 'static> {
     element: Dom<HTMLScriptElement<TH>>,
     load: Option<ScriptResult>,
 }

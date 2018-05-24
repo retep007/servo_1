@@ -17,7 +17,7 @@ use js::typedarray::{Float32Array, Float64Array};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMMatrix<TH: TypeHolderTrait> {
+pub struct DOMMatrix<TH: TypeHolderTrait + 'static> {
     parent: DOMMatrixReadOnly<TH>
 }
 

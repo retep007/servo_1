@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#interface-customevent
 #[dom_struct]
-pub struct CustomEvent<TH: TypeHolderTrait> {
+pub struct CustomEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     detail: Heap<JSVal>,

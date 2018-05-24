@@ -253,7 +253,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct GamepadEventInit<TH: TypeHolderTrait> {
+pub struct GamepadEventInit<TH: TypeHolderTrait + 'static> {
     pub parent: dom::bindings::codegen::Bindings::EventBinding::EventInit,
     pub gamepad: DomRoot<Gamepad<TH>>,
 }

@@ -18,7 +18,7 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLHeadElement<TH: TypeHolderTrait> {
+pub struct HTMLHeadElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>
 }
 

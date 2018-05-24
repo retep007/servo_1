@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 // https://w3c.github.io/ServiceWorker/#extendable-event
 #[dom_struct]
-pub struct ExtendableEvent<TH: TypeHolderTrait> {
+pub struct ExtendableEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     extensions_allowed: bool
 }

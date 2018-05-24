@@ -35,7 +35,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Promise<TH: TypeHolderTrait> {
+pub struct Promise<TH: TypeHolderTrait + 'static> {
     reflector: Reflector,
     /// Since Promise values are natively reference counted without the knowledge of
     /// the SpiderMonkey GC, an explicit root for the reflector is stored while any

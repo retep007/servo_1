@@ -24,7 +24,7 @@ enum StackEntryKind {
 
 #[allow(unrooted_must_root)]
 #[derive(JSTraceable)]
-struct StackEntry<TH: TypeHolderTrait> {
+struct StackEntry<TH: TypeHolderTrait + 'static> {
     global: Dom<GlobalScope<TH>>,
     kind: StackEntryKind,
 }
@@ -45,7 +45,7 @@ pub fn is_execution_stack_empty() -> bool {
 }
 
 /// RAII struct that pushes and pops entries from the script settings stack.
-pub struct AutoEntryScript<TH: TypeHolderTrait> {
+pub struct AutoEntryScript<TH: TypeHolderTrait + 'static> {
     global: DomRoot<GlobalScope<TH>>,
 }
 
@@ -100,7 +100,7 @@ pub fn entry_global<TH: TypeHolderTrait>() -> DomRoot<GlobalScope<TH>> {
 }
 
 /// RAII struct that pushes and pops entries from the script settings stack.
-pub struct AutoIncumbentScript<TH: TypeHolderTrait> {
+pub struct AutoIncumbentScript<TH: TypeHolderTrait + 'static> {
     global: usize,
 }
 

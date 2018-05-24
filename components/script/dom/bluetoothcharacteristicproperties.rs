@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#characteristicproperties
  #[dom_struct]
-pub struct BluetoothCharacteristicProperties<TH: TypeHolderTrait> {
+pub struct BluetoothCharacteristicProperties<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     broadcast: bool,
     read: bool,

@@ -34,7 +34,7 @@ use typeholder::TypeHolderTrait;
 /// that throws security exceptions for most accessors. This is not a replacement
 /// for XOWs, but provides belt-and-braces security.
 #[dom_struct]
-pub struct DissimilarOriginWindow<TH: TypeHolderTrait> {
+pub struct DissimilarOriginWindow<TH: TypeHolderTrait + 'static> {
     /// The global for this window.
     globalscope: GlobalScope<TH>,
 

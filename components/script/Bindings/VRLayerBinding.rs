@@ -255,7 +255,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct VRLayer<TH: TypeHolderTrait> {
+pub struct VRLayer<TH: TypeHolderTrait + 'static> {
     pub leftBounds: Option<Vec<Finite<f32>>>,
     pub rightBounds: Option<Vec<Finite<f32>>>,
     pub source: Option<DomRoot<HTMLCanvasElement<TH>>>,

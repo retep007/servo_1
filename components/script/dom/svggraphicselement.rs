@@ -12,7 +12,7 @@ use style::element_state::ElementState;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct SVGGraphicsElement<TH: TypeHolderTrait> {
+pub struct SVGGraphicsElement<TH: TypeHolderTrait + 'static> {
     svgelement: SVGElement<TH>,
 }
 

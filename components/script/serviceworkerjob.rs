@@ -40,7 +40,7 @@ pub enum SettleType<TH: TypeHolderTrait> {
 
 #[must_root]
 #[derive(JSTraceable)]
-pub struct Job<TH: TypeHolderTrait> {
+pub struct Job<TH: TypeHolderTrait + 'static> {
     pub job_type: JobType,
     pub scope_url: ServoUrl,
     pub script_url: ServoUrl,

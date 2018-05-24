@@ -11,7 +11,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Plugin<TH: TypeHolderTrait> {
+pub struct Plugin<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

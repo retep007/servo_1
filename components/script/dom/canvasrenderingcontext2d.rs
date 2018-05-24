@@ -84,7 +84,7 @@ pub struct CanvasRenderingContext2D<TH: TypeHolderTrait> {
 
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-struct CanvasContextState<TH: TypeHolderTrait> {
+struct CanvasContextState<TH: TypeHolderTrait + 'static> {
     global_alpha: f64,
     global_composition: CompositionOrBlending,
     image_smoothing_enabled: bool,

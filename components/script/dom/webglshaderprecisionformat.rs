@@ -14,7 +14,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLShaderPrecisionFormat<TH: TypeHolderTrait> {
+pub struct WebGLShaderPrecisionFormat<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     range_min: i32,
     range_max: i32,

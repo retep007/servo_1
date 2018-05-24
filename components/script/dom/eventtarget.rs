@@ -282,7 +282,7 @@ impl<TH: TypeHolderTrait> EventListeners<TH> {
 }
 
 #[dom_struct]
-pub struct EventTarget<TH: TypeHolderTrait> {
+pub struct EventTarget<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     handlers: DomRefCell<HashMap<Atom, EventListeners<TH>, BuildHasherDefault<FnvHasher>>>,
 }

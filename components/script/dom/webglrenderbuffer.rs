@@ -15,7 +15,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLRenderbuffer<TH: TypeHolderTrait> {
+pub struct WebGLRenderbuffer<TH: TypeHolderTrait + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLRenderbufferId,
     ever_bound: Cell<bool>,

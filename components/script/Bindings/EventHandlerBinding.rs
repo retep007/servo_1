@@ -260,7 +260,7 @@ pub type OnBeforeUnloadEventHandler<TH> = Option<Rc<dom::bindings::codegen::Bind
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct EventHandlerNonNull<TH: TypeHolderTrait> {
+pub struct EventHandlerNonNull<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 
@@ -343,7 +343,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for EventHandlerNonNull<TH> {
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct OnErrorEventHandlerNonNull<TH: TypeHolderTrait> {
+pub struct OnErrorEventHandlerNonNull<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 
@@ -486,7 +486,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for OnErrorEventHandlerNonNull<TH> 
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct OnBeforeUnloadEventHandlerNonNull<TH: TypeHolderTrait> {
+pub struct OnBeforeUnloadEventHandlerNonNull<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 

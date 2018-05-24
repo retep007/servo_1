@@ -27,7 +27,7 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#interface-attr
 #[dom_struct]
-pub struct Attr<TH: TypeHolderTrait> {
+pub struct Attr<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     identifier: AttrIdentifier,
     value: DomRefCell<AttrValue>,

@@ -55,7 +55,7 @@ enum ReadyState {
 }
 
 #[dom_struct]
-pub struct EventSource<TH: TypeHolderTrait> {
+pub struct EventSource<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     url: ServoUrl,
     request: DomRefCell<Option<RequestInit>>,
@@ -74,7 +74,7 @@ enum ParserState {
     Eol
 }
 
-struct EventSourceContext<TH: TypeHolderTrait> {
+struct EventSourceContext<TH: TypeHolderTrait + 'static> {
     incomplete_utf8: Option<utf8::Incomplete>,
 
     event_source: Trusted<EventSource<TH>>,
@@ -532,7 +532,7 @@ impl<TH: TypeHolderTrait> EventSourceMethods<TH> for EventSource<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct EventSourceTimeoutCallback<TH: TypeHolderTrait> {
+pub struct EventSourceTimeoutCallback<TH: TypeHolderTrait + 'static> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
     event_source: Trusted<EventSource<TH>>,
     #[ignore_malloc_size_of = "Because it is non-owning"]

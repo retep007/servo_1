@@ -255,7 +255,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct KeyboardEventInit<TH: TypeHolderTrait> {
+pub struct KeyboardEventInit<TH: TypeHolderTrait + 'static> {
     pub parent: dom::bindings::codegen::Bindings::EventModifierInitBinding::EventModifierInit<TH>,
     pub code: DOMString,
     pub isComposing: bool,

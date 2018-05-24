@@ -19,7 +19,7 @@ use std::default::Default;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct FocusEvent<TH: TypeHolderTrait> {
+pub struct FocusEvent<TH: TypeHolderTrait + 'static> {
     uievent: UIEvent<TH>,
     related_target: MutNullableDom<EventTarget<TH>>,
 }

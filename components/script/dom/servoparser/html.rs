@@ -31,7 +31,7 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer<TH: TypeHolderTrait> {
+pub struct Tokenizer<TH: TypeHolderTrait + 'static> {
     #[ignore_malloc_size_of = "Defined in html5ever"]
     inner: HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>>,
 }
@@ -148,7 +148,7 @@ enum SerializationCommand<TH: TypeHolderTrait> {
     SerializeNonelement(DomRoot<Node<TH>>),
 }
 
-struct SerializationIterator<TH: TypeHolderTrait> {
+struct SerializationIterator<TH: TypeHolderTrait + 'static> {
     stack: Vec<SerializationCommand<TH>>,
 }
 

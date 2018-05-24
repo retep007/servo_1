@@ -29,7 +29,7 @@ use stylesheet_loader::{StylesheetLoader, StylesheetOwner};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLStyleElement<TH: TypeHolderTrait> {
+pub struct HTMLStyleElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,

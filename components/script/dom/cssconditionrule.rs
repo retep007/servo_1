@@ -16,7 +16,7 @@ use style::stylesheets::CssRules as StyleCssRules;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSConditionRule<TH: TypeHolderTrait> {
+pub struct CSSConditionRule<TH: TypeHolderTrait + 'static> {
     cssgroupingrule: CSSGroupingRule<TH>,
 }
 

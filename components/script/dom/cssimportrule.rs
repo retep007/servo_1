@@ -16,7 +16,7 @@ use style::stylesheets::ImportRule;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSImportRule<TH: TypeHolderTrait> {
+pub struct CSSImportRule<TH: TypeHolderTrait + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     import_rule: Arc<Locked<ImportRule>>,

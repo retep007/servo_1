@@ -45,7 +45,7 @@ use typeholder::TypeHolderTrait;
 
 /// <https://html.spec.whatwg.org/multipage/#customelementregistry>
 #[dom_struct]
-pub struct CustomElementRegistry<TH: TypeHolderTrait> {
+pub struct CustomElementRegistry<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 
     window: Dom<Window<TH>>,
@@ -375,7 +375,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistryMethods<TH> for CustomElementRegi
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub struct LifecycleCallbacks<TH: TypeHolderTrait> {
+pub struct LifecycleCallbacks<TH: TypeHolderTrait + 'static> {
     #[ignore_malloc_size_of = "Rc"]
     connected_callback: Option<Rc<Function<TH>>>,
 
@@ -397,7 +397,7 @@ pub enum ConstructionStackEntry<TH: TypeHolderTrait> {
 
 /// <https://html.spec.whatwg.org/multipage/#custom-element-definition>
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub struct CustomElementDefinition<TH: TypeHolderTrait> {
+pub struct CustomElementDefinition<TH: TypeHolderTrait + 'static> {
     pub name: LocalName,
 
     pub local_name: LocalName,
@@ -632,7 +632,7 @@ enum BackupElementQueueFlag {
 /// <https://html.spec.whatwg.org/multipage/#custom-element-reactions-stack>
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct CustomElementReactionStack<TH: TypeHolderTrait> {
+pub struct CustomElementReactionStack<TH: TypeHolderTrait + 'static> {
     stack: DomRefCell<Vec<ElementQueue<TH>>>,
     backup_queue: ElementQueue<TH>,
     processing_backup_element_queue: Cell<BackupElementQueueFlag>,
@@ -781,7 +781,7 @@ impl<TH: TypeHolderTrait> CustomElementReactionStack<TH> {
 /// <https://html.spec.whatwg.org/multipage/#element-queue>
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-struct ElementQueue<TH: TypeHolderTrait> {
+struct ElementQueue<TH: TypeHolderTrait + 'static> {
     queue: DomRefCell<VecDeque<Dom<Element<TH>>>>,
 }
 

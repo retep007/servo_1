@@ -53,7 +53,7 @@ enum Operation {
 
 // https://w3c.github.io/permissions/#permissions
 #[dom_struct]
-pub struct Permissions<TH: TypeHolderTrait> {
+pub struct Permissions<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

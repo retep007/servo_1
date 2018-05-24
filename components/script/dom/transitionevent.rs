@@ -18,7 +18,7 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TransitionEvent<TH: TypeHolderTrait> {
+pub struct TransitionEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     property_name: Atom,
     elapsed_time: Finite<f32>,

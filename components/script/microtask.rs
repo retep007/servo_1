@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 
 /// A collection of microtasks in FIFO order.
 #[derive(Default, JSTraceable, MallocSizeOf)]
-pub struct MicrotaskQueue<TH: TypeHolderTrait> {
+pub struct MicrotaskQueue<TH: TypeHolderTrait + 'static> {
     /// The list of enqueued microtasks that will be invoked at the next microtask checkpoint.
     microtask_queue: DomRefCell<Vec<Microtask<TH>>>,
     /// <https://html.spec.whatwg.org/multipage/#performing-a-microtask-checkpoint>
@@ -45,7 +45,7 @@ pub trait MicrotaskRunnable {
 
 /// A promise callback scheduled to run during the next microtask checkpoint (#4283).
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct EnqueuedPromiseCallback<TH: TypeHolderTrait> {
+pub struct EnqueuedPromiseCallback<TH: TypeHolderTrait + 'static> {
     #[ignore_malloc_size_of = "Rc has unclear ownership"]
     pub callback: Rc<PromiseJobCallback<TH>>,
     pub pipeline: PipelineId,

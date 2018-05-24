@@ -606,7 +606,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct NodeFilter<TH: TypeHolderTrait> {
+pub struct NodeFilter<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackInterface<TH>,
 }
 

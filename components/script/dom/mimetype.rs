@@ -11,7 +11,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MimeType<TH: TypeHolderTrait> {
+pub struct MimeType<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

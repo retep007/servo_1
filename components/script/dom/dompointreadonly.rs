@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 
 // http://dev.w3.org/fxtf/geometry/Overview.html#dompointreadonly
 #[dom_struct]
-pub struct DOMPointReadOnly<TH: TypeHolderTrait> {
+pub struct DOMPointReadOnly<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     x: Cell<f64>,
     y: Cell<f64>,

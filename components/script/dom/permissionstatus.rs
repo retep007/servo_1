@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 // https://w3c.github.io/permissions/#permissionstatus
 #[dom_struct]
-pub struct PermissionStatus<TH: TypeHolderTrait> {
+pub struct PermissionStatus<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     state: Cell<PermissionState>,
     query: Cell<PermissionName>,

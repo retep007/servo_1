@@ -13,7 +13,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PerformanceEntry<TH: TypeHolderTrait> {
+pub struct PerformanceEntry<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     name: DOMString,
     entry_type: DOMString,

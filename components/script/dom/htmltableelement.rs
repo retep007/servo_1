@@ -29,7 +29,7 @@ use style::attr::{AttrValue, LengthOrPercentageOrAuto, parse_unsigned_integer};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTableElement<TH: TypeHolderTrait> {
+pub struct HTMLTableElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     border: Cell<Option<u32>>,
     cellspacing: Cell<Option<u32>>,
@@ -38,7 +38,7 @@ pub struct HTMLTableElement<TH: TypeHolderTrait> {
 
 #[allow(unrooted_must_root)]
 #[derive(JSTraceable, MallocSizeOf)]
-struct TableRowFilter<TH: TypeHolderTrait> {
+struct TableRowFilter<TH: TypeHolderTrait + 'static> {
     sections: Vec<Dom<Node<TH>>>,
 }
 

@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 // https://w3c.github.io/gamepad/#gamepadbutton-interface
 #[dom_struct]
-pub struct GamepadButtonList<TH: TypeHolderTrait> {
+pub struct GamepadButtonList<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     list: Vec<Dom<GamepadButton<TH>>>
 }

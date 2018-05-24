@@ -26,7 +26,7 @@ use std::ptr::NonNull;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMMatrixReadOnly<TH: TypeHolderTrait> {
+pub struct DOMMatrixReadOnly<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     matrix: DomRefCell<Transform3D<f64>>,
     is2D: Cell<bool>,

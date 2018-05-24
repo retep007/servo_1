@@ -14,7 +14,7 @@ use html5ever::{LocalName, Namespace};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MutationRecord<TH: TypeHolderTrait> {
+pub struct MutationRecord<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     record_type: DOMString,
     target: Dom<Node<TH>>,

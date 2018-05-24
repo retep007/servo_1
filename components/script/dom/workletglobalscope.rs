@@ -35,7 +35,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 /// <https://drafts.css-houdini.org/worklets/#workletglobalscope>
-pub struct WorkletGlobalScope<TH: TypeHolderTrait> {
+pub struct WorkletGlobalScope<TH: TypeHolderTrait + 'static> {
     /// The global for this worklet.
     globalscope: GlobalScope<TH>,
     /// The base URL for this worklet.

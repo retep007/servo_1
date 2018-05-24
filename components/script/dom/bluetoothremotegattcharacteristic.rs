@@ -36,7 +36,7 @@ pub const MAXIMUM_ATTRIBUTE_LENGTH: usize = 512;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattcharacteristic
 #[dom_struct]
-pub struct BluetoothRemoteGATTCharacteristic<TH: TypeHolderTrait> {
+pub struct BluetoothRemoteGATTCharacteristic<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     service: Dom<BluetoothRemoteGATTService<TH>>,
     uuid: DOMString,

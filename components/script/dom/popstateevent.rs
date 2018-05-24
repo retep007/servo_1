@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#the-popstateevent-interface
 #[dom_struct]
-pub struct PopStateEvent<TH: TypeHolderTrait> {
+pub struct PopStateEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     state: Heap<JSVal>,

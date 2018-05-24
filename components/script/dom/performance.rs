@@ -53,7 +53,7 @@ const INVALID_ENTRY_NAMES: &'static [&'static str] = &[
 /// Implementation of a list of PerformanceEntry items shared by the
 /// Performance and PerformanceObserverEntryList interfaces implementations.
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct PerformanceEntryList<TH: TypeHolderTrait> {
+pub struct PerformanceEntryList<TH: TypeHolderTrait + 'static> {
     entries: DOMPerformanceEntryList<TH>,
 }
 
@@ -104,13 +104,13 @@ impl<TH: TypeHolderTrait> IntoIterator for PerformanceEntryList<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct PerformanceObserver<TH: TypeHolderTrait> {
+struct PerformanceObserver<TH: TypeHolderTrait + 'static> {
     observer: DomRoot<DOMPerformanceObserver<TH>>,
     entry_types: Vec<DOMString>,
 }
 
 #[dom_struct]
-pub struct Performance<TH: TypeHolderTrait> {
+pub struct Performance<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     timing: Option<Dom<PerformanceTiming<TH>>>,
     entries: DomRefCell<PerformanceEntryList<TH>>,

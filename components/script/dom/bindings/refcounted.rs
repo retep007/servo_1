@@ -202,7 +202,7 @@ impl<T: DomObject> Clone for Trusted<T> {
 /// The set of live, pinned DOM objects that are currently prevented
 /// from being garbage collected due to outstanding references.
 #[allow(unrooted_must_root)]
-pub struct LiveDOMReferences<TH: TypeHolderTrait> {
+pub struct LiveDOMReferences<TH: TypeHolderTrait + 'static> {
     // keyed on pointer to Rust DOM object
     reflectable_table: RefCell<HashMap<*const libc::c_void, Weak<TrustedReference>>>,
     promise_table: RefCell<HashMap<*const Promise<TH>, Vec<Rc<Promise<TH>>>>>,

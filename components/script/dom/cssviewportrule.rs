@@ -16,7 +16,7 @@ use style::stylesheets::ViewportRule;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSViewportRule<TH: TypeHolderTrait> {
+pub struct CSSViewportRule<TH: TypeHolderTrait + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     viewportrule: Arc<Locked<ViewportRule>>,

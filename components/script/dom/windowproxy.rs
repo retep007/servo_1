@@ -49,7 +49,7 @@ use typeholder::TypeHolderTrait;
 // here, in script, but also in the constellation. The constellation
 // manages the session history, which in script is accessed through
 // History objects, messaging the constellation.
-pub struct WindowProxy<TH: TypeHolderTrait> {
+pub struct WindowProxy<TH: TypeHolderTrait + 'static> {
     /// The JS WindowProxy object.
     /// Unlike other reflectors, we mutate this field because
     /// we have to brain-transplant the reflector when the WindowProxy

@@ -94,7 +94,7 @@ use typeholder::TypeHolderTrait;
 
 /// An HTML node.
 #[dom_struct]
-pub struct Node<TH: TypeHolderTrait> {
+pub struct Node<TH: TypeHolderTrait + 'static> {
     /// The JavaScript reflector for this node.
     eventtarget: EventTarget<TH>,
 
@@ -330,7 +330,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 }
 
-pub struct QuerySelectorIterator<TH: TypeHolderTrait> {
+pub struct QuerySelectorIterator<TH: TypeHolderTrait + 'static> {
     selectors: SelectorList<SelectorImpl>,
     iterator: TreeIterator<TH>,
 }
@@ -1204,7 +1204,7 @@ impl<TH: TypeHolderTrait> LayoutNodeHelpers<TH> for LayoutDom<Node<TH>> {
 // Iteration and traversal
 //
 
-pub struct FollowingNodeIterator<TH: TypeHolderTrait> {
+pub struct FollowingNodeIterator<TH: TypeHolderTrait + 'static> {
     current: Option<DomRoot<Node<TH>>>,
     root: DomRoot<Node<TH>>,
 }
@@ -1257,7 +1257,7 @@ impl<TH: TypeHolderTrait> Iterator for FollowingNodeIterator<TH> {
     }
 }
 
-pub struct PrecedingNodeIterator<TH: TypeHolderTrait> {
+pub struct PrecedingNodeIterator<TH: TypeHolderTrait + 'static> {
     current: Option<DomRoot<Node<TH>>>,
     root: DomRoot<Node<TH>>,
 }
@@ -1305,7 +1305,7 @@ impl<I, TH: TypeHolderTrait> Iterator for SimpleNodeIterator<I, TH>
     }
 }
 
-pub struct TreeIterator<TH: TypeHolderTrait> {
+pub struct TreeIterator<TH: TypeHolderTrait + 'static> {
     current: Option<DomRoot<Node<TH>>>,
     depth: usize,
 }

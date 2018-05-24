@@ -14,7 +14,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMRect<TH: TypeHolderTrait> {
+pub struct DOMRect<TH: TypeHolderTrait + 'static> {
     rect: DOMRectReadOnly<TH>,
 }
 

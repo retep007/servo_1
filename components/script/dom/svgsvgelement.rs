@@ -22,7 +22,7 @@ const DEFAULT_WIDTH: u32 = 300;
 const DEFAULT_HEIGHT: u32 = 150;
 
 #[dom_struct]
-pub struct SVGSVGElement<TH: TypeHolderTrait> {
+pub struct SVGSVGElement<TH: TypeHolderTrait + 'static> {
     svggraphicselement: SVGGraphicsElement<TH>
 }
 

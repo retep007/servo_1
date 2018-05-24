@@ -36,7 +36,7 @@ pub type TrustedWorkerAddress<TH> = Trusted<Worker<TH>>;
 
 // https://html.spec.whatwg.org/multipage/#worker
 #[dom_struct]
-pub struct Worker<TH: TypeHolderTrait> {
+pub struct Worker<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
     /// Sender to the Receiver associated with the DedicatedWorkerGlobalScope

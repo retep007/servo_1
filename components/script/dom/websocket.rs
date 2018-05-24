@@ -100,7 +100,7 @@ pub fn fail_the_websocket_connection<TH: TypeHolderTrait>(
 }
 
 #[dom_struct]
-pub struct WebSocket<TH: TypeHolderTrait> {
+pub struct WebSocket<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     url: ServoUrl,
     ready_state: Cell<WebSocketRequestState>,
@@ -411,7 +411,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
 
 /// Task queued when *the WebSocket connection is established*.
 /// <https://html.spec.whatwg.org/multipage/#feedback-from-the-protocol:concept-websocket-established>
-struct ConnectionEstablishedTask<TH: TypeHolderTrait> {
+struct ConnectionEstablishedTask<TH: TypeHolderTrait + 'static> {
     address: Trusted<WebSocket<TH>>,
     protocol_in_use: Option<String>,
 }
@@ -437,7 +437,7 @@ impl<TH: TypeHolderTrait> TaskOnce for ConnectionEstablishedTask<TH> {
     }
 }
 
-struct BufferedAmountTask<TH: TypeHolderTrait> {
+struct BufferedAmountTask<TH: TypeHolderTrait + 'static> {
     address: Trusted<WebSocket<TH>>,
 }
 
@@ -455,7 +455,7 @@ impl<TH: TypeHolderTrait> TaskOnce for BufferedAmountTask<TH> {
     }
 }
 
-struct CloseTask<TH: TypeHolderTrait> {
+struct CloseTask<TH: TypeHolderTrait + 'static> {
     address: Trusted<WebSocket<TH>>,
     failed: bool,
     code: Option<u16>,
@@ -497,7 +497,7 @@ impl<TH: TypeHolderTrait> TaskOnce for CloseTask<TH> {
     }
 }
 
-struct MessageReceivedTask<TH: TypeHolderTrait> {
+struct MessageReceivedTask<TH: TypeHolderTrait + 'static> {
     address: Trusted<WebSocket<TH>>,
     message: MessageData,
 }

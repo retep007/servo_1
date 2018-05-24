@@ -24,7 +24,7 @@ use style::stylesheets::{StyleRule, Origin};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSStyleRule<TH: TypeHolderTrait> {
+pub struct CSSStyleRule<TH: TypeHolderTrait + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylerule: Arc<Locked<StyleRule>>,

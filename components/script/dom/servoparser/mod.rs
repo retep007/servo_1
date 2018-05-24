@@ -229,7 +229,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
 /// The context required for asynchronously fetching a document
 /// and parsing it progressively.
 #[derive(JSTraceable)]
-pub struct ParserContext<TH: TypeHolderTrait> {
+pub struct ParserContext<TH: TypeHolderTrait + 'static> {
     /// The parser that initiated the request.
     parser: Option<Trusted<Box<ServoParser<TH, TypeHolder=TH>>>>,
     /// Is this a synthesized document
@@ -417,7 +417,7 @@ fn insert<TH: TypeHolderTrait>(parent: &Node<TH>, reference_child: Option<&Node<
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Sink<TH: TypeHolderTrait> {
+pub struct Sink<TH: TypeHolderTrait + 'static> {
     base_url: ServoUrl,
     document: Dom<Document<TH>>,
     current_line: u64,

@@ -33,7 +33,7 @@ use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 use typeholder::TypeHolderTrait;
 
-struct FetchContext<TH: TypeHolderTrait> {
+struct FetchContext<TH: TypeHolderTrait + 'static> {
     fetch_promise: Option<TrustedPromise<TH>>,
     response_object: Trusted<Response<TH>>,
     body: Vec<u8>,

@@ -8,7 +8,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLObject<TH: TypeHolderTrait> {
+pub struct WebGLObject<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

@@ -30,7 +30,7 @@ const MAX_FACE_COUNT: usize = 6;
 jsmanaged_array!(MAX_LEVEL_COUNT * MAX_FACE_COUNT);
 
 #[dom_struct]
-pub struct WebGLTexture<TH: TypeHolderTrait> {
+pub struct WebGLTexture<TH: TypeHolderTrait + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLTextureId,
     /// The target to which this texture was bound the first time

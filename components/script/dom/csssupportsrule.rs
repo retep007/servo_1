@@ -22,7 +22,7 @@ use style_traits::{ParsingMode, ToCss};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSSupportsRule<TH: TypeHolderTrait> {
+pub struct CSSSupportsRule<TH: TypeHolderTrait + 'static> {
     cssconditionrule: CSSConditionRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     supportsrule: Arc<Locked<SupportsRule>>,

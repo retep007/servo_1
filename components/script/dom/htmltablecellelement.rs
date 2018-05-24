@@ -24,7 +24,7 @@ const DEFAULT_COLSPAN: u32 = 1;
 const DEFAULT_ROWSPAN: u32 = 1;
 
 #[dom_struct]
-pub struct HTMLTableCellElement<TH: TypeHolderTrait> {
+pub struct HTMLTableCellElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 

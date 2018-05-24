@@ -24,7 +24,7 @@ use std::iter;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct FormData<TH: TypeHolderTrait> {
+pub struct FormData<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     data: DomRefCell<HashMap<LocalName, Vec<FormDatum<TH>>>>,
 }

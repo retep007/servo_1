@@ -12,7 +12,7 @@ use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct OESElementIndexUint<TH: TypeHolderTrait> {
+pub struct OESElementIndexUint<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

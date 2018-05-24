@@ -12,7 +12,7 @@ use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct OESTextureHalfFloatLinear<TH: TypeHolderTrait> {
+pub struct OESTextureHalfFloatLinear<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

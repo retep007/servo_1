@@ -18,7 +18,7 @@ use html5ever::LocalName;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct NamedNodeMap<TH: TypeHolderTrait> {
+pub struct NamedNodeMap<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     owner: Dom<Element<TH>>,
 }

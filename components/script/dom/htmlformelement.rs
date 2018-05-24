@@ -62,7 +62,7 @@ use typeholder::TypeHolderTrait;
 pub struct GenerationId(u32);
 
 #[dom_struct]
-pub struct HTMLFormElement<TH: TypeHolderTrait> {
+pub struct HTMLFormElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     marked_for_reset: Cell<bool>,
     elements: DomOnceCell<HTMLFormControlsCollection<TH>>,
@@ -687,7 +687,7 @@ pub enum FormDatumValue<TH: TypeHolderTrait> {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub struct FormDatum<TH: TypeHolderTrait> {
+pub struct FormDatum<TH: TypeHolderTrait + 'static> {
     pub ty: DOMString,
     pub name: DOMString,
     pub value: FormDatumValue<TH>

@@ -45,7 +45,7 @@ use uuid::Uuid;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLScriptElement<TH: TypeHolderTrait> {
+pub struct HTMLScriptElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#already-started>
@@ -139,7 +139,7 @@ impl ClassicScript {
 pub type ScriptResult = Result<ClassicScript, NetworkError>;
 
 /// The context required for asynchronously loading an external script source.
-struct ScriptContext<TH: TypeHolderTrait> {
+struct ScriptContext<TH: TypeHolderTrait + 'static> {
     /// The element that initiated the request.
     elem: Trusted<HTMLScriptElement<TH>>,
     /// The kind of external script.

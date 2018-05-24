@@ -22,7 +22,7 @@ use style_traits::{ParsingMode, ToCss};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MediaList<TH: TypeHolderTrait> {
+pub struct MediaList<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
     #[ignore_malloc_size_of = "Arc"]

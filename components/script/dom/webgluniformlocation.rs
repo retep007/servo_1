@@ -12,7 +12,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLUniformLocation<TH: TypeHolderTrait> {
+pub struct WebGLUniformLocation<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     id: i32,
     program_id: WebGLProgramId,

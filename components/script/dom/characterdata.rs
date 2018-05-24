@@ -28,7 +28,7 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#characterdata
 #[dom_struct]
-pub struct CharacterData<TH: TypeHolderTrait> {
+pub struct CharacterData<TH: TypeHolderTrait + 'static> {
     node: Node<TH>,
     data: DomRefCell<DOMString>,
 }

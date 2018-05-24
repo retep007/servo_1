@@ -50,7 +50,7 @@ pub enum MixedMessage<TH: TypeHolderTrait> {
 }
 
 #[derive(Clone, JSTraceable)]
-pub struct ServiceWorkerChan<TH: TypeHolderTrait> {
+pub struct ServiceWorkerChan<TH: TypeHolderTrait + 'static> {
     pub sender: Sender<ServiceWorkerScriptMsg<TH>>
 }
 
@@ -69,7 +69,7 @@ impl<TH: TypeHolderTrait> ScriptChan for ServiceWorkerChan<TH> {
 }
 
 #[dom_struct]
-pub struct ServiceWorkerGlobalScope<TH: TypeHolderTrait> {
+pub struct ServiceWorkerGlobalScope<TH: TypeHolderTrait + 'static> {
     workerglobalscope: WorkerGlobalScope<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
     receiver: Receiver<ServiceWorkerScriptMsg<TH>>,

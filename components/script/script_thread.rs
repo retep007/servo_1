@@ -322,7 +322,7 @@ impl OpaqueSender<CommonScriptMsg> for Sender<MainThreadScriptMsg> {
 /// The set of all documents managed by this script thread.
 #[derive(JSTraceable)]
 #[must_root]
-pub struct Documents<TH: TypeHolderTrait> {
+pub struct Documents<TH: TypeHolderTrait + 'static> {
     map: HashMap<PipelineId, Dom<Document<TH>>>,
 }
 
@@ -390,7 +390,7 @@ impl<'a, TH: TypeHolderTrait> Iterator for DocumentsIter<'a, TH> {
 #[derive(JSTraceable)]
 // ScriptThread instances are rooted on creation, so this is okay
 #[allow(unrooted_must_root)]
-pub struct ScriptThread<TH: TypeHolderTrait> {
+pub struct ScriptThread<TH: TypeHolderTrait + 'static> {
     /// The documents for pipelines managed by this thread
     documents: DomRefCell<Documents<TH>>,
     /// The window proxies known by this thread

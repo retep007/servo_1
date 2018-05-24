@@ -15,7 +15,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PerformanceObserverEntryList<TH: TypeHolderTrait> {
+pub struct PerformanceObserverEntryList<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     entries: DomRefCell<PerformanceEntryList<TH>>,
 }

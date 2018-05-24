@@ -255,7 +255,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct EventModifierInit<TH: TypeHolderTrait> {
+pub struct EventModifierInit<TH: TypeHolderTrait + 'static> {
     pub parent: dom::bindings::codegen::Bindings::UIEventBinding::UIEventInit<TH>,
     pub altKey: bool,
     pub ctrlKey: bool,

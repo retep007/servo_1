@@ -24,7 +24,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TestWorklet<TH: TypeHolderTrait> {
+pub struct TestWorklet<TH: TypeHolderTrait + 'static> {
     reflector: Reflector,
     worklet: Dom<Worklet<TH>>,
 }

@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 // check-tidy: no specs after this line
 
 #[dom_struct]
-pub struct TestWorkletGlobalScope<TH: TypeHolderTrait> {
+pub struct TestWorkletGlobalScope<TH: TypeHolderTrait + 'static> {
     // The worklet global for this object
     worklet_global: WorkletGlobalScope<TH>,
     // The key/value pairs

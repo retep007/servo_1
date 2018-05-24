@@ -15,7 +15,7 @@ use style_traits::CSSPixel;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PaintSize<TH: TypeHolderTrait> {
+pub struct PaintSize<TH: TypeHolderTrait + 'static> {
     reflector: Reflector,
     width: Finite<f64>,
     height: Finite<f64>,

@@ -24,7 +24,7 @@ use script_traits::DocumentActivity;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMParser<TH: TypeHolderTrait> {
+pub struct DOMParser<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     window: Dom<Window<TH>>, // XXXjdm Document instead?
 }

@@ -21,7 +21,7 @@ use task_source::TaskSource;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLDetailsElement<TH: TypeHolderTrait> {
+pub struct HTMLDetailsElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     toggle_counter: Cell<u32>
 }

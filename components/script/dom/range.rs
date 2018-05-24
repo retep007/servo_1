@@ -34,7 +34,7 @@ use std::cmp::{Ord, Ordering, PartialEq, PartialOrd};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Range<TH: TypeHolderTrait> {
+pub struct Range<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     start: BoundaryPoint<TH>,
     end: BoundaryPoint<TH>,
@@ -936,7 +936,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct BoundaryPoint<TH: TypeHolderTrait> {
+pub struct BoundaryPoint<TH: TypeHolderTrait + 'static> {
     node: MutDom<Node<TH>>,
     offset: Cell<u32>,
 }
@@ -1015,7 +1015,7 @@ fn bp_position<TH: TypeHolderTrait>(a_node: &Node<TH>, a_offset: u32,
     }
 }
 
-pub struct WeakRangeVec<TH: TypeHolderTrait> {
+pub struct WeakRangeVec<TH: TypeHolderTrait + 'static> {
     cell: UnsafeCell<WeakRefVec<Range<TH>, TH>>,
 }
 

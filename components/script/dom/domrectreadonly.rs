@@ -12,7 +12,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMRectReadOnly<TH: TypeHolderTrait> {
+pub struct DOMRectReadOnly<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     x: Cell<f64>,
     y: Cell<f64>,

@@ -24,7 +24,7 @@ use task_source::TaskSource;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Storage<TH: TypeHolderTrait> {
+pub struct Storage<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     storage_type: StorageType
 }

@@ -19,7 +19,7 @@ pub type BluetoothDescriptorUUID = StringOrUnsignedLong;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothuuid
  #[dom_struct]
-pub struct BluetoothUUID<TH: TypeHolderTrait> {
+pub struct BluetoothUUID<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

@@ -19,7 +19,7 @@ use style::element_state::ElementState;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOptGroupElement<TH: TypeHolderTrait> {
+pub struct HTMLOptGroupElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>
 }
 

@@ -38,7 +38,7 @@ pub enum ExceptionHandling {
 /// callback interface types.
 #[derive(JSTraceable)]
 #[must_root]
-pub struct CallbackObject<TH: TypeHolderTrait> {
+pub struct CallbackObject<TH: TypeHolderTrait + 'static> {
     /// The underlying `JSObject`.
     callback: Heap<*mut JSObject>,
     permanent_js_root: Heap<JSVal>,
@@ -129,7 +129,7 @@ pub trait CallbackContainer<TH: TypeHolderTrait> {
 /// A common base class for representing IDL callback function types.
 #[derive(JSTraceable, PartialEq)]
 #[must_root]
-pub struct CallbackFunction<TH: TypeHolderTrait> {
+pub struct CallbackFunction<TH: TypeHolderTrait + 'static> {
     object: CallbackObject<TH>,
 }
 
@@ -160,7 +160,7 @@ impl<TH: TypeHolderTrait> CallbackFunction<TH> {
 /// A common base class for representing IDL callback interface types.
 #[derive(JSTraceable, PartialEq)]
 #[must_root]
-pub struct CallbackInterface<TH: TypeHolderTrait> {
+pub struct CallbackInterface<TH: TypeHolderTrait + 'static> {
     object: CallbackObject<TH>,
 }
 
@@ -221,7 +221,7 @@ pub fn wrap_call_this_object<T: DomObject>(cx: *mut JSContext,
 
 /// A class that performs whatever setup we need to safely make a call while
 /// this class is on the stack. After `new` returns, the call is safe to make.
-pub struct CallSetup<TH: TypeHolderTrait> {
+pub struct CallSetup<TH: TypeHolderTrait + 'static> {
     /// The global for reporting exceptions. This is the global object of the
     /// (possibly wrapped) callback object.
     exception_global: DomRoot<GlobalScope<TH>>,

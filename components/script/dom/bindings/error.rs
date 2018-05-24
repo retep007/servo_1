@@ -135,7 +135,7 @@ pub unsafe fn throw_dom_exception<TH: TypeHolderTrait>(cx: *mut JSContext, globa
 }
 
 /// A struct encapsulating information about a runtime script error.
-pub struct ErrorInfo<TH: TypeHolderTrait> {
+pub struct ErrorInfo<TH: TypeHolderTrait + 'static> {
     /// The error message.
     pub message: String,
     /// The file name.

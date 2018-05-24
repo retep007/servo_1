@@ -23,7 +23,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Navigator<TH: TypeHolderTrait> {
+pub struct Navigator<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     bluetooth: MutNullableDom<Bluetooth<TH>>,
     plugins: MutNullableDom<PluginArray<TH>>,

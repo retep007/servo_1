@@ -13,7 +13,7 @@ use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct OESStandardDerivatives<TH: TypeHolderTrait> {
+pub struct OESStandardDerivatives<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

@@ -22,7 +22,7 @@ use style::attr::AttrValue;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTableSectionElement<TH: TypeHolderTrait> {
+pub struct HTMLTableSectionElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 

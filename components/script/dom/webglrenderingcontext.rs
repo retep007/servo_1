@@ -137,7 +137,7 @@ bitflags! {
 /// Information about the bound textures of a WebGL texture unit.
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
-struct TextureUnitBindings<TH: TypeHolderTrait> {
+struct TextureUnitBindings<TH: TypeHolderTrait + 'static> {
     bound_texture_2d: MutNullableDom<WebGLTexture<TH>>,
     bound_texture_cube_map: MutNullableDom<WebGLTexture<TH>>,
 }
@@ -170,7 +170,7 @@ impl<TH: TypeHolderTrait> TextureUnitBindings<TH> {
 
 
 #[dom_struct]
-pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
+pub struct WebGLRenderingContext<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     #[ignore_malloc_size_of = "Channels are hard"]
     webgl_sender: WebGLMsgSender,

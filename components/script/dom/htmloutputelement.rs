@@ -20,7 +20,7 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOutputElement<TH: TypeHolderTrait> {
+pub struct HTMLOutputElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }

@@ -66,7 +66,7 @@ enum ProcessingMode {
 }
 
 #[dom_struct]
-pub struct HTMLIFrameElement<TH: TypeHolderTrait> {
+pub struct HTMLIFrameElement<TH: TypeHolderTrait + 'static> {
     htmlelement: HTMLElement<TH>,
     top_level_browsing_context_id: Cell<Option<TopLevelBrowsingContextId>>,
     browsing_context_id: Cell<Option<BrowsingContextId>>,

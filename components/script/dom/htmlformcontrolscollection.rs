@@ -19,7 +19,7 @@ use std::iter;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFormControlsCollection<TH: TypeHolderTrait> {
+pub struct HTMLFormControlsCollection<TH: TypeHolderTrait + 'static> {
     collection: HTMLCollection<TH>,
 }
 

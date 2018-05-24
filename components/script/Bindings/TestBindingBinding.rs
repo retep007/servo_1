@@ -304,7 +304,7 @@ pub type TestTypedefInterface<TH> = DomRoot<Blob<TH>>;
 
 #[derive(JSTraceable, Default)]
 #[must_root]
-pub struct TestDictionary<TH: TypeHolderTrait> {
+pub struct TestDictionary<TH: TypeHolderTrait + 'static> {
     pub anyValue: RootedTraceableBox<Heap<JSVal>>,
     pub booleanValue: Option<bool>,
     pub byteValue: Option<i8>,
@@ -1798,7 +1798,7 @@ impl ToJSValConvertible for RootedTraceableBox<TestDictionaryDefaults> {
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct SimpleCallback<TH: TypeHolderTrait> {
+pub struct SimpleCallback<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 

@@ -12,7 +12,7 @@ use super::{constants as webgl, ext_constants as gl, WebGLExtension, WebGLExtens
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct OESTextureHalfFloat<TH: TypeHolderTrait> {
+pub struct OESTextureHalfFloat<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
 }
 

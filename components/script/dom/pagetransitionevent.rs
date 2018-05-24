@@ -18,7 +18,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#pagetransitionevent
 #[dom_struct]
-pub struct PageTransitionEvent<TH: TypeHolderTrait> {
+pub struct PageTransitionEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     persisted: Cell<bool>,
 }

@@ -18,7 +18,7 @@ use style::stylesheets::keyframes_rule::Keyframe;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSKeyframeRule<TH: TypeHolderTrait> {
+pub struct CSSKeyframeRule<TH: TypeHolderTrait + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     keyframerule: Arc<Locked<Keyframe>>,

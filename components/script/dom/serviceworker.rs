@@ -26,7 +26,7 @@ use typeholder::TypeHolderTrait;
 pub type TrustedServiceWorkerAddress<TH> = Trusted<ServiceWorker<TH>>;
 
 #[dom_struct]
-pub struct ServiceWorker<TH: TypeHolderTrait> {
+pub struct ServiceWorker<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     script_url: DomRefCell<String>,
     scope_url: ServoUrl,

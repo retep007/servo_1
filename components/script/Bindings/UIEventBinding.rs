@@ -255,7 +255,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct UIEventInit<TH: TypeHolderTrait> {
+pub struct UIEventInit<TH: TypeHolderTrait + 'static> {
     pub parent: dom::bindings::codegen::Bindings::EventBinding::EventInit,
     pub detail: i32,
     pub view: Option<DomRoot<Window<TH>>>,

@@ -17,7 +17,7 @@ use std::iter::FromIterator;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait> {
+pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait + 'static> {
     webgl_object_: WebGLObject<TH>,
     id: WebGLVertexArrayId,
     ever_bound: Cell<bool>,

@@ -254,7 +254,7 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct EventListener<TH: TypeHolderTrait> {
+pub struct EventListener<TH: TypeHolderTrait + 'static> {
     pub parent: CallbackInterface<TH>,
 }
 

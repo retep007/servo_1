@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 // https://www.w3.org/TR/gamepad/
 #[dom_struct]
-pub struct GamepadList<TH: TypeHolderTrait> {
+pub struct GamepadList<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     list: DomRefCell<Vec<Dom<Gamepad<TH>>>>
 }

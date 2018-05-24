@@ -17,7 +17,7 @@ use servo_url::{MutableOrigin, ServoUrl};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Location<TH: TypeHolderTrait> {
+pub struct Location<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     window: Dom<Window<TH>>,
 }

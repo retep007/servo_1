@@ -22,7 +22,7 @@ pub enum NodeListType<TH: TypeHolderTrait> {
 
 // https://dom.spec.whatwg.org/#interface-nodelist
 #[dom_struct]
-pub struct NodeList<TH: TypeHolderTrait> {
+pub struct NodeList<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector,
     list_type: NodeListType<TH>,
 }
@@ -112,7 +112,7 @@ impl<TH: TypeHolderTrait> NodeList<TH> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct ChildrenList<TH: TypeHolderTrait> {
+pub struct ChildrenList<TH: TypeHolderTrait + 'static> {
     node: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     last_visited: MutNullableDom<Node<TH>>,

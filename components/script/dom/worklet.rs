@@ -75,7 +75,7 @@ const MIN_GC_THRESHOLD: u32 = 1_000_000;
 
 #[dom_struct]
 /// <https://drafts.css-houdini.org/worklets/#worklet>
-pub struct Worklet<TH: TypeHolderTrait> {
+pub struct Worklet<TH: TypeHolderTrait + 'static> {
     reflector: Reflector,
     window: Dom<Window<TH>>,
     worklet_id: WorkletId,
@@ -227,7 +227,7 @@ impl PendingTasksStruct {
 /// by a backup thread, not by the primary thread.
 
 #[derive(Clone, JSTraceable)]
-pub struct WorkletThreadPool<TH: TypeHolderTrait> {
+pub struct WorkletThreadPool<TH: TypeHolderTrait + 'static> {
     // Channels to send data messages to the three roles.
     primary_sender: Sender<WorkletData>,
     hot_backup_sender: Sender<WorkletData>,
@@ -379,7 +379,7 @@ struct WorkletThreadInit {
 
 /// A thread for executing worklets.
 #[must_root]
-struct WorkletThread<TH: TypeHolderTrait> {
+struct WorkletThread<TH: TypeHolderTrait + 'static> {
     /// Which role the thread is currently playing
     role: WorkletThreadRole,
 

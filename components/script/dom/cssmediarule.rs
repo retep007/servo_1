@@ -24,7 +24,7 @@ use style_traits::{ParsingMode, ToCss};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSMediaRule<TH: TypeHolderTrait> {
+pub struct CSSMediaRule<TH: TypeHolderTrait + 'static> {
     cssconditionrule: CSSConditionRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     mediarule: Arc<Locked<MediaRule>>,
