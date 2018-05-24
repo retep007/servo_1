@@ -77,7 +77,7 @@ enum ParserState {
 struct EventSourceContext<TH: TypeHolderTrait> {
     incomplete_utf8: Option<utf8::Incomplete>,
 
-    event_source: Trusted<EventSource<TH>, TH>,
+    event_source: Trusted<EventSource<TH>>,
     gen_id: GenerationId,
     action_sender: ipc::IpcSender<FetchResponseMsg>,
 
@@ -534,7 +534,7 @@ impl<TH: TypeHolderTrait> EventSourceMethods<TH> for EventSource<TH> {
 #[derive(JSTraceable, MallocSizeOf)]
 pub struct EventSourceTimeoutCallback<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
-    event_source: Trusted<EventSource<TH>, TH>,
+    event_source: Trusted<EventSource<TH>>,
     #[ignore_malloc_size_of = "Because it is non-owning"]
     action_sender: ipc::IpcSender<FetchResponseMsg>,
 }

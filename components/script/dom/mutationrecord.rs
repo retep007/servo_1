@@ -21,8 +21,8 @@ pub struct MutationRecord<TH: TypeHolderTrait> {
     attribute_name: Option<DOMString>,
     attribute_namespace: Option<DOMString>,
     old_value: Option<DOMString>,
-    added_nodes: MutNullableDom<NodeList<TH>, TH>,
-    removed_nodes: MutNullableDom<NodeList<TH>, TH>,
+    added_nodes: MutNullableDom<NodeList<TH>>,
+    removed_nodes: MutNullableDom<NodeList<TH>>,
     next_sibling: Option<Dom<Node<TH>>>,
     prev_sibling: Option<Dom<Node<TH>>>,
 }

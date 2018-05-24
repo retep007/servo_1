@@ -33,7 +33,7 @@ pub struct HTMLStyleElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
-    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>, TH>,
+    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
     /// <https://html.spec.whatwg.org/multipage/#a-style-sheet-that-is-blocking-scripts>
     parser_inserted: Cell<bool>,
     in_stack_of_open_elements: Cell<bool>,

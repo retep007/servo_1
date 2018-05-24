@@ -115,7 +115,7 @@ impl<TH: TypeHolderTrait> NodeList<TH> {
 pub struct ChildrenList<TH: TypeHolderTrait> {
     node: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
-    last_visited: MutNullableDom<Node<TH>, TH>,
+    last_visited: MutNullableDom<Node<TH>>,
     last_index: Cell<u32>,
 }
 

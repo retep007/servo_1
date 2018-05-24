@@ -482,7 +482,7 @@ unsafe impl<T> JSTraceable for IpcReceiver<T> where T: for<'de> Deserialize<'de>
     }
 }
 
-unsafe impl<T: DomObject, TH: TypeHolderTrait> JSTraceable for Trusted<T, TH> {
+unsafe impl<T: DomObject> JSTraceable for Trusted<T> {
     #[inline]
     unsafe fn trace(&self, _: *mut JSTracer) {
         // Do nothing

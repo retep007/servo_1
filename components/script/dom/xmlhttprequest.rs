@@ -132,8 +132,8 @@ pub struct XMLHttpRequest<TH: TypeHolderTrait> {
     status_text: DomRefCell<ByteString>,
     response: DomRefCell<ByteString>,
     response_type: Cell<XMLHttpRequestResponseType>,
-    response_xml: MutNullableDom<Document<TH>, TH>,
-    response_blob: MutNullableDom<Blob<TH>, TH>,
+    response_xml: MutNullableDom<Document<TH>>,
+    response_blob: MutNullableDom<Blob<TH>>,
     response_arraybuffer: Heap<*mut JSObject>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     response_json: Heap<JSVal>,
@@ -829,7 +829,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods<TH> for XMLHttpRequest<TH> {
     }
 }
 
-pub type TrustedXHRAddress<TH> = Trusted<XMLHttpRequest<TH>, TH>;
+pub type TrustedXHRAddress<TH> = Trusted<XMLHttpRequest<TH>>;
 
 
 impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
@@ -1376,7 +1376,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
 #[derive(JSTraceable, MallocSizeOf)]
 pub struct XHRTimeoutCallback<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
-    xhr: Trusted<XMLHttpRequest<TH>, TH>,
+    xhr: Trusted<XMLHttpRequest<TH>>,
     generation_id: GenerationId,
 }
 

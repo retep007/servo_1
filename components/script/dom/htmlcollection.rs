@@ -61,7 +61,7 @@ pub struct HTMLCollection<TH: TypeHolderTrait> {
     // the length of the collection, and a cursor into the collection.
     // FIXME: make the cached cursor element a weak pointer
     cached_version: Cell<u64>,
-    cached_cursor_element: MutNullableDom<Element<TH>, TH>,
+    cached_cursor_element: MutNullableDom<Element<TH>>,
     cached_cursor_index: Cell<OptionU32>,
     cached_length: Cell<OptionU32>,
 }
@@ -85,7 +85,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     pub fn always_empty(window: &Window<TH>, root: &Node<TH>) -> DomRoot<Self> {
         #[derive(JSTraceable)]
         struct NoFilter<TH>;
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for NoFilter<TH> {
+        impl CollectionFilter<TH> for NoFilter<TH> {
             fn filter<'a>(&self, _: &'a Element<TH>, _: &'a Node<TH>) -> bool {
                 false
             }
@@ -148,7 +148,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             qualified_name: LocalName,
             ascii_lower_qualified_name: LocalName,
         }
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for HtmlDocumentFilter<TH> {
+        impl CollectionFilter<TH> for HtmlDocumentFilter<TH> {
             fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
                 if root.is_in_html_doc() && elem.namespace() == &ns!(html) {    // case 2
                     HTMLCollection::match_element(elem, &self.ascii_lower_qualified_name)
@@ -187,8 +187,8 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         struct TagNameNSFilter<TH: TypeHolderTrait> {
             qname: QualName
         }
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for TagNameNSFilter<TH> {
-            fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+        impl CollectionFilter<TH> for TagNameNSFilter<TH> {
+            fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                     ((self.qname.ns == namespace_url!("*")) || (self.qname.ns == *elem.namespace())) &&
                     ((self.qname.local == local_name!("*")) || (self.qname.local == *elem.local_name()))
             }
@@ -211,8 +211,8 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         struct ClassNameFilter<TH> {
             classes: Vec<Atom>
         }
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for ClassNameFilter<TH> {
-            fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+        impl CollectionFilter<TH> for ClassNameFilter<TH> {
+            fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                 let case_sensitivity = document_from_node(elem)
                     .quirks_mode()
                     .classes_and_ids_case_sensitivity();
@@ -225,11 +225,11 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         HTMLCollection::create(window, root, Box::new(filter))
     }
 
-    pub fn children(window: &Window<TH>, root: &Node<TH>) -> DomRoot<HTMLCollection<TH>> {
+    pub fn children<TH>(window: &Window<TH>, root: &Node<TH>) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ElementChildFilter<TH>;
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for ElementChildFilter<TH> {
-            fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
+        struct ElementChildFilter<THH: TypeHolderTrait>;
+        impl<THH: TypeHolderTrait> CollectionFilter<THH> for ElementChildFilter<THH> {
+            fn filter(&self, elem: &Element<THH>, root: &Node<THH>) -> bool {
                 root.is_parent_of(elem.upcast())
             }
         }

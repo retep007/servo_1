@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct FocusEvent<TH: TypeHolderTrait> {
     uievent: UIEvent<TH>,
-    related_target: MutNullableDom<EventTarget<TH>, TH>,
+    related_target: MutNullableDom<EventTarget<TH>>,
 }
 
 impl<TH: TypeHolderTrait> FocusEvent<TH> {

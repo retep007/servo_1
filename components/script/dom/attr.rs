@@ -33,7 +33,7 @@ pub struct Attr<TH: TypeHolderTrait> {
     value: DomRefCell<AttrValue>,
 
     /// the element that owns this attribute.
-    owner: MutNullableDom<Element<TH>, TH>,
+    owner: MutNullableDom<Element<TH>>,
 }
 
 impl<TH: TypeHolderTrait> Attr<TH> {

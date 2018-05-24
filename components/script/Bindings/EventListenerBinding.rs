@@ -271,7 +271,7 @@ impl<TH: TypeHolderTrait> EventListener<TH> {
         ret
     }
 
-    pub fn HandleEvent_<T: DomObject, TH: TypeHolderTrait>(&self, thisObj: &T, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn HandleEve_<T: DomObject>(&self, thisObj: &T, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());

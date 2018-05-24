@@ -50,10 +50,10 @@ impl RequestGenerationId {
 #[dom_struct]
 pub struct HTMLLinkElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
-    rel_list: MutNullableDom<DOMTokenList<TH>, TH>,
+    rel_list: MutNullableDom<DOMTokenList<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
-    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>, TH>,
+    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
 
     /// <https://html.spec.whatwg.org/multipage/#a-style-sheet-that-is-blocking-scripts>
     parser_inserted: Cell<bool>,

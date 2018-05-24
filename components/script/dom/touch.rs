@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 pub struct Touch<TH: TypeHolderTrait> {
     reflector_: Reflector,
     identifier: i32,
-    target: MutDom<EventTarget<TH>, TH>,
+    target: MutDom<EventTarget<TH>>,
     screen_x: f64,
     screen_y: f64,
     client_x: f64,

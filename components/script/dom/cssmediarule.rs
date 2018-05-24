@@ -28,7 +28,7 @@ pub struct CSSMediaRule<TH: TypeHolderTrait> {
     cssconditionrule: CSSConditionRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     mediarule: Arc<Locked<MediaRule>>,
-    medialist: MutNullableDom<MediaList<TH>, TH>,
+    medialist: MutNullableDom<MediaList<TH>>,
 }
 
 impl<TH: TypeHolderTrait> CSSMediaRule<TH> {

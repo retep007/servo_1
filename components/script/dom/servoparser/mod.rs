@@ -231,7 +231,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
 #[derive(JSTraceable)]
 pub struct ParserContext<TH: TypeHolderTrait> {
     /// The parser that initiated the request.
-    parser: Option<Trusted<Box<ServoParser<TH, TypeHolder=TH>>, TH>>,
+    parser: Option<Trusted<Box<ServoParser<TH, TypeHolder=TH>>>>,
     /// Is this a synthesized document
     is_synthesized_document: bool,
     /// The pipeline associated with this document.
@@ -421,7 +421,7 @@ pub struct Sink<TH: TypeHolderTrait> {
     base_url: ServoUrl,
     document: Dom<Document<TH>>,
     current_line: u64,
-    script: MutNullableDom<HTMLScriptElement<TH>, TH>,
+    script: MutNullableDom<HTMLScriptElement<TH>>,
     parsing_algorithm: ParsingAlgorithm,
 }
 

@@ -40,7 +40,7 @@ pub struct CSSRuleList<TH: TypeHolderTrait> {
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     rules: RulesSource,
-    dom_rules: DomRefCell<Vec<MutNullableDom<CSSRule<TH>, TH>>>
+    dom_rules: DomRefCell<Vec<MutNullableDom<CSSRule<TH>>>>
 }
 
 pub enum RulesSource {

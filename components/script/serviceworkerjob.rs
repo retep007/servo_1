@@ -34,7 +34,7 @@ pub enum JobType {
 
 #[derive(Clone)]
 pub enum SettleType<TH: TypeHolderTrait> {
-    Resolve(Trusted<ServiceWorkerRegistration<TH>, TH>),
+    Resolve(Trusted<ServiceWorkerRegistration<TH>>),
     Reject(Error<TH>)
 }
 

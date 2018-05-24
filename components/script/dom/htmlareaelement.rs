@@ -218,7 +218,7 @@ impl Area {
 #[dom_struct]
 pub struct HTMLAreaElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
-    rel_list: MutNullableDom<DOMTokenList<TH>, TH>,
+    rel_list: MutNullableDom<DOMTokenList<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLAreaElement<TH> {

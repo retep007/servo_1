@@ -243,7 +243,7 @@ impl<TH: TypeHolderTrait> ::style::stylesheets::StylesheetInDocument for StyleSh
 pub struct Document<TH: TypeHolderTrait> {
     node: Node<TH>,
     window: Dom<Window<TH>>,
-    implementation: MutNullableDom<DOMImplementation<TH>, TH>,
+    implementation: MutNullableDom<DOMImplementation<TH>>,
     #[ignore_malloc_size_of = "type from external crate"]
     content_type: Mime,
     last_modified: Option<String>,
@@ -259,28 +259,28 @@ pub struct Document<TH: TypeHolderTrait> {
     tag_map: DomRefCell<HashMap<LocalName, Dom<HTMLCollection<TH>>>>,
     tagns_map: DomRefCell<HashMap<QualName, Dom<HTMLCollection<TH>>>>,
     classes_map: DomRefCell<HashMap<Vec<Atom>, Dom<HTMLCollection<TH>>>>,
-    images: MutNullableDom<HTMLCollection<TH>, TH>,
-    embeds: MutNullableDom<HTMLCollection<TH>, TH>,
-    links: MutNullableDom<HTMLCollection<TH>, TH>,
-    forms: MutNullableDom<HTMLCollection<TH>, TH>,
-    scripts: MutNullableDom<HTMLCollection<TH>, TH>,
-    anchors: MutNullableDom<HTMLCollection<TH>, TH>,
-    applets: MutNullableDom<HTMLCollection<TH>, TH>,
+    images: MutNullableDom<HTMLCollection<TH>>,
+    embeds: MutNullableDom<HTMLCollection<TH>>,
+    links: MutNullableDom<HTMLCollection<TH>>,
+    forms: MutNullableDom<HTMLCollection<TH>>,
+    scripts: MutNullableDom<HTMLCollection<TH>>,
+    anchors: MutNullableDom<HTMLCollection<TH>>,
+    applets: MutNullableDom<HTMLCollection<TH>>,
     /// Lock use for style attributes and author-origin stylesheet objects in this document.
     /// Can be acquired once for accessing many objects.
     style_shared_lock: StyleSharedRwLock,
     /// List of stylesheets associated with nodes in this document. |None| if the list needs to be refreshed.
     stylesheets: DomRefCell<DocumentStylesheetSet<StyleSheetInDocument<TH>>>,
-    stylesheet_list: MutNullableDom<StyleSheetList<TH>, TH>,
+    stylesheet_list: MutNullableDom<StyleSheetList<TH>>,
     ready_state: Cell<DocumentReadyState>,
     /// Whether the DOMContentLoaded event has already been dispatched.
     domcontentloaded_dispatched: Cell<bool>,
     /// The element that has most recently requested focus for itself.
-    possibly_focused: MutNullableDom<Element<TH>, TH>,
+    possibly_focused: MutNullableDom<Element<TH>>,
     /// The element that currently has the document focus context.
-    focused: MutNullableDom<Element<TH>, TH>,
+    focused: MutNullableDom<Element<TH>>,
     /// The script element that is currently executing.
-    current_script: MutNullableDom<HTMLScriptElement<TH>, TH>,
+    current_script: MutNullableDom<HTMLScriptElement<TH>>,
     /// <https://html.spec.whatwg.org/multipage/#pending-parsing-blocking-script>
     pending_parsing_blocking_script: DomRefCell<Option<PendingScript<TH>>>,
     /// Number of stylesheets that block executing the next parser-inserted script
@@ -308,14 +308,14 @@ pub struct Document<TH: TypeHolderTrait> {
     /// Tracks all outstanding loads related to this document.
     loader: DomRefCell<DocumentLoader>,
     /// The current active HTML parser, to allow resuming after interruptions.
-    current_parser: MutNullableDom<Box<ServoParser<TH, TypeHolder=TH>>, TH>,
+    current_parser: MutNullableDom<Box<ServoParser<TH, TypeHolder=TH>>>,
     /// When we should kick off a reflow. This happens during parsing.
     reflow_timeout: Cell<Option<u64>>,
     /// The cached first `base` element with an `href` attribute.
-    base_element: MutNullableDom<HTMLBaseElement<TH>, TH>,
+    base_element: MutNullableDom<HTMLBaseElement<TH>>,
     /// This field is set to the document itself for inert documents.
     /// <https://html.spec.whatwg.org/multipage/#appropriate-template-contents-owner-document>
-    appropriate_template_contents_owner_document: MutNullableDom<Document<TH>, TH>,
+    appropriate_template_contents_owner_document: MutNullableDom<Document<TH>>,
     /// Information on elements needing restyle to ship over to the layout thread when the
     /// time comes.
     pending_restyles: DomRefCell<HashMap<Dom<Element<TH>>, PendingRestyle>>,
@@ -343,7 +343,7 @@ pub struct Document<TH: TypeHolderTrait> {
     /// <https://html.spec.whatwg.org/multipage/#dom-document-referrer>
     referrer: Option<String>,
     /// <https://html.spec.whatwg.org/multipage/#target-element>
-    target_element: MutNullableDom<Element<TH>, TH>,
+    target_element: MutNullableDom<Element<TH>>,
     /// <https://w3c.github.io/uievents/#event-type-dblclick>
     #[ignore_malloc_size_of = "Defined in std"]
     last_click_info: DomRefCell<Option<(Instant, Point2D<f32>)>>,
@@ -361,7 +361,7 @@ pub struct Document<TH: TypeHolderTrait> {
     /// See also: https://github.com/servo/servo/issues/10110
     dom_count: Cell<u32>,
     /// Entry node for fullscreen.
-    fullscreen_element: MutNullableDom<Element<TH>, TH>,
+    fullscreen_element: MutNullableDom<Element<TH>>,
     /// Map from ID to set of form control elements that have that ID as
     /// their 'form' content attribute. Used to reset form controls
     /// whenever any element with the same ID as the form attribute
@@ -381,7 +381,7 @@ pub struct Document<TH: TypeHolderTrait> {
 #[derive(JSTraceable, MallocSizeOf)]
 struct ImagesFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for ImagesFilter<TH> {
-    fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+    fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLImageElement<TH>>()
     }
 }
@@ -389,7 +389,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for ImagesFilter<TH> {
 #[derive(JSTraceable, MallocSizeOf)]
 struct EmbedsFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for EmbedsFilter<TH> {
-    fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+    fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLEmbedElement<TH>>()
     }
 }
@@ -397,7 +397,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for EmbedsFilter<TH> {
 #[derive(JSTraceable, MallocSizeOf)]
 struct LinksFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for LinksFilter<TH> {
-    fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+    fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         (elem.is::<HTMLAnchorElement<TH>>() || elem.is::<HTMLAreaElement<TH>>()) &&
         elem.has_attribute(&local_name!("href"))
     }
@@ -406,7 +406,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for LinksFilter<TH> {
 #[derive(JSTraceable, MallocSizeOf)]
 struct FormsFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for FormsFilter<TH> {
-    fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+    fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLFormElement<TH>>()
     }
 }
@@ -414,7 +414,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for FormsFilter<TH> {
 #[derive(JSTraceable, MallocSizeOf)]
 struct ScriptsFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for ScriptsFilter<TH> {
-    fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+    fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLScriptElement<TH>>()
     }
 }
@@ -422,7 +422,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for ScriptsFilter<TH> {
 #[derive(JSTraceable, MallocSizeOf)]
 struct AnchorsFilter<TH: TypeHolderTrait>;
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for AnchorsFilter<TH> {
-    fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+    fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLAnchorElement<TH>>() && elem.has_attribute(&local_name!("href"))
     }
 }
@@ -1041,7 +1041,7 @@ impl<TH: TypeHolderTrait> Document<TH> {
         &self,
         js_runtime: *mut JSRuntime,
         client_point: Option<Point2D<f32>>,
-        prev_mouse_over_target: &MutNullableDom<Element<TH>, TH>,
+        prev_mouse_over_target: &MutNullableDom<Element<TH>>,
         node_address: Option<UntrustedNodeAddress>
     ) {
         let client_point = match client_point {
@@ -3526,7 +3526,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
             name: Atom,
         }
         impl<TH: TypeHolderTrait> CollectionFilter<TH> for NamedElementFilter<TH> {
-            fn filter<TH>(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+            fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
                 filter_by_name(&self.name, elem.upcast())
             }
         }
@@ -3988,7 +3988,7 @@ pub enum FocusEventType {
 pub struct FakeRequestAnimationFrameCallback<TH: TypeHolderTrait> {
     /// The document.
     #[ignore_malloc_size_of = "non-owning"]
-    document: Trusted<Document<TH>, TH>,
+    document: Trusted<Document<TH>>,
 }
 
 impl<TH: TypeHolderTrait> FakeRequestAnimationFrameCallback<TH> {

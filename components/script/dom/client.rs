@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct Client<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    active_worker: MutNullableDom<ServiceWorker<TH>, TH>,
+    active_worker: MutNullableDom<ServiceWorker<TH>>,
     url: ServoUrl,
     frame_type: FrameType,
     #[ignore_malloc_size_of = "Defined in uuid"]

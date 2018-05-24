@@ -60,7 +60,7 @@ pub struct HTMLMediaElement<TH: TypeHolderTrait> {
     /// <https://html.spec.whatwg.org/multipage/#dom-media-readystate>
     ready_state: Cell<ReadyState>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-srcobject>
-    src_object: MutNullableDom<Blob<TH>, TH>,
+    src_object: MutNullableDom<Blob<TH>>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-currentsrc>
     current_src: DomRefCell<String>,
     /// Incremented whenever tasks associated with this element are cancelled.
@@ -70,7 +70,7 @@ pub struct HTMLMediaElement<TH: TypeHolderTrait> {
     /// Reset to false every time the load algorithm is invoked.
     fired_loadeddata_event: Cell<bool>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-error>
-    error: MutNullableDom<MediaError<TH>, TH>,
+    error: MutNullableDom<MediaError<TH>>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-paused>
     paused: Cell<bool>,
     /// <https://html.spec.whatwg.org/multipage/#attr-media-autoplay>
@@ -976,7 +976,7 @@ enum Resource {
 
 struct HTMLMediaElementContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
-    elem: Trusted<HTMLMediaElement<TH>, TH>,
+    elem: Trusted<HTMLMediaElement<TH>>,
     /// The response body received to date.
     data: Vec<u8>,
     /// The response metadata received to date.

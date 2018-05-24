@@ -465,7 +465,7 @@ pub struct ScriptThread<TH: TypeHolderTrait> {
     js_runtime: Rc<Runtime>,
 
     /// The topmost element over the mouse.
-    topmost_mouse_over_target: MutNullableDom<Element<TH>, TH>,
+    topmost_mouse_over_target: MutNullableDom<Element<TH>>,
 
     /// List of pipelines that have been owned and closed by this script thread.
     closed_pipelines: DomRefCell<HashSet<PipelineId>>,
@@ -533,7 +533,7 @@ impl<'a, TH: TypeHolderTrait> ScriptMemoryFailsafe<'a, TH> {
     }
 }
 
-impl<'a, TH> Drop for ScriptMemoryFailsafe<'a, TH> {
+impl<'a, TH: TypeHolderTrait> Drop for ScriptMemoryFailsafe<'a, TH> {
     #[allow(unrooted_must_root)]
     fn drop(&mut self) {
         if let Some(owner) = self.owner {

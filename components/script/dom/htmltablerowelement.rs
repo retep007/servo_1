@@ -38,7 +38,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for CellsFilter<TH> {
 #[dom_struct]
 pub struct HTMLTableRowElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
-    cells: MutNullableDom<HTMLCollection<TH>, TH>,
+    cells: MutNullableDom<HTMLCollection<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLTableRowElement<TH> {

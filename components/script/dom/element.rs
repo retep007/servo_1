@@ -144,8 +144,8 @@ pub struct Element<TH: TypeHolderTrait> {
     is: DomRefCell<Option<LocalName>>,
     #[ignore_malloc_size_of = "Arc"]
     style_attribute: DomRefCell<Option<Arc<Locked<PropertyDeclarationBlock>>>>,
-    attr_list: MutNullableDom<NamedNodeMap<TH>, TH>,
-    class_list: MutNullableDom<DOMTokenList<TH>, TH>,
+    attr_list: MutNullableDom<NamedNodeMap<TH>>,
+    class_list: MutNullableDom<DOMTokenList<TH>>,
     state: Cell<ElementState>,
     /// These flags are set by the style system to indicate the that certain
     /// operations may require restyling this element or its descendants. The
@@ -3078,7 +3078,7 @@ pub enum AttributeMutation<'a, TH: TypeHolderTrait> {
     Removed,
 }
 
-impl<'a, TH> AttributeMutation<'a, TH> {
+impl<'a, TH: TypeHolderTrait> AttributeMutation<'a, TH> {
     pub fn is_removal(&self) -> bool {
         match *self {
             AttributeMutation::Removed => true,
@@ -3130,13 +3130,13 @@ impl TagName {
 }
 
 pub struct ElementPerformFullscreenEnter<TH: TypeHolderTrait> {
-    element: Trusted<Element<TH>, TH>,
+    element: Trusted<Element<TH>>,
     promise: TrustedPromise<TH>,
     error: bool,
 }
 
 impl<TH: TypeHolderTrait> ElementPerformFullscreenEnter<TH> {
-    pub fn new(element: Trusted<Element<TH>, TH>, promise: TrustedPromise<TH>, error: bool) -> Box<ElementPerformFullscreenEnter<TH>> {
+    pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise<TH>, error: bool) -> Box<ElementPerformFullscreenEnter<TH>> {
         Box::new(ElementPerformFullscreenEnter {
             element: element,
             promise: promise,
@@ -3174,12 +3174,12 @@ impl<TH: TypeHolderTrait> TaskOnce for ElementPerformFullscreenEnter<TH> {
 }
 
 pub struct ElementPerformFullscreenExit<TH: TypeHolderTrait> {
-    element: Trusted<Element<TH>, TH>,
+    element: Trusted<Element<TH>>,
     promise: TrustedPromise<TH>,
 }
 
 impl<TH: TypeHolderTrait> ElementPerformFullscreenExit<TH> {
-    pub fn new(element: Trusted<Element<TH>, TH>, promise: TrustedPromise<TH>) -> Box<ElementPerformFullscreenExit<TH>> {
+    pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise<TH>) -> Box<ElementPerformFullscreenExit<TH>> {
         Box::new(ElementPerformFullscreenExit {
             element: element,
             promise: promise,

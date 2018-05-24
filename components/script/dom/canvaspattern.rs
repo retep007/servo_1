@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> CanvasPattern<TH> {
     }
 }
 
-impl<'a, TH> ToFillOrStrokeStyle for &'a CanvasPattern<TH> {
+impl<'a, TH: TypeHolderTrait> ToFillOrStrokeStyle for &'a CanvasPattern<TH> {
     fn to_fill_or_stroke_style(self) -> FillOrStrokeStyle {
         FillOrStrokeStyle::Surface(SurfaceStyle::new(self.surface_data.clone(),
                                                      self.surface_size,

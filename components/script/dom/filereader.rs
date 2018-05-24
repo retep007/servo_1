@@ -46,7 +46,7 @@ pub enum FileReaderFunction {
     ReadAsArrayBuffer,
 }
 
-pub type TrustedFileReader<TH> = Trusted<FileReader<TH>, TH>;
+pub type TrustedFileReader<TH> = Trusted<FileReader<TH>>;
 
 #[derive(Clone, MallocSizeOf)]
 pub struct ReadMetaData {
@@ -87,7 +87,7 @@ pub enum FileReaderResult {
 pub struct FileReader<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
     ready_state: Cell<FileReaderReadyState>,
-    error: MutNullableDom<DOMException<TH>, TH>,
+    error: MutNullableDom<DOMException<TH>>,
     result: DomRefCell<Option<FileReaderResult>>,
     generation_id: Cell<GenerationId>,
 }

@@ -66,14 +66,14 @@ pub enum StylesheetContextSource<TH: TypeHolderTrait> {
 /// The context required for asynchronously loading an external stylesheet.
 pub struct StylesheetContext<TH: TypeHolderTrait> {
     /// The element that initiated the request.
-    elem: Trusted<HTMLElement<TH>, TH>,
+    elem: Trusted<HTMLElement<TH>>,
     source: StylesheetContextSource<TH>,
     url: ServoUrl,
     metadata: Option<Metadata>,
     /// The response body received to date.
     data: Vec<u8>,
     /// The node document for elem when the load was initiated.
-    document: Trusted<Document<TH>, TH>,
+    document: Trusted<Document<TH>>,
     origin_clean: bool,
     /// A token which must match the generation id of the `HTMLLinkElement` for it to load the stylesheet.
     /// This is ignored for `HTMLStyleElement` and imports.

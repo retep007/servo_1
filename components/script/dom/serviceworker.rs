@@ -23,7 +23,7 @@ use std::cell::Cell;
 use task::TaskOnce;
 use typeholder::TypeHolderTrait;
 
-pub type TrustedServiceWorkerAddress<TH> = Trusted<ServiceWorker<TH>, TH>;
+pub type TrustedServiceWorkerAddress<TH> = Trusted<ServiceWorker<TH>>;
 
 #[dom_struct]
 pub struct ServiceWorker<TH: TypeHolderTrait> {
@@ -110,7 +110,7 @@ impl<TH: TypeHolderTrait> ServiceWorkerMethods<TH> for ServiceWorker<TH> {
     event_handler!(statechange, GetOnstatechange, SetOnstatechange);
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for SimpleWorkerErrorHandler<ServiceWorker<TH>, TH> {
+impl<TH: TypeHolderTrait> TaskOnce for SimpleWorkerErrorHandler<ServiceWorker<TH>> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         ServiceWorker::dispatch_simple_error(self.addr);

@@ -623,7 +623,7 @@ impl<TH: TypeHolderTrait> NodeFilter<TH> {
         ret
     }
 
-    pub fn AcceptNode_<T: DomObject, TH: TypeHolderTrait>(&self, thisObj: &T, node: &Node<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<u16, TH> {
+    pub fn AcceptNode_<T: DomObject>(&self, thisObj: &T, node: &Node<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<u16, TH> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());

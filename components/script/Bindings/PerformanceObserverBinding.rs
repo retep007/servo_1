@@ -361,7 +361,7 @@ impl<TH: TypeHolderTrait> PerformanceObserverCallback<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject, TH: TypeHolderTrait>(&self, thisObj: &T, entries: &PerformanceObserverEntryList<TH>, observer: &PerformanceObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, entries: &PerformanceObserverEntryList<TH>, observer: &PerformanceObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());

@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct HTMLOutputElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
-    form_owner: MutNullableDom<HTMLFormElement<TH>, TH>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLOutputElement<TH> {

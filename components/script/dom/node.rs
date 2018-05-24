@@ -99,25 +99,25 @@ pub struct Node<TH: TypeHolderTrait> {
     eventtarget: EventTarget<TH>,
 
     /// The parent of this node.
-    parent_node: MutNullableDom<Node<TH>, TH>,
+    parent_node: MutNullableDom<Node<TH>>,
 
     /// The first child of this node.
-    first_child: MutNullableDom<Node<TH>, TH>,
+    first_child: MutNullableDom<Node<TH>>,
 
     /// The last child of this node.
-    last_child: MutNullableDom<Node<TH>, TH>,
+    last_child: MutNullableDom<Node<TH>>,
 
     /// The next sibling of this node.
-    next_sibling: MutNullableDom<Node<TH>, TH>,
+    next_sibling: MutNullableDom<Node<TH>>,
 
     /// The previous sibling of this node.
-    prev_sibling: MutNullableDom<Node<TH>, TH>,
+    prev_sibling: MutNullableDom<Node<TH>>,
 
     /// The document that this node belongs to.
-    owner_doc: MutNullableDom<Document<TH>, TH>,
+    owner_doc: MutNullableDom<Document<TH>>,
 
     /// The live list of children return by .childNodes.
-    child_list: MutNullableDom<NodeList<TH>, TH>,
+    child_list: MutNullableDom<NodeList<TH>>,
 
     /// The live count of children of this node.
     children_count: Cell<u32>,
@@ -335,7 +335,7 @@ pub struct QuerySelectorIterator<TH: TypeHolderTrait> {
     iterator: TreeIterator<TH>,
 }
 
-impl<'a, TH> QuerySelectorIterator<TH> {
+impl<'a, TH: TypeHolderTrait> QuerySelectorIterator<TH> {
      fn new(iter: TreeIterator<TH>, selectors: SelectorList<SelectorImpl>)
                   -> QuerySelectorIterator<TH> {
         QuerySelectorIterator {
@@ -2663,7 +2663,7 @@ pub struct UnbindContext<'a, TH: TypeHolderTrait> {
     pub tree_in_doc: bool,
 }
 
-impl<'a, TH> UnbindContext<'a, TH> {
+impl<'a, TH: TypeHolderTrait> UnbindContext<'a, TH> {
     /// Create a new `UnbindContext` value.
     fn new(parent: &'a Node<TH>,
            prev_sibling: Option<&'a Node<TH>>,

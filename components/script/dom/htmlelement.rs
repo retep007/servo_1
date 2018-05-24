@@ -45,8 +45,8 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct HTMLElement<TH> {
     element: Element<TH>,
-    style_decl: MutNullableDom<CSSStyleDeclaration<TH>, TH>,
-    dataset: MutNullableDom<DOMStringMap<TH>, TH>,
+    style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
+    dataset: MutNullableDom<DOMStringMap<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLElement<TH> {

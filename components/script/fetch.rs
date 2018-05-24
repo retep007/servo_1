@@ -35,7 +35,7 @@ use typeholder::TypeHolderTrait;
 
 struct FetchContext<TH: TypeHolderTrait> {
     fetch_promise: Option<TrustedPromise<TH>>,
-    response_object: Trusted<Response<TH>, TH>,
+    response_object: Trusted<Response<TH>>,
     body: Vec<u8>,
 }
 

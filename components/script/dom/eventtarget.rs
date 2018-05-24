@@ -150,7 +150,7 @@ pub enum CompiledEventListener<TH: TypeHolderTrait> {
 impl<TH: TypeHolderTrait> CompiledEventListener<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#the-event-handler-processing-algorithm
-    pub fn call_or_handle_event<T: DomObject, TH: TypeHolderTrait>(&self,
+    pub fn call_or_handle_event<T: DomObject>(&self,
                                               object: &T,
                                               event: &Event<TH>,
                                               exception_handle: ExceptionHandling) {

@@ -43,7 +43,7 @@ enum ButtonType {
 pub struct HTMLButtonElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
     button_type: Cell<ButtonType>,
-    form_owner: MutNullableDom<HTMLFormElement<TH>, TH>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {

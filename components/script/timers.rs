@@ -65,7 +65,7 @@ struct OneshotTimer<TH: TypeHolderTrait> {
 
 // This enum is required to work around the fact that trait objects do not support generic methods.
 // A replacement trait would have a method such as
-//     `invoke<T: DomObject, TH: TypeHolderTrait>(self: Box<Self>, this: &T, js_timers: &JsTimers);`.
+//     `invoke<T: DomObject>(self: Box<Self>, this: &T, js_timers: &JsTimers);`.
 #[derive(JSTraceable, MallocSizeOf)]
 pub enum OneshotTimerCallback<TH: TypeHolderTrait> {
     XhrTimeout(XHRTimeoutCallback<TH>),
@@ -76,7 +76,7 @@ pub enum OneshotTimerCallback<TH: TypeHolderTrait> {
 }
 
 impl<TH: TypeHolderTrait> OneshotTimerCallback<TH> {
-    fn invoke<T: DomObject, TH: TypeHolderTrait>(self, this: &T, js_timers: &JsTimers<TH>) {
+    fn invoke<T: DomObject>(self, this: &T, js_timers: &JsTimers<TH>) {
         match self {
             OneshotTimerCallback::XhrTimeout(callback) => callback.invoke(),
             OneshotTimerCallback::EventSourceTimeout(callback) => callback.invoke(),
@@ -484,7 +484,7 @@ fn clamp_duration(nesting_level: u32, unclamped: MsDuration) -> MsDuration {
 
 impl<TH: TypeHolderTrait> JsTimerTask<TH> {
     // see https://html.spec.whatwg.org/multipage/#timer-initialisation-steps
-    pub fn invoke<T: DomObject, TH: TypeHolderTrait>(self, this: &T, timers: &JsTimers<TH>) {
+    pub fn invoke<T: DomObject>(self, this: &T, timers: &JsTimers<TH>) {
         // step 4.1 can be ignored, because we proactively prevent execution
         // of this task when its scheduled execution is canceled.
 

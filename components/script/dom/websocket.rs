@@ -70,7 +70,7 @@ mod close_code {
 }
 
 pub fn close_the_websocket_connection<TH: TypeHolderTrait>(
-    address: Trusted<WebSocket<TH>, TH>,
+    address: Trusted<WebSocket<TH>>,
     task_source: &NetworkingTaskSource,
     canceller: &TaskCanceller,
     code: Option<u16>,
@@ -86,7 +86,7 @@ pub fn close_the_websocket_connection<TH: TypeHolderTrait>(
 }
 
 pub fn fail_the_websocket_connection<TH: TypeHolderTrait>(
-    address: Trusted<WebSocket<TH>, TH>,
+    address: Trusted<WebSocket<TH>>,
     task_source: &NetworkingTaskSource,
     canceller: &TaskCanceller,
 ) {
@@ -412,7 +412,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
 /// Task queued when *the WebSocket connection is established*.
 /// <https://html.spec.whatwg.org/multipage/#feedback-from-the-protocol:concept-websocket-established>
 struct ConnectionEstablishedTask<TH: TypeHolderTrait> {
-    address: Trusted<WebSocket<TH>, TH>,
+    address: Trusted<WebSocket<TH>>,
     protocol_in_use: Option<String>,
 }
 
@@ -438,7 +438,7 @@ impl<TH: TypeHolderTrait> TaskOnce for ConnectionEstablishedTask<TH> {
 }
 
 struct BufferedAmountTask<TH: TypeHolderTrait> {
-    address: Trusted<WebSocket<TH>, TH>,
+    address: Trusted<WebSocket<TH>>,
 }
 
 impl<TH: TypeHolderTrait> TaskOnce for BufferedAmountTask<TH> {
@@ -456,7 +456,7 @@ impl<TH: TypeHolderTrait> TaskOnce for BufferedAmountTask<TH> {
 }
 
 struct CloseTask<TH: TypeHolderTrait> {
-    address: Trusted<WebSocket<TH>, TH>,
+    address: Trusted<WebSocket<TH>>,
     failed: bool,
     code: Option<u16>,
     reason: Option<String>,
@@ -498,7 +498,7 @@ impl<TH: TypeHolderTrait> TaskOnce for CloseTask<TH> {
 }
 
 struct MessageReceivedTask<TH: TypeHolderTrait> {
-    address: Trusted<WebSocket<TH>, TH>,
+    address: Trusted<WebSocket<TH>>,
     message: MessageData,
 }
 

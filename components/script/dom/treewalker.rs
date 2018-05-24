@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 pub struct TreeWalker<TH: TypeHolderTrait> {
     reflector_: Reflector,
     root_node: Dom<Node<TH>>,
-    current_node: MutDom<Node<TH>, TH>,
+    current_node: MutDom<Node<TH>>,
     what_to_show: u32,
     #[ignore_malloc_size_of = "function pointers and Rc<T> are hard"]
     filter: Filter<TH>,

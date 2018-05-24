@@ -486,13 +486,13 @@ impl<TH: TypeHolderTrait> LayoutDom<Node<TH>> {
 /// on `Dom<T>`.
 #[must_root]
 #[derive(JSTraceable)]
-pub struct MutDom<T: DomObject, TH: TypeHolderTrait> {
+pub struct MutDom<T: DomObject> {
     val: UnsafeCell<Dom<T>>,
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> MutDom<T, TH> {
+impl<T: DomObject> MutDom<T> {
     /// Create a new `MutDom`.
-    pub fn new(initial: &T) -> MutDom<T, TH> {
+    pub fn new(initial: &T) -> MutDom<T> {
         debug_assert!(thread_state::get().is_script());
         MutDom {
             val: UnsafeCell::new(Dom::from_ref(initial)),
@@ -516,14 +516,14 @@ impl<T: DomObject, TH: TypeHolderTrait> MutDom<T, TH> {
     }
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> MallocSizeOf for MutDom<T, TH> {
+impl<T: DomObject> MallocSizeOf for MutDom<T> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         // See comment on MallocSizeOf for Dom<T>.
         0
     }
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> PartialEq for MutDom<T, TH> {
+impl<T: DomObject> PartialEq for MutDom<T> {
    fn eq(&self, other: &Self) -> bool {
         unsafe {
             *self.val.get() == *other.val.get()
@@ -531,7 +531,7 @@ impl<T: DomObject, TH: TypeHolderTrait> PartialEq for MutDom<T, TH> {
     }
 }
 
-impl<T: DomObject + PartialEq, TH: TypeHolderTrait> PartialEq<T> for MutDom<T, TH> {
+impl<T: DomObject + PartialEq> PartialEq<T> for MutDom<T> {
     fn eq(&self, other: &T) -> bool {
         unsafe {
             **self.val.get() == *other
@@ -547,13 +547,13 @@ impl<T: DomObject + PartialEq, TH: TypeHolderTrait> PartialEq<T> for MutDom<T, T
 /// on `Dom<T>`.
 #[must_root]
 #[derive(JSTraceable)]
-pub struct MutNullableDom<T: DomObject, TH: TypeHolderTrait> {
+pub struct MutNullableDom<T: DomObject> {
     ptr: UnsafeCell<Option<Dom<T>>>,
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> MutNullableDom<T, TH> {
+impl<T: DomObject> MutNullableDom<T> {
     /// Create a new `MutNullableDom`.
-    pub fn new(initial: Option<&T>) -> MutNullableDom<T, TH> {
+    pub fn new(initial: Option<&T>) -> MutNullableDom<T> {
         debug_assert!(thread_state::get().is_script());
         MutNullableDom {
             ptr: UnsafeCell::new(initial.map(Dom::from_ref)),
@@ -609,7 +609,7 @@ impl<T: DomObject, TH: TypeHolderTrait> MutNullableDom<T, TH> {
     }
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> PartialEq for MutNullableDom<T, TH> {
+impl<T: DomObject> PartialEq for MutNullableDom<T> {
     fn eq(&self, other: &Self) -> bool {
         unsafe {
             *self.ptr.get() == *other.ptr.get()
@@ -617,7 +617,7 @@ impl<T: DomObject, TH: TypeHolderTrait> PartialEq for MutNullableDom<T, TH> {
     }
 }
 
-impl<'a, T: DomObject, TH: TypeHolderTrait> PartialEq<Option<&'a T>> for MutNullableDom<T, TH> {
+impl<'a, T: DomObject> PartialEq<Option<&'a T>> for MutNullableDom<T> {
     fn eq(&self, other: &Option<&T>) -> bool {
         unsafe {
             *self.ptr.get() == other.map(Dom::from_ref)
@@ -625,9 +625,9 @@ impl<'a, T: DomObject, TH: TypeHolderTrait> PartialEq<Option<&'a T>> for MutNull
     }
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> Default for MutNullableDom<T, TH> {
+impl<T: DomObject> Default for MutNullableDom<T> {
     #[allow(unrooted_must_root)]
-    fn default() -> MutNullableDom<T, TH> {
+    fn default() -> MutNullableDom<T> {
         debug_assert!(thread_state::get().is_script());
         MutNullableDom {
             ptr: UnsafeCell::new(None),
@@ -635,7 +635,7 @@ impl<T: DomObject, TH: TypeHolderTrait> Default for MutNullableDom<T, TH> {
     }
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> MallocSizeOf for MutNullableDom<T, TH> {
+impl<T: DomObject> MallocSizeOf for MutNullableDom<T> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         // See comment on MallocSizeOf for Dom<T>.
         0
@@ -649,14 +649,13 @@ impl<T: DomObject, TH: TypeHolderTrait> MallocSizeOf for MutNullableDom<T, TH> {
 /// This should only be used as a field in other DOM objects; see warning
 /// on `Dom<T>`.
 #[must_root]
-pub struct DomOnceCell<T: DomObject, TH: TypeHolderTrait> {
+pub struct DomOnceCell<T: DomObject> {
     ptr: OnceCell<Dom<T>>,
 }
 
-impl<T, TH> DomOnceCell<T, TH>
+impl<T> DomOnceCell<T>
 where
-    T: DomObject,
-    TH: TypeHolderTrait
+    T: DomObject
 {
     /// Retrieve a copy of the current inner value. If it is `None`, it is
     /// initialized with the result of `cb` first.
@@ -669,9 +668,9 @@ where
     }
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> Default for DomOnceCell<T, TH> {
+impl<T: DomObject> Default for DomOnceCell<T> {
     #[allow(unrooted_must_root)]
-    fn default() -> DomOnceCell<T, TH> {
+    fn default() -> DomOnceCell<T> {
         debug_assert!(thread_state::get().is_script());
         DomOnceCell {
             ptr: OnceCell::new(),
@@ -679,7 +678,7 @@ impl<T: DomObject, TH: TypeHolderTrait> Default for DomOnceCell<T, TH> {
     }
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> MallocSizeOf for DomOnceCell<T, TH> {
+impl<T: DomObject> MallocSizeOf for DomOnceCell<T> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         // See comment on MallocSizeOf for Dom<T>.
         0
@@ -687,7 +686,7 @@ impl<T: DomObject, TH: TypeHolderTrait> MallocSizeOf for DomOnceCell<T, TH> {
 }
 
 #[allow(unrooted_must_root)]
-unsafe impl<T: DomObject, TH: TypeHolderTrait> JSTraceable for DomOnceCell<T, TH> {
+unsafe impl<T: DomObject> JSTraceable for DomOnceCell<T> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         if let Some(ptr) = self.ptr.as_ref() {
             ptr.trace(trc);

@@ -23,7 +23,7 @@ pub struct NodeIterator<TH: TypeHolderTrait> {
     reflector_: Reflector,
     root_node: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
-    reference_node: MutDom<Node<TH>, TH>,
+    reference_node: MutDom<Node<TH>>,
     pointer_before_reference_node: Cell<bool>,
     what_to_show: u32,
     #[ignore_malloc_size_of = "Can't measure due to #6870"]

@@ -30,8 +30,8 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct Event<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    current_target: MutNullableDom<EventTarget<TH>, TH>,
-    target: MutNullableDom<EventTarget<TH>, TH>,
+    current_target: MutNullableDom<EventTarget<TH>>,
+    target: MutNullableDom<EventTarget<TH>>,
     type_: DomRefCell<Atom>,
     phase: Cell<EventPhase>,
     canceled: Cell<EventDefault>,
@@ -383,7 +383,7 @@ pub enum EventStatus {
 
 // https://dom.spec.whatwg.org/#concept-event-fire
 pub struct EventTask<TH: TypeHolderTrait> {
-    pub target: Trusted<EventTarget<TH>, TH>,
+    pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
     pub bubbles: EventBubbles,
     pub cancelable: EventCancelable,
@@ -400,7 +400,7 @@ impl<TH: TypeHolderTrait> TaskOnce for EventTask<TH> {
 
 // https://html.spec.whatwg.org/multipage/#fire-a-simple-event
 pub struct SimpleEventTask<TH: TypeHolderTrait> {
-    pub target: Trusted<EventTarget<TH>, TH>,
+    pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
 }
 

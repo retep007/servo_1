@@ -14,12 +14,12 @@ use typeholder::TypeHolderTrait;
 /// common event loop messages. While this SendableWorkerScriptChan is alive, the associated
 /// Worker object will remain alive.
 #[derive(Clone, JSTraceable)]
-pub struct SendableWorkerScriptChan<T: DomObject, TH: TypeHolderTrait> {
-    pub sender: Sender<(Trusted<T, TH>, CommonScriptMsg)>,
-    pub worker: Trusted<T, TH>,
+pub struct SendableWorkerScriptChan<T: DomObject> {
+    pub sender: Sender<(Trusted<T>, CommonScriptMsg)>,
+    pub worker: Trusted<T>,
 }
 
-impl<T: JSTraceable + DomObject + 'static, TH: TypeHolderTrait> ScriptChan for SendableWorkerScriptChan<T, TH> {
+impl<T: JSTraceable + DomObject + 'static> ScriptChan for SendableWorkerScriptChan<T> {
     fn send(&self, msg: CommonScriptMsg) -> Result<(), ()> {
         self.sender.send((self.worker.clone(), msg)).map_err(|_| ())
     }
@@ -37,8 +37,8 @@ impl<T: JSTraceable + DomObject + 'static, TH: TypeHolderTrait> ScriptChan for S
 /// Worker object will remain alive.
 #[derive(Clone, JSTraceable)]
 pub struct WorkerThreadWorkerChan<T: DomObject, TH: TypeHolderTrait> {
-    pub sender: Sender<(Trusted<T, TH>, WorkerScriptMsg<TH>)>,
-    pub worker: Trusted<T, TH>,
+    pub sender: Sender<(Trusted<T>, WorkerScriptMsg<TH>)>,
+    pub worker: Trusted<T>,
 }
 
 impl<T: JSTraceable + DomObject + 'static, TH: TypeHolderTrait> ScriptChan for WorkerThreadWorkerChan<T, TH> {
@@ -56,7 +56,7 @@ impl<T: JSTraceable + DomObject + 'static, TH: TypeHolderTrait> ScriptChan for W
     }
 }
 
-impl<T: DomObject, TH: TypeHolderTrait> ScriptPort for Receiver<(Trusted<T, TH>, WorkerScriptMsg<TH>)> {
+impl<T: DomObject, TH: TypeHolderTrait> ScriptPort for Receiver<(Trusted<T>, WorkerScriptMsg<TH>)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         match self.recv().map(|(_, msg)| msg) {
             Ok(WorkerScriptMsg::Common(script_msg)) => Ok(script_msg),

@@ -25,13 +25,13 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct Navigator<TH: TypeHolderTrait> {
     reflector_: Reflector,
-    bluetooth: MutNullableDom<Bluetooth<TH>, TH>,
-    plugins: MutNullableDom<PluginArray<TH>, TH>,
-    mime_types: MutNullableDom<MimeTypeArray<TH>, TH>,
-    service_worker: MutNullableDom<ServiceWorkerContainer<TH>, TH>,
-    vr: MutNullableDom<VR<TH>, TH>,
-    gamepads: MutNullableDom<GamepadList<TH>, TH>,
-    permissions: MutNullableDom<Permissions<TH>, TH>,
+    bluetooth: MutNullableDom<Bluetooth<TH>>,
+    plugins: MutNullableDom<PluginArray<TH>>,
+    mime_types: MutNullableDom<MimeTypeArray<TH>>,
+    service_worker: MutNullableDom<ServiceWorkerContainer<TH>>,
+    vr: MutNullableDom<VR<TH>>,
+    gamepads: MutNullableDom<GamepadList<TH>>,
+    permissions: MutNullableDom<Permissions<TH>>,
 }
 
 impl<TH: TypeHolderTrait> Navigator<TH> {

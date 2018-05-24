@@ -138,8 +138,8 @@ bitflags! {
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
 struct TextureUnitBindings<TH: TypeHolderTrait> {
-    bound_texture_2d: MutNullableDom<WebGLTexture<TH>, TH>,
-    bound_texture_cube_map: MutNullableDom<WebGLTexture<TH>, TH>,
+    bound_texture_2d: MutNullableDom<WebGLTexture<TH>>,
+    bound_texture_cube_map: MutNullableDom<WebGLTexture<TH>>,
 }
 
 impl<TH: TypeHolderTrait> TextureUnitBindings<TH> {
@@ -186,14 +186,14 @@ pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
     last_error: Cell<Option<WebGLError>>,
     texture_unpacking_settings: Cell<TextureUnpacking>,
     texture_unpacking_alignment: Cell<u32>,
-    bound_framebuffer: MutNullableDom<WebGLFramebuffer<TH>, TH>,
-    bound_renderbuffer: MutNullableDom<WebGLRenderbuffer<TH>, TH>,
+    bound_framebuffer: MutNullableDom<WebGLFramebuffer<TH>>,
+    bound_renderbuffer: MutNullableDom<WebGLRenderbuffer<TH>>,
     bound_textures: DomRefCell<FnvHashMap<u32, TextureUnitBindings<TH>>>,
     bound_texture_unit: Cell<u32>,
-    bound_buffer_array: MutNullableDom<WebGLBuffer<TH>, TH>,
-    bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>, TH>,
+    bound_buffer_array: MutNullableDom<WebGLBuffer<TH>>,
+    bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>>,
     bound_attrib_buffers: DomRefCell<FnvHashMap<u32, Dom<WebGLBuffer<TH>>>>,
-    current_program: MutNullableDom<WebGLProgram<TH>, TH>,
+    current_program: MutNullableDom<WebGLProgram<TH>>,
     #[ignore_malloc_size_of = "Because it's small"]
     current_vertex_attrib_0: Cell<(f32, f32, f32, f32)>,
     #[ignore_malloc_size_of = "Because it's small"]
@@ -203,7 +203,7 @@ pub struct WebGLRenderingContext<TH: TypeHolderTrait> {
     extension_manager: WebGLExtensions<TH>,
 }
 
-impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
+impl<'a, TH: TypeHolderTrait + 'a> WebGLRenderingContext<TH> {
     pub fn new_inherited(
         window: &Window<TH>,
         canvas: &HTMLCanvasElement<TH>,

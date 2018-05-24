@@ -270,7 +270,7 @@ impl<TH: TypeHolderTrait> PromiseJobCallback<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject, TH: TypeHolderTrait>(&self, thisObj: &T, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -343,7 +343,7 @@ impl<TH: TypeHolderTrait> AnyCallback<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject, TH: TypeHolderTrait>(&self, thisObj: &T, value: HandleValue, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal, TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, value: HandleValue, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal, TH> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());

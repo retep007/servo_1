@@ -26,8 +26,8 @@ pub struct WebGLProgram<TH: TypeHolderTrait> {
     is_deleted: Cell<bool>,
     link_called: Cell<bool>,
     linked: Cell<bool>,
-    fragment_shader: MutNullableDom<WebGLShader<TH>, TH>,
-    vertex_shader: MutNullableDom<WebGLShader<TH>, TH>,
+    fragment_shader: MutNullableDom<WebGLShader<TH>>,
+    vertex_shader: MutNullableDom<WebGLShader<TH>>,
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
     renderer: WebGLMsgSender,
 }

@@ -91,7 +91,7 @@ impl BluetoothExtraPermissionData {
 
 struct BluetoothContext<T: AsyncBluetoothListener<TH> + DomObject, TH: TypeHolderTrait> {
     promise: Option<TrustedPromise<TH>>,
-    receiver: Trusted<T, TH>,
+    receiver: Trusted<T>,
 }
 
 pub trait AsyncBluetoothListener<TH: TypeHolderTrait> {

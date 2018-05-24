@@ -219,8 +219,8 @@ pub struct HTMLInputElement<TH: TypeHolderTrait> {
     // https://html.spec.whatwg.org/multipage/#concept-input-value-dirty-flag
     value_dirty: Cell<bool>,
 
-    filelist: MutNullableDom<FileList<TH>, TH>,
-    form_owner: MutNullableDom<HTMLFormElement<TH>, TH>,
+    filelist: MutNullableDom<FileList<TH>>,
+    form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
 #[derive(JSTraceable)]

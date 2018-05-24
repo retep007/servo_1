@@ -937,7 +937,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
 #[must_root]
 pub struct BoundaryPoint<TH: TypeHolderTrait> {
-    node: MutDom<Node<TH>, TH>,
+    node: MutDom<Node<TH>>,
     offset: Cell<u32>,
 }
 

@@ -22,7 +22,7 @@ pub struct HTMLTemplateElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#template-contents>
-    contents: MutNullableDom<DocumentFragment<TH>, TH>,
+    contents: MutNullableDom<DocumentFragment<TH>>,
 }
 
 impl<TH: TypeHolderTrait> HTMLTemplateElement<TH> {

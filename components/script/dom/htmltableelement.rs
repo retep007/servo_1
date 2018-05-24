@@ -33,7 +33,7 @@ pub struct HTMLTableElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
     border: Cell<Option<u32>>,
     cellspacing: Cell<Option<u32>>,
-    tbodies: MutNullableDom<HTMLCollection<TH>, TH>,
+    tbodies: MutNullableDom<HTMLCollection<TH>>,
 }
 
 #[allow(unrooted_must_root)]
@@ -256,7 +256,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
         #[derive(JSTraceable)]
         struct TBodiesFilter<TH: TypeHolderTrait>;
         impl<TH: TypeHolderTrait> CollectionFilter<TH> for TBodiesFilter<TH> {
-            fn filter<TH>(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
+            fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
                 elem.is::<HTMLTableSectionElement<TH>>() &&
                     elem.local_name() == &local_name!("tbody") &&
                     elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)

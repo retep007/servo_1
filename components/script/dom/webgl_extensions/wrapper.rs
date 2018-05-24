@@ -31,11 +31,11 @@ pub trait WebGLExtensionWrapper<TH: TypeHolderTrait>: JSTraceable + MallocSizeOf
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
 pub struct TypedWebGLExtensionWrapper<T: WebGLExtension<TH>, TH: TypeHolderTrait> {
-    extension: MutNullableDom<T::Extension, TH>
+    extension: MutNullableDom<T::Extension>
 }
 
 /// Typed WebGL Extension implementation.
-/// Exposes the exact MutNullableDom<DOMObject, TH> type defined by the extension.
+/// Exposes the exact MutNullableDom<DOMObject> type defined by the extension.
 impl<T: WebGLExtension<TH>, TH: TypeHolderTrait> TypedWebGLExtensionWrapper<T, TH> {
     pub fn new() -> TypedWebGLExtensionWrapper<T, TH> {
         TypedWebGLExtensionWrapper {

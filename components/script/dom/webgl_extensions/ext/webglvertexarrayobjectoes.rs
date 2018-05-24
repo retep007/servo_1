@@ -23,7 +23,7 @@ pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait> {
     ever_bound: Cell<bool>,
     is_deleted: Cell<bool>,
     bound_attrib_buffers: DomRefCell<HashMap<u32, Dom<WebGLBuffer<TH>>>>,
-    bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>, TH>,
+    bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>>,
 }
 
 impl<TH: TypeHolderTrait> WebGLVertexArrayObjectOES<TH> {

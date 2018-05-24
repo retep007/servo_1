@@ -65,7 +65,7 @@ pub struct GenerationId(u32);
 pub struct HTMLFormElement<TH: TypeHolderTrait> {
     htmlelement: HTMLElement<TH>,
     marked_for_reset: Cell<bool>,
-    elements: DomOnceCell<HTMLFormControlsCollection<TH>, TH>,
+    elements: DomOnceCell<HTMLFormControlsCollection<TH>>,
     generation_id: Cell<GenerationId>,
     controls: DomRefCell<Vec<Dom<Element<TH>>>>,
 }
@@ -772,7 +772,7 @@ pub enum FormSubmitter<'a, TH: TypeHolderTrait> {
     // TODO: image submit, etc etc
 }
 
-impl<'a, TH> FormSubmitter<'a, TH> {
+impl<'a, TH: TypeHolderTrait> FormSubmitter<'a, TH> {
     fn action(&self) -> DOMString {
         match *self {
             FormSubmitter::FormElement(form) => form.Action(),

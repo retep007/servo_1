@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 pub struct OESVertexArrayObject<TH: TypeHolderTrait> {
     reflector_: Reflector,
     ctx: Dom<WebGLRenderingContext<TH>>,
-    bound_vao: MutNullableDom<WebGLVertexArrayObjectOES<TH>, TH>,
+    bound_vao: MutNullableDom<WebGLVertexArrayObjectOES<TH>>,
 }
 
 impl<TH: TypeHolderTrait> OESVertexArrayObject<TH> {

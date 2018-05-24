@@ -27,7 +27,7 @@ pub struct CSSKeyframesRule<TH: TypeHolderTrait> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     keyframesrule: Arc<Locked<KeyframesRule>>,
-    rulelist: MutNullableDom<CSSRuleList<TH>, TH>,
+    rulelist: MutNullableDom<CSSRuleList<TH>>,
 }
 
 impl<TH: TypeHolderTrait> CSSKeyframesRule<TH> {
