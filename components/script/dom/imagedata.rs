@@ -18,13 +18,15 @@ use std::ptr;
 use std::ptr::NonNull;
 use std::vec::Vec;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct ImageData<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     width: u32,
     height: u32,
     data: Heap<*mut JSObject>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> ImageData<TH> {

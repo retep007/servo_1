@@ -11,6 +11,7 @@ use js::jsapi::{JSContext, JSObject, Heap};
 use js::rust::HandleObject;
 use std::default::Default;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// Create the reflector for a new DOM object and yield ownership to the
 /// reflector.
@@ -32,19 +33,20 @@ pub fn reflect_dom_object<T, U, TH: TypeHolderTrait>(
 #[derive(MallocSizeOf)]
 #[must_root]
 // If you're renaming or moving this field, update the path in plugins::reflector as well
-pub struct Reflector {
+pub struct Reflector<TH: TypeHolderTrait> {
     #[ignore_malloc_size_of = "defined and measured in rust-mozjs"]
     object: Heap<*mut JSObject>,
+    _p: PhantomData<TH>,
 }
 
 #[allow(unrooted_must_root)]
-impl PartialEq for Reflector {
-    fn eq(&self, other: &Reflector) -> bool {
+impl<TH: TypeHolderTrait> PartialEq for Reflector<TH> {
+    fn eq(&self, other: &Reflector<TH>) -> bool {
         self.object.get() == other.object.get()
     }
 }
 
-impl Reflector {
+impl<TH: TypeHolderTrait> Reflector<TH> {
     /// Get the reflector.
     #[inline]
     pub fn get_jsobject(&self) -> HandleObject {
@@ -67,7 +69,7 @@ impl Reflector {
     }
 
     /// Create an uninitialized `Reflector`.
-    pub fn new() -> Reflector {
+    pub fn new() -> Reflector<TH> {
         Reflector {
             object: Heap::default(),
         }
@@ -78,7 +80,7 @@ impl Reflector {
 pub trait DomObject: 'static {
     type TypeHolder: TypeHolderTrait;
     /// Returns the receiver's reflector.
-    fn reflector(&self) -> &Reflector;
+    fn reflector(&self) -> &Reflector<Self::TypeHolder>;
 
     /// Returns the global scope of the realm that the DomObject was created in.
     fn global(&self) -> DomRoot<GlobalScope<Self::TypeHolder>> where Self: Sized {
@@ -86,14 +88,16 @@ pub trait DomObject: 'static {
     }
 }
 
-impl DomObject for Reflector {
+impl<TH: TypeHolderTrait> DomObject for Reflector<TH> {
+    type TypeHolder = TH;
     fn reflector(&self) -> &Self {
         self
     }
 }
 
 impl<S: DomObject + ?Sized> DomObject for Box<S> {
-    fn reflector(&self) -> &Reflector {
+    type TypeHolder = S::TypeHolder;
+    fn reflector(&self) -> &Reflector<Self::TypeHolder> {
        (*self).reflector()
     }
 }
@@ -104,7 +108,7 @@ pub trait MutDomObject: DomObject {
     fn init_reflector(&mut self, obj: *mut JSObject);
 }
 
-impl MutDomObject for Reflector {
+impl<TH: TypeHolderTrait> MutDomObject for Reflector<TH> {
     fn init_reflector(&mut self, obj: *mut JSObject) {
         self.set_jsobject(obj)
     }

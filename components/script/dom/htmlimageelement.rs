@@ -191,9 +191,9 @@ impl PreInvoke for ImageContext {}
 impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
     /// Update the current image with a valid URL.
     fn fetch_image(&self, img_url: &ServoUrl) {
-        fn add_cache_listener_for_element<TH>(image_cache: Arc<ImageCache>,
+        fn add_cache_listener_for_element<THH: TypeHolderTrait>(image_cache: Arc<ImageCache>,
                                           id: PendingImageId,
-                                          elem: &HTMLImageElement<TH>) {
+                                          elem: &HTMLImageElement<THH>) {
             let trusted_node = Trusted::new(elem);
             let (responder_sender, responder_receiver) = ipc::channel().unwrap();
 
@@ -693,7 +693,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum ImageElementMicrotask<TH: TypeHolderTrait> {
+pub enum ImageElementMicrotask<TH: TypeHolderTrait + 'static> {
     StableStateUpdateImageDataTask {
         elem: DomRoot<HTMLImageElement<TH>>,
         generation: u32,

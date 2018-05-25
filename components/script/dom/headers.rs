@@ -17,13 +17,15 @@ use std::cell::Cell;
 use std::result::Result;
 use std::str;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct Headers<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     guard: Cell<Guard>,
     #[ignore_malloc_size_of = "Defined in hyper"]
-    header_list: DomRefCell<HyperHeaders>
+    header_list: DomRefCell<HyperHeaders>,
+    _p: PhantomData<TH>,
 }
 
 // https://fetch.spec.whatwg.org/#concept-headers-guard

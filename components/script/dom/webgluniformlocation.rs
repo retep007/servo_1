@@ -10,12 +10,14 @@ use dom::bindings::root::DomRoot;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct WebGLUniformLocation<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     id: i32,
     program_id: WebGLProgramId,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> WebGLUniformLocation<TH> {

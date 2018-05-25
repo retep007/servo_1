@@ -27,6 +27,8 @@ use std::os::raw;
 use std::ptr;
 use std::slice;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
+
 
 // TODO: Should we add Min and Max const to https://github.com/servo/rust-mozjs/blob/master/src/consts.rs?
 // TODO: Determine for sure which value Min and Max should have.
@@ -183,21 +185,24 @@ unsafe extern "C" fn free_transfer_callback(_tag: u32,
 unsafe extern "C" fn report_error_callback(_cx: *mut JSContext, _errorid: u32) {
 }
 
-static STRUCTURED_CLONE_CALLBACKS: JSStructuredCloneCallbacks = JSStructuredCloneCallbacks {
-    read: Some(read_callback),
-    write: Some(write_callback),
-    reportError: Some(report_error_callback),
-    readTransfer: Some(read_transfer_callback),
-    writeTransfer: Some(write_transfer_callback),
-    freeTransfer: Some(free_transfer_callback),
-};
+fn STRUCTURED_CLONE_CALLBACKS<TH: TypeHolderTrait>() -> JSStructuredCloneCallbacks {
+  JSStructuredCloneCallbacks {
+      read: Some(read_callback),
+      write: Some(write_callback::<TH>),
+      reportError: Some(report_error_callback),
+      readTransfer: Some(read_transfer_callback),
+      writeTransfer: Some(write_transfer_callback),
+      freeTransfer: Some(free_transfer_callback),
+  }
+} 
 
 /// A buffer for a structured clone.
-pub enum StructuredCloneData<TH: TypeHolderTrait> {
+pub enum StructuredCloneData<TH: TypeHolderTrait + 'static> {
     /// A non-serializable (default) variant
     Struct(*mut u64, size_t),
     /// A variant that can be serialized
-    Vector(Vec<u8>)
+    Vector(Vec<u8>),
+    _p(PhantomData<TH>),
 }
 
 impl<TH: TypeHolderTrait> StructuredCloneData<TH> {
@@ -210,7 +215,7 @@ impl<TH: TypeHolderTrait> StructuredCloneData<TH> {
                                     message,
                                     &mut data,
                                     &mut nbytes,
-                                    &STRUCTURED_CLONE_CALLBACKS,
+                                    &STRUCTURED_CLONE_CALLBACKS::<TH>(),
                                     ptr::null_mut(),
                                     HandleValue::undefined())
         };

@@ -11,16 +11,18 @@ use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use euclid::Size2D;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 // https://html.spec.whatwg.org/multipage/#canvaspattern
 #[dom_struct]
 pub struct CanvasPattern<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     surface_data: Vec<u8>,
     surface_size: Size2D<i32>,
     repeat_x: bool,
     repeat_y: bool,
     origin_clean: bool,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> CanvasPattern<TH> {

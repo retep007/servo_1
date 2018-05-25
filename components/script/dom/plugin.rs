@@ -9,10 +9,12 @@ use dom::bindings::str::DOMString;
 use dom::mimetype::MimeType;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct Plugin<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> PluginMethods<TH> for Plugin<TH> {

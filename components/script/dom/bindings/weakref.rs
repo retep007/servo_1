@@ -23,6 +23,7 @@ use std::mem;
 use std::ops::{Deref, DerefMut, Drop};
 use std::ptr;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// The index of the slot wherein a pointer to the weak holder cell is
 /// stored for weak-referenceable bindings. We use slot 1 for holding it,
@@ -45,6 +46,7 @@ pub struct WeakBox<T: WeakReferenceable<TH>, TH: TypeHolderTrait> {
     pub count: Cell<usize>,
     /// The pointer to the JS-managed object, set to None when it is collected.
     pub value: Cell<Option<ptr::NonNull<T>>>,
+    _p: PhantomData<TH>,
 }
 
 /// Trait implemented by weak-referenceable interfaces.

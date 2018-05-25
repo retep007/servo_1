@@ -46,7 +46,7 @@ use typeholder::TypeHolderTrait;
 /// <https://html.spec.whatwg.org/multipage/#customelementregistry>
 #[dom_struct]
 pub struct CustomElementRegistry<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 
     window: Dom<Window<TH>>,
 
@@ -390,7 +390,7 @@ pub struct LifecycleCallbacks<TH: TypeHolderTrait + 'static> {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum ConstructionStackEntry<TH: TypeHolderTrait> {
+pub enum ConstructionStackEntry<TH: TypeHolderTrait + 'static> {
     Element(DomRoot<Element<TH>>),
     AlreadyConstructedMarker,
 }
@@ -587,7 +587,7 @@ pub fn try_upgrade_element<TH: TypeHolderTrait>(element: &Element<TH>) {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub enum CustomElementReaction<TH: TypeHolderTrait> {
+pub enum CustomElementReaction<TH: TypeHolderTrait + 'static> {
     Upgrade(
         #[ignore_malloc_size_of = "Rc"]
         Rc<CustomElementDefinition<TH>>
@@ -615,7 +615,7 @@ impl<TH: TypeHolderTrait> CustomElementReaction<TH> {
     }
 }
 
-pub enum CallbackReaction<TH: TypeHolderTrait> {
+pub enum CallbackReaction<TH: TypeHolderTrait + 'static> {
     Connected,
     Disconnected,
     Adopted(DomRoot<Document<TH>>, DomRoot<Document<TH>>),

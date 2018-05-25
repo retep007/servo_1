@@ -36,6 +36,7 @@ use style::stylesheets::StylesheetLoader as StyleStylesheetLoader;
 use style::stylesheets::import_rule::ImportSheet;
 use style::values::CssUrl;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 pub trait StylesheetOwner {
     /// Returns whether this element was inserted by the parser (i.e., it should
@@ -57,10 +58,11 @@ pub trait StylesheetOwner {
     fn set_origin_clean(&self, origin_clean: bool);
 }
 
-pub enum StylesheetContextSource<TH: TypeHolderTrait> {
+pub enum StylesheetContextSource<TH: TypeHolderTrait + 'static> {
     // NB: `media` is just an option so we avoid cloning it.
     LinkElement { media: Option<MediaList>, },
     Import(Arc<Stylesheet>),
+    _p(PhantomData<TH>),
 }
 
 /// The context required for asynchronously loading an external stylesheet.
@@ -195,7 +197,7 @@ impl<TH: TypeHolderTrait> FetchResponseListener for StylesheetContext<TH> {
     }
 }
 
-pub struct StylesheetLoader<'a, TH: TypeHolderTrait> {
+pub struct StylesheetLoader<'a, TH: TypeHolderTrait + 'static> {
     elem: &'a HTMLElement<TH>,
 }
 

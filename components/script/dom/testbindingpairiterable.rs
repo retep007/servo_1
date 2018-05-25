@@ -15,11 +15,13 @@ use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct TestBindingPairIterable<TH> {
-    reflector: Reflector,
+pub struct TestBindingPairIterable<TH: TypeHolderTrait + 'static> {
+    reflector: Reflector<TH>,
     map: DomRefCell<Vec<(DOMString, u32)>>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> Iterable for TestBindingPairIterable<TH> {

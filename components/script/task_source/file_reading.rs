@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> TaskOnce for FileReadingTask<TH> {
 }
 
 #[allow(dead_code)]
-pub enum FileReadingTask<TH: TypeHolderTrait> {
+pub enum FileReadingTask<TH: TypeHolderTrait + 'static> {
     ProcessRead(TrustedFileReader<TH>, GenerationId),
     ProcessReadData(TrustedFileReader<TH>, GenerationId),
     ProcessReadError(TrustedFileReader<TH>, GenerationId, DOMErrorName),

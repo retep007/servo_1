@@ -17,15 +17,17 @@ use js::typedarray::ArrayBufferView;
 use servo_rand::{ServoRng, Rng};
 use std::ptr::NonNull;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 unsafe_no_jsmanaged_fields!(ServoRng);
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Crypto
 #[dom_struct]
 pub struct Crypto<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rand"]
     rng: DomRefCell<ServoRng>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> Crypto<TH> {

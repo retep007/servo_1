@@ -214,7 +214,7 @@ impl ArrayBufferOrArrayBufferView {
 
 
 #[derive(JSTraceable)]
-pub enum ArrayBufferOrArrayBufferViewOrBlobOrString<TH: TypeHolderTrait> {
+pub enum ArrayBufferOrArrayBufferViewOrBlobOrString<TH: TypeHolderTrait + 'static> {
     ArrayBuffer(RootedTraceableBox<typedarray::HeapArrayBuffer>),
     ArrayBufferView(RootedTraceableBox<typedarray::HeapArrayBufferView>),
     Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
@@ -376,7 +376,7 @@ impl ArrayBufferViewOrArrayBuffer {
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrBlobSequence<TH: TypeHolderTrait> {
+pub enum BlobOrBlobSequence<TH: TypeHolderTrait + 'static> {
     Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
     BlobSequence(RootedTraceableBox<Vec<DomRoot<Blob<TH>>>>),
 }
@@ -440,7 +440,7 @@ impl<TH: TypeHolderTrait> BlobOrBlobSequence<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrBoolean<TH: TypeHolderTrait> {
+pub enum BlobOrBoolean<TH: TypeHolderTrait + 'static> {
     Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
     Boolean(RootedTraceableBox<bool>),
 }
@@ -505,7 +505,7 @@ impl<TH: TypeHolderTrait> BlobOrBoolean<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH: TypeHolderTrait> {
+pub enum BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH: TypeHolderTrait + 'static> {
     Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
     ArrayBufferView(RootedTraceableBox<typedarray::HeapArrayBufferView>),
     ArrayBuffer(RootedTraceableBox<typedarray::HeapArrayBuffer>),
@@ -638,7 +638,7 @@ impl<TH: TypeHolderTrait> BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrString<TH: TypeHolderTrait> {
+pub enum BlobOrString<TH: TypeHolderTrait + 'static> {
     Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
     String(RootedTraceableBox<DOMString>),
 }
@@ -703,7 +703,7 @@ impl<TH: TypeHolderTrait> BlobOrString<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrUnsignedLong<TH: TypeHolderTrait> {
+pub enum BlobOrUnsignedLong<TH: TypeHolderTrait + 'static> {
     Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
     UnsignedLong(RootedTraceableBox<u32>),
 }
@@ -984,7 +984,7 @@ impl ByteStringSequenceOrLongOrString {
 
 
 #[derive(JSTraceable)]
-pub enum CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH: TypeHolderTrait> {
+pub enum CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH: TypeHolderTrait + 'static> {
     CanvasRenderingContext2D(RootedTraceableBox<DomRoot<CanvasRenderingContext2D<TH>>>),
     WebGLRenderingContext(RootedTraceableBox<DomRoot<WebGLRenderingContext<TH>>>),
     WebGL2RenderingContext(RootedTraceableBox<DomRoot<WebGL2RenderingContext<TH>>>),
@@ -1064,7 +1064,7 @@ impl<TH: TypeHolderTrait> CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL
 
 
 #[derive(JSTraceable)]
-pub enum DocumentOrBodyInit<TH: TypeHolderTrait> {
+pub enum DocumentOrBodyInit<TH: TypeHolderTrait + 'static> {
     Document(RootedTraceableBox<DomRoot<Document<TH>>>),
     Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
     ArrayBufferView(RootedTraceableBox<typedarray::HeapArrayBufferView>),
@@ -1214,7 +1214,7 @@ impl<TH: TypeHolderTrait> DocumentOrBodyInit<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum DocumentOrTestTypedef<TH: TypeHolderTrait> {
+pub enum DocumentOrTestTypedef<TH: TypeHolderTrait + 'static> {
     Document(RootedTraceableBox<DomRoot<Document<TH>>>),
     String(RootedTraceableBox<DOMString>),
     URL(RootedTraceableBox<DomRoot<URL<TH>>>),
@@ -1376,7 +1376,7 @@ impl EventListenerOptionsOrBoolean {
 
 
 #[derive(JSTraceable)]
-pub enum EventOrString<TH: TypeHolderTrait> {
+pub enum EventOrString<TH: TypeHolderTrait + 'static> {
     Event(RootedTraceableBox<DomRoot<Event<TH>>>),
     String(RootedTraceableBox<DOMString>),
 }
@@ -1441,7 +1441,7 @@ impl<TH: TypeHolderTrait> EventOrString<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum EventOrUSVString<TH: TypeHolderTrait> {
+pub enum EventOrUSVString<TH: TypeHolderTrait + 'static> {
     Event(RootedTraceableBox<DomRoot<Event<TH>>>),
     USVString(RootedTraceableBox<USVString>),
 }
@@ -1506,7 +1506,7 @@ impl<TH: TypeHolderTrait> EventOrUSVString<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum FileOrUSVString<TH: TypeHolderTrait> {
+pub enum FileOrUSVString<TH: TypeHolderTrait + 'static> {
     File(RootedTraceableBox<DomRoot<File<TH>>>),
     USVString(RootedTraceableBox<USVString>),
 }
@@ -1635,7 +1635,7 @@ impl Float32ArrayOrUnrestrictedFloatSequence {
 
 
 #[derive(JSTraceable)]
-pub enum HTMLElementOrLong<TH: TypeHolderTrait> {
+pub enum HTMLElementOrLong<TH: TypeHolderTrait + 'static> {
     HTMLElement(RootedTraceableBox<DomRoot<HTMLElement<TH>>>),
     Long(RootedTraceableBox<i32>),
 }
@@ -1700,7 +1700,7 @@ impl<TH: TypeHolderTrait> HTMLElementOrLong<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum HTMLElementOrUnsignedLongOrStringOrBoolean<TH: TypeHolderTrait> {
+pub enum HTMLElementOrUnsignedLongOrStringOrBoolean<TH: TypeHolderTrait + 'static> {
     HTMLElement(RootedTraceableBox<DomRoot<HTMLElement<TH>>>),
     UnsignedLong(RootedTraceableBox<u32>),
     String(RootedTraceableBox<DOMString>),
@@ -1807,7 +1807,7 @@ impl<TH: TypeHolderTrait> HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH: TypeHolderTrait> {
+pub enum HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH: TypeHolderTrait + 'static> {
     HTMLImageElement(RootedTraceableBox<DomRoot<HTMLImageElement<TH>>>),
     HTMLCanvasElement(RootedTraceableBox<DomRoot<HTMLCanvasElement<TH>>>),
     CanvasRenderingContext2D(RootedTraceableBox<DomRoot<CanvasRenderingContext2D<TH>>>),
@@ -1904,7 +1904,7 @@ impl<TH: TypeHolderTrait> HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingCo
 
 
 #[derive(JSTraceable)]
-pub enum HTMLOptionElementOrHTMLOptGroupElement<TH: TypeHolderTrait> {
+pub enum HTMLOptionElementOrHTMLOptGroupElement<TH: TypeHolderTrait + 'static> {
     HTMLOptionElement(RootedTraceableBox<DomRoot<HTMLOptionElement<TH>>>),
     HTMLOptGroupElement(RootedTraceableBox<DomRoot<HTMLOptGroupElement<TH>>>),
 }
@@ -1967,7 +1967,7 @@ impl<TH: TypeHolderTrait> HTMLOptionElementOrHTMLOptGroupElement<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait> {
+pub enum HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait + 'static> {
     Headers(RootedTraceableBox<DomRoot<Headers<TH>>>),
     ByteStringSequenceSequence(RootedTraceableBox<Vec<Vec<ByteString>>>),
     StringByteStringRecord(RootedTraceableBox<MozMap<ByteString>>),
@@ -2049,7 +2049,7 @@ impl<TH: TypeHolderTrait> HeadersOrByteStringSequenceSequenceOrStringByteStringR
 
 
 #[derive(JSTraceable)]
-pub enum ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH: TypeHolderTrait> {
+pub enum ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH: TypeHolderTrait + 'static> {
     ImageData(RootedTraceableBox<DomRoot<ImageData<TH>>>),
     HTMLImageElement(RootedTraceableBox<DomRoot<HTMLImageElement<TH>>>),
     HTMLCanvasElement(RootedTraceableBox<DomRoot<HTMLCanvasElement<TH>>>),
@@ -2405,7 +2405,7 @@ impl LongSequenceOrBoolean {
 
 
 #[derive(JSTraceable)]
-pub enum LongSequenceOrTestTypedef<TH: TypeHolderTrait> {
+pub enum LongSequenceOrTestTypedef<TH: TypeHolderTrait + 'static> {
     LongSequence(RootedTraceableBox<Vec<i32>>),
     String(RootedTraceableBox<DOMString>),
     URL(RootedTraceableBox<DomRoot<URL<TH>>>),
@@ -2505,7 +2505,7 @@ impl<TH: TypeHolderTrait> LongSequenceOrTestTypedef<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum NodeOrString<TH: TypeHolderTrait> {
+pub enum NodeOrString<TH: TypeHolderTrait + 'static> {
     Node(RootedTraceableBox<DomRoot<Node<TH>>>),
     String(RootedTraceableBox<DOMString>),
 }
@@ -2570,7 +2570,7 @@ impl<TH: TypeHolderTrait> NodeOrString<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum RadioNodeListOrElement<TH: TypeHolderTrait> {
+pub enum RadioNodeListOrElement<TH: TypeHolderTrait + 'static> {
     RadioNodeList(RootedTraceableBox<DomRoot<RadioNodeList<TH>>>),
     Element(RootedTraceableBox<DomRoot<Element<TH>>>),
 }
@@ -2633,7 +2633,7 @@ impl<TH: TypeHolderTrait> RadioNodeListOrElement<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum RequestOrUSVString<TH: TypeHolderTrait> {
+pub enum RequestOrUSVString<TH: TypeHolderTrait + 'static> {
     Request(RootedTraceableBox<DomRoot<Request<TH>>>),
     USVString(RootedTraceableBox<USVString>),
 }
@@ -2763,7 +2763,7 @@ impl StringOrBoolean {
 
 
 #[derive(JSTraceable)]
-pub enum StringOrCanvasGradientOrCanvasPattern<TH: TypeHolderTrait> {
+pub enum StringOrCanvasGradientOrCanvasPattern<TH: TypeHolderTrait + 'static> {
     String(RootedTraceableBox<DOMString>),
     CanvasGradient(RootedTraceableBox<DomRoot<CanvasGradient<TH>>>),
     CanvasPattern(RootedTraceableBox<DomRoot<CanvasPattern<TH>>>),
@@ -3034,7 +3034,7 @@ impl StringOrStringSequence {
 
 
 #[derive(JSTraceable)]
-pub enum StringOrURLOrBlob<TH: TypeHolderTrait> {
+pub enum StringOrURLOrBlob<TH: TypeHolderTrait + 'static> {
     String(RootedTraceableBox<DOMString>),
     URL(RootedTraceableBox<DomRoot<URL<TH>>>),
     Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
@@ -3246,7 +3246,7 @@ impl StringSequenceOrUnsignedLong {
 
 
 #[derive(JSTraceable)]
-pub enum TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait> {
+pub enum TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait + 'static> {
     TestBinding(RootedTraceableBox<DomRoot<TestBinding<TH>>>),
     ByteStringSequenceSequence(RootedTraceableBox<Vec<Vec<ByteString>>>),
     StringByteStringRecord(RootedTraceableBox<MozMap<ByteString>>),
@@ -3328,7 +3328,7 @@ impl<TH: TypeHolderTrait> TestBindingOrByteStringSequenceSequenceOrStringByteStr
 
 
 #[derive(JSTraceable)]
-pub enum TestBindingOrStringByteStringRecord<TH: TypeHolderTrait> {
+pub enum TestBindingOrStringByteStringRecord<TH: TypeHolderTrait + 'static> {
     TestBinding(RootedTraceableBox<DomRoot<TestBinding<TH>>>),
     StringByteStringRecord(RootedTraceableBox<MozMap<ByteString>>),
 }
@@ -3392,7 +3392,7 @@ impl<TH: TypeHolderTrait> TestBindingOrStringByteStringRecord<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum TestDictionaryOrLong<TH: TypeHolderTrait> {
+pub enum TestDictionaryOrLong<TH: TypeHolderTrait + 'static> {
     TestDictionary(RootedTraceableBox<TestDictionary<TH>>),
     Long(RootedTraceableBox<i32>),
 }
@@ -3455,7 +3455,7 @@ impl<TH: TypeHolderTrait> TestDictionaryOrLong<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum USVStringOrURLSearchParams<TH: TypeHolderTrait> {
+pub enum USVStringOrURLSearchParams<TH: TypeHolderTrait + 'static> {
     USVString(RootedTraceableBox<USVString>),
     URLSearchParams(RootedTraceableBox<DomRoot<URLSearchParams<TH>>>),
 }

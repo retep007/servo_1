@@ -15,9 +15,10 @@ use std::result::Result;
 use task::{TaskCanceller, TaskOnce};
 use task_source::TaskSource;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(JSTraceable)]
-pub struct PerformanceTimelineTaskSource<TH: TypeHolderTrait>(pub Box<ScriptChan + Send + 'static>, pub PipelineId);
+pub struct PerformanceTimelineTaskSource<TH: TypeHolderTrait + 'static>(pub Box<ScriptChan + Send + 'static>, pub PipelineId, pub PhantomData<TH>);
 
 impl<TH: TypeHolderTrait> Clone for PerformanceTimelineTaskSource<TH> {
     fn clone(&self) -> PerformanceTimelineTaskSource<TH> {

@@ -32,6 +32,7 @@ use servo_url::ServoUrl;
 use std::sync::Arc;
 use std::sync::mpsc::Sender;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 /// <https://drafts.css-houdini.org/worklets/#workletglobalscope>
@@ -157,11 +158,13 @@ pub struct WorkletGlobalScopeInit {
 
 /// <https://drafts.css-houdini.org/worklets/#worklet-global-scope-type>
 #[derive(Clone, Copy, Debug, JSTraceable, MallocSizeOf)]
-pub enum WorkletGlobalScopeType<TH: TypeHolderTrait> {
+pub enum WorkletGlobalScopeType<TH: TypeHolderTrait + 'static> {
     /// A servo-specific testing worklet
     Test,
     /// A paint worklet
     Paint,
+    
+    _p(PhantomData<TH>),
 }
 
 impl<TH: TypeHolderTrait> WorkletGlobalScopeType<TH> {

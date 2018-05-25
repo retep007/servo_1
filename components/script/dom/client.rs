@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Client<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     active_worker: MutNullableDom<ServiceWorker<TH>>,
     url: ServoUrl,
     frame_type: FrameType,

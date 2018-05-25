@@ -560,12 +560,12 @@ static Class: DOMJSClass = DOMJSClass {
 };
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
-    malloc_size_of_including_raw_self::<ServoParser<TH>>(ops, obj)
+fn malloc_size<TH: TypeHolderTrait + 'static>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+    malloc_size_of_including_raw_self::<TH::ServoParser>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
-(cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<ServoParser<TH, TypeHolder=TH>>) -> DomRoot<ServoParser<TH, TypeHolder=TH>> {
+pub unsafe fn Wrap<TH: TypeHolderTrait + 'static>
+(cx: *mut JSContext, scope: &GlobalScope<TH>, object: TH::ServoParser) -> DomRoot<TH::ServoParser> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
     assert!(((*get_object_class(scope.get())).flags & JSCLASS_IS_GLOBAL) != 0);
@@ -590,18 +590,18 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for ServoParser<TH, TypeHolder=TH> {
-    #[inline]
-    fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
-    }
-}
+// impl<TH: TypeHolderTrait> IDLInterface for ServoParser<TH, TypeHolder=TH> {
+//     #[inline]
+//     fn derives(class: &'static DOMClass) -> bool {
+//         class as *const _ == &Class.dom_class as *const _
+//     }
+// }
 
-impl<TH: TypeHolderTrait> PartialEq for ServoParser<TH, TypeHolder=TH> {
-    fn eq(&self, other: &Self) -> bool {
-        self as *const Self == &*other
-    }
-}
+// impl<TH: TypeHolderTrait> PartialEq for ServoParser<TH, TypeHolder=TH> {
+//     fn eq(&self, other: &Self) -> bool {
+//         self as *const Self == &*other
+//     }
+// }
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {

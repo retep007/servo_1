@@ -36,14 +36,14 @@ use style::thread_state::{self, ThreadState};
 use typeholder::TypeHolderTrait;
 
 /// Messages used to control service worker event loop
-pub enum ServiceWorkerScriptMsg<TH: TypeHolderTrait> {
+pub enum ServiceWorkerScriptMsg<TH: TypeHolderTrait + 'static> {
     /// Message common to all workers
     CommonWorker(WorkerScriptMsg<TH>),
     // Message to request a custom response by the service worker
     Response(CustomResponseMediator)
 }
 
-pub enum MixedMessage<TH: TypeHolderTrait> {
+pub enum MixedMessage<TH: TypeHolderTrait + 'static> {
     FromServiceWorker(ServiceWorkerScriptMsg<TH>),
     FromDevtools(DevtoolScriptControlMsg),
     FromTimeoutThread(())

@@ -15,10 +15,11 @@ use encoding_rs::{Decoder, DecoderResult, Encoding};
 use std::borrow::ToOwned;
 use std::cell::{Cell, RefCell};
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct TextDecoder<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     encoding: &'static Encoding,
     fatal: bool,
     ignoreBOM: bool,
@@ -26,6 +27,7 @@ pub struct TextDecoder<TH: TypeHolderTrait + 'static> {
     decoder: RefCell<Decoder>,
     in_stream: RefCell<Vec<u8>>,
     do_not_flush: Cell<bool>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> TextDecoder<TH> {

@@ -20,6 +20,7 @@ use mozangle::shaders::{BuiltInResources, Output, ShaderValidator};
 use std::cell::Cell;
 use std::sync::{ONCE_INIT, Once};
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(Clone, Copy, Debug, JSTraceable, MallocSizeOf, PartialEq)]
 pub enum ShaderCompilationStatus {
@@ -40,6 +41,7 @@ pub struct WebGLShader<TH: TypeHolderTrait + 'static> {
     compilation_status: Cell<ShaderCompilationStatus>,
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
     renderer: WebGLMsgSender,
+    _p: PhantomData<TH>,
 }
 
 static GLSLANG_INITIALIZATION: Once = ONCE_INIT;

@@ -10,11 +10,12 @@ use dom::bindings::root::DomRoot;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#characteristicproperties
  #[dom_struct]
 pub struct BluetoothCharacteristicProperties<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     broadcast: bool,
     read: bool,
     write_without_response: bool,
@@ -24,6 +25,7 @@ pub struct BluetoothCharacteristicProperties<TH: TypeHolderTrait + 'static> {
     authenticated_signed_writes: bool,
     reliable_write: bool,
     writable_auxiliaries: bool,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> BluetoothCharacteristicProperties<TH> {

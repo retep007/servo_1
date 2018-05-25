@@ -11,6 +11,7 @@ use dom::window::Window;
 use dom_struct::dom_struct;
 use regex::Regex;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 pub type UUID = DOMString;
 pub type BluetoothServiceUUID = StringOrUnsignedLong;
@@ -20,7 +21,8 @@ pub type BluetoothDescriptorUUID = StringOrUnsignedLong;
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothuuid
  #[dom_struct]
 pub struct BluetoothUUID<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 //https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx

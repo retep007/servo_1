@@ -48,8 +48,10 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
         }
 
         impl #impl_generics ::dom::bindings::reflector::DomObject for #name #ty_generics #where_clause {
+            type TypeHolder = TH;
+
             #[inline]
-            fn reflector(&self) -> &::dom::bindings::reflector::Reflector {
+            fn reflector(&self) -> &::dom::bindings::reflector::Reflector<TH> {
                 self.#first_field_name.reflector()
             }
         }
@@ -89,7 +91,7 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
         #[allow(non_upper_case_globals)]
         const #dummy_const: () = { #items };
     };
-    if name == "Navigator" {
+    if name == "IterableIterator" {
         println!("{}", tokens);
     }
     tokens

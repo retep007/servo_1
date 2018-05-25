@@ -50,9 +50,10 @@ use std::ops::{Deref, DerefMut};
 use std::ptr;
 use std::rc::Rc;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
-pub enum CommonEventHandler<TH: TypeHolderTrait> {
+pub enum CommonEventHandler<TH: TypeHolderTrait + 'static> {
     EventHandler(
         #[ignore_malloc_size_of = "Rc"]
         Rc<EventHandlerNonNull<TH>>),
@@ -92,7 +93,7 @@ struct InternalRawUncompiledHandler {
 
 /// A representation of an event handler, either compiled or uncompiled raw source, or null.
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
-enum InlineEventListener<TH: TypeHolderTrait> {
+enum InlineEventListener<TH: TypeHolderTrait + 'static> {
     Uncompiled(InternalRawUncompiledHandler),
     Compiled(CommonEventHandler<TH>),
     Null,
@@ -122,7 +123,7 @@ impl<TH: TypeHolderTrait> InlineEventListener<TH> {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
-enum EventListenerType<TH: TypeHolderTrait> {
+enum EventListenerType<TH: TypeHolderTrait + 'static> {
     Additive(#[ignore_malloc_size_of = "Rc"] Rc<EventListener<TH>>),
     Inline(InlineEventListener<TH>),
 }
@@ -142,7 +143,7 @@ impl<TH: TypeHolderTrait> EventListenerType<TH> {
 
 /// A representation of an EventListener/EventHandler object that has previously
 /// been compiled successfully, if applicable.
-pub enum CompiledEventListener<TH: TypeHolderTrait> {
+pub enum CompiledEventListener<TH: TypeHolderTrait + 'static> {
     Listener(Rc<EventListener<TH>>),
     Handler(CommonEventHandler<TH>),
 }
@@ -231,14 +232,14 @@ impl<TH: TypeHolderTrait> CompiledEventListener<TH> {
 
 #[derive(Clone, DenyPublicFields, JSTraceable, MallocSizeOf, PartialEq)]
 /// A listener in a collection of event listeners.
-struct EventListenerEntry<TH> {
+struct EventListenerEntry<TH: TypeHolderTrait + 'static> {
     phase: ListenerPhase,
     listener: EventListenerType<TH>
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
 /// A mix of potentially uncompiled and compiled event listeners of the same type.
-struct EventListeners<TH: TypeHolderTrait>(Vec<EventListenerEntry<TH>>);
+struct EventListeners<TH: TypeHolderTrait + 'static>(Vec<EventListenerEntry<TH>>);
 
 impl<TH: TypeHolderTrait> Deref for EventListeners<TH> {
     type Target = Vec<EventListenerEntry<TH>>;
@@ -283,8 +284,9 @@ impl<TH: TypeHolderTrait> EventListeners<TH> {
 
 #[dom_struct]
 pub struct EventTarget<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     handlers: DomRefCell<HashMap<Atom, EventListeners<TH>, BuildHasherDefault<FnvHasher>>>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> EventTarget<TH> {
@@ -490,7 +492,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn set_event_handler_common<T: CallbackContainer<TH>, TH: TypeHolderTrait>(
+    pub fn set_event_handler_common<T: CallbackContainer<TH>>(
         &self,
         ty: &str,
         listener: Option<Rc<T>>,
@@ -509,7 +511,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn set_error_event_handler<T: CallbackContainer<TH>, TH: TypeHolderTrait>(
+    pub fn set_error_event_handler<T: CallbackContainer<TH>>(
         &self,
         ty: &str,
         listener: Option<Rc<T>>,
@@ -528,7 +530,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn set_beforeunload_event_handler<T: CallbackContainer<TH>, TH: TypeHolderTrait>(
+    pub fn set_beforeunload_event_handler<T: CallbackContainer<TH>>(
         &self,
         ty: &str,
         listener: Option<Rc<T>>,
@@ -547,7 +549,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn get_event_handler_common<T: CallbackContainer<TH>, TH: TypeHolderTrait>(&self, ty: &str) -> Option<Rc<T>> {
+    pub fn get_event_handler_common<T: CallbackContainer<TH>>(&self, ty: &str) -> Option<Rc<T>> {
         let cx = self.global().get_cx();
         let listener = self.get_inline_event_listener(&Atom::from(ty));
         unsafe {

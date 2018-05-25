@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothadvertisingevent
 #[dom_struct]
-pub struct BluetoothAdvertisingEvent<TH> {
+pub struct BluetoothAdvertisingEvent<TH: TypeHolderTrait + 'static> {
     event: Event<TH>,
     device: Dom<BluetoothDevice<TH>>,
     name: Option<DOMString>,

@@ -12,13 +12,15 @@ use dom::bindings::root::DomRoot;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct WebGLShaderPrecisionFormat<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     range_min: i32,
     range_max: i32,
     precision: i32,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> WebGLShaderPrecisionFormat<TH> {

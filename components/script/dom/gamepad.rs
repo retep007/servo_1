@@ -26,7 +26,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Gamepad<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     gamepad_id: u32,
     id: String,
     index: Cell<i32>,

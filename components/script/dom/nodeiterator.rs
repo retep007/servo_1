@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct NodeIterator<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     root_node: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     reference_node: MutDom<Node<TH>>,
@@ -224,7 +224,7 @@ impl<TH: TypeHolderTrait> NodeIterator<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum Filter<TH: TypeHolderTrait> {
+pub enum Filter<TH: TypeHolderTrait + 'static> {
     None,
     Callback(Rc<NodeFilter<TH>>)
 }

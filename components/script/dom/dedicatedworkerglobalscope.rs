@@ -48,7 +48,7 @@ use typeholder::TypeHolderTrait;
 /// value for the duration of this object's lifetime. This ensures that the related Worker
 /// object only lives as long as necessary (ie. while events are being executed), while
 /// providing a reference that can be cloned freely.
-struct AutoWorkerReset<'a, TH: TypeHolderTrait> {
+struct AutoWorkerReset<'a, TH: TypeHolderTrait + 'static> {
     workerscope: &'a DedicatedWorkerGlobalScope<TH>,
     old_worker: Option<TrustedWorkerAddress<TH>>,
 }
@@ -70,7 +70,7 @@ impl<'a, TH: TypeHolderTrait> Drop for AutoWorkerReset<'a, TH> {
     }
 }
 
-enum MixedMessage<TH: TypeHolderTrait> {
+enum MixedMessage<TH: TypeHolderTrait + 'static> {
     FromWorker((TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)),
     FromScheduler((TrustedWorkerAddress<TH>, TimerEvent)),
     FromDevtools(DevtoolScriptControlMsg)
@@ -78,7 +78,7 @@ enum MixedMessage<TH: TypeHolderTrait> {
 
 // https://html.spec.whatwg.org/multipage/#dedicatedworkerglobalscope
 #[dom_struct]
-pub struct DedicatedWorkerGlobalScope<TH: TypeHolderTrait>
+pub struct DedicatedWorkerGlobalScope<TH: TypeHolderTrait + 'static>
  {
     workerglobalscope: WorkerGlobalScope<TH>,
     #[ignore_malloc_size_of = "Defined in std"]

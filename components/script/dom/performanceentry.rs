@@ -11,14 +11,16 @@ use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct PerformanceEntry<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     name: DOMString,
     entry_type: DOMString,
     start_time: f64,
     duration: f64,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> PerformanceEntry<TH> {

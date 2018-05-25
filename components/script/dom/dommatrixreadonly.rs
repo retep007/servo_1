@@ -24,12 +24,14 @@ use std::f64;
 use std::ptr;
 use std::ptr::NonNull;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct DOMMatrixReadOnly<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     matrix: DomRefCell<Transform3D<f64>>,
     is2D: Cell<bool>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {

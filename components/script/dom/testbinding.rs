@@ -51,7 +51,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct TestBinding<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     url: MutableWeakRef<URL<TH>, TH>,
 }
 
@@ -753,7 +753,7 @@ impl<TH: TypeHolderTrait> TestBindingMethods<TH> for TestBinding<TH> {
         return p;
 
         #[derive(JSTraceable, MallocSizeOf)]
-        struct SimpleHandler<TH> {
+        struct SimpleHandler<TH: TypeHolderTrait + 'static> {
             #[ignore_malloc_size_of = "Rc has unclear ownership semantics"]
             handler: Rc<SimpleCallback<TH>>,
         }

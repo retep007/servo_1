@@ -43,7 +43,7 @@ use style::element_state::*;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLElement<TH> {
+pub struct HTMLElement<TH: TypeHolderTrait + 'static> {
     element: Element<TH>,
     style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
     dataset: MutNullableDom<DOMStringMap<TH>>,

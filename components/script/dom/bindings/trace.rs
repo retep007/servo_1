@@ -117,6 +117,7 @@ use uuid::Uuid;
 use webrender_api::{DocumentId, ImageKey};
 use webvr_traits::WebVRGamepadHand;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// A trait to allow tracing (only) DOM objects.
 pub unsafe trait JSTraceable {
@@ -131,7 +132,7 @@ unsafe_no_jsmanaged_fields!(&'static Encoding);
 unsafe_no_jsmanaged_fields!(RefCell<Decoder>);
 unsafe_no_jsmanaged_fields!(RefCell<Vec<u8>>);
 
-unsafe_no_jsmanaged_fields!(Reflector);
+unsafe_no_jsmanaged_fields_generic!(Reflector<TH>);
 
 unsafe_no_jsmanaged_fields!(Duration);
 
@@ -151,7 +152,7 @@ pub fn trace_jsval(tracer: *mut JSTracer, description: &str, val: &Heap<JSVal>) 
 
 /// Trace the `JSObject` held by `reflector`.
 #[allow(unrooted_must_root)]
-pub fn trace_reflector<TH: TypeHolderTrait>(tracer: *mut JSTracer, description: &str, reflector: &Reflector) {
+pub fn trace_reflector<TH: TypeHolderTrait>(tracer: *mut JSTracer, description: &str, reflector: &Reflector<TH>) {
     trace!("tracing reflector {}", description);
     trace_object(tracer, description, reflector.rootable())
 }
@@ -863,11 +864,12 @@ impl<T: JSTraceable> RootableVec<T> {
 
 /// A vector of items that are rooted for the lifetime 'a.
 #[allow_unrooted_interior]
-pub struct RootedVec<'a, T: 'static + JSTraceable, TH: TypeHolderTrait> {
+pub struct RootedVec<'a, T: 'static + JSTraceable, TH: TypeHolderTrait + 'static> {
     root: &'a mut RootableVec<T>,
+    _p: PhantomData<TH>,
 }
 
-impl<'a, T: 'static + JSTraceable, TH> RootedVec<'a, T, TH> {
+impl<'a, T: 'static + JSTraceable, TH: TypeHolderTrait> RootedVec<'a, T, TH> {
     /// Create a vector of items of type T that is rooted for
     /// the lifetime of this struct
     pub fn new(root: &'a mut RootableVec<T>) -> Self {
@@ -880,7 +882,7 @@ impl<'a, T: 'static + JSTraceable, TH> RootedVec<'a, T, TH> {
     }
 }
 
-impl<'a, T: 'static + JSTraceable + DomObject, TH> RootedVec<'a, Dom<T>, TH> {
+impl<'a, T: 'static + JSTraceable + DomObject, TH: TypeHolderTrait> RootedVec<'a, Dom<T>, TH> {
     /// Create a vector of items of type Dom<T> that is rooted for
     /// the lifetime of this struct
     pub fn from_iter<I>(root: &'a mut RootableVec<Dom<T>>, iter: I) -> Self
@@ -896,7 +898,7 @@ impl<'a, T: 'static + JSTraceable + DomObject, TH> RootedVec<'a, Dom<T>, TH> {
     }
 }
 
-impl<'a, T: JSTraceable + 'static, TH> Drop for RootedVec<'a, T, TH> {
+impl<'a, T: JSTraceable + 'static, TH: TypeHolderTrait> Drop for RootedVec<'a, T, TH> {
     fn drop(&mut self) {
         self.clear();
         unsafe {
@@ -905,14 +907,14 @@ impl<'a, T: JSTraceable + 'static, TH> Drop for RootedVec<'a, T, TH> {
     }
 }
 
-impl<'a, T: JSTraceable, TH> Deref for RootedVec<'a, T, TH> {
+impl<'a, T: JSTraceable, TH: TypeHolderTrait> Deref for RootedVec<'a, T, TH> {
     type Target = Vec<T>;
     fn deref(&self) -> &Vec<T> {
         &self.root.v
     }
 }
 
-impl<'a, T: JSTraceable, TH> DerefMut for RootedVec<'a, T, TH> {
+impl<'a, T: JSTraceable, TH: TypeHolderTrait> DerefMut for RootedVec<'a, T, TH> {
     fn deref_mut(&mut self) -> &mut Vec<T> {
         &mut self.root.v
     }

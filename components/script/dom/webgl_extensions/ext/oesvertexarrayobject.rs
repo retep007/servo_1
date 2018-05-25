@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct OESVertexArrayObject<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     ctx: Dom<WebGLRenderingContext<TH>>,
     bound_vao: MutNullableDom<WebGLVertexArrayObjectOES<TH>>,
 }

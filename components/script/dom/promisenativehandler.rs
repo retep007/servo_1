@@ -12,6 +12,7 @@ use js::jsapi::JSContext;
 use js::rust::HandleValue;
 use malloc_size_of::MallocSizeOf;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 pub trait Callback: JSTraceable + MallocSizeOf {
     fn callback(&self, cx: *mut JSContext, v: HandleValue);
@@ -19,9 +20,10 @@ pub trait Callback: JSTraceable + MallocSizeOf {
 
 #[dom_struct]
 pub struct PromiseNativeHandler<TH: TypeHolderTrait + 'static> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     resolve: Option<Box<Callback>>,
     reject: Option<Box<Callback>>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> PromiseNativeHandler<TH> {

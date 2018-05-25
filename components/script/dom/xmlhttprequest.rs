@@ -98,7 +98,7 @@ struct XHRContext<TH: TypeHolderTrait + 'static> {
 }
 
 #[derive(Clone)]
-pub enum XHRProgress<TH: TypeHolderTrait> {
+pub enum XHRProgress<TH: TypeHolderTrait + 'static> {
     /// Notify that headers have been received
     HeadersReceived(GenerationId, Option<Headers>, Option<(u16, Vec<u8>)>),
     /// Partial progress (after receiving headers), containing portion of the response

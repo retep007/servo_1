@@ -10,15 +10,17 @@ use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use std::cell::Cell;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 // http://dev.w3.org/fxtf/geometry/Overview.html#dompointreadonly
 #[dom_struct]
 pub struct DOMPointReadOnly<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     x: Cell<f64>,
     y: Cell<f64>,
     z: Cell<f64>,
     w: Cell<f64>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> DOMPointReadOnly<TH> {

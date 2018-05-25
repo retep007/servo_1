@@ -12,13 +12,15 @@ use dom::cssstylesheet::CSSStyleSheet;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct StyleSheet<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     type_: DOMString,
     href: Option<DOMString>,
     title: Option<DOMString>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> StyleSheet<TH> {

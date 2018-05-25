@@ -12,12 +12,14 @@ use dom::workerglobalscope::WorkerGlobalScope;
 use dom_struct::dom_struct;
 use servo_url::ServoUrl;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 // https://html.spec.whatwg.org/multipage/#worker-locations
 #[dom_struct]
 pub struct WorkerLocation<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     url: ServoUrl,
+    _p: PhantomData<TH>
 }
 
 impl<TH: TypeHolderTrait> WorkerLocation<TH> {

@@ -21,6 +21,7 @@ use html5ever::{LocalName, Prefix};
 use std::default::Default;
 use style::element_state::ElementState;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct HTMLFieldSetElement<TH: TypeHolderTrait + 'static> {
@@ -54,10 +55,10 @@ impl<TH: TypeHolderTrait> HTMLFieldSetElementMethods<TH> for HTMLFieldSetElement
     // https://html.spec.whatwg.org/multipage/#dom-fieldset-elements
     fn Elements(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ElementsFilter<TH>;
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for ElementsFilter<TH> {
-            fn filter<'a>(&self, elem: &'a Element<TH>, _root: &'a Node<TH>) -> bool {
-                elem.downcast::<HTMLElement<TH>>()
+        struct ElementsFilter<THH: TypeHolderTrait + 'static>(PhantomData<THH>);
+        impl<THH: TypeHolderTrait> CollectionFilter<THH> for ElementsFilter<THH> {
+            fn filter<'a>(&self, elem: &'a Element<THH>, _root: &'a Node<THH>) -> bool {
+                elem.downcast::<HTMLElement<THH>>()
                     .map_or(false, HTMLElement::is_listed_element)
             }
         }

@@ -20,6 +20,7 @@ use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use style::attr::AttrValue;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct HTMLTableSectionElement<TH: TypeHolderTrait + 'static> {
@@ -44,7 +45,7 @@ impl<TH: TypeHolderTrait> HTMLTableSectionElement<TH> {
 }
 
 #[derive(JSTraceable)]
-struct RowsFilter<TH: TypeHolderTrait>;
+struct RowsFilter<TH: TypeHolderTrait>(PhantomData<TH>);
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for RowsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
         elem.is::<HTMLTableRowElement<TH>>() &&

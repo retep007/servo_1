@@ -14,7 +14,7 @@ use std::result::Result;
 use task::{TaskCanceller, TaskOnce};
 use typeholder::TypeHolderTrait;
 
-pub trait TaskSource<TH: TypeHolderTrait> {
+pub trait TaskSource<TH: TypeHolderTrait + 'static> {
     fn queue_with_canceller<T>(
         &self,
         task: T,

@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 // https://dom.spec.whatwg.org/#interface-treewalker
 #[dom_struct]
 pub struct TreeWalker<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     root_node: Dom<Node<TH>>,
     current_node: MutDom<Node<TH>>,
     what_to_show: u32,
@@ -469,7 +469,7 @@ impl<'a, TH: TypeHolderTrait> Iterator for &'a TreeWalker<TH> {
 }
 
 #[derive(JSTraceable)]
-pub enum Filter<TH: TypeHolderTrait> {
+pub enum Filter<TH: TypeHolderTrait + 'static> {
     None,
     Native(fn (node: &Node<TH>) -> u16),
     Dom(Rc<NodeFilter<TH>>)

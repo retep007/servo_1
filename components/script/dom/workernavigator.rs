@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#workernavigator
 #[dom_struct]
 pub struct WorkerNavigator<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     permissions: MutNullableDom<Permissions<TH>>,
 }
 

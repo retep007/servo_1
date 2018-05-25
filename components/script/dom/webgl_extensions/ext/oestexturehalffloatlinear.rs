@@ -10,10 +10,12 @@ use dom::webglrenderingcontext::WebGLRenderingContext;
 use dom_struct::dom_struct;
 use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct OESTextureHalfFloatLinear<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> OESTextureHalfFloatLinear<TH> {

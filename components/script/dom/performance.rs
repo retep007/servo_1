@@ -111,7 +111,7 @@ struct PerformanceObserver<TH: TypeHolderTrait + 'static> {
 
 #[dom_struct]
 pub struct Performance<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     timing: Option<Dom<PerformanceTiming<TH>>>,
     entries: DomRefCell<PerformanceEntryList<TH>>,
     observers: DomRefCell<Vec<PerformanceObserver<TH>>>,

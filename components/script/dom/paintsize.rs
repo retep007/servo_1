@@ -13,12 +13,14 @@ use dom_struct::dom_struct;
 use euclid::TypedSize2D;
 use style_traits::CSSPixel;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct PaintSize<TH: TypeHolderTrait + 'static> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     width: Finite<f64>,
     height: Finite<f64>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> PaintSize<TH> {

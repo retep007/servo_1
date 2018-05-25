@@ -48,7 +48,7 @@ const DEFAULT_HEIGHT: u32 = 150;
 
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum CanvasContext<TH: TypeHolderTrait> {
+pub enum CanvasContext<TH: TypeHolderTrait + 'static> {
     Context2d(Dom<CanvasRenderingContext2D<TH>>),
     WebGL(Dom<WebGLRenderingContext<TH>>),
     WebGL2(Dom<WebGL2RenderingContext<TH>>),

@@ -18,7 +18,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ServiceWorkerRegistration<TH> {
+pub struct ServiceWorkerRegistration<TH: TypeHolderTrait + 'static> {
     eventtarget: EventTarget<TH>,
     active: Option<Dom<ServiceWorker<TH>>>,
     installing: Option<Dom<ServiceWorker<TH>>>,

@@ -24,6 +24,7 @@ use std::rc::Rc;
 #[cfg(target_os = "linux")]
 use tinyfiledialogs::{self, MessageBoxIcon, YesNo};
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[cfg(target_os = "linux")]
 const DIALOG_TITLE: &'static str = "Permission request dialog";
@@ -32,7 +33,7 @@ const NONSECURE_DIALOG_MESSAGE: &'static str = "feature is only safe to use in s
 const REQUEST_DIALOG_MESSAGE: &'static str = "Do you want to grant permission for";
 const ROOT_DESC_CONVERSION_ERROR: &'static str = "Can't convert to an IDL value of type PermissionDescriptor";
 
-pub trait PermissionAlgorithm<TH: TypeHolderTrait> {
+pub trait PermissionAlgorithm<TH: TypeHolderTrait + 'static> {
     type Descriptor;
     type Status;
     fn create_descriptor(cx: *mut JSContext,
@@ -54,7 +55,8 @@ enum Operation {
 // https://w3c.github.io/permissions/#permissions
 #[dom_struct]
 pub struct Permissions<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> Permissions<TH> {

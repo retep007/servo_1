@@ -343,8 +343,8 @@ impl<TH: TypeHolderTrait> LayoutHTMLInputElementHelpers for LayoutDom<HTMLInputE
     #[allow(unsafe_code)]
     unsafe fn value_for_layout(self) -> String {
         #[allow(unsafe_code)]
-        unsafe fn get_raw_attr_value<TH>(input: LayoutDom<HTMLInputElement<TH>>, default: &str) -> String {
-            let elem = input.upcast::<Element<TH>>();
+        unsafe fn get_raw_attr_value<THH: TypeHolderTrait>(input: LayoutDom<HTMLInputElement<THH>>, default: &str) -> String {
+            let elem = input.upcast::<Element<THH>>();
             let value = (*elem.unsafe_get())
                 .get_attr_val_for_layout(&ns!(), &local_name!("value"))
                 .unwrap_or(default);
@@ -815,10 +815,10 @@ fn broadcast_radio_checked<TH: TypeHolderTrait>(broadcaster: &HTMLInputElement<T
     let doc = document_from_node(broadcaster);
 
     // This function is a workaround for lifetime constraint difficulties.
-    fn do_broadcast<TH>(doc_node: &Node<TH>, broadcaster: &HTMLInputElement<TH>,
-                        owner: Option<&HTMLFormElement<TH>>, group: Option<&Atom>) {
+    fn do_broadcast<THH: TypeHolderTrait>(doc_node: &Node<THH>, broadcaster: &HTMLInputElement<THH>,
+                        owner: Option<&HTMLFormElement<THH>>, group: Option<&Atom>) {
         let iter = doc_node.query_selector_iter(DOMString::from("input[type=radio]")).unwrap()
-                .filter_map(DomRoot::downcast::<HTMLInputElement<TH>>)
+                .filter_map(DomRoot::downcast::<HTMLInputElement<THH>>)
                 .filter(|r| in_same_group(&r, owner, group) && broadcaster != &**r);
         for ref r in iter {
             if r.Checked() {

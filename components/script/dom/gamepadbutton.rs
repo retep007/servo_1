@@ -11,13 +11,15 @@ use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use std::cell::Cell;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct GamepadButton<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     pressed: Cell<bool>,
     touched: Cell<bool>,
     value: Cell<f64>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> GamepadButton<TH> {

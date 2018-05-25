@@ -9,9 +9,12 @@ use dom::webglrenderingcontext::WebGLRenderingContext;
 use dom_struct::dom_struct;
 use super::{constants as webgl, WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
+
 #[dom_struct]
-pub struct OESTextureFloatLinear<TH> {
-    reflector_: Reflector,
+pub struct OESTextureFloatLinear<TH: TypeHolderTrait + 'static> {
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> OESTextureFloatLinear<TH> {

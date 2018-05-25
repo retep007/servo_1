@@ -10,14 +10,16 @@ use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use std::cell::Cell;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct DOMRectReadOnly<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     x: Cell<f64>,
     y: Cell<f64>,
     width: Cell<f64>,
     height: Cell<f64>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> DOMRectReadOnly<TH> {

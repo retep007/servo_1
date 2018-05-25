@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Location<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     window: Dom<Window<TH>>,
 }
 

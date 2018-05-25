@@ -25,7 +25,7 @@ use typeholder::TypeHolderTrait;
 // https://url.spec.whatwg.org/#url
 #[dom_struct]
 pub struct URL<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
 
     // https://url.spec.whatwg.org/#concept-url-url
     url: DomRefCell<ServoUrl>,

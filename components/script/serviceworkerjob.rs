@@ -24,6 +24,7 @@ use std::rc::Rc;
 use task_source::TaskSource;
 use task_source::dom_manipulation::DOMManipulationTaskSource;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(Clone, Copy, Debug, JSTraceable, PartialEq)]
 pub enum JobType {
@@ -33,7 +34,7 @@ pub enum JobType {
 }
 
 #[derive(Clone)]
-pub enum SettleType<TH: TypeHolderTrait> {
+pub enum SettleType<TH: TypeHolderTrait + 'static> {
     Resolve(Trusted<ServiceWorkerRegistration<TH>>),
     Reject(Error<TH>)
 }
@@ -94,7 +95,7 @@ impl<TH: TypeHolderTrait> PartialEq for Job<TH> {
 
 #[must_root]
 #[derive(JSTraceable)]
-pub struct JobQueue<TH: TypeHolderTrait>(pub DomRefCell<HashMap<ServoUrl, Vec<Job<TH>>>>);
+pub struct JobQueue<TH: TypeHolderTrait + 'static>(pub DomRefCell<HashMap<ServoUrl, Vec<Job<TH>>>>, PhantomData<TH>);
 
 impl<TH: TypeHolderTrait> JobQueue<TH> {
     pub fn new() -> JobQueue<TH> {

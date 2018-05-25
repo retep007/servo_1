@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct StyleSheetList<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     document: Dom<Document<TH>>,
 }
 

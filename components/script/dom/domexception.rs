@@ -11,6 +11,7 @@ use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[repr(u16)]
 #[derive(Clone, Copy, Debug, JSTraceable, MallocSizeOf)]
@@ -40,8 +41,9 @@ pub enum DOMErrorName {
 
 #[dom_struct]
 pub struct DOMException<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     code: DOMErrorName,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> DOMException<TH> {

@@ -19,13 +19,13 @@ use script_traits::ScriptToConstellationChan;
 use textinput::{SelectionDirection, SelectionState, TextInput};
 use typeholder::TypeHolderTrait;
 
-pub trait TextControlElement<TH: TypeHolderTrait>: DerivedFrom<EventTarget<TH>> + DerivedFrom<Node<TH>> {
+pub trait TextControlElement<TH: TypeHolderTrait + 'static>: DerivedFrom<EventTarget<TH>> + DerivedFrom<Node<TH>> {
     fn selection_api_applies(&self) -> bool;
     fn has_selectable_text(&self) -> bool;
     fn set_dirty_value_flag(&self, value: bool);
 }
 
-pub struct TextControlSelection<'a, E: TextControlElement<TH>, TH: TypeHolderTrait> {
+pub struct TextControlSelection<'a, E: TextControlElement<TH>, TH: TypeHolderTrait + 'static> {
     element: &'a E,
     textinput: &'a DomRefCell<TextInput<ScriptToConstellationChan, TH>>,
 }

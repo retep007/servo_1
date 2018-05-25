@@ -11,14 +11,16 @@ use dom::bindings::str::DOMString;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct WebGLActiveInfo<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     size: i32,
     // NOTE: `ty` stands for `type`, which is a reserved keyword
     ty: u32,
     name: DOMString,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> WebGLActiveInfo<TH> {

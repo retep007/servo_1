@@ -13,6 +13,7 @@ use js::rust::Runtime;
 use std::cell::RefCell;
 use std::thread;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 thread_local!(static STACK: RefCell<Vec<Box<StackEntryTrait>>> = RefCell::new(Vec::new()));
 
@@ -102,6 +103,7 @@ pub fn entry_global<TH: TypeHolderTrait>() -> DomRoot<GlobalScope<TH>> {
 /// RAII struct that pushes and pops entries from the script settings stack.
 pub struct AutoIncumbentScript<TH: TypeHolderTrait + 'static> {
     global: usize,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> AutoIncumbentScript<TH> {

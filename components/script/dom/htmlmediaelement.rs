@@ -447,26 +447,26 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#concept-media-load-algorithm
-    fn resource_selection_algorithm_sync<TH>(&self, base_url: ServoUrl) {
+    fn resource_selection_algorithm_sync(&self, base_url: ServoUrl) {
         // Step 5.
         // FIXME(nox): Maybe populate the list of pending text tracks.
 
         // Step 6.
-        enum Mode<TH> {
+        enum Mode<THH: TypeHolderTrait + 'static> {
             Object,
             Attribute(String),
-            Children(DomRoot<HTMLSourceElement<TH>>),
+            Children(DomRoot<HTMLSourceElement<THH>>),
         }
-        fn mode<TH>(media: &HTMLMediaElement<TH>) -> Option<Mode<TH>> {
+        fn mode<THH: TypeHolderTrait + 'static>(media: &HTMLMediaElement<THH>) -> Option<Mode<THH>> {
             if media.src_object.get().is_some() {
                 return Some(Mode::Object);
             }
-            if let Some(attr) = media.upcast::<Element<TH>>().get_attribute(&ns!(), &local_name!("src")) {
+            if let Some(attr) = media.upcast::<Element<THH>>().get_attribute(&ns!(), &local_name!("src")) {
                 return Some(Mode::Attribute(attr.Value().into()));
             }
-            let source_child_element = media.upcast::<Node<TH>>()
+            let source_child_element = media.upcast::<Node<THH>>()
                 .children()
-                .filter_map(DomRoot::downcast::<HTMLSourceElement<TH>>)
+                .filter_map(DomRoot::downcast::<HTMLSourceElement<THH>>)
                 .next();
             if let Some(element) = source_child_element {
                 return Some(Mode::Children(element));
@@ -941,7 +941,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLMediaElement<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum MediaElementMicrotask<TH: TypeHolderTrait> {
+pub enum MediaElementMicrotask<TH: TypeHolderTrait + 'static> {
     ResourceSelectionTask {
         elem: DomRoot<HTMLMediaElement<TH>>,
         generation_id: u32,

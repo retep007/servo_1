@@ -14,16 +14,18 @@ use std::ptr;
 use std::ptr::NonNull;
 use webvr_traits::webvr;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct VRPose<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     position: Heap<*mut JSObject>,
     orientation: Heap<*mut JSObject>,
     linear_vel: Heap<*mut JSObject>,
     angular_vel: Heap<*mut JSObject>,
     linear_acc: Heap<*mut JSObject>,
     angular_acc: Heap<*mut JSObject>,
+    _p: PhantomData<TH>,
 }
 
 #[allow(unsafe_code)]

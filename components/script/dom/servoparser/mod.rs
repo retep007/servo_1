@@ -57,12 +57,13 @@ use dom::bindings::root::StableTraceObject;
 use malloc_size_of::MallocSizeOf;
 use dom::bindings::trace::JSTraceable;
 use typeholder::TypeHolderTrait;
+use std::marker::Sized;
 
 mod async_html;
 mod html;
 mod xml;
 
-pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TypeHolder=TH> + MutDomObject + MallocSizeOf + JSTraceable {
+pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TypeHolder=TH> + MutDomObject + MallocSizeOf + JSTraceable + 'static {
 
     fn parser_is_not_active(&self) -> bool;
 
@@ -148,13 +149,13 @@ impl ElementAttribute {
     }
 }
 
-struct FragmentParsingResult<I, TH: TypeHolderTrait>
+struct FragmentParsingResult<I, TH: TypeHolderTrait + 'static>
     where I: Iterator<Item=DomRoot<Node<TH>>>
 {
     inner: I,
 }
 
-impl<I, TH: TypeHolderTrait> Iterator for FragmentParsingResult<I, TH>
+impl<I, TH: TypeHolderTrait + 'static> Iterator for FragmentParsingResult<I, TH>
     where I: Iterator<Item=DomRoot<Node<TH>>>
 {
     type Item = DomRoot<Node<TH>>;
@@ -178,13 +179,13 @@ enum ParserKind {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-enum Tokenizer<TH: TypeHolderTrait> {
+enum Tokenizer<TH: TypeHolderTrait + 'static> {
     Html(self::html::Tokenizer<TH>),
     AsyncHtml(self::async_html::Tokenizer<TH>),
     Xml(self::xml::Tokenizer<TH>),
 }
 
-impl<TH: TypeHolderTrait> Tokenizer<TH> {
+impl<TH: TypeHolderTrait + 'static> Tokenizer<TH> {
     fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         match *self {
             Tokenizer::Html(ref mut tokenizer) => tokenizer.feed(input),
@@ -231,7 +232,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
 #[derive(JSTraceable)]
 pub struct ParserContext<TH: TypeHolderTrait + 'static> {
     /// The parser that initiated the request.
-    parser: Option<Trusted<Box<ServoParser<TH, TypeHolder=TH>>>>,
+    parser: Option<Trusted<TH::ServoParser>>,
     /// Is this a synthesized document
     is_synthesized_document: bool,
     /// The pipeline associated with this document.
@@ -388,7 +389,7 @@ impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
 
 impl<TH: TypeHolderTrait> PreInvoke for ParserContext<TH> {}
 
-pub struct FragmentContext<'a, TH: TypeHolderTrait> {
+pub struct FragmentContext<'a, TH: TypeHolderTrait + 'static> {
     pub context_elem: &'a Node<TH>,
     pub form_elem: Option<&'a Node<TH>>,
 }

@@ -603,7 +603,7 @@ macro_rules! impl_performance_entry_struct(
         use typeholder::TypeHolderTrait;
 
         #[dom_struct]
-        pub struct $struct<TH: TypeHolderTrait> {
+        pub struct $struct<TH: TypeHolderTrait + 'static> {
             entry: PerformanceEntry<TH>,
         }
 

@@ -35,7 +35,7 @@ pub struct FileBlob {
 /// Different backends of Blob
 #[must_root]
 #[derive(JSTraceable)]
-pub enum BlobImpl<TH: TypeHolderTrait> {
+pub enum BlobImpl<TH: TypeHolderTrait + 'static> {
     /// File-based blob, whose content lives in the net process
     File(FileBlob),
     /// Memory-based blob, whose content lives in the script process
@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> BlobImpl<TH> {
 // https://w3c.github.io/FileAPI/#blob
 #[dom_struct]
 pub struct Blob<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "No clear owner"]
     blob_impl: DomRefCell<BlobImpl<TH>>,
     /// content-type string

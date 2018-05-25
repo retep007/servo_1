@@ -24,13 +24,13 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct MutationObserver<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<MutationCallback<TH>>,
     record_queue: DomRefCell<Vec<DomRoot<MutationRecord<TH>>>>,
 }
 
-pub enum Mutation<'a, TH: TypeHolderTrait> {
+pub enum Mutation<'a, TH: TypeHolderTrait + 'static> {
     Attribute { name: LocalName, namespace: Namespace, old_value: DOMString },
     ChildList { added: Option<&'a [&'a Node<TH>]>, removed: Option<&'a [&'a Node<TH>]>,
                 prev: Option<&'a Node<TH>>, next: Option<&'a Node<TH>> },

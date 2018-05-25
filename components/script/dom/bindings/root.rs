@@ -91,7 +91,7 @@ where
         // so we need this shenanigan to actually trace the reflector of the
         // T pointer in Dom<T>.
         #[allow(unrooted_must_root)]
-        struct ReflectorStackRoot<TH>(Reflector);
+        struct ReflectorStackRoot<TH: TypeHolderTrait>(Reflector<TH>);
         unsafe impl<TH: TypeHolderTrait> JSTraceable for ReflectorStackRoot<TH> {
             unsafe fn trace(&self, tracer: *mut JSTracer) {
                 trace_reflector(tracer, "on stack", &self.0);
@@ -470,7 +470,7 @@ impl <T> Clone for LayoutDom<T> {
 impl<TH: TypeHolderTrait> LayoutDom<Node<TH>> {
     /// Create a new JS-owned value wrapped from an address known to be a
     /// `Node` pointer.
-    pub unsafe fn from_trusted_node_address<TH>(inner: TrustedNodeAddress) -> LayoutDom<Node<TH>> {
+    pub unsafe fn from_trusted_node_address(inner: TrustedNodeAddress) -> LayoutDom<Node<TH>> {
         debug_assert!(thread_state::get().is_layout());
         let TrustedNodeAddress(addr) = inner;
         LayoutDom {

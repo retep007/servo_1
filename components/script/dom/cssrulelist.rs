@@ -36,7 +36,7 @@ impl<TH: TypeHolderTrait> From<RulesMutateError> for Error<TH> {
 
 #[dom_struct]
 pub struct CSSRuleList<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     rules: RulesSource,

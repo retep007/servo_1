@@ -25,9 +25,10 @@ use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use style::attr::AttrValue;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(JSTraceable)]
-struct CellsFilter<TH: TypeHolderTrait>;
+struct CellsFilter<TH: TypeHolderTrait + 'static>(PhantomData<TH>);
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for CellsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
         (elem.is::<HTMLTableHeaderCellElement<TH>>() || elem.is::<HTMLTableDataCellElement<TH>>()) &&

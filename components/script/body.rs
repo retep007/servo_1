@@ -39,7 +39,7 @@ pub enum BodyType {
     ArrayBuffer
 }
 
-pub enum FetchedData<TH: TypeHolderTrait> {
+pub enum FetchedData<TH: TypeHolderTrait + 'static> {
     Text(String),
     Json(RootedTraceableBox<Heap<JSValue>>),
     BlobData(DomRoot<Blob<TH>>),

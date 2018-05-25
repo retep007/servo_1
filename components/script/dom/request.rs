@@ -42,7 +42,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Request<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     request: DomRefCell<NetTraitsRequest>,
     body_used: Cell<bool>,
     headers: MutNullableDom<Headers<TH>>,

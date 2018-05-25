@@ -18,6 +18,7 @@ use dom_struct::dom_struct;
 use std::cell::Cell;
 use std::cmp;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 pub enum TexParameterValue {
     Float(f32),
@@ -49,6 +50,7 @@ pub struct WebGLTexture<TH: TypeHolderTrait + 'static> {
     renderer: WebGLMsgSender,
     /// True if this texture is used for the DOMToTexture feature.
     attached_to_dom: Cell<bool>,
+    _p: PhantomData<TH>
 }
 
 impl<TH: TypeHolderTrait> WebGLTexture<TH> {

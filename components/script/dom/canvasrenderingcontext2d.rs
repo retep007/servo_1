@@ -54,7 +54,7 @@ use typeholder::TypeHolderTrait;
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
 #[allow(dead_code)]
-enum CanvasFillOrStrokeStyle<TH: TypeHolderTrait> {
+enum CanvasFillOrStrokeStyle<TH: TypeHolderTrait + 'static> {
     Color(RGBA),
     Gradient(Dom<CanvasGradient<TH>>),
     Pattern(Dom<CanvasPattern<TH>>),
@@ -62,8 +62,8 @@ enum CanvasFillOrStrokeStyle<TH: TypeHolderTrait> {
 
 // https://html.spec.whatwg.org/multipage/#canvasrenderingcontext2d
 #[dom_struct]
-pub struct CanvasRenderingContext2D<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+pub struct CanvasRenderingContext2D<TH: TypeHolderTrait + 'static> {
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
     ipc_renderer: IpcSender<CanvasMsg>,
     /// For rendering contexts created by an HTML canvas element, this is Some,

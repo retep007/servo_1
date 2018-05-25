@@ -37,9 +37,10 @@ use std::iter;
 use style::attr::AttrValue;
 use style::element_state::ElementState;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct OptionsFilter<TH: TypeHolderTrait>;
+struct OptionsFilter<TH: TypeHolderTrait + 'static>(PhantomData<TH>);
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for OptionsFilter<TH> {
     fn filter<'a>(&self, elem: &'a Element<TH>, root: &'a Node<TH>) -> bool {
         if !elem.is::<HTMLOptionElement<TH>>() {

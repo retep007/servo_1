@@ -28,6 +28,7 @@ use js::jsapi::JSTracer;
 use servo_url::ServoUrl;
 use std::io;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
@@ -101,13 +102,13 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
 #[allow(unsafe_code)]
 unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
-        struct Tracer<TH>(*mut JSTracer);
+        struct Tracer<THH: TypeHolderTrait + 'static>(*mut JSTracer, PhantomData<THH>);
         let tracer = Tracer(trc);
 
-        impl<TH: TypeHolderTrait> HtmlTracer for Tracer<TH> {
-            type Handle = Dom<Node<TH>>;
+        impl<THH: TypeHolderTrait> HtmlTracer for Tracer<THH> {
+            type Handle = Dom<Node<THH>>;
             #[allow(unrooted_must_root)]
-            fn trace_handle(&self, node: &Dom<Node<TH>>) {
+            fn trace_handle(&self, node: &Dom<Node<THH>>) {
                 unsafe { node.trace(self.0); }
             }
         }
@@ -142,7 +143,7 @@ fn end_element<S: Serializer, TH: TypeHolderTrait>(node: &Element<TH>, serialize
 }
 
 
-enum SerializationCommand<TH: TypeHolderTrait> {
+enum SerializationCommand<TH: TypeHolderTrait + 'static> {
     OpenElement(DomRoot<Element<TH>>),
     CloseElement(DomRoot<Element<TH>>),
     SerializeNonelement(DomRoot<Node<TH>>),

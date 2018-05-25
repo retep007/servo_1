@@ -11,12 +11,14 @@ use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use webvr_traits::WebVRDisplayCapabilities;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct VRDisplayCapabilities<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
-    capabilities: DomRefCell<WebVRDisplayCapabilities>
+    capabilities: DomRefCell<WebVRDisplayCapabilities>,
+    _p: PhantomData<TH>,
 }
 
 unsafe_no_jsmanaged_fields!(WebVRDisplayCapabilities);

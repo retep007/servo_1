@@ -22,6 +22,7 @@ use std::cell::Cell;
 use std::ptr;
 use std::ptr::NonNull;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// The values that an iterator will iterate over.
 #[derive(JSTraceable, MallocSizeOf)]
@@ -50,11 +51,12 @@ pub trait Iterable {
 
 /// An iterator over the iterable entries of a given DOM interface.
 #[dom_struct]
-pub struct IterableIterator<T: DomObject + JSTraceable + Iterable, TH: TypeHolderTrait> {
-    reflector: Reflector,
+pub struct IterableIterator<T: DomObject + JSTraceable + Iterable, TH: TypeHolderTrait + 'static> {
+    reflector: Reflector<TH>,
     iterable: Dom<T>,
     type_: IteratorType,
     index: Cell<u32>,
+    _p: PhantomData<TH>,
 }
 
 impl<T: DomObject + JSTraceable + Iterable, TH: TypeHolderTrait> IterableIterator<T, TH> {

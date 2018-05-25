@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub enum NodeListType<TH: TypeHolderTrait> {
+pub enum NodeListType<TH: TypeHolderTrait + 'static> {
     Simple(Vec<Dom<Node<TH>>>),
     Children(ChildrenList<TH>),
 }
@@ -23,7 +23,7 @@ pub enum NodeListType<TH: TypeHolderTrait> {
 // https://dom.spec.whatwg.org/#interface-nodelist
 #[dom_struct]
 pub struct NodeList<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     list_type: NodeListType<TH>,
 }
 
@@ -191,7 +191,7 @@ impl<TH: TypeHolderTrait> ChildrenList<TH> {
     }
 
     pub fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
-        fn prepend<TH>(list: &ChildrenList<TH>, added: &[&Node<TH>], next: &Node<TH>) {
+        fn prepend<THH: TypeHolderTrait>(list: &ChildrenList<THH>, added: &[&Node<THH>], next: &Node<THH>) {
             let len = added.len() as u32;
             if len == 0u32 {
                 return;
@@ -212,11 +212,11 @@ impl<TH: TypeHolderTrait> ChildrenList<TH> {
             }
         }
 
-        fn replace<TH>(list: &ChildrenList<TH>,
-                   prev: Option<&Node<TH>>,
-                   removed: &Node<TH>,
-                   added: &[&Node<TH>],
-                   next: Option<&Node<TH>>) {
+        fn replace<THH: TypeHolderTrait>(list: &ChildrenList<THH>,
+                   prev: Option<&Node<THH>>,
+                   removed: &Node<THH>,
+                   added: &[&Node<THH>],
+                   next: Option<&Node<THH>>) {
             let index = list.last_index.get();
             if removed == &*list.last_visited.get().unwrap() {
                 let visited = match (prev, added, next) {

@@ -17,10 +17,12 @@ use style::stylesheets::CssRuleType;
 use style::stylesheets::supports_rule::{Declaration, parse_condition_or_declaration};
 use style_traits::ParsingMode;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct CSS<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> CSS<TH> {

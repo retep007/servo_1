@@ -66,7 +66,7 @@ impl TrustedReference {
 /// in asynchronous operations. The underlying DOM object is guaranteed to live at least
 /// as long as the last outstanding `TrustedPromise` instance. These values cannot be cloned,
 /// only created from existing Rc<Promise<TH>> values.
-pub struct TrustedPromise<TH> {
+pub struct TrustedPromise<TH: TypeHolderTrait + 'static> {
     dom_object: *const Promise<TH>,
     owner_thread: *const libc::c_void,
 }

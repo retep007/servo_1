@@ -17,9 +17,10 @@ use std::sync::mpsc::Sender;
 use task::{TaskCanceller, TaskOnce};
 use task_source::TaskSource;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(Clone, JSTraceable)]
-pub struct DOMManipulationTaskSource<TH: TypeHolderTrait>(pub Sender<MainThreadScriptMsg>, pub PipelineId);
+pub struct DOMManipulationTaskSource<TH: TypeHolderTrait + 'static>(pub Sender<MainThreadScriptMsg>, pub PipelineId, pub PhantomData<TH>);
 
 impl<TH: TypeHolderTrait> fmt::Debug for DOMManipulationTaskSource<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

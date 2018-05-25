@@ -9,11 +9,13 @@ use dom::bindings::str::DOMString;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct MediaError<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     code: u16,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> MediaError<TH> {

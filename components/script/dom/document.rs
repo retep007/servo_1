@@ -142,6 +142,7 @@ use timers::OneshotTimerCallback;
 use url::Host;
 use url::percent_encoding::percent_decode;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// The number of times we are allowed to see spurious `requestAnimationFrame()` calls before
 /// falling back to fake ones.
@@ -239,7 +240,9 @@ impl<TH: TypeHolderTrait> ::style::stylesheets::StylesheetInDocument for StyleSh
 }
 
 /// <https://dom.spec.whatwg.org/#document>
-#[dom_struct]
+#[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
+#[must_root]
+#[repr(C)]
 pub struct Document<TH: TypeHolderTrait + 'static> {
     node: Node<TH>,
     window: Dom<Window<TH>>,
@@ -308,7 +311,7 @@ pub struct Document<TH: TypeHolderTrait + 'static> {
     /// Tracks all outstanding loads related to this document.
     loader: DomRefCell<DocumentLoader>,
     /// The current active HTML parser, to allow resuming after interruptions.
-    current_parser: MutNullableDom<Box<ServoParser<TH, TypeHolder=TH>>>,
+    current_parser: MutNullableDom<TH::ServoParser>,
     /// When we should kick off a reflow. This happens during parsing.
     reflow_timeout: Cell<Option<u64>>,
     /// The cached first `base` element with an `href` attribute.
@@ -378,8 +381,163 @@ pub struct Document<TH: TypeHolderTrait + 'static> {
     page_showing: Cell<bool>,
 }
 
+#[allow(non_upper_case_globals)]
+const _IMPL_DOMOBJECT_FOR_Document: () = {
+    impl<TH: TypeHolderTrait + 'static> ::js::conversions::ToJSValConvertible for Document<TH> {
+        #[allow(unsafe_code)]
+        unsafe fn to_jsval(
+            &self,
+            cx: *mut ::js::jsapi::JSContext,
+            rval: ::js::rust::MutableHandleValue,
+        ) {
+            let object = ::dom::bindings::reflector::DomObject::reflector(self).get_jsobject();
+            object.to_jsval(cx, rval)
+        }
+    }
+    impl<TH: TypeHolderTrait + 'static> ::dom::bindings::reflector::DomObject for Document<TH> {
+        type TypeHolder = TH;
+        
+        #[inline]
+        fn reflector(&self) -> &::dom::bindings::reflector::Reflector<TH> {
+            self.node.reflector()
+        }
+    }
+    impl<TH: TypeHolderTrait + 'static> ::dom::bindings::reflector::MutDomObject for Document<TH> {
+        fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
+            self.node.init_reflector(obj);
+        }
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Dom<Window<TH>>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), MutNullableDom<DOMImplementation<TH>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Mime) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Option<String>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<&'static Encoding>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), bool) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<DocumentActivity>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), DomRefCell<ServoUrl>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<QuirksMode>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<HashMap<Atom, Vec<Dom<Element<TH>>>>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for (
+            (TH),
+            DomRefCell<HashMap<LocalName, Dom<HTMLCollection<TH>>>>,
+        )
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<HashMap<QualName, Dom<HTMLCollection<TH>>>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for (
+            (TH),
+            DomRefCell<HashMap<Vec<Atom>, Dom<HTMLCollection<TH>>>>,
+        )
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), MutNullableDom<HTMLCollection<TH>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), StyleSharedRwLock) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for (
+            (TH),
+            DomRefCell<DocumentStylesheetSet<StyleSheetInDocument<TH>>>,
+        )
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), MutNullableDom<StyleSheetList<TH>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<DocumentReadyState>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<bool>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), MutNullableDom<Element<TH>>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), MutNullableDom<HTMLScriptElement<TH>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<Option<PendingScript<TH>>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<u32>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), PendingInOrderScriptVec<TH>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<Vec<Dom<HTMLScriptElement<TH>>>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for (
+            (TH),
+            DomRefCell<Vec<(u32, Option<AnimationFrameCallback<TH>>)>>,
+        )
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), DomRefCell<DocumentLoader>) {}
+    // impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+    //     for ((TH), MutNullableDom<TH::ServoParser>)
+    // {
+    // }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<Option<u64>>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), MutNullableDom<HTMLBaseElement<TH>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), MutNullableDom<Document<TH>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<HashMap<Dom<Element<TH>>, PendingRestyle>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<Vec<Dom<Touch<TH>>>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<u64>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<HttpsState>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), MutableOrigin) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), Cell<Option<ReferrerPolicy>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<Option<(Instant, Point2D<f32>)>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), Cell<u8>) {}
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<HashMap<Atom, HashSet<Dom<Element<TH>>>>>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<InteractiveMetrics>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject
+        for ((TH), DomRefCell<InteractiveWindow>)
+    {
+    }
+    impl<TH: TypeHolderTrait + 'static> ShouldNotImplDomObject for ((TH), FetchCanceller) {}
+    trait ShouldNotImplDomObject {}
+    impl<TH: TypeHolderTrait + 'static, __T: ::dom::bindings::reflector::DomObject>
+        ShouldNotImplDomObject for ((TH), __T)
+    {
+    }
+};
+
+
 #[derive(JSTraceable, MallocSizeOf)]
-struct ImagesFilter<TH: TypeHolderTrait>;
+struct ImagesFilter<TH: TypeHolderTrait>(PhantomData<TH>);
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for ImagesFilter<TH> {
     fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLImageElement<TH>>()
@@ -387,7 +545,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for ImagesFilter<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct EmbedsFilter<TH: TypeHolderTrait>;
+struct EmbedsFilter<TH: TypeHolderTrait>(PhantomData<TH>);
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for EmbedsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLEmbedElement<TH>>()
@@ -395,7 +553,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for EmbedsFilter<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct LinksFilter<TH: TypeHolderTrait>;
+struct LinksFilter<TH: TypeHolderTrait>(PhantomData<TH>);
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for LinksFilter<TH> {
     fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         (elem.is::<HTMLAnchorElement<TH>>() || elem.is::<HTMLAreaElement<TH>>()) &&
@@ -404,7 +562,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for LinksFilter<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct FormsFilter<TH: TypeHolderTrait>;
+struct FormsFilter<TH: TypeHolderTrait>(PhantomData<TH>);
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for FormsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLFormElement<TH>>()
@@ -412,7 +570,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for FormsFilter<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct ScriptsFilter<TH: TypeHolderTrait>;
+struct ScriptsFilter<TH: TypeHolderTrait>(PhantomData<TH>);
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for ScriptsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLScriptElement<TH>>()
@@ -420,7 +578,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for ScriptsFilter<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct AnchorsFilter<TH: TypeHolderTrait>;
+struct AnchorsFilter<TH: TypeHolderTrait>(PhantomData<TH>);
 impl<TH: TypeHolderTrait> CollectionFilter<TH> for AnchorsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
         elem.is::<HTMLAnchorElement<TH>>() && elem.has_attribute(&local_name!("href"))
@@ -1866,11 +2024,11 @@ impl<TH: TypeHolderTrait> Document<TH> {
         self.send_to_constellation(ScriptMsg::LoadComplete);
     }
 
-    pub fn set_current_parser(&self, script: Option<&Box<ServoParser<TH, TypeHolder=TH>>>) {
+    pub fn set_current_parser<SP: ServoParser<TH, TypeHolder=TH>>(&self, script: Option<&SP>) {
         self.current_parser.set(script);
     }
 
-    pub fn get_current_parser(&self) -> Option<DomRoot<Box<ServoParser<TH, TypeHolder=TH>>>> {
+    pub fn get_current_parser<SP: ServoParser<TH, TypeHolder=TH>>(&self) -> Option<DomRoot<SP>> {
         self.current_parser.get()
     }
 
@@ -3522,21 +3680,22 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tree-accessors:dom-document-nameditem-filter
     unsafe fn NamedGetter(&self, _cx: *mut JSContext, name: DOMString) -> Option<NonNull<JSObject>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct NamedElementFilter<TH: TypeHolderTrait + 'static> {
+        struct NamedElementFilter<THH: TypeHolderTrait + 'static> {
             name: Atom,
+            _p: PhantomData<THH>,
         }
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for NamedElementFilter<TH> {
-            fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
+        impl<THH: TypeHolderTrait> CollectionFilter<THH> for NamedElementFilter<THH> {
+            fn filter(&self, elem: &Element<THH>, _root: &Node<THH>) -> bool {
                 filter_by_name(&self.name, elem.upcast())
             }
         }
         // https://html.spec.whatwg.org/multipage/#dom-document-nameditem-filter
-        fn filter_by_name<TH>(name: &Atom, node: &Node<TH>) -> bool {
+        fn filter_by_name<THH: TypeHolderTrait + 'static>(name: &Atom, node: &Node<THH>) -> bool {
             let html_elem_type = match node.type_id() {
                 NodeTypeId::Element(ElementTypeId::HTMLElement(type_)) => type_,
                 _ => return false,
             };
-            let elem = match node.downcast::<Element<TH>>() {
+            let elem = match node.downcast::<Element<THH>>() {
                 Some(elem) => elem,
                 None => return false,
             };
@@ -3999,7 +4158,7 @@ impl<TH: TypeHolderTrait> FakeRequestAnimationFrameCallback<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum AnimationFrameCallback<TH: TypeHolderTrait> {
+pub enum AnimationFrameCallback<TH: TypeHolderTrait + 'static> {
     DevtoolsFramerateTick { actor_name: String },
     FrameRequestCallback {
         #[ignore_malloc_size_of = "Rc is hard"]

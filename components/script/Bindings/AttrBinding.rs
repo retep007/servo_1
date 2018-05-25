@@ -520,23 +520,25 @@ unsafe extern fn get_namespaceURI<TH: TypeHolderTrait>
 }
 
 
-const namespaceURI_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_namespaceURI as *const os::raw::c_void,
-    protoID: PrototypeList::ID::Attr as u16,
-    depth: 0,
-    _bitfield_1: new_jsjitinfo_bitfield_1!(
-        JSJitInfo_OpType::Getter as u8,
-        JSJitInfo_AliasSet::AliasNone as u8,
-        JSValueType::JSVAL_TYPE_UNKNOWN as u8,
-        true,
-        true,
-        false,
-        false,
-        false,
-        false,
-        0,
-    ),
-};
+fn namespaceURI_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo {
+    JSJitInfo {
+        call: get_namespaceURI::<TH>() as *const os::raw::c_void,
+        protoID: PrototypeList::ID::Attr as u16,
+        depth: 0,
+        _bitfield_1: new_jsjitinfo_bitfield_1!(
+            JSJitInfo_OpType::Getter as u8,
+            JSJitInfo_AliasSet::AliasNone as u8,
+            JSValueType::JSVAL_TYPE_UNKNOWN as u8,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            0,
+        ),
+    }
+} 
 
 unsafe extern fn get_prefix<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Attr<TH>, args: JSJitGetterCallArgs) -> bool {

@@ -14,11 +14,13 @@ use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use servo_url::ServoUrl;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct CSSStyleValue<TH: TypeHolderTrait + 'static> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     value: String,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> CSSStyleValue<TH> {

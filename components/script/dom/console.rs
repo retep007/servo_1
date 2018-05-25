@@ -9,9 +9,10 @@ use dom::globalscope::GlobalScope;
 use dom::workerglobalscope::WorkerGlobalScope;
 use std::io;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Console
-pub struct Console<TH: TypeHolderTrait>(());
+pub struct Console<TH: TypeHolderTrait + 'static>((), PhantomData<TH>,);
 
 impl<TH: TypeHolderTrait> Console<TH> {
     fn send_to_devtools(global: &GlobalScope<TH>, level: LogLevel, message: DOMString) {

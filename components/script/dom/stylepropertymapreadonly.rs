@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct StylePropertyMapReadOnly<TH: TypeHolderTrait + 'static> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     entries: HashMap<Atom, Dom<CSSStyleValue<TH>>>,
 }
 

@@ -16,13 +16,15 @@ use dom::bindings::str::DOMString;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 // https://html.spec.whatwg.org/multipage/#canvasgradient
 #[dom_struct]
 pub struct CanvasGradient<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     style: CanvasGradientStyle,
     stops: DomRefCell<Vec<CanvasGradientStop>>,
+    _p: PhantomData<TH>,
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]

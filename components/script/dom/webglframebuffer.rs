@@ -22,13 +22,13 @@ use typeholder::TypeHolderTrait;
 
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-enum WebGLFramebufferAttachment<TH: TypeHolderTrait> {
+enum WebGLFramebufferAttachment<TH: TypeHolderTrait + 'static> {
     Renderbuffer(Dom<WebGLRenderbuffer<TH>>),
     Texture { texture: Dom<WebGLTexture<TH>>, level: i32 },
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum WebGLFramebufferAttachmentRoot<TH: TypeHolderTrait> {
+pub enum WebGLFramebufferAttachmentRoot<TH: TypeHolderTrait + 'static> {
     Renderbuffer(DomRoot<WebGLRenderbuffer<TH>>),
     Texture(DomRoot<WebGLTexture<TH>>),
 }

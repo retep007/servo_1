@@ -27,6 +27,7 @@ use std::collections::HashMap;
 use std::default::Default;
 use std::rc::Rc;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, JSTraceable, MallocSizeOf, Ord, PartialEq, PartialOrd)]
 pub struct OneshotTimerHandle(i32);
@@ -67,7 +68,7 @@ struct OneshotTimer<TH: TypeHolderTrait + 'static> {
 // A replacement trait would have a method such as
 //     `invoke<T: DomObject>(self: Box<Self>, this: &T, js_timers: &JsTimers);`.
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum OneshotTimerCallback<TH: TypeHolderTrait> {
+pub enum OneshotTimerCallback<TH: TypeHolderTrait + 'static> {
     XhrTimeout(XHRTimeoutCallback<TH>),
     EventSourceTimeout(EventSourceTimeoutCallback<TH>),
     JsTimer(JsTimerTask<TH>),
@@ -313,6 +314,7 @@ pub struct JsTimers<TH: TypeHolderTrait + 'static> {
     nesting_level: Cell<u32>,
     /// Used to introduce a minimum delay in event intervals
     min_duration: Cell<Option<MsDuration>>,
+    _t: PhantomData<TH>
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
@@ -343,13 +345,13 @@ pub enum IsInterval {
 }
 
 #[derive(Clone)]
-pub enum TimerCallback<TH: TypeHolderTrait> {
+pub enum TimerCallback<TH: TypeHolderTrait + 'static> {
     StringTimerCallback(DOMString),
     FunctionTimerCallback(Rc<Function<TH>>),
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-enum InternalTimerCallback<TH: TypeHolderTrait> {
+enum InternalTimerCallback<TH: TypeHolderTrait + 'static> {
     StringTimerCallback(DOMString),
     FunctionTimerCallback(
         #[ignore_malloc_size_of = "Rc"]

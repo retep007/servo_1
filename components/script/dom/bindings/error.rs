@@ -24,10 +24,11 @@ use js::rust::wrappers::JS_SetPendingException;
 use libc::c_uint;
 use std::slice::from_raw_parts;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// DOM exceptions that can be thrown by a native DOM method.
 #[derive(Clone, Debug, MallocSizeOf)]
-pub enum Error<TH: TypeHolderTrait> {
+pub enum Error<TH: TypeHolderTrait + 'static> {
     /// IndexSizeError DOMException
     IndexSize,
     /// NotFoundError DOMException
@@ -78,6 +79,8 @@ pub enum Error<TH: TypeHolderTrait> {
 
     /// A JavaScript exception is already pending.
     JSFailed,
+
+    _p(PhantomData<TH>),
 }
 
 /// The return type for IDL operations that can throw DOM exceptions.
@@ -144,6 +147,7 @@ pub struct ErrorInfo<TH: TypeHolderTrait + 'static> {
     pub lineno: c_uint,
     /// The column number.
     pub column: c_uint,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> ErrorInfo<TH> {

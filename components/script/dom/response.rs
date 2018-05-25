@@ -32,7 +32,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Response<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     headers_reflector: MutNullableDom<Headers<TH>>,
     mime_type: DomRefCell<Vec<u8>>,
     body_used: Cell<bool>,

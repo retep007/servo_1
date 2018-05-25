@@ -37,7 +37,7 @@ use style_traits::DevicePixel;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PaintRenderingContext2D<TH: TypeHolderTrait> {
+pub struct PaintRenderingContext2D<TH: TypeHolderTrait + 'static> {
     context: CanvasRenderingContext2D<TH>,
     device_pixel_ratio: Cell<TypedScale<f32, CSSPixel, DevicePixel>>,
 }

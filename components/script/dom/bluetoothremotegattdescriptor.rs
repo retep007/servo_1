@@ -28,7 +28,7 @@ use typeholder::TypeHolderTrait;
 // http://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattdescriptor
 #[dom_struct]
 pub struct BluetoothRemoteGATTDescriptor<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     characteristic: Dom<BluetoothRemoteGATTCharacteristic<TH>>,
     uuid: DOMString,
     value: DomRefCell<Option<ByteString>>,

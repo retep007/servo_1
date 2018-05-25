@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct VREyeParameters<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     parameters: DomRefCell<WebVREyeParameters>,
     offset: Heap<*mut JSObject>,

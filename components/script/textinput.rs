@@ -15,6 +15,7 @@ use std::ops::Range;
 use std::usize;
 use unicode_segmentation::UnicodeSegmentation;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum Selection {
@@ -101,6 +102,7 @@ pub struct TextInput<T: ClipboardProvider, TH: TypeHolderTrait> {
     /// <https://html.spec.whatwg.org/multipage/#attr-fe-maxlength>
     max_length: Option<usize>,
     min_length: Option<usize>,
+    _p: PhantomData<TH>,
 }
 
 /// Resulting action to be taken by the owner of a text input that is handling an event.

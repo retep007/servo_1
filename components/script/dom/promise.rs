@@ -33,16 +33,18 @@ use js::rust::wrappers::{NewPromiseObject, ResolvePromise, RejectPromise};
 use std::ptr;
 use std::rc::Rc;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct Promise<TH: TypeHolderTrait + 'static> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     /// Since Promise values are natively reference counted without the knowledge of
     /// the SpiderMonkey GC, an explicit root for the reflector is stored while any
     /// native instance exists. This ensures that the reflector will never be GCed
     /// while native code could still interact with its native representation.
     #[ignore_malloc_size_of = "SM handles JS values"]
     permanent_js_root: Heap<JSVal>,
+    _p: PhantomData<TH>,
 }
 
 /// Private helper to enable adding new methods to Rc<Promise<TH>>.

@@ -35,7 +35,7 @@ use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 pub struct Range<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     start: BoundaryPoint<TH>,
     end: BoundaryPoint<TH>,
 }
@@ -786,7 +786,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
             (DomRoot::from_ref(&*start_node), start_offset)
         } else {
             // Step 6.
-            fn compute_reference<TH>(start_node: &Node<TH>, end_node: &Node<TH>) -> (DomRoot<Node<TH>>, u32) {
+            fn compute_reference<THH: TypeHolderTrait>(start_node: &Node<THH>, end_node: &Node<THH>) -> (DomRoot<Node<THH>>, u32) {
                 let mut reference_node = DomRoot::from_ref(start_node);
                 while let Some(parent) = reference_node.GetParentNode() {
                     if parent.is_inclusive_ancestor_of(end_node) {

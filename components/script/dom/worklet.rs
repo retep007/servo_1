@@ -76,7 +76,7 @@ const MIN_GC_THRESHOLD: u32 = 1_000_000;
 #[dom_struct]
 /// <https://drafts.css-houdini.org/worklets/#worklet>
 pub struct Worklet<TH: TypeHolderTrait + 'static> {
-    reflector: Reflector,
+    reflector: Reflector<TH>,
     window: Dom<Window<TH>>,
     worklet_id: WorkletId,
     global_type: WorkletGlobalScopeType<TH>,
@@ -326,7 +326,7 @@ enum WorkletData {
 }
 
 /// The control message sent to worklet threads
-enum WorkletControl<TH: TypeHolderTrait> {
+enum WorkletControl<TH: TypeHolderTrait + 'static> {
     FetchAndInvokeAWorkletScript {
         pipeline_id: PipelineId,
         worklet_id: WorkletId,

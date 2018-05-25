@@ -41,8 +41,8 @@ use std::ptr::NonNull;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGL2RenderingContext<TH: TypeHolderTrait> {
-    reflector_: Reflector,
+pub struct WebGL2RenderingContext<TH: TypeHolderTrait + 'static> {
+    reflector_: Reflector<TH>,
     base: Dom<WebGLRenderingContext<TH>>,
 }
 

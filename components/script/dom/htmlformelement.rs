@@ -57,6 +57,7 @@ use task_source::TaskSource;
 use url::UrlQuery;
 use url::form_urlencoded::Serializer;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(Clone, Copy, JSTraceable, MallocSizeOf, PartialEq)]
 pub struct GenerationId(u32);
@@ -168,41 +169,42 @@ impl<TH: TypeHolderTrait> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-form-elements
     fn Elements(&self) -> DomRoot<HTMLFormControlsCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ElementsFilter<TH> {
-            form: DomRoot<HTMLFormElement<TH>>
+        struct ElementsFilter<THH: TypeHolderTrait + 'static> {
+            form: DomRoot<HTMLFormElement<THH>>,
+            _p: PhantomData<THH>,
         }
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for ElementsFilter<TH> {
-            fn filter<'a, TH>(&self, elem: &'a Element<TH>, _root: &'a Node<TH>) -> bool {
-                let form_owner = match elem.upcast::<Node<TH>>().type_id() {
+        impl<THH: TypeHolderTrait> CollectionFilter<THH> for ElementsFilter<THH> {
+            fn filter<'a>(&self, elem: &'a Element<THH>, _root: &'a Node<THH>) -> bool {
+                let form_owner = match elem.upcast::<Node<THH>>().type_id() {
                     NodeTypeId::Element(ElementTypeId::HTMLElement(t)) => {
                         match t {
                             HTMLElementTypeId::HTMLButtonElement => {
-                                elem.downcast::<HTMLButtonElement<TH>>().unwrap().form_owner()
+                                elem.downcast::<HTMLButtonElement<THH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLFieldSetElement => {
-                                elem.downcast::<HTMLFieldSetElement<TH>>().unwrap().form_owner()
+                                elem.downcast::<HTMLFieldSetElement<THH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLInputElement => {
-                                let input_elem = elem.downcast::<HTMLInputElement<TH>>().unwrap();
+                                let input_elem = elem.downcast::<HTMLInputElement<THH>>().unwrap();
                                 if input_elem.input_type() == InputType::Image {
                                     return false;
                                 }
                                 input_elem.form_owner()
                             }
                             HTMLElementTypeId::HTMLObjectElement => {
-                                elem.downcast::<HTMLObjectElement<TH>>().unwrap().form_owner()
+                                elem.downcast::<HTMLObjectElement<THH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLOutputElement => {
-                                elem.downcast::<HTMLOutputElement<TH>>().unwrap().form_owner()
+                                elem.downcast::<HTMLOutputElement<THH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLSelectElement => {
-                                elem.downcast::<HTMLSelectElement<TH>>().unwrap().form_owner()
+                                elem.downcast::<HTMLSelectElement<THH>>().unwrap().form_owner()
                             }
                             HTMLElementTypeId::HTMLTextAreaElement => {
-                                elem.downcast::<HTMLTextAreaElement<TH>>().unwrap().form_owner()
+                                elem.downcast::<HTMLTextAreaElement<THH>>().unwrap().form_owner()
                             }
                             _ => {
-                                debug_assert!(!elem.downcast::<HTMLElement<TH>>().unwrap().is_listed_element() ||
+                                debug_assert!(!elem.downcast::<HTMLElement<THH>>().unwrap().is_listed_element() ||
                                               elem.local_name() == &local_name!("keygen"));
                                 return false;
                             }
@@ -680,7 +682,7 @@ impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum FormDatumValue<TH: TypeHolderTrait> {
+pub enum FormDatumValue<TH: TypeHolderTrait + 'static> {
     #[allow(dead_code)]
     File(DomRoot<File<TH>>),
     String(DOMString)
@@ -722,7 +724,7 @@ pub enum FormMethod {
 
 #[derive(MallocSizeOf)]
 #[allow(dead_code)]
-pub enum FormSubmittableElement<TH: TypeHolderTrait> {
+pub enum FormSubmittableElement<TH: TypeHolderTrait + 'static> {
     ButtonElement(DomRoot<HTMLButtonElement<TH>>),
     InputElement(DomRoot<HTMLInputElement<TH>>),
     // TODO: HTMLKeygenElement unimplemented
@@ -765,7 +767,7 @@ impl<TH: TypeHolderTrait> FormSubmittableElement<TH> {
 }
 
 #[derive(Clone, Copy, MallocSizeOf)]
-pub enum FormSubmitter<'a, TH: TypeHolderTrait> {
+pub enum FormSubmitter<'a, TH: TypeHolderTrait + 'static> {
     FormElement(&'a HTMLFormElement<TH>),
     InputElement(&'a HTMLInputElement<TH>),
     ButtonElement(&'a HTMLButtonElement<TH>)

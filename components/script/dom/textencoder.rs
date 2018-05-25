@@ -15,10 +15,12 @@ use js::typedarray::{Uint8Array, CreateWith};
 use std::ptr;
 use std::ptr::NonNull;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct TextEncoder<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> TextEncoder<TH> {

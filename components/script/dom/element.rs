@@ -127,6 +127,7 @@ use xml5ever::serialize::TraversalScope as XmlTraversalScope;
 use xml5ever::serialize::TraversalScope::ChildrenOnly as XmlChildrenOnly;
 use xml5ever::serialize::TraversalScope::IncludeNode as XmlIncludeNode;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 // TODO: Update focus state when the top-level browsing context gains or loses system focus,
 // and when the element enters or leaves a browsing context container.
@@ -213,11 +214,12 @@ impl ElementCreator {
     }
 }
 
-pub enum AdjacentPosition<TH> {
+pub enum AdjacentPosition<TH: TypeHolderTrait + 'static> {
     BeforeBegin,
     AfterEnd,
     AfterBegin,
     BeforeEnd,
+    _p(PhantomData<TH>),
 }
 
 impl<TH: TypeHolderTrait> FromStr for AdjacentPosition<TH> {
@@ -3068,7 +3070,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
 }
 
 #[derive(Clone, Copy)]
-pub enum AttributeMutation<'a, TH: TypeHolderTrait> {
+pub enum AttributeMutation<'a, TH: TypeHolderTrait + 'static> {
     /// The attribute is set, keep track of old value.
     /// <https://dom.spec.whatwg.org/#attribute-is-set>
     Set(Option<&'a AttrValue>),
@@ -3076,6 +3078,8 @@ pub enum AttributeMutation<'a, TH: TypeHolderTrait> {
     /// The attribute is removed.
     /// <https://dom.spec.whatwg.org/#attribute-is-removed>
     Removed,
+
+    _p(PhantomData<TH>),
 }
 
 impl<'a, TH: TypeHolderTrait> AttributeMutation<'a, TH> {

@@ -9,10 +9,12 @@ use dom::bindings::reflector::Reflector;
 use dom::bindings::str::DOMString;
 use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct TestBindingProxy<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> TestBindingProxyMethods for TestBindingProxy<TH> {

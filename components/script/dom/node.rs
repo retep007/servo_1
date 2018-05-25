@@ -1286,7 +1286,7 @@ impl<TH: TypeHolderTrait> Iterator for PrecedingNodeIterator<TH> {
     }
 }
 
-struct SimpleNodeIterator<I, TH: TypeHolderTrait>
+struct SimpleNodeIterator<I, TH: TypeHolderTrait + 'static>
     where I: Fn(&Node<TH>) -> Option<DomRoot<Node<TH>>>
 {
     current: Option<DomRoot<Node<TH>>>,
@@ -2276,35 +2276,35 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
 
     // https://dom.spec.whatwg.org/#dom-node-isequalnode
     fn IsEqualNode(&self, maybe_node: Option<&Node<TH>>) -> bool {
-        fn is_equal_doctype<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
-            let doctype = node.downcast::<DocumentType<TH>>().unwrap();
-            let other_doctype = other.downcast::<DocumentType<TH>>().unwrap();
+        fn is_equal_doctype<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+            let doctype = node.downcast::<DocumentType<THH>>().unwrap();
+            let other_doctype = other.downcast::<DocumentType<THH>>().unwrap();
             (*doctype.name() == *other_doctype.name()) &&
             (*doctype.public_id() == *other_doctype.public_id()) &&
             (*doctype.system_id() == *other_doctype.system_id())
         }
-        fn is_equal_element<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
-            let element = node.downcast::<Element<TH>>().unwrap();
-            let other_element = other.downcast::<Element<TH>>().unwrap();
+        fn is_equal_element<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+            let element = node.downcast::<Element<THH>>().unwrap();
+            let other_element = other.downcast::<Element<THH>>().unwrap();
             (*element.namespace() == *other_element.namespace()) &&
             (*element.prefix() == *other_element.prefix()) &&
             (*element.local_name() == *other_element.local_name()) &&
             (element.attrs().len() == other_element.attrs().len())
         }
-        fn is_equal_processinginstruction<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
-            let pi = node.downcast::<ProcessingInstruction<TH>>().unwrap();
-            let other_pi = other.downcast::<ProcessingInstruction<TH>>().unwrap();
+        fn is_equal_processinginstruction<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+            let pi = node.downcast::<ProcessingInstruction<THH>>().unwrap();
+            let other_pi = other.downcast::<ProcessingInstruction<THH>>().unwrap();
             (*pi.target() == *other_pi.target()) &&
-            (*pi.upcast::<CharacterData<TH>>().data() == *other_pi.upcast::<CharacterData<TH>>().data())
+            (*pi.upcast::<CharacterData<THH>>().data() == *other_pi.upcast::<CharacterData<THH>>().data())
         }
-        fn is_equal_characterdata<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
-            let characterdata = node.downcast::<CharacterData<TH>>().unwrap();
-            let other_characterdata = other.downcast::<CharacterData<TH>>().unwrap();
+        fn is_equal_characterdata<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+            let characterdata = node.downcast::<CharacterData<THH>>().unwrap();
+            let other_characterdata = other.downcast::<CharacterData<THH>>().unwrap();
             *characterdata.data() == *other_characterdata.data()
         }
-        fn is_equal_element_attrs<TH>(node: &Node<TH>, other: &Node<TH>) -> bool {
-            let element = node.downcast::<Element<TH>>().unwrap();
-            let other_element = other.downcast::<Element<TH>>().unwrap();
+        fn is_equal_element_attrs<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+            let element = node.downcast::<Element<THH>>().unwrap();
+            let other_element = other.downcast::<Element<THH>>().unwrap();
             assert!(element.attrs().len() == other_element.attrs().len());
             element.attrs().iter().all(|attr| {
                 other_element.attrs().iter().any(|other_attr| {
@@ -2314,7 +2314,7 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
                 })
             })
         }
-        fn is_equal_node<TH>(this: &Node<TH>, node: &Node<TH>) -> bool {
+        fn is_equal_node<THH: TypeHolderTrait>(this: &Node<THH>, node: &Node<THH>) -> bool {
             // Step 2.
             if this.NodeType() != node.NodeType() {
                 return false;
@@ -2489,7 +2489,7 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
     }
 }
 
-pub fn document_from_node<T: DerivedFrom<TH> + DomObject, TH: TypeHolderTrait>(derived: &T) -> DomRoot<Document<TH>> {
+pub fn document_from_node<T: DerivedFrom<TH> + DomObject, TH: TypeHolderTrait + Castable>(derived: &T) -> DomRoot<Document<TH>> {
     derived.upcast().owner_doc()
 }
 
@@ -2530,7 +2530,7 @@ pub enum NodeDamage {
     OtherNodeDamage,
 }
 
-pub enum ChildrenMutation<'a, TH: TypeHolderTrait> {
+pub enum ChildrenMutation<'a, TH: TypeHolderTrait + 'static> {
     Append { prev: &'a Node<TH>, added: &'a [&'a Node<TH>] },
     Insert { prev: &'a Node<TH>, added: &'a [&'a Node<TH>], next: &'a Node<TH> },
     Prepend { added: &'a [&'a Node<TH>], next: &'a Node<TH> },
@@ -2652,7 +2652,7 @@ impl<'a, TH: TypeHolderTrait> ChildrenMutation<'a, TH> {
 
 /// The context of the unbinding from a tree of a node when one of its
 /// inclusive ancestors is removed.
-pub struct UnbindContext<'a, TH: TypeHolderTrait> {
+pub struct UnbindContext<'a, TH: TypeHolderTrait + 'static> {
     /// The index of the inclusive ancestor that was removed.
     index: Cell<Option<u32>>,
     /// The parent of the inclusive ancestor that was removed.

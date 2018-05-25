@@ -16,13 +16,15 @@ use std::ptr;
 use std::ptr::NonNull;
 use webvr_traits::WebVRStageParameters;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct VRStageParameters<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     parameters: DomRefCell<WebVRStageParameters>,
     transform: Heap<*mut JSObject>,
+    _p: PhantomData<TH>,
 }
 
 unsafe_no_jsmanaged_fields!(WebVRStageParameters);

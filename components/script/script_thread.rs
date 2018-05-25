@@ -375,11 +375,11 @@ impl<TH: TypeHolderTrait> Documents<TH> {
 }
 
 #[allow(unrooted_must_root)]
-pub struct DocumentsIter<'a, TH: TypeHolderTrait> {
+pub struct DocumentsIter<'a, TH: TypeHolderTrait + 'static> {
     iter: hash_map::Iter<'a, PipelineId, Dom<Document<TH>>>,
 }
 
-impl<'a, TH: TypeHolderTrait> Iterator for DocumentsIter<'a, TH> {
+impl<'a, TH: TypeHolderTrait + 'static> Iterator for DocumentsIter<'a, TH> {
     type Item = (PipelineId, DomRoot<Document<TH>>);
 
     fn next(&mut self) -> Option<(PipelineId, DomRoot<Document<TH>>)> {
@@ -517,7 +517,7 @@ pub trait ScriptThreadTrait {
 /// are no reachable, owning pointers to the DOM memory, so it never gets freed by default
 /// when the script thread fails. The ScriptMemoryFailsafe uses the destructor bomb pattern
 /// to forcibly tear down the JS compartments for pages associated with the failing ScriptThread.
-struct ScriptMemoryFailsafe<'a, TH: TypeHolderTrait> {
+struct ScriptMemoryFailsafe<'a, TH: TypeHolderTrait + 'static> {
     owner: Option<&'a ScriptThread<TH>>,
 }
 
@@ -653,8 +653,8 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         })
     }
 
-    pub fn page_headers_available(id: &PipelineId, metadata: Option<Metadata>)
-                                  -> Option<DomRoot<Box<ServoParser<TH, TypeHolder=TH>>>> {
+    pub fn page_headers_available<SP: ServoParser<TH, TypeHolder=TH>>(id: &PipelineId, metadata: Option<Metadata>)
+                                  -> Option<DomRoot<SP>> {
         SCRIPT_THREAD_ROOT.with(|root| {
             let script_thread = unsafe { &*root.get().unwrap() };
             script_thread.handle_page_headers_available(id, metadata)
@@ -1725,8 +1725,8 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
 
     /// We have received notification that the response associated with a load has completed.
     /// Kick off the document and frame tree creation process using the result.
-    fn handle_page_headers_available(&self, id: &PipelineId,
-                                     metadata: Option<Metadata>) -> Option<DomRoot<Box<ServoParser<TH, TypeHolder=TH>>>> {
+    fn handle_page_headers_available<SP: ServoParser<TH, TypeHolder=TH>>(&self, id: &PipelineId,
+                                     metadata: Option<Metadata>) -> Option<DomRoot<SP>> {
         let idx = self.incomplete_loads.borrow().iter().position(|load| { load.pipeline_id == *id });
         // The matching in progress load structure may not exist if
         // the pipeline exited before the page load completed.
@@ -2076,7 +2076,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
 
     /// The entry point to document loading. Defines bindings, sets up the window and document
     /// objects, parses HTML and CSS, and kicks off initial layout.
-    fn load(&self, metadata: Metadata, incomplete: InProgressLoad) -> DomRoot<Box<ServoParser<TH, TypeHolder=TH>>> {
+    fn load<SP: ServoParser<TH, TypeHolder=TH>>(&self, metadata: Metadata, incomplete: InProgressLoad) -> DomRoot<SP> {
         let final_url = metadata.final_url.clone();
         {
             // send the final url to the layout thread.

@@ -27,6 +27,7 @@ use html5ever::{LocalName, Prefix};
 use std::cell::Cell;
 use style::attr::{AttrValue, LengthOrPercentageOrAuto, parse_unsigned_integer};
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct HTMLTableElement<TH: TypeHolderTrait + 'static> {
@@ -254,12 +255,12 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-tbodies
     fn TBodies(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable)]
-        struct TBodiesFilter<TH: TypeHolderTrait>;
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for TBodiesFilter<TH> {
-            fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
-                elem.is::<HTMLTableSectionElement<TH>>() &&
+        struct TBodiesFilter<THH: TypeHolderTrait>(PhantomData<THH>);
+        impl<THH: TypeHolderTrait> CollectionFilter<THH> for TBodiesFilter<THH> {
+            fn filter(&self, elem: &Element<THH>, root: &Node<THH>) -> bool {
+                elem.is::<HTMLTableSectionElement<THH>>() &&
                     elem.local_name() == &local_name!("tbody") &&
-                    elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
+                    elem.upcast::<Node<THH>>().GetParentNode().r() == Some(root)
             }
         }
 

@@ -22,11 +22,13 @@ use script_traits::ScriptMsg;
 use servo_url::ServoUrl;
 use task_source::TaskSource;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct Storage<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
-    storage_type: StorageType
+    reflector_: Reflector<TH>,
+    storage_type: StorageType,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> Storage<TH> {

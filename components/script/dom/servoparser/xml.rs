@@ -16,6 +16,7 @@ use xml5ever::buffer_queue::BufferQueue;
 use xml5ever::tokenizer::XmlTokenizer;
 use xml5ever::tree_builder::{Tracer as XmlTracer, XmlTreeBuilder};
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
@@ -70,14 +71,14 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
 
 #[allow(unsafe_code)]
 unsafe impl<TH: TypeHolderTrait> JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
-    unsafe fn trace<TH>(&self, trc: *mut JSTracer) {
-        struct Tracer<TH>(*mut JSTracer);
+    unsafe fn trace(&self, trc: *mut JSTracer) {
+        struct Tracer<THH: TypeHolderTrait + 'static>(*mut JSTracer, PhantomData<THH>);
         let tracer = Tracer(trc);
 
-        impl<TH: TypeHolderTrait> XmlTracer for Tracer<TH> {
-            type Handle = Dom<Node<TH>>;
+        impl<THH: TypeHolderTrait> XmlTracer for Tracer<THH> {
+            type Handle = Dom<Node<THH>>;
             #[allow(unrooted_must_root)]
-            fn trace_handle(&self, node: &Dom<Node<TH>>) {
+            fn trace_handle(&self, node: &Dom<Node<THH>>) {
                 unsafe { node.trace(self.0); }
             }
         }

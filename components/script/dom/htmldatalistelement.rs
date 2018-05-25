@@ -15,6 +15,7 @@ use dom::node::{Node, window_from_node};
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
 pub struct HTMLDataListElement<TH: TypeHolderTrait + 'static> {
@@ -45,10 +46,10 @@ impl<TH: TypeHolderTrait> HTMLDataListElementMethods<TH> for HTMLDataListElement
     // https://html.spec.whatwg.org/multipage/#dom-datalist-options
     fn Options(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct HTMLDataListOptionsFilter<TH>;
-        impl<TH: TypeHolderTrait> CollectionFilter<TH> for HTMLDataListOptionsFilter<TH> {
-            fn filter(&self, elem: &Element<TH>, _root: &Node<TH>) -> bool {
-                elem.is::<HTMLOptionElement<TH>>()
+        struct HTMLDataListOptionsFilter<THH: TypeHolderTrait + 'static>(PhantomData<THH>);
+        impl<THH: TypeHolderTrait> CollectionFilter<THH> for HTMLDataListOptionsFilter<THH> {
+            fn filter(&self, elem: &Element<THH>, _root: &Node<THH>) -> bool {
+                elem.is::<HTMLOptionElement<THH>>()
             }
         }
         let filter = Box::new(HTMLDataListOptionsFilter);

@@ -14,11 +14,13 @@ use dom_struct::dom_struct;
 use ipc_channel::ipc::IpcSender;
 use profile_traits::ipc;
 use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 // https://webbluetoothcg.github.io/web-bluetooth/tests#test-runner
  #[dom_struct]
 pub struct TestRunner<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> TestRunner<TH> {

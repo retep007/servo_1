@@ -171,7 +171,7 @@ impl<TH: TypeHolderTrait> TextureUnitBindings<TH> {
 
 #[dom_struct]
 pub struct WebGLRenderingContext<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Channels are hard"]
     webgl_sender: WebGLMsgSender,
     #[ignore_malloc_size_of = "Defined in webrender"]
@@ -203,7 +203,7 @@ pub struct WebGLRenderingContext<TH: TypeHolderTrait + 'static> {
     extension_manager: WebGLExtensions<TH>,
 }
 
-impl<'a, TH: TypeHolderTrait + 'a> WebGLRenderingContext<TH> {
+impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
     pub fn new_inherited(
         window: &Window<TH>,
         canvas: &HTMLCanvasElement<TH>,

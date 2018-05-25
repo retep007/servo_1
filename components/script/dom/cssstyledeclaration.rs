@@ -27,7 +27,7 @@ use typeholder::TypeHolderTrait;
 // http://dev.w3.org/csswg/cssom/#the-cssstyledeclaration-interface
 #[dom_struct]
 pub struct CSSStyleDeclaration<TH: TypeHolderTrait + 'static> {
-    reflector_: Reflector,
+    reflector_: Reflector<TH>,
     owner: CSSStyleOwner<TH>,
     readonly: bool,
     pseudo: Option<PseudoElement>,
@@ -35,7 +35,7 @@ pub struct CSSStyleDeclaration<TH: TypeHolderTrait + 'static> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub enum CSSStyleOwner<TH: TypeHolderTrait> {
+pub enum CSSStyleOwner<TH: TypeHolderTrait + 'static> {
     Element(Dom<Element<TH>>),
     CSSRule(Dom<CSSRule<TH>>,
             #[ignore_malloc_size_of = "Arc"]
