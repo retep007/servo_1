@@ -1153,7 +1153,7 @@ unsafe extern fn get_oncopy<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOncopy();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOncopy();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1164,7 +1164,7 @@ unsafe extern fn set_oncopy<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1216,7 +1216,7 @@ unsafe extern fn get_oncut<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOncut();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOncut();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1227,7 +1227,7 @@ unsafe extern fn set_oncut<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1279,7 +1279,7 @@ unsafe extern fn get_onpaste<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnpaste();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnpaste();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1290,7 +1290,7 @@ unsafe extern fn set_onpaste<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1372,7 +1372,7 @@ unsafe extern fn get_onabort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnabort();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnabort();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1383,7 +1383,7 @@ unsafe extern fn set_onabort<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1435,7 +1435,7 @@ unsafe extern fn get_onblur<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnblur();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnblur();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1446,7 +1446,7 @@ unsafe extern fn set_onblur<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1498,7 +1498,7 @@ unsafe extern fn get_oncancel<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOncancel();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOncancel();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1509,7 +1509,7 @@ unsafe extern fn set_oncancel<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1561,7 +1561,7 @@ unsafe extern fn get_oncanplay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOncanplay();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOncanplay();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1572,7 +1572,7 @@ unsafe extern fn set_oncanplay<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1624,7 +1624,7 @@ unsafe extern fn get_oncanplaythrough<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOncanplaythrough();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOncanplaythrough();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1635,7 +1635,7 @@ unsafe extern fn set_oncanplaythrough<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1687,7 +1687,7 @@ unsafe extern fn get_onchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnchange();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnchange();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1698,7 +1698,7 @@ unsafe extern fn set_onchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1750,7 +1750,7 @@ unsafe extern fn get_onclick<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnclick();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnclick();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1761,7 +1761,7 @@ unsafe extern fn set_onclick<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1813,7 +1813,7 @@ unsafe extern fn get_onclose<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnclose();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnclose();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1824,7 +1824,7 @@ unsafe extern fn set_onclose<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1876,7 +1876,7 @@ unsafe extern fn get_oncontextmenu<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOncontextmenu();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOncontextmenu();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1887,7 +1887,7 @@ unsafe extern fn set_oncontextmenu<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1939,7 +1939,7 @@ unsafe extern fn get_oncuechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOncuechange();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOncuechange();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1950,7 +1950,7 @@ unsafe extern fn set_oncuechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2002,7 +2002,7 @@ unsafe extern fn get_ondblclick<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndblclick();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndblclick();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2013,7 +2013,7 @@ unsafe extern fn set_ondblclick<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2065,7 +2065,7 @@ unsafe extern fn get_ondrag<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndrag();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndrag();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2076,7 +2076,7 @@ unsafe extern fn set_ondrag<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2128,7 +2128,7 @@ unsafe extern fn get_ondragend<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndragend();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndragend();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2139,7 +2139,7 @@ unsafe extern fn set_ondragend<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2191,7 +2191,7 @@ unsafe extern fn get_ondragenter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndragenter();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndragenter();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2202,7 +2202,7 @@ unsafe extern fn set_ondragenter<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2254,7 +2254,7 @@ unsafe extern fn get_ondragexit<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndragexit();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndragexit();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2265,7 +2265,7 @@ unsafe extern fn set_ondragexit<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2317,7 +2317,7 @@ unsafe extern fn get_ondragleave<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndragleave();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndragleave();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2328,7 +2328,7 @@ unsafe extern fn set_ondragleave<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2380,7 +2380,7 @@ unsafe extern fn get_ondragover<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndragover();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndragover();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2391,7 +2391,7 @@ unsafe extern fn set_ondragover<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2443,7 +2443,7 @@ unsafe extern fn get_ondragstart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndragstart();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndragstart();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2454,7 +2454,7 @@ unsafe extern fn set_ondragstart<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2506,7 +2506,7 @@ unsafe extern fn get_ondrop<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndrop();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndrop();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2517,7 +2517,7 @@ unsafe extern fn set_ondrop<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2569,7 +2569,7 @@ unsafe extern fn get_ondurationchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOndurationchange();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOndurationchange();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2580,7 +2580,7 @@ unsafe extern fn set_ondurationchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2632,7 +2632,7 @@ unsafe extern fn get_onemptied<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnemptied();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnemptied();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2643,7 +2643,7 @@ unsafe extern fn set_onemptied<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2695,7 +2695,7 @@ unsafe extern fn get_onended<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnended();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnended();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2706,7 +2706,7 @@ unsafe extern fn set_onended<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2821,7 +2821,7 @@ unsafe extern fn get_onfocus<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnfocus();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnfocus();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2832,7 +2832,7 @@ unsafe extern fn set_onfocus<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2884,7 +2884,7 @@ unsafe extern fn get_oninput<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOninput();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOninput();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2895,7 +2895,7 @@ unsafe extern fn set_oninput<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -2947,7 +2947,7 @@ unsafe extern fn get_oninvalid<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOninvalid();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOninvalid();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2958,7 +2958,7 @@ unsafe extern fn set_oninvalid<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3010,7 +3010,7 @@ unsafe extern fn get_onkeydown<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnkeydown();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnkeydown();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3021,7 +3021,7 @@ unsafe extern fn set_onkeydown<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3073,7 +3073,7 @@ unsafe extern fn get_onkeypress<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnkeypress();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnkeypress();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3084,7 +3084,7 @@ unsafe extern fn set_onkeypress<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3136,7 +3136,7 @@ unsafe extern fn get_onkeyup<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnkeyup();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnkeyup();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3147,7 +3147,7 @@ unsafe extern fn set_onkeyup<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3199,7 +3199,7 @@ unsafe extern fn get_onload<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnload();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnload();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3210,7 +3210,7 @@ unsafe extern fn set_onload<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3262,7 +3262,7 @@ unsafe extern fn get_onloadeddata<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnloadeddata();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnloadeddata();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3273,7 +3273,7 @@ unsafe extern fn set_onloadeddata<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3325,7 +3325,7 @@ unsafe extern fn get_onloadedmetadata<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnloadedmetadata();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnloadedmetadata();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3336,7 +3336,7 @@ unsafe extern fn set_onloadedmetadata<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3388,7 +3388,7 @@ unsafe extern fn get_onloadstart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnloadstart();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnloadstart();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3399,7 +3399,7 @@ unsafe extern fn set_onloadstart<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3451,7 +3451,7 @@ unsafe extern fn get_onmousedown<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnmousedown();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnmousedown();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3462,7 +3462,7 @@ unsafe extern fn set_onmousedown<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3514,7 +3514,7 @@ unsafe extern fn get_onmouseenter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnmouseenter();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnmouseenter();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3525,7 +3525,7 @@ unsafe extern fn set_onmouseenter<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3577,7 +3577,7 @@ unsafe extern fn get_onmouseleave<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnmouseleave();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnmouseleave();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3588,7 +3588,7 @@ unsafe extern fn set_onmouseleave<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3640,7 +3640,7 @@ unsafe extern fn get_onmousemove<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnmousemove();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnmousemove();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3651,7 +3651,7 @@ unsafe extern fn set_onmousemove<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3703,7 +3703,7 @@ unsafe extern fn get_onmouseout<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnmouseout();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnmouseout();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3714,7 +3714,7 @@ unsafe extern fn set_onmouseout<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3766,7 +3766,7 @@ unsafe extern fn get_onmouseover<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnmouseover();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnmouseover();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3777,7 +3777,7 @@ unsafe extern fn set_onmouseover<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3829,7 +3829,7 @@ unsafe extern fn get_onmouseup<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnmouseup();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnmouseup();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3840,7 +3840,7 @@ unsafe extern fn set_onmouseup<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3892,7 +3892,7 @@ unsafe extern fn get_onwheel<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnwheel();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnwheel();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3903,7 +3903,7 @@ unsafe extern fn set_onwheel<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -3955,7 +3955,7 @@ unsafe extern fn get_onpause<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnpause();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnpause();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3966,7 +3966,7 @@ unsafe extern fn set_onpause<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4018,7 +4018,7 @@ unsafe extern fn get_onplay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnplay();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnplay();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4029,7 +4029,7 @@ unsafe extern fn set_onplay<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4081,7 +4081,7 @@ unsafe extern fn get_onplaying<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnplaying();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnplaying();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4092,7 +4092,7 @@ unsafe extern fn set_onplaying<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4144,7 +4144,7 @@ unsafe extern fn get_onprogress<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnprogress();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnprogress();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4155,7 +4155,7 @@ unsafe extern fn set_onprogress<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4207,7 +4207,7 @@ unsafe extern fn get_onratechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnratechange();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnratechange();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4218,7 +4218,7 @@ unsafe extern fn set_onratechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4270,7 +4270,7 @@ unsafe extern fn get_onreset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnreset();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnreset();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4281,7 +4281,7 @@ unsafe extern fn set_onreset<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4333,7 +4333,7 @@ unsafe extern fn get_onresize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnresize();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnresize();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4344,7 +4344,7 @@ unsafe extern fn set_onresize<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4396,7 +4396,7 @@ unsafe extern fn get_onscroll<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnscroll();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnscroll();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4407,7 +4407,7 @@ unsafe extern fn set_onscroll<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4459,7 +4459,7 @@ unsafe extern fn get_onseeked<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnseeked();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnseeked();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4470,7 +4470,7 @@ unsafe extern fn set_onseeked<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4522,7 +4522,7 @@ unsafe extern fn get_onseeking<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnseeking();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnseeking();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4533,7 +4533,7 @@ unsafe extern fn set_onseeking<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4585,7 +4585,7 @@ unsafe extern fn get_onselect<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnselect();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnselect();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4596,7 +4596,7 @@ unsafe extern fn set_onselect<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4648,7 +4648,7 @@ unsafe extern fn get_onshow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnshow();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnshow();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4659,7 +4659,7 @@ unsafe extern fn set_onshow<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4711,7 +4711,7 @@ unsafe extern fn get_onstalled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnstalled();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnstalled();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4722,7 +4722,7 @@ unsafe extern fn set_onstalled<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4774,7 +4774,7 @@ unsafe extern fn get_onsubmit<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnsubmit();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnsubmit();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4785,7 +4785,7 @@ unsafe extern fn set_onsubmit<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4837,7 +4837,7 @@ unsafe extern fn get_onsuspend<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnsuspend();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnsuspend();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4848,7 +4848,7 @@ unsafe extern fn set_onsuspend<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4900,7 +4900,7 @@ unsafe extern fn get_ontimeupdate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOntimeupdate();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOntimeupdate();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4911,7 +4911,7 @@ unsafe extern fn set_ontimeupdate<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -4963,7 +4963,7 @@ unsafe extern fn get_ontoggle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOntoggle();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOntoggle();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -4974,7 +4974,7 @@ unsafe extern fn set_ontoggle<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -5026,7 +5026,7 @@ unsafe extern fn get_onvolumechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnvolumechange();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnvolumechange();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -5037,7 +5037,7 @@ unsafe extern fn set_onvolumechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -5089,7 +5089,7 @@ unsafe extern fn get_onwaiting<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnwaiting();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnwaiting();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -5100,7 +5100,7 @@ unsafe extern fn set_onwaiting<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -5152,7 +5152,7 @@ unsafe extern fn get_ontransitionend<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOntransitionend();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOntransitionend();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -5163,7 +5163,7 @@ unsafe extern fn set_ontransitionend<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -5215,7 +5215,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<HTMLElement<TH>>(obj).unwrap();
+        let this = native_from_object::<HTMLElement<TH>, TH>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
                 let _ = Box::from_raw(this as *mut HTMLElement<TH>);
@@ -5228,7 +5228,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<HTMLElement<TH>>(obj).unwrap();
+        let this = native_from_object::<HTMLElement<TH>, TH>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());

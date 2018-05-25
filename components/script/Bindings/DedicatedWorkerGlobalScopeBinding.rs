@@ -557,7 +557,7 @@ unsafe extern fn get_onmessage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DedicatedWorkerGlobalScope<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnmessage();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnmessage();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -568,7 +568,7 @@ unsafe extern fn set_onmessage<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const DedicatedWorkerGlobalScope<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -652,7 +652,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<DedicatedWorkerGlobalScope<TH>>(obj).unwrap();
+        let this = native_from_object::<DedicatedWorkerGlobalScope<TH>, TH>(obj).unwrap();
         finalize_global(obj);
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
@@ -666,7 +666,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<DedicatedWorkerGlobalScope<TH>>(obj).unwrap();
+        let this = native_from_object::<DedicatedWorkerGlobalScope<TH>, TH>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
         trace_global(trc, obj);

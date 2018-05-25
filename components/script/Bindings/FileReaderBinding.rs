@@ -829,7 +829,7 @@ unsafe extern fn get_onloadstart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnloadstart();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnloadstart();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -840,7 +840,7 @@ unsafe extern fn set_onloadstart<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -892,7 +892,7 @@ unsafe extern fn get_onprogress<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnprogress();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnprogress();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -903,7 +903,7 @@ unsafe extern fn set_onprogress<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -955,7 +955,7 @@ unsafe extern fn get_onload<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnload();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnload();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -966,7 +966,7 @@ unsafe extern fn set_onload<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1018,7 +1018,7 @@ unsafe extern fn get_onabort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnabort();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnabort();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1029,7 +1029,7 @@ unsafe extern fn set_onabort<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1081,7 +1081,7 @@ unsafe extern fn get_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnerror();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnerror();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1092,7 +1092,7 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1144,7 +1144,7 @@ unsafe extern fn get_onloadend<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnloadend();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnloadend();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1155,7 +1155,7 @@ unsafe extern fn set_onloadend<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -1207,7 +1207,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<FileReader<TH>>(obj).unwrap();
+        let this = native_from_object::<FileReader<TH>, TH>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
                 let _ = Box::from_raw(this as *mut FileReader<TH>);
@@ -1220,7 +1220,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<FileReader<TH>>(obj).unwrap();
+        let this = native_from_object::<FileReader<TH>, TH>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());

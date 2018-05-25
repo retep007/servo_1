@@ -665,7 +665,7 @@ unsafe extern fn get_onchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MediaQueryList<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull>> = this.GetOnchange();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>> = this.GetOnchange();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -676,7 +676,7 @@ unsafe extern fn set_onchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const MediaQueryList<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<EventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<EventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(EventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -728,7 +728,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<MediaQueryList<TH>>(obj).unwrap();
+        let this = native_from_object::<MediaQueryList<TH>, TH>(obj).unwrap();
         let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<MediaQueryList<TH>>;
         if !weak_box_ptr.is_null() {
             let count = {
@@ -756,7 +756,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<MediaQueryList<TH>>(obj).unwrap();
+        let this = native_from_object::<MediaQueryList<TH>, TH>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());
