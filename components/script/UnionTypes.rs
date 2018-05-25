@@ -89,8 +89,8 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
 pub enum AddEventListenerOptionsOrBoolean {
-    AddEventListenerOptions(RootedTraceableBox<AddEventListenerOptions>),
-    Boolean(RootedTraceableBox<bool>),
+    AddEventListenerOptions(AddEventListenerOptions),
+    Boolean(bool),
 }
 
 impl ToJSValConvertible for AddEventListenerOptionsOrBoolean {
@@ -214,11 +214,11 @@ impl ArrayBufferOrArrayBufferView {
 
 
 #[derive(JSTraceable)]
-pub enum ArrayBufferOrArrayBufferViewOrBlobOrString<TH: TypeHolderTrait + 'static> {
+pub enum ArrayBufferOrArrayBufferViewOrBlobOrString<TH: TypeHolderTrait> {
     ArrayBuffer(RootedTraceableBox<typedarray::HeapArrayBuffer>),
     ArrayBufferView(RootedTraceableBox<typedarray::HeapArrayBufferView>),
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
-    String(RootedTraceableBox<DOMString>),
+    Blob(DomRoot<Blob<TH>>),
+    String(DOMString),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for ArrayBufferOrArrayBufferViewOrBlobOrString<TH> {
@@ -377,8 +377,8 @@ impl ArrayBufferViewOrArrayBuffer {
 
 #[derive(JSTraceable)]
 pub enum BlobOrBlobSequence<TH: TypeHolderTrait + 'static> {
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
-    BlobSequence(RootedTraceableBox<Vec<DomRoot<Blob<TH>>>>),
+    Blob(DomRoot<Blob<TH>>),
+    BlobSequence(Vec<DomRoot<Blob<TH>>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrBlobSequence<TH> {
@@ -441,8 +441,8 @@ impl<TH: TypeHolderTrait> BlobOrBlobSequence<TH> {
 
 #[derive(JSTraceable)]
 pub enum BlobOrBoolean<TH: TypeHolderTrait + 'static> {
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
-    Boolean(RootedTraceableBox<bool>),
+    Blob(DomRoot<Blob<TH>>),
+    Boolean(bool),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrBoolean<TH> {
@@ -505,13 +505,13 @@ impl<TH: TypeHolderTrait> BlobOrBoolean<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH: TypeHolderTrait + 'static> {
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
+pub enum BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH: TypeHolderTrait> {
+    Blob(DomRoot<Blob<TH>>),
     ArrayBufferView(RootedTraceableBox<typedarray::HeapArrayBufferView>),
     ArrayBuffer(RootedTraceableBox<typedarray::HeapArrayBuffer>),
-    FormData(RootedTraceableBox<DomRoot<FormData<TH>>>),
-    String(RootedTraceableBox<DOMString>),
-    URLSearchParams(RootedTraceableBox<DomRoot<URLSearchParams<TH>>>),
+    FormData(DomRoot<FormData<TH>>),
+    String(DOMString),
+    URLSearchParams(DomRoot<URLSearchParams<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH> {
@@ -639,8 +639,8 @@ impl<TH: TypeHolderTrait> BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<
 
 #[derive(JSTraceable)]
 pub enum BlobOrString<TH: TypeHolderTrait + 'static> {
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
-    String(RootedTraceableBox<DOMString>),
+    Blob(DomRoot<Blob<TH>>),
+    String(DOMString),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrString<TH> {
@@ -704,8 +704,8 @@ impl<TH: TypeHolderTrait> BlobOrString<TH> {
 
 #[derive(JSTraceable)]
 pub enum BlobOrUnsignedLong<TH: TypeHolderTrait + 'static> {
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
-    UnsignedLong(RootedTraceableBox<u32>),
+    Blob(DomRoot<Blob<TH>>),
+    UnsignedLong(u32),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrUnsignedLong<TH> {
@@ -769,8 +769,8 @@ impl<TH: TypeHolderTrait> BlobOrUnsignedLong<TH> {
 
 #[derive(JSTraceable)]
 pub enum ByteStringOrLong {
-    ByteString(RootedTraceableBox<ByteString>),
-    Long(RootedTraceableBox<i32>),
+    ByteString(ByteString),
+    Long(i32),
 }
 
 impl ToJSValConvertible for ByteStringOrLong {
@@ -834,8 +834,8 @@ impl ByteStringOrLong {
 
 #[derive(JSTraceable)]
 pub enum ByteStringSequenceOrLong {
-    ByteStringSequence(RootedTraceableBox<Vec<ByteString>>),
-    Long(RootedTraceableBox<i32>),
+    ByteStringSequence(Vec<ByteString>),
+    Long(i32),
 }
 
 impl ToJSValConvertible for ByteStringSequenceOrLong {
@@ -899,9 +899,9 @@ impl ByteStringSequenceOrLong {
 
 #[derive(JSTraceable)]
 pub enum ByteStringSequenceOrLongOrString {
-    ByteStringSequence(RootedTraceableBox<Vec<ByteString>>),
-    Long(RootedTraceableBox<i32>),
-    String(RootedTraceableBox<DOMString>),
+    ByteStringSequence(Vec<ByteString>),
+    Long(i32),
+    String(DOMString),
 }
 
 impl ToJSValConvertible for ByteStringSequenceOrLongOrString {
@@ -985,9 +985,9 @@ impl ByteStringSequenceOrLongOrString {
 
 #[derive(JSTraceable)]
 pub enum CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH: TypeHolderTrait + 'static> {
-    CanvasRenderingContext2D(RootedTraceableBox<DomRoot<CanvasRenderingContext2D<TH>>>),
-    WebGLRenderingContext(RootedTraceableBox<DomRoot<WebGLRenderingContext<TH>>>),
-    WebGL2RenderingContext(RootedTraceableBox<DomRoot<WebGL2RenderingContext<TH>>>),
+    CanvasRenderingContext2D(DomRoot<CanvasRenderingContext2D<TH>>),
+    WebGLRenderingContext(DomRoot<WebGLRenderingContext<TH>>),
+    WebGL2RenderingContext(DomRoot<WebGL2RenderingContext<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH> {
@@ -1064,14 +1064,14 @@ impl<TH: TypeHolderTrait> CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL
 
 
 #[derive(JSTraceable)]
-pub enum DocumentOrBodyInit<TH: TypeHolderTrait + 'static> {
-    Document(RootedTraceableBox<DomRoot<Document<TH>>>),
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
+pub enum DocumentOrBodyInit<TH: TypeHolderTrait> {
+    Document(DomRoot<Document<TH>>),
+    Blob(DomRoot<Blob<TH>>),
     ArrayBufferView(RootedTraceableBox<typedarray::HeapArrayBufferView>),
     ArrayBuffer(RootedTraceableBox<typedarray::HeapArrayBuffer>),
-    FormData(RootedTraceableBox<DomRoot<FormData<TH>>>),
-    String(RootedTraceableBox<DOMString>),
-    URLSearchParams(RootedTraceableBox<DomRoot<URLSearchParams<TH>>>),
+    FormData(DomRoot<FormData<TH>>),
+    String(DOMString),
+    URLSearchParams(DomRoot<URLSearchParams<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for DocumentOrBodyInit<TH> {
@@ -1215,10 +1215,10 @@ impl<TH: TypeHolderTrait> DocumentOrBodyInit<TH> {
 
 #[derive(JSTraceable)]
 pub enum DocumentOrTestTypedef<TH: TypeHolderTrait + 'static> {
-    Document(RootedTraceableBox<DomRoot<Document<TH>>>),
-    String(RootedTraceableBox<DOMString>),
-    URL(RootedTraceableBox<DomRoot<URL<TH>>>),
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
+    Document(DomRoot<Document<TH>>),
+    String(DOMString),
+    URL(DomRoot<URL<TH>>),
+    Blob(DomRoot<Blob<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for DocumentOrTestTypedef<TH> {
@@ -1314,8 +1314,8 @@ impl<TH: TypeHolderTrait> DocumentOrTestTypedef<TH> {
 
 #[derive(JSTraceable)]
 pub enum EventListenerOptionsOrBoolean {
-    EventListenerOptions(RootedTraceableBox<EventListenerOptions>),
-    Boolean(RootedTraceableBox<bool>),
+    EventListenerOptions(EventListenerOptions),
+    Boolean(bool),
 }
 
 impl ToJSValConvertible for EventListenerOptionsOrBoolean {
@@ -1377,8 +1377,8 @@ impl EventListenerOptionsOrBoolean {
 
 #[derive(JSTraceable)]
 pub enum EventOrString<TH: TypeHolderTrait + 'static> {
-    Event(RootedTraceableBox<DomRoot<Event<TH>>>),
-    String(RootedTraceableBox<DOMString>),
+    Event(DomRoot<Event<TH>>),
+    String(DOMString),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for EventOrString<TH> {
@@ -1442,8 +1442,8 @@ impl<TH: TypeHolderTrait> EventOrString<TH> {
 
 #[derive(JSTraceable)]
 pub enum EventOrUSVString<TH: TypeHolderTrait + 'static> {
-    Event(RootedTraceableBox<DomRoot<Event<TH>>>),
-    USVString(RootedTraceableBox<USVString>),
+    Event(DomRoot<Event<TH>>),
+    USVString(USVString),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for EventOrUSVString<TH> {
@@ -1507,8 +1507,8 @@ impl<TH: TypeHolderTrait> EventOrUSVString<TH> {
 
 #[derive(JSTraceable)]
 pub enum FileOrUSVString<TH: TypeHolderTrait + 'static> {
-    File(RootedTraceableBox<DomRoot<File<TH>>>),
-    USVString(RootedTraceableBox<USVString>),
+    File(DomRoot<File<TH>>),
+    USVString(USVString),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for FileOrUSVString<TH> {
@@ -1573,7 +1573,7 @@ impl<TH: TypeHolderTrait> FileOrUSVString<TH> {
 #[derive(JSTraceable)]
 pub enum Float32ArrayOrUnrestrictedFloatSequence {
     Float32Array(RootedTraceableBox<typedarray::HeapFloat32Array>),
-    UnrestrictedFloatSequence(RootedTraceableBox<Vec<f32>>),
+    UnrestrictedFloatSequence(Vec<f32>),
 }
 
 impl ToJSValConvertible for Float32ArrayOrUnrestrictedFloatSequence {
@@ -1636,8 +1636,8 @@ impl Float32ArrayOrUnrestrictedFloatSequence {
 
 #[derive(JSTraceable)]
 pub enum HTMLElementOrLong<TH: TypeHolderTrait + 'static> {
-    HTMLElement(RootedTraceableBox<DomRoot<HTMLElement<TH>>>),
-    Long(RootedTraceableBox<i32>),
+    HTMLElement(DomRoot<HTMLElement<TH>>),
+    Long(i32),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLElementOrLong<TH> {
@@ -1701,10 +1701,10 @@ impl<TH: TypeHolderTrait> HTMLElementOrLong<TH> {
 
 #[derive(JSTraceable)]
 pub enum HTMLElementOrUnsignedLongOrStringOrBoolean<TH: TypeHolderTrait + 'static> {
-    HTMLElement(RootedTraceableBox<DomRoot<HTMLElement<TH>>>),
-    UnsignedLong(RootedTraceableBox<u32>),
-    String(RootedTraceableBox<DOMString>),
-    Boolean(RootedTraceableBox<bool>),
+    HTMLElement(DomRoot<HTMLElement<TH>>),
+    UnsignedLong(u32),
+    String(DOMString),
+    Boolean(bool),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
@@ -1808,10 +1808,10 @@ impl<TH: TypeHolderTrait> HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
 
 #[derive(JSTraceable)]
 pub enum HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH: TypeHolderTrait + 'static> {
-    HTMLImageElement(RootedTraceableBox<DomRoot<HTMLImageElement<TH>>>),
-    HTMLCanvasElement(RootedTraceableBox<DomRoot<HTMLCanvasElement<TH>>>),
-    CanvasRenderingContext2D(RootedTraceableBox<DomRoot<CanvasRenderingContext2D<TH>>>),
-    CSSStyleValue(RootedTraceableBox<DomRoot<CSSStyleValue<TH>>>),
+    HTMLImageElement(DomRoot<HTMLImageElement<TH>>),
+    HTMLCanvasElement(DomRoot<HTMLCanvasElement<TH>>),
+    CanvasRenderingContext2D(DomRoot<CanvasRenderingContext2D<TH>>),
+    CSSStyleValue(DomRoot<CSSStyleValue<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH> {
@@ -1905,8 +1905,8 @@ impl<TH: TypeHolderTrait> HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingCo
 
 #[derive(JSTraceable)]
 pub enum HTMLOptionElementOrHTMLOptGroupElement<TH: TypeHolderTrait + 'static> {
-    HTMLOptionElement(RootedTraceableBox<DomRoot<HTMLOptionElement<TH>>>),
-    HTMLOptGroupElement(RootedTraceableBox<DomRoot<HTMLOptGroupElement<TH>>>),
+    HTMLOptionElement(DomRoot<HTMLOptionElement<TH>>),
+    HTMLOptGroupElement(DomRoot<HTMLOptGroupElement<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLOptionElementOrHTMLOptGroupElement<TH> {
@@ -1968,9 +1968,9 @@ impl<TH: TypeHolderTrait> HTMLOptionElementOrHTMLOptGroupElement<TH> {
 
 #[derive(JSTraceable)]
 pub enum HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait + 'static> {
-    Headers(RootedTraceableBox<DomRoot<Headers<TH>>>),
-    ByteStringSequenceSequence(RootedTraceableBox<Vec<Vec<ByteString>>>),
-    StringByteStringRecord(RootedTraceableBox<MozMap<ByteString>>),
+    Headers(DomRoot<Headers<TH>>),
+    ByteStringSequenceSequence(Vec<Vec<ByteString>>),
+    StringByteStringRecord(MozMap<ByteString>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
@@ -2050,10 +2050,10 @@ impl<TH: TypeHolderTrait> HeadersOrByteStringSequenceSequenceOrStringByteStringR
 
 #[derive(JSTraceable)]
 pub enum ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH: TypeHolderTrait + 'static> {
-    ImageData(RootedTraceableBox<DomRoot<ImageData<TH>>>),
-    HTMLImageElement(RootedTraceableBox<DomRoot<HTMLImageElement<TH>>>),
-    HTMLCanvasElement(RootedTraceableBox<DomRoot<HTMLCanvasElement<TH>>>),
-    HTMLVideoElement(RootedTraceableBox<DomRoot<HTMLVideoElement<TH>>>),
+    ImageData(DomRoot<ImageData<TH>>),
+    HTMLImageElement(DomRoot<HTMLImageElement<TH>>),
+    HTMLCanvasElement(DomRoot<HTMLCanvasElement<TH>>),
+    HTMLVideoElement(DomRoot<HTMLVideoElement<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH> {
@@ -2148,7 +2148,7 @@ impl<TH: TypeHolderTrait> ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVi
 #[derive(JSTraceable)]
 pub enum Int32ArrayOrLongSequence {
     Int32Array(RootedTraceableBox<typedarray::HeapInt32Array>),
-    LongSequence(RootedTraceableBox<Vec<i32>>),
+    LongSequence(Vec<i32>),
 }
 
 impl ToJSValConvertible for Int32ArrayOrLongSequence {
@@ -2211,8 +2211,8 @@ impl Int32ArrayOrLongSequence {
 
 #[derive(JSTraceable)]
 pub enum LongOrLongSequenceSequence {
-    Long(RootedTraceableBox<i32>),
-    LongSequenceSequence(RootedTraceableBox<Vec<Vec<i32>>>),
+    Long(i32),
+    LongSequenceSequence(Vec<Vec<i32>>),
 }
 
 impl ToJSValConvertible for LongOrLongSequenceSequence {
@@ -2276,8 +2276,8 @@ impl LongOrLongSequenceSequence {
 
 #[derive(JSTraceable)]
 pub enum LongOrStringByteStringRecord {
-    Long(RootedTraceableBox<i32>),
-    StringByteStringRecord(RootedTraceableBox<MozMap<ByteString>>),
+    Long(i32),
+    StringByteStringRecord(MozMap<ByteString>),
 }
 
 impl ToJSValConvertible for LongOrStringByteStringRecord {
@@ -2341,8 +2341,8 @@ impl LongOrStringByteStringRecord {
 
 #[derive(JSTraceable)]
 pub enum LongSequenceOrBoolean {
-    LongSequence(RootedTraceableBox<Vec<i32>>),
-    Boolean(RootedTraceableBox<bool>),
+    LongSequence(Vec<i32>),
+    Boolean(bool),
 }
 
 impl ToJSValConvertible for LongSequenceOrBoolean {
@@ -2406,10 +2406,10 @@ impl LongSequenceOrBoolean {
 
 #[derive(JSTraceable)]
 pub enum LongSequenceOrTestTypedef<TH: TypeHolderTrait + 'static> {
-    LongSequence(RootedTraceableBox<Vec<i32>>),
-    String(RootedTraceableBox<DOMString>),
-    URL(RootedTraceableBox<DomRoot<URL<TH>>>),
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
+    LongSequence(Vec<i32>),
+    String(DOMString),
+    URL(DomRoot<URL<TH>>),
+    Blob(DomRoot<Blob<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for LongSequenceOrTestTypedef<TH> {
@@ -2506,8 +2506,8 @@ impl<TH: TypeHolderTrait> LongSequenceOrTestTypedef<TH> {
 
 #[derive(JSTraceable)]
 pub enum NodeOrString<TH: TypeHolderTrait + 'static> {
-    Node(RootedTraceableBox<DomRoot<Node<TH>>>),
-    String(RootedTraceableBox<DOMString>),
+    Node(DomRoot<Node<TH>>),
+    String(DOMString),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for NodeOrString<TH> {
@@ -2571,8 +2571,8 @@ impl<TH: TypeHolderTrait> NodeOrString<TH> {
 
 #[derive(JSTraceable)]
 pub enum RadioNodeListOrElement<TH: TypeHolderTrait + 'static> {
-    RadioNodeList(RootedTraceableBox<DomRoot<RadioNodeList<TH>>>),
-    Element(RootedTraceableBox<DomRoot<Element<TH>>>),
+    RadioNodeList(DomRoot<RadioNodeList<TH>>),
+    Element(DomRoot<Element<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for RadioNodeListOrElement<TH> {
@@ -2634,8 +2634,8 @@ impl<TH: TypeHolderTrait> RadioNodeListOrElement<TH> {
 
 #[derive(JSTraceable)]
 pub enum RequestOrUSVString<TH: TypeHolderTrait + 'static> {
-    Request(RootedTraceableBox<DomRoot<Request<TH>>>),
-    USVString(RootedTraceableBox<USVString>),
+    Request(DomRoot<Request<TH>>),
+    USVString(USVString),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for RequestOrUSVString<TH> {
@@ -2699,8 +2699,8 @@ impl<TH: TypeHolderTrait> RequestOrUSVString<TH> {
 
 #[derive(JSTraceable)]
 pub enum StringOrBoolean {
-    String(RootedTraceableBox<DOMString>),
-    Boolean(RootedTraceableBox<bool>),
+    String(DOMString),
+    Boolean(bool),
 }
 
 impl ToJSValConvertible for StringOrBoolean {
@@ -2764,9 +2764,9 @@ impl StringOrBoolean {
 
 #[derive(JSTraceable)]
 pub enum StringOrCanvasGradientOrCanvasPattern<TH: TypeHolderTrait + 'static> {
-    String(RootedTraceableBox<DOMString>),
-    CanvasGradient(RootedTraceableBox<DomRoot<CanvasGradient<TH>>>),
-    CanvasPattern(RootedTraceableBox<DomRoot<CanvasPattern<TH>>>),
+    String(DOMString),
+    CanvasGradient(DomRoot<CanvasGradient<TH>>),
+    CanvasPattern(DomRoot<CanvasPattern<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for StringOrCanvasGradientOrCanvasPattern<TH> {
@@ -2846,8 +2846,8 @@ impl<TH: TypeHolderTrait> StringOrCanvasGradientOrCanvasPattern<TH> {
 
 #[derive(JSTraceable)]
 pub enum StringOrLongSequence {
-    String(RootedTraceableBox<DOMString>),
-    LongSequence(RootedTraceableBox<Vec<i32>>),
+    String(DOMString),
+    LongSequence(Vec<i32>),
 }
 
 impl ToJSValConvertible for StringOrLongSequence {
@@ -2911,7 +2911,7 @@ impl StringOrLongSequence {
 
 #[derive(JSTraceable)]
 pub enum StringOrObject {
-    String(RootedTraceableBox<DOMString>),
+    String(DOMString),
     Object(RootedTraceableBox<Heap<*mut JSObject>>),
 }
 
@@ -2970,8 +2970,8 @@ impl StringOrObject {
 
 #[derive(JSTraceable)]
 pub enum StringOrStringSequence {
-    String(RootedTraceableBox<DOMString>),
-    StringSequence(RootedTraceableBox<Vec<DOMString>>),
+    String(DOMString),
+    StringSequence(Vec<DOMString>),
 }
 
 impl ToJSValConvertible for StringOrStringSequence {
@@ -3035,9 +3035,9 @@ impl StringOrStringSequence {
 
 #[derive(JSTraceable)]
 pub enum StringOrURLOrBlob<TH: TypeHolderTrait + 'static> {
-    String(RootedTraceableBox<DOMString>),
-    URL(RootedTraceableBox<DomRoot<URL<TH>>>),
-    Blob(RootedTraceableBox<DomRoot<Blob<TH>>>),
+    String(DOMString),
+    URL(DomRoot<URL<TH>>),
+    Blob(DomRoot<Blob<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for StringOrURLOrBlob<TH> {
@@ -3117,8 +3117,8 @@ impl<TH: TypeHolderTrait> StringOrURLOrBlob<TH> {
 
 #[derive(JSTraceable)]
 pub enum StringOrUnsignedLong {
-    String(RootedTraceableBox<DOMString>),
-    UnsignedLong(RootedTraceableBox<u32>),
+    String(DOMString),
+    UnsignedLong(u32),
 }
 
 impl ToJSValConvertible for StringOrUnsignedLong {
@@ -3182,8 +3182,8 @@ impl StringOrUnsignedLong {
 
 #[derive(JSTraceable)]
 pub enum StringSequenceOrUnsignedLong {
-    StringSequence(RootedTraceableBox<Vec<DOMString>>),
-    UnsignedLong(RootedTraceableBox<u32>),
+    StringSequence(Vec<DOMString>),
+    UnsignedLong(u32),
 }
 
 impl ToJSValConvertible for StringSequenceOrUnsignedLong {
@@ -3247,9 +3247,9 @@ impl StringSequenceOrUnsignedLong {
 
 #[derive(JSTraceable)]
 pub enum TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait + 'static> {
-    TestBinding(RootedTraceableBox<DomRoot<TestBinding<TH>>>),
-    ByteStringSequenceSequence(RootedTraceableBox<Vec<Vec<ByteString>>>),
-    StringByteStringRecord(RootedTraceableBox<MozMap<ByteString>>),
+    TestBinding(DomRoot<TestBinding<TH>>),
+    ByteStringSequenceSequence(Vec<Vec<ByteString>>),
+    StringByteStringRecord(MozMap<ByteString>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
@@ -3329,8 +3329,8 @@ impl<TH: TypeHolderTrait> TestBindingOrByteStringSequenceSequenceOrStringByteStr
 
 #[derive(JSTraceable)]
 pub enum TestBindingOrStringByteStringRecord<TH: TypeHolderTrait + 'static> {
-    TestBinding(RootedTraceableBox<DomRoot<TestBinding<TH>>>),
-    StringByteStringRecord(RootedTraceableBox<MozMap<ByteString>>),
+    TestBinding(DomRoot<TestBinding<TH>>),
+    StringByteStringRecord(MozMap<ByteString>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for TestBindingOrStringByteStringRecord<TH> {
@@ -3394,7 +3394,7 @@ impl<TH: TypeHolderTrait> TestBindingOrStringByteStringRecord<TH> {
 #[derive(JSTraceable)]
 pub enum TestDictionaryOrLong<TH: TypeHolderTrait + 'static> {
     TestDictionary(RootedTraceableBox<TestDictionary<TH>>),
-    Long(RootedTraceableBox<i32>),
+    Long(i32),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for TestDictionaryOrLong<TH> {
@@ -3456,8 +3456,8 @@ impl<TH: TypeHolderTrait> TestDictionaryOrLong<TH> {
 
 #[derive(JSTraceable)]
 pub enum USVStringOrURLSearchParams<TH: TypeHolderTrait + 'static> {
-    USVString(RootedTraceableBox<USVString>),
-    URLSearchParams(RootedTraceableBox<DomRoot<URLSearchParams<TH>>>),
+    USVString(USVString),
+    URLSearchParams(DomRoot<URLSearchParams<TH>>),
 }
 
 impl<TH: TypeHolderTrait> ToJSValConvertible for USVStringOrURLSearchParams<TH> {
@@ -3521,8 +3521,8 @@ impl<TH: TypeHolderTrait> USVStringOrURLSearchParams<TH> {
 
 #[derive(JSTraceable)]
 pub enum UnsignedLongOrBoolean {
-    UnsignedLong(RootedTraceableBox<u32>),
-    Boolean(RootedTraceableBox<bool>),
+    UnsignedLong(u32),
+    Boolean(bool),
 }
 
 impl ToJSValConvertible for UnsignedLongOrBoolean {
