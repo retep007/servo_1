@@ -509,10 +509,10 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<ServoParser<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<TH::ServoParser, TH>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
-                let _ = Box::from_raw(this as *mut ServoParser<TH>);
+                let _ = Box::from_raw(this as *mut TH::ServoParser);
             }
             debug!("ServoParser<TH> finalize: {:p}", this);
     }), ());
@@ -522,7 +522,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<ServoParser<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<TH::ServoParser, TH>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());
@@ -565,7 +565,7 @@ fn malloc_size<TH: TypeHolderTrait + 'static>(ops: &mut MallocSizeOfOps, obj: *c
 }
 
 pub unsafe fn Wrap<TH: TypeHolderTrait + 'static>
-(cx: *mut JSContext, scope: &GlobalScope<TH>, object: TH::ServoParser) -> DomRoot<TH::ServoParser> {
+(cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<TH::ServoParser>) -> DomRoot<TH::ServoParser> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
     assert!(((*get_object_class(scope.get())).flags & JSCLASS_IS_GLOBAL) != 0);

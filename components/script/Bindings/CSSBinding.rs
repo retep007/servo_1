@@ -510,7 +510,7 @@ unsafe extern fn escape<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_u
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
 
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 1 {
@@ -527,7 +527,7 @@ unsafe extern fn escape<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_u
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error> = CSS::Escape(&global, arg0);
+        let result: Result<DOMString, Error<TH>> = CSS::Escape(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -541,11 +541,11 @@ unsafe extern fn escape<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_u
     }), false);
 }
 
-unsafe extern fn supports(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn supports<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
 
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
 
         let argcount = cmp::min(argc, 2);
@@ -604,7 +604,7 @@ unsafe extern fn get_paintWorklet<TH: TypeHolderTrait>(cx: *mut JSContext, argc:
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
 
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
         let result: DomRoot<Worklet<TH>> = CSS::PaintWorklet(&global);
 
@@ -613,7 +613,7 @@ unsafe extern fn get_paintWorklet<TH: TypeHolderTrait>(cx: *mut JSContext, argc:
     }), false);
 }
 
-const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"escape\0" as *const u8 as *const libc::c_char,
@@ -624,7 +624,7 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
     },
     JSFunctionSpec {
         name: b"supports\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(supports), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(supports::<TH>), info: 0 as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -637,16 +637,17 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sStaticMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sStaticMethods_specs[0])
-];
-const sStaticAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+
+fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0])
+]}
+fn sStaticAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"paintWorklet\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(get_paintWorklet), info: 0 as *const JSJitInfo },
+        getter: JSNativeWrapper { op: Some(get_paintWorklet::<TH>), info: 0 as *const JSJitInfo },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -656,10 +657,10 @@ const sStaticAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sStaticAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Pref("dom.worklet.enabled"), sStaticAttributes_specs[0])
-];
+]}
+fn sStaticAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Pref("dom.worklet.enabled"), sStaticAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject(cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
@@ -711,7 +712,7 @@ unsafe fn ConstructorEnabled(aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects(cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>(cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));
     assert!(!prototype_proto.is_null());
@@ -741,8 +742,8 @@ unsafe fn CreateInterfaceObjects(cx: *mut JSContext, global: HandleObject, cache
                                         global.into(),
                                         interface_proto.handle(),
                                         &INTERFACE_OBJECT_CLASS,
-                                        sStaticMethods,
-                                        sStaticAttributes,
+                                        sStaticMethods::<TH>(),
+                                        sStaticAttributes::<TH>(),
                                         &[],
                                         prototype.handle(),
                                         b"CSS\0",

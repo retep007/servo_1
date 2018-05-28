@@ -970,7 +970,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<CloseEvent<TH>>, Error> = CloseEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<CloseEvent<TH>>, Error<TH>> = CloseEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

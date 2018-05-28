@@ -367,6 +367,7 @@ impl<TH: TypeHolderTrait> JsTimers<TH> {
             active_timers: DomRefCell::new(HashMap::new()),
             nesting_level: Cell::new(0),
             min_duration: Cell::new(None),
+            _t: Default::default(),
         }
     }
 

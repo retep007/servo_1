@@ -532,7 +532,7 @@ unsafe extern fn set_href<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.SetHref(arg0);
+        let result: Result<(), Error<TH>> = this.SetHref(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1350,7 +1350,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
         let this = native_from_object::<URL<TH>, TH>(obj).unwrap();
-        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<URL<TH>>;
+        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<URL<TH>, TH>;
         if !weak_box_ptr.is_null() {
             let count = {
                 let weak_box = &*weak_box_ptr;
@@ -1682,7 +1682,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<DomRoot<URL<TH>>, Error> = URL::Constructor(&global, arg0, arg1);
+        let result: Result<DomRoot<URL<TH>>, Error<TH>> = URL::Constructor(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

@@ -933,7 +933,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<CustomEvent<TH>>, Error> = CustomEvent::Constructor(&global, arg0, arg1);
+        let result: Result<DomRoot<CustomEvent<TH>>, Error<TH>> = CustomEvent::Constructor(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

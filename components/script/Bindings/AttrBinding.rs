@@ -522,7 +522,7 @@ unsafe extern fn get_namespaceURI<TH: TypeHolderTrait>
 
 fn namespaceURI_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo {
     JSJitInfo {
-        call: get_namespaceURI::<TH>() as *const os::raw::c_void,
+        call: get_namespaceURI::<TH> as *const os::raw::c_void,
         protoID: PrototypeList::ID::Attr as u16,
         depth: 0,
         _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -569,7 +569,7 @@ fn prefix_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo {
             false,
             0,
         ),
-    };
+    }
 }
 
 unsafe extern fn get_localName<TH: TypeHolderTrait>
@@ -937,7 +937,7 @@ fn ownerElement_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo {
             false,
             0,
         ),
-    };
+    }
 }
 
 unsafe extern fn get_specified<TH: TypeHolderTrait>
@@ -1019,7 +1019,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass {
             flags: JSCLASS_IS_DOMJSCLASS | 0 |
                    (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                    /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-            cOps: &CLASS_OPS::<TH>,
+            cOps: &CLASS_OPS::<TH>(),
             reserved: [0 as *mut _; 3],
         },
         dom_class: DOMClass {
@@ -1064,7 +1064,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for Attr<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -1095,61 +1095,61 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
         JSPropertySpec {
             name: b"namespaceURI\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &namespaceURI_getterinfo::<TH> },
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &namespaceURI_getterinfo::<TH>() },
             setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
         },
         JSPropertySpec {
             name: b"prefix\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &prefix_getterinfo::<TH> },
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &prefix_getterinfo::<TH>() },
             setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
         },
         JSPropertySpec {
             name: b"localName\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &localName_getterinfo::<TH> },
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &localName_getterinfo::<TH>() },
             setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
         },
         JSPropertySpec {
             name: b"name\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &name_getterinfo::<TH> },
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &name_getterinfo::<TH>() },
             setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
         },
         JSPropertySpec {
             name: b"nodeName\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &nodeName_getterinfo::<TH> },
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &nodeName_getterinfo::<TH>() },
             setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
         },
         JSPropertySpec {
             name: b"value\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &value_getterinfo::<TH> },
-            setter: JSNativeWrapper { op: Some(generic_setter), info: &value_setterinfo::<TH> }
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &value_getterinfo::<TH>() },
+            setter: JSNativeWrapper { op: Some(generic_setter), info: &value_setterinfo::<TH>() }
         },
         JSPropertySpec {
             name: b"textContent\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &textContent_getterinfo::<TH> },
-            setter: JSNativeWrapper { op: Some(generic_setter), info: &textContent_setterinfo::<TH> }
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &textContent_getterinfo::<TH>() },
+            setter: JSNativeWrapper { op: Some(generic_setter), info: &textContent_setterinfo::<TH>() }
         },
         JSPropertySpec {
             name: b"nodeValue\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &nodeValue_getterinfo::<TH> },
-            setter: JSNativeWrapper { op: Some(generic_setter), info: &nodeValue_setterinfo::<TH> }
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &nodeValue_getterinfo::<TH>() },
+            setter: JSNativeWrapper { op: Some(generic_setter), info: &nodeValue_setterinfo::<TH>() }
         },
         JSPropertySpec {
             name: b"ownerElement\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &ownerElement_getterinfo::<TH> },
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &ownerElement_getterinfo::<TH>() },
             setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
         },
         JSPropertySpec {
             name: b"specified\0" as *const u8 as *const libc::c_char,
             flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-            getter: JSNativeWrapper { op: Some(generic_getter), info: &specified_getterinfo::<TH> },
+            getter: JSNativeWrapper { op: Some(generic_getter), info: &specified_getterinfo::<TH>() },
             setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
         },
         JSPropertySpec {

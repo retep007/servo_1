@@ -552,7 +552,7 @@ unsafe extern fn postMessage<TH: TypeHolderTrait>
             return false;
         }
         let arg0: HandleValue = args.get(0);
-        let result: Result<(), Error> = this.PostMessage(cx, arg0);
+        let result: Result<(), Error<TH>> = this.PostMessage(cx, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -919,7 +919,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<Worker<TH>>, Error> = Worker::Constructor(&global, arg0);
+        let result: Result<DomRoot<Worker<TH>>, Error<TH>> = Worker::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

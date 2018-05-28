@@ -834,7 +834,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -859,7 +859,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -892,7 +892,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -924,7 +924,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -956,7 +956,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -988,7 +988,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<(), Error> = this.BufferData_(arg0, arg1, arg2);
+                let result: Result<(), Error<TH>> = this.BufferData_(arg0, arg1, arg2);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1164,7 +1164,7 @@ unsafe extern fn texImage2D<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error> = this.TexImage2D_(arg0, arg1, arg2, arg3, arg4, arg5);
+                let result: Result<(), Error<TH>> = this.TexImage2D_(arg0, arg1, arg2, arg3, arg4, arg5);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1275,7 +1275,7 @@ unsafe extern fn texImage2D<TH: TypeHolderTrait>
 
                 };
                 auto_root!(in(cx) let arg8 = arg8);
-                let result: Result<(), Error> = this.TexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+                let result: Result<(), Error<TH>> = this.TexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1394,7 +1394,7 @@ unsafe extern fn texSubImage2D<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error> = this.TexSubImage2D_(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+                let result: Result<(), Error<TH>> = this.TexSubImage2D_(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1505,7 +1505,7 @@ unsafe extern fn texSubImage2D<TH: TypeHolderTrait>
 
                 };
                 auto_root!(in(cx) let arg8 = arg8);
-                let result: Result<(), Error> = this.TexSubImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+                let result: Result<(), Error<TH>> = this.TexSubImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -7417,7 +7417,7 @@ unsafe extern fn texImageDOM<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error> = this.TexImageDOM(arg0, arg1, arg2, arg3, arg4, arg5, arg6, &arg7);
+        let result: Result<(), Error<TH>> = this.TexImageDOM(arg0, arg1, arg2, arg3, arg4, arg5, arg6, &arg7);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

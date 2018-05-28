@@ -672,6 +672,12 @@ unsafe impl JSTraceable for StyleLocked<MediaList> {
     }
 }
 
+unsafe impl<TH> JSTraceable for PhantomData<TH> {
+    unsafe fn trace(&self, _trc: *mut JSTracer) {
+        // Do nothing.
+    }
+}
+
 unsafe impl<T> JSTraceable for TypedArray<T, Box<Heap<*mut JSObject>>> where T: TypedArrayElement {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         self.underlying_object().trace(trc);

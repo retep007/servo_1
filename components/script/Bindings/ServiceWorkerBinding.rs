@@ -624,7 +624,7 @@ unsafe extern fn postMessage<TH: TypeHolderTrait>
             return false;
         }
         let arg0: HandleValue = args.get(0);
-        let result: Result<(), Error> = this.PostMessage(cx, arg0);
+        let result: Result<(), Error<TH>> = this.PostMessage(cx, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

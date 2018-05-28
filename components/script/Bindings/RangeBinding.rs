@@ -726,7 +726,7 @@ unsafe extern fn setStart<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error> = this.SetStart(&arg0, arg1);
+        let result: Result<(), Error<TH>> = this.SetStart(&arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -795,7 +795,7 @@ unsafe extern fn setEnd<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error> = this.SetEnd(&arg0, arg1);
+        let result: Result<(), Error<TH>> = this.SetEnd(&arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -854,7 +854,7 @@ unsafe extern fn setStartBefore<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error> = this.SetStartBefore(&arg0);
+        let result: Result<(), Error<TH>> = this.SetStartBefore(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -913,7 +913,7 @@ unsafe extern fn setStartAfter<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error> = this.SetStartAfter(&arg0);
+        let result: Result<(), Error<TH>> = this.SetStartAfter(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -972,7 +972,7 @@ unsafe extern fn setEndBefore<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error> = this.SetEndBefore(&arg0);
+        let result: Result<(), Error<TH>> = this.SetEndBefore(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1031,7 +1031,7 @@ unsafe extern fn setEndAfter<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error> = this.SetEndAfter(&arg0);
+        let result: Result<(), Error<TH>> = this.SetEndAfter(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1136,7 +1136,7 @@ unsafe extern fn selectNode<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error> = this.SelectNode(&arg0);
+        let result: Result<(), Error<TH>> = this.SelectNode(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1195,7 +1195,7 @@ unsafe extern fn selectNodeContents<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error> = this.SelectNodeContents(&arg0);
+        let result: Result<(), Error<TH>> = this.SelectNodeContents(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1264,7 +1264,7 @@ unsafe extern fn compareBoundaryPoints<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<i16, Error> = this.CompareBoundaryPoints(arg0, &arg1);
+        let result: Result<i16, Error<TH>> = this.CompareBoundaryPoints(arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1308,7 +1308,7 @@ unsafe extern fn deleteContents<TH: TypeHolderTrait>
         let argc = args._base.argc_;
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.DeleteContents();
+        let result: Result<(), Error<TH>> = this.DeleteContents();
         pop_current_element_queue();
 
         let result = match result {
@@ -1351,7 +1351,7 @@ unsafe extern fn extractContents<TH: TypeHolderTrait>
         let argc = args._base.argc_;
         push_new_element_queue();
 
-        let result: Result<DomRoot<DocumentFragment<TH>>, Error> = this.ExtractContents();
+        let result: Result<DomRoot<DocumentFragment<TH>>, Error<TH>> = this.ExtractContents();
         pop_current_element_queue();
 
         let result = match result {
@@ -1394,7 +1394,7 @@ unsafe extern fn cloneContents<TH: TypeHolderTrait>
         let argc = args._base.argc_;
         push_new_element_queue();
 
-        let result: Result<DomRoot<DocumentFragment<TH>>, Error> = this.CloneContents();
+        let result: Result<DomRoot<DocumentFragment<TH>>, Error<TH>> = this.CloneContents();
         pop_current_element_queue();
 
         let result = match result {
@@ -1457,7 +1457,7 @@ unsafe extern fn insertNode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.InsertNode(&arg0);
+        let result: Result<(), Error<TH>> = this.InsertNode(&arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1520,7 +1520,7 @@ unsafe extern fn surroundContents<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SurroundContents(&arg0);
+        let result: Result<(), Error<TH>> = this.SurroundContents(&arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1658,7 +1658,7 @@ unsafe extern fn isPointInRange<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<bool, Error> = this.IsPointInRange(&arg0, arg1);
+        let result: Result<bool, Error<TH>> = this.IsPointInRange(&arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1730,7 +1730,7 @@ unsafe extern fn comparePoint<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<i16, Error> = this.ComparePoint(&arg0, arg1);
+        let result: Result<i16, Error<TH>> = this.ComparePoint(&arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1876,7 +1876,7 @@ unsafe extern fn createContextualFragment<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<DocumentFragment<TH>>, Error> = this.CreateContextualFragment(arg0);
+        let result: Result<DomRoot<DocumentFragment<TH>>, Error<TH>> = this.CreateContextualFragment(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1916,7 +1916,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
         let this = native_from_object::<Range<TH>, TH>(obj).unwrap();
-        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<Range<TH>>;
+        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<Range<TH>, TH>;
         if !weak_box_ptr.is_null() {
             let count = {
                 let weak_box = &*weak_box_ptr;
@@ -2323,9 +2323,9 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<Range<TH>>, Error> = Range::Constructor(&global);
+        let result: Result<DomRoot<Range<TH>>, Error<TH>> = Range::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

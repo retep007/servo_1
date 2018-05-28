@@ -624,7 +624,7 @@ unsafe extern fn before<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Before(arg0);
+        let result: Result<(), Error<TH>> = this.Before(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -684,7 +684,7 @@ unsafe extern fn after<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.After(arg0);
+        let result: Result<(), Error<TH>> = this.After(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -744,7 +744,7 @@ unsafe extern fn replaceWith<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.ReplaceWith(arg0);
+        let result: Result<(), Error<TH>> = this.ReplaceWith(arg0);
         pop_current_element_queue();
 
         let result = match result {

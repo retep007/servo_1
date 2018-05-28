@@ -637,7 +637,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
         // Step 2 https://html.spec.whatwg.org/multipage/#htmlconstructor
         // The custom element definition cannot use an element interface as its constructor
@@ -688,7 +688,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLAudioElement>, Error> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLAudioElement<TH>>, Error<TH>> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

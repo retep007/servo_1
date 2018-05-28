@@ -509,7 +509,7 @@ unsafe extern fn get_length<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const History<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<u32, Error> = this.GetLength();
+        let result: Result<u32, Error<TH>> = this.GetLength();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -546,7 +546,7 @@ unsafe extern fn get_state<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const History<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<JSVal, Error> = this.GetState(cx);
+        let result: Result<JSVal, Error<TH>> = this.GetState(cx);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -599,7 +599,7 @@ unsafe extern fn go<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<(), Error> = this.Go(arg0);
+        let result: Result<(), Error<TH>> = this.Go(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -638,7 +638,7 @@ unsafe extern fn back<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<(), Error> = this.Back();
+        let result: Result<(), Error<TH>> = this.Back();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -677,7 +677,7 @@ unsafe extern fn forward<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<(), Error> = this.Forward();
+        let result: Result<(), Error<TH>> = this.Forward();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -746,7 +746,7 @@ unsafe extern fn pushState<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<(), Error> = this.PushState(cx, arg0, arg1, arg2);
+        let result: Result<(), Error<TH>> = this.PushState(cx, arg0, arg1, arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -815,7 +815,7 @@ unsafe extern fn replaceState<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<(), Error> = this.ReplaceState(cx, arg0, arg1, arg2);
+        let result: Result<(), Error<TH>> = this.ReplaceState(cx, arg0, arg1, arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

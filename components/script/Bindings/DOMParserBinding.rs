@@ -578,7 +578,7 @@ unsafe extern fn parseFromString<TH: TypeHolderTrait>
          },
             Ok((Some(&value), _)) => value,
         };
-        let result: Result<DomRoot<Document<TH>>, Error> = this.ParseFromString(arg0, arg1);
+        let result: Result<DomRoot<Document<TH>>, Error<TH>> = this.ParseFromString(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -766,9 +766,9 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<DOMParser<TH>>, Error> = DOMParser::Constructor(&global);
+        let result: Result<DomRoot<DOMParser<TH>>, Error<TH>> = DOMParser::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

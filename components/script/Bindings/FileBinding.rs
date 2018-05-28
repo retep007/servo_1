@@ -844,7 +844,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<File<TH>>, Error> = File::Constructor(&global, arg0, arg1, &arg2);
+        let result: Result<DomRoot<File<TH>>, Error<TH>> = File::Constructor(&global, arg0, arg1, &arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

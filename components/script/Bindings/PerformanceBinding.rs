@@ -735,7 +735,7 @@ unsafe extern fn mark<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.Mark(arg0);
+        let result: Result<(), Error<TH>> = this.Mark(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -863,7 +863,7 @@ unsafe extern fn measure<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<(), Error> = this.Measure(arg0, arg1, arg2);
+        let result: Result<(), Error<TH>> = this.Measure(arg0, arg1, arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

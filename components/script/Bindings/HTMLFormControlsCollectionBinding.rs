@@ -534,7 +534,7 @@ unsafe extern fn namedItem<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Option<UnionTypes::RadioNodeListOrElement> = this.NamedItem(arg0);
+        let result: Option<UnionTypes::RadioNodeListOrElement<TH>> = this.NamedItem(arg0);
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -705,7 +705,7 @@ unsafe extern fn getOwnPropertyDescriptor<TH: TypeHolderTrait>
                         let name = jsid_to_string(cx, Handle::from_raw(id)).expect("Not a string-convertible JSID?");
                 let this = UnwrapProxy(proxy);
                 let this = &*this;
-                let result: Option<UnionTypes::RadioNodeListOrElement> = this.NamedGetter(name);
+                let result: Option<UnionTypes::RadioNodeListOrElement<TH>> = this.NamedGetter(name);
 
                 if let Some(result) = result {
                     rooted!(in(cx) let mut result_root = UndefinedValue());
@@ -775,7 +775,7 @@ unsafe extern fn get<TH: TypeHolderTrait>
             let name = jsid_to_string(cx, Handle::from_raw(id)).expect("Not a string-convertible JSID?");
             let this = UnwrapProxy(proxy);
             let this = &*this;
-            let result: Option<UnionTypes::RadioNodeListOrElement> = this.NamedGetter(name);
+            let result: Option<UnionTypes::RadioNodeListOrElement<TH>> = this.NamedGetter(name);
 
             if let Some(result) = result {
 
@@ -820,7 +820,7 @@ unsafe extern fn hasOwn<TH: TypeHolderTrait>
                         let name = jsid_to_string(cx, Handle::from_raw(id)).expect("Not a string-convertible JSID?");
                 let this = UnwrapProxy(proxy);
                 let this = &*this;
-                let result: Option<UnionTypes::RadioNodeListOrElement> = this.NamedGetter(name);
+                let result: Option<UnionTypes::RadioNodeListOrElement<TH>> = this.NamedGetter(name);
 
                 *bp = result.is_some();
                 return true;

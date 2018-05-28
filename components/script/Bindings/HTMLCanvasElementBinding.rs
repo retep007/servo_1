@@ -696,7 +696,7 @@ unsafe extern fn getContext<TH: TypeHolderTrait>
                 arg1.push(slot);
             }
         }
-        let result: Option<UnionTypes::CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext> = this.GetContext(cx, arg0, arg1);
+        let result: Option<UnionTypes::CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH>> = this.GetContext(cx, arg0, arg1);
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -750,7 +750,7 @@ unsafe extern fn toDataURL<TH: TypeHolderTrait>
                 arg1.push(slot);
             }
         }
-        let result: Result<DOMString, Error> = this.ToDataURL(cx, arg0, arg1);
+        let result: Result<DOMString, Error<TH>> = this.ToDataURL(cx, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -975,7 +975,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
         // Step 2 https://html.spec.whatwg.org/multipage/#htmlconstructor
         // The custom element definition cannot use an element interface as its constructor
@@ -1026,7 +1026,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLCanvasElement>, Error> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLCanvasElement<TH>>, Error<TH>> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

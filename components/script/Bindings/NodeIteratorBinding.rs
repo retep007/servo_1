@@ -633,7 +633,7 @@ unsafe extern fn get_filter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NodeIterator<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::NodeFilterBinding::NodeFilter>> = this.GetFilter();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::NodeFilterBinding::NodeFilter<TH>>> = this.GetFilter();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -665,7 +665,7 @@ unsafe extern fn nextNode<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.NextNode();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.NextNode();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -704,7 +704,7 @@ unsafe extern fn previousNode<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.PreviousNode();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.PreviousNode();
         let result = match result {
             Ok(result) => result,
             Err(e) => {

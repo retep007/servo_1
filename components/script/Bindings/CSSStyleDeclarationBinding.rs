@@ -536,7 +536,7 @@ unsafe extern fn set_cssText<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCssText(arg0);
+        let result: Result<(), Error<TH>> = this.SetCssText(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -552,8 +552,8 @@ unsafe extern fn set_cssText<TH: TypeHolderTrait>
 }
 
 
-const cssText_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_cssText as *const os::raw::c_void,
+fn cssText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_cssText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -568,10 +568,10 @@ const cssText_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const cssText_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_cssText as *const os::raw::c_void,
+fn cssText_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_cssText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -586,7 +586,7 @@ const cssText_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_length<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -600,8 +600,8 @@ unsafe extern fn get_length<TH: TypeHolderTrait>
 }
 
 
-const length_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_length as *const os::raw::c_void,
+fn length_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_length::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -616,7 +616,7 @@ const length_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn item<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -647,8 +647,8 @@ unsafe extern fn item<TH: TypeHolderTrait>
 }
 
 
-const item_methodinfo: JSJitInfo = JSJitInfo {
-    call: item as *const os::raw::c_void,
+fn item_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: item::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -663,7 +663,7 @@ const item_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getPropertyValue<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -694,8 +694,8 @@ unsafe extern fn getPropertyValue<TH: TypeHolderTrait>
 }
 
 
-const getPropertyValue_methodinfo: JSJitInfo = JSJitInfo {
-    call: getPropertyValue as *const os::raw::c_void,
+fn getPropertyValue_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getPropertyValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -710,7 +710,7 @@ const getPropertyValue_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getPropertyPriority<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -741,8 +741,8 @@ unsafe extern fn getPropertyPriority<TH: TypeHolderTrait>
 }
 
 
-const getPropertyPriority_methodinfo: JSJitInfo = JSJitInfo {
-    call: getPropertyPriority as *const os::raw::c_void,
+fn getPropertyPriority_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getPropertyPriority::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -757,7 +757,7 @@ const getPropertyPriority_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn setProperty<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -806,7 +806,7 @@ unsafe extern fn setProperty<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetProperty(arg0, arg1, arg2);
+        let result: Result<(), Error<TH>> = this.SetProperty(arg0, arg1, arg2);
         pop_current_element_queue();
 
         let result = match result {
@@ -823,8 +823,8 @@ unsafe extern fn setProperty<TH: TypeHolderTrait>
 }
 
 
-const setProperty_methodinfo: JSJitInfo = JSJitInfo {
-    call: setProperty as *const os::raw::c_void,
+fn setProperty_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: setProperty::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -839,7 +839,7 @@ const setProperty_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn setPropertyValue<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -874,7 +874,7 @@ unsafe extern fn setPropertyValue<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPropertyValue(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.SetPropertyValue(arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -891,8 +891,8 @@ unsafe extern fn setPropertyValue<TH: TypeHolderTrait>
 }
 
 
-const setPropertyValue_methodinfo: JSJitInfo = JSJitInfo {
-    call: setPropertyValue as *const os::raw::c_void,
+fn setPropertyValue_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: setPropertyValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -907,7 +907,7 @@ const setPropertyValue_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn setPropertyPriority<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -942,7 +942,7 @@ unsafe extern fn setPropertyPriority<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPropertyPriority(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.SetPropertyPriority(arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -959,8 +959,8 @@ unsafe extern fn setPropertyPriority<TH: TypeHolderTrait>
 }
 
 
-const setPropertyPriority_methodinfo: JSJitInfo = JSJitInfo {
-    call: setPropertyPriority as *const os::raw::c_void,
+fn setPropertyPriority_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: setPropertyPriority::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -975,7 +975,7 @@ const setPropertyPriority_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn removeProperty<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1000,7 +1000,7 @@ unsafe extern fn removeProperty<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DOMString, Error> = this.RemoveProperty(arg0);
+        let result: Result<DOMString, Error<TH>> = this.RemoveProperty(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1017,8 +1017,8 @@ unsafe extern fn removeProperty<TH: TypeHolderTrait>
 }
 
 
-const removeProperty_methodinfo: JSJitInfo = JSJitInfo {
-    call: removeProperty as *const os::raw::c_void,
+fn removeProperty_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: removeProperty::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1033,7 +1033,7 @@ const removeProperty_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_cssFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1066,7 +1066,7 @@ unsafe extern fn set_cssFloat<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCssFloat(arg0);
+        let result: Result<(), Error<TH>> = this.SetCssFloat(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1082,8 +1082,8 @@ unsafe extern fn set_cssFloat<TH: TypeHolderTrait>
 }
 
 
-const cssFloat_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_cssFloat as *const os::raw::c_void,
+fn cssFloat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_cssFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1098,10 +1098,10 @@ const cssFloat_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const cssFloat_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_cssFloat as *const os::raw::c_void,
+fn cssFloat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_cssFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1116,7 +1116,7 @@ const cssFloat_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_all<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1149,7 +1149,7 @@ unsafe extern fn set_all<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAll(arg0);
+        let result: Result<(), Error<TH>> = this.SetAll(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1165,8 +1165,8 @@ unsafe extern fn set_all<TH: TypeHolderTrait>
 }
 
 
-const all_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_all as *const os::raw::c_void,
+fn all_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_all::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1181,10 +1181,10 @@ const all_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const all_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_all as *const os::raw::c_void,
+fn all_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_all::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1199,7 +1199,7 @@ const all_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1232,7 +1232,7 @@ unsafe extern fn set_background<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1248,8 +1248,8 @@ unsafe extern fn set_background<TH: TypeHolderTrait>
 }
 
 
-const background_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background as *const os::raw::c_void,
+fn background_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1264,10 +1264,10 @@ const background_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background as *const os::raw::c_void,
+fn background_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1282,7 +1282,7 @@ const background_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1315,7 +1315,7 @@ unsafe extern fn set_backgroundColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1331,8 +1331,8 @@ unsafe extern fn set_backgroundColor<TH: TypeHolderTrait>
 }
 
 
-const backgroundColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundColor as *const os::raw::c_void,
+fn backgroundColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1347,10 +1347,10 @@ const backgroundColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundColor as *const os::raw::c_void,
+fn backgroundColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1365,7 +1365,7 @@ const backgroundColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1398,7 +1398,7 @@ unsafe extern fn set_background_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1414,8 +1414,8 @@ unsafe extern fn set_background_color<TH: TypeHolderTrait>
 }
 
 
-const background_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_color as *const os::raw::c_void,
+fn background_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1430,10 +1430,10 @@ const background_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_color as *const os::raw::c_void,
+fn background_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1448,7 +1448,7 @@ const background_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundPosition<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1481,7 +1481,7 @@ unsafe extern fn set_backgroundPosition<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundPosition(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundPosition(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1497,8 +1497,8 @@ unsafe extern fn set_backgroundPosition<TH: TypeHolderTrait>
 }
 
 
-const backgroundPosition_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundPosition as *const os::raw::c_void,
+fn backgroundPosition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundPosition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1513,10 +1513,10 @@ const backgroundPosition_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundPosition_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundPosition as *const os::raw::c_void,
+fn backgroundPosition_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundPosition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1531,7 +1531,7 @@ const backgroundPosition_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_position<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1564,7 +1564,7 @@ unsafe extern fn set_background_position<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_position(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_position(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1580,8 +1580,8 @@ unsafe extern fn set_background_position<TH: TypeHolderTrait>
 }
 
 
-const background_position_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_position as *const os::raw::c_void,
+fn background_position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1596,10 +1596,10 @@ const background_position_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_position_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_position as *const os::raw::c_void,
+fn background_position_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1614,7 +1614,7 @@ const background_position_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundPositionX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1647,7 +1647,7 @@ unsafe extern fn set_backgroundPositionX<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundPositionX(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundPositionX(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1663,8 +1663,8 @@ unsafe extern fn set_backgroundPositionX<TH: TypeHolderTrait>
 }
 
 
-const backgroundPositionX_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundPositionX as *const os::raw::c_void,
+fn backgroundPositionX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundPositionX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1679,10 +1679,10 @@ const backgroundPositionX_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundPositionX_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundPositionX as *const os::raw::c_void,
+fn backgroundPositionX_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundPositionX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1697,7 +1697,7 @@ const backgroundPositionX_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_position_x<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1730,7 +1730,7 @@ unsafe extern fn set_background_position_x<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_position_x(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_position_x(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1746,8 +1746,8 @@ unsafe extern fn set_background_position_x<TH: TypeHolderTrait>
 }
 
 
-const background_position_x_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_position_x as *const os::raw::c_void,
+fn background_position_x_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_position_x::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1762,10 +1762,10 @@ const background_position_x_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_position_x_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_position_x as *const os::raw::c_void,
+fn background_position_x_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_position_x::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1780,7 +1780,7 @@ const background_position_x_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundPositionY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1813,7 +1813,7 @@ unsafe extern fn set_backgroundPositionY<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundPositionY(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundPositionY(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1829,8 +1829,8 @@ unsafe extern fn set_backgroundPositionY<TH: TypeHolderTrait>
 }
 
 
-const backgroundPositionY_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundPositionY as *const os::raw::c_void,
+fn backgroundPositionY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundPositionY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1845,10 +1845,10 @@ const backgroundPositionY_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundPositionY_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundPositionY as *const os::raw::c_void,
+fn backgroundPositionY_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundPositionY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1863,7 +1863,7 @@ const backgroundPositionY_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_position_y<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1896,7 +1896,7 @@ unsafe extern fn set_background_position_y<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_position_y(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_position_y(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1912,8 +1912,8 @@ unsafe extern fn set_background_position_y<TH: TypeHolderTrait>
 }
 
 
-const background_position_y_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_position_y as *const os::raw::c_void,
+fn background_position_y_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_position_y::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1928,10 +1928,10 @@ const background_position_y_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_position_y_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_position_y as *const os::raw::c_void,
+fn background_position_y_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_position_y::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1946,7 +1946,7 @@ const background_position_y_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundRepeat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1979,7 +1979,7 @@ unsafe extern fn set_backgroundRepeat<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundRepeat(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundRepeat(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1995,8 +1995,8 @@ unsafe extern fn set_backgroundRepeat<TH: TypeHolderTrait>
 }
 
 
-const backgroundRepeat_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundRepeat as *const os::raw::c_void,
+fn backgroundRepeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundRepeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2011,10 +2011,10 @@ const backgroundRepeat_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundRepeat_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundRepeat as *const os::raw::c_void,
+fn backgroundRepeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundRepeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2029,7 +2029,7 @@ const backgroundRepeat_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_repeat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2062,7 +2062,7 @@ unsafe extern fn set_background_repeat<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_repeat(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_repeat(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2078,8 +2078,8 @@ unsafe extern fn set_background_repeat<TH: TypeHolderTrait>
 }
 
 
-const background_repeat_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_repeat as *const os::raw::c_void,
+fn background_repeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_repeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2094,10 +2094,10 @@ const background_repeat_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_repeat_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_repeat as *const os::raw::c_void,
+fn background_repeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_repeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2112,7 +2112,7 @@ const background_repeat_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundImage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2145,7 +2145,7 @@ unsafe extern fn set_backgroundImage<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundImage(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundImage(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2161,8 +2161,8 @@ unsafe extern fn set_backgroundImage<TH: TypeHolderTrait>
 }
 
 
-const backgroundImage_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundImage as *const os::raw::c_void,
+fn backgroundImage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2177,10 +2177,10 @@ const backgroundImage_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundImage_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundImage as *const os::raw::c_void,
+fn backgroundImage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2195,7 +2195,7 @@ const backgroundImage_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_image<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2228,7 +2228,7 @@ unsafe extern fn set_background_image<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_image(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_image(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2244,8 +2244,8 @@ unsafe extern fn set_background_image<TH: TypeHolderTrait>
 }
 
 
-const background_image_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_image as *const os::raw::c_void,
+fn background_image_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2260,10 +2260,10 @@ const background_image_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_image_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_image as *const os::raw::c_void,
+fn background_image_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2278,7 +2278,7 @@ const background_image_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundAttachment<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2311,7 +2311,7 @@ unsafe extern fn set_backgroundAttachment<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundAttachment(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundAttachment(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2327,8 +2327,8 @@ unsafe extern fn set_backgroundAttachment<TH: TypeHolderTrait>
 }
 
 
-const backgroundAttachment_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundAttachment as *const os::raw::c_void,
+fn backgroundAttachment_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundAttachment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2343,10 +2343,10 @@ const backgroundAttachment_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundAttachment_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundAttachment as *const os::raw::c_void,
+fn backgroundAttachment_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundAttachment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2361,7 +2361,7 @@ const backgroundAttachment_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_attachment<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2394,7 +2394,7 @@ unsafe extern fn set_background_attachment<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_attachment(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_attachment(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2410,8 +2410,8 @@ unsafe extern fn set_background_attachment<TH: TypeHolderTrait>
 }
 
 
-const background_attachment_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_attachment as *const os::raw::c_void,
+fn background_attachment_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_attachment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2426,10 +2426,10 @@ const background_attachment_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_attachment_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_attachment as *const os::raw::c_void,
+fn background_attachment_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_attachment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2444,7 +2444,7 @@ const background_attachment_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2477,7 +2477,7 @@ unsafe extern fn set_backgroundSize<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundSize(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundSize(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2493,8 +2493,8 @@ unsafe extern fn set_backgroundSize<TH: TypeHolderTrait>
 }
 
 
-const backgroundSize_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundSize as *const os::raw::c_void,
+fn backgroundSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2509,10 +2509,10 @@ const backgroundSize_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundSize_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundSize as *const os::raw::c_void,
+fn backgroundSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2527,7 +2527,7 @@ const backgroundSize_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2560,7 +2560,7 @@ unsafe extern fn set_background_size<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_size(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_size(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2576,8 +2576,8 @@ unsafe extern fn set_background_size<TH: TypeHolderTrait>
 }
 
 
-const background_size_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_size as *const os::raw::c_void,
+fn background_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2592,10 +2592,10 @@ const background_size_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_size_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_size as *const os::raw::c_void,
+fn background_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2610,7 +2610,7 @@ const background_size_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundOrigin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2643,7 +2643,7 @@ unsafe extern fn set_backgroundOrigin<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundOrigin(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundOrigin(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2659,8 +2659,8 @@ unsafe extern fn set_backgroundOrigin<TH: TypeHolderTrait>
 }
 
 
-const backgroundOrigin_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundOrigin as *const os::raw::c_void,
+fn backgroundOrigin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2675,10 +2675,10 @@ const backgroundOrigin_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundOrigin_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundOrigin as *const os::raw::c_void,
+fn backgroundOrigin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2693,7 +2693,7 @@ const backgroundOrigin_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_origin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2726,7 +2726,7 @@ unsafe extern fn set_background_origin<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_origin(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_origin(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2742,8 +2742,8 @@ unsafe extern fn set_background_origin<TH: TypeHolderTrait>
 }
 
 
-const background_origin_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_origin as *const os::raw::c_void,
+fn background_origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2758,10 +2758,10 @@ const background_origin_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_origin_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_origin as *const os::raw::c_void,
+fn background_origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2776,7 +2776,7 @@ const background_origin_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backgroundClip<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2809,7 +2809,7 @@ unsafe extern fn set_backgroundClip<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackgroundClip(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackgroundClip(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2825,8 +2825,8 @@ unsafe extern fn set_backgroundClip<TH: TypeHolderTrait>
 }
 
 
-const backgroundClip_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backgroundClip as *const os::raw::c_void,
+fn backgroundClip_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backgroundClip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2841,10 +2841,10 @@ const backgroundClip_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backgroundClip_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backgroundClip as *const os::raw::c_void,
+fn backgroundClip_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backgroundClip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2859,7 +2859,7 @@ const backgroundClip_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_background_clip<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2892,7 +2892,7 @@ unsafe extern fn set_background_clip<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackground_clip(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackground_clip(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2908,8 +2908,8 @@ unsafe extern fn set_background_clip<TH: TypeHolderTrait>
 }
 
 
-const background_clip_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_background_clip as *const os::raw::c_void,
+fn background_clip_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_background_clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2924,10 +2924,10 @@ const background_clip_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const background_clip_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_background_clip as *const os::raw::c_void,
+fn background_clip_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_background_clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2942,7 +2942,7 @@ const background_clip_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2975,7 +2975,7 @@ unsafe extern fn set_border<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2991,8 +2991,8 @@ unsafe extern fn set_border<TH: TypeHolderTrait>
 }
 
 
-const border_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border as *const os::raw::c_void,
+fn border_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3007,10 +3007,10 @@ const border_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border as *const os::raw::c_void,
+fn border_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3025,7 +3025,7 @@ const border_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3058,7 +3058,7 @@ unsafe extern fn set_borderColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3074,8 +3074,8 @@ unsafe extern fn set_borderColor<TH: TypeHolderTrait>
 }
 
 
-const borderColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderColor as *const os::raw::c_void,
+fn borderColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3090,10 +3090,10 @@ const borderColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderColor as *const os::raw::c_void,
+fn borderColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3108,7 +3108,7 @@ const borderColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3141,7 +3141,7 @@ unsafe extern fn set_border_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3157,8 +3157,8 @@ unsafe extern fn set_border_color<TH: TypeHolderTrait>
 }
 
 
-const border_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_color as *const os::raw::c_void,
+fn border_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3173,10 +3173,10 @@ const border_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_color as *const os::raw::c_void,
+fn border_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3191,7 +3191,7 @@ const border_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3224,7 +3224,7 @@ unsafe extern fn set_borderRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderRadius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderRadius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3240,8 +3240,8 @@ unsafe extern fn set_borderRadius<TH: TypeHolderTrait>
 }
 
 
-const borderRadius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderRadius as *const os::raw::c_void,
+fn borderRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3256,10 +3256,10 @@ const borderRadius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderRadius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderRadius as *const os::raw::c_void,
+fn borderRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3274,7 +3274,7 @@ const borderRadius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3307,7 +3307,7 @@ unsafe extern fn set_border_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_radius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_radius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3323,8 +3323,8 @@ unsafe extern fn set_border_radius<TH: TypeHolderTrait>
 }
 
 
-const border_radius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_radius as *const os::raw::c_void,
+fn border_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3339,10 +3339,10 @@ const border_radius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_radius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_radius as *const os::raw::c_void,
+fn border_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3357,7 +3357,7 @@ const border_radius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderSpacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3390,7 +3390,7 @@ unsafe extern fn set_borderSpacing<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderSpacing(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderSpacing(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3406,8 +3406,8 @@ unsafe extern fn set_borderSpacing<TH: TypeHolderTrait>
 }
 
 
-const borderSpacing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderSpacing as *const os::raw::c_void,
+fn borderSpacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3422,10 +3422,10 @@ const borderSpacing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderSpacing_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderSpacing as *const os::raw::c_void,
+fn borderSpacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3440,7 +3440,7 @@ const borderSpacing_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_spacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3473,7 +3473,7 @@ unsafe extern fn set_border_spacing<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_spacing(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_spacing(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3489,8 +3489,8 @@ unsafe extern fn set_border_spacing<TH: TypeHolderTrait>
 }
 
 
-const border_spacing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_spacing as *const os::raw::c_void,
+fn border_spacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3505,10 +3505,10 @@ const border_spacing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_spacing_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_spacing as *const os::raw::c_void,
+fn border_spacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3523,7 +3523,7 @@ const border_spacing_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3556,7 +3556,7 @@ unsafe extern fn set_borderStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3572,8 +3572,8 @@ unsafe extern fn set_borderStyle<TH: TypeHolderTrait>
 }
 
 
-const borderStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderStyle as *const os::raw::c_void,
+fn borderStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3588,10 +3588,10 @@ const borderStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderStyle as *const os::raw::c_void,
+fn borderStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3606,7 +3606,7 @@ const borderStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3639,7 +3639,7 @@ unsafe extern fn set_border_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3655,8 +3655,8 @@ unsafe extern fn set_border_style<TH: TypeHolderTrait>
 }
 
 
-const border_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_style as *const os::raw::c_void,
+fn border_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3671,10 +3671,10 @@ const border_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_style as *const os::raw::c_void,
+fn border_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3689,7 +3689,7 @@ const border_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3722,7 +3722,7 @@ unsafe extern fn set_borderWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3738,8 +3738,8 @@ unsafe extern fn set_borderWidth<TH: TypeHolderTrait>
 }
 
 
-const borderWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderWidth as *const os::raw::c_void,
+fn borderWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3754,10 +3754,10 @@ const borderWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderWidth as *const os::raw::c_void,
+fn borderWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3772,7 +3772,7 @@ const borderWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3805,7 +3805,7 @@ unsafe extern fn set_border_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3821,8 +3821,8 @@ unsafe extern fn set_border_width<TH: TypeHolderTrait>
 }
 
 
-const border_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_width as *const os::raw::c_void,
+fn border_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3837,10 +3837,10 @@ const border_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_width as *const os::raw::c_void,
+fn border_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3855,7 +3855,7 @@ const border_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3888,7 +3888,7 @@ unsafe extern fn set_borderBottom<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBottom(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBottom(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3904,8 +3904,8 @@ unsafe extern fn set_borderBottom<TH: TypeHolderTrait>
 }
 
 
-const borderBottom_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBottom as *const os::raw::c_void,
+fn borderBottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3920,10 +3920,10 @@ const borderBottom_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBottom_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBottom as *const os::raw::c_void,
+fn borderBottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3938,7 +3938,7 @@ const borderBottom_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_bottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3971,7 +3971,7 @@ unsafe extern fn set_border_bottom<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_bottom(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_bottom(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3987,8 +3987,8 @@ unsafe extern fn set_border_bottom<TH: TypeHolderTrait>
 }
 
 
-const border_bottom_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_bottom as *const os::raw::c_void,
+fn border_bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4003,10 +4003,10 @@ const border_bottom_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_bottom_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_bottom as *const os::raw::c_void,
+fn border_bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4021,7 +4021,7 @@ const border_bottom_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBottomColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4054,7 +4054,7 @@ unsafe extern fn set_borderBottomColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBottomColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBottomColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4070,8 +4070,8 @@ unsafe extern fn set_borderBottomColor<TH: TypeHolderTrait>
 }
 
 
-const borderBottomColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBottomColor as *const os::raw::c_void,
+fn borderBottomColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBottomColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4086,10 +4086,10 @@ const borderBottomColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBottomColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBottomColor as *const os::raw::c_void,
+fn borderBottomColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBottomColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4104,7 +4104,7 @@ const borderBottomColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_bottom_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4137,7 +4137,7 @@ unsafe extern fn set_border_bottom_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_bottom_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_bottom_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4153,8 +4153,8 @@ unsafe extern fn set_border_bottom_color<TH: TypeHolderTrait>
 }
 
 
-const border_bottom_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_bottom_color as *const os::raw::c_void,
+fn border_bottom_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_bottom_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4169,10 +4169,10 @@ const border_bottom_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_bottom_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_bottom_color as *const os::raw::c_void,
+fn border_bottom_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_bottom_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4187,7 +4187,7 @@ const border_bottom_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBottomLeftRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4220,7 +4220,7 @@ unsafe extern fn set_borderBottomLeftRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBottomLeftRadius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBottomLeftRadius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4236,8 +4236,8 @@ unsafe extern fn set_borderBottomLeftRadius<TH: TypeHolderTrait>
 }
 
 
-const borderBottomLeftRadius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBottomLeftRadius as *const os::raw::c_void,
+fn borderBottomLeftRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBottomLeftRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4252,10 +4252,10 @@ const borderBottomLeftRadius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBottomLeftRadius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBottomLeftRadius as *const os::raw::c_void,
+fn borderBottomLeftRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBottomLeftRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4270,7 +4270,7 @@ const borderBottomLeftRadius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_bottom_left_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4303,7 +4303,7 @@ unsafe extern fn set_border_bottom_left_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_bottom_left_radius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_bottom_left_radius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4319,8 +4319,8 @@ unsafe extern fn set_border_bottom_left_radius<TH: TypeHolderTrait>
 }
 
 
-const border_bottom_left_radius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_bottom_left_radius as *const os::raw::c_void,
+fn border_bottom_left_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_bottom_left_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4335,10 +4335,10 @@ const border_bottom_left_radius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_bottom_left_radius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_bottom_left_radius as *const os::raw::c_void,
+fn border_bottom_left_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_bottom_left_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4353,7 +4353,7 @@ const border_bottom_left_radius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBottomRightRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4386,7 +4386,7 @@ unsafe extern fn set_borderBottomRightRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBottomRightRadius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBottomRightRadius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4402,8 +4402,8 @@ unsafe extern fn set_borderBottomRightRadius<TH: TypeHolderTrait>
 }
 
 
-const borderBottomRightRadius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBottomRightRadius as *const os::raw::c_void,
+fn borderBottomRightRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBottomRightRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4418,10 +4418,10 @@ const borderBottomRightRadius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBottomRightRadius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBottomRightRadius as *const os::raw::c_void,
+fn borderBottomRightRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBottomRightRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4436,7 +4436,7 @@ const borderBottomRightRadius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_bottom_right_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4469,7 +4469,7 @@ unsafe extern fn set_border_bottom_right_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_bottom_right_radius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_bottom_right_radius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4485,8 +4485,8 @@ unsafe extern fn set_border_bottom_right_radius<TH: TypeHolderTrait>
 }
 
 
-const border_bottom_right_radius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_bottom_right_radius as *const os::raw::c_void,
+fn border_bottom_right_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_bottom_right_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4501,10 +4501,10 @@ const border_bottom_right_radius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_bottom_right_radius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_bottom_right_radius as *const os::raw::c_void,
+fn border_bottom_right_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_bottom_right_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4519,7 +4519,7 @@ const border_bottom_right_radius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBottomStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4552,7 +4552,7 @@ unsafe extern fn set_borderBottomStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBottomStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBottomStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4568,8 +4568,8 @@ unsafe extern fn set_borderBottomStyle<TH: TypeHolderTrait>
 }
 
 
-const borderBottomStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBottomStyle as *const os::raw::c_void,
+fn borderBottomStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBottomStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4584,10 +4584,10 @@ const borderBottomStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBottomStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBottomStyle as *const os::raw::c_void,
+fn borderBottomStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBottomStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4602,7 +4602,7 @@ const borderBottomStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_bottom_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4635,7 +4635,7 @@ unsafe extern fn set_border_bottom_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_bottom_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_bottom_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4651,8 +4651,8 @@ unsafe extern fn set_border_bottom_style<TH: TypeHolderTrait>
 }
 
 
-const border_bottom_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_bottom_style as *const os::raw::c_void,
+fn border_bottom_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_bottom_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4667,10 +4667,10 @@ const border_bottom_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_bottom_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_bottom_style as *const os::raw::c_void,
+fn border_bottom_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_bottom_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4685,7 +4685,7 @@ const border_bottom_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBottomWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4718,7 +4718,7 @@ unsafe extern fn set_borderBottomWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBottomWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBottomWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4734,8 +4734,8 @@ unsafe extern fn set_borderBottomWidth<TH: TypeHolderTrait>
 }
 
 
-const borderBottomWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBottomWidth as *const os::raw::c_void,
+fn borderBottomWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBottomWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4750,10 +4750,10 @@ const borderBottomWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBottomWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBottomWidth as *const os::raw::c_void,
+fn borderBottomWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBottomWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4768,7 +4768,7 @@ const borderBottomWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_bottom_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4801,7 +4801,7 @@ unsafe extern fn set_border_bottom_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_bottom_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_bottom_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4817,8 +4817,8 @@ unsafe extern fn set_border_bottom_width<TH: TypeHolderTrait>
 }
 
 
-const border_bottom_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_bottom_width as *const os::raw::c_void,
+fn border_bottom_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_bottom_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4833,10 +4833,10 @@ const border_bottom_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_bottom_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_bottom_width as *const os::raw::c_void,
+fn border_bottom_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_bottom_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4851,7 +4851,7 @@ const border_bottom_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderLeft<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4884,7 +4884,7 @@ unsafe extern fn set_borderLeft<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderLeft(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderLeft(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4900,8 +4900,8 @@ unsafe extern fn set_borderLeft<TH: TypeHolderTrait>
 }
 
 
-const borderLeft_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderLeft as *const os::raw::c_void,
+fn borderLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4916,10 +4916,10 @@ const borderLeft_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderLeft_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderLeft as *const os::raw::c_void,
+fn borderLeft_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4934,7 +4934,7 @@ const borderLeft_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_left<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4967,7 +4967,7 @@ unsafe extern fn set_border_left<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_left(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_left(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -4983,8 +4983,8 @@ unsafe extern fn set_border_left<TH: TypeHolderTrait>
 }
 
 
-const border_left_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_left as *const os::raw::c_void,
+fn border_left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4999,10 +4999,10 @@ const border_left_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_left_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_left as *const os::raw::c_void,
+fn border_left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5017,7 +5017,7 @@ const border_left_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderLeftColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5050,7 +5050,7 @@ unsafe extern fn set_borderLeftColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderLeftColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderLeftColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5066,8 +5066,8 @@ unsafe extern fn set_borderLeftColor<TH: TypeHolderTrait>
 }
 
 
-const borderLeftColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderLeftColor as *const os::raw::c_void,
+fn borderLeftColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderLeftColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5082,10 +5082,10 @@ const borderLeftColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderLeftColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderLeftColor as *const os::raw::c_void,
+fn borderLeftColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderLeftColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5100,7 +5100,7 @@ const borderLeftColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_left_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5133,7 +5133,7 @@ unsafe extern fn set_border_left_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_left_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_left_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5149,8 +5149,8 @@ unsafe extern fn set_border_left_color<TH: TypeHolderTrait>
 }
 
 
-const border_left_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_left_color as *const os::raw::c_void,
+fn border_left_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_left_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5165,10 +5165,10 @@ const border_left_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_left_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_left_color as *const os::raw::c_void,
+fn border_left_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_left_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5183,7 +5183,7 @@ const border_left_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderLeftStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5216,7 +5216,7 @@ unsafe extern fn set_borderLeftStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderLeftStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderLeftStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5232,8 +5232,8 @@ unsafe extern fn set_borderLeftStyle<TH: TypeHolderTrait>
 }
 
 
-const borderLeftStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderLeftStyle as *const os::raw::c_void,
+fn borderLeftStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderLeftStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5248,10 +5248,10 @@ const borderLeftStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderLeftStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderLeftStyle as *const os::raw::c_void,
+fn borderLeftStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderLeftStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5266,7 +5266,7 @@ const borderLeftStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_left_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5299,7 +5299,7 @@ unsafe extern fn set_border_left_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_left_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_left_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5315,8 +5315,8 @@ unsafe extern fn set_border_left_style<TH: TypeHolderTrait>
 }
 
 
-const border_left_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_left_style as *const os::raw::c_void,
+fn border_left_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_left_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5331,10 +5331,10 @@ const border_left_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_left_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_left_style as *const os::raw::c_void,
+fn border_left_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_left_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5349,7 +5349,7 @@ const border_left_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderLeftWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5382,7 +5382,7 @@ unsafe extern fn set_borderLeftWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderLeftWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderLeftWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5398,8 +5398,8 @@ unsafe extern fn set_borderLeftWidth<TH: TypeHolderTrait>
 }
 
 
-const borderLeftWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderLeftWidth as *const os::raw::c_void,
+fn borderLeftWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderLeftWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5414,10 +5414,10 @@ const borderLeftWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderLeftWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderLeftWidth as *const os::raw::c_void,
+fn borderLeftWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderLeftWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5432,7 +5432,7 @@ const borderLeftWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_left_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5465,7 +5465,7 @@ unsafe extern fn set_border_left_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_left_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_left_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5481,8 +5481,8 @@ unsafe extern fn set_border_left_width<TH: TypeHolderTrait>
 }
 
 
-const border_left_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_left_width as *const os::raw::c_void,
+fn border_left_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_left_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5497,10 +5497,10 @@ const border_left_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_left_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_left_width as *const os::raw::c_void,
+fn border_left_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_left_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5515,7 +5515,7 @@ const border_left_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderRight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5548,7 +5548,7 @@ unsafe extern fn set_borderRight<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderRight(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderRight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5564,8 +5564,8 @@ unsafe extern fn set_borderRight<TH: TypeHolderTrait>
 }
 
 
-const borderRight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderRight as *const os::raw::c_void,
+fn borderRight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5580,10 +5580,10 @@ const borderRight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderRight_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderRight as *const os::raw::c_void,
+fn borderRight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5598,7 +5598,7 @@ const borderRight_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_right<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5631,7 +5631,7 @@ unsafe extern fn set_border_right<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_right(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_right(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5647,8 +5647,8 @@ unsafe extern fn set_border_right<TH: TypeHolderTrait>
 }
 
 
-const border_right_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_right as *const os::raw::c_void,
+fn border_right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5663,10 +5663,10 @@ const border_right_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_right_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_right as *const os::raw::c_void,
+fn border_right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5681,7 +5681,7 @@ const border_right_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderRightColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5714,7 +5714,7 @@ unsafe extern fn set_borderRightColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderRightColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderRightColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5730,8 +5730,8 @@ unsafe extern fn set_borderRightColor<TH: TypeHolderTrait>
 }
 
 
-const borderRightColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderRightColor as *const os::raw::c_void,
+fn borderRightColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderRightColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5746,10 +5746,10 @@ const borderRightColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderRightColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderRightColor as *const os::raw::c_void,
+fn borderRightColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderRightColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5764,7 +5764,7 @@ const borderRightColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_right_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5797,7 +5797,7 @@ unsafe extern fn set_border_right_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_right_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_right_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5813,8 +5813,8 @@ unsafe extern fn set_border_right_color<TH: TypeHolderTrait>
 }
 
 
-const border_right_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_right_color as *const os::raw::c_void,
+fn border_right_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_right_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5829,10 +5829,10 @@ const border_right_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_right_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_right_color as *const os::raw::c_void,
+fn border_right_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_right_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5847,7 +5847,7 @@ const border_right_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderRightStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5880,7 +5880,7 @@ unsafe extern fn set_borderRightStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderRightStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderRightStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5896,8 +5896,8 @@ unsafe extern fn set_borderRightStyle<TH: TypeHolderTrait>
 }
 
 
-const borderRightStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderRightStyle as *const os::raw::c_void,
+fn borderRightStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderRightStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5912,10 +5912,10 @@ const borderRightStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderRightStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderRightStyle as *const os::raw::c_void,
+fn borderRightStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderRightStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5930,7 +5930,7 @@ const borderRightStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_right_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5963,7 +5963,7 @@ unsafe extern fn set_border_right_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_right_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_right_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5979,8 +5979,8 @@ unsafe extern fn set_border_right_style<TH: TypeHolderTrait>
 }
 
 
-const border_right_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_right_style as *const os::raw::c_void,
+fn border_right_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_right_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5995,10 +5995,10 @@ const border_right_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_right_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_right_style as *const os::raw::c_void,
+fn border_right_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_right_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6013,7 +6013,7 @@ const border_right_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderRightWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6046,7 +6046,7 @@ unsafe extern fn set_borderRightWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderRightWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderRightWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6062,8 +6062,8 @@ unsafe extern fn set_borderRightWidth<TH: TypeHolderTrait>
 }
 
 
-const borderRightWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderRightWidth as *const os::raw::c_void,
+fn borderRightWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderRightWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6078,10 +6078,10 @@ const borderRightWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderRightWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderRightWidth as *const os::raw::c_void,
+fn borderRightWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderRightWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6096,7 +6096,7 @@ const borderRightWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_right_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6129,7 +6129,7 @@ unsafe extern fn set_border_right_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_right_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_right_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6145,8 +6145,8 @@ unsafe extern fn set_border_right_width<TH: TypeHolderTrait>
 }
 
 
-const border_right_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_right_width as *const os::raw::c_void,
+fn border_right_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_right_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6161,10 +6161,10 @@ const border_right_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_right_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_right_width as *const os::raw::c_void,
+fn border_right_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_right_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6179,7 +6179,7 @@ const border_right_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderTop<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6212,7 +6212,7 @@ unsafe extern fn set_borderTop<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderTop(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderTop(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6228,8 +6228,8 @@ unsafe extern fn set_borderTop<TH: TypeHolderTrait>
 }
 
 
-const borderTop_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderTop as *const os::raw::c_void,
+fn borderTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6244,10 +6244,10 @@ const borderTop_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderTop_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderTop as *const os::raw::c_void,
+fn borderTop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6262,7 +6262,7 @@ const borderTop_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6295,7 +6295,7 @@ unsafe extern fn set_border_top<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_top(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_top(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6311,8 +6311,8 @@ unsafe extern fn set_border_top<TH: TypeHolderTrait>
 }
 
 
-const border_top_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_top as *const os::raw::c_void,
+fn border_top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6327,10 +6327,10 @@ const border_top_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_top_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_top as *const os::raw::c_void,
+fn border_top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6345,7 +6345,7 @@ const border_top_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderTopColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6378,7 +6378,7 @@ unsafe extern fn set_borderTopColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderTopColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderTopColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6394,8 +6394,8 @@ unsafe extern fn set_borderTopColor<TH: TypeHolderTrait>
 }
 
 
-const borderTopColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderTopColor as *const os::raw::c_void,
+fn borderTopColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderTopColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6410,10 +6410,10 @@ const borderTopColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderTopColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderTopColor as *const os::raw::c_void,
+fn borderTopColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderTopColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6428,7 +6428,7 @@ const borderTopColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_top_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6461,7 +6461,7 @@ unsafe extern fn set_border_top_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_top_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_top_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6477,8 +6477,8 @@ unsafe extern fn set_border_top_color<TH: TypeHolderTrait>
 }
 
 
-const border_top_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_top_color as *const os::raw::c_void,
+fn border_top_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_top_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6493,10 +6493,10 @@ const border_top_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_top_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_top_color as *const os::raw::c_void,
+fn border_top_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_top_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6511,7 +6511,7 @@ const border_top_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderTopLeftRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6544,7 +6544,7 @@ unsafe extern fn set_borderTopLeftRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderTopLeftRadius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderTopLeftRadius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6560,8 +6560,8 @@ unsafe extern fn set_borderTopLeftRadius<TH: TypeHolderTrait>
 }
 
 
-const borderTopLeftRadius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderTopLeftRadius as *const os::raw::c_void,
+fn borderTopLeftRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderTopLeftRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6576,10 +6576,10 @@ const borderTopLeftRadius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderTopLeftRadius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderTopLeftRadius as *const os::raw::c_void,
+fn borderTopLeftRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderTopLeftRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6594,7 +6594,7 @@ const borderTopLeftRadius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_top_left_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6627,7 +6627,7 @@ unsafe extern fn set_border_top_left_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_top_left_radius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_top_left_radius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6643,8 +6643,8 @@ unsafe extern fn set_border_top_left_radius<TH: TypeHolderTrait>
 }
 
 
-const border_top_left_radius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_top_left_radius as *const os::raw::c_void,
+fn border_top_left_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_top_left_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6659,10 +6659,10 @@ const border_top_left_radius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_top_left_radius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_top_left_radius as *const os::raw::c_void,
+fn border_top_left_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_top_left_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6677,7 +6677,7 @@ const border_top_left_radius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderTopRightRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6710,7 +6710,7 @@ unsafe extern fn set_borderTopRightRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderTopRightRadius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderTopRightRadius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6726,8 +6726,8 @@ unsafe extern fn set_borderTopRightRadius<TH: TypeHolderTrait>
 }
 
 
-const borderTopRightRadius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderTopRightRadius as *const os::raw::c_void,
+fn borderTopRightRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderTopRightRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6742,10 +6742,10 @@ const borderTopRightRadius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderTopRightRadius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderTopRightRadius as *const os::raw::c_void,
+fn borderTopRightRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderTopRightRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6760,7 +6760,7 @@ const borderTopRightRadius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_top_right_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6793,7 +6793,7 @@ unsafe extern fn set_border_top_right_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_top_right_radius(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_top_right_radius(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6809,8 +6809,8 @@ unsafe extern fn set_border_top_right_radius<TH: TypeHolderTrait>
 }
 
 
-const border_top_right_radius_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_top_right_radius as *const os::raw::c_void,
+fn border_top_right_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_top_right_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6825,10 +6825,10 @@ const border_top_right_radius_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_top_right_radius_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_top_right_radius as *const os::raw::c_void,
+fn border_top_right_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_top_right_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6843,7 +6843,7 @@ const border_top_right_radius_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderTopStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6876,7 +6876,7 @@ unsafe extern fn set_borderTopStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderTopStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderTopStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6892,8 +6892,8 @@ unsafe extern fn set_borderTopStyle<TH: TypeHolderTrait>
 }
 
 
-const borderTopStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderTopStyle as *const os::raw::c_void,
+fn borderTopStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderTopStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6908,10 +6908,10 @@ const borderTopStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderTopStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderTopStyle as *const os::raw::c_void,
+fn borderTopStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderTopStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6926,7 +6926,7 @@ const borderTopStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_top_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6959,7 +6959,7 @@ unsafe extern fn set_border_top_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_top_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_top_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -6975,8 +6975,8 @@ unsafe extern fn set_border_top_style<TH: TypeHolderTrait>
 }
 
 
-const border_top_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_top_style as *const os::raw::c_void,
+fn border_top_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_top_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6991,10 +6991,10 @@ const border_top_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_top_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_top_style as *const os::raw::c_void,
+fn border_top_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_top_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7009,7 +7009,7 @@ const border_top_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderTopWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7042,7 +7042,7 @@ unsafe extern fn set_borderTopWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderTopWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderTopWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7058,8 +7058,8 @@ unsafe extern fn set_borderTopWidth<TH: TypeHolderTrait>
 }
 
 
-const borderTopWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderTopWidth as *const os::raw::c_void,
+fn borderTopWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderTopWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7074,10 +7074,10 @@ const borderTopWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderTopWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderTopWidth as *const os::raw::c_void,
+fn borderTopWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderTopWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7092,7 +7092,7 @@ const borderTopWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_top_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7125,7 +7125,7 @@ unsafe extern fn set_border_top_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_top_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_top_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7141,8 +7141,8 @@ unsafe extern fn set_border_top_width<TH: TypeHolderTrait>
 }
 
 
-const border_top_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_top_width as *const os::raw::c_void,
+fn border_top_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_top_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7157,10 +7157,10 @@ const border_top_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_top_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_top_width as *const os::raw::c_void,
+fn border_top_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_top_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7175,7 +7175,7 @@ const border_top_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_image_source<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7208,7 +7208,7 @@ unsafe extern fn set_border_image_source<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_image_source(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_image_source(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7224,8 +7224,8 @@ unsafe extern fn set_border_image_source<TH: TypeHolderTrait>
 }
 
 
-const border_image_source_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_image_source as *const os::raw::c_void,
+fn border_image_source_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_image_source::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7240,10 +7240,10 @@ const border_image_source_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_image_source_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_image_source as *const os::raw::c_void,
+fn border_image_source_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_image_source::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7258,7 +7258,7 @@ const border_image_source_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderImageSource<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7291,7 +7291,7 @@ unsafe extern fn set_borderImageSource<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderImageSource(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderImageSource(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7307,8 +7307,8 @@ unsafe extern fn set_borderImageSource<TH: TypeHolderTrait>
 }
 
 
-const borderImageSource_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderImageSource as *const os::raw::c_void,
+fn borderImageSource_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderImageSource::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7323,10 +7323,10 @@ const borderImageSource_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderImageSource_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderImageSource as *const os::raw::c_void,
+fn borderImageSource_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderImageSource::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7341,7 +7341,7 @@ const borderImageSource_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_image_slice<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7374,7 +7374,7 @@ unsafe extern fn set_border_image_slice<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_image_slice(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_image_slice(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7390,8 +7390,8 @@ unsafe extern fn set_border_image_slice<TH: TypeHolderTrait>
 }
 
 
-const border_image_slice_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_image_slice as *const os::raw::c_void,
+fn border_image_slice_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_image_slice::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7406,10 +7406,10 @@ const border_image_slice_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_image_slice_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_image_slice as *const os::raw::c_void,
+fn border_image_slice_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_image_slice::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7424,7 +7424,7 @@ const border_image_slice_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderImageSlice<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7457,7 +7457,7 @@ unsafe extern fn set_borderImageSlice<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderImageSlice(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderImageSlice(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7473,8 +7473,8 @@ unsafe extern fn set_borderImageSlice<TH: TypeHolderTrait>
 }
 
 
-const borderImageSlice_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderImageSlice as *const os::raw::c_void,
+fn borderImageSlice_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderImageSlice::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7489,10 +7489,10 @@ const borderImageSlice_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderImageSlice_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderImageSlice as *const os::raw::c_void,
+fn borderImageSlice_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderImageSlice::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7507,7 +7507,7 @@ const borderImageSlice_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_image_repeat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7540,7 +7540,7 @@ unsafe extern fn set_border_image_repeat<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_image_repeat(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_image_repeat(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7556,8 +7556,8 @@ unsafe extern fn set_border_image_repeat<TH: TypeHolderTrait>
 }
 
 
-const border_image_repeat_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_image_repeat as *const os::raw::c_void,
+fn border_image_repeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_image_repeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7572,10 +7572,10 @@ const border_image_repeat_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_image_repeat_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_image_repeat as *const os::raw::c_void,
+fn border_image_repeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_image_repeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7590,7 +7590,7 @@ const border_image_repeat_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderImageRepeat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7623,7 +7623,7 @@ unsafe extern fn set_borderImageRepeat<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderImageRepeat(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderImageRepeat(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7639,8 +7639,8 @@ unsafe extern fn set_borderImageRepeat<TH: TypeHolderTrait>
 }
 
 
-const borderImageRepeat_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderImageRepeat as *const os::raw::c_void,
+fn borderImageRepeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderImageRepeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7655,10 +7655,10 @@ const borderImageRepeat_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderImageRepeat_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderImageRepeat as *const os::raw::c_void,
+fn borderImageRepeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderImageRepeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7673,7 +7673,7 @@ const borderImageRepeat_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_image_outset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7706,7 +7706,7 @@ unsafe extern fn set_border_image_outset<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_image_outset(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_image_outset(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7722,8 +7722,8 @@ unsafe extern fn set_border_image_outset<TH: TypeHolderTrait>
 }
 
 
-const border_image_outset_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_image_outset as *const os::raw::c_void,
+fn border_image_outset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_image_outset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7738,10 +7738,10 @@ const border_image_outset_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_image_outset_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_image_outset as *const os::raw::c_void,
+fn border_image_outset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_image_outset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7756,7 +7756,7 @@ const border_image_outset_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderImageOutset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7789,7 +7789,7 @@ unsafe extern fn set_borderImageOutset<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderImageOutset(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderImageOutset(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7805,8 +7805,8 @@ unsafe extern fn set_borderImageOutset<TH: TypeHolderTrait>
 }
 
 
-const borderImageOutset_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderImageOutset as *const os::raw::c_void,
+fn borderImageOutset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderImageOutset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7821,10 +7821,10 @@ const borderImageOutset_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderImageOutset_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderImageOutset as *const os::raw::c_void,
+fn borderImageOutset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderImageOutset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7839,7 +7839,7 @@ const borderImageOutset_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_image_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7872,7 +7872,7 @@ unsafe extern fn set_border_image_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_image_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_image_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7888,8 +7888,8 @@ unsafe extern fn set_border_image_width<TH: TypeHolderTrait>
 }
 
 
-const border_image_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_image_width as *const os::raw::c_void,
+fn border_image_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_image_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7904,10 +7904,10 @@ const border_image_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_image_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_image_width as *const os::raw::c_void,
+fn border_image_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_image_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7922,7 +7922,7 @@ const border_image_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderImageWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -7955,7 +7955,7 @@ unsafe extern fn set_borderImageWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderImageWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderImageWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -7971,8 +7971,8 @@ unsafe extern fn set_borderImageWidth<TH: TypeHolderTrait>
 }
 
 
-const borderImageWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderImageWidth as *const os::raw::c_void,
+fn borderImageWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderImageWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7987,10 +7987,10 @@ const borderImageWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderImageWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderImageWidth as *const os::raw::c_void,
+fn borderImageWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderImageWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8005,7 +8005,7 @@ const borderImageWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_image<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8038,7 +8038,7 @@ unsafe extern fn set_border_image<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_image(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_image(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8054,8 +8054,8 @@ unsafe extern fn set_border_image<TH: TypeHolderTrait>
 }
 
 
-const border_image_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_image as *const os::raw::c_void,
+fn border_image_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8070,10 +8070,10 @@ const border_image_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_image_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_image as *const os::raw::c_void,
+fn border_image_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8088,7 +8088,7 @@ const border_image_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderImage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8121,7 +8121,7 @@ unsafe extern fn set_borderImage<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderImage(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderImage(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8137,8 +8137,8 @@ unsafe extern fn set_borderImage<TH: TypeHolderTrait>
 }
 
 
-const borderImage_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderImage as *const os::raw::c_void,
+fn borderImage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8153,10 +8153,10 @@ const borderImage_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderImage_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderImage as *const os::raw::c_void,
+fn borderImage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8171,7 +8171,7 @@ const borderImage_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_block_start_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8204,7 +8204,7 @@ unsafe extern fn set_border_block_start_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_block_start_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_block_start_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8220,8 +8220,8 @@ unsafe extern fn set_border_block_start_color<TH: TypeHolderTrait>
 }
 
 
-const border_block_start_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_block_start_color as *const os::raw::c_void,
+fn border_block_start_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_block_start_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8236,10 +8236,10 @@ const border_block_start_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_block_start_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_block_start_color as *const os::raw::c_void,
+fn border_block_start_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_block_start_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8254,7 +8254,7 @@ const border_block_start_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBlockStartColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8287,7 +8287,7 @@ unsafe extern fn set_borderBlockStartColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBlockStartColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBlockStartColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8303,8 +8303,8 @@ unsafe extern fn set_borderBlockStartColor<TH: TypeHolderTrait>
 }
 
 
-const borderBlockStartColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBlockStartColor as *const os::raw::c_void,
+fn borderBlockStartColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBlockStartColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8319,10 +8319,10 @@ const borderBlockStartColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBlockStartColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBlockStartColor as *const os::raw::c_void,
+fn borderBlockStartColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBlockStartColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8337,7 +8337,7 @@ const borderBlockStartColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_block_start_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8370,7 +8370,7 @@ unsafe extern fn set_border_block_start_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_block_start_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_block_start_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8386,8 +8386,8 @@ unsafe extern fn set_border_block_start_width<TH: TypeHolderTrait>
 }
 
 
-const border_block_start_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_block_start_width as *const os::raw::c_void,
+fn border_block_start_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_block_start_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8402,10 +8402,10 @@ const border_block_start_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_block_start_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_block_start_width as *const os::raw::c_void,
+fn border_block_start_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_block_start_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8420,7 +8420,7 @@ const border_block_start_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBlockStartWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8453,7 +8453,7 @@ unsafe extern fn set_borderBlockStartWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBlockStartWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBlockStartWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8469,8 +8469,8 @@ unsafe extern fn set_borderBlockStartWidth<TH: TypeHolderTrait>
 }
 
 
-const borderBlockStartWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBlockStartWidth as *const os::raw::c_void,
+fn borderBlockStartWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBlockStartWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8485,10 +8485,10 @@ const borderBlockStartWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBlockStartWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBlockStartWidth as *const os::raw::c_void,
+fn borderBlockStartWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBlockStartWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8503,7 +8503,7 @@ const borderBlockStartWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_block_start_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8536,7 +8536,7 @@ unsafe extern fn set_border_block_start_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_block_start_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_block_start_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8552,8 +8552,8 @@ unsafe extern fn set_border_block_start_style<TH: TypeHolderTrait>
 }
 
 
-const border_block_start_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_block_start_style as *const os::raw::c_void,
+fn border_block_start_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_block_start_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8568,10 +8568,10 @@ const border_block_start_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_block_start_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_block_start_style as *const os::raw::c_void,
+fn border_block_start_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_block_start_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8586,7 +8586,7 @@ const border_block_start_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBlockStartStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8619,7 +8619,7 @@ unsafe extern fn set_borderBlockStartStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBlockStartStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBlockStartStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8635,8 +8635,8 @@ unsafe extern fn set_borderBlockStartStyle<TH: TypeHolderTrait>
 }
 
 
-const borderBlockStartStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBlockStartStyle as *const os::raw::c_void,
+fn borderBlockStartStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBlockStartStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8651,10 +8651,10 @@ const borderBlockStartStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBlockStartStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBlockStartStyle as *const os::raw::c_void,
+fn borderBlockStartStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBlockStartStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8669,7 +8669,7 @@ const borderBlockStartStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_block_end_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8702,7 +8702,7 @@ unsafe extern fn set_border_block_end_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_block_end_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_block_end_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8718,8 +8718,8 @@ unsafe extern fn set_border_block_end_color<TH: TypeHolderTrait>
 }
 
 
-const border_block_end_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_block_end_color as *const os::raw::c_void,
+fn border_block_end_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_block_end_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8734,10 +8734,10 @@ const border_block_end_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_block_end_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_block_end_color as *const os::raw::c_void,
+fn border_block_end_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_block_end_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8752,7 +8752,7 @@ const border_block_end_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBlockEndColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8785,7 +8785,7 @@ unsafe extern fn set_borderBlockEndColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBlockEndColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBlockEndColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8801,8 +8801,8 @@ unsafe extern fn set_borderBlockEndColor<TH: TypeHolderTrait>
 }
 
 
-const borderBlockEndColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBlockEndColor as *const os::raw::c_void,
+fn borderBlockEndColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBlockEndColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8817,10 +8817,10 @@ const borderBlockEndColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBlockEndColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBlockEndColor as *const os::raw::c_void,
+fn borderBlockEndColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBlockEndColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8835,7 +8835,7 @@ const borderBlockEndColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_block_end_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8868,7 +8868,7 @@ unsafe extern fn set_border_block_end_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_block_end_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_block_end_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8884,8 +8884,8 @@ unsafe extern fn set_border_block_end_width<TH: TypeHolderTrait>
 }
 
 
-const border_block_end_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_block_end_width as *const os::raw::c_void,
+fn border_block_end_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_block_end_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8900,10 +8900,10 @@ const border_block_end_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_block_end_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_block_end_width as *const os::raw::c_void,
+fn border_block_end_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_block_end_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8918,7 +8918,7 @@ const border_block_end_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBlockEndWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8951,7 +8951,7 @@ unsafe extern fn set_borderBlockEndWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBlockEndWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBlockEndWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8967,8 +8967,8 @@ unsafe extern fn set_borderBlockEndWidth<TH: TypeHolderTrait>
 }
 
 
-const borderBlockEndWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBlockEndWidth as *const os::raw::c_void,
+fn borderBlockEndWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBlockEndWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8983,10 +8983,10 @@ const borderBlockEndWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBlockEndWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBlockEndWidth as *const os::raw::c_void,
+fn borderBlockEndWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBlockEndWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9001,7 +9001,7 @@ const borderBlockEndWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_block_end_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9034,7 +9034,7 @@ unsafe extern fn set_border_block_end_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_block_end_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_block_end_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9050,8 +9050,8 @@ unsafe extern fn set_border_block_end_style<TH: TypeHolderTrait>
 }
 
 
-const border_block_end_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_block_end_style as *const os::raw::c_void,
+fn border_block_end_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_block_end_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9066,10 +9066,10 @@ const border_block_end_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_block_end_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_block_end_style as *const os::raw::c_void,
+fn border_block_end_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_block_end_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9084,7 +9084,7 @@ const border_block_end_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBlockEndStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9117,7 +9117,7 @@ unsafe extern fn set_borderBlockEndStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBlockEndStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBlockEndStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9133,8 +9133,8 @@ unsafe extern fn set_borderBlockEndStyle<TH: TypeHolderTrait>
 }
 
 
-const borderBlockEndStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBlockEndStyle as *const os::raw::c_void,
+fn borderBlockEndStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBlockEndStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9149,10 +9149,10 @@ const borderBlockEndStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBlockEndStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBlockEndStyle as *const os::raw::c_void,
+fn borderBlockEndStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBlockEndStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9167,7 +9167,7 @@ const borderBlockEndStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_inline_start_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9200,7 +9200,7 @@ unsafe extern fn set_border_inline_start_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_inline_start_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_inline_start_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9216,8 +9216,8 @@ unsafe extern fn set_border_inline_start_color<TH: TypeHolderTrait>
 }
 
 
-const border_inline_start_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_inline_start_color as *const os::raw::c_void,
+fn border_inline_start_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_inline_start_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9232,10 +9232,10 @@ const border_inline_start_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_inline_start_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_inline_start_color as *const os::raw::c_void,
+fn border_inline_start_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_inline_start_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9250,7 +9250,7 @@ const border_inline_start_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderInlineStartColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9283,7 +9283,7 @@ unsafe extern fn set_borderInlineStartColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderInlineStartColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderInlineStartColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9299,8 +9299,8 @@ unsafe extern fn set_borderInlineStartColor<TH: TypeHolderTrait>
 }
 
 
-const borderInlineStartColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderInlineStartColor as *const os::raw::c_void,
+fn borderInlineStartColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderInlineStartColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9315,10 +9315,10 @@ const borderInlineStartColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderInlineStartColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderInlineStartColor as *const os::raw::c_void,
+fn borderInlineStartColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderInlineStartColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9333,7 +9333,7 @@ const borderInlineStartColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_inline_start_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9366,7 +9366,7 @@ unsafe extern fn set_border_inline_start_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_inline_start_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_inline_start_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9382,8 +9382,8 @@ unsafe extern fn set_border_inline_start_width<TH: TypeHolderTrait>
 }
 
 
-const border_inline_start_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_inline_start_width as *const os::raw::c_void,
+fn border_inline_start_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_inline_start_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9398,10 +9398,10 @@ const border_inline_start_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_inline_start_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_inline_start_width as *const os::raw::c_void,
+fn border_inline_start_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_inline_start_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9416,7 +9416,7 @@ const border_inline_start_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderInlineStartWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9449,7 +9449,7 @@ unsafe extern fn set_borderInlineStartWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderInlineStartWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderInlineStartWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9465,8 +9465,8 @@ unsafe extern fn set_borderInlineStartWidth<TH: TypeHolderTrait>
 }
 
 
-const borderInlineStartWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderInlineStartWidth as *const os::raw::c_void,
+fn borderInlineStartWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderInlineStartWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9481,10 +9481,10 @@ const borderInlineStartWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderInlineStartWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderInlineStartWidth as *const os::raw::c_void,
+fn borderInlineStartWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderInlineStartWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9499,7 +9499,7 @@ const borderInlineStartWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_inline_start_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9532,7 +9532,7 @@ unsafe extern fn set_border_inline_start_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_inline_start_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_inline_start_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9548,8 +9548,8 @@ unsafe extern fn set_border_inline_start_style<TH: TypeHolderTrait>
 }
 
 
-const border_inline_start_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_inline_start_style as *const os::raw::c_void,
+fn border_inline_start_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_inline_start_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9564,10 +9564,10 @@ const border_inline_start_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_inline_start_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_inline_start_style as *const os::raw::c_void,
+fn border_inline_start_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_inline_start_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9582,7 +9582,7 @@ const border_inline_start_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderInlineStartStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9615,7 +9615,7 @@ unsafe extern fn set_borderInlineStartStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderInlineStartStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderInlineStartStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9631,8 +9631,8 @@ unsafe extern fn set_borderInlineStartStyle<TH: TypeHolderTrait>
 }
 
 
-const borderInlineStartStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderInlineStartStyle as *const os::raw::c_void,
+fn borderInlineStartStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderInlineStartStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9647,10 +9647,10 @@ const borderInlineStartStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderInlineStartStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderInlineStartStyle as *const os::raw::c_void,
+fn borderInlineStartStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderInlineStartStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9665,7 +9665,7 @@ const borderInlineStartStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_inline_end_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9698,7 +9698,7 @@ unsafe extern fn set_border_inline_end_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_inline_end_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_inline_end_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9714,8 +9714,8 @@ unsafe extern fn set_border_inline_end_color<TH: TypeHolderTrait>
 }
 
 
-const border_inline_end_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_inline_end_color as *const os::raw::c_void,
+fn border_inline_end_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_inline_end_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9730,10 +9730,10 @@ const border_inline_end_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_inline_end_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_inline_end_color as *const os::raw::c_void,
+fn border_inline_end_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_inline_end_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9748,7 +9748,7 @@ const border_inline_end_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderInlineEndColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9781,7 +9781,7 @@ unsafe extern fn set_borderInlineEndColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderInlineEndColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderInlineEndColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9797,8 +9797,8 @@ unsafe extern fn set_borderInlineEndColor<TH: TypeHolderTrait>
 }
 
 
-const borderInlineEndColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderInlineEndColor as *const os::raw::c_void,
+fn borderInlineEndColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderInlineEndColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9813,10 +9813,10 @@ const borderInlineEndColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderInlineEndColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderInlineEndColor as *const os::raw::c_void,
+fn borderInlineEndColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderInlineEndColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9831,7 +9831,7 @@ const borderInlineEndColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_inline_end_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9864,7 +9864,7 @@ unsafe extern fn set_border_inline_end_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_inline_end_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_inline_end_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9880,8 +9880,8 @@ unsafe extern fn set_border_inline_end_width<TH: TypeHolderTrait>
 }
 
 
-const border_inline_end_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_inline_end_width as *const os::raw::c_void,
+fn border_inline_end_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_inline_end_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9896,10 +9896,10 @@ const border_inline_end_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_inline_end_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_inline_end_width as *const os::raw::c_void,
+fn border_inline_end_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_inline_end_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9914,7 +9914,7 @@ const border_inline_end_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderInlineEndWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -9947,7 +9947,7 @@ unsafe extern fn set_borderInlineEndWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderInlineEndWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderInlineEndWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -9963,8 +9963,8 @@ unsafe extern fn set_borderInlineEndWidth<TH: TypeHolderTrait>
 }
 
 
-const borderInlineEndWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderInlineEndWidth as *const os::raw::c_void,
+fn borderInlineEndWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderInlineEndWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9979,10 +9979,10 @@ const borderInlineEndWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderInlineEndWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderInlineEndWidth as *const os::raw::c_void,
+fn borderInlineEndWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderInlineEndWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9997,7 +9997,7 @@ const borderInlineEndWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_inline_end_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10030,7 +10030,7 @@ unsafe extern fn set_border_inline_end_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_inline_end_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_inline_end_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10046,8 +10046,8 @@ unsafe extern fn set_border_inline_end_style<TH: TypeHolderTrait>
 }
 
 
-const border_inline_end_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_inline_end_style as *const os::raw::c_void,
+fn border_inline_end_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_inline_end_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10062,10 +10062,10 @@ const border_inline_end_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_inline_end_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_inline_end_style as *const os::raw::c_void,
+fn border_inline_end_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_inline_end_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10080,7 +10080,7 @@ const border_inline_end_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderInlineEndStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10113,7 +10113,7 @@ unsafe extern fn set_borderInlineEndStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderInlineEndStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderInlineEndStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10129,8 +10129,8 @@ unsafe extern fn set_borderInlineEndStyle<TH: TypeHolderTrait>
 }
 
 
-const borderInlineEndStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderInlineEndStyle as *const os::raw::c_void,
+fn borderInlineEndStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderInlineEndStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10145,10 +10145,10 @@ const borderInlineEndStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderInlineEndStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderInlineEndStyle as *const os::raw::c_void,
+fn borderInlineEndStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderInlineEndStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10163,7 +10163,7 @@ const borderInlineEndStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_block_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10196,7 +10196,7 @@ unsafe extern fn set_border_block_start<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_block_start(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_block_start(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10212,8 +10212,8 @@ unsafe extern fn set_border_block_start<TH: TypeHolderTrait>
 }
 
 
-const border_block_start_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_block_start as *const os::raw::c_void,
+fn border_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10228,10 +10228,10 @@ const border_block_start_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_block_start_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_block_start as *const os::raw::c_void,
+fn border_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10246,7 +10246,7 @@ const border_block_start_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBlockStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10279,7 +10279,7 @@ unsafe extern fn set_borderBlockStart<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBlockStart(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBlockStart(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10295,8 +10295,8 @@ unsafe extern fn set_borderBlockStart<TH: TypeHolderTrait>
 }
 
 
-const borderBlockStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBlockStart as *const os::raw::c_void,
+fn borderBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10311,10 +10311,10 @@ const borderBlockStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBlockStart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBlockStart as *const os::raw::c_void,
+fn borderBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10329,7 +10329,7 @@ const borderBlockStart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_block_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10362,7 +10362,7 @@ unsafe extern fn set_border_block_end<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_block_end(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_block_end(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10378,8 +10378,8 @@ unsafe extern fn set_border_block_end<TH: TypeHolderTrait>
 }
 
 
-const border_block_end_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_block_end as *const os::raw::c_void,
+fn border_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10394,10 +10394,10 @@ const border_block_end_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_block_end_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_block_end as *const os::raw::c_void,
+fn border_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10412,7 +10412,7 @@ const border_block_end_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderBlockEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10445,7 +10445,7 @@ unsafe extern fn set_borderBlockEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderBlockEnd(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderBlockEnd(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10461,8 +10461,8 @@ unsafe extern fn set_borderBlockEnd<TH: TypeHolderTrait>
 }
 
 
-const borderBlockEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderBlockEnd as *const os::raw::c_void,
+fn borderBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10477,10 +10477,10 @@ const borderBlockEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderBlockEnd_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderBlockEnd as *const os::raw::c_void,
+fn borderBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10495,7 +10495,7 @@ const borderBlockEnd_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_inline_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10528,7 +10528,7 @@ unsafe extern fn set_border_inline_start<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_inline_start(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_inline_start(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10544,8 +10544,8 @@ unsafe extern fn set_border_inline_start<TH: TypeHolderTrait>
 }
 
 
-const border_inline_start_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_inline_start as *const os::raw::c_void,
+fn border_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10560,10 +10560,10 @@ const border_inline_start_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_inline_start_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_inline_start as *const os::raw::c_void,
+fn border_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10578,7 +10578,7 @@ const border_inline_start_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderInlineStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10611,7 +10611,7 @@ unsafe extern fn set_borderInlineStart<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderInlineStart(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderInlineStart(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10627,8 +10627,8 @@ unsafe extern fn set_borderInlineStart<TH: TypeHolderTrait>
 }
 
 
-const borderInlineStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderInlineStart as *const os::raw::c_void,
+fn borderInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10643,10 +10643,10 @@ const borderInlineStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderInlineStart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderInlineStart as *const os::raw::c_void,
+fn borderInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10661,7 +10661,7 @@ const borderInlineStart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_inline_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10694,7 +10694,7 @@ unsafe extern fn set_border_inline_end<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_inline_end(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_inline_end(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10710,8 +10710,8 @@ unsafe extern fn set_border_inline_end<TH: TypeHolderTrait>
 }
 
 
-const border_inline_end_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_inline_end as *const os::raw::c_void,
+fn border_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10726,10 +10726,10 @@ const border_inline_end_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_inline_end_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_inline_end as *const os::raw::c_void,
+fn border_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10744,7 +10744,7 @@ const border_inline_end_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderInlineEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10777,7 +10777,7 @@ unsafe extern fn set_borderInlineEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderInlineEnd(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderInlineEnd(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10793,8 +10793,8 @@ unsafe extern fn set_borderInlineEnd<TH: TypeHolderTrait>
 }
 
 
-const borderInlineEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderInlineEnd as *const os::raw::c_void,
+fn borderInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10809,10 +10809,10 @@ const borderInlineEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderInlineEnd_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderInlineEnd as *const os::raw::c_void,
+fn borderInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10827,7 +10827,7 @@ const borderInlineEnd_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_content<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10860,7 +10860,7 @@ unsafe extern fn set_content<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetContent(arg0);
+        let result: Result<(), Error<TH>> = this.SetContent(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10876,8 +10876,8 @@ unsafe extern fn set_content<TH: TypeHolderTrait>
 }
 
 
-const content_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_content as *const os::raw::c_void,
+fn content_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10892,10 +10892,10 @@ const content_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const content_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_content as *const os::raw::c_void,
+fn content_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10910,7 +10910,7 @@ const content_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -10943,7 +10943,7 @@ unsafe extern fn set_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -10959,8 +10959,8 @@ unsafe extern fn set_color<TH: TypeHolderTrait>
 }
 
 
-const color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_color as *const os::raw::c_void,
+fn color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10975,10 +10975,10 @@ const color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_color as *const os::raw::c_void,
+fn color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10993,7 +10993,7 @@ const color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_display<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11026,7 +11026,7 @@ unsafe extern fn set_display<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetDisplay(arg0);
+        let result: Result<(), Error<TH>> = this.SetDisplay(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11042,8 +11042,8 @@ unsafe extern fn set_display<TH: TypeHolderTrait>
 }
 
 
-const display_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_display as *const os::raw::c_void,
+fn display_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_display::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11058,10 +11058,10 @@ const display_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const display_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_display as *const os::raw::c_void,
+fn display_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_display::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11076,7 +11076,7 @@ const display_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_opacity<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11109,7 +11109,7 @@ unsafe extern fn set_opacity<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOpacity(arg0);
+        let result: Result<(), Error<TH>> = this.SetOpacity(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11125,8 +11125,8 @@ unsafe extern fn set_opacity<TH: TypeHolderTrait>
 }
 
 
-const opacity_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_opacity as *const os::raw::c_void,
+fn opacity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_opacity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11141,10 +11141,10 @@ const opacity_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const opacity_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_opacity as *const os::raw::c_void,
+fn opacity_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_opacity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11159,7 +11159,7 @@ const opacity_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_visibility<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11192,7 +11192,7 @@ unsafe extern fn set_visibility<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetVisibility(arg0);
+        let result: Result<(), Error<TH>> = this.SetVisibility(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11208,8 +11208,8 @@ unsafe extern fn set_visibility<TH: TypeHolderTrait>
 }
 
 
-const visibility_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_visibility as *const os::raw::c_void,
+fn visibility_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_visibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11224,10 +11224,10 @@ const visibility_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const visibility_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_visibility as *const os::raw::c_void,
+fn visibility_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_visibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11242,7 +11242,7 @@ const visibility_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_cursor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11275,7 +11275,7 @@ unsafe extern fn set_cursor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCursor(arg0);
+        let result: Result<(), Error<TH>> = this.SetCursor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11291,8 +11291,8 @@ unsafe extern fn set_cursor<TH: TypeHolderTrait>
 }
 
 
-const cursor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_cursor as *const os::raw::c_void,
+fn cursor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_cursor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11307,10 +11307,10 @@ const cursor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const cursor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_cursor as *const os::raw::c_void,
+fn cursor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_cursor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11325,7 +11325,7 @@ const cursor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_boxSizing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11358,7 +11358,7 @@ unsafe extern fn set_boxSizing<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBoxSizing(arg0);
+        let result: Result<(), Error<TH>> = this.SetBoxSizing(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11374,8 +11374,8 @@ unsafe extern fn set_boxSizing<TH: TypeHolderTrait>
 }
 
 
-const boxSizing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_boxSizing as *const os::raw::c_void,
+fn boxSizing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_boxSizing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11390,10 +11390,10 @@ const boxSizing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const boxSizing_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_boxSizing as *const os::raw::c_void,
+fn boxSizing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_boxSizing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11408,7 +11408,7 @@ const boxSizing_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_box_sizing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11441,7 +11441,7 @@ unsafe extern fn set_box_sizing<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBox_sizing(arg0);
+        let result: Result<(), Error<TH>> = this.SetBox_sizing(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11457,8 +11457,8 @@ unsafe extern fn set_box_sizing<TH: TypeHolderTrait>
 }
 
 
-const box_sizing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_box_sizing as *const os::raw::c_void,
+fn box_sizing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_box_sizing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11473,10 +11473,10 @@ const box_sizing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const box_sizing_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_box_sizing as *const os::raw::c_void,
+fn box_sizing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_box_sizing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11491,7 +11491,7 @@ const box_sizing_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_boxShadow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11524,7 +11524,7 @@ unsafe extern fn set_boxShadow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBoxShadow(arg0);
+        let result: Result<(), Error<TH>> = this.SetBoxShadow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11540,8 +11540,8 @@ unsafe extern fn set_boxShadow<TH: TypeHolderTrait>
 }
 
 
-const boxShadow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_boxShadow as *const os::raw::c_void,
+fn boxShadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_boxShadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11556,10 +11556,10 @@ const boxShadow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const boxShadow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_boxShadow as *const os::raw::c_void,
+fn boxShadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_boxShadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11574,7 +11574,7 @@ const boxShadow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_box_shadow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11607,7 +11607,7 @@ unsafe extern fn set_box_shadow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBox_shadow(arg0);
+        let result: Result<(), Error<TH>> = this.SetBox_shadow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11623,8 +11623,8 @@ unsafe extern fn set_box_shadow<TH: TypeHolderTrait>
 }
 
 
-const box_shadow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_box_shadow as *const os::raw::c_void,
+fn box_shadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_box_shadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11639,10 +11639,10 @@ const box_shadow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const box_shadow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_box_shadow as *const os::raw::c_void,
+fn box_shadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_box_shadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11657,7 +11657,7 @@ const box_shadow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_textShadow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11690,7 +11690,7 @@ unsafe extern fn set_textShadow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTextShadow(arg0);
+        let result: Result<(), Error<TH>> = this.SetTextShadow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11706,8 +11706,8 @@ unsafe extern fn set_textShadow<TH: TypeHolderTrait>
 }
 
 
-const textShadow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_textShadow as *const os::raw::c_void,
+fn textShadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_textShadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11722,10 +11722,10 @@ const textShadow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const textShadow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_textShadow as *const os::raw::c_void,
+fn textShadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_textShadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11740,7 +11740,7 @@ const textShadow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_text_shadow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11773,7 +11773,7 @@ unsafe extern fn set_text_shadow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetText_shadow(arg0);
+        let result: Result<(), Error<TH>> = this.SetText_shadow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11789,8 +11789,8 @@ unsafe extern fn set_text_shadow<TH: TypeHolderTrait>
 }
 
 
-const text_shadow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_text_shadow as *const os::raw::c_void,
+fn text_shadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_text_shadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11805,10 +11805,10 @@ const text_shadow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const text_shadow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_text_shadow as *const os::raw::c_void,
+fn text_shadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_text_shadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11823,7 +11823,7 @@ const text_shadow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_float<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11856,7 +11856,7 @@ unsafe extern fn set_float<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFloat(arg0);
+        let result: Result<(), Error<TH>> = this.SetFloat(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11872,8 +11872,8 @@ unsafe extern fn set_float<TH: TypeHolderTrait>
 }
 
 
-const float_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_float as *const os::raw::c_void,
+fn float_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_float::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11888,10 +11888,10 @@ const float_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const float_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_float as *const os::raw::c_void,
+fn float_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_float::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11906,7 +11906,7 @@ const float_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_clear<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -11939,7 +11939,7 @@ unsafe extern fn set_clear<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetClear(arg0);
+        let result: Result<(), Error<TH>> = this.SetClear(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -11955,8 +11955,8 @@ unsafe extern fn set_clear<TH: TypeHolderTrait>
 }
 
 
-const clear_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_clear as *const os::raw::c_void,
+fn clear_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_clear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11971,10 +11971,10 @@ const clear_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const clear_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_clear as *const os::raw::c_void,
+fn clear_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_clear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11989,7 +11989,7 @@ const clear_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_clip<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12022,7 +12022,7 @@ unsafe extern fn set_clip<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetClip(arg0);
+        let result: Result<(), Error<TH>> = this.SetClip(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12038,8 +12038,8 @@ unsafe extern fn set_clip<TH: TypeHolderTrait>
 }
 
 
-const clip_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_clip as *const os::raw::c_void,
+fn clip_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12054,10 +12054,10 @@ const clip_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const clip_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_clip as *const os::raw::c_void,
+fn clip_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12072,7 +12072,7 @@ const clip_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12105,7 +12105,7 @@ unsafe extern fn set_transform<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransform(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransform(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12121,8 +12121,8 @@ unsafe extern fn set_transform<TH: TypeHolderTrait>
 }
 
 
-const transform_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transform as *const os::raw::c_void,
+fn transform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12137,10 +12137,10 @@ const transform_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transform_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transform as *const os::raw::c_void,
+fn transform_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12155,7 +12155,7 @@ const transform_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transformOrigin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12188,7 +12188,7 @@ unsafe extern fn set_transformOrigin<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransformOrigin(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransformOrigin(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12204,8 +12204,8 @@ unsafe extern fn set_transformOrigin<TH: TypeHolderTrait>
 }
 
 
-const transformOrigin_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transformOrigin as *const os::raw::c_void,
+fn transformOrigin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transformOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12220,10 +12220,10 @@ const transformOrigin_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transformOrigin_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transformOrigin as *const os::raw::c_void,
+fn transformOrigin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transformOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12238,7 +12238,7 @@ const transformOrigin_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transform_origin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12271,7 +12271,7 @@ unsafe extern fn set_transform_origin<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransform_origin(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransform_origin(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12287,8 +12287,8 @@ unsafe extern fn set_transform_origin<TH: TypeHolderTrait>
 }
 
 
-const transform_origin_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transform_origin as *const os::raw::c_void,
+fn transform_origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transform_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12303,10 +12303,10 @@ const transform_origin_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transform_origin_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transform_origin as *const os::raw::c_void,
+fn transform_origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transform_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12321,7 +12321,7 @@ const transform_origin_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_perspective<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12354,7 +12354,7 @@ unsafe extern fn set_perspective<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPerspective(arg0);
+        let result: Result<(), Error<TH>> = this.SetPerspective(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12370,8 +12370,8 @@ unsafe extern fn set_perspective<TH: TypeHolderTrait>
 }
 
 
-const perspective_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_perspective as *const os::raw::c_void,
+fn perspective_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_perspective::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12386,10 +12386,10 @@ const perspective_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const perspective_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_perspective as *const os::raw::c_void,
+fn perspective_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_perspective::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12404,7 +12404,7 @@ const perspective_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_perspectiveOrigin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12437,7 +12437,7 @@ unsafe extern fn set_perspectiveOrigin<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPerspectiveOrigin(arg0);
+        let result: Result<(), Error<TH>> = this.SetPerspectiveOrigin(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12453,8 +12453,8 @@ unsafe extern fn set_perspectiveOrigin<TH: TypeHolderTrait>
 }
 
 
-const perspectiveOrigin_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_perspectiveOrigin as *const os::raw::c_void,
+fn perspectiveOrigin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_perspectiveOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12469,10 +12469,10 @@ const perspectiveOrigin_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const perspectiveOrigin_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_perspectiveOrigin as *const os::raw::c_void,
+fn perspectiveOrigin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_perspectiveOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12487,7 +12487,7 @@ const perspectiveOrigin_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_perspective_origin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12520,7 +12520,7 @@ unsafe extern fn set_perspective_origin<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPerspective_origin(arg0);
+        let result: Result<(), Error<TH>> = this.SetPerspective_origin(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12536,8 +12536,8 @@ unsafe extern fn set_perspective_origin<TH: TypeHolderTrait>
 }
 
 
-const perspective_origin_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_perspective_origin as *const os::raw::c_void,
+fn perspective_origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_perspective_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12552,10 +12552,10 @@ const perspective_origin_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const perspective_origin_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_perspective_origin as *const os::raw::c_void,
+fn perspective_origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_perspective_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12570,7 +12570,7 @@ const perspective_origin_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transformStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12603,7 +12603,7 @@ unsafe extern fn set_transformStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransformStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransformStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12619,8 +12619,8 @@ unsafe extern fn set_transformStyle<TH: TypeHolderTrait>
 }
 
 
-const transformStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transformStyle as *const os::raw::c_void,
+fn transformStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transformStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12635,10 +12635,10 @@ const transformStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transformStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transformStyle as *const os::raw::c_void,
+fn transformStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transformStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12653,7 +12653,7 @@ const transformStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transform_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12686,7 +12686,7 @@ unsafe extern fn set_transform_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransform_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransform_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12702,8 +12702,8 @@ unsafe extern fn set_transform_style<TH: TypeHolderTrait>
 }
 
 
-const transform_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transform_style as *const os::raw::c_void,
+fn transform_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transform_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12718,10 +12718,10 @@ const transform_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transform_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transform_style as *const os::raw::c_void,
+fn transform_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transform_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12736,7 +12736,7 @@ const transform_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backfaceVisibility<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12769,7 +12769,7 @@ unsafe extern fn set_backfaceVisibility<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackfaceVisibility(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackfaceVisibility(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12785,8 +12785,8 @@ unsafe extern fn set_backfaceVisibility<TH: TypeHolderTrait>
 }
 
 
-const backfaceVisibility_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backfaceVisibility as *const os::raw::c_void,
+fn backfaceVisibility_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backfaceVisibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12801,10 +12801,10 @@ const backfaceVisibility_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backfaceVisibility_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backfaceVisibility as *const os::raw::c_void,
+fn backfaceVisibility_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backfaceVisibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12819,7 +12819,7 @@ const backfaceVisibility_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_backface_visibility<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12852,7 +12852,7 @@ unsafe extern fn set_backface_visibility<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBackface_visibility(arg0);
+        let result: Result<(), Error<TH>> = this.SetBackface_visibility(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12868,8 +12868,8 @@ unsafe extern fn set_backface_visibility<TH: TypeHolderTrait>
 }
 
 
-const backface_visibility_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_backface_visibility as *const os::raw::c_void,
+fn backface_visibility_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_backface_visibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12884,10 +12884,10 @@ const backface_visibility_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const backface_visibility_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_backface_visibility as *const os::raw::c_void,
+fn backface_visibility_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_backface_visibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12902,7 +12902,7 @@ const backface_visibility_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_rotate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -12935,7 +12935,7 @@ unsafe extern fn set_rotate<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetRotate(arg0);
+        let result: Result<(), Error<TH>> = this.SetRotate(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -12951,8 +12951,8 @@ unsafe extern fn set_rotate<TH: TypeHolderTrait>
 }
 
 
-const rotate_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_rotate as *const os::raw::c_void,
+fn rotate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_rotate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12967,10 +12967,10 @@ const rotate_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const rotate_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_rotate as *const os::raw::c_void,
+fn rotate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_rotate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12985,7 +12985,7 @@ const rotate_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_scale<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13018,7 +13018,7 @@ unsafe extern fn set_scale<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetScale(arg0);
+        let result: Result<(), Error<TH>> = this.SetScale(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13034,8 +13034,8 @@ unsafe extern fn set_scale<TH: TypeHolderTrait>
 }
 
 
-const scale_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_scale as *const os::raw::c_void,
+fn scale_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_scale::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13050,10 +13050,10 @@ const scale_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const scale_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_scale as *const os::raw::c_void,
+fn scale_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_scale::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13068,7 +13068,7 @@ const scale_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_translate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13101,7 +13101,7 @@ unsafe extern fn set_translate<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTranslate(arg0);
+        let result: Result<(), Error<TH>> = this.SetTranslate(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13117,8 +13117,8 @@ unsafe extern fn set_translate<TH: TypeHolderTrait>
 }
 
 
-const translate_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_translate as *const os::raw::c_void,
+fn translate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_translate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13133,10 +13133,10 @@ const translate_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const translate_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_translate as *const os::raw::c_void,
+fn translate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_translate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13151,7 +13151,7 @@ const translate_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_direction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13184,7 +13184,7 @@ unsafe extern fn set_direction<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetDirection(arg0);
+        let result: Result<(), Error<TH>> = this.SetDirection(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13200,8 +13200,8 @@ unsafe extern fn set_direction<TH: TypeHolderTrait>
 }
 
 
-const direction_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_direction as *const os::raw::c_void,
+fn direction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13216,10 +13216,10 @@ const direction_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const direction_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_direction as *const os::raw::c_void,
+fn direction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13234,7 +13234,7 @@ const direction_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unicodeBidi<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13267,7 +13267,7 @@ unsafe extern fn set_unicodeBidi<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetUnicodeBidi(arg0);
+        let result: Result<(), Error<TH>> = this.SetUnicodeBidi(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13283,8 +13283,8 @@ unsafe extern fn set_unicodeBidi<TH: TypeHolderTrait>
 }
 
 
-const unicodeBidi_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unicodeBidi as *const os::raw::c_void,
+fn unicodeBidi_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unicodeBidi::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13299,10 +13299,10 @@ const unicodeBidi_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unicodeBidi_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unicodeBidi as *const os::raw::c_void,
+fn unicodeBidi_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unicodeBidi::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13317,7 +13317,7 @@ const unicodeBidi_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unicode_bidi<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13350,7 +13350,7 @@ unsafe extern fn set_unicode_bidi<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetUnicode_bidi(arg0);
+        let result: Result<(), Error<TH>> = this.SetUnicode_bidi(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13366,8 +13366,8 @@ unsafe extern fn set_unicode_bidi<TH: TypeHolderTrait>
 }
 
 
-const unicode_bidi_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unicode_bidi as *const os::raw::c_void,
+fn unicode_bidi_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unicode_bidi::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13382,10 +13382,10 @@ const unicode_bidi_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unicode_bidi_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unicode_bidi as *const os::raw::c_void,
+fn unicode_bidi_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unicode_bidi::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13400,7 +13400,7 @@ const unicode_bidi_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_filter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13433,7 +13433,7 @@ unsafe extern fn set_filter<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFilter(arg0);
+        let result: Result<(), Error<TH>> = this.SetFilter(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13449,8 +13449,8 @@ unsafe extern fn set_filter<TH: TypeHolderTrait>
 }
 
 
-const filter_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_filter as *const os::raw::c_void,
+fn filter_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_filter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13465,10 +13465,10 @@ const filter_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const filter_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_filter as *const os::raw::c_void,
+fn filter_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_filter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13483,7 +13483,7 @@ const filter_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_lineHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13516,7 +13516,7 @@ unsafe extern fn set_lineHeight<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetLineHeight(arg0);
+        let result: Result<(), Error<TH>> = this.SetLineHeight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13532,8 +13532,8 @@ unsafe extern fn set_lineHeight<TH: TypeHolderTrait>
 }
 
 
-const lineHeight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_lineHeight as *const os::raw::c_void,
+fn lineHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_lineHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13548,10 +13548,10 @@ const lineHeight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const lineHeight_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_lineHeight as *const os::raw::c_void,
+fn lineHeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_lineHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13566,7 +13566,7 @@ const lineHeight_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_line_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13599,7 +13599,7 @@ unsafe extern fn set_line_height<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetLine_height(arg0);
+        let result: Result<(), Error<TH>> = this.SetLine_height(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13615,8 +13615,8 @@ unsafe extern fn set_line_height<TH: TypeHolderTrait>
 }
 
 
-const line_height_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_line_height as *const os::raw::c_void,
+fn line_height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_line_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13631,10 +13631,10 @@ const line_height_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const line_height_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_line_height as *const os::raw::c_void,
+fn line_height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_line_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13649,7 +13649,7 @@ const line_height_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_mixBlendMode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13682,7 +13682,7 @@ unsafe extern fn set_mixBlendMode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMixBlendMode(arg0);
+        let result: Result<(), Error<TH>> = this.SetMixBlendMode(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13698,8 +13698,8 @@ unsafe extern fn set_mixBlendMode<TH: TypeHolderTrait>
 }
 
 
-const mixBlendMode_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_mixBlendMode as *const os::raw::c_void,
+fn mixBlendMode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_mixBlendMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13714,10 +13714,10 @@ const mixBlendMode_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const mixBlendMode_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_mixBlendMode as *const os::raw::c_void,
+fn mixBlendMode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_mixBlendMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13732,7 +13732,7 @@ const mixBlendMode_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_mix_blend_mode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13765,7 +13765,7 @@ unsafe extern fn set_mix_blend_mode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMix_blend_mode(arg0);
+        let result: Result<(), Error<TH>> = this.SetMix_blend_mode(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13781,8 +13781,8 @@ unsafe extern fn set_mix_blend_mode<TH: TypeHolderTrait>
 }
 
 
-const mix_blend_mode_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_mix_blend_mode as *const os::raw::c_void,
+fn mix_blend_mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_mix_blend_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13797,10 +13797,10 @@ const mix_blend_mode_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const mix_blend_mode_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_mix_blend_mode as *const os::raw::c_void,
+fn mix_blend_mode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_mix_blend_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13815,7 +13815,7 @@ const mix_blend_mode_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_verticalAlign<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13848,7 +13848,7 @@ unsafe extern fn set_verticalAlign<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetVerticalAlign(arg0);
+        let result: Result<(), Error<TH>> = this.SetVerticalAlign(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13864,8 +13864,8 @@ unsafe extern fn set_verticalAlign<TH: TypeHolderTrait>
 }
 
 
-const verticalAlign_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_verticalAlign as *const os::raw::c_void,
+fn verticalAlign_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_verticalAlign::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13880,10 +13880,10 @@ const verticalAlign_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const verticalAlign_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_verticalAlign as *const os::raw::c_void,
+fn verticalAlign_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_verticalAlign::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13898,7 +13898,7 @@ const verticalAlign_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_vertical_align<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -13931,7 +13931,7 @@ unsafe extern fn set_vertical_align<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetVertical_align(arg0);
+        let result: Result<(), Error<TH>> = this.SetVertical_align(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -13947,8 +13947,8 @@ unsafe extern fn set_vertical_align<TH: TypeHolderTrait>
 }
 
 
-const vertical_align_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_vertical_align as *const os::raw::c_void,
+fn vertical_align_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_vertical_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13963,10 +13963,10 @@ const vertical_align_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const vertical_align_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_vertical_align as *const os::raw::c_void,
+fn vertical_align_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_vertical_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13981,7 +13981,7 @@ const vertical_align_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_listStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14014,7 +14014,7 @@ unsafe extern fn set_listStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetListStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetListStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14030,8 +14030,8 @@ unsafe extern fn set_listStyle<TH: TypeHolderTrait>
 }
 
 
-const listStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_listStyle as *const os::raw::c_void,
+fn listStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_listStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14046,10 +14046,10 @@ const listStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const listStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_listStyle as *const os::raw::c_void,
+fn listStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_listStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14064,7 +14064,7 @@ const listStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_list_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14097,7 +14097,7 @@ unsafe extern fn set_list_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetList_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetList_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14113,8 +14113,8 @@ unsafe extern fn set_list_style<TH: TypeHolderTrait>
 }
 
 
-const list_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_list_style as *const os::raw::c_void,
+fn list_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_list_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14129,10 +14129,10 @@ const list_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const list_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_list_style as *const os::raw::c_void,
+fn list_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_list_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14147,7 +14147,7 @@ const list_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_listStylePosition<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14180,7 +14180,7 @@ unsafe extern fn set_listStylePosition<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetListStylePosition(arg0);
+        let result: Result<(), Error<TH>> = this.SetListStylePosition(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14196,8 +14196,8 @@ unsafe extern fn set_listStylePosition<TH: TypeHolderTrait>
 }
 
 
-const listStylePosition_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_listStylePosition as *const os::raw::c_void,
+fn listStylePosition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_listStylePosition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14212,10 +14212,10 @@ const listStylePosition_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const listStylePosition_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_listStylePosition as *const os::raw::c_void,
+fn listStylePosition_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_listStylePosition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14230,7 +14230,7 @@ const listStylePosition_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_list_style_position<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14263,7 +14263,7 @@ unsafe extern fn set_list_style_position<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetList_style_position(arg0);
+        let result: Result<(), Error<TH>> = this.SetList_style_position(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14279,8 +14279,8 @@ unsafe extern fn set_list_style_position<TH: TypeHolderTrait>
 }
 
 
-const list_style_position_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_list_style_position as *const os::raw::c_void,
+fn list_style_position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_list_style_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14295,10 +14295,10 @@ const list_style_position_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const list_style_position_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_list_style_position as *const os::raw::c_void,
+fn list_style_position_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_list_style_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14313,7 +14313,7 @@ const list_style_position_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_listStyleType<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14346,7 +14346,7 @@ unsafe extern fn set_listStyleType<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetListStyleType(arg0);
+        let result: Result<(), Error<TH>> = this.SetListStyleType(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14362,8 +14362,8 @@ unsafe extern fn set_listStyleType<TH: TypeHolderTrait>
 }
 
 
-const listStyleType_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_listStyleType as *const os::raw::c_void,
+fn listStyleType_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_listStyleType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14378,10 +14378,10 @@ const listStyleType_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const listStyleType_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_listStyleType as *const os::raw::c_void,
+fn listStyleType_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_listStyleType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14396,7 +14396,7 @@ const listStyleType_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_list_style_type<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14429,7 +14429,7 @@ unsafe extern fn set_list_style_type<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetList_style_type(arg0);
+        let result: Result<(), Error<TH>> = this.SetList_style_type(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14445,8 +14445,8 @@ unsafe extern fn set_list_style_type<TH: TypeHolderTrait>
 }
 
 
-const list_style_type_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_list_style_type as *const os::raw::c_void,
+fn list_style_type_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_list_style_type::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14461,10 +14461,10 @@ const list_style_type_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const list_style_type_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_list_style_type as *const os::raw::c_void,
+fn list_style_type_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_list_style_type::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14479,7 +14479,7 @@ const list_style_type_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_listStyleImage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14512,7 +14512,7 @@ unsafe extern fn set_listStyleImage<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetListStyleImage(arg0);
+        let result: Result<(), Error<TH>> = this.SetListStyleImage(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14528,8 +14528,8 @@ unsafe extern fn set_listStyleImage<TH: TypeHolderTrait>
 }
 
 
-const listStyleImage_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_listStyleImage as *const os::raw::c_void,
+fn listStyleImage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_listStyleImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14544,10 +14544,10 @@ const listStyleImage_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const listStyleImage_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_listStyleImage as *const os::raw::c_void,
+fn listStyleImage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_listStyleImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14562,7 +14562,7 @@ const listStyleImage_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_list_style_image<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14595,7 +14595,7 @@ unsafe extern fn set_list_style_image<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetList_style_image(arg0);
+        let result: Result<(), Error<TH>> = this.SetList_style_image(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14611,8 +14611,8 @@ unsafe extern fn set_list_style_image<TH: TypeHolderTrait>
 }
 
 
-const list_style_image_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_list_style_image as *const os::raw::c_void,
+fn list_style_image_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_list_style_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14627,10 +14627,10 @@ const list_style_image_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const list_style_image_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_list_style_image as *const os::raw::c_void,
+fn list_style_image_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_list_style_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14645,7 +14645,7 @@ const list_style_image_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_quotes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14678,7 +14678,7 @@ unsafe extern fn set_quotes<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetQuotes(arg0);
+        let result: Result<(), Error<TH>> = this.SetQuotes(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14694,8 +14694,8 @@ unsafe extern fn set_quotes<TH: TypeHolderTrait>
 }
 
 
-const quotes_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_quotes as *const os::raw::c_void,
+fn quotes_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_quotes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14710,10 +14710,10 @@ const quotes_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const quotes_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_quotes as *const os::raw::c_void,
+fn quotes_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_quotes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14728,7 +14728,7 @@ const quotes_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_counterIncrement<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14761,7 +14761,7 @@ unsafe extern fn set_counterIncrement<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCounterIncrement(arg0);
+        let result: Result<(), Error<TH>> = this.SetCounterIncrement(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14777,8 +14777,8 @@ unsafe extern fn set_counterIncrement<TH: TypeHolderTrait>
 }
 
 
-const counterIncrement_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_counterIncrement as *const os::raw::c_void,
+fn counterIncrement_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_counterIncrement::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14793,10 +14793,10 @@ const counterIncrement_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const counterIncrement_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_counterIncrement as *const os::raw::c_void,
+fn counterIncrement_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_counterIncrement::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14811,7 +14811,7 @@ const counterIncrement_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_counter_increment<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14844,7 +14844,7 @@ unsafe extern fn set_counter_increment<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCounter_increment(arg0);
+        let result: Result<(), Error<TH>> = this.SetCounter_increment(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14860,8 +14860,8 @@ unsafe extern fn set_counter_increment<TH: TypeHolderTrait>
 }
 
 
-const counter_increment_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_counter_increment as *const os::raw::c_void,
+fn counter_increment_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_counter_increment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14876,10 +14876,10 @@ const counter_increment_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const counter_increment_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_counter_increment as *const os::raw::c_void,
+fn counter_increment_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_counter_increment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14894,7 +14894,7 @@ const counter_increment_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_counterReset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -14927,7 +14927,7 @@ unsafe extern fn set_counterReset<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCounterReset(arg0);
+        let result: Result<(), Error<TH>> = this.SetCounterReset(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -14943,8 +14943,8 @@ unsafe extern fn set_counterReset<TH: TypeHolderTrait>
 }
 
 
-const counterReset_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_counterReset as *const os::raw::c_void,
+fn counterReset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_counterReset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14959,10 +14959,10 @@ const counterReset_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const counterReset_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_counterReset as *const os::raw::c_void,
+fn counterReset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_counterReset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14977,7 +14977,7 @@ const counterReset_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_counter_reset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15010,7 +15010,7 @@ unsafe extern fn set_counter_reset<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCounter_reset(arg0);
+        let result: Result<(), Error<TH>> = this.SetCounter_reset(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15026,8 +15026,8 @@ unsafe extern fn set_counter_reset<TH: TypeHolderTrait>
 }
 
 
-const counter_reset_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_counter_reset as *const os::raw::c_void,
+fn counter_reset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_counter_reset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15042,10 +15042,10 @@ const counter_reset_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const counter_reset_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_counter_reset as *const os::raw::c_void,
+fn counter_reset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_counter_reset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15060,7 +15060,7 @@ const counter_reset_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_overflow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15093,7 +15093,7 @@ unsafe extern fn set_overflow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOverflow(arg0);
+        let result: Result<(), Error<TH>> = this.SetOverflow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15109,8 +15109,8 @@ unsafe extern fn set_overflow<TH: TypeHolderTrait>
 }
 
 
-const overflow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_overflow as *const os::raw::c_void,
+fn overflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_overflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15125,10 +15125,10 @@ const overflow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const overflow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_overflow as *const os::raw::c_void,
+fn overflow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_overflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15143,7 +15143,7 @@ const overflow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_overflowX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15176,7 +15176,7 @@ unsafe extern fn set_overflowX<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOverflowX(arg0);
+        let result: Result<(), Error<TH>> = this.SetOverflowX(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15192,8 +15192,8 @@ unsafe extern fn set_overflowX<TH: TypeHolderTrait>
 }
 
 
-const overflowX_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_overflowX as *const os::raw::c_void,
+fn overflowX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_overflowX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15208,10 +15208,10 @@ const overflowX_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const overflowX_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_overflowX as *const os::raw::c_void,
+fn overflowX_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_overflowX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15226,7 +15226,7 @@ const overflowX_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_overflow_x<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15259,7 +15259,7 @@ unsafe extern fn set_overflow_x<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOverflow_x(arg0);
+        let result: Result<(), Error<TH>> = this.SetOverflow_x(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15275,8 +15275,8 @@ unsafe extern fn set_overflow_x<TH: TypeHolderTrait>
 }
 
 
-const overflow_x_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_overflow_x as *const os::raw::c_void,
+fn overflow_x_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_overflow_x::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15291,10 +15291,10 @@ const overflow_x_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const overflow_x_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_overflow_x as *const os::raw::c_void,
+fn overflow_x_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_overflow_x::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15309,7 +15309,7 @@ const overflow_x_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_overflowY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15342,7 +15342,7 @@ unsafe extern fn set_overflowY<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOverflowY(arg0);
+        let result: Result<(), Error<TH>> = this.SetOverflowY(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15358,8 +15358,8 @@ unsafe extern fn set_overflowY<TH: TypeHolderTrait>
 }
 
 
-const overflowY_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_overflowY as *const os::raw::c_void,
+fn overflowY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_overflowY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15374,10 +15374,10 @@ const overflowY_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const overflowY_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_overflowY as *const os::raw::c_void,
+fn overflowY_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_overflowY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15392,7 +15392,7 @@ const overflowY_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_overflow_y<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15425,7 +15425,7 @@ unsafe extern fn set_overflow_y<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOverflow_y(arg0);
+        let result: Result<(), Error<TH>> = this.SetOverflow_y(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15441,8 +15441,8 @@ unsafe extern fn set_overflow_y<TH: TypeHolderTrait>
 }
 
 
-const overflow_y_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_overflow_y as *const os::raw::c_void,
+fn overflow_y_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_overflow_y::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15457,10 +15457,10 @@ const overflow_y_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const overflow_y_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_overflow_y as *const os::raw::c_void,
+fn overflow_y_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_overflow_y::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15475,7 +15475,7 @@ const overflow_y_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_overflowWrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15508,7 +15508,7 @@ unsafe extern fn set_overflowWrap<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOverflowWrap(arg0);
+        let result: Result<(), Error<TH>> = this.SetOverflowWrap(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15524,8 +15524,8 @@ unsafe extern fn set_overflowWrap<TH: TypeHolderTrait>
 }
 
 
-const overflowWrap_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_overflowWrap as *const os::raw::c_void,
+fn overflowWrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_overflowWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15540,10 +15540,10 @@ const overflowWrap_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const overflowWrap_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_overflowWrap as *const os::raw::c_void,
+fn overflowWrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_overflowWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15558,7 +15558,7 @@ const overflowWrap_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_overflow_wrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15591,7 +15591,7 @@ unsafe extern fn set_overflow_wrap<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOverflow_wrap(arg0);
+        let result: Result<(), Error<TH>> = this.SetOverflow_wrap(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15607,8 +15607,8 @@ unsafe extern fn set_overflow_wrap<TH: TypeHolderTrait>
 }
 
 
-const overflow_wrap_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_overflow_wrap as *const os::raw::c_void,
+fn overflow_wrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_overflow_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15623,10 +15623,10 @@ const overflow_wrap_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const overflow_wrap_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_overflow_wrap as *const os::raw::c_void,
+fn overflow_wrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_overflow_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15641,7 +15641,7 @@ const overflow_wrap_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_tableLayout<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15674,7 +15674,7 @@ unsafe extern fn set_tableLayout<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTableLayout(arg0);
+        let result: Result<(), Error<TH>> = this.SetTableLayout(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15690,8 +15690,8 @@ unsafe extern fn set_tableLayout<TH: TypeHolderTrait>
 }
 
 
-const tableLayout_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_tableLayout as *const os::raw::c_void,
+fn tableLayout_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_tableLayout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15706,10 +15706,10 @@ const tableLayout_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const tableLayout_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_tableLayout as *const os::raw::c_void,
+fn tableLayout_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_tableLayout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15724,7 +15724,7 @@ const tableLayout_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_table_layout<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15757,7 +15757,7 @@ unsafe extern fn set_table_layout<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTable_layout(arg0);
+        let result: Result<(), Error<TH>> = this.SetTable_layout(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15773,8 +15773,8 @@ unsafe extern fn set_table_layout<TH: TypeHolderTrait>
 }
 
 
-const table_layout_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_table_layout as *const os::raw::c_void,
+fn table_layout_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_table_layout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15789,10 +15789,10 @@ const table_layout_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const table_layout_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_table_layout as *const os::raw::c_void,
+fn table_layout_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_table_layout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15807,7 +15807,7 @@ const table_layout_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_borderCollapse<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15840,7 +15840,7 @@ unsafe extern fn set_borderCollapse<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorderCollapse(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorderCollapse(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15856,8 +15856,8 @@ unsafe extern fn set_borderCollapse<TH: TypeHolderTrait>
 }
 
 
-const borderCollapse_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_borderCollapse as *const os::raw::c_void,
+fn borderCollapse_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_borderCollapse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15872,10 +15872,10 @@ const borderCollapse_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const borderCollapse_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_borderCollapse as *const os::raw::c_void,
+fn borderCollapse_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_borderCollapse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15890,7 +15890,7 @@ const borderCollapse_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_border_collapse<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -15923,7 +15923,7 @@ unsafe extern fn set_border_collapse<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBorder_collapse(arg0);
+        let result: Result<(), Error<TH>> = this.SetBorder_collapse(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -15939,8 +15939,8 @@ unsafe extern fn set_border_collapse<TH: TypeHolderTrait>
 }
 
 
-const border_collapse_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_border_collapse as *const os::raw::c_void,
+fn border_collapse_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_border_collapse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15955,10 +15955,10 @@ const border_collapse_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const border_collapse_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_border_collapse as *const os::raw::c_void,
+fn border_collapse_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_border_collapse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15973,7 +15973,7 @@ const border_collapse_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_emptyCells<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16006,7 +16006,7 @@ unsafe extern fn set_emptyCells<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetEmptyCells(arg0);
+        let result: Result<(), Error<TH>> = this.SetEmptyCells(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16022,8 +16022,8 @@ unsafe extern fn set_emptyCells<TH: TypeHolderTrait>
 }
 
 
-const emptyCells_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_emptyCells as *const os::raw::c_void,
+fn emptyCells_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_emptyCells::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16038,10 +16038,10 @@ const emptyCells_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const emptyCells_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_emptyCells as *const os::raw::c_void,
+fn emptyCells_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_emptyCells::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16056,7 +16056,7 @@ const emptyCells_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_empty_cells<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16089,7 +16089,7 @@ unsafe extern fn set_empty_cells<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetEmpty_cells(arg0);
+        let result: Result<(), Error<TH>> = this.SetEmpty_cells(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16105,8 +16105,8 @@ unsafe extern fn set_empty_cells<TH: TypeHolderTrait>
 }
 
 
-const empty_cells_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_empty_cells as *const os::raw::c_void,
+fn empty_cells_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_empty_cells::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16121,10 +16121,10 @@ const empty_cells_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const empty_cells_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_empty_cells as *const os::raw::c_void,
+fn empty_cells_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_empty_cells::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16139,7 +16139,7 @@ const empty_cells_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_captionSide<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16172,7 +16172,7 @@ unsafe extern fn set_captionSide<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCaptionSide(arg0);
+        let result: Result<(), Error<TH>> = this.SetCaptionSide(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16188,8 +16188,8 @@ unsafe extern fn set_captionSide<TH: TypeHolderTrait>
 }
 
 
-const captionSide_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_captionSide as *const os::raw::c_void,
+fn captionSide_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_captionSide::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16204,10 +16204,10 @@ const captionSide_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const captionSide_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_captionSide as *const os::raw::c_void,
+fn captionSide_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_captionSide::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16222,7 +16222,7 @@ const captionSide_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_caption_side<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16255,7 +16255,7 @@ unsafe extern fn set_caption_side<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCaption_side(arg0);
+        let result: Result<(), Error<TH>> = this.SetCaption_side(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16271,8 +16271,8 @@ unsafe extern fn set_caption_side<TH: TypeHolderTrait>
 }
 
 
-const caption_side_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_caption_side as *const os::raw::c_void,
+fn caption_side_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_caption_side::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16287,10 +16287,10 @@ const caption_side_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const caption_side_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_caption_side as *const os::raw::c_void,
+fn caption_side_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_caption_side::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16305,7 +16305,7 @@ const caption_side_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_whiteSpace<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16338,7 +16338,7 @@ unsafe extern fn set_whiteSpace<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWhiteSpace(arg0);
+        let result: Result<(), Error<TH>> = this.SetWhiteSpace(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16354,8 +16354,8 @@ unsafe extern fn set_whiteSpace<TH: TypeHolderTrait>
 }
 
 
-const whiteSpace_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_whiteSpace as *const os::raw::c_void,
+fn whiteSpace_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_whiteSpace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16370,10 +16370,10 @@ const whiteSpace_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const whiteSpace_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_whiteSpace as *const os::raw::c_void,
+fn whiteSpace_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_whiteSpace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16388,7 +16388,7 @@ const whiteSpace_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_white_space<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16421,7 +16421,7 @@ unsafe extern fn set_white_space<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWhite_space(arg0);
+        let result: Result<(), Error<TH>> = this.SetWhite_space(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16437,8 +16437,8 @@ unsafe extern fn set_white_space<TH: TypeHolderTrait>
 }
 
 
-const white_space_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_white_space as *const os::raw::c_void,
+fn white_space_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_white_space::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16453,10 +16453,10 @@ const white_space_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const white_space_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_white_space as *const os::raw::c_void,
+fn white_space_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_white_space::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16471,7 +16471,7 @@ const white_space_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_writingMode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16504,7 +16504,7 @@ unsafe extern fn set_writingMode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWritingMode(arg0);
+        let result: Result<(), Error<TH>> = this.SetWritingMode(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16520,8 +16520,8 @@ unsafe extern fn set_writingMode<TH: TypeHolderTrait>
 }
 
 
-const writingMode_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_writingMode as *const os::raw::c_void,
+fn writingMode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_writingMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16536,10 +16536,10 @@ const writingMode_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const writingMode_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_writingMode as *const os::raw::c_void,
+fn writingMode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_writingMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16554,7 +16554,7 @@ const writingMode_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_writing_mode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16587,7 +16587,7 @@ unsafe extern fn set_writing_mode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWriting_mode(arg0);
+        let result: Result<(), Error<TH>> = this.SetWriting_mode(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16603,8 +16603,8 @@ unsafe extern fn set_writing_mode<TH: TypeHolderTrait>
 }
 
 
-const writing_mode_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_writing_mode as *const os::raw::c_void,
+fn writing_mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_writing_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16619,10 +16619,10 @@ const writing_mode_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const writing_mode_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_writing_mode as *const os::raw::c_void,
+fn writing_mode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_writing_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16637,7 +16637,7 @@ const writing_mode_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_letterSpacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16670,7 +16670,7 @@ unsafe extern fn set_letterSpacing<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetLetterSpacing(arg0);
+        let result: Result<(), Error<TH>> = this.SetLetterSpacing(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16686,8 +16686,8 @@ unsafe extern fn set_letterSpacing<TH: TypeHolderTrait>
 }
 
 
-const letterSpacing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_letterSpacing as *const os::raw::c_void,
+fn letterSpacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_letterSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16702,10 +16702,10 @@ const letterSpacing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const letterSpacing_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_letterSpacing as *const os::raw::c_void,
+fn letterSpacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_letterSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16720,7 +16720,7 @@ const letterSpacing_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_letter_spacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16753,7 +16753,7 @@ unsafe extern fn set_letter_spacing<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetLetter_spacing(arg0);
+        let result: Result<(), Error<TH>> = this.SetLetter_spacing(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16769,8 +16769,8 @@ unsafe extern fn set_letter_spacing<TH: TypeHolderTrait>
 }
 
 
-const letter_spacing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_letter_spacing as *const os::raw::c_void,
+fn letter_spacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_letter_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16785,10 +16785,10 @@ const letter_spacing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const letter_spacing_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_letter_spacing as *const os::raw::c_void,
+fn letter_spacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_letter_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16803,7 +16803,7 @@ const letter_spacing_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_wordBreak<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16836,7 +16836,7 @@ unsafe extern fn set_wordBreak<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWordBreak(arg0);
+        let result: Result<(), Error<TH>> = this.SetWordBreak(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16852,8 +16852,8 @@ unsafe extern fn set_wordBreak<TH: TypeHolderTrait>
 }
 
 
-const wordBreak_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_wordBreak as *const os::raw::c_void,
+fn wordBreak_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_wordBreak::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16868,10 +16868,10 @@ const wordBreak_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const wordBreak_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_wordBreak as *const os::raw::c_void,
+fn wordBreak_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_wordBreak::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16886,7 +16886,7 @@ const wordBreak_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_word_break<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -16919,7 +16919,7 @@ unsafe extern fn set_word_break<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWord_break(arg0);
+        let result: Result<(), Error<TH>> = this.SetWord_break(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -16935,8 +16935,8 @@ unsafe extern fn set_word_break<TH: TypeHolderTrait>
 }
 
 
-const word_break_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_word_break as *const os::raw::c_void,
+fn word_break_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_word_break::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16951,10 +16951,10 @@ const word_break_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const word_break_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_word_break as *const os::raw::c_void,
+fn word_break_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_word_break::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16969,7 +16969,7 @@ const word_break_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_wordSpacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17002,7 +17002,7 @@ unsafe extern fn set_wordSpacing<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWordSpacing(arg0);
+        let result: Result<(), Error<TH>> = this.SetWordSpacing(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17018,8 +17018,8 @@ unsafe extern fn set_wordSpacing<TH: TypeHolderTrait>
 }
 
 
-const wordSpacing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_wordSpacing as *const os::raw::c_void,
+fn wordSpacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_wordSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17034,10 +17034,10 @@ const wordSpacing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const wordSpacing_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_wordSpacing as *const os::raw::c_void,
+fn wordSpacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_wordSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17052,7 +17052,7 @@ const wordSpacing_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_word_spacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17085,7 +17085,7 @@ unsafe extern fn set_word_spacing<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWord_spacing(arg0);
+        let result: Result<(), Error<TH>> = this.SetWord_spacing(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17101,8 +17101,8 @@ unsafe extern fn set_word_spacing<TH: TypeHolderTrait>
 }
 
 
-const word_spacing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_word_spacing as *const os::raw::c_void,
+fn word_spacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_word_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17117,10 +17117,10 @@ const word_spacing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const word_spacing_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_word_spacing as *const os::raw::c_void,
+fn word_spacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_word_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17135,7 +17135,7 @@ const word_spacing_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_wordWrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17168,7 +17168,7 @@ unsafe extern fn set_wordWrap<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWordWrap(arg0);
+        let result: Result<(), Error<TH>> = this.SetWordWrap(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17184,8 +17184,8 @@ unsafe extern fn set_wordWrap<TH: TypeHolderTrait>
 }
 
 
-const wordWrap_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_wordWrap as *const os::raw::c_void,
+fn wordWrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_wordWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17200,10 +17200,10 @@ const wordWrap_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const wordWrap_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_wordWrap as *const os::raw::c_void,
+fn wordWrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_wordWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17218,7 +17218,7 @@ const wordWrap_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_word_wrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17251,7 +17251,7 @@ unsafe extern fn set_word_wrap<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWord_wrap(arg0);
+        let result: Result<(), Error<TH>> = this.SetWord_wrap(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17267,8 +17267,8 @@ unsafe extern fn set_word_wrap<TH: TypeHolderTrait>
 }
 
 
-const word_wrap_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_word_wrap as *const os::raw::c_void,
+fn word_wrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_word_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17283,10 +17283,10 @@ const word_wrap_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const word_wrap_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_word_wrap as *const os::raw::c_void,
+fn word_wrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_word_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17301,7 +17301,7 @@ const word_wrap_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_textOverflow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17334,7 +17334,7 @@ unsafe extern fn set_textOverflow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTextOverflow(arg0);
+        let result: Result<(), Error<TH>> = this.SetTextOverflow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17350,8 +17350,8 @@ unsafe extern fn set_textOverflow<TH: TypeHolderTrait>
 }
 
 
-const textOverflow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_textOverflow as *const os::raw::c_void,
+fn textOverflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_textOverflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17366,10 +17366,10 @@ const textOverflow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const textOverflow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_textOverflow as *const os::raw::c_void,
+fn textOverflow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_textOverflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17384,7 +17384,7 @@ const textOverflow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_text_overflow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17417,7 +17417,7 @@ unsafe extern fn set_text_overflow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetText_overflow(arg0);
+        let result: Result<(), Error<TH>> = this.SetText_overflow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17433,8 +17433,8 @@ unsafe extern fn set_text_overflow<TH: TypeHolderTrait>
 }
 
 
-const text_overflow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_text_overflow as *const os::raw::c_void,
+fn text_overflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_text_overflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17449,10 +17449,10 @@ const text_overflow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const text_overflow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_text_overflow as *const os::raw::c_void,
+fn text_overflow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_text_overflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17467,7 +17467,7 @@ const text_overflow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_textAlign<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17500,7 +17500,7 @@ unsafe extern fn set_textAlign<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTextAlign(arg0);
+        let result: Result<(), Error<TH>> = this.SetTextAlign(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17516,8 +17516,8 @@ unsafe extern fn set_textAlign<TH: TypeHolderTrait>
 }
 
 
-const textAlign_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_textAlign as *const os::raw::c_void,
+fn textAlign_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_textAlign::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17532,10 +17532,10 @@ const textAlign_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const textAlign_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_textAlign as *const os::raw::c_void,
+fn textAlign_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_textAlign::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17550,7 +17550,7 @@ const textAlign_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_text_align<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17583,7 +17583,7 @@ unsafe extern fn set_text_align<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetText_align(arg0);
+        let result: Result<(), Error<TH>> = this.SetText_align(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17599,8 +17599,8 @@ unsafe extern fn set_text_align<TH: TypeHolderTrait>
 }
 
 
-const text_align_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_text_align as *const os::raw::c_void,
+fn text_align_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_text_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17615,10 +17615,10 @@ const text_align_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const text_align_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_text_align as *const os::raw::c_void,
+fn text_align_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_text_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17633,7 +17633,7 @@ const text_align_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_textDecoration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17666,7 +17666,7 @@ unsafe extern fn set_textDecoration<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTextDecoration(arg0);
+        let result: Result<(), Error<TH>> = this.SetTextDecoration(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17682,8 +17682,8 @@ unsafe extern fn set_textDecoration<TH: TypeHolderTrait>
 }
 
 
-const textDecoration_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_textDecoration as *const os::raw::c_void,
+fn textDecoration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_textDecoration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17698,10 +17698,10 @@ const textDecoration_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const textDecoration_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_textDecoration as *const os::raw::c_void,
+fn textDecoration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_textDecoration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17716,7 +17716,7 @@ const textDecoration_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_text_decoration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17749,7 +17749,7 @@ unsafe extern fn set_text_decoration<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetText_decoration(arg0);
+        let result: Result<(), Error<TH>> = this.SetText_decoration(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17765,8 +17765,8 @@ unsafe extern fn set_text_decoration<TH: TypeHolderTrait>
 }
 
 
-const text_decoration_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_text_decoration as *const os::raw::c_void,
+fn text_decoration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_text_decoration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17781,10 +17781,10 @@ const text_decoration_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const text_decoration_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_text_decoration as *const os::raw::c_void,
+fn text_decoration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_text_decoration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17799,7 +17799,7 @@ const text_decoration_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_textDecorationLine<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17832,7 +17832,7 @@ unsafe extern fn set_textDecorationLine<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTextDecorationLine(arg0);
+        let result: Result<(), Error<TH>> = this.SetTextDecorationLine(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17848,8 +17848,8 @@ unsafe extern fn set_textDecorationLine<TH: TypeHolderTrait>
 }
 
 
-const textDecorationLine_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_textDecorationLine as *const os::raw::c_void,
+fn textDecorationLine_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_textDecorationLine::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17864,10 +17864,10 @@ const textDecorationLine_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const textDecorationLine_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_textDecorationLine as *const os::raw::c_void,
+fn textDecorationLine_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_textDecorationLine::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17882,7 +17882,7 @@ const textDecorationLine_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_text_decoration_line<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17915,7 +17915,7 @@ unsafe extern fn set_text_decoration_line<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetText_decoration_line(arg0);
+        let result: Result<(), Error<TH>> = this.SetText_decoration_line(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -17931,8 +17931,8 @@ unsafe extern fn set_text_decoration_line<TH: TypeHolderTrait>
 }
 
 
-const text_decoration_line_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_text_decoration_line as *const os::raw::c_void,
+fn text_decoration_line_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_text_decoration_line::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17947,10 +17947,10 @@ const text_decoration_line_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const text_decoration_line_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_text_decoration_line as *const os::raw::c_void,
+fn text_decoration_line_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_text_decoration_line::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17965,7 +17965,7 @@ const text_decoration_line_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_textIndent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -17998,7 +17998,7 @@ unsafe extern fn set_textIndent<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTextIndent(arg0);
+        let result: Result<(), Error<TH>> = this.SetTextIndent(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18014,8 +18014,8 @@ unsafe extern fn set_textIndent<TH: TypeHolderTrait>
 }
 
 
-const textIndent_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_textIndent as *const os::raw::c_void,
+fn textIndent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_textIndent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18030,10 +18030,10 @@ const textIndent_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const textIndent_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_textIndent as *const os::raw::c_void,
+fn textIndent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_textIndent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18048,7 +18048,7 @@ const textIndent_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_text_indent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18081,7 +18081,7 @@ unsafe extern fn set_text_indent<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetText_indent(arg0);
+        let result: Result<(), Error<TH>> = this.SetText_indent(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18097,8 +18097,8 @@ unsafe extern fn set_text_indent<TH: TypeHolderTrait>
 }
 
 
-const text_indent_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_text_indent as *const os::raw::c_void,
+fn text_indent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_text_indent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18113,10 +18113,10 @@ const text_indent_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const text_indent_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_text_indent as *const os::raw::c_void,
+fn text_indent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_text_indent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18131,7 +18131,7 @@ const text_indent_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_textJustify<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18164,7 +18164,7 @@ unsafe extern fn set_textJustify<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTextJustify(arg0);
+        let result: Result<(), Error<TH>> = this.SetTextJustify(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18180,8 +18180,8 @@ unsafe extern fn set_textJustify<TH: TypeHolderTrait>
 }
 
 
-const textJustify_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_textJustify as *const os::raw::c_void,
+fn textJustify_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_textJustify::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18196,10 +18196,10 @@ const textJustify_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const textJustify_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_textJustify as *const os::raw::c_void,
+fn textJustify_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_textJustify::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18214,7 +18214,7 @@ const textJustify_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_text_justify<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18247,7 +18247,7 @@ unsafe extern fn set_text_justify<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetText_justify(arg0);
+        let result: Result<(), Error<TH>> = this.SetText_justify(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18263,8 +18263,8 @@ unsafe extern fn set_text_justify<TH: TypeHolderTrait>
 }
 
 
-const text_justify_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_text_justify as *const os::raw::c_void,
+fn text_justify_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_text_justify::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18279,10 +18279,10 @@ const text_justify_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const text_justify_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_text_justify as *const os::raw::c_void,
+fn text_justify_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_text_justify::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18297,7 +18297,7 @@ const text_justify_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_textRendering<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18330,7 +18330,7 @@ unsafe extern fn set_textRendering<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTextRendering(arg0);
+        let result: Result<(), Error<TH>> = this.SetTextRendering(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18346,8 +18346,8 @@ unsafe extern fn set_textRendering<TH: TypeHolderTrait>
 }
 
 
-const textRendering_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_textRendering as *const os::raw::c_void,
+fn textRendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_textRendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18362,10 +18362,10 @@ const textRendering_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const textRendering_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_textRendering as *const os::raw::c_void,
+fn textRendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_textRendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18380,7 +18380,7 @@ const textRendering_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_text_rendering<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18413,7 +18413,7 @@ unsafe extern fn set_text_rendering<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetText_rendering(arg0);
+        let result: Result<(), Error<TH>> = this.SetText_rendering(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18429,8 +18429,8 @@ unsafe extern fn set_text_rendering<TH: TypeHolderTrait>
 }
 
 
-const text_rendering_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_text_rendering as *const os::raw::c_void,
+fn text_rendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_text_rendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18445,10 +18445,10 @@ const text_rendering_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const text_rendering_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_text_rendering as *const os::raw::c_void,
+fn text_rendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_text_rendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18463,7 +18463,7 @@ const text_rendering_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_textTransform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18496,7 +18496,7 @@ unsafe extern fn set_textTransform<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTextTransform(arg0);
+        let result: Result<(), Error<TH>> = this.SetTextTransform(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18512,8 +18512,8 @@ unsafe extern fn set_textTransform<TH: TypeHolderTrait>
 }
 
 
-const textTransform_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_textTransform as *const os::raw::c_void,
+fn textTransform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_textTransform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18528,10 +18528,10 @@ const textTransform_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const textTransform_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_textTransform as *const os::raw::c_void,
+fn textTransform_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_textTransform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18546,7 +18546,7 @@ const textTransform_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_text_transform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18579,7 +18579,7 @@ unsafe extern fn set_text_transform<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetText_transform(arg0);
+        let result: Result<(), Error<TH>> = this.SetText_transform(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18595,8 +18595,8 @@ unsafe extern fn set_text_transform<TH: TypeHolderTrait>
 }
 
 
-const text_transform_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_text_transform as *const os::raw::c_void,
+fn text_transform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_text_transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18611,10 +18611,10 @@ const text_transform_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const text_transform_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_text_transform as *const os::raw::c_void,
+fn text_transform_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_text_transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18629,7 +18629,7 @@ const text_transform_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_font<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18662,7 +18662,7 @@ unsafe extern fn set_font<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFont(arg0);
+        let result: Result<(), Error<TH>> = this.SetFont(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18678,8 +18678,8 @@ unsafe extern fn set_font<TH: TypeHolderTrait>
 }
 
 
-const font_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_font as *const os::raw::c_void,
+fn font_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_font::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18694,10 +18694,10 @@ const font_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const font_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_font as *const os::raw::c_void,
+fn font_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_font::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18712,7 +18712,7 @@ const font_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fontFamily<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18745,7 +18745,7 @@ unsafe extern fn set_fontFamily<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFontFamily(arg0);
+        let result: Result<(), Error<TH>> = this.SetFontFamily(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18761,8 +18761,8 @@ unsafe extern fn set_fontFamily<TH: TypeHolderTrait>
 }
 
 
-const fontFamily_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fontFamily as *const os::raw::c_void,
+fn fontFamily_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fontFamily::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18777,10 +18777,10 @@ const fontFamily_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const fontFamily_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_fontFamily as *const os::raw::c_void,
+fn fontFamily_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_fontFamily::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18795,7 +18795,7 @@ const fontFamily_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_font_family<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18828,7 +18828,7 @@ unsafe extern fn set_font_family<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFont_family(arg0);
+        let result: Result<(), Error<TH>> = this.SetFont_family(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18844,8 +18844,8 @@ unsafe extern fn set_font_family<TH: TypeHolderTrait>
 }
 
 
-const font_family_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_font_family as *const os::raw::c_void,
+fn font_family_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_font_family::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18860,10 +18860,10 @@ const font_family_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const font_family_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_font_family as *const os::raw::c_void,
+fn font_family_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_font_family::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18878,7 +18878,7 @@ const font_family_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fontSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18911,7 +18911,7 @@ unsafe extern fn set_fontSize<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFontSize(arg0);
+        let result: Result<(), Error<TH>> = this.SetFontSize(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -18927,8 +18927,8 @@ unsafe extern fn set_fontSize<TH: TypeHolderTrait>
 }
 
 
-const fontSize_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fontSize as *const os::raw::c_void,
+fn fontSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fontSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18943,10 +18943,10 @@ const fontSize_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const fontSize_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_fontSize as *const os::raw::c_void,
+fn fontSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_fontSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18961,7 +18961,7 @@ const fontSize_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_font_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -18994,7 +18994,7 @@ unsafe extern fn set_font_size<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFont_size(arg0);
+        let result: Result<(), Error<TH>> = this.SetFont_size(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19010,8 +19010,8 @@ unsafe extern fn set_font_size<TH: TypeHolderTrait>
 }
 
 
-const font_size_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_font_size as *const os::raw::c_void,
+fn font_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_font_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19026,10 +19026,10 @@ const font_size_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const font_size_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_font_size as *const os::raw::c_void,
+fn font_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_font_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19044,7 +19044,7 @@ const font_size_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fontStretch<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19077,7 +19077,7 @@ unsafe extern fn set_fontStretch<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFontStretch(arg0);
+        let result: Result<(), Error<TH>> = this.SetFontStretch(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19093,8 +19093,8 @@ unsafe extern fn set_fontStretch<TH: TypeHolderTrait>
 }
 
 
-const fontStretch_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fontStretch as *const os::raw::c_void,
+fn fontStretch_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fontStretch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19109,10 +19109,10 @@ const fontStretch_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const fontStretch_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_fontStretch as *const os::raw::c_void,
+fn fontStretch_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_fontStretch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19127,7 +19127,7 @@ const fontStretch_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_font_stretch<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19160,7 +19160,7 @@ unsafe extern fn set_font_stretch<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFont_stretch(arg0);
+        let result: Result<(), Error<TH>> = this.SetFont_stretch(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19176,8 +19176,8 @@ unsafe extern fn set_font_stretch<TH: TypeHolderTrait>
 }
 
 
-const font_stretch_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_font_stretch as *const os::raw::c_void,
+fn font_stretch_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_font_stretch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19192,10 +19192,10 @@ const font_stretch_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const font_stretch_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_font_stretch as *const os::raw::c_void,
+fn font_stretch_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_font_stretch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19210,7 +19210,7 @@ const font_stretch_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fontStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19243,7 +19243,7 @@ unsafe extern fn set_fontStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFontStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetFontStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19259,8 +19259,8 @@ unsafe extern fn set_fontStyle<TH: TypeHolderTrait>
 }
 
 
-const fontStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fontStyle as *const os::raw::c_void,
+fn fontStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fontStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19275,10 +19275,10 @@ const fontStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const fontStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_fontStyle as *const os::raw::c_void,
+fn fontStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_fontStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19293,7 +19293,7 @@ const fontStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_font_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19326,7 +19326,7 @@ unsafe extern fn set_font_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFont_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetFont_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19342,8 +19342,8 @@ unsafe extern fn set_font_style<TH: TypeHolderTrait>
 }
 
 
-const font_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_font_style as *const os::raw::c_void,
+fn font_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_font_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19358,10 +19358,10 @@ const font_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const font_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_font_style as *const os::raw::c_void,
+fn font_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_font_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19376,7 +19376,7 @@ const font_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fontVariant<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19409,7 +19409,7 @@ unsafe extern fn set_fontVariant<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFontVariant(arg0);
+        let result: Result<(), Error<TH>> = this.SetFontVariant(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19425,8 +19425,8 @@ unsafe extern fn set_fontVariant<TH: TypeHolderTrait>
 }
 
 
-const fontVariant_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fontVariant as *const os::raw::c_void,
+fn fontVariant_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fontVariant::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19441,10 +19441,10 @@ const fontVariant_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const fontVariant_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_fontVariant as *const os::raw::c_void,
+fn fontVariant_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_fontVariant::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19459,7 +19459,7 @@ const fontVariant_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_font_variant<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19492,7 +19492,7 @@ unsafe extern fn set_font_variant<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFont_variant(arg0);
+        let result: Result<(), Error<TH>> = this.SetFont_variant(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19508,8 +19508,8 @@ unsafe extern fn set_font_variant<TH: TypeHolderTrait>
 }
 
 
-const font_variant_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_font_variant as *const os::raw::c_void,
+fn font_variant_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_font_variant::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19524,10 +19524,10 @@ const font_variant_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const font_variant_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_font_variant as *const os::raw::c_void,
+fn font_variant_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_font_variant::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19542,7 +19542,7 @@ const font_variant_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fontVariantCaps<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19575,7 +19575,7 @@ unsafe extern fn set_fontVariantCaps<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFontVariantCaps(arg0);
+        let result: Result<(), Error<TH>> = this.SetFontVariantCaps(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19591,8 +19591,8 @@ unsafe extern fn set_fontVariantCaps<TH: TypeHolderTrait>
 }
 
 
-const fontVariantCaps_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fontVariantCaps as *const os::raw::c_void,
+fn fontVariantCaps_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fontVariantCaps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19607,10 +19607,10 @@ const fontVariantCaps_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const fontVariantCaps_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_fontVariantCaps as *const os::raw::c_void,
+fn fontVariantCaps_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_fontVariantCaps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19625,7 +19625,7 @@ const fontVariantCaps_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_font_variant_caps<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19658,7 +19658,7 @@ unsafe extern fn set_font_variant_caps<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFont_variant_caps(arg0);
+        let result: Result<(), Error<TH>> = this.SetFont_variant_caps(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19674,8 +19674,8 @@ unsafe extern fn set_font_variant_caps<TH: TypeHolderTrait>
 }
 
 
-const font_variant_caps_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_font_variant_caps as *const os::raw::c_void,
+fn font_variant_caps_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_font_variant_caps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19690,10 +19690,10 @@ const font_variant_caps_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const font_variant_caps_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_font_variant_caps as *const os::raw::c_void,
+fn font_variant_caps_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_font_variant_caps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19708,7 +19708,7 @@ const font_variant_caps_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fontWeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19741,7 +19741,7 @@ unsafe extern fn set_fontWeight<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFontWeight(arg0);
+        let result: Result<(), Error<TH>> = this.SetFontWeight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19757,8 +19757,8 @@ unsafe extern fn set_fontWeight<TH: TypeHolderTrait>
 }
 
 
-const fontWeight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fontWeight as *const os::raw::c_void,
+fn fontWeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fontWeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19773,10 +19773,10 @@ const fontWeight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const fontWeight_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_fontWeight as *const os::raw::c_void,
+fn fontWeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_fontWeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19791,7 +19791,7 @@ const fontWeight_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_font_weight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19824,7 +19824,7 @@ unsafe extern fn set_font_weight<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFont_weight(arg0);
+        let result: Result<(), Error<TH>> = this.SetFont_weight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19840,8 +19840,8 @@ unsafe extern fn set_font_weight<TH: TypeHolderTrait>
 }
 
 
-const font_weight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_font_weight as *const os::raw::c_void,
+fn font_weight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_font_weight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19856,10 +19856,10 @@ const font_weight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const font_weight_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_font_weight as *const os::raw::c_void,
+fn font_weight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_font_weight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19874,7 +19874,7 @@ const font_weight_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_margin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19907,7 +19907,7 @@ unsafe extern fn set_margin<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMargin(arg0);
+        let result: Result<(), Error<TH>> = this.SetMargin(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -19923,8 +19923,8 @@ unsafe extern fn set_margin<TH: TypeHolderTrait>
 }
 
 
-const margin_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_margin as *const os::raw::c_void,
+fn margin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_margin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19939,10 +19939,10 @@ const margin_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const margin_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_margin as *const os::raw::c_void,
+fn margin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_margin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19957,7 +19957,7 @@ const margin_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_marginBottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19990,7 +19990,7 @@ unsafe extern fn set_marginBottom<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMarginBottom(arg0);
+        let result: Result<(), Error<TH>> = this.SetMarginBottom(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20006,8 +20006,8 @@ unsafe extern fn set_marginBottom<TH: TypeHolderTrait>
 }
 
 
-const marginBottom_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_marginBottom as *const os::raw::c_void,
+fn marginBottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_marginBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20022,10 +20022,10 @@ const marginBottom_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const marginBottom_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_marginBottom as *const os::raw::c_void,
+fn marginBottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_marginBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20040,7 +20040,7 @@ const marginBottom_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_margin_bottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20073,7 +20073,7 @@ unsafe extern fn set_margin_bottom<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMargin_bottom(arg0);
+        let result: Result<(), Error<TH>> = this.SetMargin_bottom(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20089,8 +20089,8 @@ unsafe extern fn set_margin_bottom<TH: TypeHolderTrait>
 }
 
 
-const margin_bottom_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_margin_bottom as *const os::raw::c_void,
+fn margin_bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_margin_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20105,10 +20105,10 @@ const margin_bottom_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const margin_bottom_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_margin_bottom as *const os::raw::c_void,
+fn margin_bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_margin_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20123,7 +20123,7 @@ const margin_bottom_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_marginLeft<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20156,7 +20156,7 @@ unsafe extern fn set_marginLeft<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMarginLeft(arg0);
+        let result: Result<(), Error<TH>> = this.SetMarginLeft(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20172,8 +20172,8 @@ unsafe extern fn set_marginLeft<TH: TypeHolderTrait>
 }
 
 
-const marginLeft_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_marginLeft as *const os::raw::c_void,
+fn marginLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_marginLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20188,10 +20188,10 @@ const marginLeft_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const marginLeft_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_marginLeft as *const os::raw::c_void,
+fn marginLeft_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_marginLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20206,7 +20206,7 @@ const marginLeft_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_margin_left<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20239,7 +20239,7 @@ unsafe extern fn set_margin_left<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMargin_left(arg0);
+        let result: Result<(), Error<TH>> = this.SetMargin_left(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20255,8 +20255,8 @@ unsafe extern fn set_margin_left<TH: TypeHolderTrait>
 }
 
 
-const margin_left_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_margin_left as *const os::raw::c_void,
+fn margin_left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_margin_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20271,10 +20271,10 @@ const margin_left_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const margin_left_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_margin_left as *const os::raw::c_void,
+fn margin_left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_margin_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20289,7 +20289,7 @@ const margin_left_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_marginRight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20322,7 +20322,7 @@ unsafe extern fn set_marginRight<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMarginRight(arg0);
+        let result: Result<(), Error<TH>> = this.SetMarginRight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20338,8 +20338,8 @@ unsafe extern fn set_marginRight<TH: TypeHolderTrait>
 }
 
 
-const marginRight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_marginRight as *const os::raw::c_void,
+fn marginRight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_marginRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20354,10 +20354,10 @@ const marginRight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const marginRight_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_marginRight as *const os::raw::c_void,
+fn marginRight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_marginRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20372,7 +20372,7 @@ const marginRight_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_margin_right<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20405,7 +20405,7 @@ unsafe extern fn set_margin_right<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMargin_right(arg0);
+        let result: Result<(), Error<TH>> = this.SetMargin_right(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20421,8 +20421,8 @@ unsafe extern fn set_margin_right<TH: TypeHolderTrait>
 }
 
 
-const margin_right_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_margin_right as *const os::raw::c_void,
+fn margin_right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_margin_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20437,10 +20437,10 @@ const margin_right_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const margin_right_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_margin_right as *const os::raw::c_void,
+fn margin_right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_margin_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20455,7 +20455,7 @@ const margin_right_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_marginTop<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20488,7 +20488,7 @@ unsafe extern fn set_marginTop<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMarginTop(arg0);
+        let result: Result<(), Error<TH>> = this.SetMarginTop(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20504,8 +20504,8 @@ unsafe extern fn set_marginTop<TH: TypeHolderTrait>
 }
 
 
-const marginTop_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_marginTop as *const os::raw::c_void,
+fn marginTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_marginTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20520,10 +20520,10 @@ const marginTop_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const marginTop_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_marginTop as *const os::raw::c_void,
+fn marginTop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_marginTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20538,7 +20538,7 @@ const marginTop_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_margin_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20571,7 +20571,7 @@ unsafe extern fn set_margin_top<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMargin_top(arg0);
+        let result: Result<(), Error<TH>> = this.SetMargin_top(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20587,8 +20587,8 @@ unsafe extern fn set_margin_top<TH: TypeHolderTrait>
 }
 
 
-const margin_top_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_margin_top as *const os::raw::c_void,
+fn margin_top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_margin_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20603,10 +20603,10 @@ const margin_top_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const margin_top_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_margin_top as *const os::raw::c_void,
+fn margin_top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_margin_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20621,7 +20621,7 @@ const margin_top_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_margin_block_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20654,7 +20654,7 @@ unsafe extern fn set_margin_block_start<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMargin_block_start(arg0);
+        let result: Result<(), Error<TH>> = this.SetMargin_block_start(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20670,8 +20670,8 @@ unsafe extern fn set_margin_block_start<TH: TypeHolderTrait>
 }
 
 
-const margin_block_start_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_margin_block_start as *const os::raw::c_void,
+fn margin_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_margin_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20686,10 +20686,10 @@ const margin_block_start_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const margin_block_start_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_margin_block_start as *const os::raw::c_void,
+fn margin_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_margin_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20704,7 +20704,7 @@ const margin_block_start_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_marginBlockStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20737,7 +20737,7 @@ unsafe extern fn set_marginBlockStart<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMarginBlockStart(arg0);
+        let result: Result<(), Error<TH>> = this.SetMarginBlockStart(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20753,8 +20753,8 @@ unsafe extern fn set_marginBlockStart<TH: TypeHolderTrait>
 }
 
 
-const marginBlockStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_marginBlockStart as *const os::raw::c_void,
+fn marginBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_marginBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20769,10 +20769,10 @@ const marginBlockStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const marginBlockStart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_marginBlockStart as *const os::raw::c_void,
+fn marginBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_marginBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20787,7 +20787,7 @@ const marginBlockStart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_margin_block_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20820,7 +20820,7 @@ unsafe extern fn set_margin_block_end<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMargin_block_end(arg0);
+        let result: Result<(), Error<TH>> = this.SetMargin_block_end(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20836,8 +20836,8 @@ unsafe extern fn set_margin_block_end<TH: TypeHolderTrait>
 }
 
 
-const margin_block_end_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_margin_block_end as *const os::raw::c_void,
+fn margin_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_margin_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20852,10 +20852,10 @@ const margin_block_end_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const margin_block_end_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_margin_block_end as *const os::raw::c_void,
+fn margin_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_margin_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20870,7 +20870,7 @@ const margin_block_end_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_marginBlockEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20903,7 +20903,7 @@ unsafe extern fn set_marginBlockEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMarginBlockEnd(arg0);
+        let result: Result<(), Error<TH>> = this.SetMarginBlockEnd(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -20919,8 +20919,8 @@ unsafe extern fn set_marginBlockEnd<TH: TypeHolderTrait>
 }
 
 
-const marginBlockEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_marginBlockEnd as *const os::raw::c_void,
+fn marginBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_marginBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20935,10 +20935,10 @@ const marginBlockEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const marginBlockEnd_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_marginBlockEnd as *const os::raw::c_void,
+fn marginBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_marginBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20953,7 +20953,7 @@ const marginBlockEnd_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_margin_inline_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -20986,7 +20986,7 @@ unsafe extern fn set_margin_inline_start<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMargin_inline_start(arg0);
+        let result: Result<(), Error<TH>> = this.SetMargin_inline_start(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21002,8 +21002,8 @@ unsafe extern fn set_margin_inline_start<TH: TypeHolderTrait>
 }
 
 
-const margin_inline_start_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_margin_inline_start as *const os::raw::c_void,
+fn margin_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_margin_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21018,10 +21018,10 @@ const margin_inline_start_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const margin_inline_start_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_margin_inline_start as *const os::raw::c_void,
+fn margin_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_margin_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21036,7 +21036,7 @@ const margin_inline_start_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_marginInlineStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21069,7 +21069,7 @@ unsafe extern fn set_marginInlineStart<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMarginInlineStart(arg0);
+        let result: Result<(), Error<TH>> = this.SetMarginInlineStart(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21085,8 +21085,8 @@ unsafe extern fn set_marginInlineStart<TH: TypeHolderTrait>
 }
 
 
-const marginInlineStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_marginInlineStart as *const os::raw::c_void,
+fn marginInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_marginInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21101,10 +21101,10 @@ const marginInlineStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const marginInlineStart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_marginInlineStart as *const os::raw::c_void,
+fn marginInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_marginInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21119,7 +21119,7 @@ const marginInlineStart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_margin_inline_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21152,7 +21152,7 @@ unsafe extern fn set_margin_inline_end<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMargin_inline_end(arg0);
+        let result: Result<(), Error<TH>> = this.SetMargin_inline_end(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21168,8 +21168,8 @@ unsafe extern fn set_margin_inline_end<TH: TypeHolderTrait>
 }
 
 
-const margin_inline_end_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_margin_inline_end as *const os::raw::c_void,
+fn margin_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_margin_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21184,10 +21184,10 @@ const margin_inline_end_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const margin_inline_end_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_margin_inline_end as *const os::raw::c_void,
+fn margin_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_margin_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21202,7 +21202,7 @@ const margin_inline_end_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_marginInlineEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21235,7 +21235,7 @@ unsafe extern fn set_marginInlineEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMarginInlineEnd(arg0);
+        let result: Result<(), Error<TH>> = this.SetMarginInlineEnd(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21251,8 +21251,8 @@ unsafe extern fn set_marginInlineEnd<TH: TypeHolderTrait>
 }
 
 
-const marginInlineEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_marginInlineEnd as *const os::raw::c_void,
+fn marginInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_marginInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21267,10 +21267,10 @@ const marginInlineEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const marginInlineEnd_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_marginInlineEnd as *const os::raw::c_void,
+fn marginInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_marginInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21285,7 +21285,7 @@ const marginInlineEnd_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_padding<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21318,7 +21318,7 @@ unsafe extern fn set_padding<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPadding(arg0);
+        let result: Result<(), Error<TH>> = this.SetPadding(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21334,8 +21334,8 @@ unsafe extern fn set_padding<TH: TypeHolderTrait>
 }
 
 
-const padding_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_padding as *const os::raw::c_void,
+fn padding_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_padding::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21350,10 +21350,10 @@ const padding_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const padding_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_padding as *const os::raw::c_void,
+fn padding_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_padding::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21368,7 +21368,7 @@ const padding_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_paddingBottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21401,7 +21401,7 @@ unsafe extern fn set_paddingBottom<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPaddingBottom(arg0);
+        let result: Result<(), Error<TH>> = this.SetPaddingBottom(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21417,8 +21417,8 @@ unsafe extern fn set_paddingBottom<TH: TypeHolderTrait>
 }
 
 
-const paddingBottom_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_paddingBottom as *const os::raw::c_void,
+fn paddingBottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_paddingBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21433,10 +21433,10 @@ const paddingBottom_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const paddingBottom_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_paddingBottom as *const os::raw::c_void,
+fn paddingBottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_paddingBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21451,7 +21451,7 @@ const paddingBottom_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_padding_bottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21484,7 +21484,7 @@ unsafe extern fn set_padding_bottom<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPadding_bottom(arg0);
+        let result: Result<(), Error<TH>> = this.SetPadding_bottom(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21500,8 +21500,8 @@ unsafe extern fn set_padding_bottom<TH: TypeHolderTrait>
 }
 
 
-const padding_bottom_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_padding_bottom as *const os::raw::c_void,
+fn padding_bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_padding_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21516,10 +21516,10 @@ const padding_bottom_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const padding_bottom_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_padding_bottom as *const os::raw::c_void,
+fn padding_bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_padding_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21534,7 +21534,7 @@ const padding_bottom_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_paddingLeft<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21567,7 +21567,7 @@ unsafe extern fn set_paddingLeft<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPaddingLeft(arg0);
+        let result: Result<(), Error<TH>> = this.SetPaddingLeft(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21583,8 +21583,8 @@ unsafe extern fn set_paddingLeft<TH: TypeHolderTrait>
 }
 
 
-const paddingLeft_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_paddingLeft as *const os::raw::c_void,
+fn paddingLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_paddingLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21599,10 +21599,10 @@ const paddingLeft_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const paddingLeft_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_paddingLeft as *const os::raw::c_void,
+fn paddingLeft_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_paddingLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21617,7 +21617,7 @@ const paddingLeft_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_padding_left<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21650,7 +21650,7 @@ unsafe extern fn set_padding_left<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPadding_left(arg0);
+        let result: Result<(), Error<TH>> = this.SetPadding_left(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21666,8 +21666,8 @@ unsafe extern fn set_padding_left<TH: TypeHolderTrait>
 }
 
 
-const padding_left_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_padding_left as *const os::raw::c_void,
+fn padding_left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_padding_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21682,10 +21682,10 @@ const padding_left_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const padding_left_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_padding_left as *const os::raw::c_void,
+fn padding_left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_padding_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21700,7 +21700,7 @@ const padding_left_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_paddingRight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21733,7 +21733,7 @@ unsafe extern fn set_paddingRight<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPaddingRight(arg0);
+        let result: Result<(), Error<TH>> = this.SetPaddingRight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21749,8 +21749,8 @@ unsafe extern fn set_paddingRight<TH: TypeHolderTrait>
 }
 
 
-const paddingRight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_paddingRight as *const os::raw::c_void,
+fn paddingRight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_paddingRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21765,10 +21765,10 @@ const paddingRight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const paddingRight_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_paddingRight as *const os::raw::c_void,
+fn paddingRight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_paddingRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21783,7 +21783,7 @@ const paddingRight_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_padding_right<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21816,7 +21816,7 @@ unsafe extern fn set_padding_right<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPadding_right(arg0);
+        let result: Result<(), Error<TH>> = this.SetPadding_right(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21832,8 +21832,8 @@ unsafe extern fn set_padding_right<TH: TypeHolderTrait>
 }
 
 
-const padding_right_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_padding_right as *const os::raw::c_void,
+fn padding_right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_padding_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21848,10 +21848,10 @@ const padding_right_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const padding_right_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_padding_right as *const os::raw::c_void,
+fn padding_right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_padding_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21866,7 +21866,7 @@ const padding_right_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_paddingTop<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21899,7 +21899,7 @@ unsafe extern fn set_paddingTop<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPaddingTop(arg0);
+        let result: Result<(), Error<TH>> = this.SetPaddingTop(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21915,8 +21915,8 @@ unsafe extern fn set_paddingTop<TH: TypeHolderTrait>
 }
 
 
-const paddingTop_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_paddingTop as *const os::raw::c_void,
+fn paddingTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_paddingTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21931,10 +21931,10 @@ const paddingTop_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const paddingTop_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_paddingTop as *const os::raw::c_void,
+fn paddingTop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_paddingTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -21949,7 +21949,7 @@ const paddingTop_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_padding_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -21982,7 +21982,7 @@ unsafe extern fn set_padding_top<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPadding_top(arg0);
+        let result: Result<(), Error<TH>> = this.SetPadding_top(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -21998,8 +21998,8 @@ unsafe extern fn set_padding_top<TH: TypeHolderTrait>
 }
 
 
-const padding_top_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_padding_top as *const os::raw::c_void,
+fn padding_top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_padding_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22014,10 +22014,10 @@ const padding_top_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const padding_top_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_padding_top as *const os::raw::c_void,
+fn padding_top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_padding_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22032,7 +22032,7 @@ const padding_top_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_padding_block_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22065,7 +22065,7 @@ unsafe extern fn set_padding_block_start<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPadding_block_start(arg0);
+        let result: Result<(), Error<TH>> = this.SetPadding_block_start(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22081,8 +22081,8 @@ unsafe extern fn set_padding_block_start<TH: TypeHolderTrait>
 }
 
 
-const padding_block_start_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_padding_block_start as *const os::raw::c_void,
+fn padding_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_padding_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22097,10 +22097,10 @@ const padding_block_start_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const padding_block_start_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_padding_block_start as *const os::raw::c_void,
+fn padding_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_padding_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22115,7 +22115,7 @@ const padding_block_start_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_paddingBlockStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22148,7 +22148,7 @@ unsafe extern fn set_paddingBlockStart<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPaddingBlockStart(arg0);
+        let result: Result<(), Error<TH>> = this.SetPaddingBlockStart(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22164,8 +22164,8 @@ unsafe extern fn set_paddingBlockStart<TH: TypeHolderTrait>
 }
 
 
-const paddingBlockStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_paddingBlockStart as *const os::raw::c_void,
+fn paddingBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_paddingBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22180,10 +22180,10 @@ const paddingBlockStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const paddingBlockStart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_paddingBlockStart as *const os::raw::c_void,
+fn paddingBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_paddingBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22198,7 +22198,7 @@ const paddingBlockStart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_padding_block_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22231,7 +22231,7 @@ unsafe extern fn set_padding_block_end<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPadding_block_end(arg0);
+        let result: Result<(), Error<TH>> = this.SetPadding_block_end(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22247,8 +22247,8 @@ unsafe extern fn set_padding_block_end<TH: TypeHolderTrait>
 }
 
 
-const padding_block_end_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_padding_block_end as *const os::raw::c_void,
+fn padding_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_padding_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22263,10 +22263,10 @@ const padding_block_end_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const padding_block_end_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_padding_block_end as *const os::raw::c_void,
+fn padding_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_padding_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22281,7 +22281,7 @@ const padding_block_end_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_paddingBlockEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22314,7 +22314,7 @@ unsafe extern fn set_paddingBlockEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPaddingBlockEnd(arg0);
+        let result: Result<(), Error<TH>> = this.SetPaddingBlockEnd(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22330,8 +22330,8 @@ unsafe extern fn set_paddingBlockEnd<TH: TypeHolderTrait>
 }
 
 
-const paddingBlockEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_paddingBlockEnd as *const os::raw::c_void,
+fn paddingBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_paddingBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22346,10 +22346,10 @@ const paddingBlockEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const paddingBlockEnd_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_paddingBlockEnd as *const os::raw::c_void,
+fn paddingBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_paddingBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22364,7 +22364,7 @@ const paddingBlockEnd_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_padding_inline_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22397,7 +22397,7 @@ unsafe extern fn set_padding_inline_start<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPadding_inline_start(arg0);
+        let result: Result<(), Error<TH>> = this.SetPadding_inline_start(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22413,8 +22413,8 @@ unsafe extern fn set_padding_inline_start<TH: TypeHolderTrait>
 }
 
 
-const padding_inline_start_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_padding_inline_start as *const os::raw::c_void,
+fn padding_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_padding_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22429,10 +22429,10 @@ const padding_inline_start_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const padding_inline_start_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_padding_inline_start as *const os::raw::c_void,
+fn padding_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_padding_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22447,7 +22447,7 @@ const padding_inline_start_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_paddingInlineStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22480,7 +22480,7 @@ unsafe extern fn set_paddingInlineStart<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPaddingInlineStart(arg0);
+        let result: Result<(), Error<TH>> = this.SetPaddingInlineStart(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22496,8 +22496,8 @@ unsafe extern fn set_paddingInlineStart<TH: TypeHolderTrait>
 }
 
 
-const paddingInlineStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_paddingInlineStart as *const os::raw::c_void,
+fn paddingInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_paddingInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22512,10 +22512,10 @@ const paddingInlineStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const paddingInlineStart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_paddingInlineStart as *const os::raw::c_void,
+fn paddingInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_paddingInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22530,7 +22530,7 @@ const paddingInlineStart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_padding_inline_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22563,7 +22563,7 @@ unsafe extern fn set_padding_inline_end<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPadding_inline_end(arg0);
+        let result: Result<(), Error<TH>> = this.SetPadding_inline_end(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22579,8 +22579,8 @@ unsafe extern fn set_padding_inline_end<TH: TypeHolderTrait>
 }
 
 
-const padding_inline_end_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_padding_inline_end as *const os::raw::c_void,
+fn padding_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_padding_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22595,10 +22595,10 @@ const padding_inline_end_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const padding_inline_end_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_padding_inline_end as *const os::raw::c_void,
+fn padding_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_padding_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22613,7 +22613,7 @@ const padding_inline_end_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_paddingInlineEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22646,7 +22646,7 @@ unsafe extern fn set_paddingInlineEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPaddingInlineEnd(arg0);
+        let result: Result<(), Error<TH>> = this.SetPaddingInlineEnd(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22662,8 +22662,8 @@ unsafe extern fn set_paddingInlineEnd<TH: TypeHolderTrait>
 }
 
 
-const paddingInlineEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_paddingInlineEnd as *const os::raw::c_void,
+fn paddingInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_paddingInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22678,10 +22678,10 @@ const paddingInlineEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const paddingInlineEnd_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_paddingInlineEnd as *const os::raw::c_void,
+fn paddingInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_paddingInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22696,7 +22696,7 @@ const paddingInlineEnd_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_outline<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22729,7 +22729,7 @@ unsafe extern fn set_outline<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOutline(arg0);
+        let result: Result<(), Error<TH>> = this.SetOutline(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22745,8 +22745,8 @@ unsafe extern fn set_outline<TH: TypeHolderTrait>
 }
 
 
-const outline_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_outline as *const os::raw::c_void,
+fn outline_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_outline::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22761,10 +22761,10 @@ const outline_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const outline_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_outline as *const os::raw::c_void,
+fn outline_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_outline::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22779,7 +22779,7 @@ const outline_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_outlineColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22812,7 +22812,7 @@ unsafe extern fn set_outlineColor<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOutlineColor(arg0);
+        let result: Result<(), Error<TH>> = this.SetOutlineColor(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22828,8 +22828,8 @@ unsafe extern fn set_outlineColor<TH: TypeHolderTrait>
 }
 
 
-const outlineColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_outlineColor as *const os::raw::c_void,
+fn outlineColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_outlineColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22844,10 +22844,10 @@ const outlineColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const outlineColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_outlineColor as *const os::raw::c_void,
+fn outlineColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_outlineColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22862,7 +22862,7 @@ const outlineColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_outline_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22895,7 +22895,7 @@ unsafe extern fn set_outline_color<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOutline_color(arg0);
+        let result: Result<(), Error<TH>> = this.SetOutline_color(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22911,8 +22911,8 @@ unsafe extern fn set_outline_color<TH: TypeHolderTrait>
 }
 
 
-const outline_color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_outline_color as *const os::raw::c_void,
+fn outline_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_outline_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22927,10 +22927,10 @@ const outline_color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const outline_color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_outline_color as *const os::raw::c_void,
+fn outline_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_outline_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -22945,7 +22945,7 @@ const outline_color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_outlineStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -22978,7 +22978,7 @@ unsafe extern fn set_outlineStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOutlineStyle(arg0);
+        let result: Result<(), Error<TH>> = this.SetOutlineStyle(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -22994,8 +22994,8 @@ unsafe extern fn set_outlineStyle<TH: TypeHolderTrait>
 }
 
 
-const outlineStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_outlineStyle as *const os::raw::c_void,
+fn outlineStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_outlineStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23010,10 +23010,10 @@ const outlineStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const outlineStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_outlineStyle as *const os::raw::c_void,
+fn outlineStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_outlineStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23028,7 +23028,7 @@ const outlineStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_outline_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23061,7 +23061,7 @@ unsafe extern fn set_outline_style<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOutline_style(arg0);
+        let result: Result<(), Error<TH>> = this.SetOutline_style(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23077,8 +23077,8 @@ unsafe extern fn set_outline_style<TH: TypeHolderTrait>
 }
 
 
-const outline_style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_outline_style as *const os::raw::c_void,
+fn outline_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_outline_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23093,10 +23093,10 @@ const outline_style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const outline_style_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_outline_style as *const os::raw::c_void,
+fn outline_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_outline_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23111,7 +23111,7 @@ const outline_style_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_outlineWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23144,7 +23144,7 @@ unsafe extern fn set_outlineWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOutlineWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetOutlineWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23160,8 +23160,8 @@ unsafe extern fn set_outlineWidth<TH: TypeHolderTrait>
 }
 
 
-const outlineWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_outlineWidth as *const os::raw::c_void,
+fn outlineWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_outlineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23176,10 +23176,10 @@ const outlineWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const outlineWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_outlineWidth as *const os::raw::c_void,
+fn outlineWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_outlineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23194,7 +23194,7 @@ const outlineWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_outline_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23227,7 +23227,7 @@ unsafe extern fn set_outline_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOutline_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetOutline_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23243,8 +23243,8 @@ unsafe extern fn set_outline_width<TH: TypeHolderTrait>
 }
 
 
-const outline_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_outline_width as *const os::raw::c_void,
+fn outline_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_outline_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23259,10 +23259,10 @@ const outline_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const outline_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_outline_width as *const os::raw::c_void,
+fn outline_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_outline_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23277,7 +23277,7 @@ const outline_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_outlineOffset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23310,7 +23310,7 @@ unsafe extern fn set_outlineOffset<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOutlineOffset(arg0);
+        let result: Result<(), Error<TH>> = this.SetOutlineOffset(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23326,8 +23326,8 @@ unsafe extern fn set_outlineOffset<TH: TypeHolderTrait>
 }
 
 
-const outlineOffset_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_outlineOffset as *const os::raw::c_void,
+fn outlineOffset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_outlineOffset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23342,10 +23342,10 @@ const outlineOffset_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const outlineOffset_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_outlineOffset as *const os::raw::c_void,
+fn outlineOffset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_outlineOffset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23360,7 +23360,7 @@ const outlineOffset_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_outline_offset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23393,7 +23393,7 @@ unsafe extern fn set_outline_offset<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOutline_offset(arg0);
+        let result: Result<(), Error<TH>> = this.SetOutline_offset(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23409,8 +23409,8 @@ unsafe extern fn set_outline_offset<TH: TypeHolderTrait>
 }
 
 
-const outline_offset_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_outline_offset as *const os::raw::c_void,
+fn outline_offset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_outline_offset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23425,10 +23425,10 @@ const outline_offset_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const outline_offset_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_outline_offset as *const os::raw::c_void,
+fn outline_offset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_outline_offset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23443,7 +23443,7 @@ const outline_offset_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_position<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23476,7 +23476,7 @@ unsafe extern fn set_position<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPosition(arg0);
+        let result: Result<(), Error<TH>> = this.SetPosition(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23492,8 +23492,8 @@ unsafe extern fn set_position<TH: TypeHolderTrait>
 }
 
 
-const position_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_position as *const os::raw::c_void,
+fn position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23508,10 +23508,10 @@ const position_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const position_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_position as *const os::raw::c_void,
+fn position_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23526,7 +23526,7 @@ const position_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_pointerEvents<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23559,7 +23559,7 @@ unsafe extern fn set_pointerEvents<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPointerEvents(arg0);
+        let result: Result<(), Error<TH>> = this.SetPointerEvents(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23575,8 +23575,8 @@ unsafe extern fn set_pointerEvents<TH: TypeHolderTrait>
 }
 
 
-const pointerEvents_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_pointerEvents as *const os::raw::c_void,
+fn pointerEvents_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_pointerEvents::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23591,10 +23591,10 @@ const pointerEvents_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const pointerEvents_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_pointerEvents as *const os::raw::c_void,
+fn pointerEvents_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_pointerEvents::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23609,7 +23609,7 @@ const pointerEvents_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_pointer_events<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23642,7 +23642,7 @@ unsafe extern fn set_pointer_events<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetPointer_events(arg0);
+        let result: Result<(), Error<TH>> = this.SetPointer_events(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23658,8 +23658,8 @@ unsafe extern fn set_pointer_events<TH: TypeHolderTrait>
 }
 
 
-const pointer_events_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_pointer_events as *const os::raw::c_void,
+fn pointer_events_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_pointer_events::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23674,10 +23674,10 @@ const pointer_events_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const pointer_events_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_pointer_events as *const os::raw::c_void,
+fn pointer_events_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_pointer_events::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23692,7 +23692,7 @@ const pointer_events_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23725,7 +23725,7 @@ unsafe extern fn set_top<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTop(arg0);
+        let result: Result<(), Error<TH>> = this.SetTop(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23741,8 +23741,8 @@ unsafe extern fn set_top<TH: TypeHolderTrait>
 }
 
 
-const top_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_top as *const os::raw::c_void,
+fn top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23757,10 +23757,10 @@ const top_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const top_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_top as *const os::raw::c_void,
+fn top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23775,7 +23775,7 @@ const top_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_right<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23808,7 +23808,7 @@ unsafe extern fn set_right<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetRight(arg0);
+        let result: Result<(), Error<TH>> = this.SetRight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23824,8 +23824,8 @@ unsafe extern fn set_right<TH: TypeHolderTrait>
 }
 
 
-const right_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_right as *const os::raw::c_void,
+fn right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23840,10 +23840,10 @@ const right_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const right_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_right as *const os::raw::c_void,
+fn right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23858,7 +23858,7 @@ const right_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_left<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23891,7 +23891,7 @@ unsafe extern fn set_left<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetLeft(arg0);
+        let result: Result<(), Error<TH>> = this.SetLeft(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23907,8 +23907,8 @@ unsafe extern fn set_left<TH: TypeHolderTrait>
 }
 
 
-const left_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_left as *const os::raw::c_void,
+fn left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23923,10 +23923,10 @@ const left_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const left_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_left as *const os::raw::c_void,
+fn left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -23941,7 +23941,7 @@ const left_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_bottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -23974,7 +23974,7 @@ unsafe extern fn set_bottom<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBottom(arg0);
+        let result: Result<(), Error<TH>> = this.SetBottom(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -23990,8 +23990,8 @@ unsafe extern fn set_bottom<TH: TypeHolderTrait>
 }
 
 
-const bottom_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_bottom as *const os::raw::c_void,
+fn bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24006,10 +24006,10 @@ const bottom_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const bottom_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_bottom as *const os::raw::c_void,
+fn bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24024,7 +24024,7 @@ const bottom_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offset_block_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24057,7 +24057,7 @@ unsafe extern fn set_offset_block_start<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOffset_block_start(arg0);
+        let result: Result<(), Error<TH>> = this.SetOffset_block_start(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24073,8 +24073,8 @@ unsafe extern fn set_offset_block_start<TH: TypeHolderTrait>
 }
 
 
-const offset_block_start_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offset_block_start as *const os::raw::c_void,
+fn offset_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offset_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24089,10 +24089,10 @@ const offset_block_start_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const offset_block_start_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_offset_block_start as *const os::raw::c_void,
+fn offset_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_offset_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24107,7 +24107,7 @@ const offset_block_start_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offsetBlockStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24140,7 +24140,7 @@ unsafe extern fn set_offsetBlockStart<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOffsetBlockStart(arg0);
+        let result: Result<(), Error<TH>> = this.SetOffsetBlockStart(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24156,8 +24156,8 @@ unsafe extern fn set_offsetBlockStart<TH: TypeHolderTrait>
 }
 
 
-const offsetBlockStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offsetBlockStart as *const os::raw::c_void,
+fn offsetBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offsetBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24172,10 +24172,10 @@ const offsetBlockStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const offsetBlockStart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_offsetBlockStart as *const os::raw::c_void,
+fn offsetBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_offsetBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24190,7 +24190,7 @@ const offsetBlockStart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offset_block_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24223,7 +24223,7 @@ unsafe extern fn set_offset_block_end<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOffset_block_end(arg0);
+        let result: Result<(), Error<TH>> = this.SetOffset_block_end(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24239,8 +24239,8 @@ unsafe extern fn set_offset_block_end<TH: TypeHolderTrait>
 }
 
 
-const offset_block_end_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offset_block_end as *const os::raw::c_void,
+fn offset_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offset_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24255,10 +24255,10 @@ const offset_block_end_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const offset_block_end_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_offset_block_end as *const os::raw::c_void,
+fn offset_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_offset_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24273,7 +24273,7 @@ const offset_block_end_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offsetBlockEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24306,7 +24306,7 @@ unsafe extern fn set_offsetBlockEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOffsetBlockEnd(arg0);
+        let result: Result<(), Error<TH>> = this.SetOffsetBlockEnd(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24322,8 +24322,8 @@ unsafe extern fn set_offsetBlockEnd<TH: TypeHolderTrait>
 }
 
 
-const offsetBlockEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offsetBlockEnd as *const os::raw::c_void,
+fn offsetBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offsetBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24338,10 +24338,10 @@ const offsetBlockEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const offsetBlockEnd_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_offsetBlockEnd as *const os::raw::c_void,
+fn offsetBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_offsetBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24356,7 +24356,7 @@ const offsetBlockEnd_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offset_inline_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24389,7 +24389,7 @@ unsafe extern fn set_offset_inline_start<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOffset_inline_start(arg0);
+        let result: Result<(), Error<TH>> = this.SetOffset_inline_start(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24405,8 +24405,8 @@ unsafe extern fn set_offset_inline_start<TH: TypeHolderTrait>
 }
 
 
-const offset_inline_start_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offset_inline_start as *const os::raw::c_void,
+fn offset_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offset_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24421,10 +24421,10 @@ const offset_inline_start_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const offset_inline_start_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_offset_inline_start as *const os::raw::c_void,
+fn offset_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_offset_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24439,7 +24439,7 @@ const offset_inline_start_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offsetInlineStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24472,7 +24472,7 @@ unsafe extern fn set_offsetInlineStart<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOffsetInlineStart(arg0);
+        let result: Result<(), Error<TH>> = this.SetOffsetInlineStart(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24488,8 +24488,8 @@ unsafe extern fn set_offsetInlineStart<TH: TypeHolderTrait>
 }
 
 
-const offsetInlineStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offsetInlineStart as *const os::raw::c_void,
+fn offsetInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offsetInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24504,10 +24504,10 @@ const offsetInlineStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const offsetInlineStart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_offsetInlineStart as *const os::raw::c_void,
+fn offsetInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_offsetInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24522,7 +24522,7 @@ const offsetInlineStart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offset_inline_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24555,7 +24555,7 @@ unsafe extern fn set_offset_inline_end<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOffset_inline_end(arg0);
+        let result: Result<(), Error<TH>> = this.SetOffset_inline_end(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24571,8 +24571,8 @@ unsafe extern fn set_offset_inline_end<TH: TypeHolderTrait>
 }
 
 
-const offset_inline_end_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offset_inline_end as *const os::raw::c_void,
+fn offset_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offset_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24587,10 +24587,10 @@ const offset_inline_end_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const offset_inline_end_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_offset_inline_end as *const os::raw::c_void,
+fn offset_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_offset_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24605,7 +24605,7 @@ const offset_inline_end_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offsetInlineEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24638,7 +24638,7 @@ unsafe extern fn set_offsetInlineEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOffsetInlineEnd(arg0);
+        let result: Result<(), Error<TH>> = this.SetOffsetInlineEnd(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24654,8 +24654,8 @@ unsafe extern fn set_offsetInlineEnd<TH: TypeHolderTrait>
 }
 
 
-const offsetInlineEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offsetInlineEnd as *const os::raw::c_void,
+fn offsetInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offsetInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24670,10 +24670,10 @@ const offsetInlineEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const offsetInlineEnd_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_offsetInlineEnd as *const os::raw::c_void,
+fn offsetInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_offsetInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24688,7 +24688,7 @@ const offsetInlineEnd_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24721,7 +24721,7 @@ unsafe extern fn set_height<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetHeight(arg0);
+        let result: Result<(), Error<TH>> = this.SetHeight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24737,8 +24737,8 @@ unsafe extern fn set_height<TH: TypeHolderTrait>
 }
 
 
-const height_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_height as *const os::raw::c_void,
+fn height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24753,10 +24753,10 @@ const height_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const height_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_height as *const os::raw::c_void,
+fn height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24771,7 +24771,7 @@ const height_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_minHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24804,7 +24804,7 @@ unsafe extern fn set_minHeight<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMinHeight(arg0);
+        let result: Result<(), Error<TH>> = this.SetMinHeight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24820,8 +24820,8 @@ unsafe extern fn set_minHeight<TH: TypeHolderTrait>
 }
 
 
-const minHeight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_minHeight as *const os::raw::c_void,
+fn minHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_minHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24836,10 +24836,10 @@ const minHeight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const minHeight_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_minHeight as *const os::raw::c_void,
+fn minHeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_minHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24854,7 +24854,7 @@ const minHeight_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_min_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24887,7 +24887,7 @@ unsafe extern fn set_min_height<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMin_height(arg0);
+        let result: Result<(), Error<TH>> = this.SetMin_height(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24903,8 +24903,8 @@ unsafe extern fn set_min_height<TH: TypeHolderTrait>
 }
 
 
-const min_height_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_min_height as *const os::raw::c_void,
+fn min_height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_min_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24919,10 +24919,10 @@ const min_height_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const min_height_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_min_height as *const os::raw::c_void,
+fn min_height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_min_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -24937,7 +24937,7 @@ const min_height_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_maxHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -24970,7 +24970,7 @@ unsafe extern fn set_maxHeight<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMaxHeight(arg0);
+        let result: Result<(), Error<TH>> = this.SetMaxHeight(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -24986,8 +24986,8 @@ unsafe extern fn set_maxHeight<TH: TypeHolderTrait>
 }
 
 
-const maxHeight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_maxHeight as *const os::raw::c_void,
+fn maxHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_maxHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25002,10 +25002,10 @@ const maxHeight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const maxHeight_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_maxHeight as *const os::raw::c_void,
+fn maxHeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_maxHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25020,7 +25020,7 @@ const maxHeight_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_max_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25053,7 +25053,7 @@ unsafe extern fn set_max_height<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMax_height(arg0);
+        let result: Result<(), Error<TH>> = this.SetMax_height(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25069,8 +25069,8 @@ unsafe extern fn set_max_height<TH: TypeHolderTrait>
 }
 
 
-const max_height_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_max_height as *const os::raw::c_void,
+fn max_height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_max_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25085,10 +25085,10 @@ const max_height_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const max_height_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_max_height as *const os::raw::c_void,
+fn max_height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_max_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25103,7 +25103,7 @@ const max_height_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25136,7 +25136,7 @@ unsafe extern fn set_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25152,8 +25152,8 @@ unsafe extern fn set_width<TH: TypeHolderTrait>
 }
 
 
-const width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_width as *const os::raw::c_void,
+fn width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25168,10 +25168,10 @@ const width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_width as *const os::raw::c_void,
+fn width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25186,7 +25186,7 @@ const width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_minWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25219,7 +25219,7 @@ unsafe extern fn set_minWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMinWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetMinWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25235,8 +25235,8 @@ unsafe extern fn set_minWidth<TH: TypeHolderTrait>
 }
 
 
-const minWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_minWidth as *const os::raw::c_void,
+fn minWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_minWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25251,10 +25251,10 @@ const minWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const minWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_minWidth as *const os::raw::c_void,
+fn minWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_minWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25269,7 +25269,7 @@ const minWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_min_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25302,7 +25302,7 @@ unsafe extern fn set_min_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMin_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetMin_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25318,8 +25318,8 @@ unsafe extern fn set_min_width<TH: TypeHolderTrait>
 }
 
 
-const min_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_min_width as *const os::raw::c_void,
+fn min_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_min_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25334,10 +25334,10 @@ const min_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const min_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_min_width as *const os::raw::c_void,
+fn min_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_min_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25352,7 +25352,7 @@ const min_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_maxWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25385,7 +25385,7 @@ unsafe extern fn set_maxWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMaxWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetMaxWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25401,8 +25401,8 @@ unsafe extern fn set_maxWidth<TH: TypeHolderTrait>
 }
 
 
-const maxWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_maxWidth as *const os::raw::c_void,
+fn maxWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_maxWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25417,10 +25417,10 @@ const maxWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const maxWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_maxWidth as *const os::raw::c_void,
+fn maxWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_maxWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25435,7 +25435,7 @@ const maxWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_max_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25468,7 +25468,7 @@ unsafe extern fn set_max_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMax_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetMax_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25484,8 +25484,8 @@ unsafe extern fn set_max_width<TH: TypeHolderTrait>
 }
 
 
-const max_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_max_width as *const os::raw::c_void,
+fn max_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_max_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25500,10 +25500,10 @@ const max_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const max_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_max_width as *const os::raw::c_void,
+fn max_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_max_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25518,7 +25518,7 @@ const max_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_block_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25551,7 +25551,7 @@ unsafe extern fn set_block_size<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBlock_size(arg0);
+        let result: Result<(), Error<TH>> = this.SetBlock_size(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25567,8 +25567,8 @@ unsafe extern fn set_block_size<TH: TypeHolderTrait>
 }
 
 
-const block_size_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_block_size as *const os::raw::c_void,
+fn block_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25583,10 +25583,10 @@ const block_size_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const block_size_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_block_size as *const os::raw::c_void,
+fn block_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25601,7 +25601,7 @@ const block_size_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_blockSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25634,7 +25634,7 @@ unsafe extern fn set_blockSize<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBlockSize(arg0);
+        let result: Result<(), Error<TH>> = this.SetBlockSize(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25650,8 +25650,8 @@ unsafe extern fn set_blockSize<TH: TypeHolderTrait>
 }
 
 
-const blockSize_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_blockSize as *const os::raw::c_void,
+fn blockSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_blockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25666,10 +25666,10 @@ const blockSize_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const blockSize_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_blockSize as *const os::raw::c_void,
+fn blockSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_blockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25684,7 +25684,7 @@ const blockSize_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_inline_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25717,7 +25717,7 @@ unsafe extern fn set_inline_size<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetInline_size(arg0);
+        let result: Result<(), Error<TH>> = this.SetInline_size(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25733,8 +25733,8 @@ unsafe extern fn set_inline_size<TH: TypeHolderTrait>
 }
 
 
-const inline_size_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_inline_size as *const os::raw::c_void,
+fn inline_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25749,10 +25749,10 @@ const inline_size_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const inline_size_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_inline_size as *const os::raw::c_void,
+fn inline_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25767,7 +25767,7 @@ const inline_size_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_inlineSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25800,7 +25800,7 @@ unsafe extern fn set_inlineSize<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetInlineSize(arg0);
+        let result: Result<(), Error<TH>> = this.SetInlineSize(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25816,8 +25816,8 @@ unsafe extern fn set_inlineSize<TH: TypeHolderTrait>
 }
 
 
-const inlineSize_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_inlineSize as *const os::raw::c_void,
+fn inlineSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_inlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25832,10 +25832,10 @@ const inlineSize_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const inlineSize_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_inlineSize as *const os::raw::c_void,
+fn inlineSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_inlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25850,7 +25850,7 @@ const inlineSize_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_max_block_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25883,7 +25883,7 @@ unsafe extern fn set_max_block_size<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMax_block_size(arg0);
+        let result: Result<(), Error<TH>> = this.SetMax_block_size(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25899,8 +25899,8 @@ unsafe extern fn set_max_block_size<TH: TypeHolderTrait>
 }
 
 
-const max_block_size_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_max_block_size as *const os::raw::c_void,
+fn max_block_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_max_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25915,10 +25915,10 @@ const max_block_size_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const max_block_size_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_max_block_size as *const os::raw::c_void,
+fn max_block_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_max_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25933,7 +25933,7 @@ const max_block_size_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_maxBlockSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -25966,7 +25966,7 @@ unsafe extern fn set_maxBlockSize<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMaxBlockSize(arg0);
+        let result: Result<(), Error<TH>> = this.SetMaxBlockSize(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -25982,8 +25982,8 @@ unsafe extern fn set_maxBlockSize<TH: TypeHolderTrait>
 }
 
 
-const maxBlockSize_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_maxBlockSize as *const os::raw::c_void,
+fn maxBlockSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_maxBlockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -25998,10 +25998,10 @@ const maxBlockSize_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const maxBlockSize_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_maxBlockSize as *const os::raw::c_void,
+fn maxBlockSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_maxBlockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26016,7 +26016,7 @@ const maxBlockSize_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_max_inline_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26049,7 +26049,7 @@ unsafe extern fn set_max_inline_size<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMax_inline_size(arg0);
+        let result: Result<(), Error<TH>> = this.SetMax_inline_size(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26065,8 +26065,8 @@ unsafe extern fn set_max_inline_size<TH: TypeHolderTrait>
 }
 
 
-const max_inline_size_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_max_inline_size as *const os::raw::c_void,
+fn max_inline_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_max_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26081,10 +26081,10 @@ const max_inline_size_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const max_inline_size_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_max_inline_size as *const os::raw::c_void,
+fn max_inline_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_max_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26099,7 +26099,7 @@ const max_inline_size_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_maxInlineSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26132,7 +26132,7 @@ unsafe extern fn set_maxInlineSize<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMaxInlineSize(arg0);
+        let result: Result<(), Error<TH>> = this.SetMaxInlineSize(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26148,8 +26148,8 @@ unsafe extern fn set_maxInlineSize<TH: TypeHolderTrait>
 }
 
 
-const maxInlineSize_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_maxInlineSize as *const os::raw::c_void,
+fn maxInlineSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_maxInlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26164,10 +26164,10 @@ const maxInlineSize_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const maxInlineSize_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_maxInlineSize as *const os::raw::c_void,
+fn maxInlineSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_maxInlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26182,7 +26182,7 @@ const maxInlineSize_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_min_block_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26215,7 +26215,7 @@ unsafe extern fn set_min_block_size<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMin_block_size(arg0);
+        let result: Result<(), Error<TH>> = this.SetMin_block_size(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26231,8 +26231,8 @@ unsafe extern fn set_min_block_size<TH: TypeHolderTrait>
 }
 
 
-const min_block_size_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_min_block_size as *const os::raw::c_void,
+fn min_block_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_min_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26247,10 +26247,10 @@ const min_block_size_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const min_block_size_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_min_block_size as *const os::raw::c_void,
+fn min_block_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_min_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26265,7 +26265,7 @@ const min_block_size_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_minBlockSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26298,7 +26298,7 @@ unsafe extern fn set_minBlockSize<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMinBlockSize(arg0);
+        let result: Result<(), Error<TH>> = this.SetMinBlockSize(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26314,8 +26314,8 @@ unsafe extern fn set_minBlockSize<TH: TypeHolderTrait>
 }
 
 
-const minBlockSize_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_minBlockSize as *const os::raw::c_void,
+fn minBlockSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_minBlockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26330,10 +26330,10 @@ const minBlockSize_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const minBlockSize_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_minBlockSize as *const os::raw::c_void,
+fn minBlockSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_minBlockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26348,7 +26348,7 @@ const minBlockSize_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_min_inline_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26381,7 +26381,7 @@ unsafe extern fn set_min_inline_size<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMin_inline_size(arg0);
+        let result: Result<(), Error<TH>> = this.SetMin_inline_size(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26397,8 +26397,8 @@ unsafe extern fn set_min_inline_size<TH: TypeHolderTrait>
 }
 
 
-const min_inline_size_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_min_inline_size as *const os::raw::c_void,
+fn min_inline_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_min_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26413,10 +26413,10 @@ const min_inline_size_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const min_inline_size_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_min_inline_size as *const os::raw::c_void,
+fn min_inline_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_min_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26431,7 +26431,7 @@ const min_inline_size_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_minInlineSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26464,7 +26464,7 @@ unsafe extern fn set_minInlineSize<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetMinInlineSize(arg0);
+        let result: Result<(), Error<TH>> = this.SetMinInlineSize(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26480,8 +26480,8 @@ unsafe extern fn set_minInlineSize<TH: TypeHolderTrait>
 }
 
 
-const minInlineSize_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_minInlineSize as *const os::raw::c_void,
+fn minInlineSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_minInlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26496,10 +26496,10 @@ const minInlineSize_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const minInlineSize_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_minInlineSize as *const os::raw::c_void,
+fn minInlineSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_minInlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26514,7 +26514,7 @@ const minInlineSize_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_zIndex<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26547,7 +26547,7 @@ unsafe extern fn set_zIndex<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetZIndex(arg0);
+        let result: Result<(), Error<TH>> = this.SetZIndex(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26563,8 +26563,8 @@ unsafe extern fn set_zIndex<TH: TypeHolderTrait>
 }
 
 
-const zIndex_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_zIndex as *const os::raw::c_void,
+fn zIndex_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_zIndex::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26579,10 +26579,10 @@ const zIndex_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const zIndex_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_zIndex as *const os::raw::c_void,
+fn zIndex_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_zIndex::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26597,7 +26597,7 @@ const zIndex_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_z_index<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26630,7 +26630,7 @@ unsafe extern fn set_z_index<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetZ_index(arg0);
+        let result: Result<(), Error<TH>> = this.SetZ_index(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26646,8 +26646,8 @@ unsafe extern fn set_z_index<TH: TypeHolderTrait>
 }
 
 
-const z_index_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_z_index as *const os::raw::c_void,
+fn z_index_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_z_index::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26662,10 +26662,10 @@ const z_index_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const z_index_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_z_index as *const os::raw::c_void,
+fn z_index_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_z_index::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26680,7 +26680,7 @@ const z_index_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_imageRendering<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26713,7 +26713,7 @@ unsafe extern fn set_imageRendering<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetImageRendering(arg0);
+        let result: Result<(), Error<TH>> = this.SetImageRendering(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26729,8 +26729,8 @@ unsafe extern fn set_imageRendering<TH: TypeHolderTrait>
 }
 
 
-const imageRendering_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_imageRendering as *const os::raw::c_void,
+fn imageRendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_imageRendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26745,10 +26745,10 @@ const imageRendering_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const imageRendering_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_imageRendering as *const os::raw::c_void,
+fn imageRendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_imageRendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26763,7 +26763,7 @@ const imageRendering_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_image_rendering<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26796,7 +26796,7 @@ unsafe extern fn set_image_rendering<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetImage_rendering(arg0);
+        let result: Result<(), Error<TH>> = this.SetImage_rendering(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26812,8 +26812,8 @@ unsafe extern fn set_image_rendering<TH: TypeHolderTrait>
 }
 
 
-const image_rendering_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_image_rendering as *const os::raw::c_void,
+fn image_rendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_image_rendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26828,10 +26828,10 @@ const image_rendering_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const image_rendering_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_image_rendering as *const os::raw::c_void,
+fn image_rendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_image_rendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26846,7 +26846,7 @@ const image_rendering_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_columnCount<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26879,7 +26879,7 @@ unsafe extern fn set_columnCount<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetColumnCount(arg0);
+        let result: Result<(), Error<TH>> = this.SetColumnCount(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26895,8 +26895,8 @@ unsafe extern fn set_columnCount<TH: TypeHolderTrait>
 }
 
 
-const columnCount_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_columnCount as *const os::raw::c_void,
+fn columnCount_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_columnCount::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26911,10 +26911,10 @@ const columnCount_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const columnCount_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_columnCount as *const os::raw::c_void,
+fn columnCount_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_columnCount::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26929,7 +26929,7 @@ const columnCount_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_column_count<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -26962,7 +26962,7 @@ unsafe extern fn set_column_count<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetColumn_count(arg0);
+        let result: Result<(), Error<TH>> = this.SetColumn_count(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -26978,8 +26978,8 @@ unsafe extern fn set_column_count<TH: TypeHolderTrait>
 }
 
 
-const column_count_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_column_count as *const os::raw::c_void,
+fn column_count_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_column_count::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -26994,10 +26994,10 @@ const column_count_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const column_count_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_column_count as *const os::raw::c_void,
+fn column_count_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_column_count::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27012,7 +27012,7 @@ const column_count_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_columnWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27045,7 +27045,7 @@ unsafe extern fn set_columnWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetColumnWidth(arg0);
+        let result: Result<(), Error<TH>> = this.SetColumnWidth(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27061,8 +27061,8 @@ unsafe extern fn set_columnWidth<TH: TypeHolderTrait>
 }
 
 
-const columnWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_columnWidth as *const os::raw::c_void,
+fn columnWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_columnWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27077,10 +27077,10 @@ const columnWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const columnWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_columnWidth as *const os::raw::c_void,
+fn columnWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_columnWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27095,7 +27095,7 @@ const columnWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_column_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27128,7 +27128,7 @@ unsafe extern fn set_column_width<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetColumn_width(arg0);
+        let result: Result<(), Error<TH>> = this.SetColumn_width(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27144,8 +27144,8 @@ unsafe extern fn set_column_width<TH: TypeHolderTrait>
 }
 
 
-const column_width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_column_width as *const os::raw::c_void,
+fn column_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_column_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27160,10 +27160,10 @@ const column_width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const column_width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_column_width as *const os::raw::c_void,
+fn column_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_column_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27178,7 +27178,7 @@ const column_width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_columns<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27211,7 +27211,7 @@ unsafe extern fn set_columns<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetColumns(arg0);
+        let result: Result<(), Error<TH>> = this.SetColumns(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27227,8 +27227,8 @@ unsafe extern fn set_columns<TH: TypeHolderTrait>
 }
 
 
-const columns_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_columns as *const os::raw::c_void,
+fn columns_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_columns::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27243,10 +27243,10 @@ const columns_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const columns_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_columns as *const os::raw::c_void,
+fn columns_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_columns::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27261,7 +27261,7 @@ const columns_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_columnGap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27294,7 +27294,7 @@ unsafe extern fn set_columnGap<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetColumnGap(arg0);
+        let result: Result<(), Error<TH>> = this.SetColumnGap(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27310,8 +27310,8 @@ unsafe extern fn set_columnGap<TH: TypeHolderTrait>
 }
 
 
-const columnGap_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_columnGap as *const os::raw::c_void,
+fn columnGap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_columnGap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27326,10 +27326,10 @@ const columnGap_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const columnGap_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_columnGap as *const os::raw::c_void,
+fn columnGap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_columnGap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27344,7 +27344,7 @@ const columnGap_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_column_gap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27377,7 +27377,7 @@ unsafe extern fn set_column_gap<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetColumn_gap(arg0);
+        let result: Result<(), Error<TH>> = this.SetColumn_gap(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27393,8 +27393,8 @@ unsafe extern fn set_column_gap<TH: TypeHolderTrait>
 }
 
 
-const column_gap_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_column_gap as *const os::raw::c_void,
+fn column_gap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_column_gap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27409,10 +27409,10 @@ const column_gap_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const column_gap_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_column_gap as *const os::raw::c_void,
+fn column_gap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_column_gap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27427,7 +27427,7 @@ const column_gap_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transition<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27460,7 +27460,7 @@ unsafe extern fn set_transition<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransition(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransition(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27476,8 +27476,8 @@ unsafe extern fn set_transition<TH: TypeHolderTrait>
 }
 
 
-const transition_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transition as *const os::raw::c_void,
+fn transition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27492,10 +27492,10 @@ const transition_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transition_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transition as *const os::raw::c_void,
+fn transition_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27510,7 +27510,7 @@ const transition_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transitionDuration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27543,7 +27543,7 @@ unsafe extern fn set_transitionDuration<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransitionDuration(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransitionDuration(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27559,8 +27559,8 @@ unsafe extern fn set_transitionDuration<TH: TypeHolderTrait>
 }
 
 
-const transitionDuration_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transitionDuration as *const os::raw::c_void,
+fn transitionDuration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transitionDuration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27575,10 +27575,10 @@ const transitionDuration_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transitionDuration_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transitionDuration as *const os::raw::c_void,
+fn transitionDuration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transitionDuration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27593,7 +27593,7 @@ const transitionDuration_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transition_duration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27626,7 +27626,7 @@ unsafe extern fn set_transition_duration<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransition_duration(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransition_duration(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27642,8 +27642,8 @@ unsafe extern fn set_transition_duration<TH: TypeHolderTrait>
 }
 
 
-const transition_duration_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transition_duration as *const os::raw::c_void,
+fn transition_duration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transition_duration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27658,10 +27658,10 @@ const transition_duration_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transition_duration_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transition_duration as *const os::raw::c_void,
+fn transition_duration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transition_duration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27676,7 +27676,7 @@ const transition_duration_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transitionTimingFunction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27709,7 +27709,7 @@ unsafe extern fn set_transitionTimingFunction<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransitionTimingFunction(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransitionTimingFunction(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27725,8 +27725,8 @@ unsafe extern fn set_transitionTimingFunction<TH: TypeHolderTrait>
 }
 
 
-const transitionTimingFunction_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transitionTimingFunction as *const os::raw::c_void,
+fn transitionTimingFunction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transitionTimingFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27741,10 +27741,10 @@ const transitionTimingFunction_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transitionTimingFunction_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transitionTimingFunction as *const os::raw::c_void,
+fn transitionTimingFunction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transitionTimingFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27759,7 +27759,7 @@ const transitionTimingFunction_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transition_timing_function<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27792,7 +27792,7 @@ unsafe extern fn set_transition_timing_function<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransition_timing_function(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransition_timing_function(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27808,8 +27808,8 @@ unsafe extern fn set_transition_timing_function<TH: TypeHolderTrait>
 }
 
 
-const transition_timing_function_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transition_timing_function as *const os::raw::c_void,
+fn transition_timing_function_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transition_timing_function::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27824,10 +27824,10 @@ const transition_timing_function_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transition_timing_function_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transition_timing_function as *const os::raw::c_void,
+fn transition_timing_function_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transition_timing_function::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27842,7 +27842,7 @@ const transition_timing_function_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transitionProperty<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27875,7 +27875,7 @@ unsafe extern fn set_transitionProperty<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransitionProperty(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransitionProperty(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27891,8 +27891,8 @@ unsafe extern fn set_transitionProperty<TH: TypeHolderTrait>
 }
 
 
-const transitionProperty_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transitionProperty as *const os::raw::c_void,
+fn transitionProperty_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transitionProperty::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27907,10 +27907,10 @@ const transitionProperty_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transitionProperty_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transitionProperty as *const os::raw::c_void,
+fn transitionProperty_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transitionProperty::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27925,7 +27925,7 @@ const transitionProperty_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transition_property<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -27958,7 +27958,7 @@ unsafe extern fn set_transition_property<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransition_property(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransition_property(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -27974,8 +27974,8 @@ unsafe extern fn set_transition_property<TH: TypeHolderTrait>
 }
 
 
-const transition_property_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transition_property as *const os::raw::c_void,
+fn transition_property_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transition_property::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -27990,10 +27990,10 @@ const transition_property_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transition_property_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transition_property as *const os::raw::c_void,
+fn transition_property_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transition_property::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28008,7 +28008,7 @@ const transition_property_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transitionDelay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28041,7 +28041,7 @@ unsafe extern fn set_transitionDelay<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransitionDelay(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransitionDelay(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28057,8 +28057,8 @@ unsafe extern fn set_transitionDelay<TH: TypeHolderTrait>
 }
 
 
-const transitionDelay_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transitionDelay as *const os::raw::c_void,
+fn transitionDelay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transitionDelay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28073,10 +28073,10 @@ const transitionDelay_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transitionDelay_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transitionDelay as *const os::raw::c_void,
+fn transitionDelay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transitionDelay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28091,7 +28091,7 @@ const transitionDelay_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_transition_delay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28124,7 +28124,7 @@ unsafe extern fn set_transition_delay<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTransition_delay(arg0);
+        let result: Result<(), Error<TH>> = this.SetTransition_delay(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28140,8 +28140,8 @@ unsafe extern fn set_transition_delay<TH: TypeHolderTrait>
 }
 
 
-const transition_delay_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_transition_delay as *const os::raw::c_void,
+fn transition_delay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_transition_delay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28156,10 +28156,10 @@ const transition_delay_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const transition_delay_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_transition_delay as *const os::raw::c_void,
+fn transition_delay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_transition_delay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28174,7 +28174,7 @@ const transition_delay_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flex<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28207,7 +28207,7 @@ unsafe extern fn set_flex<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlex(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlex(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28223,8 +28223,8 @@ unsafe extern fn set_flex<TH: TypeHolderTrait>
 }
 
 
-const flex_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flex as *const os::raw::c_void,
+fn flex_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flex::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28239,10 +28239,10 @@ const flex_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flex_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flex as *const os::raw::c_void,
+fn flex_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flex::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28257,7 +28257,7 @@ const flex_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flexFlow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28290,7 +28290,7 @@ unsafe extern fn set_flexFlow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlexFlow(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlexFlow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28306,8 +28306,8 @@ unsafe extern fn set_flexFlow<TH: TypeHolderTrait>
 }
 
 
-const flexFlow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flexFlow as *const os::raw::c_void,
+fn flexFlow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flexFlow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28322,10 +28322,10 @@ const flexFlow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flexFlow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flexFlow as *const os::raw::c_void,
+fn flexFlow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flexFlow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28340,7 +28340,7 @@ const flexFlow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flex_flow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28373,7 +28373,7 @@ unsafe extern fn set_flex_flow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlex_flow(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlex_flow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28389,8 +28389,8 @@ unsafe extern fn set_flex_flow<TH: TypeHolderTrait>
 }
 
 
-const flex_flow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flex_flow as *const os::raw::c_void,
+fn flex_flow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flex_flow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28405,10 +28405,10 @@ const flex_flow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flex_flow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flex_flow as *const os::raw::c_void,
+fn flex_flow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flex_flow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28423,7 +28423,7 @@ const flex_flow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flexDirection<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28456,7 +28456,7 @@ unsafe extern fn set_flexDirection<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlexDirection(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlexDirection(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28472,8 +28472,8 @@ unsafe extern fn set_flexDirection<TH: TypeHolderTrait>
 }
 
 
-const flexDirection_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flexDirection as *const os::raw::c_void,
+fn flexDirection_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flexDirection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28488,10 +28488,10 @@ const flexDirection_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flexDirection_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flexDirection as *const os::raw::c_void,
+fn flexDirection_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flexDirection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28506,7 +28506,7 @@ const flexDirection_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flex_direction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28539,7 +28539,7 @@ unsafe extern fn set_flex_direction<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlex_direction(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlex_direction(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28555,8 +28555,8 @@ unsafe extern fn set_flex_direction<TH: TypeHolderTrait>
 }
 
 
-const flex_direction_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flex_direction as *const os::raw::c_void,
+fn flex_direction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flex_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28571,10 +28571,10 @@ const flex_direction_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flex_direction_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flex_direction as *const os::raw::c_void,
+fn flex_direction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flex_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28589,7 +28589,7 @@ const flex_direction_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flexWrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28622,7 +28622,7 @@ unsafe extern fn set_flexWrap<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlexWrap(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlexWrap(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28638,8 +28638,8 @@ unsafe extern fn set_flexWrap<TH: TypeHolderTrait>
 }
 
 
-const flexWrap_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flexWrap as *const os::raw::c_void,
+fn flexWrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flexWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28654,10 +28654,10 @@ const flexWrap_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flexWrap_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flexWrap as *const os::raw::c_void,
+fn flexWrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flexWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28672,7 +28672,7 @@ const flexWrap_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flex_wrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28705,7 +28705,7 @@ unsafe extern fn set_flex_wrap<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlex_wrap(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlex_wrap(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28721,8 +28721,8 @@ unsafe extern fn set_flex_wrap<TH: TypeHolderTrait>
 }
 
 
-const flex_wrap_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flex_wrap as *const os::raw::c_void,
+fn flex_wrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flex_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28737,10 +28737,10 @@ const flex_wrap_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flex_wrap_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flex_wrap as *const os::raw::c_void,
+fn flex_wrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flex_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28755,7 +28755,7 @@ const flex_wrap_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_justifyContent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28788,7 +28788,7 @@ unsafe extern fn set_justifyContent<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetJustifyContent(arg0);
+        let result: Result<(), Error<TH>> = this.SetJustifyContent(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28804,8 +28804,8 @@ unsafe extern fn set_justifyContent<TH: TypeHolderTrait>
 }
 
 
-const justifyContent_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_justifyContent as *const os::raw::c_void,
+fn justifyContent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_justifyContent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28820,10 +28820,10 @@ const justifyContent_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const justifyContent_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_justifyContent as *const os::raw::c_void,
+fn justifyContent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_justifyContent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28838,7 +28838,7 @@ const justifyContent_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_justify_content<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28871,7 +28871,7 @@ unsafe extern fn set_justify_content<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetJustify_content(arg0);
+        let result: Result<(), Error<TH>> = this.SetJustify_content(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28887,8 +28887,8 @@ unsafe extern fn set_justify_content<TH: TypeHolderTrait>
 }
 
 
-const justify_content_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_justify_content as *const os::raw::c_void,
+fn justify_content_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_justify_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28903,10 +28903,10 @@ const justify_content_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const justify_content_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_justify_content as *const os::raw::c_void,
+fn justify_content_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_justify_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28921,7 +28921,7 @@ const justify_content_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_alignItems<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -28954,7 +28954,7 @@ unsafe extern fn set_alignItems<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAlignItems(arg0);
+        let result: Result<(), Error<TH>> = this.SetAlignItems(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -28970,8 +28970,8 @@ unsafe extern fn set_alignItems<TH: TypeHolderTrait>
 }
 
 
-const alignItems_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_alignItems as *const os::raw::c_void,
+fn alignItems_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_alignItems::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -28986,10 +28986,10 @@ const alignItems_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const alignItems_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_alignItems as *const os::raw::c_void,
+fn alignItems_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_alignItems::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29004,7 +29004,7 @@ const alignItems_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_align_items<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29037,7 +29037,7 @@ unsafe extern fn set_align_items<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAlign_items(arg0);
+        let result: Result<(), Error<TH>> = this.SetAlign_items(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29053,8 +29053,8 @@ unsafe extern fn set_align_items<TH: TypeHolderTrait>
 }
 
 
-const align_items_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_align_items as *const os::raw::c_void,
+fn align_items_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_align_items::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29069,10 +29069,10 @@ const align_items_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const align_items_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_align_items as *const os::raw::c_void,
+fn align_items_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_align_items::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29087,7 +29087,7 @@ const align_items_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_alignContent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29120,7 +29120,7 @@ unsafe extern fn set_alignContent<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAlignContent(arg0);
+        let result: Result<(), Error<TH>> = this.SetAlignContent(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29136,8 +29136,8 @@ unsafe extern fn set_alignContent<TH: TypeHolderTrait>
 }
 
 
-const alignContent_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_alignContent as *const os::raw::c_void,
+fn alignContent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_alignContent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29152,10 +29152,10 @@ const alignContent_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const alignContent_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_alignContent as *const os::raw::c_void,
+fn alignContent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_alignContent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29170,7 +29170,7 @@ const alignContent_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_align_content<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29203,7 +29203,7 @@ unsafe extern fn set_align_content<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAlign_content(arg0);
+        let result: Result<(), Error<TH>> = this.SetAlign_content(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29219,8 +29219,8 @@ unsafe extern fn set_align_content<TH: TypeHolderTrait>
 }
 
 
-const align_content_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_align_content as *const os::raw::c_void,
+fn align_content_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_align_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29235,10 +29235,10 @@ const align_content_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const align_content_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_align_content as *const os::raw::c_void,
+fn align_content_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_align_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29253,7 +29253,7 @@ const align_content_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_order<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29286,7 +29286,7 @@ unsafe extern fn set_order<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOrder(arg0);
+        let result: Result<(), Error<TH>> = this.SetOrder(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29302,8 +29302,8 @@ unsafe extern fn set_order<TH: TypeHolderTrait>
 }
 
 
-const order_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_order as *const os::raw::c_void,
+fn order_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_order::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29318,10 +29318,10 @@ const order_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const order_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_order as *const os::raw::c_void,
+fn order_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_order::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29336,7 +29336,7 @@ const order_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flexBasis<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29369,7 +29369,7 @@ unsafe extern fn set_flexBasis<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlexBasis(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlexBasis(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29385,8 +29385,8 @@ unsafe extern fn set_flexBasis<TH: TypeHolderTrait>
 }
 
 
-const flexBasis_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flexBasis as *const os::raw::c_void,
+fn flexBasis_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flexBasis::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29401,10 +29401,10 @@ const flexBasis_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flexBasis_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flexBasis as *const os::raw::c_void,
+fn flexBasis_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flexBasis::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29419,7 +29419,7 @@ const flexBasis_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flex_basis<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29452,7 +29452,7 @@ unsafe extern fn set_flex_basis<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlex_basis(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlex_basis(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29468,8 +29468,8 @@ unsafe extern fn set_flex_basis<TH: TypeHolderTrait>
 }
 
 
-const flex_basis_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flex_basis as *const os::raw::c_void,
+fn flex_basis_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flex_basis::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29484,10 +29484,10 @@ const flex_basis_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flex_basis_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flex_basis as *const os::raw::c_void,
+fn flex_basis_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flex_basis::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29502,7 +29502,7 @@ const flex_basis_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flexGrow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29535,7 +29535,7 @@ unsafe extern fn set_flexGrow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlexGrow(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlexGrow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29551,8 +29551,8 @@ unsafe extern fn set_flexGrow<TH: TypeHolderTrait>
 }
 
 
-const flexGrow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flexGrow as *const os::raw::c_void,
+fn flexGrow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flexGrow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29567,10 +29567,10 @@ const flexGrow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flexGrow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flexGrow as *const os::raw::c_void,
+fn flexGrow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flexGrow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29585,7 +29585,7 @@ const flexGrow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flex_grow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29618,7 +29618,7 @@ unsafe extern fn set_flex_grow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlex_grow(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlex_grow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29634,8 +29634,8 @@ unsafe extern fn set_flex_grow<TH: TypeHolderTrait>
 }
 
 
-const flex_grow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flex_grow as *const os::raw::c_void,
+fn flex_grow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flex_grow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29650,10 +29650,10 @@ const flex_grow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flex_grow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flex_grow as *const os::raw::c_void,
+fn flex_grow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flex_grow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29668,7 +29668,7 @@ const flex_grow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flexShrink<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29701,7 +29701,7 @@ unsafe extern fn set_flexShrink<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlexShrink(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlexShrink(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29717,8 +29717,8 @@ unsafe extern fn set_flexShrink<TH: TypeHolderTrait>
 }
 
 
-const flexShrink_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flexShrink as *const os::raw::c_void,
+fn flexShrink_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flexShrink::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29733,10 +29733,10 @@ const flexShrink_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flexShrink_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flexShrink as *const os::raw::c_void,
+fn flexShrink_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flexShrink::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29751,7 +29751,7 @@ const flexShrink_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_flex_shrink<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29784,7 +29784,7 @@ unsafe extern fn set_flex_shrink<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetFlex_shrink(arg0);
+        let result: Result<(), Error<TH>> = this.SetFlex_shrink(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29800,8 +29800,8 @@ unsafe extern fn set_flex_shrink<TH: TypeHolderTrait>
 }
 
 
-const flex_shrink_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_flex_shrink as *const os::raw::c_void,
+fn flex_shrink_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_flex_shrink::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29816,10 +29816,10 @@ const flex_shrink_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const flex_shrink_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_flex_shrink as *const os::raw::c_void,
+fn flex_shrink_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_flex_shrink::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29834,7 +29834,7 @@ const flex_shrink_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_alignSelf<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29867,7 +29867,7 @@ unsafe extern fn set_alignSelf<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAlignSelf(arg0);
+        let result: Result<(), Error<TH>> = this.SetAlignSelf(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29883,8 +29883,8 @@ unsafe extern fn set_alignSelf<TH: TypeHolderTrait>
 }
 
 
-const alignSelf_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_alignSelf as *const os::raw::c_void,
+fn alignSelf_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_alignSelf::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29899,10 +29899,10 @@ const alignSelf_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const alignSelf_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_alignSelf as *const os::raw::c_void,
+fn alignSelf_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_alignSelf::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29917,7 +29917,7 @@ const alignSelf_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_align_self<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -29950,7 +29950,7 @@ unsafe extern fn set_align_self<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAlign_self(arg0);
+        let result: Result<(), Error<TH>> = this.SetAlign_self(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -29966,8 +29966,8 @@ unsafe extern fn set_align_self<TH: TypeHolderTrait>
 }
 
 
-const align_self_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_align_self as *const os::raw::c_void,
+fn align_self_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_align_self::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -29982,10 +29982,10 @@ const align_self_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const align_self_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_align_self as *const os::raw::c_void,
+fn align_self_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_align_self::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30000,7 +30000,7 @@ const align_self_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animation<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30033,7 +30033,7 @@ unsafe extern fn set_animation<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimation(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimation(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30049,8 +30049,8 @@ unsafe extern fn set_animation<TH: TypeHolderTrait>
 }
 
 
-const animation_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animation as *const os::raw::c_void,
+fn animation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30065,10 +30065,10 @@ const animation_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animation_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animation as *const os::raw::c_void,
+fn animation_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30083,7 +30083,7 @@ const animation_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animation_name<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30116,7 +30116,7 @@ unsafe extern fn set_animation_name<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimation_name(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimation_name(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30132,8 +30132,8 @@ unsafe extern fn set_animation_name<TH: TypeHolderTrait>
 }
 
 
-const animation_name_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animation_name as *const os::raw::c_void,
+fn animation_name_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animation_name::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30148,10 +30148,10 @@ const animation_name_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animation_name_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animation_name as *const os::raw::c_void,
+fn animation_name_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animation_name::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30166,7 +30166,7 @@ const animation_name_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animationName<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30199,7 +30199,7 @@ unsafe extern fn set_animationName<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimationName(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimationName(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30215,8 +30215,8 @@ unsafe extern fn set_animationName<TH: TypeHolderTrait>
 }
 
 
-const animationName_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animationName as *const os::raw::c_void,
+fn animationName_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animationName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30231,10 +30231,10 @@ const animationName_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animationName_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animationName as *const os::raw::c_void,
+fn animationName_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animationName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30249,7 +30249,7 @@ const animationName_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animation_duration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30282,7 +30282,7 @@ unsafe extern fn set_animation_duration<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimation_duration(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimation_duration(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30298,8 +30298,8 @@ unsafe extern fn set_animation_duration<TH: TypeHolderTrait>
 }
 
 
-const animation_duration_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animation_duration as *const os::raw::c_void,
+fn animation_duration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animation_duration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30314,10 +30314,10 @@ const animation_duration_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animation_duration_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animation_duration as *const os::raw::c_void,
+fn animation_duration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animation_duration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30332,7 +30332,7 @@ const animation_duration_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animationDuration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30365,7 +30365,7 @@ unsafe extern fn set_animationDuration<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimationDuration(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimationDuration(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30381,8 +30381,8 @@ unsafe extern fn set_animationDuration<TH: TypeHolderTrait>
 }
 
 
-const animationDuration_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animationDuration as *const os::raw::c_void,
+fn animationDuration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animationDuration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30397,10 +30397,10 @@ const animationDuration_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animationDuration_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animationDuration as *const os::raw::c_void,
+fn animationDuration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animationDuration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30415,7 +30415,7 @@ const animationDuration_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animation_timing_function<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30448,7 +30448,7 @@ unsafe extern fn set_animation_timing_function<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimation_timing_function(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimation_timing_function(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30464,8 +30464,8 @@ unsafe extern fn set_animation_timing_function<TH: TypeHolderTrait>
 }
 
 
-const animation_timing_function_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animation_timing_function as *const os::raw::c_void,
+fn animation_timing_function_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animation_timing_function::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30480,10 +30480,10 @@ const animation_timing_function_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animation_timing_function_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animation_timing_function as *const os::raw::c_void,
+fn animation_timing_function_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animation_timing_function::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30498,7 +30498,7 @@ const animation_timing_function_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animationTimingFunction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30531,7 +30531,7 @@ unsafe extern fn set_animationTimingFunction<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimationTimingFunction(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimationTimingFunction(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30547,8 +30547,8 @@ unsafe extern fn set_animationTimingFunction<TH: TypeHolderTrait>
 }
 
 
-const animationTimingFunction_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animationTimingFunction as *const os::raw::c_void,
+fn animationTimingFunction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animationTimingFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30563,10 +30563,10 @@ const animationTimingFunction_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animationTimingFunction_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animationTimingFunction as *const os::raw::c_void,
+fn animationTimingFunction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animationTimingFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30581,7 +30581,7 @@ const animationTimingFunction_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animation_iteration_count<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30614,7 +30614,7 @@ unsafe extern fn set_animation_iteration_count<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimation_iteration_count(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimation_iteration_count(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30630,8 +30630,8 @@ unsafe extern fn set_animation_iteration_count<TH: TypeHolderTrait>
 }
 
 
-const animation_iteration_count_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animation_iteration_count as *const os::raw::c_void,
+fn animation_iteration_count_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animation_iteration_count::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30646,10 +30646,10 @@ const animation_iteration_count_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animation_iteration_count_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animation_iteration_count as *const os::raw::c_void,
+fn animation_iteration_count_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animation_iteration_count::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30664,7 +30664,7 @@ const animation_iteration_count_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animationIterationCount<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30697,7 +30697,7 @@ unsafe extern fn set_animationIterationCount<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimationIterationCount(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimationIterationCount(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30713,8 +30713,8 @@ unsafe extern fn set_animationIterationCount<TH: TypeHolderTrait>
 }
 
 
-const animationIterationCount_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animationIterationCount as *const os::raw::c_void,
+fn animationIterationCount_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animationIterationCount::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30729,10 +30729,10 @@ const animationIterationCount_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animationIterationCount_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animationIterationCount as *const os::raw::c_void,
+fn animationIterationCount_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animationIterationCount::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30747,7 +30747,7 @@ const animationIterationCount_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animation_direction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30780,7 +30780,7 @@ unsafe extern fn set_animation_direction<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimation_direction(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimation_direction(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30796,8 +30796,8 @@ unsafe extern fn set_animation_direction<TH: TypeHolderTrait>
 }
 
 
-const animation_direction_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animation_direction as *const os::raw::c_void,
+fn animation_direction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animation_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30812,10 +30812,10 @@ const animation_direction_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animation_direction_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animation_direction as *const os::raw::c_void,
+fn animation_direction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animation_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30830,7 +30830,7 @@ const animation_direction_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animationDirection<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30863,7 +30863,7 @@ unsafe extern fn set_animationDirection<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimationDirection(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimationDirection(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30879,8 +30879,8 @@ unsafe extern fn set_animationDirection<TH: TypeHolderTrait>
 }
 
 
-const animationDirection_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animationDirection as *const os::raw::c_void,
+fn animationDirection_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animationDirection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30895,10 +30895,10 @@ const animationDirection_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animationDirection_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animationDirection as *const os::raw::c_void,
+fn animationDirection_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animationDirection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30913,7 +30913,7 @@ const animationDirection_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animation_play_state<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -30946,7 +30946,7 @@ unsafe extern fn set_animation_play_state<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimation_play_state(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimation_play_state(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -30962,8 +30962,8 @@ unsafe extern fn set_animation_play_state<TH: TypeHolderTrait>
 }
 
 
-const animation_play_state_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animation_play_state as *const os::raw::c_void,
+fn animation_play_state_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animation_play_state::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30978,10 +30978,10 @@ const animation_play_state_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animation_play_state_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animation_play_state as *const os::raw::c_void,
+fn animation_play_state_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animation_play_state::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -30996,7 +30996,7 @@ const animation_play_state_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animationPlayState<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -31029,7 +31029,7 @@ unsafe extern fn set_animationPlayState<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimationPlayState(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimationPlayState(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -31045,8 +31045,8 @@ unsafe extern fn set_animationPlayState<TH: TypeHolderTrait>
 }
 
 
-const animationPlayState_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animationPlayState as *const os::raw::c_void,
+fn animationPlayState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animationPlayState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31061,10 +31061,10 @@ const animationPlayState_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animationPlayState_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animationPlayState as *const os::raw::c_void,
+fn animationPlayState_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animationPlayState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31079,7 +31079,7 @@ const animationPlayState_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animation_fill_mode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -31112,7 +31112,7 @@ unsafe extern fn set_animation_fill_mode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimation_fill_mode(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimation_fill_mode(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -31128,8 +31128,8 @@ unsafe extern fn set_animation_fill_mode<TH: TypeHolderTrait>
 }
 
 
-const animation_fill_mode_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animation_fill_mode as *const os::raw::c_void,
+fn animation_fill_mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animation_fill_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31144,10 +31144,10 @@ const animation_fill_mode_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animation_fill_mode_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animation_fill_mode as *const os::raw::c_void,
+fn animation_fill_mode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animation_fill_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31162,7 +31162,7 @@ const animation_fill_mode_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animationFillMode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -31195,7 +31195,7 @@ unsafe extern fn set_animationFillMode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimationFillMode(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimationFillMode(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -31211,8 +31211,8 @@ unsafe extern fn set_animationFillMode<TH: TypeHolderTrait>
 }
 
 
-const animationFillMode_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animationFillMode as *const os::raw::c_void,
+fn animationFillMode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animationFillMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31227,10 +31227,10 @@ const animationFillMode_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animationFillMode_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animationFillMode as *const os::raw::c_void,
+fn animationFillMode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animationFillMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31245,7 +31245,7 @@ const animationFillMode_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animation_delay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -31278,7 +31278,7 @@ unsafe extern fn set_animation_delay<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimation_delay(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimation_delay(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -31294,8 +31294,8 @@ unsafe extern fn set_animation_delay<TH: TypeHolderTrait>
 }
 
 
-const animation_delay_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animation_delay as *const os::raw::c_void,
+fn animation_delay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animation_delay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31310,10 +31310,10 @@ const animation_delay_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animation_delay_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animation_delay as *const os::raw::c_void,
+fn animation_delay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animation_delay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31328,7 +31328,7 @@ const animation_delay_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_animationDelay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -31361,7 +31361,7 @@ unsafe extern fn set_animationDelay<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAnimationDelay(arg0);
+        let result: Result<(), Error<TH>> = this.SetAnimationDelay(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -31377,8 +31377,8 @@ unsafe extern fn set_animationDelay<TH: TypeHolderTrait>
 }
 
 
-const animationDelay_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_animationDelay as *const os::raw::c_void,
+fn animationDelay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_animationDelay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31393,10 +31393,10 @@ const animationDelay_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const animationDelay_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_animationDelay as *const os::raw::c_void,
+fn animationDelay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_animationDelay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -31411,7 +31411,7 @@ const animationDelay_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -32416,7 +32416,7 @@ pub trait CSSStyleDeclarationMethods<TH: TypeHolderTrait> {
     fn SetAnimationDelay(&self, value: DOMString) -> ErrorResult<TH>;
     fn IndexedGetter(&self, index: u32) -> Option<DOMString>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"item\0" as *const u8 as *const libc::c_char,
@@ -32482,1139 +32482,1139 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"cssText\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssText_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &cssText_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssText_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &cssText_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"length\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &length_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &length_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"cssFloat\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssFloat_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &cssFloat_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssFloat_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &cssFloat_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"all\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &all_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &all_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &all_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &all_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundPosition\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundPosition_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundPosition_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundPosition_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundPosition_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-position\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_position_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_position_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_position_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_position_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundPositionX\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundPositionX_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundPositionX_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundPositionX_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundPositionX_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-position-x\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_position_x_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_position_x_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_position_x_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_position_x_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundPositionY\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundPositionY_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundPositionY_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundPositionY_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundPositionY_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-position-y\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_position_y_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_position_y_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_position_y_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_position_y_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundRepeat\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundRepeat_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundRepeat_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundRepeat_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundRepeat_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-repeat\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_repeat_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_repeat_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_repeat_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_repeat_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundImage\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundImage_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundImage_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundImage_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundImage_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-image\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_image_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_image_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_image_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_image_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundAttachment\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundAttachment_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundAttachment_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundAttachment_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundAttachment_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-attachment\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_attachment_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_attachment_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_attachment_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_attachment_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundSize\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundSize_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundSize_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundSize_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundSize_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-size\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_size_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_size_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_size_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_size_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundOrigin\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundOrigin_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundOrigin_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundOrigin_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundOrigin_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-origin\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_origin_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_origin_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_origin_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_origin_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backgroundClip\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundClip_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundClip_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backgroundClip_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backgroundClip_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"background-clip\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_clip_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_clip_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &background_clip_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &background_clip_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderRadius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRadius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRadius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRadius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRadius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-radius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_radius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_radius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_radius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_radius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderSpacing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderSpacing_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderSpacing_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderSpacing_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderSpacing_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-spacing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_spacing_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_spacing_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_spacing_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_spacing_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBottom\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottom_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottom_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottom_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottom_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-bottom\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBottomColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-bottom-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBottomLeftRadius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomLeftRadius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomLeftRadius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomLeftRadius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomLeftRadius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-bottom-left-radius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_left_radius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_left_radius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_left_radius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_left_radius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBottomRightRadius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomRightRadius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomRightRadius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomRightRadius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomRightRadius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-bottom-right-radius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_right_radius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_right_radius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_right_radius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_right_radius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBottomStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-bottom-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBottomWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBottomWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBottomWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-bottom-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_bottom_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_bottom_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderLeft\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderLeft_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderLeft_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderLeft_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderLeft_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-left\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_left_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_left_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_left_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_left_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderLeftColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderLeftColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderLeftColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderLeftColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderLeftColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-left-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_left_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_left_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_left_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_left_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderLeftStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderLeftStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderLeftStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderLeftStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderLeftStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-left-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_left_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_left_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_left_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_left_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderLeftWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderLeftWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderLeftWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderLeftWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderLeftWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-left-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_left_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_left_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_left_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_left_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderRight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRight_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRight_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRight_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRight_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-right\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_right_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_right_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_right_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_right_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderRightColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRightColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRightColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRightColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRightColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-right-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_right_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_right_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_right_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_right_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderRightStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRightStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRightStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRightStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRightStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-right-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_right_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_right_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_right_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_right_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderRightWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRightWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRightWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderRightWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderRightWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-right-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_right_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_right_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_right_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_right_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderTop\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTop_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTop_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTop_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTop_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-top\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderTopColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-top-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderTopLeftRadius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopLeftRadius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopLeftRadius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopLeftRadius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopLeftRadius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-top-left-radius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_left_radius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_left_radius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_left_radius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_left_radius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderTopRightRadius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopRightRadius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopRightRadius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopRightRadius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopRightRadius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-top-right-radius\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_right_radius_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_right_radius_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_right_radius_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_right_radius_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderTopStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-top-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderTopWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderTopWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderTopWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-top-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_top_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_top_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-image-source\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_source_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_source_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_source_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_source_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderImageSource\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageSource_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageSource_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageSource_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageSource_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-image-slice\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_slice_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_slice_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_slice_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_slice_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderImageSlice\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageSlice_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageSlice_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageSlice_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageSlice_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-image-repeat\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_repeat_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_repeat_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_repeat_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_repeat_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderImageRepeat\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageRepeat_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageRepeat_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageRepeat_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageRepeat_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-image-outset\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_outset_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_outset_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_outset_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_outset_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderImageOutset\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageOutset_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageOutset_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageOutset_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageOutset_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-image-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderImageWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImageWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImageWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-image\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_image_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_image_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderImage\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImage_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImage_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderImage_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderImage_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-block-start-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_start_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_start_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_start_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_start_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBlockStartColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockStartColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockStartColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockStartColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockStartColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-block-start-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_start_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_start_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_start_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_start_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBlockStartWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockStartWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockStartWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockStartWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockStartWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-block-start-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_start_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_start_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_start_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_start_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBlockStartStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockStartStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockStartStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockStartStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockStartStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-block-end-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_end_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_end_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_end_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_end_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBlockEndColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockEndColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockEndColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockEndColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockEndColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-block-end-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_end_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_end_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_end_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_end_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBlockEndWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockEndWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockEndWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockEndWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockEndWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-block-end-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_end_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_end_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_end_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_end_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBlockEndStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockEndStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockEndStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockEndStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockEndStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-inline-start-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_start_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_start_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_start_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_start_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderInlineStartColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineStartColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineStartColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineStartColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineStartColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-inline-start-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_start_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_start_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_start_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_start_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderInlineStartWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineStartWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineStartWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineStartWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineStartWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-inline-start-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_start_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_start_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_start_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_start_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderInlineStartStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineStartStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineStartStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineStartStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineStartStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-inline-end-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_end_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_end_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_end_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_end_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderInlineEndColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineEndColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineEndColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineEndColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineEndColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-inline-end-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_end_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_end_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_end_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_end_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderInlineEndWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineEndWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineEndWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineEndWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineEndWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-inline-end-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_end_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_end_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_end_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_end_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderInlineEndStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineEndStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineEndStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineEndStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineEndStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-block-start\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_start_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_start_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_start_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_start_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBlockStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockStart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockStart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockStart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockStart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-block-end\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_end_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_end_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_block_end_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_block_end_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderBlockEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockEnd_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockEnd_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderBlockEnd_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderBlockEnd_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-inline-start\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_start_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_start_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_start_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_start_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderInlineStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineStart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineStart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineStart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineStart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-inline-end\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_end_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_end_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_inline_end_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_inline_end_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderInlineEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineEnd_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineEnd_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderInlineEnd_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderInlineEnd_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"content\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &content_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &content_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &content_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &content_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"display\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &display_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &display_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &display_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &display_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"opacity\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &opacity_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &opacity_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &opacity_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &opacity_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"visibility\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &visibility_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &visibility_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &visibility_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &visibility_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"cursor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &cursor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &cursor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &cursor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &cursor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"boxSizing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &boxSizing_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &boxSizing_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &boxSizing_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &boxSizing_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"box-sizing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &box_sizing_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &box_sizing_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &box_sizing_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &box_sizing_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"boxShadow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &boxShadow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &boxShadow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &boxShadow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &boxShadow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"box-shadow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &box_shadow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &box_shadow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &box_shadow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &box_shadow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"textShadow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &textShadow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &textShadow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &textShadow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &textShadow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"text-shadow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_shadow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_shadow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_shadow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_shadow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"float\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &float_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &float_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &float_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &float_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"clear\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &clear_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &clear_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &clear_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &clear_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"clip\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &clip_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &clip_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &clip_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &clip_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transform\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transform_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transform_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transform_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transform_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transformOrigin\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transformOrigin_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transformOrigin_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transformOrigin_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transformOrigin_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transform-origin\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transform_origin_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transform_origin_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transform_origin_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transform_origin_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"perspective\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &perspective_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &perspective_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &perspective_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &perspective_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"perspectiveOrigin\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &perspectiveOrigin_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &perspectiveOrigin_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &perspectiveOrigin_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &perspectiveOrigin_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"perspective-origin\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &perspective_origin_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &perspective_origin_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &perspective_origin_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &perspective_origin_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transformStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transformStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transformStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transformStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transformStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transform-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transform_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transform_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transform_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transform_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backfaceVisibility\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backfaceVisibility_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backfaceVisibility_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backfaceVisibility_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backfaceVisibility_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"backface-visibility\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &backface_visibility_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &backface_visibility_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &backface_visibility_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &backface_visibility_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"rotate\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &rotate_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &rotate_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &rotate_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &rotate_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"scale\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &scale_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &scale_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &scale_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &scale_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"translate\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &translate_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &translate_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &translate_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &translate_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"direction\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &direction_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &direction_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &direction_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &direction_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unicodeBidi\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unicodeBidi_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unicodeBidi_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unicodeBidi_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unicodeBidi_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unicode-bidi\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unicode_bidi_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unicode_bidi_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unicode_bidi_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unicode_bidi_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"filter\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &filter_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &filter_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &filter_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &filter_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"lineHeight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &lineHeight_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &lineHeight_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &lineHeight_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &lineHeight_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"line-height\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &line_height_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &line_height_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &line_height_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &line_height_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"mixBlendMode\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &mixBlendMode_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &mixBlendMode_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &mixBlendMode_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &mixBlendMode_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"mix-blend-mode\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &mix_blend_mode_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &mix_blend_mode_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &mix_blend_mode_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &mix_blend_mode_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"verticalAlign\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &verticalAlign_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &verticalAlign_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &verticalAlign_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &verticalAlign_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"vertical-align\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &vertical_align_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &vertical_align_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &vertical_align_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &vertical_align_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"listStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &listStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &listStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &listStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &listStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"list-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &list_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &list_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &list_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &list_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"listStylePosition\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &listStylePosition_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &listStylePosition_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &listStylePosition_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &listStylePosition_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"list-style-position\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &list_style_position_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &list_style_position_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &list_style_position_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &list_style_position_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"listStyleType\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &listStyleType_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &listStyleType_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &listStyleType_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &listStyleType_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"list-style-type\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &list_style_type_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &list_style_type_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &list_style_type_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &list_style_type_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"listStyleImage\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &listStyleImage_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &listStyleImage_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &listStyleImage_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &listStyleImage_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"list-style-image\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &list_style_image_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &list_style_image_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &list_style_image_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &list_style_image_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"quotes\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &quotes_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &quotes_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &quotes_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &quotes_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"counterIncrement\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &counterIncrement_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &counterIncrement_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &counterIncrement_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &counterIncrement_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"counter-increment\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &counter_increment_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &counter_increment_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &counter_increment_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &counter_increment_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"counterReset\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &counterReset_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &counterReset_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &counterReset_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &counterReset_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"counter-reset\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &counter_reset_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &counter_reset_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &counter_reset_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &counter_reset_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"overflow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"overflowX\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflowX_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflowX_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflowX_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflowX_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"overflow-x\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflow_x_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflow_x_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflow_x_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflow_x_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"overflowY\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflowY_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflowY_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflowY_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflowY_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"overflow-y\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflow_y_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflow_y_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflow_y_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflow_y_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"overflowWrap\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflowWrap_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflowWrap_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflowWrap_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflowWrap_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"overflow-wrap\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflow_wrap_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflow_wrap_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &overflow_wrap_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &overflow_wrap_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"tableLayout\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &tableLayout_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &tableLayout_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &tableLayout_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &tableLayout_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"table-layout\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &table_layout_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &table_layout_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &table_layout_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &table_layout_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"borderCollapse\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderCollapse_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderCollapse_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &borderCollapse_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &borderCollapse_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"border-collapse\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_collapse_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_collapse_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &border_collapse_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &border_collapse_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"emptyCells\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &emptyCells_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &emptyCells_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &emptyCells_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &emptyCells_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"empty-cells\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &empty_cells_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &empty_cells_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &empty_cells_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &empty_cells_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"captionSide\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &captionSide_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &captionSide_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &captionSide_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &captionSide_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"caption-side\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &caption_side_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &caption_side_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &caption_side_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &caption_side_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"whiteSpace\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &whiteSpace_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &whiteSpace_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &whiteSpace_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &whiteSpace_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"white-space\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &white_space_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &white_space_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &white_space_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &white_space_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -33627,14 +33627,14 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"writingMode\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &writingMode_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &writingMode_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &writingMode_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &writingMode_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"writing-mode\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &writing_mode_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &writing_mode_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &writing_mode_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &writing_mode_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -33647,740 +33647,740 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"letterSpacing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &letterSpacing_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &letterSpacing_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &letterSpacing_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &letterSpacing_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"letter-spacing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &letter_spacing_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &letter_spacing_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &letter_spacing_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &letter_spacing_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"wordBreak\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &wordBreak_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &wordBreak_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &wordBreak_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &wordBreak_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"word-break\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &word_break_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &word_break_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &word_break_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &word_break_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"wordSpacing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &wordSpacing_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &wordSpacing_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &wordSpacing_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &wordSpacing_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"word-spacing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &word_spacing_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &word_spacing_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &word_spacing_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &word_spacing_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"wordWrap\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &wordWrap_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &wordWrap_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &wordWrap_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &wordWrap_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"word-wrap\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &word_wrap_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &word_wrap_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &word_wrap_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &word_wrap_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"textOverflow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &textOverflow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &textOverflow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &textOverflow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &textOverflow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"text-overflow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_overflow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_overflow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_overflow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_overflow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"textAlign\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &textAlign_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &textAlign_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &textAlign_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &textAlign_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"text-align\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_align_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_align_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_align_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_align_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"textDecoration\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &textDecoration_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &textDecoration_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &textDecoration_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &textDecoration_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"text-decoration\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_decoration_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_decoration_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_decoration_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_decoration_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"textDecorationLine\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &textDecorationLine_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &textDecorationLine_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &textDecorationLine_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &textDecorationLine_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"text-decoration-line\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_decoration_line_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_decoration_line_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_decoration_line_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_decoration_line_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"textIndent\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &textIndent_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &textIndent_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &textIndent_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &textIndent_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"text-indent\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_indent_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_indent_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_indent_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_indent_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"textJustify\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &textJustify_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &textJustify_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &textJustify_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &textJustify_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"text-justify\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_justify_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_justify_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_justify_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_justify_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"textRendering\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &textRendering_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &textRendering_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &textRendering_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &textRendering_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"text-rendering\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_rendering_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_rendering_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_rendering_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_rendering_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"textTransform\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &textTransform_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &textTransform_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &textTransform_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &textTransform_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"text-transform\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_transform_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_transform_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &text_transform_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &text_transform_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"font\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"fontFamily\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontFamily_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontFamily_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontFamily_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontFamily_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"font-family\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_family_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_family_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_family_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_family_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"fontSize\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontSize_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontSize_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontSize_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontSize_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"font-size\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_size_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_size_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_size_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_size_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"fontStretch\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontStretch_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontStretch_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontStretch_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontStretch_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"font-stretch\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_stretch_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_stretch_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_stretch_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_stretch_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"fontStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"font-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"fontVariant\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontVariant_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontVariant_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontVariant_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontVariant_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"font-variant\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_variant_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_variant_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_variant_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_variant_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"fontVariantCaps\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontVariantCaps_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontVariantCaps_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontVariantCaps_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontVariantCaps_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"font-variant-caps\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_variant_caps_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_variant_caps_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_variant_caps_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_variant_caps_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"fontWeight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontWeight_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontWeight_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fontWeight_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &fontWeight_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"font-weight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_weight_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_weight_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &font_weight_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &font_weight_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"margin\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"marginBottom\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginBottom_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginBottom_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginBottom_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginBottom_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"margin-bottom\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_bottom_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_bottom_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_bottom_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_bottom_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"marginLeft\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginLeft_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginLeft_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginLeft_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginLeft_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"margin-left\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_left_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_left_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_left_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_left_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"marginRight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginRight_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginRight_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginRight_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginRight_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"margin-right\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_right_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_right_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_right_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_right_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"marginTop\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginTop_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginTop_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginTop_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginTop_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"margin-top\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_top_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_top_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_top_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_top_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"margin-block-start\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_block_start_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_block_start_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_block_start_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_block_start_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"marginBlockStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginBlockStart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginBlockStart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginBlockStart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginBlockStart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"margin-block-end\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_block_end_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_block_end_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_block_end_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_block_end_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"marginBlockEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginBlockEnd_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginBlockEnd_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginBlockEnd_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginBlockEnd_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"margin-inline-start\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_inline_start_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_inline_start_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_inline_start_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_inline_start_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"marginInlineStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginInlineStart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginInlineStart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginInlineStart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginInlineStart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"margin-inline-end\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_inline_end_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_inline_end_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &margin_inline_end_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &margin_inline_end_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"marginInlineEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginInlineEnd_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginInlineEnd_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &marginInlineEnd_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &marginInlineEnd_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"padding\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"paddingBottom\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingBottom_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingBottom_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingBottom_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingBottom_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"padding-bottom\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_bottom_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_bottom_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_bottom_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_bottom_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"paddingLeft\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingLeft_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingLeft_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingLeft_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingLeft_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"padding-left\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_left_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_left_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_left_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_left_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"paddingRight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingRight_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingRight_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingRight_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingRight_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"padding-right\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_right_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_right_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_right_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_right_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"paddingTop\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingTop_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingTop_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingTop_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingTop_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"padding-top\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_top_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_top_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_top_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_top_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"padding-block-start\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_block_start_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_block_start_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_block_start_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_block_start_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"paddingBlockStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingBlockStart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingBlockStart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingBlockStart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingBlockStart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"padding-block-end\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_block_end_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_block_end_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_block_end_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_block_end_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"paddingBlockEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingBlockEnd_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingBlockEnd_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingBlockEnd_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingBlockEnd_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"padding-inline-start\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_inline_start_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_inline_start_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_inline_start_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_inline_start_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"paddingInlineStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingInlineStart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingInlineStart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingInlineStart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingInlineStart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"padding-inline-end\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_inline_end_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_inline_end_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &padding_inline_end_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &padding_inline_end_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"paddingInlineEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingInlineEnd_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingInlineEnd_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &paddingInlineEnd_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &paddingInlineEnd_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"outline\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"outlineColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &outlineColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &outlineColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &outlineColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &outlineColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"outline-color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"outlineStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &outlineStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &outlineStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &outlineStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &outlineStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"outline-style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_style_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_style_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_style_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_style_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"outlineWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &outlineWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &outlineWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &outlineWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &outlineWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"outline-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"outlineOffset\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &outlineOffset_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &outlineOffset_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &outlineOffset_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &outlineOffset_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"outline-offset\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_offset_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_offset_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &outline_offset_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &outline_offset_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"position\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &position_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &position_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &position_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &position_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"pointerEvents\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &pointerEvents_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &pointerEvents_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &pointerEvents_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &pointerEvents_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"pointer-events\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &pointer_events_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &pointer_events_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &pointer_events_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &pointer_events_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"top\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &top_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &top_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &top_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &top_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"right\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &right_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &right_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &right_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &right_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"left\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &left_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &left_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &left_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &left_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"bottom\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &bottom_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &bottom_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &bottom_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &bottom_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"offset-block-start\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_block_start_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &offset_block_start_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_block_start_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &offset_block_start_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"offsetBlockStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetBlockStart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &offsetBlockStart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetBlockStart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &offsetBlockStart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"offset-block-end\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_block_end_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &offset_block_end_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_block_end_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &offset_block_end_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"offsetBlockEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetBlockEnd_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &offsetBlockEnd_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetBlockEnd_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &offsetBlockEnd_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"offset-inline-start\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_inline_start_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &offset_inline_start_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_inline_start_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &offset_inline_start_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"offsetInlineStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetInlineStart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &offsetInlineStart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetInlineStart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &offsetInlineStart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"offset-inline-end\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_inline_end_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &offset_inline_end_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_inline_end_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &offset_inline_end_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"offsetInlineEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetInlineEnd_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &offsetInlineEnd_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetInlineEnd_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &offsetInlineEnd_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"height\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &height_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &height_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &height_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &height_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"minHeight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &minHeight_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &minHeight_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &minHeight_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &minHeight_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"min-height\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &min_height_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &min_height_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &min_height_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &min_height_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"maxHeight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxHeight_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &maxHeight_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxHeight_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &maxHeight_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"max-height\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &max_height_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &max_height_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &max_height_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &max_height_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"minWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &minWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &minWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &minWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &minWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"min-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &min_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &min_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &min_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &min_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"maxWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &maxWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &maxWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"max-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &max_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &max_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &max_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &max_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"block-size\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &block_size_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &block_size_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &block_size_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &block_size_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"blockSize\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &blockSize_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &blockSize_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &blockSize_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &blockSize_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"inline-size\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &inline_size_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &inline_size_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &inline_size_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &inline_size_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"inlineSize\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &inlineSize_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &inlineSize_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &inlineSize_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &inlineSize_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"max-block-size\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &max_block_size_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &max_block_size_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &max_block_size_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &max_block_size_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"maxBlockSize\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxBlockSize_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &maxBlockSize_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxBlockSize_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &maxBlockSize_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"max-inline-size\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &max_inline_size_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &max_inline_size_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &max_inline_size_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &max_inline_size_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"maxInlineSize\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxInlineSize_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &maxInlineSize_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxInlineSize_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &maxInlineSize_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"min-block-size\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &min_block_size_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &min_block_size_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &min_block_size_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &min_block_size_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"minBlockSize\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &minBlockSize_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &minBlockSize_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &minBlockSize_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &minBlockSize_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"min-inline-size\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &min_inline_size_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &min_inline_size_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &min_inline_size_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &min_inline_size_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"minInlineSize\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &minInlineSize_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &minInlineSize_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &minInlineSize_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &minInlineSize_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"zIndex\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &zIndex_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &zIndex_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &zIndex_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &zIndex_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"z-index\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &z_index_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &z_index_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &z_index_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &z_index_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"imageRendering\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &imageRendering_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &imageRendering_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &imageRendering_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &imageRendering_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"image-rendering\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &image_rendering_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &image_rendering_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &image_rendering_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &image_rendering_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -34393,44 +34393,44 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"columnCount\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &columnCount_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &columnCount_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &columnCount_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &columnCount_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"column-count\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &column_count_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &column_count_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &column_count_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &column_count_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"columnWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &columnWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &columnWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &columnWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &columnWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"column-width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &column_width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &column_width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &column_width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &column_width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"columns\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &columns_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &columns_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &columns_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &columns_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"columnGap\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &columnGap_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &columnGap_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &columnGap_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &columnGap_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"column-gap\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &column_gap_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &column_gap_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &column_gap_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &column_gap_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -34443,290 +34443,290 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"transition\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transitionDuration\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transitionDuration_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transitionDuration_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transitionDuration_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transitionDuration_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transition-duration\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_duration_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_duration_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_duration_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_duration_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transitionTimingFunction\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transitionTimingFunction_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transitionTimingFunction_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transitionTimingFunction_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transitionTimingFunction_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transition-timing-function\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_timing_function_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_timing_function_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_timing_function_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_timing_function_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transitionProperty\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transitionProperty_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transitionProperty_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transitionProperty_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transitionProperty_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transition-property\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_property_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_property_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_property_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_property_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transitionDelay\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transitionDelay_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transitionDelay_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transitionDelay_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transitionDelay_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"transition-delay\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_delay_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_delay_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &transition_delay_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &transition_delay_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flex\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flexFlow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexFlow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexFlow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexFlow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexFlow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flex-flow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_flow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_flow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_flow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_flow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flexDirection\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexDirection_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexDirection_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexDirection_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexDirection_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flex-direction\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_direction_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_direction_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_direction_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_direction_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flexWrap\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexWrap_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexWrap_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexWrap_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexWrap_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flex-wrap\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_wrap_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_wrap_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_wrap_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_wrap_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"justifyContent\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &justifyContent_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &justifyContent_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &justifyContent_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &justifyContent_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"justify-content\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &justify_content_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &justify_content_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &justify_content_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &justify_content_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"alignItems\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &alignItems_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &alignItems_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &alignItems_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &alignItems_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"align-items\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &align_items_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &align_items_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &align_items_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &align_items_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"alignContent\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &alignContent_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &alignContent_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &alignContent_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &alignContent_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"align-content\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &align_content_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &align_content_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &align_content_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &align_content_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"order\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &order_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &order_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &order_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &order_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flexBasis\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexBasis_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexBasis_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexBasis_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexBasis_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flex-basis\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_basis_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_basis_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_basis_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_basis_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flexGrow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexGrow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexGrow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexGrow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexGrow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flex-grow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_grow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_grow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_grow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_grow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flexShrink\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexShrink_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexShrink_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flexShrink_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flexShrink_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"flex-shrink\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_shrink_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_shrink_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &flex_shrink_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &flex_shrink_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"alignSelf\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &alignSelf_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &alignSelf_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &alignSelf_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &alignSelf_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"align-self\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &align_self_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &align_self_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &align_self_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &align_self_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animation\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animation-name\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_name_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_name_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_name_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_name_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animationName\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationName_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationName_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationName_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationName_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animation-duration\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_duration_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_duration_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_duration_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_duration_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animationDuration\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationDuration_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationDuration_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationDuration_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationDuration_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animation-timing-function\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_timing_function_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_timing_function_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_timing_function_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_timing_function_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animationTimingFunction\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationTimingFunction_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationTimingFunction_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationTimingFunction_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationTimingFunction_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animation-iteration-count\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_iteration_count_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_iteration_count_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_iteration_count_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_iteration_count_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animationIterationCount\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationIterationCount_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationIterationCount_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationIterationCount_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationIterationCount_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animation-direction\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_direction_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_direction_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_direction_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_direction_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animationDirection\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationDirection_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationDirection_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationDirection_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationDirection_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animation-play-state\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_play_state_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_play_state_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_play_state_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_play_state_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animationPlayState\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationPlayState_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationPlayState_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationPlayState_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationPlayState_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animation-fill-mode\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_fill_mode_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_fill_mode_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_fill_mode_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_fill_mode_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animationFillMode\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationFillMode_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationFillMode_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationFillMode_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationFillMode_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animation-delay\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_delay_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_delay_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animation_delay_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animation_delay_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"animationDelay\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationDelay_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationDelay_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &animationDelay_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &animationDelay_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -34735,14 +34735,14 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0]),
-    Guard::new(Condition::Pref("layout.writing-mode.enabled"), sAttributes_specs[1]),
-    Guard::new(Condition::Satisfied, sAttributes_specs[2]),
-    Guard::new(Condition::Pref("layout.columns.enabled"), sAttributes_specs[3]),
-    Guard::new(Condition::Satisfied, sAttributes_specs[4])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("layout.writing-mode.enabled"), sAttributes_specs::<TH>()[1]),
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[2]),
+    Guard::new(Condition::Pref("layout.columns.enabled"), sAttributes_specs::<TH>()[3]),
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[4])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -34807,8 +34807,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

@@ -302,7 +302,7 @@ pub type TestTypedefString = DOMString;
 
 pub type TestTypedefInterface<TH> = DomRoot<Blob<TH>>;
 
-#[derive(JSTraceable, Default)]
+#[derive(JSTraceable)]
 #[must_root]
 pub struct TestDictionary<TH: TypeHolderTrait + 'static> {
     pub anyValue: RootedTraceableBox<Heap<JSVal>>,
@@ -332,6 +332,40 @@ pub struct TestDictionary<TH: TypeHolderTrait + 'static> {
     pub unsignedShortValue: Option<u16>,
     pub usvstringValue: Option<USVString>,
 }
+
+impl<TH: TypeHolderTrait> Default for TestDictionary<TH> {
+    fn default() -> Self {
+        Self {
+            anyValue: RootedTraceableBox::default(),
+            booleanValue: Option::default(),
+            byteValue: Option::default(),
+            dict: RootedTraceableBox::default(),
+            doubleValue: Option::default(),
+            elementSequence: Option::default(),
+            enumValue: Option::default(),
+            floatValue: Option::default(),
+            interfaceValue: Option::default(),
+            longLongValue: Option::default(),
+            longValue: Option::default(),
+            nonRequiredNullable: Option::default(),
+            nonRequiredNullable2: Option::default(),
+            objectValue: Option::default(),
+            octetValue: Option::default(),
+            requiredValue: false,
+            seqDict: Option::default(),
+            shortValue: Option::default(),
+            stringValue: Option::default(),
+            type_: Option::default(),
+            unrestrictedDoubleValue: Option::default(),
+            unrestrictedFloatValue: Option::default(),
+            unsignedLongLongValue: Option::default(),
+            unsignedLongValue: Option::default(),
+            unsignedShortValue: Option::default(),
+            usvstringValue: Option::default(),
+        }
+    }
+}
+
 impl<TH: TypeHolderTrait> TestDictionary<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> RootedTraceableBox<TestDictionary<TH>> {
         match TestDictionary::new(cx, HandleValue::null()) {
@@ -349,7 +383,7 @@ impl<TH: TypeHolderTrait> TestDictionary<TH> {
             return Ok(ConversionResult::Failure("Value is not an object.".into()));
         };
         rooted!(in(cx) let object = object);
-            let mut dictionary = RootedTraceableBox::new(TestDictionary::default());
+            let mut dictionary = RootedTraceableBox::new(TestDictionary::<TH>::default());
             dictionary.anyValue = {
                 rooted!(in(cx) let mut rval = UndefinedValue());
                 match try!(get_dictionary_property(cx, object.handle(), "anyValue", rval.handle_mut())) {
@@ -3381,7 +3415,7 @@ unsafe extern fn get_unionAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: UnionTypes::HTMLElementOrLong = this.UnionAttribute();
+        let result: UnionTypes::HTMLElementOrLong<TH> = this.UnionAttribute();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3449,7 +3483,7 @@ unsafe extern fn get_union2Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: UnionTypes::EventOrString = this.Union2Attribute();
+        let result: UnionTypes::EventOrString<TH> = this.Union2Attribute();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3517,7 +3551,7 @@ unsafe extern fn get_union3Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: UnionTypes::EventOrUSVString = this.Union3Attribute();
+        let result: UnionTypes::EventOrUSVString<TH> = this.Union3Attribute();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3789,7 +3823,7 @@ unsafe extern fn get_union7Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: UnionTypes::BlobOrBoolean = this.Union7Attribute();
+        let result: UnionTypes::BlobOrBoolean<TH> = this.Union7Attribute();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -3857,7 +3891,7 @@ unsafe extern fn get_union8Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: UnionTypes::BlobOrUnsignedLong = this.Union8Attribute();
+        let result: UnionTypes::BlobOrUnsignedLong<TH> = this.Union8Attribute();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -5482,7 +5516,7 @@ unsafe extern fn get_unionAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<UnionTypes::HTMLElementOrLong> = this.GetUnionAttributeNullable();
+        let result: Option<UnionTypes::HTMLElementOrLong<TH>> = this.GetUnionAttributeNullable();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -5550,7 +5584,7 @@ unsafe extern fn get_union2AttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<UnionTypes::EventOrString> = this.GetUnion2AttributeNullable();
+        let result: Option<UnionTypes::EventOrString<TH>> = this.GetUnion2AttributeNullable();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -5618,7 +5652,7 @@ unsafe extern fn get_union3AttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<UnionTypes::BlobOrBoolean> = this.GetUnion3AttributeNullable();
+        let result: Option<UnionTypes::BlobOrBoolean<TH>> = this.GetUnion3AttributeNullable();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -6865,7 +6899,7 @@ unsafe extern fn receiveUnion<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: UnionTypes::HTMLElementOrLong = this.ReceiveUnion();
+        let result: UnionTypes::HTMLElementOrLong<TH> = this.ReceiveUnion();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -6897,7 +6931,7 @@ unsafe extern fn receiveUnion2<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: UnionTypes::EventOrString = this.ReceiveUnion2();
+        let result: UnionTypes::EventOrString<TH> = this.ReceiveUnion2();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -6993,7 +7027,7 @@ unsafe extern fn receiveUnion5<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: UnionTypes::BlobOrBlobSequence = this.ReceiveUnion5();
+        let result: UnionTypes::BlobOrBlobSequence<TH> = this.ReceiveUnion5();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -7121,7 +7155,7 @@ unsafe extern fn receiveUnion9<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: UnionTypes::HTMLElementOrUnsignedLongOrStringOrBoolean = this.ReceiveUnion9();
+        let result: UnionTypes::HTMLElementOrUnsignedLongOrStringOrBoolean<TH> = this.ReceiveUnion9();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -7889,7 +7923,7 @@ unsafe extern fn receiveNullableUnion<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Option<UnionTypes::HTMLElementOrLong> = this.ReceiveNullableUnion();
+        let result: Option<UnionTypes::HTMLElementOrLong<TH>> = this.ReceiveNullableUnion();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -7921,7 +7955,7 @@ unsafe extern fn receiveNullableUnion2<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Option<UnionTypes::EventOrString> = this.ReceiveNullableUnion2();
+        let result: Option<UnionTypes::EventOrString<TH>> = this.ReceiveNullableUnion2();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -8113,7 +8147,7 @@ unsafe extern fn receiveTestDictionaryWithSuccessOnKeyword<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: RootedTraceableBox<TestDictionary> = this.ReceiveTestDictionaryWithSuccessOnKeyword();
+        let result: RootedTraceableBox<TestDictionary<TH>> = this.ReceiveTestDictionaryWithSuccessOnKeyword();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -8150,7 +8184,7 @@ unsafe extern fn dictMatchesPassedValues<TH: TypeHolderTrait>
             throw_type_error(cx, "Not enough arguments to \"TestBinding.dictMatchesPassedValues\".");
             return false;
         }
-        let arg0: RootedTraceableBox<dom::bindings::codegen::Bindings::TestBindingBinding::TestDictionary> = match FromJSValConvertible::from_jsval(cx, args.get(0), ()) {
+        let arg0: RootedTraceableBox<dom::bindings::codegen::Bindings::TestBindingBinding::TestDictionary<TH>> = match FromJSValConvertible::from_jsval(cx, args.get(0), ()) {
             Ok(ConversionResult::Success(dictionary)) => dictionary,
             Ok(ConversionResult::Failure(error)) => {
                 throw_type_error(cx, &error);
@@ -9944,7 +9978,7 @@ unsafe extern fn passCallbackFunction<TH: TypeHolderTrait>
             throw_type_error(cx, "Not enough arguments to \"TestBinding.passCallbackFunction\".");
             return false;
         }
-        let arg0: Rc<Function> = if args.get(0).get().is_object() {
+        let arg0: Rc<Function<TH>> = if args.get(0).get().is_object() {
             if IsCallable(args.get(0).get().to_object()) {
                 Function::new(cx, args.get(0).get().to_object())
             } else {
@@ -11574,7 +11608,7 @@ unsafe extern fn passNullableCallbackFunction<TH: TypeHolderTrait>
             throw_type_error(cx, "Not enough arguments to \"TestBinding.passNullableCallbackFunction\".");
             return false;
         }
-        let arg0: Option<Rc<Function>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<Function<TH>>> = if args.get(0).get().is_object() {
             if IsCallable(args.get(0).get().to_object()) {
                 Some(Function::new(cx, args.get(0).get().to_object()))
             } else {
@@ -12900,7 +12934,7 @@ unsafe extern fn passOptionalCallbackFunction<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let arg0: Option<Rc<Function>> = if args.get(0).is_undefined() {
+        let arg0: Option<Rc<Function<TH>>> = if args.get(0).is_undefined() {
             None
         } else {
             Some(if args.get(0).get().is_object() {
@@ -14142,7 +14176,7 @@ unsafe extern fn passOptionalNullableCallbackFunction<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let arg0: Option<Option<Rc<Function>>> = if args.get(0).is_undefined() {
+        let arg0: Option<Option<Rc<Function<TH>>>> = if args.get(0).is_undefined() {
             None
         } else {
             Some(if args.get(0).get().is_object() {
@@ -19576,7 +19610,7 @@ unsafe extern fn returnResolvedPromise<TH: TypeHolderTrait>
             return false;
         }
         let arg0: HandleValue = args.get(0);
-        let result: Result<Rc<Promise<TH>>, Error> = this.ReturnResolvedPromise(cx, arg0);
+        let result: Result<Rc<Promise<TH>>, Error<TH>> = this.ReturnResolvedPromise(cx, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -19621,7 +19655,7 @@ unsafe extern fn returnRejectedPromise<TH: TypeHolderTrait>
             return false;
         }
         let arg0: HandleValue = args.get(0);
-        let result: Result<Rc<Promise<TH>>, Error> = this.ReturnRejectedPromise(cx, arg0);
+        let result: Result<Rc<Promise<TH>>, Error<TH>> = this.ReturnRejectedPromise(cx, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -19750,7 +19784,7 @@ unsafe extern fn promiseNativeHandler<TH: TypeHolderTrait>
             throw_type_error(cx, "Not enough arguments to \"TestBinding.promiseNativeHandler\".");
             return false;
         }
-        let arg0: Option<Rc<SimpleCallback>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<SimpleCallback<TH>>> = if args.get(0).get().is_object() {
             if IsCallable(args.get(0).get().to_object()) {
                 Some(SimpleCallback::new(cx, args.get(0).get().to_object()))
             } else {
@@ -19765,7 +19799,7 @@ unsafe extern fn promiseNativeHandler<TH: TypeHolderTrait>
             return false;
 
         };
-        let arg1: Option<Rc<SimpleCallback>> = if args.get(1).get().is_object() {
+        let arg1: Option<Rc<SimpleCallback<TH>>> = if args.get(1).get().is_object() {
             if IsCallable(args.get(1).get().to_object()) {
                 Some(SimpleCallback::new(cx, args.get(1).get().to_object()))
             } else {
@@ -23677,7 +23711,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
         let argcount = cmp::min(argc, 1);
         match argcount {
             0 => {
-                let result: Result<DomRoot<TestBinding<TH>>, Error> = TestBinding::Constructor(&global);
+                let result: Result<DomRoot<TestBinding<TH>>, Error<TH>> = TestBinding::Constructor(&global);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -23701,7 +23735,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                         _ => { return false;
                      },
                     };
-                    let result: Result<DomRoot<TestBinding<TH>>, Error> = TestBinding::Constructor_(&global, arg0);
+                    let result: Result<DomRoot<TestBinding<TH>>, Error<TH>> = TestBinding::Constructor_(&global, arg0);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -23723,7 +23757,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<DomRoot<TestBinding<TH>>, Error> = TestBinding::Constructor__(&global, arg0);
+                let result: Result<DomRoot<TestBinding<TH>>, Error<TH>> = TestBinding::Constructor__(&global, arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {

@@ -2758,7 +2758,7 @@ unsafe extern fn get_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull>> = this.GetOnerror();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull<TH>>> = this.GetOnerror();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -2769,7 +2769,7 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<OnErrorEventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<OnErrorEventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(OnErrorEventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -6014,7 +6014,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
         // Step 2 https://html.spec.whatwg.org/multipage/#htmlconstructor
         // The custom element definition cannot use an element interface as its constructor
@@ -6065,7 +6065,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLElement>, Error> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLElement<TH>>, Error<TH>> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

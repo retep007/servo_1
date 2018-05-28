@@ -532,7 +532,7 @@ unsafe extern fn getRandomValues<TH: TypeHolderTrait>
 
         };
         auto_root!(in(cx) let arg0 = arg0);
-        let result: Result<NonNull<JSObject>, Error> = this.GetRandomValues(cx, arg0);
+        let result: Result<NonNull<JSObject>, Error<TH>> = this.GetRandomValues(cx, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

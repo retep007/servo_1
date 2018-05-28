@@ -753,7 +753,7 @@ unsafe extern fn defineProperty<TH: TypeHolderTrait>
             };
             push_new_element_queue();
 
-            let result: Result<(), Error> = this.NamedSetter(name, value);
+            let result: Result<(), Error<TH>> = this.NamedSetter(name, value);
             pop_current_element_queue();
 
             let result = match result {

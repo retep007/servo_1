@@ -724,7 +724,7 @@ unsafe extern fn setNamedItem<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<Option<DomRoot<Attr<TH>>>, Error> = this.SetNamedItem(&arg0);
+        let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetNamedItem(&arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -787,7 +787,7 @@ unsafe extern fn setNamedItemNS<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<Option<DomRoot<Attr<TH>>>, Error> = this.SetNamedItemNS(&arg0);
+        let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetNamedItemNS(&arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -845,7 +845,7 @@ unsafe extern fn removeNamedItem<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Attr<TH>>, Error> = this.RemoveNamedItem(arg0);
+        let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.RemoveNamedItem(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -913,7 +913,7 @@ unsafe extern fn removeNamedItemNS<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Attr<TH>>, Error> = this.RemoveNamedItemNS(arg0, arg1);
+        let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.RemoveNamedItemNS(arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {

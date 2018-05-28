@@ -1134,7 +1134,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<DOMQuad<TH>>, Error> = DOMQuad::Constructor(&global, &arg0, &arg1, &arg2, &arg3);
+        let result: Result<DomRoot<DOMQuad<TH>>, Error<TH>> = DOMQuad::Constructor(&global, &arg0, &arg1, &arg2, &arg3);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

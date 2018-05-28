@@ -520,8 +520,8 @@ unsafe extern fn get_cssRules<TH: TypeHolderTrait>
 }
 
 
-const cssRules_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_cssRules as *const os::raw::c_void,
+fn cssRules_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_cssRules::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSGroupingRule as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -536,7 +536,7 @@ const cssRules_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn insertRule<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSGroupingRule<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -569,7 +569,7 @@ unsafe extern fn insertRule<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<u32, Error> = this.InsertRule(arg0, arg1);
+        let result: Result<u32, Error<TH>> = this.InsertRule(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -584,8 +584,8 @@ unsafe extern fn insertRule<TH: TypeHolderTrait>
 }
 
 
-const insertRule_methodinfo: JSJitInfo = JSJitInfo {
-    call: insertRule as *const os::raw::c_void,
+fn insertRule_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: insertRule::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSGroupingRule as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -600,7 +600,7 @@ const insertRule_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn deleteRule<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSGroupingRule<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -623,7 +623,7 @@ unsafe extern fn deleteRule<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error> = this.DeleteRule(arg0);
+        let result: Result<(), Error<TH>> = this.DeleteRule(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -638,8 +638,8 @@ unsafe extern fn deleteRule<TH: TypeHolderTrait>
 }
 
 
-const deleteRule_methodinfo: JSJitInfo = JSJitInfo {
-    call: deleteRule as *const os::raw::c_void,
+fn deleteRule_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: deleteRule::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSGroupingRule as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -654,7 +654,7 @@ const deleteRule_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 impl<TH: TypeHolderTrait> IDLInterface for CSSGroupingRule<TH> {
     #[inline]
@@ -674,18 +674,18 @@ pub trait CSSGroupingRuleMethods<TH: TypeHolderTrait> {
     fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32, TH>;
     fn DeleteRule(&self, index: u32) -> Fallible<(), TH>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"insertRule\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &insertRule_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &insertRule_methodinfo::<TH>()as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"deleteRule\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &deleteRule_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &deleteRule_methodinfo::<TH>()as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -698,16 +698,16 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"cssRules\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssRules_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssRules_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -717,10 +717,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -804,8 +804,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

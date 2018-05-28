@@ -700,7 +700,7 @@ unsafe extern fn set_tHead<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTHead(arg0.r());
+        let result: Result<(), Error<TH>> = this.SetTHead(arg0.r());
         pop_current_element_queue();
 
         let result = match result {
@@ -858,7 +858,7 @@ unsafe extern fn set_tFoot<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetTFoot(arg0.r());
+        let result: Result<(), Error<TH>> = this.SetTFoot(arg0.r());
         pop_current_element_queue();
 
         let result = match result {
@@ -1090,7 +1090,7 @@ unsafe extern fn insertRow<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<DomRoot<HTMLTableRowElement<TH>>, Error> = this.InsertRow(arg0);
+        let result: Result<DomRoot<HTMLTableRowElement<TH>>, Error<TH>> = this.InsertRow(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1146,7 +1146,7 @@ unsafe extern fn deleteRow<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.DeleteRow(arg0);
+        let result: Result<(), Error<TH>> = this.DeleteRow(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1619,7 +1619,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
         // Step 2 https://html.spec.whatwg.org/multipage/#htmlconstructor
         // The custom element definition cannot use an element interface as its constructor
@@ -1670,7 +1670,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLTableElement>, Error> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLTableElement<TH>>, Error<TH>> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

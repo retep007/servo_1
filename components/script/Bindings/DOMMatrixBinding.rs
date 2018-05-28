@@ -1111,7 +1111,7 @@ unsafe extern fn fromMatrix<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::FromMatrix(&global, &arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::FromMatrix(&global, &arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1151,7 +1151,7 @@ unsafe extern fn fromFloat32Array<TH: TypeHolderTrait>
 
         };
         auto_root!(in(cx) let arg0 = arg0);
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::FromFloat32Array(&global, arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::FromFloat32Array(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1191,7 +1191,7 @@ unsafe extern fn fromFloat64Array<TH: TypeHolderTrait>
 
         };
         auto_root!(in(cx) let arg0 = arg0);
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::FromFloat64Array(&global, arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::FromFloat64Array(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2721,7 +2721,7 @@ unsafe extern fn multiplySelf<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = this.MultiplySelf(&arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = this.MultiplySelf(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2774,7 +2774,7 @@ unsafe extern fn preMultiplySelf<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = this.PreMultiplySelf(&arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = this.PreMultiplySelf(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -3895,7 +3895,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
         let argcount = cmp::min(argc, 1);
         match argcount {
             0 => {
-                let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::Constructor(&global);
+                let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::Constructor(&global);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -3918,7 +3918,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::Constructor_(&global, arg0);
+                let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::Constructor_(&global, arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {

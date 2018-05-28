@@ -970,7 +970,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<ProgressEvent<TH>>, Error> = ProgressEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<ProgressEvent<TH>>, Error<TH>> = ProgressEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

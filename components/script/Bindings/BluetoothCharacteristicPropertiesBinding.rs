@@ -517,8 +517,8 @@ unsafe extern fn get_broadcast<TH: TypeHolderTrait>
 }
 
 
-const broadcast_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_broadcast as *const os::raw::c_void,
+fn broadcast_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_broadcast::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothCharacteristicProperties as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const broadcast_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_read<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothCharacteristicProperties<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_read<TH: TypeHolderTrait>
 }
 
 
-const read_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_read as *const os::raw::c_void,
+fn read_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_read::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothCharacteristicProperties as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const read_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_writeWithoutResponse<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothCharacteristicProperties<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_writeWithoutResponse<TH: TypeHolderTrait>
 }
 
 
-const writeWithoutResponse_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_writeWithoutResponse as *const os::raw::c_void,
+fn writeWithoutResponse_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_writeWithoutResponse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothCharacteristicProperties as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const writeWithoutResponse_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_write<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothCharacteristicProperties<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -607,8 +607,8 @@ unsafe extern fn get_write<TH: TypeHolderTrait>
 }
 
 
-const write_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_write as *const os::raw::c_void,
+fn write_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_write::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothCharacteristicProperties as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -623,7 +623,7 @@ const write_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_notify<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothCharacteristicProperties<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -637,8 +637,8 @@ unsafe extern fn get_notify<TH: TypeHolderTrait>
 }
 
 
-const notify_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_notify as *const os::raw::c_void,
+fn notify_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_notify::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothCharacteristicProperties as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -653,7 +653,7 @@ const notify_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_indicate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothCharacteristicProperties<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -667,8 +667,8 @@ unsafe extern fn get_indicate<TH: TypeHolderTrait>
 }
 
 
-const indicate_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_indicate as *const os::raw::c_void,
+fn indicate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_indicate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothCharacteristicProperties as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -683,7 +683,7 @@ const indicate_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_authenticatedSignedWrites<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothCharacteristicProperties<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -697,8 +697,8 @@ unsafe extern fn get_authenticatedSignedWrites<TH: TypeHolderTrait>
 }
 
 
-const authenticatedSignedWrites_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_authenticatedSignedWrites as *const os::raw::c_void,
+fn authenticatedSignedWrites_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_authenticatedSignedWrites::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothCharacteristicProperties as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -713,7 +713,7 @@ const authenticatedSignedWrites_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_reliableWrite<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothCharacteristicProperties<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -727,8 +727,8 @@ unsafe extern fn get_reliableWrite<TH: TypeHolderTrait>
 }
 
 
-const reliableWrite_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_reliableWrite as *const os::raw::c_void,
+fn reliableWrite_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_reliableWrite::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothCharacteristicProperties as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -743,7 +743,7 @@ const reliableWrite_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_writableAuxiliaries<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothCharacteristicProperties<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -757,8 +757,8 @@ unsafe extern fn get_writableAuxiliaries<TH: TypeHolderTrait>
 }
 
 
-const writableAuxiliaries_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_writableAuxiliaries as *const os::raw::c_void,
+fn writableAuxiliaries_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_writableAuxiliaries::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothCharacteristicProperties as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -773,7 +773,7 @@ const writableAuxiliaries_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -798,7 +798,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -806,20 +806,20 @@ static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     enumerate: None,
     resolve: None,
     mayResolve: None,
-    finalize: Some(_finalize),
+    finalize: Some(_finalize::<TH>),
     call: None,
     hasInstance: None,
     construct: None,
-    trace: Some(_trace),
-};
+    trace: Some(_trace::<TH>),
+}}
 
-static Class: DOMJSClass = DOMJSClass {
+fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"BluetoothCharacteristicProperties\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -827,7 +827,7 @@ static Class: DOMJSClass = DOMJSClass {
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { alone: () },
     global: InterfaceObjectMap::Globals::EMPTY,
 }
-};
+}}
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
@@ -848,7 +848,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -863,7 +863,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for BluetoothCharacteristicProperties<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -884,60 +884,60 @@ pub trait BluetoothCharacteristicPropertiesMethods {
     fn ReliableWrite(&self) -> bool;
     fn WritableAuxiliaries(&self) -> bool;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"broadcast\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &broadcast_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &broadcast_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"read\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &read_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &read_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"writeWithoutResponse\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &writeWithoutResponse_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &writeWithoutResponse_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"write\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &write_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &write_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"notify\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &notify_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &notify_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"indicate\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &indicate_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &indicate_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"authenticatedSignedWrites\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &authenticatedSignedWrites_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &authenticatedSignedWrites_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"reliableWrite\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &reliableWrite_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &reliableWrite_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"writableAuxiliaries\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &writableAuxiliaries_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &writableAuxiliaries_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -947,10 +947,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1017,7 +1017,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

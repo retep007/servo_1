@@ -512,7 +512,7 @@ unsafe extern fn get_cssRules<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleSheet<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<DomRoot<CSSRuleList<TH>>, Error> = this.GetCssRules();
+        let result: Result<DomRoot<CSSRuleList<TH>>, Error<TH>> = this.GetCssRules();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -527,8 +527,8 @@ unsafe extern fn get_cssRules<TH: TypeHolderTrait>
 }
 
 
-const cssRules_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_cssRules as *const os::raw::c_void,
+fn cssRules_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_cssRules::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleSheet as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -543,7 +543,7 @@ const cssRules_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn insertRule<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleSheet<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -576,7 +576,7 @@ unsafe extern fn insertRule<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<u32, Error> = this.InsertRule(arg0, arg1);
+        let result: Result<u32, Error<TH>> = this.InsertRule(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -591,8 +591,8 @@ unsafe extern fn insertRule<TH: TypeHolderTrait>
 }
 
 
-const insertRule_methodinfo: JSJitInfo = JSJitInfo {
-    call: insertRule as *const os::raw::c_void,
+fn insertRule_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: insertRule::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleSheet as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -607,7 +607,7 @@ const insertRule_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn deleteRule<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleSheet<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -630,7 +630,7 @@ unsafe extern fn deleteRule<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error> = this.DeleteRule(arg0);
+        let result: Result<(), Error<TH>> = this.DeleteRule(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -645,8 +645,8 @@ unsafe extern fn deleteRule<TH: TypeHolderTrait>
 }
 
 
-const deleteRule_methodinfo: JSJitInfo = JSJitInfo {
-    call: deleteRule as *const os::raw::c_void,
+fn deleteRule_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: deleteRule::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleSheet as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -661,7 +661,7 @@ const deleteRule_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -686,7 +686,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -699,15 +699,15 @@ static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     hasInstance: None,
     construct: None,
     trace: Some(_trace),
-};
+}}
 
-static Class: DOMJSClass = DOMJSClass {
+fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"CSSStyleSheet\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -715,7 +715,7 @@ static Class: DOMJSClass = DOMJSClass {
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { stylesheet: (::dom::bindings::codegen::InheritTypes::StyleSheetTypeId::CSSStyleSheet) },
     global: InterfaceObjectMap::Globals::EMPTY,
 }
-};
+}}
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
@@ -736,7 +736,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -751,7 +751,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for CSSStyleSheet<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -766,18 +766,18 @@ pub trait CSSStyleSheetMethods<TH: TypeHolderTrait> {
     fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32, TH>;
     fn DeleteRule(&self, index: u32) -> Fallible<(), TH>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"insertRule\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &insertRule_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &insertRule_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"deleteRule\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &deleteRule_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &deleteRule_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -790,16 +790,16 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"cssRules\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssRules_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssRules_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -809,10 +809,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -877,8 +877,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

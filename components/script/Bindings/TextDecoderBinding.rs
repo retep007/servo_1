@@ -784,7 +784,7 @@ unsafe extern fn decode<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<USVString, Error> = this.Decode(arg0, &arg1);
+        let result: Result<USVString, Error<TH>> = this.Decode(arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1035,7 +1035,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<TextDecoder<TH>>, Error> = TextDecoder::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<TextDecoder<TH>>, Error<TH>> = TextDecoder::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

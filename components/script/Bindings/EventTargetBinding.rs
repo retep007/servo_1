@@ -793,7 +793,7 @@ unsafe extern fn dispatchEvent<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<bool, Error> = this.DispatchEvent(&arg0);
+        let result: Result<bool, Error<TH>> = this.DispatchEvent(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -998,7 +998,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<EventTarget<TH>>, Error> = EventTarget::Constructor(&global);
+        let result: Result<DomRoot<EventTarget<TH>>, Error<TH>> = EventTarget::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

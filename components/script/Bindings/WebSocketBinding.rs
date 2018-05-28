@@ -890,7 +890,7 @@ unsafe extern fn close<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<(), Error> = this.Close(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.Close(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1069,7 +1069,7 @@ unsafe extern fn send<TH: TypeHolderTrait>
                         }
                     }
                     ;
-                    let result: Result<(), Error> = this.Send_(&arg0);
+                    let result: Result<(), Error<TH>> = this.Send_(&arg0);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -1090,7 +1090,7 @@ unsafe extern fn send<TH: TypeHolderTrait>
                     }
                     ;
                     auto_root!(in(cx) let arg0 = arg0);
-                    let result: Result<(), Error> = this.Send__(arg0);
+                    let result: Result<(), Error<TH>> = this.Send__(arg0);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -1111,7 +1111,7 @@ unsafe extern fn send<TH: TypeHolderTrait>
                     }
                     ;
                     auto_root!(in(cx) let arg0 = arg0);
-                    let result: Result<(), Error> = this.Send___(arg0);
+                    let result: Result<(), Error<TH>> = this.Send___(arg0);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -1134,7 +1134,7 @@ unsafe extern fn send<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error> = this.Send(arg0);
+                let result: Result<(), Error<TH>> = this.Send(arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1467,7 +1467,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<DomRoot<WebSocket<TH>>, Error> = WebSocket::Constructor(&global, arg0, arg1);
+        let result: Result<DomRoot<WebSocket<TH>>, Error<TH>> = WebSocket::Constructor(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

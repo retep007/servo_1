@@ -542,7 +542,7 @@ unsafe extern fn set_cols<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetCols(arg0);
+        let result: Result<(), Error<TH>> = this.SetCols(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1027,7 +1027,7 @@ unsafe extern fn set_rows<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetRows(arg0);
+        let result: Result<(), Error<TH>> = this.SetRows(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1424,7 +1424,7 @@ unsafe extern fn set_selectionStart<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error> = this.SetSelectionStart(arg0);
+        let result: Result<(), Error<TH>> = this.SetSelectionStart(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1499,7 +1499,7 @@ unsafe extern fn set_selectionEnd<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error> = this.SetSelectionEnd(arg0);
+        let result: Result<(), Error<TH>> = this.SetSelectionEnd(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1574,7 +1574,7 @@ unsafe extern fn set_selectionDirection<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.SetSelectionDirection(arg0);
+        let result: Result<(), Error<TH>> = this.SetSelectionDirection(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1644,7 +1644,7 @@ unsafe extern fn setRangeText<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error> = this.SetRangeText(arg0);
+                let result: Result<(), Error<TH>> = this.SetRangeText(arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1698,7 +1698,7 @@ unsafe extern fn setRangeText<TH: TypeHolderTrait>
                         Ok((Some(&value), _)) => value,
                     }
                 };
-                let result: Result<(), Error> = this.SetRangeText_(arg0, arg1, arg2, arg3);
+                let result: Result<(), Error<TH>> = this.SetRangeText_(arg0, arg1, arg2, arg3);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1752,7 +1752,7 @@ unsafe extern fn setRangeText<TH: TypeHolderTrait>
                         Ok((Some(&value), _)) => value,
                     }
                 };
-                let result: Result<(), Error> = this.SetRangeText_(arg0, arg1, arg2, arg3);
+                let result: Result<(), Error<TH>> = this.SetRangeText_(arg0, arg1, arg2, arg3);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1836,7 +1836,7 @@ unsafe extern fn setSelectionRange<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<(), Error> = this.SetSelectionRange(arg0, arg1, arg2);
+        let result: Result<(), Error<TH>> = this.SetSelectionRange(arg0, arg1, arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2179,7 +2179,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
         // Step 2 https://html.spec.whatwg.org/multipage/#htmlconstructor
         // The custom element definition cannot use an element interface as its constructor
@@ -2230,7 +2230,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLTextAreaElement>, Error> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLTextAreaElement<TH>>, Error<TH>> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

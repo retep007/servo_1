@@ -715,7 +715,7 @@ unsafe extern fn redirect<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<DomRoot<Response<TH>>, Error> = Response::Redirect(&global, arg0, arg1);
+        let result: Result<DomRoot<Response<TH>>, Error<TH>> = Response::Redirect(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -945,7 +945,7 @@ unsafe extern fn clone<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<DomRoot<Response<TH>>, Error> = this.Clone();
+        let result: Result<DomRoot<Response<TH>>, Error<TH>> = this.Clone();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1461,7 +1461,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
-        let arg0: Option<UnionTypes::BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams> = if args.get(0).is_undefined() {
+        let arg0: Option<UnionTypes::BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH>> = if args.get(0).is_undefined() {
             None
         } else {
             match FromJSValConvertible::from_jsval(cx, args.get(0), ()) {
@@ -1475,7 +1475,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let arg1: dom::bindings::codegen::Bindings::ResponseBinding::ResponseInit = if args.get(1).is_undefined() {
+        let arg1: dom::bindings::codegen::Bindings::ResponseBinding::ResponseInit<TH> = if args.get(1).is_undefined() {
             dom::bindings::codegen::Bindings::ResponseBinding::ResponseInit::empty(cx)
         } else {
             match FromJSValConvertible::from_jsval(cx, args.get(1), ()) {
@@ -1489,7 +1489,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<Response<TH>>, Error> = Response::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<Response<TH>>, Error<TH>> = Response::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

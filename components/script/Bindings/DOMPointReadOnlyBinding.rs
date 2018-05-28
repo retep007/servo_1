@@ -856,7 +856,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<DomRoot<DOMPointReadOnly<TH>>, Error> = DOMPointReadOnly::Constructor(&global, arg0, arg1, arg2, arg3);
+        let result: Result<DomRoot<DOMPointReadOnly<TH>>, Error<TH>> = DOMPointReadOnly::Constructor(&global, arg0, arg1, arg2, arg3);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

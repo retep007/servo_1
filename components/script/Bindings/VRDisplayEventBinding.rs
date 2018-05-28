@@ -932,7 +932,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 2 {
@@ -949,7 +949,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let arg1: dom::bindings::codegen::Bindings::VRDisplayEventBinding::VRDisplayEventInit = match FromJSValConvertible::from_jsval(cx, args.get(1), ()) {
+        let arg1: dom::bindings::codegen::Bindings::VRDisplayEventBinding::VRDisplayEventInit<TH> = match FromJSValConvertible::from_jsval(cx, args.get(1), ()) {
             Ok(ConversionResult::Success(dictionary)) => dictionary,
             Ok(ConversionResult::Failure(error)) => {
                 throw_type_error(cx, &error);
@@ -959,7 +959,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<VRDisplayEvent<TH>>, Error> = VRDisplayEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<VRDisplayEvent<TH>>, Error<TH>> = VRDisplayEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

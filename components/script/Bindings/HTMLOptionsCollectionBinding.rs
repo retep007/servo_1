@@ -628,7 +628,7 @@ unsafe extern fn add<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Add(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.Add(arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -1079,7 +1079,7 @@ unsafe extern fn defineProperty<TH: TypeHolderTrait>
             };
             push_new_element_queue();
 
-            let result: Result<(), Error> = this.IndexedSetter(index, option.r());
+            let result: Result<(), Error<TH>> = this.IndexedSetter(index, option.r());
             pop_current_element_queue();
 
             let result = match result {

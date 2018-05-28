@@ -660,7 +660,7 @@ unsafe extern fn setItem<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.SetItem(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.SetItem(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1018,7 +1018,7 @@ unsafe extern fn defineProperty<TH: TypeHolderTrait>
                 }
                 _ => { return false; },
             };
-            let result: Result<(), Error> = this.NamedSetter(name, value);
+            let result: Result<(), Error<TH>> = this.NamedSetter(name, value);
             let result = match result {
                 Ok(result) => result,
                 Err(e) => {

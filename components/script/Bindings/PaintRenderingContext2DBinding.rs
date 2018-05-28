@@ -695,7 +695,7 @@ unsafe extern fn drawImage<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<(), Error> = this.DrawImage(arg0, arg1, arg2);
+                let result: Result<(), Error<TH>> = this.DrawImage(arg0, arg1, arg2);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -758,7 +758,7 @@ unsafe extern fn drawImage<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<(), Error> = this.DrawImage_(arg0, arg1, arg2, arg3, arg4);
+                let result: Result<(), Error<TH>> = this.DrawImage_(arg0, arg1, arg2, arg3, arg4);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -861,7 +861,7 @@ unsafe extern fn drawImage<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<(), Error> = this.DrawImage__(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+                let result: Result<(), Error<TH>> = this.DrawImage__(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1122,7 +1122,7 @@ unsafe extern fn get_strokeStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: UnionTypes::StringOrCanvasGradientOrCanvasPattern = this.StrokeStyle();
+        let result: UnionTypes::StringOrCanvasGradientOrCanvasPattern<TH> = this.StrokeStyle();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1190,7 +1190,7 @@ unsafe extern fn get_fillStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: UnionTypes::StringOrCanvasGradientOrCanvasPattern = this.FillStyle();
+        let result: UnionTypes::StringOrCanvasGradientOrCanvasPattern<TH> = this.FillStyle();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1402,7 +1402,7 @@ unsafe extern fn createRadialGradient<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<DomRoot<CanvasGradient<TH>>, Error> = this.CreateRadialGradient(arg0, arg1, arg2, arg3, arg4, arg5);
+        let result: Result<DomRoot<CanvasGradient<TH>>, Error<TH>> = this.CreateRadialGradient(arg0, arg1, arg2, arg3, arg4, arg5);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1466,7 +1466,7 @@ unsafe extern fn createPattern<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<CanvasPattern<TH>>, Error> = this.CreatePattern(arg0, arg1);
+        let result: Result<DomRoot<CanvasPattern<TH>>, Error<TH>> = this.CreatePattern(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1948,7 +1948,7 @@ unsafe extern fn arcTo<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error> = this.ArcTo(arg0, arg1, arg2, arg3, arg4);
+        let result: Result<(), Error<TH>> = this.ArcTo(arg0, arg1, arg2, arg3, arg4);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2133,7 +2133,7 @@ unsafe extern fn arc<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<(), Error> = this.Arc(arg0, arg1, arg2, arg3, arg4, arg5);
+        let result: Result<(), Error<TH>> = this.Arc(arg0, arg1, arg2, arg3, arg4, arg5);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2261,7 +2261,7 @@ unsafe extern fn ellipse<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<(), Error> = this.Ellipse(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+        let result: Result<(), Error<TH>> = this.Ellipse(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -3516,7 +3516,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<PaintRenderingContext2D<TH>>(obj).unwrap();
+        let this = native_from_object::<PaintRenderingContext2D<TH>, TH>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
                 let _ = Box::from_raw(this as *mut PaintRenderingContext2D<TH>);
@@ -3529,7 +3529,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<PaintRenderingContext2D<TH>>(obj).unwrap();
+        let this = native_from_object::<PaintRenderingContext2D<TH>, TH>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());

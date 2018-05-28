@@ -526,7 +526,7 @@ unsafe extern fn setBluetoothMockDataSet<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.SetBluetoothMockDataSet(arg0);
+        let result: Result<(), Error<TH>> = this.SetBluetoothMockDataSet(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

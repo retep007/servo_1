@@ -529,7 +529,7 @@ unsafe extern fn registerPaint<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let arg1: Rc<VoidFunction> = if args.get(1).get().is_object() {
+        let arg1: Rc<VoidFunction<TH>> = if args.get(1).get().is_object() {
             if IsCallable(args.get(1).get().to_object()) {
                 VoidFunction::new(cx, args.get(1).get().to_object())
             } else {
@@ -542,7 +542,7 @@ unsafe extern fn registerPaint<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error> = this.RegisterPaint(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.RegisterPaint(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

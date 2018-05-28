@@ -1043,7 +1043,7 @@ unsafe extern fn requestAnimationFrame<TH: TypeHolderTrait>
             throw_type_error(cx, "Not enough arguments to \"VRDisplay.requestAnimationFrame\".");
             return false;
         }
-        let arg0: Rc<FrameRequestCallback> = if args.get(0).get().is_object() {
+        let arg0: Rc<FrameRequestCallback<TH>> = if args.get(0).get().is_object() {
             if IsCallable(args.get(0).get().to_object()) {
                 FrameRequestCallback::new(cx, args.get(0).get().to_object())
             } else {
@@ -1140,7 +1140,7 @@ unsafe extern fn requestPresent<TH: TypeHolderTrait>
             throw_type_error(cx, "Not enough arguments to \"VRDisplay.requestPresent\".");
             return false;
         }
-        let arg0: Vec<dom::bindings::codegen::Bindings::VRLayerBinding::VRLayer> = match FromJSValConvertible::from_jsval(cx, args.get(0), ()) {
+        let arg0: Vec<dom::bindings::codegen::Bindings::VRLayerBinding::VRLayer<TH>> = match FromJSValConvertible::from_jsval(cx, args.get(0), ()) {
             Ok(ConversionResult::Success(value)) => value,
             Ok(ConversionResult::Failure(error)) => {
                 throw_type_error(cx, &error);
@@ -1214,7 +1214,7 @@ unsafe extern fn getLayers<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Vec<VRLayer> = this.GetLayers();
+        let result: Vec<VRLayer<TH>> = this.GetLayers();
 
         (result).to_jsval(cx, args.rval());
         return true;

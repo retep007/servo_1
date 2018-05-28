@@ -540,7 +540,7 @@ unsafe extern fn append<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.Append(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.Append(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -594,7 +594,7 @@ unsafe extern fn delete<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.Delete(arg0);
+        let result: Result<(), Error<TH>> = this.Delete(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -648,7 +648,7 @@ unsafe extern fn get<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<Option<ByteString>, Error> = this.Get(arg0);
+        let result: Result<Option<ByteString>, Error<TH>> = this.Get(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -702,7 +702,7 @@ unsafe extern fn has<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<bool, Error> = this.Has(arg0);
+        let result: Result<bool, Error<TH>> = this.Has(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -766,7 +766,7 @@ unsafe extern fn set<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.Set(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.Set(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1200,7 +1200,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
-        let arg0: Option<UnionTypes::HeadersOrByteStringSequenceSequenceOrStringByteStringRecord> = if args.get(0).is_undefined() {
+        let arg0: Option<UnionTypes::HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH>> = if args.get(0).is_undefined() {
             None
         } else {
             Some(match FromJSValConvertible::from_jsval(cx, args.get(0), ()) {
@@ -1214,7 +1214,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<DomRoot<Headers<TH>>, Error> = Headers::Constructor(&global, arg0);
+        let result: Result<DomRoot<Headers<TH>>, Error<TH>> = Headers::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1568,7 +1568,7 @@ unsafe extern fn next<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<NonNull<JSObject>, Error> = this.Next(cx);
+        let result: Result<NonNull<JSObject>, Error<TH>> = this.Next(cx);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1605,12 +1605,12 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<IterableIterator<Headers<TH>>, TH>(obj).unwrap();
+        let this = native_from_object::<IterableIterator<Headers<TH>, TH>, TH>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
-                let _ = Box::from_raw(this as *mut IterableIterator<Headers<TH>>);
+                let _ = Box::from_raw(this as *mut IterableIterator<Headers<TH>, TH>);
             }
-            debug!("IterableIterator<Headers<TH>> finalize: {:p}", this);
+            debug!("IterableIterator<Headers<TH>, TH> finalize: {:p}", this);
     }), ());
 }
 
@@ -1618,7 +1618,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<IterableIterator<Headers<TH>>, TH>(obj).unwrap();
+        let this = native_from_object::<IterableIterator<Headers<TH>, TH>, TH>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());
@@ -1657,7 +1657,7 @@ static Class: DOMJSClass = DOMJSClass {
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
-    malloc_size_of_including_raw_self::<IterableIterator<Headers<TH>>>(ops, obj)
+    malloc_size_of_including_raw_self::<IterableIterator<Headers<TH>, TH>>(ops, obj)
 }
 
 pub unsafe fn Wrap<TH: TypeHolderTrait>

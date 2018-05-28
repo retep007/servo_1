@@ -552,7 +552,7 @@ unsafe extern fn createDocumentType<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<DocumentType<TH>>, Error> = this.CreateDocumentType(arg0, arg1, arg2);
+        let result: Result<DomRoot<DocumentType<TH>>, Error<TH>> = this.CreateDocumentType(arg0, arg1, arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -637,7 +637,7 @@ unsafe extern fn createDocument<TH: TypeHolderTrait>
 
             }
         };
-        let result: Result<DomRoot<XMLDocument<TH>>, Error> = this.CreateDocument(arg0, arg1, arg2.r());
+        let result: Result<DomRoot<XMLDocument<TH>>, Error<TH>> = this.CreateDocument(arg0, arg1, arg2.r());
         let result = match result {
             Ok(result) => result,
             Err(e) => {

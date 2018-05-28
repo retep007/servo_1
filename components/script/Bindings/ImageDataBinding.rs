@@ -794,7 +794,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                          }
                         })
                     };
-                    let result: Result<DomRoot<ImageData<TH>>, Error> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
+                    let result: Result<DomRoot<ImageData<TH>>, Error<TH>> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -839,7 +839,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                          }
                         })
                     };
-                    let result: Result<DomRoot<ImageData<TH>>, Error> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
+                    let result: Result<DomRoot<ImageData<TH>>, Error<TH>> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -883,7 +883,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                          }
                         })
                     };
-                    let result: Result<DomRoot<ImageData<TH>>, Error> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
+                    let result: Result<DomRoot<ImageData<TH>>, Error<TH>> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -927,7 +927,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                          }
                         })
                     };
-                    let result: Result<DomRoot<ImageData<TH>>, Error> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
+                    let result: Result<DomRoot<ImageData<TH>>, Error<TH>> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -959,7 +959,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<DomRoot<ImageData<TH>>, Error> = ImageData::Constructor(&global, arg0, arg1);
+                let result: Result<DomRoot<ImageData<TH>>, Error<TH>> = ImageData::Constructor(&global, arg0, arg1);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1003,7 +1003,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                      }
                     })
                 };
-                let result: Result<DomRoot<ImageData<TH>>, Error> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
+                let result: Result<DomRoot<ImageData<TH>>, Error<TH>> = ImageData::Constructor_(cx, &global, arg0, arg1, arg2);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {

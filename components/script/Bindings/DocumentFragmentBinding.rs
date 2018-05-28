@@ -707,7 +707,7 @@ unsafe extern fn prepend<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Prepend(arg0);
+        let result: Result<(), Error<TH>> = this.Prepend(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -767,7 +767,7 @@ unsafe extern fn append<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Append(arg0);
+        let result: Result<(), Error<TH>> = this.Append(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -823,7 +823,7 @@ unsafe extern fn querySelector<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<Option<DomRoot<Element<TH>>>, Error> = this.QuerySelector(arg0);
+        let result: Result<Option<DomRoot<Element<TH>>>, Error<TH>> = this.QuerySelector(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -880,7 +880,7 @@ unsafe extern fn querySelectorAll<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<NodeList<TH>>, Error> = this.QuerySelectorAll(arg0);
+        let result: Result<DomRoot<NodeList<TH>>, Error<TH>> = this.QuerySelectorAll(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1146,9 +1146,9 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<DocumentFragment<TH>>, Error> = DocumentFragment::Constructor(&global);
+        let result: Result<DomRoot<DocumentFragment<TH>>, Error<TH>> = DocumentFragment::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

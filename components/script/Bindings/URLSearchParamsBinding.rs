@@ -1271,7 +1271,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<DomRoot<URLSearchParams<TH>>, Error> = URLSearchParams::Constructor(&global, arg0);
+        let result: Result<DomRoot<URLSearchParams<TH>>, Error<TH>> = URLSearchParams::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1625,7 +1625,7 @@ unsafe extern fn next<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<NonNull<JSObject>, Error> = this.Next(cx);
+        let result: Result<NonNull<JSObject>, Error<TH>> = this.Next(cx);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1662,12 +1662,12 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<IterableIterator<URLSearchParams<TH>>, TH>(obj).unwrap();
+        let this = native_from_object::<IterableIterator<URLSearchParams<TH>, TH>, TH>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
-                let _ = Box::from_raw(this as *mut IterableIterator<URLSearchParams<TH>>);
+                let _ = Box::from_raw(this as *mut IterableIterator<URLSearchParams<TH>, TH>);
             }
-            debug!("IterableIterator<URLSearchParams<TH>> finalize: {:p}", this);
+            debug!("IterableIterator<URLSearchParams<TH>, <TH>> finalize: {:p}", this);
     }), ());
 }
 
@@ -1675,7 +1675,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<IterableIterator<URLSearchParams<TH>>, TH>(obj).unwrap();
+        let this = native_from_object::<IterableIterator<URLSearchParams<TH>, TH>, TH>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());
@@ -1714,7 +1714,7 @@ static Class: DOMJSClass = DOMJSClass {
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
-    malloc_size_of_including_raw_self::<IterableIterator<URLSearchParams<TH>>>(ops, obj)
+    malloc_size_of_including_raw_self::<IterableIterator<URLSearchParams<TH>, TH>>(ops, obj)
 }
 
 pub unsafe fn Wrap<TH: TypeHolderTrait>

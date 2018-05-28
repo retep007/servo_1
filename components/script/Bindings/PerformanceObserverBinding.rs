@@ -710,7 +710,7 @@ unsafe extern fn observe<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.Observe(&arg0);
+        let result: Result<(), Error<TH>> = this.Observe(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -944,7 +944,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             throw_type_error(cx, "Not enough arguments to \"PerformanceObserver.constructor\".");
             return false;
         }
-        let arg0: Rc<PerformanceObserverCallback> = if args.get(0).get().is_object() {
+        let arg0: Rc<PerformanceObserverCallback<TH>> = if args.get(0).get().is_object() {
             if IsCallable(args.get(0).get().to_object()) {
                 PerformanceObserverCallback::new(cx, args.get(0).get().to_object())
             } else {
@@ -957,7 +957,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<DomRoot<PerformanceObserver<TH>>, Error> = PerformanceObserver::Constructor(&global, arg0);
+        let result: Result<DomRoot<PerformanceObserver<TH>>, Error<TH>> = PerformanceObserver::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

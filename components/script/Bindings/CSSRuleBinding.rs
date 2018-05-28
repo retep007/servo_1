@@ -520,8 +520,8 @@ unsafe extern fn get_type<TH: TypeHolderTrait>
 }
 
 
-const type_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_type as *const os::raw::c_void,
+fn type_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_type::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSRule as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -536,7 +536,7 @@ const type_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_cssText<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSRule<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -570,8 +570,8 @@ unsafe extern fn set_cssText<TH: TypeHolderTrait>
 }
 
 
-const cssText_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_cssText as *const os::raw::c_void,
+fn cssText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_cssText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSRule as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -586,9 +586,9 @@ const cssText_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const cssText_setterinfo: JSJitInfo = JSJitInfo {
+fn cssText_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     call: set_cssText as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSRule as u16,
     depth: 0,
@@ -604,7 +604,7 @@ const cssText_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_parentStyleSheet<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSRule<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -618,8 +618,8 @@ unsafe extern fn get_parentStyleSheet<TH: TypeHolderTrait>
 }
 
 
-const parentStyleSheet_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_parentStyleSheet as *const os::raw::c_void,
+fn parentStyleSheet_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_parentStyleSheet::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSRule as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -634,7 +634,7 @@ const parentStyleSheet_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 pub mod CSSRuleConstants {
     pub const STYLE_RULE: u16 = 1;
@@ -669,24 +669,24 @@ pub trait CSSRuleMethods<TH: TypeHolderTrait> {
     fn SetCssText(&self, value: DOMString) -> ();
     fn GetParentStyleSheet(&self) -> Option<DomRoot<CSSStyleSheet<TH>>>;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"type\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &type_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &type_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"cssText\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssText_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &cssText_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &cssText_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &cssText_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"parentStyleSheet\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &parentStyleSheet_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &parentStyleSheet_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -696,10 +696,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
 &[
     ConstantSpec { name: b"STYLE_RULE\0", value: ConstantVal::IntVal(1) },
@@ -803,7 +803,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       sConstants,
                                       &[],
                                       prototype.handle_mut().into());

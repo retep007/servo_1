@@ -528,7 +528,7 @@ unsafe extern fn splitText<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<DomRoot<Text<TH>>, Error> = this.SplitText(arg0);
+        let result: Result<DomRoot<Text<TH>>, Error<TH>> = this.SplitText(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -766,7 +766,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
         let arg0: DOMString = if args.get(0).is_undefined() {
             DOMString::from("")
@@ -782,7 +782,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<Text<TH>>, Error> = Text::Constructor(&global, arg0);
+        let result: Result<DomRoot<Text<TH>>, Error<TH>> = Text::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

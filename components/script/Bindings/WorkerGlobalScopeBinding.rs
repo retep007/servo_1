@@ -590,7 +590,7 @@ unsafe extern fn get_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull>> = this.GetOnerror();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull<TH>>> = this.GetOnerror();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -601,7 +601,7 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<OnErrorEventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<OnErrorEventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(OnErrorEventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -672,7 +672,7 @@ unsafe extern fn importScripts<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        let result: Result<(), Error> = this.ImportScripts(arg0);
+        let result: Result<(), Error<TH>> = this.ImportScripts(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -842,7 +842,7 @@ unsafe extern fn btoa<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error> = this.Btoa(arg0);
+        let result: Result<DOMString, Error<TH>> = this.Btoa(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -896,7 +896,7 @@ unsafe extern fn atob<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error> = this.Atob(arg0);
+        let result: Result<DOMString, Error<TH>> = this.Atob(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -940,7 +940,7 @@ unsafe extern fn setTimeout<TH: TypeHolderTrait>
         match argcount {
             1 => {
                 if args.get(0).get().is_object() && !is_platform_object(args.get(0).get().to_object()) {
-                    let arg0: Rc<Function> = if args.get(0).get().is_object() {
+                    let arg0: Rc<Function<TH>> = if args.get(0).get().is_object() {
                         if IsCallable(args.get(0).get().to_object()) {
                             Function::new(cx, args.get(0).get().to_object())
                         } else {
@@ -1019,7 +1019,7 @@ unsafe extern fn setTimeout<TH: TypeHolderTrait>
             }
             2 => {
                 if args.get(0).get().is_object() && !is_platform_object(args.get(0).get().to_object()) {
-                    let arg0: Rc<Function> = if args.get(0).get().is_object() {
+                    let arg0: Rc<Function<TH>> = if args.get(0).get().is_object() {
                         if IsCallable(args.get(0).get().to_object()) {
                             Function::new(cx, args.get(0).get().to_object())
                         } else {
@@ -1098,7 +1098,7 @@ unsafe extern fn setTimeout<TH: TypeHolderTrait>
             }
             3 => {
                 if args.get(0).get().is_object() && !is_platform_object(args.get(0).get().to_object()) {
-                    let arg0: Rc<Function> = if args.get(0).get().is_object() {
+                    let arg0: Rc<Function<TH>> = if args.get(0).get().is_object() {
                         if IsCallable(args.get(0).get().to_object()) {
                             Function::new(cx, args.get(0).get().to_object())
                         } else {
@@ -1259,7 +1259,7 @@ unsafe extern fn setInterval<TH: TypeHolderTrait>
         match argcount {
             1 => {
                 if args.get(0).get().is_object() && !is_platform_object(args.get(0).get().to_object()) {
-                    let arg0: Rc<Function> = if args.get(0).get().is_object() {
+                    let arg0: Rc<Function<TH>> = if args.get(0).get().is_object() {
                         if IsCallable(args.get(0).get().to_object()) {
                             Function::new(cx, args.get(0).get().to_object())
                         } else {
@@ -1338,7 +1338,7 @@ unsafe extern fn setInterval<TH: TypeHolderTrait>
             }
             2 => {
                 if args.get(0).get().is_object() && !is_platform_object(args.get(0).get().to_object()) {
-                    let arg0: Rc<Function> = if args.get(0).get().is_object() {
+                    let arg0: Rc<Function<TH>> = if args.get(0).get().is_object() {
                         if IsCallable(args.get(0).get().to_object()) {
                             Function::new(cx, args.get(0).get().to_object())
                         } else {
@@ -1417,7 +1417,7 @@ unsafe extern fn setInterval<TH: TypeHolderTrait>
             }
             3 => {
                 if args.get(0).get().is_object() && !is_platform_object(args.get(0).get().to_object()) {
-                    let arg0: Rc<Function> = if args.get(0).get().is_object() {
+                    let arg0: Rc<Function<TH>> = if args.get(0).get().is_object() {
                         if IsCallable(args.get(0).get().to_object()) {
                             Function::new(cx, args.get(0).get().to_object())
                         } else {
@@ -1588,7 +1588,7 @@ unsafe extern fn fetch<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let arg1: RootedTraceableBox<dom::bindings::codegen::Bindings::RequestBinding::RequestInit> = if args.get(1).is_undefined() {
+        let arg1: RootedTraceableBox<dom::bindings::codegen::Bindings::RequestBinding::RequestInit<TH>> = if args.get(1).is_undefined() {
             dom::bindings::codegen::Bindings::RequestBinding::RequestInit::empty(cx)
         } else {
             match FromJSValConvertible::from_jsval(cx, args.get(1), ()) {

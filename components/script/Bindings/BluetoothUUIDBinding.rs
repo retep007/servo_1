@@ -518,7 +518,7 @@ unsafe extern fn getService<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
 
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 1 {
@@ -535,7 +535,7 @@ unsafe extern fn getService<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error> = BluetoothUUID::GetService(&global, arg0);
+        let result: Result<DOMString, Error<TH>> = BluetoothUUID::GetService(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -554,7 +554,7 @@ unsafe extern fn getCharacteristic<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
 
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 1 {
@@ -571,7 +571,7 @@ unsafe extern fn getCharacteristic<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error> = BluetoothUUID::GetCharacteristic(&global, arg0);
+        let result: Result<DOMString, Error<TH>> = BluetoothUUID::GetCharacteristic(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -590,7 +590,7 @@ unsafe extern fn getDescriptor<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
 
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 1 {
@@ -607,7 +607,7 @@ unsafe extern fn getDescriptor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error> = BluetoothUUID::GetDescriptor(&global, arg0);
+        let result: Result<DOMString, Error<TH>> = BluetoothUUID::GetDescriptor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -626,7 +626,7 @@ unsafe extern fn canonicalUUID<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
 
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 1 {
@@ -673,7 +673,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -681,20 +681,20 @@ static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     enumerate: None,
     resolve: None,
     mayResolve: None,
-    finalize: Some(_finalize),
+    finalize: Some(_finalize::<TH>),
     call: None,
     hasInstance: None,
     construct: None,
-    trace: Some(_trace),
-};
+    trace: Some(_trace::<TH>),
+}}
 
-static Class: DOMJSClass = DOMJSClass {
+fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"BluetoothUUID\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -702,7 +702,7 @@ static Class: DOMJSClass = DOMJSClass {
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { alone: () },
     global: InterfaceObjectMap::Globals::EMPTY,
 }
-};
+}}
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
@@ -723,7 +723,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -738,7 +738,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for BluetoothUUID<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -748,32 +748,32 @@ impl<TH: TypeHolderTrait> PartialEq for BluetoothUUID<TH> {
     }
 }
 
-const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getService\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(getService), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(getService::<TH>), info: 0 as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getCharacteristic\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(getCharacteristic), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(getCharacteristic::<TH>), info: 0 as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getDescriptor\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(getDescriptor), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(getDescriptor::<TH>), info: 0 as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"canonicalUUID\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(canonicalUUID), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(canonicalUUID::<TH>), info: 0 as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -786,10 +786,10 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sStaticMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sStaticMethods_specs[0])
-];
+]}
+fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -876,7 +876,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                         global.into(),
                                         interface_proto.handle(),
                                         &INTERFACE_OBJECT_CLASS,
-                                        sStaticMethods,
+                                        sStaticMethods::<TH>(),
                                         &[],
                                         &[],
                                         prototype.handle(),

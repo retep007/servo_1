@@ -721,7 +721,7 @@ unsafe extern fn get<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Option<UnionTypes::FileOrUSVString> = this.Get(arg0);
+        let result: Option<UnionTypes::FileOrUSVString<TH>> = this.Get(arg0);
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -768,7 +768,7 @@ unsafe extern fn getAll<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Vec<UnionTypes::FileOrUSVString> = this.GetAll(arg0);
+        let result: Vec<UnionTypes::FileOrUSVString<TH>> = this.GetAll(arg0);
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -1407,7 +1407,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 
             })
         };
-        let result: Result<DomRoot<FormData<TH>>, Error> = FormData::Constructor(&global, arg0.r());
+        let result: Result<DomRoot<FormData<TH>>, Error<TH>> = FormData::Constructor(&global, arg0.r());
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1761,7 +1761,7 @@ unsafe extern fn next<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<NonNull<JSObject>, Error> = this.Next(cx);
+        let result: Result<NonNull<JSObject>, Error<TH>> = this.Next(cx);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1798,12 +1798,12 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<IterableIterator<FormData<TH>>, TH>(obj).unwrap();
+        let this = native_from_object::<IterableIterator<FormData<TH>, TH>, TH>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
-                let _ = Box::from_raw(this as *mut IterableIterator<FormData<TH>>);
+                let _ = Box::from_raw(this as *mut IterableIterator<FormData<TH>, TH>);
             }
-            debug!("IterableIterator<FormData<TH>> finalize: {:p}", this);
+            debug!("IterableIterator<FormData<TH>, TH> finalize: {:p}", this);
     }), ());
 }
 
@@ -1811,7 +1811,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<IterableIterator<FormData<TH>>, TH>(obj).unwrap();
+        let this = native_from_object::<IterableIterator<FormData<TH>, TH>, TH>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());
@@ -1850,7 +1850,7 @@ static Class: DOMJSClass = DOMJSClass {
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
-    malloc_size_of_including_raw_self::<IterableIterator<FormData<TH>>>(ops, obj)
+    malloc_size_of_including_raw_self::<IterableIterator<FormData<TH>,TH>>(ops, obj)
 }
 
 pub unsafe fn Wrap<TH: TypeHolderTrait>

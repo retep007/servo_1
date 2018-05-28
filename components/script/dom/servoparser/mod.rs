@@ -58,12 +58,13 @@ use malloc_size_of::MallocSizeOf;
 use dom::bindings::trace::JSTraceable;
 use typeholder::TypeHolderTrait;
 use std::marker::Sized;
+use dom::bindings::conversions::IDLInterface;
 
 mod async_html;
 mod html;
 mod xml;
 
-pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TypeHolder=TH> + MutDomObject + MallocSizeOf + JSTraceable + 'static {
+pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TypeHolder=TH> + MutDomObject + MallocSizeOf + JSTraceable + IDLInterface + 'static {
 
     fn parser_is_not_active(&self) -> bool;
 

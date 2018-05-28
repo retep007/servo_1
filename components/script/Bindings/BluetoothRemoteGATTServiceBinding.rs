@@ -522,8 +522,8 @@ unsafe extern fn get_device<TH: TypeHolderTrait>
 }
 
 
-const device_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_device as *const os::raw::c_void,
+fn device_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_device::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -538,7 +538,7 @@ const device_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_uuid<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTService<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -552,8 +552,8 @@ unsafe extern fn get_uuid<TH: TypeHolderTrait>
 }
 
 
-const uuid_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_uuid as *const os::raw::c_void,
+fn uuid_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_uuid::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -568,7 +568,7 @@ const uuid_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_isPrimary<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTService<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -582,8 +582,8 @@ unsafe extern fn get_isPrimary<TH: TypeHolderTrait>
 }
 
 
-const isPrimary_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_isPrimary as *const os::raw::c_void,
+fn isPrimary_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_isPrimary::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -598,7 +598,7 @@ const isPrimary_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getCharacteristic<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTService<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -629,8 +629,8 @@ unsafe extern fn getCharacteristic<TH: TypeHolderTrait>
 }
 
 
-const getCharacteristic_methodinfo: JSJitInfo = JSJitInfo {
-    call: getCharacteristic as *const os::raw::c_void,
+fn getCharacteristic_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getCharacteristic::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -645,7 +645,7 @@ const getCharacteristic_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getCharacteristics<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTService<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -675,8 +675,8 @@ unsafe extern fn getCharacteristics<TH: TypeHolderTrait>
 }
 
 
-const getCharacteristics_methodinfo: JSJitInfo = JSJitInfo {
-    call: getCharacteristics as *const os::raw::c_void,
+fn getCharacteristics_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getCharacteristics::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -691,7 +691,7 @@ const getCharacteristics_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getIncludedService<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTService<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -722,8 +722,8 @@ unsafe extern fn getIncludedService<TH: TypeHolderTrait>
 }
 
 
-const getIncludedService_methodinfo: JSJitInfo = JSJitInfo {
-    call: getIncludedService as *const os::raw::c_void,
+fn getIncludedService_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getIncludedService::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -738,7 +738,7 @@ const getIncludedService_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getIncludedServices<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTService<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -768,8 +768,8 @@ unsafe extern fn getIncludedServices<TH: TypeHolderTrait>
 }
 
 
-const getIncludedServices_methodinfo: JSJitInfo = JSJitInfo {
-    call: getIncludedServices as *const os::raw::c_void,
+fn getIncludedServices_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getIncludedServices::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -784,7 +784,7 @@ const getIncludedServices_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onserviceadded<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTService<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -813,8 +813,8 @@ unsafe extern fn set_onserviceadded<TH: TypeHolderTrait>
 }
 
 
-const onserviceadded_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onserviceadded as *const os::raw::c_void,
+fn onserviceadded_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onserviceadded::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -829,10 +829,10 @@ const onserviceadded_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onserviceadded_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onserviceadded as *const os::raw::c_void,
+fn onserviceadded_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo {JSJitInfo {
+    call: set_onserviceadded::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -847,7 +847,7 @@ const onserviceadded_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onservicechanged<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTService<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -876,8 +876,8 @@ unsafe extern fn set_onservicechanged<TH: TypeHolderTrait>
 }
 
 
-const onservicechanged_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onservicechanged as *const os::raw::c_void,
+fn onservicechanged_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onservicechanged::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -892,10 +892,10 @@ const onservicechanged_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onservicechanged_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onservicechanged as *const os::raw::c_void,
+fn onservicechanged_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onservicechanged::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -910,7 +910,7 @@ const onservicechanged_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onserviceremoved<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTService<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -939,8 +939,8 @@ unsafe extern fn set_onserviceremoved<TH: TypeHolderTrait>
 }
 
 
-const onserviceremoved_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onserviceremoved as *const os::raw::c_void,
+fn onserviceremoved_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onserviceremoved::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -955,10 +955,10 @@ const onserviceremoved_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onserviceremoved_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onserviceremoved as *const os::raw::c_void,
+fn onserviceremoved_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onserviceremoved::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTService as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -973,7 +973,7 @@ const onserviceremoved_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -998,7 +998,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -1006,20 +1006,20 @@ static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     enumerate: None,
     resolve: None,
     mayResolve: None,
-    finalize: Some(_finalize),
+    finalize: Some(_finalize::<TH>),
     call: None,
     hasInstance: None,
     construct: None,
-    trace: Some(_trace),
-};
+    trace: Some(_trace::<TH>),
+}}
 
-static Class: DOMJSClass = DOMJSClass {
+fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"BluetoothRemoteGATTService\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -1027,7 +1027,7 @@ static Class: DOMJSClass = DOMJSClass {
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { eventtarget: (::dom::bindings::codegen::InheritTypes::EventTargetTypeId::BluetoothRemoteGATTService) },
     global: InterfaceObjectMap::Globals::EMPTY,
 }
-};
+}}
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
@@ -1048,7 +1048,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -1063,7 +1063,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for BluetoothRemoteGATTService<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -1088,32 +1088,32 @@ pub trait BluetoothRemoteGATTServiceMethods<TH: TypeHolderTrait> {
     fn GetOnserviceremoved(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnserviceremoved(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getCharacteristic\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getCharacteristic_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getCharacteristic_methodinfo::<TH> as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getCharacteristics\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getCharacteristics_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getCharacteristics_methodinfo::<TH> as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getIncludedService\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getIncludedService_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getIncludedService_methodinfo::<TH> as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getIncludedServices\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getIncludedServices_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getIncludedServices_methodinfo::<TH> as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1126,47 +1126,47 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"device\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &device_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &device_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"uuid\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &uuid_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &uuid_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"isPrimary\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &isPrimary_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &isPrimary_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"onserviceadded\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onserviceadded_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onserviceadded_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onserviceadded_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onserviceadded_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onservicechanged\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onservicechanged_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onservicechanged_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onservicechanged_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onservicechanged_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onserviceremoved\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onserviceremoved_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onserviceremoved_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onserviceremoved_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onserviceremoved_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -1175,10 +1175,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1244,8 +1244,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

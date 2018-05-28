@@ -851,7 +851,7 @@ unsafe extern fn observe<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<(), Error> = this.Observe(&arg0, &arg1);
+        let result: Result<(), Error<TH>> = this.Observe(&arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1039,14 +1039,14 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 1 {
             throw_type_error(cx, "Not enough arguments to \"MutationObserver.constructor\".");
             return false;
         }
-        let arg0: Rc<MutationCallback> = if args.get(0).get().is_object() {
+        let arg0: Rc<MutationCallback<TH>> = if args.get(0).get().is_object() {
             if IsCallable(args.get(0).get().to_object()) {
                 MutationCallback::new(cx, args.get(0).get().to_object())
             } else {
@@ -1059,7 +1059,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<DomRoot<MutationObserver<TH>>, Error> = MutationObserver::Constructor(&global, arg0);
+        let result: Result<DomRoot<MutationObserver<TH>>, Error<TH>> = MutationObserver::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

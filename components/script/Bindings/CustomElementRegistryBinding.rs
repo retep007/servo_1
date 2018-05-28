@@ -595,7 +595,7 @@ unsafe extern fn define<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let arg1: Rc<Function> = if args.get(1).get().is_object() {
+        let arg1: Rc<Function<TH>> = if args.get(1).get().is_object() {
             if IsCallable(args.get(1).get().to_object()) {
                 Function::new(cx, args.get(1).get().to_object())
             } else {
@@ -624,7 +624,7 @@ unsafe extern fn define<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Define(arg0, arg1, &arg2);
+        let result: Result<(), Error<TH>> = this.Define(arg0, arg1, &arg2);
         pop_current_element_queue();
 
         let result = match result {

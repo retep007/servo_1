@@ -660,7 +660,7 @@ unsafe extern fn add<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Add(arg0);
+        let result: Result<(), Error<TH>> = this.Add(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -720,7 +720,7 @@ unsafe extern fn remove<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Remove(arg0);
+        let result: Result<(), Error<TH>> = this.Remove(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -792,7 +792,7 @@ unsafe extern fn toggle<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<bool, Error> = this.Toggle(arg0, arg1);
+        let result: Result<bool, Error<TH>> = this.Toggle(arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -860,7 +860,7 @@ unsafe extern fn replace<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Replace(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.Replace(arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {

@@ -1570,7 +1570,7 @@ unsafe extern fn insertBefore<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Node<TH>>, Error> = this.InsertBefore(&arg0, arg1.r());
+        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.InsertBefore(&arg0, arg1.r());
         pop_current_element_queue();
 
         let result = match result {
@@ -1633,7 +1633,7 @@ unsafe extern fn appendChild<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Node<TH>>, Error> = this.AppendChild(&arg0);
+        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.AppendChild(&arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1711,7 +1711,7 @@ unsafe extern fn replaceChild<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Node<TH>>, Error> = this.ReplaceChild(&arg0, &arg1);
+        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.ReplaceChild(&arg0, &arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -1774,7 +1774,7 @@ unsafe extern fn removeChild<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Node<TH>>, Error> = this.RemoveChild(&arg0);
+        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.RemoveChild(&arg0);
         pop_current_element_queue();
 
         let result = match result {

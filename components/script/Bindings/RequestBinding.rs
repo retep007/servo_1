@@ -1414,7 +1414,7 @@ unsafe extern fn clone<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<DomRoot<Request<TH>>, Error> = this.Clone();
+        let result: Result<DomRoot<Request<TH>>, Error<TH>> = this.Clone();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1945,7 +1945,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let arg1: RootedTraceableBox<dom::bindings::codegen::Bindings::RequestBinding::RequestInit> = if args.get(1).is_undefined() {
+        let arg1: RootedTraceableBox<dom::bindings::codegen::Bindings::RequestBinding::RequestInit<TH>> = if args.get(1).is_undefined() {
             dom::bindings::codegen::Bindings::RequestBinding::RequestInit::empty(cx)
         } else {
             match FromJSValConvertible::from_jsval(cx, args.get(1), ()) {
@@ -1959,7 +1959,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<Request<TH>>, Error> = Request::Constructor(&global, arg0, arg1);
+        let result: Result<DomRoot<Request<TH>>, Error<TH>> = Request::Constructor(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

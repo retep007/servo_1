@@ -1134,7 +1134,7 @@ unsafe extern fn createElement<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Element<TH>>, Error> = this.CreateElement(arg0, &arg1);
+        let result: Result<DomRoot<Element<TH>>, Error<TH>> = this.CreateElement(arg0, &arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -1216,7 +1216,7 @@ unsafe extern fn createElementNS<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Element<TH>>, Error> = this.CreateElementNS(arg0, arg1, &arg2);
+        let result: Result<DomRoot<Element<TH>>, Error<TH>> = this.CreateElementNS(arg0, arg1, &arg2);
         pop_current_element_queue();
 
         let result = match result {
@@ -1408,7 +1408,7 @@ unsafe extern fn createProcessingInstruction<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<ProcessingInstruction<TH>>, Error> = this.CreateProcessingInstruction(arg0, arg1);
+        let result: Result<DomRoot<ProcessingInstruction<TH>>, Error<TH>> = this.CreateProcessingInstruction(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1483,7 +1483,7 @@ unsafe extern fn importNode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Node<TH>>, Error> = this.ImportNode(&arg0, arg1);
+        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.ImportNode(&arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -1546,7 +1546,7 @@ unsafe extern fn adoptNode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Node<TH>>, Error> = this.AdoptNode(&arg0);
+        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.AdoptNode(&arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1602,7 +1602,7 @@ unsafe extern fn createAttribute<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<Attr<TH>>, Error> = this.CreateAttribute(arg0);
+        let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.CreateAttribute(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1666,7 +1666,7 @@ unsafe extern fn createAttributeNS<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<Attr<TH>>, Error> = this.CreateAttributeNS(arg0, arg1);
+        let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.CreateAttributeNS(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1720,7 +1720,7 @@ unsafe extern fn createEvent<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<Event<TH>>, Error> = this.CreateEvent(arg0);
+        let result: Result<DomRoot<Event<TH>>, Error<TH>> = this.CreateEvent(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1998,7 +1998,7 @@ unsafe extern fn set_domain<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.SetDomain(arg0);
+        let result: Result<(), Error<TH>> = this.SetDomain(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2082,7 +2082,7 @@ unsafe extern fn get_cookie<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Document<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<DOMString, Error> = this.GetCookie();
+        let result: Result<DOMString, Error<TH>> = this.GetCookie();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2110,7 +2110,7 @@ unsafe extern fn set_cookie<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.SetCookie(arg0);
+        let result: Result<(), Error<TH>> = this.SetCookie(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2334,7 +2334,7 @@ unsafe extern fn set_body<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetBody(arg0.r());
+        let result: Result<(), Error<TH>> = this.SetBody(arg0.r());
         pop_current_element_queue();
 
         let result = match result {
@@ -2709,7 +2709,7 @@ unsafe extern fn open<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Document<TH>>, Error> = this.Open(arg0, arg1);
+        let result: Result<DomRoot<Document<TH>>, Error<TH>> = this.Open(arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -2752,7 +2752,7 @@ unsafe extern fn close<TH: TypeHolderTrait>
         let argc = args._base.argc_;
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Close();
+        let result: Result<(), Error<TH>> = this.Close();
         pop_current_element_queue();
 
         let result = match result {
@@ -2812,7 +2812,7 @@ unsafe extern fn write<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Write(arg0);
+        let result: Result<(), Error<TH>> = this.Write(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -2872,7 +2872,7 @@ unsafe extern fn writeln<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Writeln(arg0);
+        let result: Result<(), Error<TH>> = this.Writeln(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -5512,7 +5512,7 @@ unsafe extern fn get_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Document<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull>> = this.GetOnerror();
+        let result: Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull<TH>>> = this.GetOnerror();
 
         (result).to_jsval(cx, args.rval());
         return true;
@@ -5523,7 +5523,7 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, obj: HandleObject, this: *const Document<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let arg0: Option<Rc<OnErrorEventHandlerNonNull>> = if args.get(0).get().is_object() {
+        let arg0: Option<Rc<OnErrorEventHandlerNonNull<TH>>> = if args.get(0).get().is_object() {
             Some(OnErrorEventHandlerNonNull::new(cx, args.get(0).get().to_object()))
         } else {
             None
@@ -8160,7 +8160,7 @@ unsafe extern fn prepend<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Prepend(arg0);
+        let result: Result<(), Error<TH>> = this.Prepend(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8220,7 +8220,7 @@ unsafe extern fn append<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Append(arg0);
+        let result: Result<(), Error<TH>> = this.Append(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -8276,7 +8276,7 @@ unsafe extern fn querySelector<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<Option<DomRoot<Element<TH>>>, Error> = this.QuerySelector(arg0);
+        let result: Result<Option<DomRoot<Element<TH>>>, Error<TH>> = this.QuerySelector(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -8333,7 +8333,7 @@ unsafe extern fn querySelectorAll<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<NodeList<TH>>, Error> = this.QuerySelectorAll(arg0);
+        let result: Result<DomRoot<NodeList<TH>>, Error<TH>> = this.QuerySelectorAll(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -9836,9 +9836,9 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
-        let global = DomRoot::downcast::<dom::types::Window>(global).unwrap();
+        let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<Document<TH>>, Error> = Document::Constructor(&global);
+        let result: Result<DomRoot<Document<TH>>, Error<TH>> = Document::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

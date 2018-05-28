@@ -880,7 +880,7 @@ unsafe extern fn postMessage<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.PostMessage(cx, arg0, arg1);
+        let result: Result<(), Error<TH>> = this.PostMessage(cx, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

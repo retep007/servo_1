@@ -1101,7 +1101,7 @@ unsafe extern fn setAttribute<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAttribute(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.SetAttribute(arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -1179,7 +1179,7 @@ unsafe extern fn setAttributeNS<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetAttributeNS(arg0, arg1, arg2);
+        let result: Result<(), Error<TH>> = this.SetAttributeNS(arg0, arg1, arg2);
         pop_current_element_queue();
 
         let result = match result {
@@ -1568,7 +1568,7 @@ unsafe extern fn setAttributeNode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<Option<DomRoot<Attr<TH>>>, Error> = this.SetAttributeNode(&arg0);
+        let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetAttributeNode(&arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1631,7 +1631,7 @@ unsafe extern fn setAttributeNodeNS<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<Option<DomRoot<Attr<TH>>>, Error> = this.SetAttributeNodeNS(&arg0);
+        let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetAttributeNodeNS(&arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1694,7 +1694,7 @@ unsafe extern fn removeAttributeNode<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<DomRoot<Attr<TH>>, Error> = this.RemoveAttributeNode(&arg0);
+        let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.RemoveAttributeNode(&arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -1750,7 +1750,7 @@ unsafe extern fn closest<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<Option<DomRoot<Element<TH>>>, Error> = this.Closest(arg0);
+        let result: Result<Option<DomRoot<Element<TH>>>, Error<TH>> = this.Closest(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1807,7 +1807,7 @@ unsafe extern fn matches<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<bool, Error> = this.Matches(arg0);
+        let result: Result<bool, Error<TH>> = this.Matches(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1864,7 +1864,7 @@ unsafe extern fn webkitMatchesSelector<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<bool, Error> = this.WebkitMatchesSelector(arg0);
+        let result: Result<bool, Error<TH>> = this.WebkitMatchesSelector(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2089,7 +2089,7 @@ unsafe extern fn insertAdjacentElement<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<Option<DomRoot<Element<TH>>>, Error> = this.InsertAdjacentElement(arg0, &arg1);
+        let result: Result<Option<DomRoot<Element<TH>>>, Error<TH>> = this.InsertAdjacentElement(arg0, &arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -2155,7 +2155,7 @@ unsafe extern fn insertAdjacentText<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error> = this.InsertAdjacentText(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.InsertAdjacentText(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2221,7 +2221,7 @@ unsafe extern fn insertAdjacentHTML<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.InsertAdjacentHTML(arg0, arg1);
+        let result: Result<(), Error<TH>> = this.InsertAdjacentHTML(arg0, arg1);
         pop_current_element_queue();
 
         let result = match result {
@@ -2948,7 +2948,7 @@ unsafe extern fn get_innerHTML<TH: TypeHolderTrait>
         let this = &*this;
         push_new_element_queue();
 
-        let result: Result<DOMString, Error> = this.GetInnerHTML();
+        let result: Result<DOMString, Error<TH>> = this.GetInnerHTML();
         pop_current_element_queue();
 
         let result = match result {
@@ -2980,7 +2980,7 @@ unsafe extern fn set_innerHTML<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetInnerHTML(arg0);
+        let result: Result<(), Error<TH>> = this.SetInnerHTML(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3038,7 +3038,7 @@ unsafe extern fn get_outerHTML<TH: TypeHolderTrait>
         let this = &*this;
         push_new_element_queue();
 
-        let result: Result<DOMString, Error> = this.GetOuterHTML();
+        let result: Result<DOMString, Error<TH>> = this.GetOuterHTML();
         pop_current_element_queue();
 
         let result = match result {
@@ -3070,7 +3070,7 @@ unsafe extern fn set_outerHTML<TH: TypeHolderTrait>
         };
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.SetOuterHTML(arg0);
+        let result: Result<(), Error<TH>> = this.SetOuterHTML(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3160,7 +3160,7 @@ unsafe extern fn enterFormalActivationState<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<(), Error> = this.EnterFormalActivationState();
+        let result: Result<(), Error<TH>> = this.EnterFormalActivationState();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -3199,7 +3199,7 @@ unsafe extern fn exitFormalActivationState<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<(), Error> = this.ExitFormalActivationState();
+        let result: Result<(), Error<TH>> = this.ExitFormalActivationState();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -3257,7 +3257,7 @@ unsafe extern fn before<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Before(arg0);
+        let result: Result<(), Error<TH>> = this.Before(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3317,7 +3317,7 @@ unsafe extern fn after<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.After(arg0);
+        let result: Result<(), Error<TH>> = this.After(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3377,7 +3377,7 @@ unsafe extern fn replaceWith<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.ReplaceWith(arg0);
+        let result: Result<(), Error<TH>> = this.ReplaceWith(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3653,7 +3653,7 @@ unsafe extern fn prepend<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Prepend(arg0);
+        let result: Result<(), Error<TH>> = this.Prepend(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3713,7 +3713,7 @@ unsafe extern fn append<TH: TypeHolderTrait>
         }
         push_new_element_queue();
 
-        let result: Result<(), Error> = this.Append(arg0);
+        let result: Result<(), Error<TH>> = this.Append(arg0);
         pop_current_element_queue();
 
         let result = match result {
@@ -3769,7 +3769,7 @@ unsafe extern fn querySelector<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<Option<DomRoot<Element<TH>>>, Error> = this.QuerySelector(arg0);
+        let result: Result<Option<DomRoot<Element<TH>>>, Error<TH>> = this.QuerySelector(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -3826,7 +3826,7 @@ unsafe extern fn querySelectorAll<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<NodeList<TH>>, Error> = this.QuerySelectorAll(arg0);
+        let result: Result<DomRoot<NodeList<TH>>, Error<TH>> = this.QuerySelectorAll(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
