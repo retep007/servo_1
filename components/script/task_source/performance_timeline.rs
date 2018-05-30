@@ -22,7 +22,7 @@ pub struct PerformanceTimelineTaskSource<TH: TypeHolderTrait + 'static>(pub Box<
 
 impl<TH: TypeHolderTrait> Clone for PerformanceTimelineTaskSource<TH> {
     fn clone(&self) -> PerformanceTimelineTaskSource<TH> {
-        PerformanceTimelineTaskSource(self.0.clone(), self.1.clone())
+        PerformanceTimelineTaskSource(self.0.clone(), self.1.clone(), Default::default())
     }
 }
 

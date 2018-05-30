@@ -190,6 +190,7 @@ impl<T: ClipboardProvider, TH: TypeHolderTrait> TextInput<T, TH> {
             max_length: max_length,
             min_length: min_length,
             selection_direction: selection_direction,
+            _p: Default::default(),
         };
         i.set_content(initial);
         i

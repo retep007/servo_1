@@ -694,11 +694,11 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     enumerate: None,
     resolve: None,
     mayResolve: None,
-    finalize: Some(_finalize),
+    finalize: Some(_finalize::<TH>),
     call: None,
     hasInstance: None,
     construct: None,
-    trace: Some(_trace),
+    trace: Some(_trace::<TH>),
 }}
 
 fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {

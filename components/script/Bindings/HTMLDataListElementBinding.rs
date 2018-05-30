@@ -561,7 +561,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -569,14 +569,14 @@ static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     enumerate: None,
     resolve: None,
     mayResolve: None,
-    finalize: Some(_finalize),
+    finalize: Some(_finalize::<TH>),
     call: None,
     hasInstance: None,
     construct: None,
-    trace: Some(_trace),
-};
+    trace: Some(_trace::<TH>),
+}}
 
-static Class: DOMJSClass = DOMJSClass {
+fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"HTMLDataListElement\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -590,7 +590,7 @@ static Class: DOMJSClass = DOMJSClass {
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { eventtarget: (::dom::bindings::codegen::InheritTypes::EventTargetTypeId::Node(::dom::bindings::codegen::InheritTypes::NodeTypeId::Element(::dom::bindings::codegen::InheritTypes::ElementTypeId::HTMLElement(::dom::bindings::codegen::InheritTypes::HTMLElementTypeId::HTMLDataListElement)))) },
     global: InterfaceObjectMap::Globals::EMPTY,
 }
-};
+}}
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {

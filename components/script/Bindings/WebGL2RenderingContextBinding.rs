@@ -10067,7 +10067,7 @@ pub mod WebGL2RenderingContextConstants {
     pub const UNPACK_COLORSPACE_CONVERSION_WEBGL: u32 = 37443;
     pub const BROWSER_DEFAULT_WEBGL: u32 = 37444;
 } // mod WebGL2RenderingContextConstants
-static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -10075,28 +10075,29 @@ static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     enumerate: None,
     resolve: None,
     mayResolve: None,
-    finalize: Some(_finalize),
+    finalize: Some(_finalize::<TH>),
     call: None,
     hasInstance: None,
     construct: None,
-    trace: Some(_trace),
-};
+    trace: Some(_trace::<TH>),
+}}
 
-static Class: DOMJSClass = DOMJSClass {
+fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"WebGL2RenderingContext\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
     interface_chain: [ PrototypeList::ID::WebGL2RenderingContext, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { alone: () },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<WebGL2RenderingContext<TH>> as unsafe fn(&mut _, _) -> _,
 }
-};
+}}
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
@@ -10117,7 +10118,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -10132,7 +10133,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for WebGL2RenderingContext<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 

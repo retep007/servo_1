@@ -9160,7 +9160,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -9168,14 +9168,14 @@ static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     enumerate: Some(enumerate_global),
     resolve: Some(resolve_global),
     mayResolve: None,
-    finalize: Some(_finalize),
+    finalize: Some(_finalize::<TH>),
     call: None,
     hasInstance: None,
     construct: None,
     trace: Some(js::jsapi::JS_GlobalObjectTraceHook),
-};
+}}
 
-static Class: DOMJSClass = DOMJSClass {
+fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"Window\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | JSCLASS_IS_GLOBAL | JSCLASS_DOM_GLOBAL |
@@ -9188,8 +9188,9 @@ static Class: DOMJSClass = DOMJSClass {
     interface_chain: [ PrototypeList::ID::EventTarget, PrototypeList::ID::GlobalScope, PrototypeList::ID::Window, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { eventtarget: (::dom::bindings::codegen::InheritTypes::EventTargetTypeId::GlobalScope(::dom::bindings::codegen::InheritTypes::GlobalScopeTypeId::Window)) },
     global: InterfaceObjectMap::Globals::WINDOW,
+    malloc_size_of: malloc_size_of_including_raw_self::<Window<TH>> as unsafe fn(&mut _, _) -> _,
 }
-};
+}}
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
@@ -9204,7 +9205,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     rooted!(in(cx) let mut obj = ptr::null_mut::<JSObject>());
     create_global_object(
         cx,
-        &Class.base,
+        &Class::<TH>().base,
         raw as *const libc::c_void,
         _trace,
         obj.handle_mut());
@@ -9235,7 +9236,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for Window<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 

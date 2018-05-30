@@ -77,7 +77,8 @@ pub enum OneshotTimerCallback<TH: TypeHolderTrait + 'static> {
 }
 
 impl<TH: TypeHolderTrait> OneshotTimerCallback<TH> {
-    fn invoke<T: DomObject>(self, this: &T, js_timers: &JsTimers<TH>) {
+    //TODO: should be generic fn invoke<T: DomObject>(self, this: &T, js_timers: &JsTimers<TH>) {
+    fn invoke(self, this: &GlobalScope<TH>, js_timers: &JsTimers<TH>) {
         match self {
             OneshotTimerCallback::XhrTimeout(callback) => callback.invoke(),
             OneshotTimerCallback::EventSourceTimeout(callback) => callback.invoke(),
@@ -487,7 +488,7 @@ fn clamp_duration(nesting_level: u32, unclamped: MsDuration) -> MsDuration {
 
 impl<TH: TypeHolderTrait> JsTimerTask<TH> {
     // see https://html.spec.whatwg.org/multipage/#timer-initialisation-steps
-    pub fn invoke<T: DomObject>(self, this: &T, timers: &JsTimers<TH>) {
+    pub fn invoke(self, this: &GlobalScope<TH>, timers: &JsTimers<TH>) {
         // step 4.1 can be ignored, because we proactively prevent execution
         // of this task when its scheduled execution is canceled.
 

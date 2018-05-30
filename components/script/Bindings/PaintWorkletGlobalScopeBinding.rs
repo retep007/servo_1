@@ -647,7 +647,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -655,28 +655,29 @@ static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     enumerate: Some(enumerate_global),
     resolve: Some(resolve_global),
     mayResolve: None,
-    finalize: Some(_finalize),
+    finalize: Some(_finalize::<TH>),
     call: None,
     hasInstance: None,
     construct: None,
     trace: Some(js::jsapi::JS_GlobalObjectTraceHook),
-};
+}}
 
-static Class: DOMJSClass = DOMJSClass {
+fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"PaintWorkletGlobalScope\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | JSCLASS_IS_GLOBAL | JSCLASS_DOM_GLOBAL |
                (((JSCLASS_GLOBAL_SLOT_COUNT + 1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(JSCLASS_GLOBAL_SLOT_COUNT + 1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
     interface_chain: [ PrototypeList::ID::EventTarget, PrototypeList::ID::GlobalScope, PrototypeList::ID::WorkletGlobalScope, PrototypeList::ID::PaintWorkletGlobalScope, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { eventtarget: (::dom::bindings::codegen::InheritTypes::EventTargetTypeId::GlobalScope(::dom::bindings::codegen::InheritTypes::GlobalScopeTypeId::WorkletGlobalScope(::dom::bindings::codegen::InheritTypes::WorkletGlobalScopeTypeId::PaintWorkletGlobalScope))) },
     global: InterfaceObjectMap::Globals::PAINT_WORKLET_GLOBAL_SCOPE,
+    malloc_size_of: malloc_size_of_including_raw_self::<PaintWorkletGlobalScope<TH>> as unsafe fn(&mut _, _) -> _,
 }
-};
+}}
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
@@ -691,7 +692,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     rooted!(in(cx) let mut obj = ptr::null_mut::<JSObject>());
     create_global_object(
         cx,
-        &Class.base,
+        &Class::<TH>().base,
         raw as *const libc::c_void,
         _trace,
         obj.handle_mut());
@@ -717,7 +718,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for PaintWorkletGlobalScope<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 

@@ -102,6 +102,7 @@ use serviceworkerjob::{Job, JobQueue};
 use servo_atoms::Atom;
 use servo_config::opts;
 use servo_url::{ImmutableOrigin, MutableOrigin, ServoUrl};
+use std::cell::RefCell;
 use std::cell::Cell;
 use std::collections::{hash_map, HashMap, HashSet};
 use std::default::Default;
@@ -127,14 +128,33 @@ use webdriver_handlers;
 use webrender_api::DocumentId;
 use webvr_traits::{WebVREvent, WebVRMsg};
 use typeholder::TypeHolderTrait;
+use std::marker::Copy;
+
+pub trait ScriptThreadTrait {
+    // fn box_clone(&self) -> Box<ScriptThreadTrait>;
+}
+
+// impl<TH: TypeHolderTrait> ScriptThreadTrait for ScriptThread<TH> {
+//     fn box_clone(&self) -> Box<ScriptThreadTrait> {
+//         Box::new((*self).clone())
+//     }
+// }
+
+// impl Copy for Box<ScriptThreadTrait> {}
+
+// impl Clone for Box<ScriptThreadTrait> {
+//     fn clone(&self) -> Box<ScriptThreadTrait> {
+//         self.box_clone()
+//     }
+// }
 
 pub type ImageCacheMsg = (PipelineId, PendingImageResponse);
 
-thread_local!(static SCRIPT_THREAD_ROOT: Cell<Option<Box<ScriptThreadTrait>>> = Cell::new(None));
+thread_local!(static SCRIPT_THREAD_ROOT: RefCell<Option<Box<ScriptThreadTrait>>> = RefCell::new(None));
 
 pub unsafe fn trace_thread(tr: *mut JSTracer) {
     SCRIPT_THREAD_ROOT.with(|root| {
-        if let Some(script_thread) = root.get() {
+        if let Some(script_thread) = root.get_mut() {
             debug!("tracing fields of ScriptThread");
             (*script_thread).trace(tr);
         }
@@ -507,10 +527,6 @@ pub struct ScriptThread<TH: TypeHolderTrait + 'static> {
 
     /// The Webrender Document ID associated with this thread.
     webrender_document: DocumentId,
-}
-
-pub trait ScriptThreadTrait {
-
 }
 
 /// In the event of thread panic, all data on the stack runs its destructor. However, there
@@ -1792,15 +1808,15 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     }
 
     pub fn dom_manipulation_task_source(&self, pipeline_id: PipelineId) -> DOMManipulationTaskSource<TH> {
-        DOMManipulationTaskSource(self.dom_manipulation_task_sender.clone(), pipeline_id)
+        DOMManipulationTaskSource(self.dom_manipulation_task_sender.clone(), pipeline_id, Default::default())
     }
 
     pub fn performance_timeline_task_source(&self, pipeline_id: PipelineId) -> PerformanceTimelineTaskSource<TH> {
-        PerformanceTimelineTaskSource(self.performance_timeline_task_sender.clone(), pipeline_id)
+        PerformanceTimelineTaskSource(self.performance_timeline_task_sender.clone(), pipeline_id, Default::default())
     }
 
     pub fn user_interaction_task_source(&self, pipeline_id: PipelineId) -> UserInteractionTaskSource<TH> {
-        UserInteractionTaskSource(self.user_interaction_task_sender.clone(), pipeline_id)
+        UserInteractionTaskSource(self.user_interaction_task_sender.clone(), pipeline_id, Default::default())
     }
 
     pub fn networking_task_source(&self, pipeline_id: PipelineId) -> NetworkingTaskSource {
@@ -2144,7 +2160,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         );
 
         // Initialize the browsing context for the window.
-        let window_proxy = self.local_window_proxy(window,
+        let window_proxy = self.local_window_proxy(&window,
                                                    incomplete.browsing_context_id,
                                                    incomplete.top_level_browsing_context_id,
                                                    incomplete.parent_info);

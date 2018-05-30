@@ -699,7 +699,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -707,28 +707,29 @@ static CLASS_OPS: js::jsapi::JSClassOps = js::jsapi::JSClassOps {
     enumerate: None,
     resolve: None,
     mayResolve: None,
-    finalize: Some(_finalize),
+    finalize: Some(_finalize::<TH>),
     call: None,
     hasInstance: None,
     construct: None,
-    trace: Some(_trace),
-};
+    trace: Some(_trace::<TH>),
+}}
 
-static Class: DOMJSClass = DOMJSClass {
+fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"HTMLFieldSetElement\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
     interface_chain: [ PrototypeList::ID::EventTarget, PrototypeList::ID::Node, PrototypeList::ID::Element, PrototypeList::ID::HTMLElement, PrototypeList::ID::HTMLFieldSetElement, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { eventtarget: (::dom::bindings::codegen::InheritTypes::EventTargetTypeId::Node(::dom::bindings::codegen::InheritTypes::NodeTypeId::Element(::dom::bindings::codegen::InheritTypes::ElementTypeId::HTMLElement(::dom::bindings::codegen::InheritTypes::HTMLElementTypeId::HTMLFieldSetElement)))) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<HTMLFieldSetElement<TH>> as unsafe fn(&mut _, _) -> _,
 }
-};
+}}
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {

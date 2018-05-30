@@ -874,14 +874,14 @@ pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait>
         fun_toString: None,
         boxedValue_unbox: None,
         defaultValue: None,
-        trace: Some(_trace),
-        finalize: Some(_finalize),
+        trace: Some(_trace::<TH>),
+        finalize: Some(_finalize::<TH>),
         objectMoved: None,
         isCallable: None,
         isConstructor: None,
     };
 
-    CreateProxyHandler(&traps, Class.as_void_ptr())
+    CreateProxyHandler(&traps, Class::<TH>().as_void_ptr())
 }
 
 #[inline] unsafe fn UnwrapProxy<TH: TypeHolderTrait>
@@ -894,11 +894,12 @@ pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait>
     return box_;
 }
 
-static Class: DOMClass = DOMClass {
+fn Class<TH: TypeHolderTrait>() -> DOMClass { DOMClass {
     interface_chain: [ PrototypeList::ID::TestBinding, PrototypeList::ID::TestBindingProxy, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { testbinding: (::dom::bindings::codegen::InheritTypes::TestBindingTypeId::TestBindingProxy) },
     global: InterfaceObjectMap::Globals::EMPTY,
-};
+    malloc_size_of: malloc_size_of_including_raw_self::<TestBindingProxy<TH>> as unsafe fn(&mut _, _) -> _,
+}}
 
 unsafe extern fn own_property_keys<TH: TypeHolderTrait>
 (cx: *mut JSContext, proxy: RawHandleObject, props: *mut AutoIdVector) -> bool {

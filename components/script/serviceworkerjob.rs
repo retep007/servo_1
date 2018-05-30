@@ -99,7 +99,7 @@ pub struct JobQueue<TH: TypeHolderTrait + 'static>(pub DomRefCell<HashMap<ServoU
 
 impl<TH: TypeHolderTrait> JobQueue<TH> {
     pub fn new() -> JobQueue<TH> {
-        JobQueue(DomRefCell::new(HashMap::new()))
+        JobQueue(DomRefCell::new(HashMap::new()), Default::default())
     }
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/ServiceWorker/#schedule-job-algorithm
