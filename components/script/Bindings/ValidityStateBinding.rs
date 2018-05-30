@@ -517,8 +517,8 @@ unsafe extern fn get_valueMissing<TH: TypeHolderTrait>
 }
 
 
-const valueMissing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_valueMissing as *const os::raw::c_void,
+fn valueMissing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_valueMissing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const valueMissing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_typeMismatch<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_typeMismatch<TH: TypeHolderTrait>
 }
 
 
-const typeMismatch_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_typeMismatch as *const os::raw::c_void,
+fn typeMismatch_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_typeMismatch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const typeMismatch_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_patternMismatch<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_patternMismatch<TH: TypeHolderTrait>
 }
 
 
-const patternMismatch_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_patternMismatch as *const os::raw::c_void,
+fn patternMismatch_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_patternMismatch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const patternMismatch_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_tooLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -607,8 +607,8 @@ unsafe extern fn get_tooLong<TH: TypeHolderTrait>
 }
 
 
-const tooLong_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_tooLong as *const os::raw::c_void,
+fn tooLong_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_tooLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -623,7 +623,7 @@ const tooLong_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_tooShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -637,8 +637,8 @@ unsafe extern fn get_tooShort<TH: TypeHolderTrait>
 }
 
 
-const tooShort_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_tooShort as *const os::raw::c_void,
+fn tooShort_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_tooShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -653,7 +653,7 @@ const tooShort_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_rangeUnderflow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -667,8 +667,8 @@ unsafe extern fn get_rangeUnderflow<TH: TypeHolderTrait>
 }
 
 
-const rangeUnderflow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_rangeUnderflow as *const os::raw::c_void,
+fn rangeUnderflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_rangeUnderflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -683,7 +683,7 @@ const rangeUnderflow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_rangeOverflow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -697,8 +697,8 @@ unsafe extern fn get_rangeOverflow<TH: TypeHolderTrait>
 }
 
 
-const rangeOverflow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_rangeOverflow as *const os::raw::c_void,
+fn rangeOverflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_rangeOverflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -713,7 +713,7 @@ const rangeOverflow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_stepMismatch<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -727,8 +727,8 @@ unsafe extern fn get_stepMismatch<TH: TypeHolderTrait>
 }
 
 
-const stepMismatch_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_stepMismatch as *const os::raw::c_void,
+fn stepMismatch_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_stepMismatch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -743,7 +743,7 @@ const stepMismatch_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_badInput<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -757,8 +757,8 @@ unsafe extern fn get_badInput<TH: TypeHolderTrait>
 }
 
 
-const badInput_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_badInput as *const os::raw::c_void,
+fn badInput_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_badInput::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -773,7 +773,7 @@ const badInput_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_customError<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -787,8 +787,8 @@ unsafe extern fn get_customError<TH: TypeHolderTrait>
 }
 
 
-const customError_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_customError as *const os::raw::c_void,
+fn customError_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_customError::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -803,7 +803,7 @@ const customError_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_valid<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ValidityState<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -817,8 +817,8 @@ unsafe extern fn get_valid<TH: TypeHolderTrait>
 }
 
 
-const valid_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_valid as *const os::raw::c_void,
+fn valid_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_valid::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ValidityState as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -833,7 +833,7 @@ const valid_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -947,72 +947,72 @@ pub trait ValidityStateMethods {
     fn CustomError(&self) -> bool;
     fn Valid(&self) -> bool;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"valueMissing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &valueMissing_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &valueMissing_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"typeMismatch\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &typeMismatch_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &typeMismatch_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"patternMismatch\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &patternMismatch_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &patternMismatch_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"tooLong\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &tooLong_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &tooLong_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"tooShort\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &tooShort_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &tooShort_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"rangeUnderflow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &rangeUnderflow_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &rangeUnderflow_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"rangeOverflow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &rangeOverflow_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &rangeOverflow_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"stepMismatch\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &stepMismatch_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &stepMismatch_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"badInput\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &badInput_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &badInput_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"customError\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &customError_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &customError_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"valid\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &valid_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &valid_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1022,10 +1022,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1091,7 +1091,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

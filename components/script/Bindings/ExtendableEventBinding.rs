@@ -588,8 +588,8 @@ unsafe extern fn waitUntil<TH: TypeHolderTrait>
 }
 
 
-const waitUntil_methodinfo: JSJitInfo = JSJitInfo {
-    call: waitUntil as *const os::raw::c_void,
+fn waitUntil_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: waitUntil::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ExtendableEvent as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -604,7 +604,7 @@ const waitUntil_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_isTrusted<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ExtendableEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -618,8 +618,8 @@ unsafe extern fn get_isTrusted<TH: TypeHolderTrait>
 }
 
 
-const isTrusted_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_isTrusted as *const os::raw::c_void,
+fn isTrusted_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_isTrusted::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ExtendableEvent as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -634,7 +634,7 @@ const isTrusted_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -680,7 +680,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -709,7 +709,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -742,11 +742,11 @@ pub trait ExtendableEventMethods<TH: TypeHolderTrait> {
     unsafe fn WaitUntil(&self, cx: *mut JSContext, f: HandleValue) -> Fallible<(), TH>;
     fn IsTrusted(&self) -> bool;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"waitUntil\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &waitUntil_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &waitUntil_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -759,16 +759,16 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"isTrusted\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &isTrusted_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &isTrusted_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -778,10 +778,10 @@ const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sUnforgeableAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs[0])
-];
+]}
+fn sUnforgeableAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -915,7 +915,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
+                                      sMethods::<TH>(),
                                       &[],
                                       &[],
                                       &[],
@@ -954,10 +954,10 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
 
     rooted!(in(cx) let mut unforgeable_holder = ptr::null_mut::<JSObject>());
     unforgeable_holder.handle_mut().set(
-        JS_NewObjectWithoutMetadata(cx, &Class.base as *const JSClass, prototype.handle()));
+        JS_NewObjectWithoutMetadata(cx, &Class::<TH>().base as *const JSClass, prototype.handle()));
     assert!(!unforgeable_holder.is_null());
 
-    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes);
+    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes::<TH>());
     JS_SetReservedSlot(prototype.get(), DOM_PROTO_UNFORGEABLE_HOLDER_SLOT,
                        ObjectValue(unforgeable_holder.get()))
 }

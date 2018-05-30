@@ -521,8 +521,8 @@ unsafe extern fn get_media<TH: TypeHolderTrait>
 }
 
 
-const media_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_media as *const os::raw::c_void,
+fn media_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_media::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MediaQueryList as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -537,7 +537,7 @@ const media_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_matches<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MediaQueryList<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -551,8 +551,8 @@ unsafe extern fn get_matches<TH: TypeHolderTrait>
 }
 
 
-const matches_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_matches as *const os::raw::c_void,
+fn matches_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_matches::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MediaQueryList as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -567,7 +567,7 @@ const matches_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn addListener<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MediaQueryList<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -597,8 +597,8 @@ unsafe extern fn addListener<TH: TypeHolderTrait>
 }
 
 
-const addListener_methodinfo: JSJitInfo = JSJitInfo {
-    call: addListener as *const os::raw::c_void,
+fn addListener_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: addListener::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MediaQueryList as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -613,7 +613,7 @@ const addListener_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn removeListener<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MediaQueryList<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -643,8 +643,8 @@ unsafe extern fn removeListener<TH: TypeHolderTrait>
 }
 
 
-const removeListener_methodinfo: JSJitInfo = JSJitInfo {
-    call: removeListener as *const os::raw::c_void,
+fn removeListener_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: removeListener::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MediaQueryList as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -659,7 +659,7 @@ const removeListener_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MediaQueryList<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -688,8 +688,8 @@ unsafe extern fn set_onchange<TH: TypeHolderTrait>
 }
 
 
-const onchange_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onchange as *const os::raw::c_void,
+fn onchange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MediaQueryList as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -704,10 +704,10 @@ const onchange_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onchange_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onchange as *const os::raw::c_void,
+fn onchange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MediaQueryList as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -722,7 +722,7 @@ const onchange_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -848,18 +848,18 @@ pub trait MediaQueryListMethods<TH: TypeHolderTrait> {
     fn SetOnchange(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
 impl<TH: TypeHolderTrait> WeakReferenceable<TH> for MediaQueryList<TH> {}
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"addListener\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &addListener_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &addListener_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"removeListener\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &removeListener_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &removeListener_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -872,29 +872,29 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"media\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &media_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &media_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"matches\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &matches_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &matches_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"onchange\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onchange_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onchange_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onchange_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onchange_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -903,10 +903,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -971,8 +971,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

@@ -521,8 +521,8 @@ unsafe extern fn get_type<TH: TypeHolderTrait>
 }
 
 
-const type_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_type as *const os::raw::c_void,
+fn type_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_type::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MutationRecord as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -537,7 +537,7 @@ const type_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_target<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MutationRecord<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -551,8 +551,8 @@ unsafe extern fn get_target<TH: TypeHolderTrait>
 }
 
 
-const target_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_target as *const os::raw::c_void,
+fn target_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_target::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MutationRecord as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -567,7 +567,7 @@ const target_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_addedNodes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MutationRecord<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -581,8 +581,8 @@ unsafe extern fn get_addedNodes<TH: TypeHolderTrait>
 }
 
 
-const addedNodes_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_addedNodes as *const os::raw::c_void,
+fn addedNodes_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_addedNodes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MutationRecord as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -597,7 +597,7 @@ const addedNodes_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_removedNodes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MutationRecord<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -611,8 +611,8 @@ unsafe extern fn get_removedNodes<TH: TypeHolderTrait>
 }
 
 
-const removedNodes_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_removedNodes as *const os::raw::c_void,
+fn removedNodes_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_removedNodes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MutationRecord as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -627,7 +627,7 @@ const removedNodes_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_previousSibling<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MutationRecord<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -641,8 +641,8 @@ unsafe extern fn get_previousSibling<TH: TypeHolderTrait>
 }
 
 
-const previousSibling_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_previousSibling as *const os::raw::c_void,
+fn previousSibling_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_previousSibling::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MutationRecord as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -657,7 +657,7 @@ const previousSibling_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_nextSibling<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MutationRecord<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -671,8 +671,8 @@ unsafe extern fn get_nextSibling<TH: TypeHolderTrait>
 }
 
 
-const nextSibling_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_nextSibling as *const os::raw::c_void,
+fn nextSibling_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_nextSibling::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MutationRecord as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -687,7 +687,7 @@ const nextSibling_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_attributeName<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MutationRecord<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -701,8 +701,8 @@ unsafe extern fn get_attributeName<TH: TypeHolderTrait>
 }
 
 
-const attributeName_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_attributeName as *const os::raw::c_void,
+fn attributeName_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_attributeName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MutationRecord as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -717,7 +717,7 @@ const attributeName_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_attributeNamespace<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MutationRecord<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -731,8 +731,8 @@ unsafe extern fn get_attributeNamespace<TH: TypeHolderTrait>
 }
 
 
-const attributeNamespace_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_attributeNamespace as *const os::raw::c_void,
+fn attributeNamespace_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_attributeNamespace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MutationRecord as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -747,7 +747,7 @@ const attributeNamespace_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oldValue<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const MutationRecord<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -761,8 +761,8 @@ unsafe extern fn get_oldValue<TH: TypeHolderTrait>
 }
 
 
-const oldValue_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oldValue as *const os::raw::c_void,
+fn oldValue_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oldValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::MutationRecord as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -777,7 +777,7 @@ const oldValue_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -889,60 +889,60 @@ pub trait MutationRecordMethods<TH: TypeHolderTrait> {
     fn GetAttributeNamespace(&self) -> Option<DOMString>;
     fn GetOldValue(&self) -> Option<DOMString>;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"type\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &type_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &type_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"target\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &target_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &target_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"addedNodes\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &addedNodes_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &addedNodes_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"removedNodes\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &removedNodes_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &removedNodes_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"previousSibling\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &previousSibling_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &previousSibling_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"nextSibling\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &nextSibling_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &nextSibling_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"attributeName\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &attributeName_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &attributeName_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"attributeNamespace\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &attributeNamespace_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &attributeNamespace_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"oldValue\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oldValue_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oldValue_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -952,10 +952,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1022,7 +1022,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

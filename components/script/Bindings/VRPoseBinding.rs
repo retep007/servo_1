@@ -517,8 +517,8 @@ unsafe extern fn get_position<TH: TypeHolderTrait>
 }
 
 
-const position_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_position as *const os::raw::c_void,
+fn position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const position_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_linearVelocity<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_linearVelocity<TH: TypeHolderTrait>
 }
 
 
-const linearVelocity_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_linearVelocity as *const os::raw::c_void,
+fn linearVelocity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_linearVelocity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const linearVelocity_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_linearAcceleration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_linearAcceleration<TH: TypeHolderTrait>
 }
 
 
-const linearAcceleration_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_linearAcceleration as *const os::raw::c_void,
+fn linearAcceleration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_linearAcceleration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const linearAcceleration_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_orientation<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -607,8 +607,8 @@ unsafe extern fn get_orientation<TH: TypeHolderTrait>
 }
 
 
-const orientation_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_orientation as *const os::raw::c_void,
+fn orientation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_orientation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -623,7 +623,7 @@ const orientation_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_angularVelocity<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -637,8 +637,8 @@ unsafe extern fn get_angularVelocity<TH: TypeHolderTrait>
 }
 
 
-const angularVelocity_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_angularVelocity as *const os::raw::c_void,
+fn angularVelocity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_angularVelocity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -653,7 +653,7 @@ const angularVelocity_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_angularAcceleration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -667,8 +667,8 @@ unsafe extern fn get_angularAcceleration<TH: TypeHolderTrait>
 }
 
 
-const angularAcceleration_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_angularAcceleration as *const os::raw::c_void,
+fn angularAcceleration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_angularAcceleration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -683,7 +683,7 @@ const angularAcceleration_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -792,42 +792,42 @@ pub trait VRPoseMethods {
     unsafe fn GetAngularVelocity(&self, cx: *mut JSContext) -> Option<NonNull<JSObject>>;
     unsafe fn GetAngularAcceleration(&self, cx: *mut JSContext) -> Option<NonNull<JSObject>>;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"position\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &position_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &position_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"linearVelocity\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &linearVelocity_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &linearVelocity_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"linearAcceleration\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &linearAcceleration_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &linearAcceleration_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"orientation\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &orientation_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &orientation_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"angularVelocity\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &angularVelocity_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &angularVelocity_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"angularAcceleration\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &angularAcceleration_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &angularAcceleration_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -837,10 +837,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -907,7 +907,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

@@ -616,8 +616,8 @@ unsafe extern fn addModule<TH: TypeHolderTrait>
 }
 
 
-const addModule_methodinfo: JSJitInfo = JSJitInfo {
-    call: addModule as *const os::raw::c_void,
+fn addModule_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: addModule::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Worklet as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -632,7 +632,7 @@ const addModule_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -723,7 +723,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for Worklet<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -736,11 +736,11 @@ impl<TH: TypeHolderTrait> PartialEq for Worklet<TH> {
 pub trait WorkletMethods<TH: TypeHolderTrait> {
     fn AddModule(&self, moduleURL: USVString, options: &dom::bindings::codegen::Bindings::WorkletBinding::WorkletOptions) -> Rc<Promise<TH>>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"addModule\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &addModule_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &addModule_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -753,10 +753,10 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -822,7 +822,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
+                                      sMethods::<TH>(),
                                       &[],
                                       &[],
                                       &[],

@@ -520,8 +520,8 @@ unsafe extern fn get_window<TH: TypeHolderTrait>
 }
 
 
-const window_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_window as *const os::raw::c_void,
+fn window_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_window::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -536,7 +536,7 @@ const window_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_self<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -558,8 +558,8 @@ unsafe extern fn set_self<TH: TypeHolderTrait>
 }
 
 
-const self_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_self as *const os::raw::c_void,
+fn self_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_self::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -574,10 +574,10 @@ const self_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const self_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_self as *const os::raw::c_void,
+fn self_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_self::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -592,7 +592,7 @@ const self_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_parent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -606,8 +606,8 @@ unsafe extern fn get_parent<TH: TypeHolderTrait>
 }
 
 
-const parent_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_parent as *const os::raw::c_void,
+fn parent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_parent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -622,7 +622,7 @@ const parent_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -636,8 +636,8 @@ unsafe extern fn get_top<TH: TypeHolderTrait>
 }
 
 
-const top_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_top as *const os::raw::c_void,
+fn top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -652,7 +652,7 @@ const top_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_frames<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -674,8 +674,8 @@ unsafe extern fn set_frames<TH: TypeHolderTrait>
 }
 
 
-const frames_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_frames as *const os::raw::c_void,
+fn frames_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_frames::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -690,10 +690,10 @@ const frames_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const frames_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_frames as *const os::raw::c_void,
+fn frames_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_frames::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -708,7 +708,7 @@ const frames_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_length<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -730,8 +730,8 @@ unsafe extern fn set_length<TH: TypeHolderTrait>
 }
 
 
-const length_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_length as *const os::raw::c_void,
+fn length_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_length::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -746,10 +746,10 @@ const length_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const length_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_length as *const os::raw::c_void,
+fn length_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_length::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -764,7 +764,7 @@ const length_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_location<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -778,8 +778,8 @@ unsafe extern fn get_location<TH: TypeHolderTrait>
 }
 
 
-const location_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_location as *const os::raw::c_void,
+fn location_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_location::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -794,7 +794,7 @@ const location_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn close<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -810,8 +810,8 @@ unsafe extern fn close<TH: TypeHolderTrait>
 }
 
 
-const close_methodinfo: JSJitInfo = JSJitInfo {
-    call: close as *const os::raw::c_void,
+fn close_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: close::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -826,7 +826,7 @@ const close_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_closed<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -840,8 +840,8 @@ unsafe extern fn get_closed<TH: TypeHolderTrait>
 }
 
 
-const closed_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_closed as *const os::raw::c_void,
+fn closed_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_closed::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -856,7 +856,7 @@ const closed_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn postMessage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -895,8 +895,8 @@ unsafe extern fn postMessage<TH: TypeHolderTrait>
 }
 
 
-const postMessage_methodinfo: JSJitInfo = JSJitInfo {
-    call: postMessage as *const os::raw::c_void,
+fn postMessage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: postMessage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -911,7 +911,7 @@ const postMessage_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_opener<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -936,8 +936,8 @@ unsafe extern fn set_opener<TH: TypeHolderTrait>
 }
 
 
-const opener_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_opener as *const os::raw::c_void,
+fn opener_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_opener::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -952,10 +952,10 @@ const opener_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const opener_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_opener as *const os::raw::c_void,
+fn opener_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_opener::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -970,7 +970,7 @@ const opener_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn blur<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -986,8 +986,8 @@ unsafe extern fn blur<TH: TypeHolderTrait>
 }
 
 
-const blur_methodinfo: JSJitInfo = JSJitInfo {
-    call: blur as *const os::raw::c_void,
+fn blur_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: blur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1002,7 +1002,7 @@ const blur_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn focus<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1018,8 +1018,8 @@ unsafe extern fn focus<TH: TypeHolderTrait>
 }
 
 
-const focus_methodinfo: JSJitInfo = JSJitInfo {
-    call: focus as *const os::raw::c_void,
+fn focus_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: focus::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1034,7 +1034,7 @@ const focus_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1082,7 +1082,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | JSCLASS_IS_GLOBAL | JSCLASS_DOM_GLOBAL |
                (((JSCLASS_GLOBAL_SLOT_COUNT + 1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(JSCLASS_GLOBAL_SLOT_COUNT + 1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -1163,32 +1163,32 @@ pub trait DissimilarOriginWindowMethods<TH: TypeHolderTrait> {
     fn Blur(&self) -> ();
     fn Focus(&self) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"close\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &close_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &close_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"postMessage\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &postMessage_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &postMessage_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"blur\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &blur_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &blur_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"focus\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &focus_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &focus_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1201,41 +1201,41 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"self\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &self_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &self_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &self_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &self_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"frames\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &frames_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &frames_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &frames_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &frames_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"length\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &length_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &length_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &length_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &length_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"closed\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &closed_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &closed_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"opener\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &opener_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &opener_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &opener_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &opener_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -1244,34 +1244,34 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
-const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
+fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"window\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &window_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &window_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"parent\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &parent_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &parent_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"top\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &top_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &top_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"location\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &location_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &location_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1281,10 +1281,10 @@ const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sUnforgeableAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs[0])
-];
+]}
+fn sUnforgeableAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1342,7 +1342,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
         JS_NewObjectWithoutMetadata(cx, ptr::null(), HandleObject::null()));
     assert!(!unforgeable_holder.is_null());
 
-    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes);
+    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes::<TH>());
     JS_SetReservedSlot(prototype.get(), DOM_PROTO_UNFORGEABLE_HOLDER_SLOT,
                        ObjectValue(unforgeable_holder.get()))
 }

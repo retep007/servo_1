@@ -518,8 +518,8 @@ unsafe extern fn get_timestamp<TH: TypeHolderTrait>
 }
 
 
-const timestamp_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_timestamp as *const os::raw::c_void,
+fn timestamp_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_timestamp::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFrameData as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -534,7 +534,7 @@ const timestamp_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_leftProjectionMatrix<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRFrameData<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -548,8 +548,8 @@ unsafe extern fn get_leftProjectionMatrix<TH: TypeHolderTrait>
 }
 
 
-const leftProjectionMatrix_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_leftProjectionMatrix as *const os::raw::c_void,
+fn leftProjectionMatrix_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_leftProjectionMatrix::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFrameData as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -564,7 +564,7 @@ const leftProjectionMatrix_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_leftViewMatrix<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRFrameData<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -578,8 +578,8 @@ unsafe extern fn get_leftViewMatrix<TH: TypeHolderTrait>
 }
 
 
-const leftViewMatrix_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_leftViewMatrix as *const os::raw::c_void,
+fn leftViewMatrix_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_leftViewMatrix::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFrameData as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -594,7 +594,7 @@ const leftViewMatrix_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_rightProjectionMatrix<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRFrameData<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -608,8 +608,8 @@ unsafe extern fn get_rightProjectionMatrix<TH: TypeHolderTrait>
 }
 
 
-const rightProjectionMatrix_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_rightProjectionMatrix as *const os::raw::c_void,
+fn rightProjectionMatrix_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_rightProjectionMatrix::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFrameData as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -624,7 +624,7 @@ const rightProjectionMatrix_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_rightViewMatrix<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRFrameData<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -638,8 +638,8 @@ unsafe extern fn get_rightViewMatrix<TH: TypeHolderTrait>
 }
 
 
-const rightViewMatrix_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_rightViewMatrix as *const os::raw::c_void,
+fn rightViewMatrix_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_rightViewMatrix::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFrameData as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -654,7 +654,7 @@ const rightViewMatrix_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_pose<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRFrameData<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -668,8 +668,8 @@ unsafe extern fn get_pose<TH: TypeHolderTrait>
 }
 
 
-const pose_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_pose as *const os::raw::c_void,
+fn pose_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_pose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFrameData as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -684,7 +684,7 @@ const pose_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -793,42 +793,42 @@ pub trait VRFrameDataMethods<TH: TypeHolderTrait> {
     unsafe fn RightViewMatrix(&self, cx: *mut JSContext) -> NonNull<JSObject>;
     fn Pose(&self) -> DomRoot<VRPose<TH>>;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"timestamp\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &timestamp_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &timestamp_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"leftProjectionMatrix\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &leftProjectionMatrix_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &leftProjectionMatrix_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"leftViewMatrix\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &leftViewMatrix_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &leftViewMatrix_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"rightProjectionMatrix\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &rightProjectionMatrix_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &rightProjectionMatrix_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"rightViewMatrix\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &rightViewMatrix_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &rightViewMatrix_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"pose\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &pose_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &pose_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -838,10 +838,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -928,7 +928,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

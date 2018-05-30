@@ -954,7 +954,7 @@ unsafe extern fn get_specified<TH: TypeHolderTrait>
 
 fn specified_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo {
     JSJitInfo {
-        call: get_specified as *const os::raw::c_void,
+        call: get_specified::<TH> as *const os::raw::c_void,
         protoID: PrototypeList::ID::Attr as u16,
         depth: 0,
         _bitfield_1: new_jsjitinfo_bitfield_1!(

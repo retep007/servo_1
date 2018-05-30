@@ -518,8 +518,8 @@ unsafe extern fn get_offset<TH: TypeHolderTrait>
 }
 
 
-const offset_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offset as *const os::raw::c_void,
+fn offset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VREyeParameters as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -534,7 +534,7 @@ const offset_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fieldOfView<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VREyeParameters<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -548,8 +548,8 @@ unsafe extern fn get_fieldOfView<TH: TypeHolderTrait>
 }
 
 
-const fieldOfView_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fieldOfView as *const os::raw::c_void,
+fn fieldOfView_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fieldOfView::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VREyeParameters as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -564,7 +564,7 @@ const fieldOfView_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_renderWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VREyeParameters<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -578,8 +578,8 @@ unsafe extern fn get_renderWidth<TH: TypeHolderTrait>
 }
 
 
-const renderWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_renderWidth as *const os::raw::c_void,
+fn renderWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_renderWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VREyeParameters as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -594,7 +594,7 @@ const renderWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_renderHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VREyeParameters<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -608,8 +608,8 @@ unsafe extern fn get_renderHeight<TH: TypeHolderTrait>
 }
 
 
-const renderHeight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_renderHeight as *const os::raw::c_void,
+fn renderHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_renderHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VREyeParameters as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -624,7 +624,7 @@ const renderHeight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -731,30 +731,30 @@ pub trait VREyeParametersMethods<TH: TypeHolderTrait> {
     fn RenderWidth(&self) -> u32;
     fn RenderHeight(&self) -> u32;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"offset\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offset_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"fieldOfView\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fieldOfView_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fieldOfView_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"renderWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &renderWidth_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &renderWidth_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"renderHeight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &renderHeight_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &renderHeight_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -764,10 +764,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -834,7 +834,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

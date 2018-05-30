@@ -517,8 +517,8 @@ unsafe extern fn get_rangeMin<TH: TypeHolderTrait>
 }
 
 
-const rangeMin_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_rangeMin as *const os::raw::c_void,
+fn rangeMin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_rangeMin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLShaderPrecisionFormat as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const rangeMin_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_rangeMax<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLShaderPrecisionFormat<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_rangeMax<TH: TypeHolderTrait>
 }
 
 
-const rangeMax_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_rangeMax as *const os::raw::c_void,
+fn rangeMax_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_rangeMax::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLShaderPrecisionFormat as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const rangeMax_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_precision<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLShaderPrecisionFormat<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_precision<TH: TypeHolderTrait>
 }
 
 
-const precision_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_precision as *const os::raw::c_void,
+fn precision_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_precision::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLShaderPrecisionFormat as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const precision_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -699,24 +699,24 @@ pub trait WebGLShaderPrecisionFormatMethods {
     fn RangeMax(&self) -> i32;
     fn Precision(&self) -> i32;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"rangeMin\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &rangeMin_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &rangeMin_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"rangeMax\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &rangeMax_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &rangeMax_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"precision\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &precision_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &precision_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -726,10 +726,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -795,7 +795,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

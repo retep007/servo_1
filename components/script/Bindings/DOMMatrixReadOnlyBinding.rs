@@ -637,8 +637,8 @@ unsafe extern fn get_a<TH: TypeHolderTrait>
 }
 
 
-const a_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_a as *const os::raw::c_void,
+fn a_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_a::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -653,7 +653,7 @@ const a_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_b<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -667,8 +667,8 @@ unsafe extern fn get_b<TH: TypeHolderTrait>
 }
 
 
-const b_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_b as *const os::raw::c_void,
+fn b_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_b::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -683,7 +683,7 @@ const b_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_c<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -697,8 +697,8 @@ unsafe extern fn get_c<TH: TypeHolderTrait>
 }
 
 
-const c_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_c as *const os::raw::c_void,
+fn c_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_c::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -713,7 +713,7 @@ const c_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_d<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -727,8 +727,8 @@ unsafe extern fn get_d<TH: TypeHolderTrait>
 }
 
 
-const d_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_d as *const os::raw::c_void,
+fn d_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_d::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -743,7 +743,7 @@ const d_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_e<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -757,8 +757,8 @@ unsafe extern fn get_e<TH: TypeHolderTrait>
 }
 
 
-const e_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_e as *const os::raw::c_void,
+fn e_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_e::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -773,7 +773,7 @@ const e_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_f<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -787,8 +787,8 @@ unsafe extern fn get_f<TH: TypeHolderTrait>
 }
 
 
-const f_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_f as *const os::raw::c_void,
+fn f_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -803,7 +803,7 @@ const f_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m11<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -817,8 +817,8 @@ unsafe extern fn get_m11<TH: TypeHolderTrait>
 }
 
 
-const m11_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m11 as *const os::raw::c_void,
+fn m11_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m11::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -833,7 +833,7 @@ const m11_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m12<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -847,8 +847,8 @@ unsafe extern fn get_m12<TH: TypeHolderTrait>
 }
 
 
-const m12_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m12 as *const os::raw::c_void,
+fn m12_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m12::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -863,7 +863,7 @@ const m12_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m13<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -877,8 +877,8 @@ unsafe extern fn get_m13<TH: TypeHolderTrait>
 }
 
 
-const m13_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m13 as *const os::raw::c_void,
+fn m13_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m13::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -893,7 +893,7 @@ const m13_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m14<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -907,8 +907,8 @@ unsafe extern fn get_m14<TH: TypeHolderTrait>
 }
 
 
-const m14_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m14 as *const os::raw::c_void,
+fn m14_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m14::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -923,7 +923,7 @@ const m14_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m21<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -937,8 +937,8 @@ unsafe extern fn get_m21<TH: TypeHolderTrait>
 }
 
 
-const m21_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m21 as *const os::raw::c_void,
+fn m21_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m21::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -953,7 +953,7 @@ const m21_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m22<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -967,8 +967,8 @@ unsafe extern fn get_m22<TH: TypeHolderTrait>
 }
 
 
-const m22_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m22 as *const os::raw::c_void,
+fn m22_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m22::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -983,7 +983,7 @@ const m22_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m23<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -997,8 +997,8 @@ unsafe extern fn get_m23<TH: TypeHolderTrait>
 }
 
 
-const m23_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m23 as *const os::raw::c_void,
+fn m23_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m23::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1013,7 +1013,7 @@ const m23_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m24<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1027,8 +1027,8 @@ unsafe extern fn get_m24<TH: TypeHolderTrait>
 }
 
 
-const m24_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m24 as *const os::raw::c_void,
+fn m24_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m24::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1043,7 +1043,7 @@ const m24_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m31<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1057,8 +1057,8 @@ unsafe extern fn get_m31<TH: TypeHolderTrait>
 }
 
 
-const m31_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m31 as *const os::raw::c_void,
+fn m31_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m31::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1073,7 +1073,7 @@ const m31_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m32<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1087,8 +1087,8 @@ unsafe extern fn get_m32<TH: TypeHolderTrait>
 }
 
 
-const m32_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m32 as *const os::raw::c_void,
+fn m32_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m32::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1103,7 +1103,7 @@ const m32_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m33<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1117,8 +1117,8 @@ unsafe extern fn get_m33<TH: TypeHolderTrait>
 }
 
 
-const m33_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m33 as *const os::raw::c_void,
+fn m33_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m33::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1133,7 +1133,7 @@ const m33_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m34<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1147,8 +1147,8 @@ unsafe extern fn get_m34<TH: TypeHolderTrait>
 }
 
 
-const m34_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m34 as *const os::raw::c_void,
+fn m34_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m34::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1163,7 +1163,7 @@ const m34_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m41<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1177,8 +1177,8 @@ unsafe extern fn get_m41<TH: TypeHolderTrait>
 }
 
 
-const m41_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m41 as *const os::raw::c_void,
+fn m41_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m41::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1193,7 +1193,7 @@ const m41_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m42<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1207,8 +1207,8 @@ unsafe extern fn get_m42<TH: TypeHolderTrait>
 }
 
 
-const m42_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m42 as *const os::raw::c_void,
+fn m42_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m42::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1223,7 +1223,7 @@ const m42_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m43<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1237,8 +1237,8 @@ unsafe extern fn get_m43<TH: TypeHolderTrait>
 }
 
 
-const m43_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m43 as *const os::raw::c_void,
+fn m43_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m43::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1253,7 +1253,7 @@ const m43_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_m44<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1267,8 +1267,8 @@ unsafe extern fn get_m44<TH: TypeHolderTrait>
 }
 
 
-const m44_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_m44 as *const os::raw::c_void,
+fn m44_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_m44::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1283,7 +1283,7 @@ const m44_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_is2D<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1297,8 +1297,8 @@ unsafe extern fn get_is2D<TH: TypeHolderTrait>
 }
 
 
-const is2D_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_is2D as *const os::raw::c_void,
+fn is2D_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_is2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1313,7 +1313,7 @@ const is2D_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_isIdentity<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1327,8 +1327,8 @@ unsafe extern fn get_isIdentity<TH: TypeHolderTrait>
 }
 
 
-const isIdentity_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_isIdentity as *const os::raw::c_void,
+fn isIdentity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_isIdentity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1343,7 +1343,7 @@ const isIdentity_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn translate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1401,8 +1401,8 @@ unsafe extern fn translate<TH: TypeHolderTrait>
 }
 
 
-const translate_methodinfo: JSJitInfo = JSJitInfo {
-    call: translate as *const os::raw::c_void,
+fn translate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: translate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1417,7 +1417,7 @@ const translate_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn scale<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1517,8 +1517,8 @@ unsafe extern fn scale<TH: TypeHolderTrait>
 }
 
 
-const scale_methodinfo: JSJitInfo = JSJitInfo {
-    call: scale as *const os::raw::c_void,
+fn scale_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: scale::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1533,7 +1533,7 @@ const scale_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn scale3d<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1605,8 +1605,8 @@ unsafe extern fn scale3d<TH: TypeHolderTrait>
 }
 
 
-const scale3d_methodinfo: JSJitInfo = JSJitInfo {
-    call: scale3d as *const os::raw::c_void,
+fn scale3d_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: scale3d::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1621,7 +1621,7 @@ const scale3d_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn rotate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1679,8 +1679,8 @@ unsafe extern fn rotate<TH: TypeHolderTrait>
 }
 
 
-const rotate_methodinfo: JSJitInfo = JSJitInfo {
-    call: rotate as *const os::raw::c_void,
+fn rotate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: rotate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1695,7 +1695,7 @@ const rotate_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn rotateFromVector<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1739,8 +1739,8 @@ unsafe extern fn rotateFromVector<TH: TypeHolderTrait>
 }
 
 
-const rotateFromVector_methodinfo: JSJitInfo = JSJitInfo {
-    call: rotateFromVector as *const os::raw::c_void,
+fn rotateFromVector_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: rotateFromVector::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1755,7 +1755,7 @@ const rotateFromVector_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn rotateAxisAngle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1827,8 +1827,8 @@ unsafe extern fn rotateAxisAngle<TH: TypeHolderTrait>
 }
 
 
-const rotateAxisAngle_methodinfo: JSJitInfo = JSJitInfo {
-    call: rotateAxisAngle as *const os::raw::c_void,
+fn rotateAxisAngle_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: rotateAxisAngle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1843,7 +1843,7 @@ const rotateAxisAngle_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn skewX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1873,8 +1873,8 @@ unsafe extern fn skewX<TH: TypeHolderTrait>
 }
 
 
-const skewX_methodinfo: JSJitInfo = JSJitInfo {
-    call: skewX as *const os::raw::c_void,
+fn skewX_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: skewX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1889,7 +1889,7 @@ const skewX_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn skewY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1919,8 +1919,8 @@ unsafe extern fn skewY<TH: TypeHolderTrait>
 }
 
 
-const skewY_methodinfo: JSJitInfo = JSJitInfo {
-    call: skewY as *const os::raw::c_void,
+fn skewY_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: skewY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1935,7 +1935,7 @@ const skewY_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn multiply<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1972,8 +1972,8 @@ unsafe extern fn multiply<TH: TypeHolderTrait>
 }
 
 
-const multiply_methodinfo: JSJitInfo = JSJitInfo {
-    call: multiply as *const os::raw::c_void,
+fn multiply_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: multiply::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1988,7 +1988,7 @@ const multiply_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn flipX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2004,8 +2004,8 @@ unsafe extern fn flipX<TH: TypeHolderTrait>
 }
 
 
-const flipX_methodinfo: JSJitInfo = JSJitInfo {
-    call: flipX as *const os::raw::c_void,
+fn flipX_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: flipX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2020,7 +2020,7 @@ const flipX_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn flipY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2036,8 +2036,8 @@ unsafe extern fn flipY<TH: TypeHolderTrait>
 }
 
 
-const flipY_methodinfo: JSJitInfo = JSJitInfo {
-    call: flipY as *const os::raw::c_void,
+fn flipY_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: flipY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2052,7 +2052,7 @@ const flipY_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn inverse<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2068,8 +2068,8 @@ unsafe extern fn inverse<TH: TypeHolderTrait>
 }
 
 
-const inverse_methodinfo: JSJitInfo = JSJitInfo {
-    call: inverse as *const os::raw::c_void,
+fn inverse_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: inverse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2084,7 +2084,7 @@ const inverse_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn transformPoint<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2114,8 +2114,8 @@ unsafe extern fn transformPoint<TH: TypeHolderTrait>
 }
 
 
-const transformPoint_methodinfo: JSJitInfo = JSJitInfo {
-    call: transformPoint as *const os::raw::c_void,
+fn transformPoint_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: transformPoint::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2130,7 +2130,7 @@ const transformPoint_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn toFloat32Array<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2146,8 +2146,8 @@ unsafe extern fn toFloat32Array<TH: TypeHolderTrait>
 }
 
 
-const toFloat32Array_methodinfo: JSJitInfo = JSJitInfo {
-    call: toFloat32Array as *const os::raw::c_void,
+fn toFloat32Array_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: toFloat32Array::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2162,7 +2162,7 @@ const toFloat32Array_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn toFloat64Array<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2178,8 +2178,8 @@ unsafe extern fn toFloat64Array<TH: TypeHolderTrait>
 }
 
 
-const toFloat64Array_methodinfo: JSJitInfo = JSJitInfo {
-    call: toFloat64Array as *const os::raw::c_void,
+fn toFloat64Array_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: toFloat64Array::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2194,7 +2194,7 @@ const toFloat64Array_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -2240,7 +2240,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -2269,7 +2269,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -2370,109 +2370,109 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 const sStaticMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
     Guard::new(Condition::Satisfied, sStaticMethods_specs[0])
 ];
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"translate\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &translate_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &translate_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"scale\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &scale_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &scale_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"scale3d\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &scale3d_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &scale3d_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"rotate\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &rotate_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &rotate_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"rotateFromVector\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &rotateFromVector_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &rotateFromVector_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"rotateAxisAngle\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &rotateAxisAngle_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &rotateAxisAngle_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"skewX\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &skewX_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &skewX_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"skewY\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &skewY_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &skewY_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"multiply\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &multiply_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &multiply_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"flipX\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &flipX_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &flipX_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"flipY\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &flipY_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &flipY_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"inverse\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &inverse_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &inverse_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"transformPoint\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &transformPoint_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &transformPoint_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"toFloat32Array\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &toFloat32Array_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &toFloat32Array_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"toFloat64Array\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &toFloat64Array_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &toFloat64Array_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -2485,154 +2485,154 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"a\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &a_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &a_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"b\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &b_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &b_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"c\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &c_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &c_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"d\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &d_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &d_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"e\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &e_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &e_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"f\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &f_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &f_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m11\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m11_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m11_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m12\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m12_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m12_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m13\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m13_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m13_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m14\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m14_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m14_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m21\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m21_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m21_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m22\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m22_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m22_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m23\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m23_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m23_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m24\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m24_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m24_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m31\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m31_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m31_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m32\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m32_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m32_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m33\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m33_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m33_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m34\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m34_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m34_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m41\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m41_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m41_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m42\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m42_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m42_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m43\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m43_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m43_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"m44\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &m44_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &m44_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"is2D\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &is2D_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &is2D_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"isIdentity\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &isIdentity_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &isIdentity_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -2642,10 +2642,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -2781,8 +2781,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

@@ -713,8 +713,8 @@ unsafe extern fn get_p1<TH: TypeHolderTrait>
 }
 
 
-const p1_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_p1 as *const os::raw::c_void,
+fn p1_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_p1::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -729,7 +729,7 @@ const p1_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_p2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMQuad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -743,8 +743,8 @@ unsafe extern fn get_p2<TH: TypeHolderTrait>
 }
 
 
-const p2_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_p2 as *const os::raw::c_void,
+fn p2_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_p2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -759,7 +759,7 @@ const p2_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_p3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMQuad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -773,8 +773,8 @@ unsafe extern fn get_p3<TH: TypeHolderTrait>
 }
 
 
-const p3_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_p3 as *const os::raw::c_void,
+fn p3_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_p3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -789,7 +789,7 @@ const p3_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_p4<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMQuad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -803,8 +803,8 @@ unsafe extern fn get_p4<TH: TypeHolderTrait>
 }
 
 
-const p4_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_p4 as *const os::raw::c_void,
+fn p4_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_p4::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -819,7 +819,7 @@ const p4_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getBounds<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMQuad<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -835,8 +835,8 @@ unsafe extern fn getBounds<TH: TypeHolderTrait>
 }
 
 
-const getBounds_methodinfo: JSJitInfo = JSJitInfo {
-    call: getBounds as *const os::raw::c_void,
+fn getBounds_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getBounds::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -851,7 +851,7 @@ const getBounds_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -897,7 +897,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -926,7 +926,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -941,7 +941,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for DOMQuad<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -986,11 +986,11 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 const sStaticMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
     Guard::new(Condition::Satisfied, sStaticMethods_specs[0])
 ];
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getBounds\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getBounds_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getBounds_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1003,34 +1003,34 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"p1\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &p1_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &p1_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"p2\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &p2_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &p2_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"p3\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &p3_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &p3_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"p4\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &p4_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &p4_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1040,10 +1040,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1183,8 +1183,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

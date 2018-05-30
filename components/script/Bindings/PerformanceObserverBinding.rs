@@ -725,8 +725,8 @@ unsafe extern fn observe<TH: TypeHolderTrait>
 }
 
 
-const observe_methodinfo: JSJitInfo = JSJitInfo {
-    call: observe as *const os::raw::c_void,
+fn observe_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: observe::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceObserver as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -741,7 +741,7 @@ const observe_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn disconnect<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceObserver<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -757,8 +757,8 @@ unsafe extern fn disconnect<TH: TypeHolderTrait>
 }
 
 
-const disconnect_methodinfo: JSJitInfo = JSJitInfo {
-    call: disconnect as *const os::raw::c_void,
+fn disconnect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: disconnect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceObserver as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -773,7 +773,7 @@ const disconnect_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -878,18 +878,18 @@ pub trait PerformanceObserverMethods<TH: TypeHolderTrait> {
     fn Observe(&self, options: &dom::bindings::codegen::Bindings::PerformanceObserverBinding::PerformanceObserverInit) -> Fallible<(), TH>;
     fn Disconnect(&self) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"observe\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &observe_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &observe_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"disconnect\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &disconnect_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &disconnect_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -902,10 +902,10 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1007,7 +1007,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
+                                      sMethods::<TH>(),
                                       &[],
                                       &[],
                                       &[],

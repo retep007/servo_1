@@ -651,8 +651,8 @@ unsafe extern fn get_x<TH: TypeHolderTrait>
 }
 
 
-const x_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_x as *const os::raw::c_void,
+fn x_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_x::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMRectReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -667,7 +667,7 @@ const x_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_y<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMRectReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -681,8 +681,8 @@ unsafe extern fn get_y<TH: TypeHolderTrait>
 }
 
 
-const y_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_y as *const os::raw::c_void,
+fn y_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_y::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMRectReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -697,7 +697,7 @@ const y_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMRectReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -711,8 +711,8 @@ unsafe extern fn get_width<TH: TypeHolderTrait>
 }
 
 
-const width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_width as *const os::raw::c_void,
+fn width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMRectReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -727,7 +727,7 @@ const width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMRectReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -741,8 +741,8 @@ unsafe extern fn get_height<TH: TypeHolderTrait>
 }
 
 
-const height_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_height as *const os::raw::c_void,
+fn height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMRectReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -757,7 +757,7 @@ const height_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMRectReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -771,8 +771,8 @@ unsafe extern fn get_top<TH: TypeHolderTrait>
 }
 
 
-const top_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_top as *const os::raw::c_void,
+fn top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMRectReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -787,7 +787,7 @@ const top_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_right<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMRectReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -801,8 +801,8 @@ unsafe extern fn get_right<TH: TypeHolderTrait>
 }
 
 
-const right_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_right as *const os::raw::c_void,
+fn right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMRectReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -817,7 +817,7 @@ const right_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_bottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMRectReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -831,8 +831,8 @@ unsafe extern fn get_bottom<TH: TypeHolderTrait>
 }
 
 
-const bottom_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_bottom as *const os::raw::c_void,
+fn bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMRectReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -847,7 +847,7 @@ const bottom_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_left<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMRectReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -861,8 +861,8 @@ unsafe extern fn get_left<TH: TypeHolderTrait>
 }
 
 
-const left_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_left as *const os::raw::c_void,
+fn left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMRectReadOnly as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -877,7 +877,7 @@ const left_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -923,7 +923,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -952,7 +952,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -987,54 +987,54 @@ pub trait DOMRectReadOnlyMethods {
     fn Bottom(&self) -> f64;
     fn Left(&self) -> f64;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"x\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &x_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &x_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"y\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &y_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &y_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"height\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &height_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &height_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"top\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &top_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &top_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"right\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &right_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &right_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"bottom\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &bottom_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &bottom_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"left\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &left_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &left_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1044,10 +1044,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1207,7 +1207,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

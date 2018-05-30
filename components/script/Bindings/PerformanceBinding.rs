@@ -526,8 +526,8 @@ unsafe extern fn now<TH: TypeHolderTrait>
 }
 
 
-const now_methodinfo: JSJitInfo = JSJitInfo {
-    call: now as *const os::raw::c_void,
+fn now_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: now::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Performance as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -542,7 +542,7 @@ const now_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_timing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Performance<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -556,8 +556,8 @@ unsafe extern fn get_timing<TH: TypeHolderTrait>
 }
 
 
-const timing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_timing as *const os::raw::c_void,
+fn timing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_timing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Performance as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -572,7 +572,7 @@ const timing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getEntries<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Performance<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -588,8 +588,8 @@ unsafe extern fn getEntries<TH: TypeHolderTrait>
 }
 
 
-const getEntries_methodinfo: JSJitInfo = JSJitInfo {
-    call: getEntries as *const os::raw::c_void,
+fn getEntries_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getEntries::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Performance as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -604,7 +604,7 @@ const getEntries_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getEntriesByType<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Performance<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -635,8 +635,8 @@ unsafe extern fn getEntriesByType<TH: TypeHolderTrait>
 }
 
 
-const getEntriesByType_methodinfo: JSJitInfo = JSJitInfo {
-    call: getEntriesByType as *const os::raw::c_void,
+fn getEntriesByType_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getEntriesByType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Performance as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -651,7 +651,7 @@ const getEntriesByType_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getEntriesByName<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Performance<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -696,8 +696,8 @@ unsafe extern fn getEntriesByName<TH: TypeHolderTrait>
 }
 
 
-const getEntriesByName_methodinfo: JSJitInfo = JSJitInfo {
-    call: getEntriesByName as *const os::raw::c_void,
+fn getEntriesByName_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getEntriesByName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Performance as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -712,7 +712,7 @@ const getEntriesByName_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn mark<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Performance<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -750,8 +750,8 @@ unsafe extern fn mark<TH: TypeHolderTrait>
 }
 
 
-const mark_methodinfo: JSJitInfo = JSJitInfo {
-    call: mark as *const os::raw::c_void,
+fn mark_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: mark::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Performance as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -766,7 +766,7 @@ const mark_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn clearMarks<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Performance<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -796,8 +796,8 @@ unsafe extern fn clearMarks<TH: TypeHolderTrait>
 }
 
 
-const clearMarks_methodinfo: JSJitInfo = JSJitInfo {
-    call: clearMarks as *const os::raw::c_void,
+fn clearMarks_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: clearMarks::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Performance as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -812,7 +812,7 @@ const clearMarks_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn measure<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Performance<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -878,8 +878,8 @@ unsafe extern fn measure<TH: TypeHolderTrait>
 }
 
 
-const measure_methodinfo: JSJitInfo = JSJitInfo {
-    call: measure as *const os::raw::c_void,
+fn measure_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: measure::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Performance as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -894,7 +894,7 @@ const measure_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn clearMeasures<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Performance<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -924,8 +924,8 @@ unsafe extern fn clearMeasures<TH: TypeHolderTrait>
 }
 
 
-const clearMeasures_methodinfo: JSJitInfo = JSJitInfo {
-    call: clearMeasures as *const os::raw::c_void,
+fn clearMeasures_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: clearMeasures::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Performance as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -940,7 +940,7 @@ const clearMeasures_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1052,60 +1052,60 @@ pub trait PerformanceMethods<TH: TypeHolderTrait> {
     fn Measure(&self, measureName: DOMString, startMark: Option<DOMString>, endMark: Option<DOMString>) -> Fallible<(), TH>;
     fn ClearMeasures(&self, measureName: Option<DOMString>) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"now\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &now_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &now_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getEntries\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getEntries_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getEntries_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getEntriesByType\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getEntriesByType_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getEntriesByType_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getEntriesByName\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getEntriesByName_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getEntriesByName_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"mark\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &mark_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &mark_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"clearMarks\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &clearMarks_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &clearMarks_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"measure\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &measure_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &measure_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"clearMeasures\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &clearMeasures_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &clearMeasures_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1118,16 +1118,16 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"timing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &timing_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &timing_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1137,10 +1137,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1205,8 +1205,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

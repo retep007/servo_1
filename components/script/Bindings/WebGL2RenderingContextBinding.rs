@@ -745,8 +745,8 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
 }
 
 
-const bufferData_methodinfo: JSJitInfo = JSJitInfo {
-    call: bufferData as *const os::raw::c_void,
+fn bufferData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: bufferData::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -761,7 +761,7 @@ const bufferData_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn bufferSubData<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -812,8 +812,8 @@ unsafe extern fn bufferSubData<TH: TypeHolderTrait>
 }
 
 
-const bufferSubData_methodinfo: JSJitInfo = JSJitInfo {
-    call: bufferSubData as *const os::raw::c_void,
+fn bufferSubData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: bufferSubData::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -828,7 +828,7 @@ const bufferSubData_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn texImage2D<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1032,8 +1032,8 @@ unsafe extern fn texImage2D<TH: TypeHolderTrait>
 }
 
 
-const texImage2D_methodinfo: JSJitInfo = JSJitInfo {
-    call: texImage2D as *const os::raw::c_void,
+fn texImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: texImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1048,7 +1048,7 @@ const texImage2D_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn texSubImage2D<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1262,8 +1262,8 @@ unsafe extern fn texSubImage2D<TH: TypeHolderTrait>
 }
 
 
-const texSubImage2D_methodinfo: JSJitInfo = JSJitInfo {
-    call: texSubImage2D as *const os::raw::c_void,
+fn texSubImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: texSubImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1278,7 +1278,7 @@ const texSubImage2D_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn readPixels<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1377,8 +1377,8 @@ unsafe extern fn readPixels<TH: TypeHolderTrait>
 }
 
 
-const readPixels_methodinfo: JSJitInfo = JSJitInfo {
-    call: readPixels as *const os::raw::c_void,
+fn readPixels_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: readPixels::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1393,7 +1393,7 @@ const readPixels_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_canvas<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1407,8 +1407,8 @@ unsafe extern fn get_canvas<TH: TypeHolderTrait>
 }
 
 
-const canvas_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_canvas as *const os::raw::c_void,
+fn canvas_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_canvas::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1423,7 +1423,7 @@ const canvas_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_drawingBufferWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1437,8 +1437,8 @@ unsafe extern fn get_drawingBufferWidth<TH: TypeHolderTrait>
 }
 
 
-const drawingBufferWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_drawingBufferWidth as *const os::raw::c_void,
+fn drawingBufferWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_drawingBufferWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1453,7 +1453,7 @@ const drawingBufferWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_drawingBufferHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1467,8 +1467,8 @@ unsafe extern fn get_drawingBufferHeight<TH: TypeHolderTrait>
 }
 
 
-const drawingBufferHeight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_drawingBufferHeight as *const os::raw::c_void,
+fn drawingBufferHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_drawingBufferHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1483,7 +1483,7 @@ const drawingBufferHeight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getContextAttributes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1499,8 +1499,8 @@ unsafe extern fn getContextAttributes<TH: TypeHolderTrait>
 }
 
 
-const getContextAttributes_methodinfo: JSJitInfo = JSJitInfo {
-    call: getContextAttributes as *const os::raw::c_void,
+fn getContextAttributes_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getContextAttributes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1515,7 +1515,7 @@ const getContextAttributes_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getSupportedExtensions<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1531,8 +1531,8 @@ unsafe extern fn getSupportedExtensions<TH: TypeHolderTrait>
 }
 
 
-const getSupportedExtensions_methodinfo: JSJitInfo = JSJitInfo {
-    call: getSupportedExtensions as *const os::raw::c_void,
+fn getSupportedExtensions_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getSupportedExtensions::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1547,7 +1547,7 @@ const getSupportedExtensions_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getExtension<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1578,8 +1578,8 @@ unsafe extern fn getExtension<TH: TypeHolderTrait>
 }
 
 
-const getExtension_methodinfo: JSJitInfo = JSJitInfo {
-    call: getExtension as *const os::raw::c_void,
+fn getExtension_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getExtension::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1594,7 +1594,7 @@ const getExtension_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn activeTexture<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1625,8 +1625,8 @@ unsafe extern fn activeTexture<TH: TypeHolderTrait>
 }
 
 
-const activeTexture_methodinfo: JSJitInfo = JSJitInfo {
-    call: activeTexture as *const os::raw::c_void,
+fn activeTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: activeTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1641,7 +1641,7 @@ const activeTexture_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn attachShader<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1692,8 +1692,8 @@ unsafe extern fn attachShader<TH: TypeHolderTrait>
 }
 
 
-const attachShader_methodinfo: JSJitInfo = JSJitInfo {
-    call: attachShader as *const os::raw::c_void,
+fn attachShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: attachShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1708,7 +1708,7 @@ const attachShader_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn bindAttribLocation<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1764,8 +1764,8 @@ unsafe extern fn bindAttribLocation<TH: TypeHolderTrait>
 }
 
 
-const bindAttribLocation_methodinfo: JSJitInfo = JSJitInfo {
-    call: bindAttribLocation as *const os::raw::c_void,
+fn bindAttribLocation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: bindAttribLocation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1780,7 +1780,7 @@ const bindAttribLocation_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn bindBuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1828,8 +1828,8 @@ unsafe extern fn bindBuffer<TH: TypeHolderTrait>
 }
 
 
-const bindBuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: bindBuffer as *const os::raw::c_void,
+fn bindBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: bindBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1844,7 +1844,7 @@ const bindBuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn bindFramebuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1892,8 +1892,8 @@ unsafe extern fn bindFramebuffer<TH: TypeHolderTrait>
 }
 
 
-const bindFramebuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: bindFramebuffer as *const os::raw::c_void,
+fn bindFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: bindFramebuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1908,7 +1908,7 @@ const bindFramebuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn bindRenderbuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1956,8 +1956,8 @@ unsafe extern fn bindRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-const bindRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: bindRenderbuffer as *const os::raw::c_void,
+fn bindRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: bindRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1972,7 +1972,7 @@ const bindRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn bindTexture<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2020,8 +2020,8 @@ unsafe extern fn bindTexture<TH: TypeHolderTrait>
 }
 
 
-const bindTexture_methodinfo: JSJitInfo = JSJitInfo {
-    call: bindTexture as *const os::raw::c_void,
+fn bindTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: bindTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2036,7 +2036,7 @@ const bindTexture_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn blendColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2097,8 +2097,8 @@ unsafe extern fn blendColor<TH: TypeHolderTrait>
 }
 
 
-const blendColor_methodinfo: JSJitInfo = JSJitInfo {
-    call: blendColor as *const os::raw::c_void,
+fn blendColor_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: blendColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2113,7 +2113,7 @@ const blendColor_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn blendEquation<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2144,8 +2144,8 @@ unsafe extern fn blendEquation<TH: TypeHolderTrait>
 }
 
 
-const blendEquation_methodinfo: JSJitInfo = JSJitInfo {
-    call: blendEquation as *const os::raw::c_void,
+fn blendEquation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: blendEquation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2160,7 +2160,7 @@ const blendEquation_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn blendEquationSeparate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2201,8 +2201,8 @@ unsafe extern fn blendEquationSeparate<TH: TypeHolderTrait>
 }
 
 
-const blendEquationSeparate_methodinfo: JSJitInfo = JSJitInfo {
-    call: blendEquationSeparate as *const os::raw::c_void,
+fn blendEquationSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: blendEquationSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2217,7 +2217,7 @@ const blendEquationSeparate_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn blendFunc<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2258,8 +2258,8 @@ unsafe extern fn blendFunc<TH: TypeHolderTrait>
 }
 
 
-const blendFunc_methodinfo: JSJitInfo = JSJitInfo {
-    call: blendFunc as *const os::raw::c_void,
+fn blendFunc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: blendFunc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2274,7 +2274,7 @@ const blendFunc_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn blendFuncSeparate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2335,8 +2335,8 @@ unsafe extern fn blendFuncSeparate<TH: TypeHolderTrait>
 }
 
 
-const blendFuncSeparate_methodinfo: JSJitInfo = JSJitInfo {
-    call: blendFuncSeparate as *const os::raw::c_void,
+fn blendFuncSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: blendFuncSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2351,7 +2351,7 @@ const blendFuncSeparate_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn checkFramebufferStatus<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2382,8 +2382,8 @@ unsafe extern fn checkFramebufferStatus<TH: TypeHolderTrait>
 }
 
 
-const checkFramebufferStatus_methodinfo: JSJitInfo = JSJitInfo {
-    call: checkFramebufferStatus as *const os::raw::c_void,
+fn checkFramebufferStatus_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: checkFramebufferStatus::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2398,7 +2398,7 @@ const checkFramebufferStatus_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn clear<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2429,8 +2429,8 @@ unsafe extern fn clear<TH: TypeHolderTrait>
 }
 
 
-const clear_methodinfo: JSJitInfo = JSJitInfo {
-    call: clear as *const os::raw::c_void,
+fn clear_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: clear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2445,7 +2445,7 @@ const clear_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn clearColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2506,8 +2506,8 @@ unsafe extern fn clearColor<TH: TypeHolderTrait>
 }
 
 
-const clearColor_methodinfo: JSJitInfo = JSJitInfo {
-    call: clearColor as *const os::raw::c_void,
+fn clearColor_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: clearColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2522,7 +2522,7 @@ const clearColor_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn clearDepth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2553,8 +2553,8 @@ unsafe extern fn clearDepth<TH: TypeHolderTrait>
 }
 
 
-const clearDepth_methodinfo: JSJitInfo = JSJitInfo {
-    call: clearDepth as *const os::raw::c_void,
+fn clearDepth_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: clearDepth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2569,7 +2569,7 @@ const clearDepth_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn clearStencil<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2600,8 +2600,8 @@ unsafe extern fn clearStencil<TH: TypeHolderTrait>
 }
 
 
-const clearStencil_methodinfo: JSJitInfo = JSJitInfo {
-    call: clearStencil as *const os::raw::c_void,
+fn clearStencil_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: clearStencil::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2616,7 +2616,7 @@ const clearStencil_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn colorMask<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2677,8 +2677,8 @@ unsafe extern fn colorMask<TH: TypeHolderTrait>
 }
 
 
-const colorMask_methodinfo: JSJitInfo = JSJitInfo {
-    call: colorMask as *const os::raw::c_void,
+fn colorMask_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: colorMask::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2693,7 +2693,7 @@ const colorMask_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn compileShader<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2729,8 +2729,8 @@ unsafe extern fn compileShader<TH: TypeHolderTrait>
 }
 
 
-const compileShader_methodinfo: JSJitInfo = JSJitInfo {
-    call: compileShader as *const os::raw::c_void,
+fn compileShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: compileShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2745,7 +2745,7 @@ const compileShader_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn compressedTexImage2D<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2842,8 +2842,8 @@ unsafe extern fn compressedTexImage2D<TH: TypeHolderTrait>
 }
 
 
-const compressedTexImage2D_methodinfo: JSJitInfo = JSJitInfo {
-    call: compressedTexImage2D as *const os::raw::c_void,
+fn compressedTexImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: compressedTexImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2858,7 +2858,7 @@ const compressedTexImage2D_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn compressedTexSubImage2D<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2965,8 +2965,8 @@ unsafe extern fn compressedTexSubImage2D<TH: TypeHolderTrait>
 }
 
 
-const compressedTexSubImage2D_methodinfo: JSJitInfo = JSJitInfo {
-    call: compressedTexSubImage2D as *const os::raw::c_void,
+fn compressedTexSubImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: compressedTexSubImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2981,7 +2981,7 @@ const compressedTexSubImage2D_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn copyTexImage2D<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3082,8 +3082,8 @@ unsafe extern fn copyTexImage2D<TH: TypeHolderTrait>
 }
 
 
-const copyTexImage2D_methodinfo: JSJitInfo = JSJitInfo {
-    call: copyTexImage2D as *const os::raw::c_void,
+fn copyTexImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: copyTexImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3098,7 +3098,7 @@ const copyTexImage2D_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn copyTexSubImage2D<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3199,8 +3199,8 @@ unsafe extern fn copyTexSubImage2D<TH: TypeHolderTrait>
 }
 
 
-const copyTexSubImage2D_methodinfo: JSJitInfo = JSJitInfo {
-    call: copyTexSubImage2D as *const os::raw::c_void,
+fn copyTexSubImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: copyTexSubImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3215,7 +3215,7 @@ const copyTexSubImage2D_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn createBuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3231,8 +3231,8 @@ unsafe extern fn createBuffer<TH: TypeHolderTrait>
 }
 
 
-const createBuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: createBuffer as *const os::raw::c_void,
+fn createBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3247,7 +3247,7 @@ const createBuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn createFramebuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3263,8 +3263,8 @@ unsafe extern fn createFramebuffer<TH: TypeHolderTrait>
 }
 
 
-const createFramebuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: createFramebuffer as *const os::raw::c_void,
+fn createFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createFramebuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3279,7 +3279,7 @@ const createFramebuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn createProgram<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3295,8 +3295,8 @@ unsafe extern fn createProgram<TH: TypeHolderTrait>
 }
 
 
-const createProgram_methodinfo: JSJitInfo = JSJitInfo {
-    call: createProgram as *const os::raw::c_void,
+fn createProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3311,7 +3311,7 @@ const createProgram_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn createRenderbuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3327,8 +3327,8 @@ unsafe extern fn createRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-const createRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: createRenderbuffer as *const os::raw::c_void,
+fn createRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3343,7 +3343,7 @@ const createRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn createShader<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3374,8 +3374,8 @@ unsafe extern fn createShader<TH: TypeHolderTrait>
 }
 
 
-const createShader_methodinfo: JSJitInfo = JSJitInfo {
-    call: createShader as *const os::raw::c_void,
+fn createShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3390,7 +3390,7 @@ const createShader_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn createTexture<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3406,8 +3406,8 @@ unsafe extern fn createTexture<TH: TypeHolderTrait>
 }
 
 
-const createTexture_methodinfo: JSJitInfo = JSJitInfo {
-    call: createTexture as *const os::raw::c_void,
+fn createTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3422,7 +3422,7 @@ const createTexture_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn cullFace<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3453,8 +3453,8 @@ unsafe extern fn cullFace<TH: TypeHolderTrait>
 }
 
 
-const cullFace_methodinfo: JSJitInfo = JSJitInfo {
-    call: cullFace as *const os::raw::c_void,
+fn cullFace_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: cullFace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3469,7 +3469,7 @@ const cullFace_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn deleteBuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3507,8 +3507,8 @@ unsafe extern fn deleteBuffer<TH: TypeHolderTrait>
 }
 
 
-const deleteBuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: deleteBuffer as *const os::raw::c_void,
+fn deleteBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: deleteBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3523,7 +3523,7 @@ const deleteBuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn deleteFramebuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3561,8 +3561,8 @@ unsafe extern fn deleteFramebuffer<TH: TypeHolderTrait>
 }
 
 
-const deleteFramebuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: deleteFramebuffer as *const os::raw::c_void,
+fn deleteFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: deleteFramebuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3577,7 +3577,7 @@ const deleteFramebuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn deleteProgram<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3615,8 +3615,8 @@ unsafe extern fn deleteProgram<TH: TypeHolderTrait>
 }
 
 
-const deleteProgram_methodinfo: JSJitInfo = JSJitInfo {
-    call: deleteProgram as *const os::raw::c_void,
+fn deleteProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: deleteProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3631,7 +3631,7 @@ const deleteProgram_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn deleteRenderbuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3669,8 +3669,8 @@ unsafe extern fn deleteRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-const deleteRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: deleteRenderbuffer as *const os::raw::c_void,
+fn deleteRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: deleteRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3685,7 +3685,7 @@ const deleteRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn deleteShader<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3723,8 +3723,8 @@ unsafe extern fn deleteShader<TH: TypeHolderTrait>
 }
 
 
-const deleteShader_methodinfo: JSJitInfo = JSJitInfo {
-    call: deleteShader as *const os::raw::c_void,
+fn deleteShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: deleteShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3739,7 +3739,7 @@ const deleteShader_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn deleteTexture<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3777,8 +3777,8 @@ unsafe extern fn deleteTexture<TH: TypeHolderTrait>
 }
 
 
-const deleteTexture_methodinfo: JSJitInfo = JSJitInfo {
-    call: deleteTexture as *const os::raw::c_void,
+fn deleteTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: deleteTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3793,7 +3793,7 @@ const deleteTexture_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn depthFunc<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3824,8 +3824,8 @@ unsafe extern fn depthFunc<TH: TypeHolderTrait>
 }
 
 
-const depthFunc_methodinfo: JSJitInfo = JSJitInfo {
-    call: depthFunc as *const os::raw::c_void,
+fn depthFunc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: depthFunc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3840,7 +3840,7 @@ const depthFunc_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn depthMask<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3871,8 +3871,8 @@ unsafe extern fn depthMask<TH: TypeHolderTrait>
 }
 
 
-const depthMask_methodinfo: JSJitInfo = JSJitInfo {
-    call: depthMask as *const os::raw::c_void,
+fn depthMask_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: depthMask::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3887,7 +3887,7 @@ const depthMask_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn depthRange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3928,8 +3928,8 @@ unsafe extern fn depthRange<TH: TypeHolderTrait>
 }
 
 
-const depthRange_methodinfo: JSJitInfo = JSJitInfo {
-    call: depthRange as *const os::raw::c_void,
+fn depthRange_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: depthRange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3944,7 +3944,7 @@ const depthRange_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn detachShader<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3995,8 +3995,8 @@ unsafe extern fn detachShader<TH: TypeHolderTrait>
 }
 
 
-const detachShader_methodinfo: JSJitInfo = JSJitInfo {
-    call: detachShader as *const os::raw::c_void,
+fn detachShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: detachShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4011,7 +4011,7 @@ const detachShader_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn disable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4042,8 +4042,8 @@ unsafe extern fn disable<TH: TypeHolderTrait>
 }
 
 
-const disable_methodinfo: JSJitInfo = JSJitInfo {
-    call: disable as *const os::raw::c_void,
+fn disable_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: disable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4058,7 +4058,7 @@ const disable_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn disableVertexAttribArray<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4089,8 +4089,8 @@ unsafe extern fn disableVertexAttribArray<TH: TypeHolderTrait>
 }
 
 
-const disableVertexAttribArray_methodinfo: JSJitInfo = JSJitInfo {
-    call: disableVertexAttribArray as *const os::raw::c_void,
+fn disableVertexAttribArray_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: disableVertexAttribArray::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4105,7 +4105,7 @@ const disableVertexAttribArray_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn drawArrays<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4156,8 +4156,8 @@ unsafe extern fn drawArrays<TH: TypeHolderTrait>
 }
 
 
-const drawArrays_methodinfo: JSJitInfo = JSJitInfo {
-    call: drawArrays as *const os::raw::c_void,
+fn drawArrays_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: drawArrays::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4172,7 +4172,7 @@ const drawArrays_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn drawElements<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4233,8 +4233,8 @@ unsafe extern fn drawElements<TH: TypeHolderTrait>
 }
 
 
-const drawElements_methodinfo: JSJitInfo = JSJitInfo {
-    call: drawElements as *const os::raw::c_void,
+fn drawElements_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: drawElements::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4249,7 +4249,7 @@ const drawElements_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn enable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4280,8 +4280,8 @@ unsafe extern fn enable<TH: TypeHolderTrait>
 }
 
 
-const enable_methodinfo: JSJitInfo = JSJitInfo {
-    call: enable as *const os::raw::c_void,
+fn enable_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: enable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4296,7 +4296,7 @@ const enable_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn enableVertexAttribArray<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4327,8 +4327,8 @@ unsafe extern fn enableVertexAttribArray<TH: TypeHolderTrait>
 }
 
 
-const enableVertexAttribArray_methodinfo: JSJitInfo = JSJitInfo {
-    call: enableVertexAttribArray as *const os::raw::c_void,
+fn enableVertexAttribArray_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: enableVertexAttribArray::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4343,7 +4343,7 @@ const enableVertexAttribArray_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn finish<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4359,8 +4359,8 @@ unsafe extern fn finish<TH: TypeHolderTrait>
 }
 
 
-const finish_methodinfo: JSJitInfo = JSJitInfo {
-    call: finish as *const os::raw::c_void,
+fn finish_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: finish::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4375,7 +4375,7 @@ const finish_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn flush<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4391,8 +4391,8 @@ unsafe extern fn flush<TH: TypeHolderTrait>
 }
 
 
-const flush_methodinfo: JSJitInfo = JSJitInfo {
-    call: flush as *const os::raw::c_void,
+fn flush_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: flush::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4407,7 +4407,7 @@ const flush_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn framebufferRenderbuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4475,8 +4475,8 @@ unsafe extern fn framebufferRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-const framebufferRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: framebufferRenderbuffer as *const os::raw::c_void,
+fn framebufferRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: framebufferRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4491,7 +4491,7 @@ const framebufferRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn framebufferTexture2D<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4569,8 +4569,8 @@ unsafe extern fn framebufferTexture2D<TH: TypeHolderTrait>
 }
 
 
-const framebufferTexture2D_methodinfo: JSJitInfo = JSJitInfo {
-    call: framebufferTexture2D as *const os::raw::c_void,
+fn framebufferTexture2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: framebufferTexture2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4585,7 +4585,7 @@ const framebufferTexture2D_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn frontFace<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4616,8 +4616,8 @@ unsafe extern fn frontFace<TH: TypeHolderTrait>
 }
 
 
-const frontFace_methodinfo: JSJitInfo = JSJitInfo {
-    call: frontFace as *const os::raw::c_void,
+fn frontFace_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: frontFace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4632,7 +4632,7 @@ const frontFace_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn generateMipmap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4663,8 +4663,8 @@ unsafe extern fn generateMipmap<TH: TypeHolderTrait>
 }
 
 
-const generateMipmap_methodinfo: JSJitInfo = JSJitInfo {
-    call: generateMipmap as *const os::raw::c_void,
+fn generateMipmap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: generateMipmap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4679,7 +4679,7 @@ const generateMipmap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getActiveAttrib<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4725,8 +4725,8 @@ unsafe extern fn getActiveAttrib<TH: TypeHolderTrait>
 }
 
 
-const getActiveAttrib_methodinfo: JSJitInfo = JSJitInfo {
-    call: getActiveAttrib as *const os::raw::c_void,
+fn getActiveAttrib_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getActiveAttrib::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4741,7 +4741,7 @@ const getActiveAttrib_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getActiveUniform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4787,8 +4787,8 @@ unsafe extern fn getActiveUniform<TH: TypeHolderTrait>
 }
 
 
-const getActiveUniform_methodinfo: JSJitInfo = JSJitInfo {
-    call: getActiveUniform as *const os::raw::c_void,
+fn getActiveUniform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getActiveUniform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4803,7 +4803,7 @@ const getActiveUniform_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getAttachedShaders<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4839,8 +4839,8 @@ unsafe extern fn getAttachedShaders<TH: TypeHolderTrait>
 }
 
 
-const getAttachedShaders_methodinfo: JSJitInfo = JSJitInfo {
-    call: getAttachedShaders as *const os::raw::c_void,
+fn getAttachedShaders_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getAttachedShaders::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4855,7 +4855,7 @@ const getAttachedShaders_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getAttribLocation<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4901,8 +4901,8 @@ unsafe extern fn getAttribLocation<TH: TypeHolderTrait>
 }
 
 
-const getAttribLocation_methodinfo: JSJitInfo = JSJitInfo {
-    call: getAttribLocation as *const os::raw::c_void,
+fn getAttribLocation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getAttribLocation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4917,7 +4917,7 @@ const getAttribLocation_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getBufferParameter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -4958,8 +4958,8 @@ unsafe extern fn getBufferParameter<TH: TypeHolderTrait>
 }
 
 
-const getBufferParameter_methodinfo: JSJitInfo = JSJitInfo {
-    call: getBufferParameter as *const os::raw::c_void,
+fn getBufferParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getBufferParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4974,7 +4974,7 @@ const getBufferParameter_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getParameter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5005,8 +5005,8 @@ unsafe extern fn getParameter<TH: TypeHolderTrait>
 }
 
 
-const getParameter_methodinfo: JSJitInfo = JSJitInfo {
-    call: getParameter as *const os::raw::c_void,
+fn getParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5021,7 +5021,7 @@ const getParameter_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getError<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5037,8 +5037,8 @@ unsafe extern fn getError<TH: TypeHolderTrait>
 }
 
 
-const getError_methodinfo: JSJitInfo = JSJitInfo {
-    call: getError as *const os::raw::c_void,
+fn getError_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getError::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5053,7 +5053,7 @@ const getError_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getFramebufferAttachmentParameter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5104,8 +5104,8 @@ unsafe extern fn getFramebufferAttachmentParameter<TH: TypeHolderTrait>
 }
 
 
-const getFramebufferAttachmentParameter_methodinfo: JSJitInfo = JSJitInfo {
-    call: getFramebufferAttachmentParameter as *const os::raw::c_void,
+fn getFramebufferAttachmentParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getFramebufferAttachmentParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5120,7 +5120,7 @@ const getFramebufferAttachmentParameter_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getProgramParameter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5166,8 +5166,8 @@ unsafe extern fn getProgramParameter<TH: TypeHolderTrait>
 }
 
 
-const getProgramParameter_methodinfo: JSJitInfo = JSJitInfo {
-    call: getProgramParameter as *const os::raw::c_void,
+fn getProgramParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getProgramParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5182,7 +5182,7 @@ const getProgramParameter_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getProgramInfoLog<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5218,8 +5218,8 @@ unsafe extern fn getProgramInfoLog<TH: TypeHolderTrait>
 }
 
 
-const getProgramInfoLog_methodinfo: JSJitInfo = JSJitInfo {
-    call: getProgramInfoLog as *const os::raw::c_void,
+fn getProgramInfoLog_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getProgramInfoLog::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5234,7 +5234,7 @@ const getProgramInfoLog_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getRenderbufferParameter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5275,8 +5275,8 @@ unsafe extern fn getRenderbufferParameter<TH: TypeHolderTrait>
 }
 
 
-const getRenderbufferParameter_methodinfo: JSJitInfo = JSJitInfo {
-    call: getRenderbufferParameter as *const os::raw::c_void,
+fn getRenderbufferParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getRenderbufferParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5291,7 +5291,7 @@ const getRenderbufferParameter_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getShaderParameter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5337,8 +5337,8 @@ unsafe extern fn getShaderParameter<TH: TypeHolderTrait>
 }
 
 
-const getShaderParameter_methodinfo: JSJitInfo = JSJitInfo {
-    call: getShaderParameter as *const os::raw::c_void,
+fn getShaderParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getShaderParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5353,7 +5353,7 @@ const getShaderParameter_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getShaderPrecisionFormat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5394,8 +5394,8 @@ unsafe extern fn getShaderPrecisionFormat<TH: TypeHolderTrait>
 }
 
 
-const getShaderPrecisionFormat_methodinfo: JSJitInfo = JSJitInfo {
-    call: getShaderPrecisionFormat as *const os::raw::c_void,
+fn getShaderPrecisionFormat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getShaderPrecisionFormat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5410,7 +5410,7 @@ const getShaderPrecisionFormat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getShaderInfoLog<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5446,8 +5446,8 @@ unsafe extern fn getShaderInfoLog<TH: TypeHolderTrait>
 }
 
 
-const getShaderInfoLog_methodinfo: JSJitInfo = JSJitInfo {
-    call: getShaderInfoLog as *const os::raw::c_void,
+fn getShaderInfoLog_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getShaderInfoLog::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5462,7 +5462,7 @@ const getShaderInfoLog_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getShaderSource<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5498,8 +5498,8 @@ unsafe extern fn getShaderSource<TH: TypeHolderTrait>
 }
 
 
-const getShaderSource_methodinfo: JSJitInfo = JSJitInfo {
-    call: getShaderSource as *const os::raw::c_void,
+fn getShaderSource_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getShaderSource::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5514,7 +5514,7 @@ const getShaderSource_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getTexParameter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5555,8 +5555,8 @@ unsafe extern fn getTexParameter<TH: TypeHolderTrait>
 }
 
 
-const getTexParameter_methodinfo: JSJitInfo = JSJitInfo {
-    call: getTexParameter as *const os::raw::c_void,
+fn getTexParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getTexParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5571,7 +5571,7 @@ const getTexParameter_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getUniformLocation<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5617,8 +5617,8 @@ unsafe extern fn getUniformLocation<TH: TypeHolderTrait>
 }
 
 
-const getUniformLocation_methodinfo: JSJitInfo = JSJitInfo {
-    call: getUniformLocation as *const os::raw::c_void,
+fn getUniformLocation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getUniformLocation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5633,7 +5633,7 @@ const getUniformLocation_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getVertexAttrib<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5674,8 +5674,8 @@ unsafe extern fn getVertexAttrib<TH: TypeHolderTrait>
 }
 
 
-const getVertexAttrib_methodinfo: JSJitInfo = JSJitInfo {
-    call: getVertexAttrib as *const os::raw::c_void,
+fn getVertexAttrib_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getVertexAttrib::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5690,7 +5690,7 @@ const getVertexAttrib_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getVertexAttribOffset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5731,8 +5731,8 @@ unsafe extern fn getVertexAttribOffset<TH: TypeHolderTrait>
 }
 
 
-const getVertexAttribOffset_methodinfo: JSJitInfo = JSJitInfo {
-    call: getVertexAttribOffset as *const os::raw::c_void,
+fn getVertexAttribOffset_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getVertexAttribOffset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5747,7 +5747,7 @@ const getVertexAttribOffset_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn hint<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5788,8 +5788,8 @@ unsafe extern fn hint<TH: TypeHolderTrait>
 }
 
 
-const hint_methodinfo: JSJitInfo = JSJitInfo {
-    call: hint as *const os::raw::c_void,
+fn hint_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: hint::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5804,7 +5804,7 @@ const hint_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn isBuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5842,8 +5842,8 @@ unsafe extern fn isBuffer<TH: TypeHolderTrait>
 }
 
 
-const isBuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: isBuffer as *const os::raw::c_void,
+fn isBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: isBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5858,7 +5858,7 @@ const isBuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn isEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5889,8 +5889,8 @@ unsafe extern fn isEnabled<TH: TypeHolderTrait>
 }
 
 
-const isEnabled_methodinfo: JSJitInfo = JSJitInfo {
-    call: isEnabled as *const os::raw::c_void,
+fn isEnabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: isEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5905,7 +5905,7 @@ const isEnabled_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn isFramebuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5943,8 +5943,8 @@ unsafe extern fn isFramebuffer<TH: TypeHolderTrait>
 }
 
 
-const isFramebuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: isFramebuffer as *const os::raw::c_void,
+fn isFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: isFramebuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5959,7 +5959,7 @@ const isFramebuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn isProgram<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -5997,8 +5997,8 @@ unsafe extern fn isProgram<TH: TypeHolderTrait>
 }
 
 
-const isProgram_methodinfo: JSJitInfo = JSJitInfo {
-    call: isProgram as *const os::raw::c_void,
+fn isProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: isProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6013,7 +6013,7 @@ const isProgram_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn isRenderbuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6051,8 +6051,8 @@ unsafe extern fn isRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-const isRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: isRenderbuffer as *const os::raw::c_void,
+fn isRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: isRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6067,7 +6067,7 @@ const isRenderbuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn isShader<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6105,8 +6105,8 @@ unsafe extern fn isShader<TH: TypeHolderTrait>
 }
 
 
-const isShader_methodinfo: JSJitInfo = JSJitInfo {
-    call: isShader as *const os::raw::c_void,
+fn isShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: isShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6121,7 +6121,7 @@ const isShader_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn isTexture<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6159,8 +6159,8 @@ unsafe extern fn isTexture<TH: TypeHolderTrait>
 }
 
 
-const isTexture_methodinfo: JSJitInfo = JSJitInfo {
-    call: isTexture as *const os::raw::c_void,
+fn isTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: isTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6175,7 +6175,7 @@ const isTexture_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn lineWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6206,8 +6206,8 @@ unsafe extern fn lineWidth<TH: TypeHolderTrait>
 }
 
 
-const lineWidth_methodinfo: JSJitInfo = JSJitInfo {
-    call: lineWidth as *const os::raw::c_void,
+fn lineWidth_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: lineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6222,7 +6222,7 @@ const lineWidth_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn linkProgram<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6260,8 +6260,8 @@ unsafe extern fn linkProgram<TH: TypeHolderTrait>
 }
 
 
-const linkProgram_methodinfo: JSJitInfo = JSJitInfo {
-    call: linkProgram as *const os::raw::c_void,
+fn linkProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: linkProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6276,7 +6276,7 @@ const linkProgram_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn pixelStorei<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6317,8 +6317,8 @@ unsafe extern fn pixelStorei<TH: TypeHolderTrait>
 }
 
 
-const pixelStorei_methodinfo: JSJitInfo = JSJitInfo {
-    call: pixelStorei as *const os::raw::c_void,
+fn pixelStorei_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: pixelStorei::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6333,7 +6333,7 @@ const pixelStorei_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn polygonOffset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6374,8 +6374,8 @@ unsafe extern fn polygonOffset<TH: TypeHolderTrait>
 }
 
 
-const polygonOffset_methodinfo: JSJitInfo = JSJitInfo {
-    call: polygonOffset as *const os::raw::c_void,
+fn polygonOffset_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: polygonOffset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6390,7 +6390,7 @@ const polygonOffset_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn renderbufferStorage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6451,8 +6451,8 @@ unsafe extern fn renderbufferStorage<TH: TypeHolderTrait>
 }
 
 
-const renderbufferStorage_methodinfo: JSJitInfo = JSJitInfo {
-    call: renderbufferStorage as *const os::raw::c_void,
+fn renderbufferStorage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: renderbufferStorage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6467,7 +6467,7 @@ const renderbufferStorage_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn sampleCoverage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6508,8 +6508,8 @@ unsafe extern fn sampleCoverage<TH: TypeHolderTrait>
 }
 
 
-const sampleCoverage_methodinfo: JSJitInfo = JSJitInfo {
-    call: sampleCoverage as *const os::raw::c_void,
+fn sampleCoverage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: sampleCoverage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6524,7 +6524,7 @@ const sampleCoverage_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn scissor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6585,8 +6585,8 @@ unsafe extern fn scissor<TH: TypeHolderTrait>
 }
 
 
-const scissor_methodinfo: JSJitInfo = JSJitInfo {
-    call: scissor as *const os::raw::c_void,
+fn scissor_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: scissor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6601,7 +6601,7 @@ const scissor_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn shaderSource<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6647,8 +6647,8 @@ unsafe extern fn shaderSource<TH: TypeHolderTrait>
 }
 
 
-const shaderSource_methodinfo: JSJitInfo = JSJitInfo {
-    call: shaderSource as *const os::raw::c_void,
+fn shaderSource_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: shaderSource::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6663,7 +6663,7 @@ const shaderSource_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn stencilFunc<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6714,8 +6714,8 @@ unsafe extern fn stencilFunc<TH: TypeHolderTrait>
 }
 
 
-const stencilFunc_methodinfo: JSJitInfo = JSJitInfo {
-    call: stencilFunc as *const os::raw::c_void,
+fn stencilFunc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: stencilFunc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6730,7 +6730,7 @@ const stencilFunc_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn stencilFuncSeparate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6791,8 +6791,8 @@ unsafe extern fn stencilFuncSeparate<TH: TypeHolderTrait>
 }
 
 
-const stencilFuncSeparate_methodinfo: JSJitInfo = JSJitInfo {
-    call: stencilFuncSeparate as *const os::raw::c_void,
+fn stencilFuncSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: stencilFuncSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6807,7 +6807,7 @@ const stencilFuncSeparate_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn stencilMask<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6838,8 +6838,8 @@ unsafe extern fn stencilMask<TH: TypeHolderTrait>
 }
 
 
-const stencilMask_methodinfo: JSJitInfo = JSJitInfo {
-    call: stencilMask as *const os::raw::c_void,
+fn stencilMask_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: stencilMask::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6854,7 +6854,7 @@ const stencilMask_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn stencilMaskSeparate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6895,8 +6895,8 @@ unsafe extern fn stencilMaskSeparate<TH: TypeHolderTrait>
 }
 
 
-const stencilMaskSeparate_methodinfo: JSJitInfo = JSJitInfo {
-    call: stencilMaskSeparate as *const os::raw::c_void,
+fn stencilMaskSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: stencilMaskSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6911,7 +6911,7 @@ const stencilMaskSeparate_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn stencilOp<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6962,8 +6962,8 @@ unsafe extern fn stencilOp<TH: TypeHolderTrait>
 }
 
 
-const stencilOp_methodinfo: JSJitInfo = JSJitInfo {
-    call: stencilOp as *const os::raw::c_void,
+fn stencilOp_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: stencilOp::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6978,7 +6978,7 @@ const stencilOp_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn stencilOpSeparate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7039,8 +7039,8 @@ unsafe extern fn stencilOpSeparate<TH: TypeHolderTrait>
 }
 
 
-const stencilOpSeparate_methodinfo: JSJitInfo = JSJitInfo {
-    call: stencilOpSeparate as *const os::raw::c_void,
+fn stencilOpSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: stencilOpSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7055,7 +7055,7 @@ const stencilOpSeparate_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn texImageDOM<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7168,8 +7168,8 @@ unsafe extern fn texImageDOM<TH: TypeHolderTrait>
 }
 
 
-const texImageDOM_methodinfo: JSJitInfo = JSJitInfo {
-    call: texImageDOM as *const os::raw::c_void,
+fn texImageDOM_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: texImageDOM::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7184,7 +7184,7 @@ const texImageDOM_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn texParameterf<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7235,8 +7235,8 @@ unsafe extern fn texParameterf<TH: TypeHolderTrait>
 }
 
 
-const texParameterf_methodinfo: JSJitInfo = JSJitInfo {
-    call: texParameterf as *const os::raw::c_void,
+fn texParameterf_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: texParameterf::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7251,7 +7251,7 @@ const texParameterf_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn texParameteri<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7302,8 +7302,8 @@ unsafe extern fn texParameteri<TH: TypeHolderTrait>
 }
 
 
-const texParameteri_methodinfo: JSJitInfo = JSJitInfo {
-    call: texParameteri as *const os::raw::c_void,
+fn texParameteri_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: texParameteri::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7318,7 +7318,7 @@ const texParameteri_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform1f<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7366,8 +7366,8 @@ unsafe extern fn uniform1f<TH: TypeHolderTrait>
 }
 
 
-const uniform1f_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform1f as *const os::raw::c_void,
+fn uniform1f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform1f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7382,7 +7382,7 @@ const uniform1f_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform2f<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7440,8 +7440,8 @@ unsafe extern fn uniform2f<TH: TypeHolderTrait>
 }
 
 
-const uniform2f_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform2f as *const os::raw::c_void,
+fn uniform2f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform2f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7456,7 +7456,7 @@ const uniform2f_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform3f<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7524,8 +7524,8 @@ unsafe extern fn uniform3f<TH: TypeHolderTrait>
 }
 
 
-const uniform3f_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform3f as *const os::raw::c_void,
+fn uniform3f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform3f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7540,7 +7540,7 @@ const uniform3f_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform4f<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7618,8 +7618,8 @@ unsafe extern fn uniform4f<TH: TypeHolderTrait>
 }
 
 
-const uniform4f_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform4f as *const os::raw::c_void,
+fn uniform4f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform4f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7634,7 +7634,7 @@ const uniform4f_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform1i<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7682,8 +7682,8 @@ unsafe extern fn uniform1i<TH: TypeHolderTrait>
 }
 
 
-const uniform1i_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform1i as *const os::raw::c_void,
+fn uniform1i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform1i::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7698,7 +7698,7 @@ const uniform1i_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform2i<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7756,8 +7756,8 @@ unsafe extern fn uniform2i<TH: TypeHolderTrait>
 }
 
 
-const uniform2i_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform2i as *const os::raw::c_void,
+fn uniform2i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform2i::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7772,7 +7772,7 @@ const uniform2i_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform3i<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7840,8 +7840,8 @@ unsafe extern fn uniform3i<TH: TypeHolderTrait>
 }
 
 
-const uniform3i_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform3i as *const os::raw::c_void,
+fn uniform3i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform3i::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7856,7 +7856,7 @@ const uniform3i_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform4i<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7934,8 +7934,8 @@ unsafe extern fn uniform4i<TH: TypeHolderTrait>
 }
 
 
-const uniform4i_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform4i as *const os::raw::c_void,
+fn uniform4i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform4i::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7950,7 +7950,7 @@ const uniform4i_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform1fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7998,8 +7998,8 @@ unsafe extern fn uniform1fv<TH: TypeHolderTrait>
 }
 
 
-const uniform1fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform1fv as *const os::raw::c_void,
+fn uniform1fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform1fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8014,7 +8014,7 @@ const uniform1fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform2fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8062,8 +8062,8 @@ unsafe extern fn uniform2fv<TH: TypeHolderTrait>
 }
 
 
-const uniform2fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform2fv as *const os::raw::c_void,
+fn uniform2fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform2fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8078,7 +8078,7 @@ const uniform2fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform3fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8126,8 +8126,8 @@ unsafe extern fn uniform3fv<TH: TypeHolderTrait>
 }
 
 
-const uniform3fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform3fv as *const os::raw::c_void,
+fn uniform3fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform3fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8142,7 +8142,7 @@ const uniform3fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform4fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8190,8 +8190,8 @@ unsafe extern fn uniform4fv<TH: TypeHolderTrait>
 }
 
 
-const uniform4fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform4fv as *const os::raw::c_void,
+fn uniform4fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform4fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8206,7 +8206,7 @@ const uniform4fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform1iv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8254,8 +8254,8 @@ unsafe extern fn uniform1iv<TH: TypeHolderTrait>
 }
 
 
-const uniform1iv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform1iv as *const os::raw::c_void,
+fn uniform1iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform1iv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8270,7 +8270,7 @@ const uniform1iv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform2iv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8318,8 +8318,8 @@ unsafe extern fn uniform2iv<TH: TypeHolderTrait>
 }
 
 
-const uniform2iv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform2iv as *const os::raw::c_void,
+fn uniform2iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform2iv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8334,7 +8334,7 @@ const uniform2iv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform3iv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8382,8 +8382,8 @@ unsafe extern fn uniform3iv<TH: TypeHolderTrait>
 }
 
 
-const uniform3iv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform3iv as *const os::raw::c_void,
+fn uniform3iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform3iv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8398,7 +8398,7 @@ const uniform3iv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniform4iv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8446,8 +8446,8 @@ unsafe extern fn uniform4iv<TH: TypeHolderTrait>
 }
 
 
-const uniform4iv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniform4iv as *const os::raw::c_void,
+fn uniform4iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniform4iv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8462,7 +8462,7 @@ const uniform4iv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniformMatrix2fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8520,8 +8520,8 @@ unsafe extern fn uniformMatrix2fv<TH: TypeHolderTrait>
 }
 
 
-const uniformMatrix2fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniformMatrix2fv as *const os::raw::c_void,
+fn uniformMatrix2fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniformMatrix2fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8536,7 +8536,7 @@ const uniformMatrix2fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniformMatrix3fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8594,8 +8594,8 @@ unsafe extern fn uniformMatrix3fv<TH: TypeHolderTrait>
 }
 
 
-const uniformMatrix3fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniformMatrix3fv as *const os::raw::c_void,
+fn uniformMatrix3fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniformMatrix3fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8610,7 +8610,7 @@ const uniformMatrix3fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn uniformMatrix4fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8668,8 +8668,8 @@ unsafe extern fn uniformMatrix4fv<TH: TypeHolderTrait>
 }
 
 
-const uniformMatrix4fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: uniformMatrix4fv as *const os::raw::c_void,
+fn uniformMatrix4fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: uniformMatrix4fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8684,7 +8684,7 @@ const uniformMatrix4fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn useProgram<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8722,8 +8722,8 @@ unsafe extern fn useProgram<TH: TypeHolderTrait>
 }
 
 
-const useProgram_methodinfo: JSJitInfo = JSJitInfo {
-    call: useProgram as *const os::raw::c_void,
+fn useProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: useProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8738,7 +8738,7 @@ const useProgram_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn validateProgram<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8774,8 +8774,8 @@ unsafe extern fn validateProgram<TH: TypeHolderTrait>
 }
 
 
-const validateProgram_methodinfo: JSJitInfo = JSJitInfo {
-    call: validateProgram as *const os::raw::c_void,
+fn validateProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: validateProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8790,7 +8790,7 @@ const validateProgram_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn vertexAttrib1f<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8831,8 +8831,8 @@ unsafe extern fn vertexAttrib1f<TH: TypeHolderTrait>
 }
 
 
-const vertexAttrib1f_methodinfo: JSJitInfo = JSJitInfo {
-    call: vertexAttrib1f as *const os::raw::c_void,
+fn vertexAttrib1f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: vertexAttrib1f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8847,7 +8847,7 @@ const vertexAttrib1f_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn vertexAttrib2f<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8898,8 +8898,8 @@ unsafe extern fn vertexAttrib2f<TH: TypeHolderTrait>
 }
 
 
-const vertexAttrib2f_methodinfo: JSJitInfo = JSJitInfo {
-    call: vertexAttrib2f as *const os::raw::c_void,
+fn vertexAttrib2f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: vertexAttrib2f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8914,7 +8914,7 @@ const vertexAttrib2f_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn vertexAttrib3f<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8975,8 +8975,8 @@ unsafe extern fn vertexAttrib3f<TH: TypeHolderTrait>
 }
 
 
-const vertexAttrib3f_methodinfo: JSJitInfo = JSJitInfo {
-    call: vertexAttrib3f as *const os::raw::c_void,
+fn vertexAttrib3f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: vertexAttrib3f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8991,7 +8991,7 @@ const vertexAttrib3f_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn vertexAttrib4f<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9062,8 +9062,8 @@ unsafe extern fn vertexAttrib4f<TH: TypeHolderTrait>
 }
 
 
-const vertexAttrib4f_methodinfo: JSJitInfo = JSJitInfo {
-    call: vertexAttrib4f as *const os::raw::c_void,
+fn vertexAttrib4f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: vertexAttrib4f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9078,7 +9078,7 @@ const vertexAttrib4f_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn vertexAttrib1fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9119,8 +9119,8 @@ unsafe extern fn vertexAttrib1fv<TH: TypeHolderTrait>
 }
 
 
-const vertexAttrib1fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: vertexAttrib1fv as *const os::raw::c_void,
+fn vertexAttrib1fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: vertexAttrib1fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9135,7 +9135,7 @@ const vertexAttrib1fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn vertexAttrib2fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9176,8 +9176,8 @@ unsafe extern fn vertexAttrib2fv<TH: TypeHolderTrait>
 }
 
 
-const vertexAttrib2fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: vertexAttrib2fv as *const os::raw::c_void,
+fn vertexAttrib2fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: vertexAttrib2fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9192,7 +9192,7 @@ const vertexAttrib2fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn vertexAttrib3fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9233,8 +9233,8 @@ unsafe extern fn vertexAttrib3fv<TH: TypeHolderTrait>
 }
 
 
-const vertexAttrib3fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: vertexAttrib3fv as *const os::raw::c_void,
+fn vertexAttrib3fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: vertexAttrib3fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9249,7 +9249,7 @@ const vertexAttrib3fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn vertexAttrib4fv<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9290,8 +9290,8 @@ unsafe extern fn vertexAttrib4fv<TH: TypeHolderTrait>
 }
 
 
-const vertexAttrib4fv_methodinfo: JSJitInfo = JSJitInfo {
-    call: vertexAttrib4fv as *const os::raw::c_void,
+fn vertexAttrib4fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: vertexAttrib4fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9306,7 +9306,7 @@ const vertexAttrib4fv_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn vertexAttribPointer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9387,8 +9387,8 @@ unsafe extern fn vertexAttribPointer<TH: TypeHolderTrait>
 }
 
 
-const vertexAttribPointer_methodinfo: JSJitInfo = JSJitInfo {
-    call: vertexAttribPointer as *const os::raw::c_void,
+fn vertexAttribPointer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: vertexAttribPointer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9403,7 +9403,7 @@ const vertexAttribPointer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn viewport<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGL2RenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9464,8 +9464,8 @@ unsafe extern fn viewport<TH: TypeHolderTrait>
 }
 
 
-const viewport_methodinfo: JSJitInfo = JSJitInfo {
-    call: viewport as *const os::raw::c_void,
+fn viewport_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: viewport::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGL2RenderingContext as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9480,7 +9480,7 @@ const viewport_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -10286,711 +10286,711 @@ pub trait WebGL2RenderingContextMethods<TH: TypeHolderTrait> {
     fn VertexAttribPointer(&self, indx: u32, size: i32, type_: u32, normalized: bool, stride: i32, offset: i64) -> ();
     fn Viewport(&self, x: i32, y: i32, width: i32, height: i32) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"bufferData\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &bufferData_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &bufferData_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"bufferSubData\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &bufferSubData_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &bufferSubData_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"texImage2D\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &texImage2D_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &texImage2D_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 6,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"texSubImage2D\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &texSubImage2D_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &texSubImage2D_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 7,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"readPixels\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &readPixels_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &readPixels_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 7,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getContextAttributes\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getContextAttributes_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getContextAttributes_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getSupportedExtensions\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getSupportedExtensions_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getSupportedExtensions_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getExtension\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getExtension_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getExtension_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"activeTexture\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &activeTexture_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &activeTexture_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"attachShader\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &attachShader_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &attachShader_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"bindAttribLocation\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &bindAttribLocation_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &bindAttribLocation_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"bindBuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &bindBuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &bindBuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"bindFramebuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &bindFramebuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &bindFramebuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"bindRenderbuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &bindRenderbuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &bindRenderbuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"bindTexture\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &bindTexture_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &bindTexture_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"blendColor\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &blendColor_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &blendColor_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"blendEquation\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &blendEquation_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &blendEquation_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"blendEquationSeparate\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &blendEquationSeparate_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &blendEquationSeparate_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"blendFunc\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &blendFunc_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &blendFunc_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"blendFuncSeparate\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &blendFuncSeparate_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &blendFuncSeparate_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"checkFramebufferStatus\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &checkFramebufferStatus_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &checkFramebufferStatus_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"clear\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &clear_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &clear_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"clearColor\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &clearColor_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &clearColor_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"clearDepth\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &clearDepth_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &clearDepth_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"clearStencil\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &clearStencil_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &clearStencil_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"colorMask\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &colorMask_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &colorMask_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"compileShader\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &compileShader_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &compileShader_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"compressedTexImage2D\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &compressedTexImage2D_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &compressedTexImage2D_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 7,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"compressedTexSubImage2D\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &compressedTexSubImage2D_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &compressedTexSubImage2D_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 8,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"copyTexImage2D\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &copyTexImage2D_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &copyTexImage2D_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 8,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"copyTexSubImage2D\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &copyTexSubImage2D_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &copyTexSubImage2D_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 8,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"createBuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createBuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createBuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"createFramebuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createFramebuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createFramebuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"createProgram\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createProgram_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createProgram_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"createRenderbuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createRenderbuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createRenderbuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"createShader\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createShader_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createShader_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"createTexture\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createTexture_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createTexture_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"cullFace\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &cullFace_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &cullFace_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"deleteBuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &deleteBuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &deleteBuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"deleteFramebuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &deleteFramebuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &deleteFramebuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"deleteProgram\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &deleteProgram_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &deleteProgram_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"deleteRenderbuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &deleteRenderbuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &deleteRenderbuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"deleteShader\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &deleteShader_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &deleteShader_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"deleteTexture\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &deleteTexture_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &deleteTexture_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"depthFunc\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &depthFunc_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &depthFunc_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"depthMask\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &depthMask_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &depthMask_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"depthRange\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &depthRange_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &depthRange_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"detachShader\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &detachShader_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &detachShader_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"disable\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &disable_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &disable_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"disableVertexAttribArray\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &disableVertexAttribArray_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &disableVertexAttribArray_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"drawArrays\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &drawArrays_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &drawArrays_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"drawElements\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &drawElements_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &drawElements_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"enable\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &enable_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &enable_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"enableVertexAttribArray\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &enableVertexAttribArray_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &enableVertexAttribArray_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"finish\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &finish_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &finish_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"flush\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &flush_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &flush_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"framebufferRenderbuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &framebufferRenderbuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &framebufferRenderbuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"framebufferTexture2D\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &framebufferTexture2D_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &framebufferTexture2D_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 5,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"frontFace\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &frontFace_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &frontFace_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"generateMipmap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &generateMipmap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &generateMipmap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getActiveAttrib\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getActiveAttrib_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getActiveAttrib_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getActiveUniform\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getActiveUniform_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getActiveUniform_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getAttachedShaders\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getAttachedShaders_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getAttachedShaders_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getAttribLocation\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getAttribLocation_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getAttribLocation_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getBufferParameter\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getBufferParameter_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getBufferParameter_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getParameter\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getParameter_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getParameter_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getError\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getError_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getError_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getFramebufferAttachmentParameter\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getFramebufferAttachmentParameter_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getFramebufferAttachmentParameter_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getProgramParameter\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getProgramParameter_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getProgramParameter_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getProgramInfoLog\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getProgramInfoLog_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getProgramInfoLog_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getRenderbufferParameter\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getRenderbufferParameter_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getRenderbufferParameter_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getShaderParameter\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getShaderParameter_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getShaderParameter_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getShaderPrecisionFormat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getShaderPrecisionFormat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getShaderPrecisionFormat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getShaderInfoLog\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getShaderInfoLog_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getShaderInfoLog_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getShaderSource\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getShaderSource_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getShaderSource_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getTexParameter\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getTexParameter_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getTexParameter_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getUniformLocation\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getUniformLocation_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getUniformLocation_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getVertexAttrib\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getVertexAttrib_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getVertexAttrib_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getVertexAttribOffset\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getVertexAttribOffset_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getVertexAttribOffset_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"hint\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &hint_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &hint_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"isBuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &isBuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &isBuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"isEnabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &isEnabled_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &isEnabled_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"isFramebuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &isFramebuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &isFramebuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"isProgram\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &isProgram_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &isProgram_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"isRenderbuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &isRenderbuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &isRenderbuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"isShader\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &isShader_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &isShader_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"isTexture\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &isTexture_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &isTexture_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"lineWidth\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &lineWidth_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &lineWidth_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"linkProgram\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &linkProgram_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &linkProgram_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"pixelStorei\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &pixelStorei_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &pixelStorei_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"polygonOffset\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &polygonOffset_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &polygonOffset_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"renderbufferStorage\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &renderbufferStorage_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &renderbufferStorage_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"sampleCoverage\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &sampleCoverage_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &sampleCoverage_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"scissor\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &scissor_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &scissor_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"shaderSource\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &shaderSource_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &shaderSource_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"stencilFunc\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &stencilFunc_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &stencilFunc_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"stencilFuncSeparate\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &stencilFuncSeparate_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &stencilFuncSeparate_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"stencilMask\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &stencilMask_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &stencilMask_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"stencilMaskSeparate\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &stencilMaskSeparate_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &stencilMaskSeparate_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"stencilOp\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &stencilOp_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &stencilOp_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"stencilOpSeparate\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &stencilOpSeparate_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &stencilOpSeparate_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -11006,7 +11006,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"texImageDOM\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &texImageDOM_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &texImageDOM_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 8,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -11022,231 +11022,231 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"texParameterf\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &texParameterf_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &texParameterf_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"texParameteri\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &texParameteri_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &texParameteri_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform1f\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform1f_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform1f_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform2f\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform2f_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform2f_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform3f\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform3f_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform3f_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform4f\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform4f_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform4f_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 5,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform1i\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform1i_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform1i_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform2i\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform2i_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform2i_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform3i\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform3i_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform3i_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform4i\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform4i_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform4i_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 5,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform1fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform1fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform1fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform2fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform2fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform2fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform3fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform3fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform3fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform4fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform4fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform4fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform1iv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform1iv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform1iv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform2iv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform2iv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform2iv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform3iv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform3iv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform3iv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniform4iv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniform4iv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniform4iv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniformMatrix2fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniformMatrix2fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniformMatrix2fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniformMatrix3fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniformMatrix3fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniformMatrix3fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"uniformMatrix4fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &uniformMatrix4fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &uniformMatrix4fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"useProgram\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &useProgram_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &useProgram_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"validateProgram\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &validateProgram_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &validateProgram_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"vertexAttrib1f\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib1f_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib1f_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"vertexAttrib2f\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib2f_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib2f_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"vertexAttrib3f\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib3f_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib3f_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"vertexAttrib4f\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib4f_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib4f_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 5,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"vertexAttrib1fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib1fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib1fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"vertexAttrib2fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib2fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib2fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"vertexAttrib3fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib3fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib3fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"vertexAttrib4fv\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib4fv_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttrib4fv_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"vertexAttribPointer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttribPointer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &vertexAttribPointer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 6,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"viewport\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &viewport_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &viewport_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -11259,30 +11259,30 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0]),
-    Guard::new(Condition::Pref("dom.webgl.dom_to_texture.enabled"), sMethods_specs[1]),
-    Guard::new(Condition::Satisfied, sMethods_specs[2])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("dom.webgl.dom_to_texture.enabled"), sMethods_specs::<TH>()[1]),
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[2])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"canvas\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &canvas_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &canvas_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"drawingBufferWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &drawingBufferWidth_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &drawingBufferWidth_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"drawingBufferHeight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &drawingBufferHeight_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &drawingBufferHeight_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -11292,10 +11292,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
 &[
     ConstantSpec { name: b"READ_BUFFER\0", value: ConstantVal::UintVal(3074) },
@@ -11928,8 +11928,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       sConstants,
                                       &[],
                                       prototype.handle_mut().into());

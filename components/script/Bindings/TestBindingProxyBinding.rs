@@ -519,8 +519,8 @@ unsafe extern fn get_length<TH: TypeHolderTrait>
 }
 
 
-const length_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_length as *const os::raw::c_void,
+fn length_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_length::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBindingProxy as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -535,7 +535,7 @@ const length_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getNamedItem<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBindingProxy<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -566,8 +566,8 @@ unsafe extern fn getNamedItem<TH: TypeHolderTrait>
 }
 
 
-const getNamedItem_methodinfo: JSJitInfo = JSJitInfo {
-    call: getNamedItem as *const os::raw::c_void,
+fn getNamedItem_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getNamedItem::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBindingProxy as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -582,7 +582,7 @@ const getNamedItem_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn setNamedItem<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBindingProxy<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -623,8 +623,8 @@ unsafe extern fn setNamedItem<TH: TypeHolderTrait>
 }
 
 
-const setNamedItem_methodinfo: JSJitInfo = JSJitInfo {
-    call: setNamedItem as *const os::raw::c_void,
+fn setNamedItem_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: setNamedItem::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBindingProxy as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -639,7 +639,7 @@ const setNamedItem_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getItem<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBindingProxy<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -670,8 +670,8 @@ unsafe extern fn getItem<TH: TypeHolderTrait>
 }
 
 
-const getItem_methodinfo: JSJitInfo = JSJitInfo {
-    call: getItem as *const os::raw::c_void,
+fn getItem_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getItem::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBindingProxy as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -686,7 +686,7 @@ const getItem_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn setItem<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBindingProxy<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -727,8 +727,8 @@ unsafe extern fn setItem<TH: TypeHolderTrait>
 }
 
 
-const setItem_methodinfo: JSJitInfo = JSJitInfo {
-    call: setItem as *const os::raw::c_void,
+fn setItem_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: setItem::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBindingProxy as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -743,7 +743,7 @@ const setItem_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn removeItem<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBindingProxy<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -774,8 +774,8 @@ unsafe extern fn removeItem<TH: TypeHolderTrait>
 }
 
 
-const removeItem_methodinfo: JSJitInfo = JSJitInfo {
-    call: removeItem as *const os::raw::c_void,
+fn removeItem_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: removeItem::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBindingProxy as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -790,7 +790,7 @@ const removeItem_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn __stringifier<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBindingProxy<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -806,8 +806,8 @@ unsafe extern fn __stringifier<TH: TypeHolderTrait>
 }
 
 
-const __stringifier_methodinfo: JSJitInfo = JSJitInfo {
-    call: __stringifier as *const os::raw::c_void,
+fn __stringifier_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: __stringifier::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBindingProxy as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -822,7 +822,7 @@ const __stringifier_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1179,7 +1179,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for TestBindingProxy<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class as *const _
+        class as *const _ == &Class::<TH>() as *const _
     }
 }
 
@@ -1204,39 +1204,39 @@ pub trait TestBindingProxyMethods {
     fn NamedDeleter(&self, name: DOMString) -> ();
     fn IndexedSetter(&self, index: u32, value: DOMString) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getNamedItem\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getNamedItem_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getNamedItem_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"setNamedItem\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &setNamedItem_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &setNamedItem_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getItem\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getItem_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getItem_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"setItem\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &setItem_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &setItem_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"removeItem\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &removeItem_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &removeItem_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1250,7 +1250,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
     },
     JSFunctionSpec {
         name: b"toString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &__stringifier_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &__stringifier_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1263,16 +1263,16 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"length\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &length_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &length_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1282,10 +1282,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1351,8 +1351,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

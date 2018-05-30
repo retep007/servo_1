@@ -517,8 +517,8 @@ unsafe extern fn get_name<TH: TypeHolderTrait>
 }
 
 
-const name_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_name as *const os::raw::c_void,
+fn name_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_name::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceEntry as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const name_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_entryType<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceEntry<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_entryType<TH: TypeHolderTrait>
 }
 
 
-const entryType_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_entryType as *const os::raw::c_void,
+fn entryType_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_entryType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceEntry as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const entryType_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_startTime<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceEntry<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_startTime<TH: TypeHolderTrait>
 }
 
 
-const startTime_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_startTime as *const os::raw::c_void,
+fn startTime_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_startTime::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceEntry as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const startTime_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_duration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceEntry<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -607,8 +607,8 @@ unsafe extern fn get_duration<TH: TypeHolderTrait>
 }
 
 
-const duration_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_duration as *const os::raw::c_void,
+fn duration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_duration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceEntry as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -623,7 +623,7 @@ const duration_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -730,30 +730,30 @@ pub trait PerformanceEntryMethods {
     fn StartTime(&self) -> Finite<f64>;
     fn Duration(&self) -> Finite<f64>;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"name\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &name_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &name_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"entryType\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &entryType_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &entryType_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"startTime\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &startTime_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &startTime_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"duration\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &duration_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &duration_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -763,10 +763,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -851,7 +851,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

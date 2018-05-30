@@ -522,8 +522,8 @@ unsafe extern fn get_form<TH: TypeHolderTrait>
 }
 
 
-const form_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_form as *const os::raw::c_void,
+fn form_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_form::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLOutputElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -538,7 +538,7 @@ const form_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_validity<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLOutputElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -552,8 +552,8 @@ unsafe extern fn get_validity<TH: TypeHolderTrait>
 }
 
 
-const validity_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_validity as *const os::raw::c_void,
+fn validity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_validity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLOutputElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -568,7 +568,7 @@ const validity_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_labels<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLOutputElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -582,8 +582,8 @@ unsafe extern fn get_labels<TH: TypeHolderTrait>
 }
 
 
-const labels_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_labels as *const os::raw::c_void,
+fn labels_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_labels::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLOutputElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -598,7 +598,7 @@ const labels_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -704,24 +704,24 @@ pub trait HTMLOutputElementMethods<TH: TypeHolderTrait> {
     fn Validity(&self) -> DomRoot<ValidityState<TH>>;
     fn Labels(&self) -> DomRoot<NodeList<TH>>;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"form\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &form_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &form_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"validity\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &validity_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &validity_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"labels\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &labels_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &labels_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -731,10 +731,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -896,7 +896,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

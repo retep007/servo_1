@@ -557,8 +557,8 @@ unsafe extern fn registerPaint<TH: TypeHolderTrait>
 }
 
 
-const registerPaint_methodinfo: JSJitInfo = JSJitInfo {
-    call: registerPaint as *const os::raw::c_void,
+fn registerPaint_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: registerPaint::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintWorkletGlobalScope as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -573,7 +573,7 @@ const registerPaint_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn sleep<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintWorkletGlobalScope<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -604,8 +604,8 @@ unsafe extern fn sleep<TH: TypeHolderTrait>
 }
 
 
-const sleep_methodinfo: JSJitInfo = JSJitInfo {
-    call: sleep as *const os::raw::c_void,
+fn sleep_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: sleep::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintWorkletGlobalScope as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -620,7 +620,7 @@ const sleep_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -732,11 +732,11 @@ pub trait PaintWorkletGlobalScopeMethods<TH: TypeHolderTrait> {
     fn RegisterPaint(&self, name: DOMString, paintCtor: Rc<VoidFunction<TH>>) -> Fallible<(), TH>;
     fn Sleep(&self, ms: u64) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"registerPaint\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &registerPaint_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &registerPaint_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -752,7 +752,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"sleep\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &sleep_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &sleep_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -765,11 +765,11 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0]),
-    Guard::new(Condition::Pref("dom.worklet.blockingsleep.enabled"), sMethods_specs[1])
-];
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("dom.worklet.blockingsleep.enabled"), sMethods_specs::<TH>()[1])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {

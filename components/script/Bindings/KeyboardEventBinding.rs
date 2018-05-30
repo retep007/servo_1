@@ -693,8 +693,8 @@ unsafe extern fn get_key<TH: TypeHolderTrait>
 }
 
 
-const key_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_key as *const os::raw::c_void,
+fn key_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_key::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -709,7 +709,7 @@ const key_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_code<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -723,8 +723,8 @@ unsafe extern fn get_code<TH: TypeHolderTrait>
 }
 
 
-const code_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_code as *const os::raw::c_void,
+fn code_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_code::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -739,7 +739,7 @@ const code_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_location<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -753,8 +753,8 @@ unsafe extern fn get_location<TH: TypeHolderTrait>
 }
 
 
-const location_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_location as *const os::raw::c_void,
+fn location_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_location::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -769,7 +769,7 @@ const location_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ctrlKey<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -783,8 +783,8 @@ unsafe extern fn get_ctrlKey<TH: TypeHolderTrait>
 }
 
 
-const ctrlKey_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ctrlKey as *const os::raw::c_void,
+fn ctrlKey_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ctrlKey::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -799,7 +799,7 @@ const ctrlKey_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_shiftKey<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -813,8 +813,8 @@ unsafe extern fn get_shiftKey<TH: TypeHolderTrait>
 }
 
 
-const shiftKey_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_shiftKey as *const os::raw::c_void,
+fn shiftKey_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_shiftKey::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -829,7 +829,7 @@ const shiftKey_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_altKey<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -843,8 +843,8 @@ unsafe extern fn get_altKey<TH: TypeHolderTrait>
 }
 
 
-const altKey_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_altKey as *const os::raw::c_void,
+fn altKey_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_altKey::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -859,7 +859,7 @@ const altKey_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_metaKey<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -873,8 +873,8 @@ unsafe extern fn get_metaKey<TH: TypeHolderTrait>
 }
 
 
-const metaKey_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_metaKey as *const os::raw::c_void,
+fn metaKey_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_metaKey::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -889,7 +889,7 @@ const metaKey_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_repeat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -903,8 +903,8 @@ unsafe extern fn get_repeat<TH: TypeHolderTrait>
 }
 
 
-const repeat_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_repeat as *const os::raw::c_void,
+fn repeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_repeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -919,7 +919,7 @@ const repeat_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_isComposing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -933,8 +933,8 @@ unsafe extern fn get_isComposing<TH: TypeHolderTrait>
 }
 
 
-const isComposing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_isComposing as *const os::raw::c_void,
+fn isComposing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_isComposing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -949,7 +949,7 @@ const isComposing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getModifierState<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -980,8 +980,8 @@ unsafe extern fn getModifierState<TH: TypeHolderTrait>
 }
 
 
-const getModifierState_methodinfo: JSJitInfo = JSJitInfo {
-    call: getModifierState as *const os::raw::c_void,
+fn getModifierState_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getModifierState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -996,7 +996,7 @@ const getModifierState_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn initKeyboardEvent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1114,8 +1114,8 @@ unsafe extern fn initKeyboardEvent<TH: TypeHolderTrait>
 }
 
 
-const initKeyboardEvent_methodinfo: JSJitInfo = JSJitInfo {
-    call: initKeyboardEvent as *const os::raw::c_void,
+fn initKeyboardEvent_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: initKeyboardEvent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1130,7 +1130,7 @@ const initKeyboardEvent_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_charCode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1144,8 +1144,8 @@ unsafe extern fn get_charCode<TH: TypeHolderTrait>
 }
 
 
-const charCode_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_charCode as *const os::raw::c_void,
+fn charCode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_charCode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1160,7 +1160,7 @@ const charCode_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_keyCode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1174,8 +1174,8 @@ unsafe extern fn get_keyCode<TH: TypeHolderTrait>
 }
 
 
-const keyCode_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_keyCode as *const os::raw::c_void,
+fn keyCode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_keyCode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1190,7 +1190,7 @@ const keyCode_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_which<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1204,8 +1204,8 @@ unsafe extern fn get_which<TH: TypeHolderTrait>
 }
 
 
-const which_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_which as *const os::raw::c_void,
+fn which_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_which::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1220,7 +1220,7 @@ const which_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_isTrusted<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const KeyboardEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1234,8 +1234,8 @@ unsafe extern fn get_isTrusted<TH: TypeHolderTrait>
 }
 
 
-const isTrusted_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_isTrusted as *const os::raw::c_void,
+fn isTrusted_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_isTrusted::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::KeyboardEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1250,7 +1250,7 @@ const isTrusted_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1378,18 +1378,18 @@ pub trait KeyboardEventMethods<TH: TypeHolderTrait> {
     fn Which(&self) -> u32;
     fn IsTrusted(&self) -> bool;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getModifierState\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getModifierState_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getModifierState_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"initKeyboardEvent\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &initKeyboardEvent_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &initKeyboardEvent_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 9,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1402,82 +1402,82 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"key\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &key_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &key_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"code\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &code_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &code_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"location\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &location_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &location_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"ctrlKey\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ctrlKey_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ctrlKey_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"shiftKey\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &shiftKey_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &shiftKey_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"altKey\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &altKey_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &altKey_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"metaKey\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &metaKey_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &metaKey_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"repeat\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &repeat_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &repeat_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"isComposing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &isComposing_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &isComposing_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"charCode\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &charCode_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &charCode_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"keyCode\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &keyCode_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &keyCode_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"which\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &which_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &which_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1487,16 +1487,16 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
-const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
+fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"isTrusted\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &isTrusted_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &isTrusted_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1506,10 +1506,10 @@ const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sUnforgeableAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs[0])
-];
+]}
+fn sUnforgeableAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs::<TH>()[0])
+]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
 &[
     ConstantSpec { name: b"DOM_KEY_LOCATION_STANDARD\0", value: ConstantVal::UintVal(0) },
@@ -1634,8 +1634,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       sConstants,
                                       &[],
                                       prototype.handle_mut().into());
@@ -1670,7 +1670,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
         JS_NewObjectWithoutMetadata(cx, &Class::<TH>().base as *const JSClass, prototype.handle()));
     assert!(!unforgeable_holder.is_null());
 
-    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes);
+    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes::<TH>());
     JS_SetReservedSlot(prototype.get(), DOM_PROTO_UNFORGEABLE_HOLDER_SLOT,
                        ObjectValue(unforgeable_holder.get()))
 }

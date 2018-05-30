@@ -679,8 +679,8 @@ unsafe extern fn addEventListener<TH: TypeHolderTrait>
 }
 
 
-const addEventListener_methodinfo: JSJitInfo = JSJitInfo {
-    call: addEventListener as *const os::raw::c_void,
+fn addEventListener_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: addEventListener::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::EventTarget as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -695,7 +695,7 @@ const addEventListener_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn removeEventListener<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const EventTarget<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -749,8 +749,8 @@ unsafe extern fn removeEventListener<TH: TypeHolderTrait>
 }
 
 
-const removeEventListener_methodinfo: JSJitInfo = JSJitInfo {
-    call: removeEventListener as *const os::raw::c_void,
+fn removeEventListener_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: removeEventListener::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::EventTarget as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -765,7 +765,7 @@ const removeEventListener_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn dispatchEvent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const EventTarget<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -808,8 +808,8 @@ unsafe extern fn dispatchEvent<TH: TypeHolderTrait>
 }
 
 
-const dispatchEvent_methodinfo: JSJitInfo = JSJitInfo {
-    call: dispatchEvent as *const os::raw::c_void,
+fn dispatchEvent_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: dispatchEvent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::EventTarget as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -824,7 +824,7 @@ const dispatchEvent_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -870,7 +870,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -899,7 +899,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -929,25 +929,25 @@ pub trait EventTargetMethods<TH: TypeHolderTrait> {
     fn RemoveEventListener(&self, type_: DOMString, callback: Option<Rc<dom::bindings::codegen::Bindings::EventListenerBinding::EventListener<TH>>>, options: UnionTypes::EventListenerOptionsOrBoolean) -> ();
     fn DispatchEvent(&self, event: &Event<TH>) -> Fallible<bool, TH>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"addEventListener\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &addEventListener_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &addEventListener_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"removeEventListener\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &removeEventListener_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &removeEventListener_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"dispatchEvent\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &dispatchEvent_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &dispatchEvent_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -960,10 +960,10 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1066,7 +1066,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
+                                      sMethods::<TH>(),
                                       &[],
                                       &[],
                                       &[],

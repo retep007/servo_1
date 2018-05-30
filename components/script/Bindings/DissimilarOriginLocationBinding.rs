@@ -551,8 +551,8 @@ unsafe extern fn set_href<TH: TypeHolderTrait>
 }
 
 
-const href_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_href as *const os::raw::c_void,
+fn href_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_href::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginLocation as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -567,10 +567,10 @@ const href_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const href_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_href as *const os::raw::c_void,
+fn href_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_href::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginLocation as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -585,7 +585,7 @@ const href_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn assign<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginLocation<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -623,8 +623,8 @@ unsafe extern fn assign<TH: TypeHolderTrait>
 }
 
 
-const assign_methodinfo: JSJitInfo = JSJitInfo {
-    call: assign as *const os::raw::c_void,
+fn assign_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: assign::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginLocation as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -639,7 +639,7 @@ const assign_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn replace<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginLocation<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -677,8 +677,8 @@ unsafe extern fn replace<TH: TypeHolderTrait>
 }
 
 
-const replace_methodinfo: JSJitInfo = JSJitInfo {
-    call: replace as *const os::raw::c_void,
+fn replace_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: replace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginLocation as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -693,7 +693,7 @@ const replace_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn reload<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginLocation<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -716,8 +716,8 @@ unsafe extern fn reload<TH: TypeHolderTrait>
 }
 
 
-const reload_methodinfo: JSJitInfo = JSJitInfo {
-    call: reload as *const os::raw::c_void,
+fn reload_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: reload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginLocation as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -732,7 +732,7 @@ const reload_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn __stringifier<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginLocation<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -755,8 +755,8 @@ unsafe extern fn __stringifier<TH: TypeHolderTrait>
 }
 
 
-const __stringifier_methodinfo: JSJitInfo = JSJitInfo {
-    call: __stringifier as *const os::raw::c_void,
+fn __stringifier_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: __stringifier::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginLocation as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -771,7 +771,7 @@ const __stringifier_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -817,7 +817,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -846,7 +846,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -865,7 +865,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for DissimilarOriginLocation<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -883,32 +883,32 @@ pub trait DissimilarOriginLocationMethods<TH: TypeHolderTrait> {
     fn Reload(&self) -> Fallible<(), TH>;
     fn Stringifier(&self) -> Fallible<DOMString, TH>;
 }
-const sUnforgeableMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sUnforgeableMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"assign\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &assign_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &assign_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_READONLY) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"replace\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &replace_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &replace_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_READONLY) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"reload\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &reload_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &reload_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_READONLY) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"toString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &__stringifier_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &__stringifier_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_READONLY) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -921,17 +921,17 @@ const sUnforgeableMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sUnforgeableMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sUnforgeableMethods_specs[0])
-];
-const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sUnforgeableMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sUnforgeableMethods_specs::<TH>()[0])
+]}
+fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"href\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &href_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &href_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &href_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &href_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -940,10 +940,10 @@ const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sUnforgeableAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs[0])
-];
+]}
+fn sUnforgeableAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -998,10 +998,10 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
 
     rooted!(in(cx) let mut unforgeable_holder = ptr::null_mut::<JSObject>());
     unforgeable_holder.handle_mut().set(
-        JS_NewObjectWithoutMetadata(cx, &Class.base as *const JSClass, prototype.handle()));
+        JS_NewObjectWithoutMetadata(cx, &Class::<TH>().base as *const JSClass, prototype.handle()));
     assert!(!unforgeable_holder.is_null());
 
-    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes);
+    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes::<TH>());
     define_guarded_methods(cx, unforgeable_holder.handle(), sUnforgeableMethods);
     JS_SetReservedSlot(prototype.get(), DOM_PROTO_UNFORGEABLE_HOLDER_SLOT,
                        ObjectValue(unforgeable_holder.get()))

@@ -696,8 +696,8 @@ unsafe extern fn get_key<TH: TypeHolderTrait>
 }
 
 
-const key_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_key as *const os::raw::c_void,
+fn key_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_key::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::StorageEvent as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -712,7 +712,7 @@ const key_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oldValue<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const StorageEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -726,8 +726,8 @@ unsafe extern fn get_oldValue<TH: TypeHolderTrait>
 }
 
 
-const oldValue_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oldValue as *const os::raw::c_void,
+fn oldValue_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oldValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::StorageEvent as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -742,7 +742,7 @@ const oldValue_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_newValue<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const StorageEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -756,8 +756,8 @@ unsafe extern fn get_newValue<TH: TypeHolderTrait>
 }
 
 
-const newValue_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_newValue as *const os::raw::c_void,
+fn newValue_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_newValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::StorageEvent as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -772,7 +772,7 @@ const newValue_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_url<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const StorageEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -786,8 +786,8 @@ unsafe extern fn get_url<TH: TypeHolderTrait>
 }
 
 
-const url_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_url as *const os::raw::c_void,
+fn url_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_url::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::StorageEvent as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -802,7 +802,7 @@ const url_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_storageArea<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const StorageEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -816,8 +816,8 @@ unsafe extern fn get_storageArea<TH: TypeHolderTrait>
 }
 
 
-const storageArea_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_storageArea as *const os::raw::c_void,
+fn storageArea_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_storageArea::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::StorageEvent as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -832,7 +832,7 @@ const storageArea_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_isTrusted<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const StorageEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -846,8 +846,8 @@ unsafe extern fn get_isTrusted<TH: TypeHolderTrait>
 }
 
 
-const isTrusted_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_isTrusted as *const os::raw::c_void,
+fn isTrusted_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_isTrusted::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::StorageEvent as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -862,7 +862,7 @@ const isTrusted_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -975,36 +975,36 @@ pub trait StorageEventMethods<TH: TypeHolderTrait> {
     fn GetStorageArea(&self) -> Option<DomRoot<Storage<TH>>>;
     fn IsTrusted(&self) -> bool;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"key\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &key_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &key_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"oldValue\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oldValue_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oldValue_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"newValue\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &newValue_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &newValue_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"url\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &url_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &url_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"storageArea\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &storageArea_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &storageArea_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1014,16 +1014,16 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
-const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
+fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"isTrusted\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &isTrusted_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &isTrusted_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1033,10 +1033,10 @@ const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sUnforgeableAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs[0])
-];
+]}
+fn sUnforgeableAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1151,7 +1151,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());
@@ -1186,7 +1186,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
         JS_NewObjectWithoutMetadata(cx, &Class::<TH>().base as *const JSClass, prototype.handle()));
     assert!(!unforgeable_holder.is_null());
 
-    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes);
+    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes::<TH>());
     JS_SetReservedSlot(prototype.get(), DOM_PROTO_UNFORGEABLE_HOLDER_SLOT,
                        ObjectValue(unforgeable_holder.get()))
 }

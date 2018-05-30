@@ -672,8 +672,8 @@ unsafe extern fn get_encoding<TH: TypeHolderTrait>
 }
 
 
-const encoding_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_encoding as *const os::raw::c_void,
+fn encoding_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_encoding::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TextDecoder as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -688,7 +688,7 @@ const encoding_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fatal<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TextDecoder<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -702,8 +702,8 @@ unsafe extern fn get_fatal<TH: TypeHolderTrait>
 }
 
 
-const fatal_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fatal as *const os::raw::c_void,
+fn fatal_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fatal::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TextDecoder as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -718,7 +718,7 @@ const fatal_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ignoreBOM<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TextDecoder<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -732,8 +732,8 @@ unsafe extern fn get_ignoreBOM<TH: TypeHolderTrait>
 }
 
 
-const ignoreBOM_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ignoreBOM as *const os::raw::c_void,
+fn ignoreBOM_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ignoreBOM::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TextDecoder as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -748,7 +748,7 @@ const ignoreBOM_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn decode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TextDecoder<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -799,8 +799,8 @@ unsafe extern fn decode<TH: TypeHolderTrait>
 }
 
 
-const decode_methodinfo: JSJitInfo = JSJitInfo {
-    call: decode as *const os::raw::c_void,
+fn decode_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: decode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TextDecoder as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -815,7 +815,7 @@ const decode_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -922,11 +922,11 @@ pub trait TextDecoderMethods<TH: TypeHolderTrait> {
     fn IgnoreBOM(&self) -> bool;
     fn Decode(&self, input: Option<UnionTypes::ArrayBufferViewOrArrayBuffer>, options: &dom::bindings::codegen::Bindings::TextDecoderBinding::TextDecodeOptions) -> Fallible<USVString, TH>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"decode\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &decode_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &decode_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -939,28 +939,28 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"encoding\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &encoding_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &encoding_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"fatal\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fatal_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fatal_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"ignoreBOM\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ignoreBOM_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ignoreBOM_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -970,10 +970,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1085,8 +1085,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

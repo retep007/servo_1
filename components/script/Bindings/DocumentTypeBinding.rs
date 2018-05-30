@@ -521,8 +521,8 @@ unsafe extern fn get_name<TH: TypeHolderTrait>
 }
 
 
-const name_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_name as *const os::raw::c_void,
+fn name_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_name::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DocumentType as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -537,7 +537,7 @@ const name_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_publicId<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DocumentType<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -551,8 +551,8 @@ unsafe extern fn get_publicId<TH: TypeHolderTrait>
 }
 
 
-const publicId_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_publicId as *const os::raw::c_void,
+fn publicId_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_publicId::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DocumentType as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -567,7 +567,7 @@ const publicId_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_systemId<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DocumentType<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -581,8 +581,8 @@ unsafe extern fn get_systemId<TH: TypeHolderTrait>
 }
 
 
-const systemId_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_systemId as *const os::raw::c_void,
+fn systemId_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_systemId::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DocumentType as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -597,7 +597,7 @@ const systemId_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn before<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DocumentType<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -641,8 +641,8 @@ unsafe extern fn before<TH: TypeHolderTrait>
 }
 
 
-const before_methodinfo: JSJitInfo = JSJitInfo {
-    call: before as *const os::raw::c_void,
+fn before_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: before::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DocumentType as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -657,7 +657,7 @@ const before_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn after<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DocumentType<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -701,8 +701,8 @@ unsafe extern fn after<TH: TypeHolderTrait>
 }
 
 
-const after_methodinfo: JSJitInfo = JSJitInfo {
-    call: after as *const os::raw::c_void,
+fn after_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: after::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DocumentType as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -717,7 +717,7 @@ const after_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn replaceWith<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DocumentType<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -761,8 +761,8 @@ unsafe extern fn replaceWith<TH: TypeHolderTrait>
 }
 
 
-const replaceWith_methodinfo: JSJitInfo = JSJitInfo {
-    call: replaceWith as *const os::raw::c_void,
+fn replaceWith_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: replaceWith::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DocumentType as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -777,7 +777,7 @@ const replaceWith_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn remove<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DocumentType<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -797,8 +797,8 @@ unsafe extern fn remove<TH: TypeHolderTrait>
 }
 
 
-const remove_methodinfo: JSJitInfo = JSJitInfo {
-    call: remove as *const os::raw::c_void,
+fn remove_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: remove::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DocumentType as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -813,7 +813,7 @@ const remove_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -859,7 +859,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -888,7 +888,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -910,7 +910,7 @@ const unscopable_names: &'static [&'static [u8]] = &[
 impl<TH: TypeHolderTrait> IDLInterface for DocumentType<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -929,32 +929,32 @@ pub trait DocumentTypeMethods<TH: TypeHolderTrait> {
     fn ReplaceWith(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<(), TH>;
     fn Remove(&self) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"before\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &before_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &before_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"after\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &after_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &after_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"replaceWith\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &replaceWith_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &replaceWith_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"remove\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &remove_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &remove_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -967,28 +967,28 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"name\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &name_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &name_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"publicId\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &publicId_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &publicId_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"systemId\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &systemId_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &systemId_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -998,10 +998,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1066,8 +1066,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       unscopable_names,
                                       prototype.handle_mut().into());

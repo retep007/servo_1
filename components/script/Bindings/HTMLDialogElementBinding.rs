@@ -547,8 +547,8 @@ unsafe extern fn set_open<TH: TypeHolderTrait>
 }
 
 
-const open_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_open as *const os::raw::c_void,
+fn open_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_open::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLDialogElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,10 +563,10 @@ const open_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const open_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_open as *const os::raw::c_void,
+fn open_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_open::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLDialogElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -581,7 +581,7 @@ const open_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_returnValue<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLDialogElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -615,8 +615,8 @@ unsafe extern fn set_returnValue<TH: TypeHolderTrait>
 }
 
 
-const returnValue_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_returnValue as *const os::raw::c_void,
+fn returnValue_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_returnValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLDialogElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -631,10 +631,10 @@ const returnValue_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const returnValue_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_returnValue as *const os::raw::c_void,
+fn returnValue_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_returnValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLDialogElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -649,7 +649,7 @@ const returnValue_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn close<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLDialogElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -683,8 +683,8 @@ unsafe extern fn close<TH: TypeHolderTrait>
 }
 
 
-const close_methodinfo: JSJitInfo = JSJitInfo {
-    call: close as *const os::raw::c_void,
+fn close_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: close::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLDialogElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -699,7 +699,7 @@ const close_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -745,7 +745,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -774,7 +774,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -789,7 +789,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for HTMLDialogElement<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -806,11 +806,11 @@ pub trait HTMLDialogElementMethods {
     fn SetReturnValue(&self, value: DOMString) -> ();
     fn Close(&self, returnValue: Option<DOMString>) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"close\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &close_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &close_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -823,23 +823,23 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"open\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &open_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &open_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &open_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &open_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"returnValue\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &returnValue_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &returnValue_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &returnValue_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &returnValue_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -848,10 +848,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1012,8 +1012,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

@@ -547,8 +547,8 @@ unsafe extern fn set_color<TH: TypeHolderTrait>
 }
 
 
-const color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_color as *const os::raw::c_void,
+fn color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLFontElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,10 +563,10 @@ const color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_color as *const os::raw::c_void,
+fn color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLFontElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -581,7 +581,7 @@ const color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_face<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLFontElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -623,8 +623,8 @@ unsafe extern fn set_face<TH: TypeHolderTrait>
 }
 
 
-const face_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_face as *const os::raw::c_void,
+fn face_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_face::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLFontElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -639,10 +639,10 @@ const face_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const face_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_face as *const os::raw::c_void,
+fn face_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_face::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLFontElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -657,7 +657,7 @@ const face_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLFontElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -699,8 +699,8 @@ unsafe extern fn set_size<TH: TypeHolderTrait>
 }
 
 
-const size_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_size as *const os::raw::c_void,
+fn size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLFontElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -715,10 +715,10 @@ const size_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const size_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_size as *const os::raw::c_void,
+fn size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLFontElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -733,7 +733,7 @@ const size_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -779,7 +779,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -808,7 +808,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -823,7 +823,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for HTMLFontElement<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -841,25 +841,25 @@ pub trait HTMLFontElementMethods {
     fn Size(&self) -> DOMString;
     fn SetSize(&self, value: DOMString) -> ();
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"face\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &face_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &face_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &face_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &face_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"size\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &size_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &size_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &size_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &size_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -868,10 +868,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1033,7 +1033,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

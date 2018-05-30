@@ -547,8 +547,8 @@ unsafe extern fn set_align<TH: TypeHolderTrait>
 }
 
 
-const align_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_align as *const os::raw::c_void,
+fn align_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLHRElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,10 +563,10 @@ const align_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const align_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_align as *const os::raw::c_void,
+fn align_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLHRElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -581,7 +581,7 @@ const align_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLHRElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -623,8 +623,8 @@ unsafe extern fn set_color<TH: TypeHolderTrait>
 }
 
 
-const color_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_color as *const os::raw::c_void,
+fn color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLHRElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -639,10 +639,10 @@ const color_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const color_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_color as *const os::raw::c_void,
+fn color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLHRElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -657,7 +657,7 @@ const color_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLHRElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -699,8 +699,8 @@ unsafe extern fn set_width<TH: TypeHolderTrait>
 }
 
 
-const width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_width as *const os::raw::c_void,
+fn width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLHRElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -715,10 +715,10 @@ const width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_width as *const os::raw::c_void,
+fn width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLHRElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -733,7 +733,7 @@ const width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -842,25 +842,25 @@ pub trait HTMLHRElementMethods {
     fn Width(&self) -> DOMString;
     fn SetWidth(&self, value: DOMString) -> ();
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"align\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &align_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &align_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &align_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &align_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"color\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &color_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &color_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &color_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &color_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -869,10 +869,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1034,7 +1034,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

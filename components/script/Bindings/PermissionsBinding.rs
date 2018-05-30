@@ -532,8 +532,8 @@ unsafe extern fn query<TH: TypeHolderTrait>
 }
 
 
-const query_methodinfo: JSJitInfo = JSJitInfo {
-    call: query as *const os::raw::c_void,
+fn query_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: query::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Permissions as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -548,7 +548,7 @@ const query_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn request<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Permissions<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -576,8 +576,8 @@ unsafe extern fn request<TH: TypeHolderTrait>
 }
 
 
-const request_methodinfo: JSJitInfo = JSJitInfo {
-    call: request as *const os::raw::c_void,
+fn request_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: request::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Permissions as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -592,7 +592,7 @@ const request_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn revoke<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Permissions<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -620,8 +620,8 @@ unsafe extern fn revoke<TH: TypeHolderTrait>
 }
 
 
-const revoke_methodinfo: JSJitInfo = JSJitInfo {
-    call: revoke as *const os::raw::c_void,
+fn revoke_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: revoke::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Permissions as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -636,7 +636,7 @@ const revoke_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -742,25 +742,25 @@ pub trait PermissionsMethods<TH: TypeHolderTrait> {
     unsafe fn Request(&self, cx: *mut JSContext, permissionDesc: *mut JSObject) -> Rc<Promise<TH>>;
     unsafe fn Revoke(&self, cx: *mut JSContext, permissionDesc: *mut JSObject) -> Rc<Promise<TH>>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"query\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &query_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &query_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"request\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &request_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &request_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"revoke\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &revoke_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &revoke_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -773,10 +773,10 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -842,7 +842,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
+                                      sMethods::<TH>(),
                                       &[],
                                       &[],
                                       &[],

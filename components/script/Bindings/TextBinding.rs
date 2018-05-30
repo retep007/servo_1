@@ -543,8 +543,8 @@ unsafe extern fn splitText<TH: TypeHolderTrait>
 }
 
 
-const splitText_methodinfo: JSJitInfo = JSJitInfo {
-    call: splitText as *const os::raw::c_void,
+fn splitText_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: splitText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Text as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -559,7 +559,7 @@ const splitText_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_wholeText<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Text<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -573,8 +573,8 @@ unsafe extern fn get_wholeText<TH: TypeHolderTrait>
 }
 
 
-const wholeText_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_wholeText as *const os::raw::c_void,
+fn wholeText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_wholeText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Text as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -589,7 +589,7 @@ const wholeText_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -694,11 +694,11 @@ pub trait TextMethods<TH: TypeHolderTrait> {
     fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text<TH>>, TH>;
     fn WholeText(&self) -> DOMString;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"splitText\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &splitText_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &splitText_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -711,16 +711,16 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"wholeText\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &wholeText_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &wholeText_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -730,10 +730,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -832,8 +832,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

@@ -565,8 +565,8 @@ unsafe extern fn get_error<TH: TypeHolderTrait>
 }
 
 
-const error_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_error as *const os::raw::c_void,
+fn error_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_error::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -581,7 +581,7 @@ const error_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_src<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -623,8 +623,8 @@ unsafe extern fn set_src<TH: TypeHolderTrait>
 }
 
 
-const src_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_src as *const os::raw::c_void,
+fn src_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_src::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -639,10 +639,10 @@ const src_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const src_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_src as *const os::raw::c_void,
+fn src_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_src::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -657,7 +657,7 @@ const src_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_srcObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -698,8 +698,8 @@ unsafe extern fn set_srcObject<TH: TypeHolderTrait>
 }
 
 
-const srcObject_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_srcObject as *const os::raw::c_void,
+fn srcObject_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_srcObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -714,10 +714,10 @@ const srcObject_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const srcObject_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_srcObject as *const os::raw::c_void,
+fn srcObject_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_srcObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -732,7 +732,7 @@ const srcObject_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_currentSrc<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -746,8 +746,8 @@ unsafe extern fn get_currentSrc<TH: TypeHolderTrait>
 }
 
 
-const currentSrc_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_currentSrc as *const os::raw::c_void,
+fn currentSrc_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_currentSrc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -762,7 +762,7 @@ const currentSrc_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_networkState<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -776,8 +776,8 @@ unsafe extern fn get_networkState<TH: TypeHolderTrait>
 }
 
 
-const networkState_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_networkState as *const os::raw::c_void,
+fn networkState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_networkState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -792,7 +792,7 @@ const networkState_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_preload<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -834,8 +834,8 @@ unsafe extern fn set_preload<TH: TypeHolderTrait>
 }
 
 
-const preload_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_preload as *const os::raw::c_void,
+fn preload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_preload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -850,10 +850,10 @@ const preload_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const preload_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_preload as *const os::raw::c_void,
+fn preload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_preload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -868,7 +868,7 @@ const preload_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn load<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -884,8 +884,8 @@ unsafe extern fn load<TH: TypeHolderTrait>
 }
 
 
-const load_methodinfo: JSJitInfo = JSJitInfo {
-    call: load as *const os::raw::c_void,
+fn load_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: load::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -900,7 +900,7 @@ const load_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn canPlayType<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -931,8 +931,8 @@ unsafe extern fn canPlayType<TH: TypeHolderTrait>
 }
 
 
-const canPlayType_methodinfo: JSJitInfo = JSJitInfo {
-    call: canPlayType as *const os::raw::c_void,
+fn canPlayType_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: canPlayType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -947,7 +947,7 @@ const canPlayType_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_readyState<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -961,8 +961,8 @@ unsafe extern fn get_readyState<TH: TypeHolderTrait>
 }
 
 
-const readyState_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_readyState as *const os::raw::c_void,
+fn readyState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_readyState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -977,7 +977,7 @@ const readyState_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_paused<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -991,8 +991,8 @@ unsafe extern fn get_paused<TH: TypeHolderTrait>
 }
 
 
-const paused_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_paused as *const os::raw::c_void,
+fn paused_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_paused::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1007,7 +1007,7 @@ const paused_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_autoplay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1049,8 +1049,8 @@ unsafe extern fn set_autoplay<TH: TypeHolderTrait>
 }
 
 
-const autoplay_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_autoplay as *const os::raw::c_void,
+fn autoplay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_autoplay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1065,10 +1065,10 @@ const autoplay_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const autoplay_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_autoplay as *const os::raw::c_void,
+fn autoplay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_autoplay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1083,7 +1083,7 @@ const autoplay_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn play<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1099,8 +1099,8 @@ unsafe extern fn play<TH: TypeHolderTrait>
 }
 
 
-const play_methodinfo: JSJitInfo = JSJitInfo {
-    call: play as *const os::raw::c_void,
+fn play_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: play::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1115,7 +1115,7 @@ const play_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn pause<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1131,8 +1131,8 @@ unsafe extern fn pause<TH: TypeHolderTrait>
 }
 
 
-const pause_methodinfo: JSJitInfo = JSJitInfo {
-    call: pause as *const os::raw::c_void,
+fn pause_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: pause::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1147,7 +1147,7 @@ const pause_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 pub mod HTMLMediaElementConstants {
     pub const NETWORK_EMPTY: u16 = 0;
@@ -1192,32 +1192,32 @@ pub trait HTMLMediaElementMethods<TH: TypeHolderTrait> {
     fn Play(&self) -> Rc<Promise<TH>>;
     fn Pause(&self) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"load\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &load_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &load_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"canPlayType\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &canPlayType_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &canPlayType_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"play\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &play_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &play_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"pause\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &pause_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &pause_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1230,65 +1230,65 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"error\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &error_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &error_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"src\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &src_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &src_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &src_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &src_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"srcObject\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &srcObject_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &srcObject_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &srcObject_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &srcObject_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"currentSrc\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &currentSrc_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &currentSrc_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"networkState\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &networkState_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &networkState_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"preload\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &preload_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &preload_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &preload_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &preload_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"readyState\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &readyState_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &readyState_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"paused\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &paused_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &paused_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"autoplay\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &autoplay_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &autoplay_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &autoplay_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &autoplay_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -1297,10 +1297,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
 &[
     ConstantSpec { name: b"NETWORK_EMPTY\0", value: ConstantVal::IntVal(0) },
@@ -1400,8 +1400,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       sConstants,
                                       &[],
                                       prototype.handle_mut().into());

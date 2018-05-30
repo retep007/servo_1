@@ -1090,8 +1090,8 @@ unsafe extern fn get_method<TH: TypeHolderTrait>
 }
 
 
-const method_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_method as *const os::raw::c_void,
+fn method_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_method::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1106,7 +1106,7 @@ const method_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_url<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1120,8 +1120,8 @@ unsafe extern fn get_url<TH: TypeHolderTrait>
 }
 
 
-const url_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_url as *const os::raw::c_void,
+fn url_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_url::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1136,7 +1136,7 @@ const url_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_headers<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1150,8 +1150,8 @@ unsafe extern fn get_headers<TH: TypeHolderTrait>
 }
 
 
-const headers_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_headers as *const os::raw::c_void,
+fn headers_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_headers::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1166,7 +1166,7 @@ const headers_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_destination<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1180,8 +1180,8 @@ unsafe extern fn get_destination<TH: TypeHolderTrait>
 }
 
 
-const destination_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_destination as *const os::raw::c_void,
+fn destination_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_destination::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1196,7 +1196,7 @@ const destination_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_referrer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1210,8 +1210,8 @@ unsafe extern fn get_referrer<TH: TypeHolderTrait>
 }
 
 
-const referrer_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_referrer as *const os::raw::c_void,
+fn referrer_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_referrer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1226,7 +1226,7 @@ const referrer_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_referrerPolicy<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1240,8 +1240,8 @@ unsafe extern fn get_referrerPolicy<TH: TypeHolderTrait>
 }
 
 
-const referrerPolicy_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_referrerPolicy as *const os::raw::c_void,
+fn referrerPolicy_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_referrerPolicy::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1256,7 +1256,7 @@ const referrerPolicy_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_mode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1270,8 +1270,8 @@ unsafe extern fn get_mode<TH: TypeHolderTrait>
 }
 
 
-const mode_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_mode as *const os::raw::c_void,
+fn mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1286,7 +1286,7 @@ const mode_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_credentials<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1300,8 +1300,8 @@ unsafe extern fn get_credentials<TH: TypeHolderTrait>
 }
 
 
-const credentials_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_credentials as *const os::raw::c_void,
+fn credentials_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_credentials::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1316,7 +1316,7 @@ const credentials_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_cache<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1330,8 +1330,8 @@ unsafe extern fn get_cache<TH: TypeHolderTrait>
 }
 
 
-const cache_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_cache as *const os::raw::c_void,
+fn cache_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_cache::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1346,7 +1346,7 @@ const cache_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_redirect<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1360,8 +1360,8 @@ unsafe extern fn get_redirect<TH: TypeHolderTrait>
 }
 
 
-const redirect_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_redirect as *const os::raw::c_void,
+fn redirect_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_redirect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1376,7 +1376,7 @@ const redirect_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_integrity<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1390,8 +1390,8 @@ unsafe extern fn get_integrity<TH: TypeHolderTrait>
 }
 
 
-const integrity_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_integrity as *const os::raw::c_void,
+fn integrity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_integrity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1406,7 +1406,7 @@ const integrity_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn clone<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1429,8 +1429,8 @@ unsafe extern fn clone<TH: TypeHolderTrait>
 }
 
 
-const clone_methodinfo: JSJitInfo = JSJitInfo {
-    call: clone as *const os::raw::c_void,
+fn clone_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: clone::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1445,7 +1445,7 @@ const clone_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_bodyUsed<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1459,8 +1459,8 @@ unsafe extern fn get_bodyUsed<TH: TypeHolderTrait>
 }
 
 
-const bodyUsed_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_bodyUsed as *const os::raw::c_void,
+fn bodyUsed_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_bodyUsed::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1475,7 +1475,7 @@ const bodyUsed_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn arrayBuffer<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1491,8 +1491,8 @@ unsafe extern fn arrayBuffer<TH: TypeHolderTrait>
 }
 
 
-const arrayBuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: arrayBuffer as *const os::raw::c_void,
+fn arrayBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: arrayBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1507,7 +1507,7 @@ const arrayBuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn blob<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1523,8 +1523,8 @@ unsafe extern fn blob<TH: TypeHolderTrait>
 }
 
 
-const blob_methodinfo: JSJitInfo = JSJitInfo {
-    call: blob as *const os::raw::c_void,
+fn blob_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: blob::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1539,7 +1539,7 @@ const blob_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn formData<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1555,8 +1555,8 @@ unsafe extern fn formData<TH: TypeHolderTrait>
 }
 
 
-const formData_methodinfo: JSJitInfo = JSJitInfo {
-    call: formData as *const os::raw::c_void,
+fn formData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: formData::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1571,7 +1571,7 @@ const formData_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn json<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1587,8 +1587,8 @@ unsafe extern fn json<TH: TypeHolderTrait>
 }
 
 
-const json_methodinfo: JSJitInfo = JSJitInfo {
-    call: json as *const os::raw::c_void,
+fn json_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: json::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1603,7 +1603,7 @@ const json_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn text<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Request<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1619,8 +1619,8 @@ unsafe extern fn text<TH: TypeHolderTrait>
 }
 
 
-const text_methodinfo: JSJitInfo = JSJitInfo {
-    call: text as *const os::raw::c_void,
+fn text_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: text::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Request as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1635,7 +1635,7 @@ const text_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1756,46 +1756,46 @@ pub trait RequestMethods<TH: TypeHolderTrait> {
     fn Json(&self) -> Rc<Promise<TH>>;
     fn Text(&self) -> Rc<Promise<TH>>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"clone\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &clone_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &clone_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"arrayBuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &arrayBuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &arrayBuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"blob\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &blob_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &blob_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"formData\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &formData_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &formData_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"json\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &json_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &json_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"text\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &text_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &text_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1808,82 +1808,82 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"method\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &method_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &method_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"url\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &url_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &url_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"headers\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &headers_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &headers_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"destination\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &destination_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &destination_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"referrer\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &referrer_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &referrer_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"referrerPolicy\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &referrerPolicy_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &referrerPolicy_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"mode\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &mode_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &mode_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"credentials\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &credentials_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &credentials_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"cache\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &cache_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &cache_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"redirect\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &redirect_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &redirect_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"integrity\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &integrity_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &integrity_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"bodyUsed\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &bodyUsed_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &bodyUsed_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1893,10 +1893,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -2009,8 +2009,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

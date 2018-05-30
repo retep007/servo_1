@@ -517,8 +517,8 @@ unsafe extern fn get_upDegrees<TH: TypeHolderTrait>
 }
 
 
-const upDegrees_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_upDegrees as *const os::raw::c_void,
+fn upDegrees_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_upDegrees::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFieldOfView as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const upDegrees_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_rightDegrees<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRFieldOfView<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_rightDegrees<TH: TypeHolderTrait>
 }
 
 
-const rightDegrees_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_rightDegrees as *const os::raw::c_void,
+fn rightDegrees_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_rightDegrees::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFieldOfView as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const rightDegrees_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_downDegrees<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRFieldOfView<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_downDegrees<TH: TypeHolderTrait>
 }
 
 
-const downDegrees_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_downDegrees as *const os::raw::c_void,
+fn downDegrees_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_downDegrees::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFieldOfView as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const downDegrees_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_leftDegrees<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRFieldOfView<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -607,8 +607,8 @@ unsafe extern fn get_leftDegrees<TH: TypeHolderTrait>
 }
 
 
-const leftDegrees_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_leftDegrees as *const os::raw::c_void,
+fn leftDegrees_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_leftDegrees::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRFieldOfView as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -623,7 +623,7 @@ const leftDegrees_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -730,30 +730,30 @@ pub trait VRFieldOfViewMethods {
     fn DownDegrees(&self) -> Finite<f64>;
     fn LeftDegrees(&self) -> Finite<f64>;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"upDegrees\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &upDegrees_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &upDegrees_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"rightDegrees\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &rightDegrees_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &rightDegrees_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"downDegrees\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &downDegrees_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &downDegrees_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"leftDegrees\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &leftDegrees_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &leftDegrees_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -763,10 +763,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -833,7 +833,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

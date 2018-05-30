@@ -564,8 +564,8 @@ unsafe extern fn get_scriptURL<TH: TypeHolderTrait>
 }
 
 
-const scriptURL_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_scriptURL as *const os::raw::c_void,
+fn scriptURL_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_scriptURL::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorker as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -580,7 +580,7 @@ const scriptURL_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_state<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorker<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -594,8 +594,8 @@ unsafe extern fn get_state<TH: TypeHolderTrait>
 }
 
 
-const state_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_state as *const os::raw::c_void,
+fn state_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_state::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorker as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -610,7 +610,7 @@ const state_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn postMessage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorker<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -639,8 +639,8 @@ unsafe extern fn postMessage<TH: TypeHolderTrait>
 }
 
 
-const postMessage_methodinfo: JSJitInfo = JSJitInfo {
-    call: postMessage as *const os::raw::c_void,
+fn postMessage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: postMessage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorker as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -655,7 +655,7 @@ const postMessage_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onstatechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorker<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -684,8 +684,8 @@ unsafe extern fn set_onstatechange<TH: TypeHolderTrait>
 }
 
 
-const onstatechange_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onstatechange as *const os::raw::c_void,
+fn onstatechange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onstatechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorker as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -700,10 +700,10 @@ const onstatechange_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onstatechange_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onstatechange as *const os::raw::c_void,
+fn onstatechange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onstatechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorker as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -718,7 +718,7 @@ const onstatechange_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorker<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -747,8 +747,8 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 }
 
 
-const onerror_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onerror as *const os::raw::c_void,
+fn onerror_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorker as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -763,10 +763,10 @@ const onerror_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onerror_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onerror as *const os::raw::c_void,
+fn onerror_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorker as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -781,7 +781,7 @@ const onerror_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -891,11 +891,11 @@ pub trait ServiceWorkerMethods<TH: TypeHolderTrait> {
     fn GetOnerror(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnerror(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"postMessage\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &postMessage_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &postMessage_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -908,35 +908,35 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"scriptURL\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &scriptURL_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &scriptURL_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"state\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &state_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &state_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"onstatechange\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onstatechange_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onstatechange_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onstatechange_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onstatechange_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onerror\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onerror_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onerror_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onerror_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onerror_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -945,10 +945,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1014,8 +1014,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

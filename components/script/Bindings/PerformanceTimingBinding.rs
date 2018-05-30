@@ -517,8 +517,8 @@ unsafe extern fn get_navigationStart<TH: TypeHolderTrait>
 }
 
 
-const navigationStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_navigationStart as *const os::raw::c_void,
+fn navigationStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_navigationStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceTiming as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const navigationStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_domLoading<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceTiming<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_domLoading<TH: TypeHolderTrait>
 }
 
 
-const domLoading_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_domLoading as *const os::raw::c_void,
+fn domLoading_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_domLoading::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceTiming as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const domLoading_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_domInteractive<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceTiming<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_domInteractive<TH: TypeHolderTrait>
 }
 
 
-const domInteractive_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_domInteractive as *const os::raw::c_void,
+fn domInteractive_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_domInteractive::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceTiming as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const domInteractive_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_domContentLoadedEventStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceTiming<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -607,8 +607,8 @@ unsafe extern fn get_domContentLoadedEventStart<TH: TypeHolderTrait>
 }
 
 
-const domContentLoadedEventStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_domContentLoadedEventStart as *const os::raw::c_void,
+fn domContentLoadedEventStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_domContentLoadedEventStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceTiming as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -623,7 +623,7 @@ const domContentLoadedEventStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_domContentLoadedEventEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceTiming<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -637,8 +637,8 @@ unsafe extern fn get_domContentLoadedEventEnd<TH: TypeHolderTrait>
 }
 
 
-const domContentLoadedEventEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_domContentLoadedEventEnd as *const os::raw::c_void,
+fn domContentLoadedEventEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_domContentLoadedEventEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceTiming as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -653,7 +653,7 @@ const domContentLoadedEventEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_domComplete<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceTiming<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -667,8 +667,8 @@ unsafe extern fn get_domComplete<TH: TypeHolderTrait>
 }
 
 
-const domComplete_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_domComplete as *const os::raw::c_void,
+fn domComplete_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_domComplete::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceTiming as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -683,7 +683,7 @@ const domComplete_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_loadEventStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceTiming<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -697,8 +697,8 @@ unsafe extern fn get_loadEventStart<TH: TypeHolderTrait>
 }
 
 
-const loadEventStart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_loadEventStart as *const os::raw::c_void,
+fn loadEventStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_loadEventStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceTiming as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -713,7 +713,7 @@ const loadEventStart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_loadEventEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceTiming<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -727,8 +727,8 @@ unsafe extern fn get_loadEventEnd<TH: TypeHolderTrait>
 }
 
 
-const loadEventEnd_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_loadEventEnd as *const os::raw::c_void,
+fn loadEventEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_loadEventEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceTiming as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -743,7 +743,7 @@ const loadEventEnd_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_topLevelDomComplete<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceTiming<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -757,8 +757,8 @@ unsafe extern fn get_topLevelDomComplete<TH: TypeHolderTrait>
 }
 
 
-const topLevelDomComplete_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_topLevelDomComplete as *const os::raw::c_void,
+fn topLevelDomComplete_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_topLevelDomComplete::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceTiming as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -773,7 +773,7 @@ const topLevelDomComplete_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -885,54 +885,54 @@ pub trait PerformanceTimingMethods {
     fn LoadEventEnd(&self) -> u64;
     fn TopLevelDomComplete(&self) -> u64;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"navigationStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &navigationStart_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &navigationStart_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"domLoading\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &domLoading_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &domLoading_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"domInteractive\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &domInteractive_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &domInteractive_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"domContentLoadedEventStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &domContentLoadedEventStart_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &domContentLoadedEventStart_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"domContentLoadedEventEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &domContentLoadedEventEnd_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &domContentLoadedEventEnd_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"domComplete\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &domComplete_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &domComplete_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"loadEventStart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &loadEventStart_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &loadEventStart_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"loadEventEnd\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &loadEventEnd_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &loadEventEnd_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -946,7 +946,7 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"topLevelDomComplete\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &topLevelDomComplete_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &topLevelDomComplete_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -956,11 +956,11 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0]),
-    Guard::new(Condition::Pref("dom.testperf.enabled"), sAttributes_specs[1])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("dom.testperf.enabled"), sAttributes_specs::<TH>()[1])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1026,7 +1026,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

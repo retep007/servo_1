@@ -526,8 +526,8 @@ unsafe extern fn get_bluetooth<TH: TypeHolderTrait>
 }
 
 
-const bluetooth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_bluetooth as *const os::raw::c_void,
+fn bluetooth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_bluetooth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -542,7 +542,7 @@ const bluetooth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_serviceWorker<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -556,8 +556,8 @@ unsafe extern fn get_serviceWorker<TH: TypeHolderTrait>
 }
 
 
-const serviceWorker_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_serviceWorker as *const os::raw::c_void,
+fn serviceWorker_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_serviceWorker::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -572,7 +572,7 @@ const serviceWorker_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getVRDisplays<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -588,8 +588,8 @@ unsafe extern fn getVRDisplays<TH: TypeHolderTrait>
 }
 
 
-const getVRDisplays_methodinfo: JSJitInfo = JSJitInfo {
-    call: getVRDisplays as *const os::raw::c_void,
+fn getVRDisplays_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getVRDisplays::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -604,7 +604,7 @@ const getVRDisplays_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_permissions<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -618,8 +618,8 @@ unsafe extern fn get_permissions<TH: TypeHolderTrait>
 }
 
 
-const permissions_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_permissions as *const os::raw::c_void,
+fn permissions_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_permissions::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -634,7 +634,7 @@ const permissions_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getGamepads<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -650,8 +650,8 @@ unsafe extern fn getGamepads<TH: TypeHolderTrait>
 }
 
 
-const getGamepads_methodinfo: JSJitInfo = JSJitInfo {
-    call: getGamepads as *const os::raw::c_void,
+fn getGamepads_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getGamepads::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -666,7 +666,7 @@ const getGamepads_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_cookieEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -680,8 +680,8 @@ unsafe extern fn get_cookieEnabled<TH: TypeHolderTrait>
 }
 
 
-const cookieEnabled_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_cookieEnabled as *const os::raw::c_void,
+fn cookieEnabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_cookieEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -696,7 +696,7 @@ const cookieEnabled_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_appCodeName<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -710,8 +710,8 @@ unsafe extern fn get_appCodeName<TH: TypeHolderTrait>
 }
 
 
-const appCodeName_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_appCodeName as *const os::raw::c_void,
+fn appCodeName_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_appCodeName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -726,7 +726,7 @@ const appCodeName_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_appName<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -740,8 +740,8 @@ unsafe extern fn get_appName<TH: TypeHolderTrait>
 }
 
 
-const appName_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_appName as *const os::raw::c_void,
+fn appName_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_appName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -756,7 +756,7 @@ const appName_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_appVersion<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -770,8 +770,8 @@ unsafe extern fn get_appVersion<TH: TypeHolderTrait>
 }
 
 
-const appVersion_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_appVersion as *const os::raw::c_void,
+fn appVersion_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_appVersion::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -786,7 +786,7 @@ const appVersion_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_platform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -800,8 +800,8 @@ unsafe extern fn get_platform<TH: TypeHolderTrait>
 }
 
 
-const platform_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_platform as *const os::raw::c_void,
+fn platform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_platform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -816,7 +816,7 @@ const platform_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_product<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -830,8 +830,8 @@ unsafe extern fn get_product<TH: TypeHolderTrait>
 }
 
 
-const product_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_product as *const os::raw::c_void,
+fn product_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_product::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -846,7 +846,7 @@ const product_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn taintEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -862,8 +862,8 @@ unsafe extern fn taintEnabled<TH: TypeHolderTrait>
 }
 
 
-const taintEnabled_methodinfo: JSJitInfo = JSJitInfo {
-    call: taintEnabled as *const os::raw::c_void,
+fn taintEnabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: taintEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -878,7 +878,7 @@ const taintEnabled_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_userAgent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -892,8 +892,8 @@ unsafe extern fn get_userAgent<TH: TypeHolderTrait>
 }
 
 
-const userAgent_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_userAgent as *const os::raw::c_void,
+fn userAgent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_userAgent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -908,7 +908,7 @@ const userAgent_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_language<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -922,8 +922,8 @@ unsafe extern fn get_language<TH: TypeHolderTrait>
 }
 
 
-const language_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_language as *const os::raw::c_void,
+fn language_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_language::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -938,7 +938,7 @@ const language_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_plugins<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -952,8 +952,8 @@ unsafe extern fn get_plugins<TH: TypeHolderTrait>
 }
 
 
-const plugins_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_plugins as *const os::raw::c_void,
+fn plugins_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_plugins::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -968,7 +968,7 @@ const plugins_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_mimeTypes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -982,8 +982,8 @@ unsafe extern fn get_mimeTypes<TH: TypeHolderTrait>
 }
 
 
-const mimeTypes_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_mimeTypes as *const os::raw::c_void,
+fn mimeTypes_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_mimeTypes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -998,7 +998,7 @@ const mimeTypes_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn javaEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Navigator<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1014,8 +1014,8 @@ unsafe extern fn javaEnabled<TH: TypeHolderTrait>
 }
 
 
-const javaEnabled_methodinfo: JSJitInfo = JSJitInfo {
-    call: javaEnabled as *const os::raw::c_void,
+fn javaEnabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: javaEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Navigator as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1030,7 +1030,7 @@ const javaEnabled_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1150,11 +1150,11 @@ pub trait NavigatorMethods<TH: TypeHolderTrait> {
     fn MimeTypes(&self) -> DomRoot<MimeTypeArray<TH>>;
     fn JavaEnabled(&self) -> bool;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getVRDisplays\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getVRDisplays_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getVRDisplays_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1170,7 +1170,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"getGamepads\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getGamepads_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getGamepads_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1186,14 +1186,14 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"taintEnabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &taintEnabled_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &taintEnabled_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"javaEnabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &javaEnabled_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &javaEnabled_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1206,18 +1206,18 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Pref("dom.webvr.enabled"), sMethods_specs[0]),
-    Guard::new(Condition::Pref("dom.gamepad.enabled"), sMethods_specs[1]),
-    Guard::new(Condition::Satisfied, sMethods_specs[2])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Pref("dom.webvr.enabled"), sMethods_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("dom.gamepad.enabled"), sMethods_specs::<TH>()[1]),
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[2])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"bluetooth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &bluetooth_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &bluetooth_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1231,7 +1231,7 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"serviceWorker\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &serviceWorker_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &serviceWorker_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1245,7 +1245,7 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"permissions\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &permissions_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &permissions_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1259,61 +1259,61 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"cookieEnabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &cookieEnabled_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &cookieEnabled_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"appCodeName\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &appCodeName_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &appCodeName_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"appName\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &appName_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &appName_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"appVersion\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &appVersion_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &appVersion_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"platform\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &platform_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &platform_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"product\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &product_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &product_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"userAgent\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &userAgent_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &userAgent_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"language\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &language_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &language_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"plugins\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &plugins_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &plugins_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"mimeTypes\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &mimeTypes_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &mimeTypes_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -1323,13 +1323,13 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Pref("dom.bluetooth.enabled"), sAttributes_specs[0]),
-    Guard::new(Condition::Pref("dom.serviceworker.enabled"), sAttributes_specs[1]),
-    Guard::new(Condition::Pref("dom.permissions.enabled"), sAttributes_specs[2]),
-    Guard::new(Condition::Satisfied, sAttributes_specs[3])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Pref("dom.bluetooth.enabled"), sAttributes_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("dom.serviceworker.enabled"), sAttributes_specs::<TH>()[1]),
+    Guard::new(Condition::Pref("dom.permissions.enabled"), sAttributes_specs::<TH>()[2]),
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[3])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1394,8 +1394,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

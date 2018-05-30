@@ -517,8 +517,8 @@ unsafe extern fn get_availWidth<TH: TypeHolderTrait>
 }
 
 
-const availWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_availWidth as *const os::raw::c_void,
+fn availWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_availWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Screen as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const availWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_availHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Screen<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_availHeight<TH: TypeHolderTrait>
 }
 
 
-const availHeight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_availHeight as *const os::raw::c_void,
+fn availHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_availHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Screen as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const availHeight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Screen<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_width<TH: TypeHolderTrait>
 }
 
 
-const width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_width as *const os::raw::c_void,
+fn width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Screen as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Screen<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -607,8 +607,8 @@ unsafe extern fn get_height<TH: TypeHolderTrait>
 }
 
 
-const height_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_height as *const os::raw::c_void,
+fn height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Screen as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -623,7 +623,7 @@ const height_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_colorDepth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Screen<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -637,8 +637,8 @@ unsafe extern fn get_colorDepth<TH: TypeHolderTrait>
 }
 
 
-const colorDepth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_colorDepth as *const os::raw::c_void,
+fn colorDepth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_colorDepth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Screen as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -653,7 +653,7 @@ const colorDepth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_pixelDepth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Screen<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -667,8 +667,8 @@ unsafe extern fn get_pixelDepth<TH: TypeHolderTrait>
 }
 
 
-const pixelDepth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_pixelDepth as *const os::raw::c_void,
+fn pixelDepth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_pixelDepth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Screen as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -683,7 +683,7 @@ const pixelDepth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -792,42 +792,42 @@ pub trait ScreenMethods {
     fn ColorDepth(&self) -> u32;
     fn PixelDepth(&self) -> u32;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"availWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &availWidth_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &availWidth_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"availHeight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &availHeight_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &availHeight_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"height\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &height_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &height_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"colorDepth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &colorDepth_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &colorDepth_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"pixelDepth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &pixelDepth_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &pixelDepth_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -837,10 +837,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -906,7 +906,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

@@ -517,8 +517,8 @@ unsafe extern fn get_sittingToStandingTransform<TH: TypeHolderTrait>
 }
 
 
-const sittingToStandingTransform_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_sittingToStandingTransform as *const os::raw::c_void,
+fn sittingToStandingTransform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_sittingToStandingTransform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRStageParameters as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const sittingToStandingTransform_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_sizeX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRStageParameters<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_sizeX<TH: TypeHolderTrait>
 }
 
 
-const sizeX_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_sizeX as *const os::raw::c_void,
+fn sizeX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_sizeX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRStageParameters as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const sizeX_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_sizeZ<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRStageParameters<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_sizeZ<TH: TypeHolderTrait>
 }
 
 
-const sizeZ_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_sizeZ as *const os::raw::c_void,
+fn sizeZ_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_sizeZ::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRStageParameters as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const sizeZ_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -639,7 +639,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS::<TH>,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -699,24 +699,24 @@ pub trait VRStageParametersMethods {
     fn SizeX(&self) -> Finite<f32>;
     fn SizeZ(&self) -> Finite<f32>;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"sittingToStandingTransform\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &sittingToStandingTransform_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &sittingToStandingTransform_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"sizeX\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &sizeX_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &sizeX_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"sizeZ\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &sizeZ_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &sizeZ_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -726,10 +726,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -796,7 +796,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

@@ -520,7 +520,7 @@ unsafe extern fn get_namespaceURI<TH: TypeHolderTrait>
 
 
 fn namespaceURI_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
-    call: get_namespaceURI as *const os::raw::c_void,
+    call: get_namespaceURI::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSNamespaceRule as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -550,7 +550,7 @@ unsafe extern fn get_prefix<TH: TypeHolderTrait>
 
 
 fn prefix_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
-    call: get_prefix as *const os::raw::c_void,
+    call: get_prefix::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSNamespaceRule as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(

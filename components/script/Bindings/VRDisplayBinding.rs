@@ -568,8 +568,8 @@ unsafe extern fn get_isConnected<TH: TypeHolderTrait>
 }
 
 
-const isConnected_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_isConnected as *const os::raw::c_void,
+fn isConnected_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_isConnected::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -584,7 +584,7 @@ const isConnected_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_isPresenting<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -598,8 +598,8 @@ unsafe extern fn get_isPresenting<TH: TypeHolderTrait>
 }
 
 
-const isPresenting_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_isPresenting as *const os::raw::c_void,
+fn isPresenting_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_isPresenting::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -614,7 +614,7 @@ const isPresenting_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_capabilities<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -628,8 +628,8 @@ unsafe extern fn get_capabilities<TH: TypeHolderTrait>
 }
 
 
-const capabilities_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_capabilities as *const os::raw::c_void,
+fn capabilities_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_capabilities::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -644,7 +644,7 @@ const capabilities_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_stageParameters<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -658,8 +658,8 @@ unsafe extern fn get_stageParameters<TH: TypeHolderTrait>
 }
 
 
-const stageParameters_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_stageParameters as *const os::raw::c_void,
+fn stageParameters_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_stageParameters::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -674,7 +674,7 @@ const stageParameters_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getEyeParameters<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -702,8 +702,8 @@ unsafe extern fn getEyeParameters<TH: TypeHolderTrait>
 }
 
 
-const getEyeParameters_methodinfo: JSJitInfo = JSJitInfo {
-    call: getEyeParameters as *const os::raw::c_void,
+fn getEyeParameters_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getEyeParameters::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -718,7 +718,7 @@ const getEyeParameters_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_displayId<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -732,8 +732,8 @@ unsafe extern fn get_displayId<TH: TypeHolderTrait>
 }
 
 
-const displayId_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_displayId as *const os::raw::c_void,
+fn displayId_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_displayId::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -748,7 +748,7 @@ const displayId_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_displayName<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -762,8 +762,8 @@ unsafe extern fn get_displayName<TH: TypeHolderTrait>
 }
 
 
-const displayName_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_displayName as *const os::raw::c_void,
+fn displayName_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_displayName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -778,7 +778,7 @@ const displayName_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getFrameData<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -814,8 +814,8 @@ unsafe extern fn getFrameData<TH: TypeHolderTrait>
 }
 
 
-const getFrameData_methodinfo: JSJitInfo = JSJitInfo {
-    call: getFrameData as *const os::raw::c_void,
+fn getFrameData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getFrameData::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -830,7 +830,7 @@ const getFrameData_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getPose<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -846,8 +846,8 @@ unsafe extern fn getPose<TH: TypeHolderTrait>
 }
 
 
-const getPose_methodinfo: JSJitInfo = JSJitInfo {
-    call: getPose as *const os::raw::c_void,
+fn getPose_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getPose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -862,7 +862,7 @@ const getPose_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn resetPose<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -878,8 +878,8 @@ unsafe extern fn resetPose<TH: TypeHolderTrait>
 }
 
 
-const resetPose_methodinfo: JSJitInfo = JSJitInfo {
-    call: resetPose as *const os::raw::c_void,
+fn resetPose_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: resetPose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -894,7 +894,7 @@ const resetPose_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_depthNear<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -928,8 +928,8 @@ unsafe extern fn set_depthNear<TH: TypeHolderTrait>
 }
 
 
-const depthNear_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_depthNear as *const os::raw::c_void,
+fn depthNear_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_depthNear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -944,10 +944,10 @@ const depthNear_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const depthNear_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_depthNear as *const os::raw::c_void,
+fn depthNear_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_depthNear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -962,7 +962,7 @@ const depthNear_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_depthFar<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -996,8 +996,8 @@ unsafe extern fn set_depthFar<TH: TypeHolderTrait>
 }
 
 
-const depthFar_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_depthFar as *const os::raw::c_void,
+fn depthFar_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_depthFar::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1012,10 +1012,10 @@ const depthFar_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const depthFar_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_depthFar as *const os::raw::c_void,
+fn depthFar_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_depthFar::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1030,7 +1030,7 @@ const depthFar_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn requestAnimationFrame<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1064,8 +1064,8 @@ unsafe extern fn requestAnimationFrame<TH: TypeHolderTrait>
 }
 
 
-const requestAnimationFrame_methodinfo: JSJitInfo = JSJitInfo {
-    call: requestAnimationFrame as *const os::raw::c_void,
+fn requestAnimationFrame_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: requestAnimationFrame::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1080,7 +1080,7 @@ const requestAnimationFrame_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn cancelAnimationFrame<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1111,8 +1111,8 @@ unsafe extern fn cancelAnimationFrame<TH: TypeHolderTrait>
 }
 
 
-const cancelAnimationFrame_methodinfo: JSJitInfo = JSJitInfo {
-    call: cancelAnimationFrame as *const os::raw::c_void,
+fn cancelAnimationFrame_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: cancelAnimationFrame::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1127,7 +1127,7 @@ const cancelAnimationFrame_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn requestPresent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1158,8 +1158,8 @@ unsafe extern fn requestPresent<TH: TypeHolderTrait>
 }
 
 
-const requestPresent_methodinfo: JSJitInfo = JSJitInfo {
-    call: requestPresent as *const os::raw::c_void,
+fn requestPresent_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: requestPresent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1174,7 +1174,7 @@ const requestPresent_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn exitPresent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1190,8 +1190,8 @@ unsafe extern fn exitPresent<TH: TypeHolderTrait>
 }
 
 
-const exitPresent_methodinfo: JSJitInfo = JSJitInfo {
-    call: exitPresent as *const os::raw::c_void,
+fn exitPresent_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: exitPresent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1206,7 +1206,7 @@ const exitPresent_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getLayers<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1222,8 +1222,8 @@ unsafe extern fn getLayers<TH: TypeHolderTrait>
 }
 
 
-const getLayers_methodinfo: JSJitInfo = JSJitInfo {
-    call: getLayers as *const os::raw::c_void,
+fn getLayers_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getLayers::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1238,7 +1238,7 @@ const getLayers_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn submitFrame<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1254,8 +1254,8 @@ unsafe extern fn submitFrame<TH: TypeHolderTrait>
 }
 
 
-const submitFrame_methodinfo: JSJitInfo = JSJitInfo {
-    call: submitFrame as *const os::raw::c_void,
+fn submitFrame_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: submitFrame::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1270,7 +1270,7 @@ const submitFrame_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1393,74 +1393,74 @@ pub trait VRDisplayMethods<TH: TypeHolderTrait> {
     fn GetLayers(&self) -> Vec<VRLayer<TH>>;
     fn SubmitFrame(&self) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getEyeParameters\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getEyeParameters_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getEyeParameters_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getFrameData\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getFrameData_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getFrameData_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getPose\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getPose_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getPose_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"resetPose\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &resetPose_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &resetPose_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"requestAnimationFrame\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &requestAnimationFrame_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &requestAnimationFrame_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"cancelAnimationFrame\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &cancelAnimationFrame_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &cancelAnimationFrame_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"requestPresent\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &requestPresent_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &requestPresent_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"exitPresent\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &exitPresent_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &exitPresent_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getLayers\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getLayers_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getLayers_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"submitFrame\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &submitFrame_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &submitFrame_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1473,59 +1473,59 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"isConnected\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &isConnected_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &isConnected_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"isPresenting\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &isPresenting_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &isPresenting_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"capabilities\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &capabilities_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &capabilities_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"stageParameters\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &stageParameters_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &stageParameters_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"displayId\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &displayId_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &displayId_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"displayName\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &displayName_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &displayName_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"depthNear\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &depthNear_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &depthNear_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &depthNear_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &depthNear_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"depthFar\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &depthFar_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &depthFar_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &depthFar_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &depthFar_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -1534,10 +1534,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1603,8 +1603,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

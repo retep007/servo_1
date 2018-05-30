@@ -520,8 +520,8 @@ unsafe extern fn get_installing<TH: TypeHolderTrait>
 }
 
 
-const installing_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_installing as *const os::raw::c_void,
+fn installing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_installing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorkerRegistration as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -536,7 +536,7 @@ const installing_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_waiting<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorkerRegistration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -550,8 +550,8 @@ unsafe extern fn get_waiting<TH: TypeHolderTrait>
 }
 
 
-const waiting_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_waiting as *const os::raw::c_void,
+fn waiting_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_waiting::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorkerRegistration as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -566,7 +566,7 @@ const waiting_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_active<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorkerRegistration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -580,8 +580,8 @@ unsafe extern fn get_active<TH: TypeHolderTrait>
 }
 
 
-const active_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_active as *const os::raw::c_void,
+fn active_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_active::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorkerRegistration as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -596,7 +596,7 @@ const active_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_scope<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorkerRegistration<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -610,8 +610,8 @@ unsafe extern fn get_scope<TH: TypeHolderTrait>
 }
 
 
-const scope_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_scope as *const os::raw::c_void,
+fn scope_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_scope::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorkerRegistration as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -626,7 +626,7 @@ const scope_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -737,12 +737,12 @@ pub trait ServiceWorkerRegistrationMethods<TH: TypeHolderTrait> {
     fn GetActive(&self) -> Option<DomRoot<ServiceWorker<TH>>>;
     fn Scope(&self) -> USVString;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"scope\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &scope_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &scope_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -752,28 +752,28 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
-const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
+fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"installing\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &installing_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &installing_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"waiting\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &waiting_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &waiting_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"active\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &active_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &active_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -783,10 +783,10 @@ const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sUnforgeableAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs[0])
-];
+]}
+fn sUnforgeableAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -853,7 +853,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());
@@ -885,10 +885,10 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
 
     rooted!(in(cx) let mut unforgeable_holder = ptr::null_mut::<JSObject>());
     unforgeable_holder.handle_mut().set(
-        JS_NewObjectWithoutMetadata(cx, &Class.base as *const JSClass, prototype.handle()));
+        JS_NewObjectWithoutMetadata(cx, &Class::<TH>().base as *const JSClass, prototype.handle()));
     assert!(!unforgeable_holder.is_null());
 
-    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes);
+    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes::<TH>());
     JS_SetReservedSlot(prototype.get(), DOM_PROTO_UNFORGEABLE_HOLDER_SLOT,
                        ObjectValue(unforgeable_holder.get()))
 }

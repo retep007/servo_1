@@ -903,8 +903,8 @@ unsafe extern fn get_state<TH: TypeHolderTrait>
 }
 
 
-const state_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_state as *const os::raw::c_void,
+fn state_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_state::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PermissionStatus as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -919,7 +919,7 @@ const state_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PermissionStatus<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -948,8 +948,8 @@ unsafe extern fn set_onchange<TH: TypeHolderTrait>
 }
 
 
-const onchange_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onchange as *const os::raw::c_void,
+fn onchange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PermissionStatus as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -964,10 +964,10 @@ const onchange_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onchange_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onchange as *const os::raw::c_void,
+fn onchange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PermissionStatus as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -982,7 +982,7 @@ const onchange_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1088,19 +1088,19 @@ pub trait PermissionStatusMethods<TH: TypeHolderTrait> {
     fn GetOnchange(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnchange(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"state\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &state_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &state_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"onchange\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onchange_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onchange_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onchange_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onchange_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -1109,10 +1109,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1198,7 +1198,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

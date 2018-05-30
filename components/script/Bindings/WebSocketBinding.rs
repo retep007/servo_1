@@ -559,8 +559,8 @@ unsafe extern fn get_url<TH: TypeHolderTrait>
 }
 
 
-const url_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_url as *const os::raw::c_void,
+fn url_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_url::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -575,7 +575,7 @@ const url_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_readyState<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -589,8 +589,8 @@ unsafe extern fn get_readyState<TH: TypeHolderTrait>
 }
 
 
-const readyState_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_readyState as *const os::raw::c_void,
+fn readyState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_readyState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -605,7 +605,7 @@ const readyState_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_bufferedAmount<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -619,8 +619,8 @@ unsafe extern fn get_bufferedAmount<TH: TypeHolderTrait>
 }
 
 
-const bufferedAmount_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_bufferedAmount as *const os::raw::c_void,
+fn bufferedAmount_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_bufferedAmount::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -635,7 +635,7 @@ const bufferedAmount_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onopen<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -664,8 +664,8 @@ unsafe extern fn set_onopen<TH: TypeHolderTrait>
 }
 
 
-const onopen_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onopen as *const os::raw::c_void,
+fn onopen_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onopen::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -680,10 +680,10 @@ const onopen_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onopen_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onopen as *const os::raw::c_void,
+fn onopen_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onopen::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -698,7 +698,7 @@ const onopen_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -727,8 +727,8 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 }
 
 
-const onerror_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onerror as *const os::raw::c_void,
+fn onerror_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -743,10 +743,10 @@ const onerror_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onerror_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onerror as *const os::raw::c_void,
+fn onerror_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -761,7 +761,7 @@ const onerror_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onclose<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -790,8 +790,8 @@ unsafe extern fn set_onclose<TH: TypeHolderTrait>
 }
 
 
-const onclose_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onclose as *const os::raw::c_void,
+fn onclose_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onclose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -806,10 +806,10 @@ const onclose_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onclose_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onclose as *const os::raw::c_void,
+fn onclose_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onclose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -824,7 +824,7 @@ const onclose_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_protocol<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -838,8 +838,8 @@ unsafe extern fn get_protocol<TH: TypeHolderTrait>
 }
 
 
-const protocol_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_protocol as *const os::raw::c_void,
+fn protocol_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_protocol::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -854,7 +854,7 @@ const protocol_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn close<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -905,8 +905,8 @@ unsafe extern fn close<TH: TypeHolderTrait>
 }
 
 
-const close_methodinfo: JSJitInfo = JSJitInfo {
-    call: close as *const os::raw::c_void,
+fn close_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: close::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -921,7 +921,7 @@ const close_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onmessage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -950,8 +950,8 @@ unsafe extern fn set_onmessage<TH: TypeHolderTrait>
 }
 
 
-const onmessage_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onmessage as *const os::raw::c_void,
+fn onmessage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onmessage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -966,10 +966,10 @@ const onmessage_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onmessage_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onmessage as *const os::raw::c_void,
+fn onmessage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onmessage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -984,7 +984,7 @@ const onmessage_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_binaryType<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1014,8 +1014,8 @@ unsafe extern fn set_binaryType<TH: TypeHolderTrait>
 }
 
 
-const binaryType_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_binaryType as *const os::raw::c_void,
+fn binaryType_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_binaryType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1030,10 +1030,10 @@ const binaryType_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const binaryType_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_binaryType as *const os::raw::c_void,
+fn binaryType_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_binaryType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1048,7 +1048,7 @@ const binaryType_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn send<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebSocket<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1155,8 +1155,8 @@ unsafe extern fn send<TH: TypeHolderTrait>
 }
 
 
-const send_methodinfo: JSJitInfo = JSJitInfo {
-    call: send as *const os::raw::c_void,
+fn send_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: send::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebSocket as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1171,7 +1171,7 @@ const send_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1299,18 +1299,18 @@ pub trait WebSocketMethods<TH: TypeHolderTrait> {
     fn Send__(&self, data: CustomAutoRooterGuard<typedarray::ArrayBuffer>) -> Fallible<(), TH>;
     fn Send___(&self, data: CustomAutoRooterGuard<typedarray::ArrayBufferView>) -> Fallible<(), TH>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"close\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &close_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &close_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"send\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &send_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &send_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1323,65 +1323,65 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"url\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &url_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &url_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"readyState\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &readyState_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &readyState_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"bufferedAmount\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &bufferedAmount_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &bufferedAmount_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"onopen\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onopen_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onopen_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onopen_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onopen_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onerror\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onerror_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onerror_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onerror_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onerror_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onclose\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onclose_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onclose_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onclose_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onclose_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"protocol\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &protocol_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &protocol_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"onmessage\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmessage_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmessage_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmessage_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmessage_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"binaryType\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &binaryType_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &binaryType_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &binaryType_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &binaryType_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -1390,10 +1390,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
 &[
     ConstantSpec { name: b"CONNECTING\0", value: ConstantVal::IntVal(0) },
@@ -1517,8 +1517,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       sConstants,
                                       &[],
                                       prototype.handle_mut().into());

@@ -832,7 +832,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for CSSRuleList<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class as *const _
+        class as *const _ == &Class::<TH>() as *const _
     }
 }
 

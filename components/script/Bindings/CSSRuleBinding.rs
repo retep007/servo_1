@@ -589,7 +589,7 @@ fn cssText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
 }}
 
 fn cssText_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
-    call: set_cssText as *const os::raw::c_void,
+    call: set_cssText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSRule as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(

@@ -518,8 +518,8 @@ unsafe extern fn get_identifier<TH: TypeHolderTrait>
 }
 
 
-const identifier_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_identifier as *const os::raw::c_void,
+fn identifier_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_identifier::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Touch as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -534,7 +534,7 @@ const identifier_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_target<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Touch<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -548,8 +548,8 @@ unsafe extern fn get_target<TH: TypeHolderTrait>
 }
 
 
-const target_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_target as *const os::raw::c_void,
+fn target_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_target::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Touch as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -564,7 +564,7 @@ const target_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_screenX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Touch<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -578,8 +578,8 @@ unsafe extern fn get_screenX<TH: TypeHolderTrait>
 }
 
 
-const screenX_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_screenX as *const os::raw::c_void,
+fn screenX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_screenX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Touch as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -594,7 +594,7 @@ const screenX_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_screenY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Touch<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -608,8 +608,8 @@ unsafe extern fn get_screenY<TH: TypeHolderTrait>
 }
 
 
-const screenY_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_screenY as *const os::raw::c_void,
+fn screenY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_screenY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Touch as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -624,7 +624,7 @@ const screenY_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_clientX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Touch<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -638,8 +638,8 @@ unsafe extern fn get_clientX<TH: TypeHolderTrait>
 }
 
 
-const clientX_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_clientX as *const os::raw::c_void,
+fn clientX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_clientX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Touch as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -654,7 +654,7 @@ const clientX_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_clientY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Touch<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -668,8 +668,8 @@ unsafe extern fn get_clientY<TH: TypeHolderTrait>
 }
 
 
-const clientY_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_clientY as *const os::raw::c_void,
+fn clientY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_clientY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Touch as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -684,7 +684,7 @@ const clientY_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_pageX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Touch<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -698,8 +698,8 @@ unsafe extern fn get_pageX<TH: TypeHolderTrait>
 }
 
 
-const pageX_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_pageX as *const os::raw::c_void,
+fn pageX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_pageX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Touch as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -714,7 +714,7 @@ const pageX_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_pageY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Touch<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -728,8 +728,8 @@ unsafe extern fn get_pageY<TH: TypeHolderTrait>
 }
 
 
-const pageY_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_pageY as *const os::raw::c_void,
+fn pageY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_pageY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Touch as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -744,7 +744,7 @@ const pageY_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -820,7 +820,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class::<TH>.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -855,54 +855,54 @@ pub trait TouchMethods<TH: TypeHolderTrait> {
     fn PageX(&self) -> Finite<f64>;
     fn PageY(&self) -> Finite<f64>;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"identifier\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &identifier_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &identifier_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"target\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &target_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &target_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"screenX\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &screenX_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &screenX_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"screenY\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &screenY_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &screenY_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"clientX\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &clientX_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &clientX_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"clientY\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &clientY_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &clientY_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"pageX\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &pageX_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &pageX_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"pageY\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &pageY_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &pageY_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -912,10 +912,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -981,7 +981,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

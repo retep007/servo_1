@@ -520,8 +520,8 @@ unsafe extern fn getEntries<TH: TypeHolderTrait>
 }
 
 
-const getEntries_methodinfo: JSJitInfo = JSJitInfo {
-    call: getEntries as *const os::raw::c_void,
+fn getEntries_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getEntries::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceObserverEntryList as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -536,7 +536,7 @@ const getEntries_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getEntriesByType<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceObserverEntryList<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -567,8 +567,8 @@ unsafe extern fn getEntriesByType<TH: TypeHolderTrait>
 }
 
 
-const getEntriesByType_methodinfo: JSJitInfo = JSJitInfo {
-    call: getEntriesByType as *const os::raw::c_void,
+fn getEntriesByType_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getEntriesByType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceObserverEntryList as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -583,7 +583,7 @@ const getEntriesByType_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn getEntriesByName<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PerformanceObserverEntryList<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -628,8 +628,8 @@ unsafe extern fn getEntriesByName<TH: TypeHolderTrait>
 }
 
 
-const getEntriesByName_methodinfo: JSJitInfo = JSJitInfo {
-    call: getEntriesByName as *const os::raw::c_void,
+fn getEntriesByName_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: getEntriesByName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PerformanceObserverEntryList as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -644,7 +644,7 @@ const getEntriesByName_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -750,25 +750,25 @@ pub trait PerformanceObserverEntryListMethods<TH: TypeHolderTrait> {
     fn GetEntriesByType(&self, entryType: DOMString) -> Vec<DomRoot<PerformanceEntry<TH>>>;
     fn GetEntriesByName(&self, name: DOMString, entryType: Option<DOMString>) -> Vec<DomRoot<PerformanceEntry<TH>>>;
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getEntries\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getEntries_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getEntries_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getEntriesByType\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getEntriesByType_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getEntriesByType_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"getEntriesByName\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &getEntriesByName_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &getEntriesByName_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -781,10 +781,10 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -849,7 +849,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
+                                      sMethods::<TH>(),
                                       &[],
                                       &[],
                                       &[],

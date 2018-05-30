@@ -522,8 +522,8 @@ unsafe extern fn createVertexArrayOES<TH: TypeHolderTrait>
 }
 
 
-const createVertexArrayOES_methodinfo: JSJitInfo = JSJitInfo {
-    call: createVertexArrayOES as *const os::raw::c_void,
+fn createVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createVertexArrayOES::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::OESVertexArrayObject as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -538,7 +538,7 @@ const createVertexArrayOES_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn deleteVertexArrayOES<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const OESVertexArrayObject<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -576,8 +576,8 @@ unsafe extern fn deleteVertexArrayOES<TH: TypeHolderTrait>
 }
 
 
-const deleteVertexArrayOES_methodinfo: JSJitInfo = JSJitInfo {
-    call: deleteVertexArrayOES as *const os::raw::c_void,
+fn deleteVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: deleteVertexArrayOES::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::OESVertexArrayObject as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -592,7 +592,7 @@ const deleteVertexArrayOES_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn isVertexArrayOES<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const OESVertexArrayObject<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -630,8 +630,8 @@ unsafe extern fn isVertexArrayOES<TH: TypeHolderTrait>
 }
 
 
-const isVertexArrayOES_methodinfo: JSJitInfo = JSJitInfo {
-    call: isVertexArrayOES as *const os::raw::c_void,
+fn isVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: isVertexArrayOES::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::OESVertexArrayObject as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -646,7 +646,7 @@ const isVertexArrayOES_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn bindVertexArrayOES<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const OESVertexArrayObject<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -684,8 +684,8 @@ unsafe extern fn bindVertexArrayOES<TH: TypeHolderTrait>
 }
 
 
-const bindVertexArrayOES_methodinfo: JSJitInfo = JSJitInfo {
-    call: bindVertexArrayOES as *const os::raw::c_void,
+fn bindVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: bindVertexArrayOES::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::OESVertexArrayObject as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -700,7 +700,7 @@ const bindVertexArrayOES_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -810,32 +810,32 @@ pub trait OESVertexArrayObjectMethods<TH: TypeHolderTrait> {
     fn IsVertexArrayOES(&self, arrayObject: Option<&WebGLVertexArrayObjectOES<TH>>) -> bool;
     fn BindVertexArrayOES(&self, arrayObject: Option<&WebGLVertexArrayObjectOES<TH>>) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"createVertexArrayOES\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createVertexArrayOES_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createVertexArrayOES_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"deleteVertexArrayOES\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &deleteVertexArrayOES_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &deleteVertexArrayOES_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"isVertexArrayOES\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &isVertexArrayOES_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &isVertexArrayOES_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"bindVertexArrayOES\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &bindVertexArrayOES_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &bindVertexArrayOES_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -848,10 +848,10 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
 &[
     ConstantSpec { name: b"VERTEX_ARRAY_BINDING_OES\0", value: ConstantVal::UintVal(34229) }]
@@ -899,7 +899,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
+                                      sMethods::<TH>(),
                                       &[],
                                       sConstants,
                                       &[],

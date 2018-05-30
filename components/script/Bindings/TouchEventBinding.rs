@@ -520,8 +520,8 @@ unsafe extern fn get_touches<TH: TypeHolderTrait>
 }
 
 
-const touches_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_touches as *const os::raw::c_void,
+fn touches_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_touches::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TouchEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -536,7 +536,7 @@ const touches_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_targetTouches<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TouchEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -550,8 +550,8 @@ unsafe extern fn get_targetTouches<TH: TypeHolderTrait>
 }
 
 
-const targetTouches_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_targetTouches as *const os::raw::c_void,
+fn targetTouches_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_targetTouches::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TouchEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -566,7 +566,7 @@ const targetTouches_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_changedTouches<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TouchEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -580,8 +580,8 @@ unsafe extern fn get_changedTouches<TH: TypeHolderTrait>
 }
 
 
-const changedTouches_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_changedTouches as *const os::raw::c_void,
+fn changedTouches_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_changedTouches::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TouchEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -596,7 +596,7 @@ const changedTouches_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_altKey<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TouchEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -610,8 +610,8 @@ unsafe extern fn get_altKey<TH: TypeHolderTrait>
 }
 
 
-const altKey_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_altKey as *const os::raw::c_void,
+fn altKey_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_altKey::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TouchEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -626,7 +626,7 @@ const altKey_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_metaKey<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TouchEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -640,8 +640,8 @@ unsafe extern fn get_metaKey<TH: TypeHolderTrait>
 }
 
 
-const metaKey_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_metaKey as *const os::raw::c_void,
+fn metaKey_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_metaKey::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TouchEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -656,7 +656,7 @@ const metaKey_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ctrlKey<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TouchEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -670,8 +670,8 @@ unsafe extern fn get_ctrlKey<TH: TypeHolderTrait>
 }
 
 
-const ctrlKey_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ctrlKey as *const os::raw::c_void,
+fn ctrlKey_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ctrlKey::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TouchEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -686,7 +686,7 @@ const ctrlKey_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_shiftKey<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TouchEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -700,8 +700,8 @@ unsafe extern fn get_shiftKey<TH: TypeHolderTrait>
 }
 
 
-const shiftKey_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_shiftKey as *const os::raw::c_void,
+fn shiftKey_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_shiftKey::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TouchEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -716,7 +716,7 @@ const shiftKey_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_isTrusted<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TouchEvent<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -730,8 +730,8 @@ unsafe extern fn get_isTrusted<TH: TypeHolderTrait>
 }
 
 
-const isTrusted_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_isTrusted as *const os::raw::c_void,
+fn isTrusted_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_isTrusted::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TouchEvent as u16,
     depth: 2,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -746,7 +746,7 @@ const isTrusted_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -861,48 +861,48 @@ pub trait TouchEventMethods<TH: TypeHolderTrait> {
     fn ShiftKey(&self) -> bool;
     fn IsTrusted(&self) -> bool;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"touches\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &touches_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &touches_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"targetTouches\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &targetTouches_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &targetTouches_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"changedTouches\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &changedTouches_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &changedTouches_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"altKey\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &altKey_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &altKey_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"metaKey\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &metaKey_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &metaKey_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"ctrlKey\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ctrlKey_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ctrlKey_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"shiftKey\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &shiftKey_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &shiftKey_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -912,16 +912,16 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
-const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
+fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"isTrusted\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED | JSPROP_PERMANENT) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &isTrusted_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &isTrusted_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -931,10 +931,10 @@ const sUnforgeableAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sUnforgeableAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs[0])
-];
+]}
+fn sUnforgeableAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1000,7 +1000,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());
@@ -1032,10 +1032,10 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
 
     rooted!(in(cx) let mut unforgeable_holder = ptr::null_mut::<JSObject>());
     unforgeable_holder.handle_mut().set(
-        JS_NewObjectWithoutMetadata(cx, &Class.base as *const JSClass, prototype.handle()));
+        JS_NewObjectWithoutMetadata(cx, &Class::<TH>().base as *const JSClass, prototype.handle()));
     assert!(!unforgeable_holder.is_null());
 
-    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes);
+    define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes::<TH>());
     JS_SetReservedSlot(prototype.get(), DOM_PROTO_UNFORGEABLE_HOLDER_SLOT,
                        ObjectValue(unforgeable_holder.get()))
 }

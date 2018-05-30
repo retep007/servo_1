@@ -551,8 +551,8 @@ unsafe extern fn set_globalAlpha<TH: TypeHolderTrait>
 }
 
 
-const globalAlpha_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_globalAlpha as *const os::raw::c_void,
+fn globalAlpha_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_globalAlpha::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -567,10 +567,10 @@ const globalAlpha_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const globalAlpha_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_globalAlpha as *const os::raw::c_void,
+fn globalAlpha_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_globalAlpha::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -585,7 +585,7 @@ const globalAlpha_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_globalCompositeOperation<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -619,8 +619,8 @@ unsafe extern fn set_globalCompositeOperation<TH: TypeHolderTrait>
 }
 
 
-const globalCompositeOperation_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_globalCompositeOperation as *const os::raw::c_void,
+fn globalCompositeOperation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_globalCompositeOperation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -635,10 +635,10 @@ const globalCompositeOperation_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const globalCompositeOperation_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_globalCompositeOperation as *const os::raw::c_void,
+fn globalCompositeOperation_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_globalCompositeOperation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -653,7 +653,7 @@ const globalCompositeOperation_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn drawImage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -882,8 +882,8 @@ unsafe extern fn drawImage<TH: TypeHolderTrait>
 }
 
 
-const drawImage_methodinfo: JSJitInfo = JSJitInfo {
-    call: drawImage as *const os::raw::c_void,
+fn drawImage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: drawImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -898,7 +898,7 @@ const drawImage_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn beginPath<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -914,8 +914,8 @@ unsafe extern fn beginPath<TH: TypeHolderTrait>
 }
 
 
-const beginPath_methodinfo: JSJitInfo = JSJitInfo {
-    call: beginPath as *const os::raw::c_void,
+fn beginPath_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: beginPath::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -930,7 +930,7 @@ const beginPath_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn fill<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -957,8 +957,8 @@ unsafe extern fn fill<TH: TypeHolderTrait>
 }
 
 
-const fill_methodinfo: JSJitInfo = JSJitInfo {
-    call: fill as *const os::raw::c_void,
+fn fill_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: fill::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -973,7 +973,7 @@ const fill_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn stroke<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -989,8 +989,8 @@ unsafe extern fn stroke<TH: TypeHolderTrait>
 }
 
 
-const stroke_methodinfo: JSJitInfo = JSJitInfo {
-    call: stroke as *const os::raw::c_void,
+fn stroke_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: stroke::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1005,7 +1005,7 @@ const stroke_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn clip<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1032,8 +1032,8 @@ unsafe extern fn clip<TH: TypeHolderTrait>
 }
 
 
-const clip_methodinfo: JSJitInfo = JSJitInfo {
-    call: clip as *const os::raw::c_void,
+fn clip_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1048,7 +1048,7 @@ const clip_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn isPointInPath<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1100,8 +1100,8 @@ unsafe extern fn isPointInPath<TH: TypeHolderTrait>
 }
 
 
-const isPointInPath_methodinfo: JSJitInfo = JSJitInfo {
-    call: isPointInPath as *const os::raw::c_void,
+fn isPointInPath_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: isPointInPath::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1116,7 +1116,7 @@ const isPointInPath_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_strokeStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1150,8 +1150,8 @@ unsafe extern fn set_strokeStyle<TH: TypeHolderTrait>
 }
 
 
-const strokeStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_strokeStyle as *const os::raw::c_void,
+fn strokeStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_strokeStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1166,10 +1166,10 @@ const strokeStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const strokeStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_strokeStyle as *const os::raw::c_void,
+fn strokeStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_strokeStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1184,7 +1184,7 @@ const strokeStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_fillStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1218,8 +1218,8 @@ unsafe extern fn set_fillStyle<TH: TypeHolderTrait>
 }
 
 
-const fillStyle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_fillStyle as *const os::raw::c_void,
+fn fillStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_fillStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1234,10 +1234,10 @@ const fillStyle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const fillStyle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_fillStyle as *const os::raw::c_void,
+fn fillStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_fillStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1252,7 +1252,7 @@ const fillStyle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn createLinearGradient<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1313,8 +1313,8 @@ unsafe extern fn createLinearGradient<TH: TypeHolderTrait>
 }
 
 
-const createLinearGradient_methodinfo: JSJitInfo = JSJitInfo {
-    call: createLinearGradient as *const os::raw::c_void,
+fn createLinearGradient_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createLinearGradient::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1329,7 +1329,7 @@ const createLinearGradient_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn createRadialGradient<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1417,8 +1417,8 @@ unsafe extern fn createRadialGradient<TH: TypeHolderTrait>
 }
 
 
-const createRadialGradient_methodinfo: JSJitInfo = JSJitInfo {
-    call: createRadialGradient as *const os::raw::c_void,
+fn createRadialGradient_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createRadialGradient::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1433,7 +1433,7 @@ const createRadialGradient_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn createPattern<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1481,8 +1481,8 @@ unsafe extern fn createPattern<TH: TypeHolderTrait>
 }
 
 
-const createPattern_methodinfo: JSJitInfo = JSJitInfo {
-    call: createPattern as *const os::raw::c_void,
+fn createPattern_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: createPattern::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1497,7 +1497,7 @@ const createPattern_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_imageSmoothingEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1531,8 +1531,8 @@ unsafe extern fn set_imageSmoothingEnabled<TH: TypeHolderTrait>
 }
 
 
-const imageSmoothingEnabled_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_imageSmoothingEnabled as *const os::raw::c_void,
+fn imageSmoothingEnabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_imageSmoothingEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1547,10 +1547,10 @@ const imageSmoothingEnabled_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const imageSmoothingEnabled_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_imageSmoothingEnabled as *const os::raw::c_void,
+fn imageSmoothingEnabled_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_imageSmoothingEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1565,7 +1565,7 @@ const imageSmoothingEnabled_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn closePath<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1581,8 +1581,8 @@ unsafe extern fn closePath<TH: TypeHolderTrait>
 }
 
 
-const closePath_methodinfo: JSJitInfo = JSJitInfo {
-    call: closePath as *const os::raw::c_void,
+fn closePath_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: closePath::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1597,7 +1597,7 @@ const closePath_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn moveTo<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1638,8 +1638,8 @@ unsafe extern fn moveTo<TH: TypeHolderTrait>
 }
 
 
-const moveTo_methodinfo: JSJitInfo = JSJitInfo {
-    call: moveTo as *const os::raw::c_void,
+fn moveTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: moveTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1654,7 +1654,7 @@ const moveTo_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn lineTo<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1695,8 +1695,8 @@ unsafe extern fn lineTo<TH: TypeHolderTrait>
 }
 
 
-const lineTo_methodinfo: JSJitInfo = JSJitInfo {
-    call: lineTo as *const os::raw::c_void,
+fn lineTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: lineTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1711,7 +1711,7 @@ const lineTo_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn quadraticCurveTo<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1772,8 +1772,8 @@ unsafe extern fn quadraticCurveTo<TH: TypeHolderTrait>
 }
 
 
-const quadraticCurveTo_methodinfo: JSJitInfo = JSJitInfo {
-    call: quadraticCurveTo as *const os::raw::c_void,
+fn quadraticCurveTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: quadraticCurveTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1788,7 +1788,7 @@ const quadraticCurveTo_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn bezierCurveTo<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1869,8 +1869,8 @@ unsafe extern fn bezierCurveTo<TH: TypeHolderTrait>
 }
 
 
-const bezierCurveTo_methodinfo: JSJitInfo = JSJitInfo {
-    call: bezierCurveTo as *const os::raw::c_void,
+fn bezierCurveTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: bezierCurveTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1885,7 +1885,7 @@ const bezierCurveTo_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn arcTo<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1963,8 +1963,8 @@ unsafe extern fn arcTo<TH: TypeHolderTrait>
 }
 
 
-const arcTo_methodinfo: JSJitInfo = JSJitInfo {
-    call: arcTo as *const os::raw::c_void,
+fn arcTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: arcTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1979,7 +1979,7 @@ const arcTo_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn rect<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2040,8 +2040,8 @@ unsafe extern fn rect<TH: TypeHolderTrait>
 }
 
 
-const rect_methodinfo: JSJitInfo = JSJitInfo {
-    call: rect as *const os::raw::c_void,
+fn rect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: rect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2056,7 +2056,7 @@ const rect_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn arc<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2148,8 +2148,8 @@ unsafe extern fn arc<TH: TypeHolderTrait>
 }
 
 
-const arc_methodinfo: JSJitInfo = JSJitInfo {
-    call: arc as *const os::raw::c_void,
+fn arc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: arc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2164,7 +2164,7 @@ const arc_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn ellipse<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2276,8 +2276,8 @@ unsafe extern fn ellipse<TH: TypeHolderTrait>
 }
 
 
-const ellipse_methodinfo: JSJitInfo = JSJitInfo {
-    call: ellipse as *const os::raw::c_void,
+fn ellipse_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: ellipse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2292,7 +2292,7 @@ const ellipse_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_lineWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2326,8 +2326,8 @@ unsafe extern fn set_lineWidth<TH: TypeHolderTrait>
 }
 
 
-const lineWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_lineWidth as *const os::raw::c_void,
+fn lineWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_lineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2342,10 +2342,10 @@ const lineWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const lineWidth_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_lineWidth as *const os::raw::c_void,
+fn lineWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_lineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2360,7 +2360,7 @@ const lineWidth_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_lineCap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2390,8 +2390,8 @@ unsafe extern fn set_lineCap<TH: TypeHolderTrait>
 }
 
 
-const lineCap_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_lineCap as *const os::raw::c_void,
+fn lineCap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_lineCap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2406,10 +2406,10 @@ const lineCap_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const lineCap_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_lineCap as *const os::raw::c_void,
+fn lineCap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_lineCap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2424,7 +2424,7 @@ const lineCap_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_lineJoin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2454,8 +2454,8 @@ unsafe extern fn set_lineJoin<TH: TypeHolderTrait>
 }
 
 
-const lineJoin_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_lineJoin as *const os::raw::c_void,
+fn lineJoin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_lineJoin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2470,10 +2470,10 @@ const lineJoin_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const lineJoin_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_lineJoin as *const os::raw::c_void,
+fn lineJoin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_lineJoin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2488,7 +2488,7 @@ const lineJoin_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_miterLimit<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2522,8 +2522,8 @@ unsafe extern fn set_miterLimit<TH: TypeHolderTrait>
 }
 
 
-const miterLimit_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_miterLimit as *const os::raw::c_void,
+fn miterLimit_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_miterLimit::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2538,10 +2538,10 @@ const miterLimit_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const miterLimit_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_miterLimit as *const os::raw::c_void,
+fn miterLimit_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_miterLimit::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2556,7 +2556,7 @@ const miterLimit_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn clearRect<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2617,8 +2617,8 @@ unsafe extern fn clearRect<TH: TypeHolderTrait>
 }
 
 
-const clearRect_methodinfo: JSJitInfo = JSJitInfo {
-    call: clearRect as *const os::raw::c_void,
+fn clearRect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: clearRect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2633,7 +2633,7 @@ const clearRect_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn fillRect<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2694,8 +2694,8 @@ unsafe extern fn fillRect<TH: TypeHolderTrait>
 }
 
 
-const fillRect_methodinfo: JSJitInfo = JSJitInfo {
-    call: fillRect as *const os::raw::c_void,
+fn fillRect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: fillRect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2710,7 +2710,7 @@ const fillRect_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn strokeRect<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -2771,8 +2771,8 @@ unsafe extern fn strokeRect<TH: TypeHolderTrait>
 }
 
 
-const strokeRect_methodinfo: JSJitInfo = JSJitInfo {
-    call: strokeRect as *const os::raw::c_void,
+fn strokeRect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: strokeRect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2787,7 +2787,7 @@ const strokeRect_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_shadowOffsetX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2821,8 +2821,8 @@ unsafe extern fn set_shadowOffsetX<TH: TypeHolderTrait>
 }
 
 
-const shadowOffsetX_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_shadowOffsetX as *const os::raw::c_void,
+fn shadowOffsetX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_shadowOffsetX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2837,10 +2837,10 @@ const shadowOffsetX_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const shadowOffsetX_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_shadowOffsetX as *const os::raw::c_void,
+fn shadowOffsetX_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_shadowOffsetX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2855,7 +2855,7 @@ const shadowOffsetX_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_shadowOffsetY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2889,8 +2889,8 @@ unsafe extern fn set_shadowOffsetY<TH: TypeHolderTrait>
 }
 
 
-const shadowOffsetY_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_shadowOffsetY as *const os::raw::c_void,
+fn shadowOffsetY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_shadowOffsetY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2905,10 +2905,10 @@ const shadowOffsetY_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const shadowOffsetY_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_shadowOffsetY as *const os::raw::c_void,
+fn shadowOffsetY_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_shadowOffsetY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2923,7 +2923,7 @@ const shadowOffsetY_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_shadowBlur<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2957,8 +2957,8 @@ unsafe extern fn set_shadowBlur<TH: TypeHolderTrait>
 }
 
 
-const shadowBlur_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_shadowBlur as *const os::raw::c_void,
+fn shadowBlur_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_shadowBlur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2973,10 +2973,10 @@ const shadowBlur_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const shadowBlur_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_shadowBlur as *const os::raw::c_void,
+fn shadowBlur_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_shadowBlur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2991,7 +2991,7 @@ const shadowBlur_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_shadowColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3025,8 +3025,8 @@ unsafe extern fn set_shadowColor<TH: TypeHolderTrait>
 }
 
 
-const shadowColor_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_shadowColor as *const os::raw::c_void,
+fn shadowColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_shadowColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3041,10 +3041,10 @@ const shadowColor_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const shadowColor_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_shadowColor as *const os::raw::c_void,
+fn shadowColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_shadowColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3059,7 +3059,7 @@ const shadowColor_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn save<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3075,8 +3075,8 @@ unsafe extern fn save<TH: TypeHolderTrait>
 }
 
 
-const save_methodinfo: JSJitInfo = JSJitInfo {
-    call: save as *const os::raw::c_void,
+fn save_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: save::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3091,7 +3091,7 @@ const save_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn restore<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3107,8 +3107,8 @@ unsafe extern fn restore<TH: TypeHolderTrait>
 }
 
 
-const restore_methodinfo: JSJitInfo = JSJitInfo {
-    call: restore as *const os::raw::c_void,
+fn restore_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: restore::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3123,7 +3123,7 @@ const restore_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn scale<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3164,8 +3164,8 @@ unsafe extern fn scale<TH: TypeHolderTrait>
 }
 
 
-const scale_methodinfo: JSJitInfo = JSJitInfo {
-    call: scale as *const os::raw::c_void,
+fn scale_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: scale::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3180,7 +3180,7 @@ const scale_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn rotate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3211,8 +3211,8 @@ unsafe extern fn rotate<TH: TypeHolderTrait>
 }
 
 
-const rotate_methodinfo: JSJitInfo = JSJitInfo {
-    call: rotate as *const os::raw::c_void,
+fn rotate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: rotate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3227,7 +3227,7 @@ const rotate_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn translate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3268,8 +3268,8 @@ unsafe extern fn translate<TH: TypeHolderTrait>
 }
 
 
-const translate_methodinfo: JSJitInfo = JSJitInfo {
-    call: translate as *const os::raw::c_void,
+fn translate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: translate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3284,7 +3284,7 @@ const translate_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn transform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3365,8 +3365,8 @@ unsafe extern fn transform<TH: TypeHolderTrait>
 }
 
 
-const transform_methodinfo: JSJitInfo = JSJitInfo {
-    call: transform as *const os::raw::c_void,
+fn transform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3381,7 +3381,7 @@ const transform_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn setTransform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3462,8 +3462,8 @@ unsafe extern fn setTransform<TH: TypeHolderTrait>
 }
 
 
-const setTransform_methodinfo: JSJitInfo = JSJitInfo {
-    call: setTransform as *const os::raw::c_void,
+fn setTransform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: setTransform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3478,7 +3478,7 @@ const setTransform_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn resetTransform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3494,8 +3494,8 @@ unsafe extern fn resetTransform<TH: TypeHolderTrait>
 }
 
 
-const resetTransform_methodinfo: JSJitInfo = JSJitInfo {
-    call: resetTransform as *const os::raw::c_void,
+fn resetTransform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: resetTransform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3510,7 +3510,7 @@ const resetTransform_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -3670,207 +3670,207 @@ pub trait PaintRenderingContext2DMethods<TH: TypeHolderTrait> {
     fn SetTransform(&self, a: f64, b: f64, c: f64, d: f64, e: f64, f: f64) -> ();
     fn ResetTransform(&self) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"drawImage\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &drawImage_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &drawImage_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"beginPath\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &beginPath_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &beginPath_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"fill\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &fill_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &fill_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"stroke\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &stroke_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &stroke_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"clip\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &clip_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &clip_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"isPointInPath\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &isPointInPath_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &isPointInPath_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"createLinearGradient\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createLinearGradient_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createLinearGradient_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"createRadialGradient\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createRadialGradient_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createRadialGradient_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 6,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"createPattern\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &createPattern_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &createPattern_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"closePath\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &closePath_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &closePath_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"moveTo\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &moveTo_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &moveTo_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"lineTo\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &lineTo_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &lineTo_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"quadraticCurveTo\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &quadraticCurveTo_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &quadraticCurveTo_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"bezierCurveTo\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &bezierCurveTo_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &bezierCurveTo_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 6,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"arcTo\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &arcTo_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &arcTo_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 5,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"rect\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &rect_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &rect_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"arc\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &arc_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &arc_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 5,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"ellipse\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &ellipse_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &ellipse_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 7,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"clearRect\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &clearRect_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &clearRect_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"fillRect\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &fillRect_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &fillRect_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"strokeRect\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &strokeRect_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &strokeRect_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 4,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"save\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &save_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &save_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"restore\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &restore_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &restore_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"scale\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &scale_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &scale_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"rotate\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &rotate_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &rotate_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"translate\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &translate_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &translate_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"transform\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &transform_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &transform_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 6,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"setTransform\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &setTransform_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &setTransform_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 6,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"resetTransform\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &resetTransform_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &resetTransform_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -3883,89 +3883,89 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"globalAlpha\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &globalAlpha_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &globalAlpha_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &globalAlpha_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &globalAlpha_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"globalCompositeOperation\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &globalCompositeOperation_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &globalCompositeOperation_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &globalCompositeOperation_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &globalCompositeOperation_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"strokeStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &strokeStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &strokeStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &strokeStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &strokeStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"fillStyle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &fillStyle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &fillStyle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &fillStyle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &fillStyle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"imageSmoothingEnabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &imageSmoothingEnabled_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &imageSmoothingEnabled_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &imageSmoothingEnabled_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &imageSmoothingEnabled_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"lineWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &lineWidth_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &lineWidth_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &lineWidth_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &lineWidth_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"lineCap\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &lineCap_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &lineCap_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &lineCap_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &lineCap_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"lineJoin\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &lineJoin_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &lineJoin_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &lineJoin_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &lineJoin_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"miterLimit\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &miterLimit_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &miterLimit_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &miterLimit_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &miterLimit_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"shadowOffsetX\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &shadowOffsetX_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &shadowOffsetX_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &shadowOffsetX_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &shadowOffsetX_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"shadowOffsetY\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &shadowOffsetY_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &shadowOffsetY_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &shadowOffsetY_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &shadowOffsetY_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"shadowBlur\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &shadowBlur_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &shadowBlur_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &shadowBlur_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &shadowBlur_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"shadowColor\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &shadowColor_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &shadowColor_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &shadowColor_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &shadowColor_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -3974,10 +3974,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -4043,8 +4043,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

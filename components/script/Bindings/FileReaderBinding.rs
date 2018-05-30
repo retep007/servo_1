@@ -553,8 +553,8 @@ unsafe extern fn readAsArrayBuffer<TH: TypeHolderTrait>
 }
 
 
-const readAsArrayBuffer_methodinfo: JSJitInfo = JSJitInfo {
-    call: readAsArrayBuffer as *const os::raw::c_void,
+fn readAsArrayBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: readAsArrayBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -569,7 +569,7 @@ const readAsArrayBuffer_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn readAsText<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -626,8 +626,8 @@ unsafe extern fn readAsText<TH: TypeHolderTrait>
 }
 
 
-const readAsText_methodinfo: JSJitInfo = JSJitInfo {
-    call: readAsText as *const os::raw::c_void,
+fn readAsText_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: readAsText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -642,7 +642,7 @@ const readAsText_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn readAsDataURL<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -685,8 +685,8 @@ unsafe extern fn readAsDataURL<TH: TypeHolderTrait>
 }
 
 
-const readAsDataURL_methodinfo: JSJitInfo = JSJitInfo {
-    call: readAsDataURL as *const os::raw::c_void,
+fn readAsDataURL_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: readAsDataURL::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -701,7 +701,7 @@ const readAsDataURL_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn abort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -717,8 +717,8 @@ unsafe extern fn abort<TH: TypeHolderTrait>
 }
 
 
-const abort_methodinfo: JSJitInfo = JSJitInfo {
-    call: abort as *const os::raw::c_void,
+fn abort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: abort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -733,7 +733,7 @@ const abort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_readyState<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -747,8 +747,8 @@ unsafe extern fn get_readyState<TH: TypeHolderTrait>
 }
 
 
-const readyState_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_readyState as *const os::raw::c_void,
+fn readyState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_readyState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -763,7 +763,7 @@ const readyState_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_result<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -777,8 +777,8 @@ unsafe extern fn get_result<TH: TypeHolderTrait>
 }
 
 
-const result_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_result as *const os::raw::c_void,
+fn result_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_result::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -793,7 +793,7 @@ const result_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_error<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -807,8 +807,8 @@ unsafe extern fn get_error<TH: TypeHolderTrait>
 }
 
 
-const error_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_error as *const os::raw::c_void,
+fn error_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_error::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -823,7 +823,7 @@ const error_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onloadstart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -852,8 +852,8 @@ unsafe extern fn set_onloadstart<TH: TypeHolderTrait>
 }
 
 
-const onloadstart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onloadstart as *const os::raw::c_void,
+fn onloadstart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onloadstart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -868,10 +868,10 @@ const onloadstart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onloadstart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onloadstart as *const os::raw::c_void,
+fn onloadstart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onloadstart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -886,7 +886,7 @@ const onloadstart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onprogress<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -915,8 +915,8 @@ unsafe extern fn set_onprogress<TH: TypeHolderTrait>
 }
 
 
-const onprogress_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onprogress as *const os::raw::c_void,
+fn onprogress_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onprogress::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -931,10 +931,10 @@ const onprogress_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onprogress_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onprogress as *const os::raw::c_void,
+fn onprogress_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onprogress::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -949,7 +949,7 @@ const onprogress_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onload<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -978,8 +978,8 @@ unsafe extern fn set_onload<TH: TypeHolderTrait>
 }
 
 
-const onload_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onload as *const os::raw::c_void,
+fn onload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -994,10 +994,10 @@ const onload_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onload_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onload as *const os::raw::c_void,
+fn onload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1012,7 +1012,7 @@ const onload_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onabort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1041,8 +1041,8 @@ unsafe extern fn set_onabort<TH: TypeHolderTrait>
 }
 
 
-const onabort_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onabort as *const os::raw::c_void,
+fn onabort_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onabort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1057,10 +1057,10 @@ const onabort_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onabort_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onabort as *const os::raw::c_void,
+fn onabort_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onabort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1075,7 +1075,7 @@ const onabort_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1104,8 +1104,8 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 }
 
 
-const onerror_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onerror as *const os::raw::c_void,
+fn onerror_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1120,10 +1120,10 @@ const onerror_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onerror_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onerror as *const os::raw::c_void,
+fn onerror_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1138,7 +1138,7 @@ const onerror_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onloadend<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1167,8 +1167,8 @@ unsafe extern fn set_onloadend<TH: TypeHolderTrait>
 }
 
 
-const onloadend_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onloadend as *const os::raw::c_void,
+fn onloadend_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onloadend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1183,10 +1183,10 @@ const onloadend_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onloadend_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onloadend as *const os::raw::c_void,
+fn onloadend_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onloadend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1201,7 +1201,7 @@ const onloadend_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1252,7 +1252,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -1281,7 +1281,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -1296,7 +1296,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for FileReader<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -1327,32 +1327,32 @@ pub trait FileReaderMethods<TH: TypeHolderTrait> {
     fn GetOnloadend(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnloadend(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"readAsArrayBuffer\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &readAsArrayBuffer_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &readAsArrayBuffer_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"readAsText\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &readAsText_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &readAsText_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"readAsDataURL\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &readAsDataURL_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &readAsDataURL_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"abort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &abort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &abort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1365,65 +1365,65 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"readyState\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &readyState_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &readyState_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"result\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &result_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &result_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"error\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &error_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &error_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"onloadstart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadstart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadstart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadstart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadstart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onprogress\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onprogress_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onprogress_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onprogress_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onprogress_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onload\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onload_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onload_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onload_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onload_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onabort\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onabort_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onabort_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onabort_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onabort_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onerror\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onerror_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onerror_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onerror_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onerror_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onloadend\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadend_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadend_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadend_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadend_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -1432,10 +1432,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
 &[
     ConstantSpec { name: b"EMPTY\0", value: ConstantVal::IntVal(0) },
@@ -1529,8 +1529,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       sConstants,
                                       &[],
                                       prototype.handle_mut().into());

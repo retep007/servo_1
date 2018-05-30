@@ -517,8 +517,8 @@ unsafe extern fn get_hasPosition<TH: TypeHolderTrait>
 }
 
 
-const hasPosition_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_hasPosition as *const os::raw::c_void,
+fn hasPosition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_hasPosition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplayCapabilities as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -533,7 +533,7 @@ const hasPosition_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_hasOrientation<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplayCapabilities<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -547,8 +547,8 @@ unsafe extern fn get_hasOrientation<TH: TypeHolderTrait>
 }
 
 
-const hasOrientation_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_hasOrientation as *const os::raw::c_void,
+fn hasOrientation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_hasOrientation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplayCapabilities as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -563,7 +563,7 @@ const hasOrientation_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_hasExternalDisplay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplayCapabilities<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -577,8 +577,8 @@ unsafe extern fn get_hasExternalDisplay<TH: TypeHolderTrait>
 }
 
 
-const hasExternalDisplay_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_hasExternalDisplay as *const os::raw::c_void,
+fn hasExternalDisplay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_hasExternalDisplay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplayCapabilities as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -593,7 +593,7 @@ const hasExternalDisplay_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_canPresent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplayCapabilities<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -607,8 +607,8 @@ unsafe extern fn get_canPresent<TH: TypeHolderTrait>
 }
 
 
-const canPresent_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_canPresent as *const os::raw::c_void,
+fn canPresent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_canPresent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplayCapabilities as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -623,7 +623,7 @@ const canPresent_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_maxLayers<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplayCapabilities<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -637,8 +637,8 @@ unsafe extern fn get_maxLayers<TH: TypeHolderTrait>
 }
 
 
-const maxLayers_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_maxLayers as *const os::raw::c_void,
+fn maxLayers_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_maxLayers::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplayCapabilities as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -653,7 +653,7 @@ const maxLayers_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -761,36 +761,36 @@ pub trait VRDisplayCapabilitiesMethods {
     fn CanPresent(&self) -> bool;
     fn MaxLayers(&self) -> u32;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"hasPosition\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &hasPosition_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &hasPosition_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"hasOrientation\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &hasOrientation_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &hasOrientation_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"hasExternalDisplay\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &hasExternalDisplay_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &hasExternalDisplay_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"canPresent\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &canPresent_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &canPresent_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"maxLayers\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxLayers_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &maxLayers_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -800,10 +800,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -870,7 +870,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

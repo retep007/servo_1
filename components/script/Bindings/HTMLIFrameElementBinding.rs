@@ -551,8 +551,8 @@ unsafe extern fn set_src<TH: TypeHolderTrait>
 }
 
 
-const src_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_src as *const os::raw::c_void,
+fn src_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_src::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -567,10 +567,10 @@ const src_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const src_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_src as *const os::raw::c_void,
+fn src_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_src::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -585,7 +585,7 @@ const src_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_name<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -627,8 +627,8 @@ unsafe extern fn set_name<TH: TypeHolderTrait>
 }
 
 
-const name_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_name as *const os::raw::c_void,
+fn name_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_name::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -643,10 +643,10 @@ const name_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const name_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_name as *const os::raw::c_void,
+fn name_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_name::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -661,7 +661,7 @@ const name_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_sandbox<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -692,8 +692,8 @@ unsafe extern fn set_sandbox<TH: TypeHolderTrait>
 }
 
 
-const sandbox_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_sandbox as *const os::raw::c_void,
+fn sandbox_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_sandbox::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -708,10 +708,10 @@ const sandbox_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const sandbox_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_sandbox as *const os::raw::c_void,
+fn sandbox_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_sandbox::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -726,7 +726,7 @@ const sandbox_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_allowFullscreen<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -768,8 +768,8 @@ unsafe extern fn set_allowFullscreen<TH: TypeHolderTrait>
 }
 
 
-const allowFullscreen_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_allowFullscreen as *const os::raw::c_void,
+fn allowFullscreen_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_allowFullscreen::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -784,10 +784,10 @@ const allowFullscreen_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const allowFullscreen_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_allowFullscreen as *const os::raw::c_void,
+fn allowFullscreen_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_allowFullscreen::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -802,7 +802,7 @@ const allowFullscreen_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -844,8 +844,8 @@ unsafe extern fn set_width<TH: TypeHolderTrait>
 }
 
 
-const width_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_width as *const os::raw::c_void,
+fn width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -860,10 +860,10 @@ const width_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const width_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_width as *const os::raw::c_void,
+fn width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -878,7 +878,7 @@ const width_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -920,8 +920,8 @@ unsafe extern fn set_height<TH: TypeHolderTrait>
 }
 
 
-const height_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_height as *const os::raw::c_void,
+fn height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -936,10 +936,10 @@ const height_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const height_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_height as *const os::raw::c_void,
+fn height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -954,7 +954,7 @@ const height_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_contentDocument<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -968,8 +968,8 @@ unsafe extern fn get_contentDocument<TH: TypeHolderTrait>
 }
 
 
-const contentDocument_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_contentDocument as *const os::raw::c_void,
+fn contentDocument_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_contentDocument::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -984,7 +984,7 @@ const contentDocument_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_contentWindow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -998,8 +998,8 @@ unsafe extern fn get_contentWindow<TH: TypeHolderTrait>
 }
 
 
-const contentWindow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_contentWindow as *const os::raw::c_void,
+fn contentWindow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_contentWindow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1014,7 +1014,7 @@ const contentWindow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_frameBorder<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1056,8 +1056,8 @@ unsafe extern fn set_frameBorder<TH: TypeHolderTrait>
 }
 
 
-const frameBorder_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_frameBorder as *const os::raw::c_void,
+fn frameBorder_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_frameBorder::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1072,10 +1072,10 @@ const frameBorder_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const frameBorder_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_frameBorder as *const os::raw::c_void,
+fn frameBorder_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_frameBorder::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLIFrameElement as u16,
     depth: 4,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1090,7 +1090,7 @@ const frameBorder_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -1208,61 +1208,61 @@ pub trait HTMLIFrameElementMethods<TH: TypeHolderTrait> {
     fn FrameBorder(&self) -> DOMString;
     fn SetFrameBorder(&self, value: DOMString) -> ();
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"src\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &src_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &src_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &src_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &src_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"name\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &name_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &name_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &name_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &name_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"sandbox\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &sandbox_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &sandbox_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &sandbox_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &sandbox_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"allowFullscreen\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &allowFullscreen_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &allowFullscreen_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &allowFullscreen_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &allowFullscreen_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"width\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &width_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &width_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &width_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"height\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &height_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &height_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &height_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &height_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"contentDocument\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &contentDocument_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &contentDocument_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"contentWindow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &contentWindow_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &contentWindow_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"frameBorder\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &frameBorder_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &frameBorder_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &frameBorder_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &frameBorder_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -1271,10 +1271,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1436,7 +1436,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

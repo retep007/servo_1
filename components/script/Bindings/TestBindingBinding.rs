@@ -2218,8 +2218,8 @@ unsafe extern fn set_booleanAttribute<TH: TypeHolderTrait>
 }
 
 
-const booleanAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_booleanAttribute as *const os::raw::c_void,
+fn booleanAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_booleanAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2234,10 +2234,10 @@ const booleanAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const booleanAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_booleanAttribute as *const os::raw::c_void,
+fn booleanAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_booleanAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2252,7 +2252,7 @@ const booleanAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_byteAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2286,8 +2286,8 @@ unsafe extern fn set_byteAttribute<TH: TypeHolderTrait>
 }
 
 
-const byteAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_byteAttribute as *const os::raw::c_void,
+fn byteAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_byteAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2302,10 +2302,10 @@ const byteAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const byteAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_byteAttribute as *const os::raw::c_void,
+fn byteAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_byteAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2320,7 +2320,7 @@ const byteAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_octetAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2354,8 +2354,8 @@ unsafe extern fn set_octetAttribute<TH: TypeHolderTrait>
 }
 
 
-const octetAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_octetAttribute as *const os::raw::c_void,
+fn octetAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_octetAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2370,10 +2370,10 @@ const octetAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const octetAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_octetAttribute as *const os::raw::c_void,
+fn octetAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_octetAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2388,7 +2388,7 @@ const octetAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_shortAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2422,8 +2422,8 @@ unsafe extern fn set_shortAttribute<TH: TypeHolderTrait>
 }
 
 
-const shortAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_shortAttribute as *const os::raw::c_void,
+fn shortAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_shortAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2438,10 +2438,10 @@ const shortAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const shortAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_shortAttribute as *const os::raw::c_void,
+fn shortAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_shortAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2456,7 +2456,7 @@ const shortAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unsignedShortAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2490,8 +2490,8 @@ unsafe extern fn set_unsignedShortAttribute<TH: TypeHolderTrait>
 }
 
 
-const unsignedShortAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unsignedShortAttribute as *const os::raw::c_void,
+fn unsignedShortAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unsignedShortAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2506,10 +2506,10 @@ const unsignedShortAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unsignedShortAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unsignedShortAttribute as *const os::raw::c_void,
+fn unsignedShortAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unsignedShortAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2524,7 +2524,7 @@ const unsignedShortAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_longAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2558,8 +2558,8 @@ unsafe extern fn set_longAttribute<TH: TypeHolderTrait>
 }
 
 
-const longAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_longAttribute as *const os::raw::c_void,
+fn longAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_longAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2574,10 +2574,10 @@ const longAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const longAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_longAttribute as *const os::raw::c_void,
+fn longAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_longAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2592,7 +2592,7 @@ const longAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unsignedLongAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2626,8 +2626,8 @@ unsafe extern fn set_unsignedLongAttribute<TH: TypeHolderTrait>
 }
 
 
-const unsignedLongAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unsignedLongAttribute as *const os::raw::c_void,
+fn unsignedLongAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unsignedLongAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2642,10 +2642,10 @@ const unsignedLongAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unsignedLongAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unsignedLongAttribute as *const os::raw::c_void,
+fn unsignedLongAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unsignedLongAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2660,7 +2660,7 @@ const unsignedLongAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_longLongAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2694,8 +2694,8 @@ unsafe extern fn set_longLongAttribute<TH: TypeHolderTrait>
 }
 
 
-const longLongAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_longLongAttribute as *const os::raw::c_void,
+fn longLongAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_longLongAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2710,10 +2710,10 @@ const longLongAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const longLongAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_longLongAttribute as *const os::raw::c_void,
+fn longLongAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_longLongAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2728,7 +2728,7 @@ const longLongAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unsignedLongLongAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2762,8 +2762,8 @@ unsafe extern fn set_unsignedLongLongAttribute<TH: TypeHolderTrait>
 }
 
 
-const unsignedLongLongAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unsignedLongLongAttribute as *const os::raw::c_void,
+fn unsignedLongLongAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unsignedLongLongAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2778,10 +2778,10 @@ const unsignedLongLongAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unsignedLongLongAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unsignedLongLongAttribute as *const os::raw::c_void,
+fn unsignedLongLongAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unsignedLongLongAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2796,7 +2796,7 @@ const unsignedLongLongAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unrestrictedFloatAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2830,8 +2830,8 @@ unsafe extern fn set_unrestrictedFloatAttribute<TH: TypeHolderTrait>
 }
 
 
-const unrestrictedFloatAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unrestrictedFloatAttribute as *const os::raw::c_void,
+fn unrestrictedFloatAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unrestrictedFloatAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2846,10 +2846,10 @@ const unrestrictedFloatAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unrestrictedFloatAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unrestrictedFloatAttribute as *const os::raw::c_void,
+fn unrestrictedFloatAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unrestrictedFloatAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2864,7 +2864,7 @@ const unrestrictedFloatAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_floatAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2898,8 +2898,8 @@ unsafe extern fn set_floatAttribute<TH: TypeHolderTrait>
 }
 
 
-const floatAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_floatAttribute as *const os::raw::c_void,
+fn floatAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_floatAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2914,10 +2914,10 @@ const floatAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const floatAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_floatAttribute as *const os::raw::c_void,
+fn floatAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_floatAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2932,7 +2932,7 @@ const floatAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unrestrictedDoubleAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2966,8 +2966,8 @@ unsafe extern fn set_unrestrictedDoubleAttribute<TH: TypeHolderTrait>
 }
 
 
-const unrestrictedDoubleAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unrestrictedDoubleAttribute as *const os::raw::c_void,
+fn unrestrictedDoubleAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unrestrictedDoubleAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2982,10 +2982,10 @@ const unrestrictedDoubleAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unrestrictedDoubleAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unrestrictedDoubleAttribute as *const os::raw::c_void,
+fn unrestrictedDoubleAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unrestrictedDoubleAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3000,7 +3000,7 @@ const unrestrictedDoubleAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_doubleAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3034,8 +3034,8 @@ unsafe extern fn set_doubleAttribute<TH: TypeHolderTrait>
 }
 
 
-const doubleAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_doubleAttribute as *const os::raw::c_void,
+fn doubleAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_doubleAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3050,10 +3050,10 @@ const doubleAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const doubleAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_doubleAttribute as *const os::raw::c_void,
+fn doubleAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_doubleAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3068,7 +3068,7 @@ const doubleAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_stringAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3102,8 +3102,8 @@ unsafe extern fn set_stringAttribute<TH: TypeHolderTrait>
 }
 
 
-const stringAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_stringAttribute as *const os::raw::c_void,
+fn stringAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_stringAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3118,10 +3118,10 @@ const stringAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const stringAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_stringAttribute as *const os::raw::c_void,
+fn stringAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_stringAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3136,7 +3136,7 @@ const stringAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_usvstringAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3170,8 +3170,8 @@ unsafe extern fn set_usvstringAttribute<TH: TypeHolderTrait>
 }
 
 
-const usvstringAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_usvstringAttribute as *const os::raw::c_void,
+fn usvstringAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_usvstringAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3186,10 +3186,10 @@ const usvstringAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const usvstringAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_usvstringAttribute as *const os::raw::c_void,
+fn usvstringAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_usvstringAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3204,7 +3204,7 @@ const usvstringAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_byteStringAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3238,8 +3238,8 @@ unsafe extern fn set_byteStringAttribute<TH: TypeHolderTrait>
 }
 
 
-const byteStringAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_byteStringAttribute as *const os::raw::c_void,
+fn byteStringAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_byteStringAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3254,10 +3254,10 @@ const byteStringAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const byteStringAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_byteStringAttribute as *const os::raw::c_void,
+fn byteStringAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_byteStringAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3272,7 +3272,7 @@ const byteStringAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_enumAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3302,8 +3302,8 @@ unsafe extern fn set_enumAttribute<TH: TypeHolderTrait>
 }
 
 
-const enumAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_enumAttribute as *const os::raw::c_void,
+fn enumAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_enumAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3318,10 +3318,10 @@ const enumAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const enumAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_enumAttribute as *const os::raw::c_void,
+fn enumAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_enumAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3336,7 +3336,7 @@ const enumAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_interfaceAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3375,8 +3375,8 @@ unsafe extern fn set_interfaceAttribute<TH: TypeHolderTrait>
 }
 
 
-const interfaceAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_interfaceAttribute as *const os::raw::c_void,
+fn interfaceAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_interfaceAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3391,10 +3391,10 @@ const interfaceAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const interfaceAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_interfaceAttribute as *const os::raw::c_void,
+fn interfaceAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_interfaceAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3409,7 +3409,7 @@ const interfaceAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unionAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3443,8 +3443,8 @@ unsafe extern fn set_unionAttribute<TH: TypeHolderTrait>
 }
 
 
-const unionAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unionAttribute as *const os::raw::c_void,
+fn unionAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unionAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3459,10 +3459,10 @@ const unionAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unionAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unionAttribute as *const os::raw::c_void,
+fn unionAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unionAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3477,7 +3477,7 @@ const unionAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union2Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3511,8 +3511,8 @@ unsafe extern fn set_union2Attribute<TH: TypeHolderTrait>
 }
 
 
-const union2Attribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union2Attribute as *const os::raw::c_void,
+fn union2Attribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union2Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3527,10 +3527,10 @@ const union2Attribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union2Attribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union2Attribute as *const os::raw::c_void,
+fn union2Attribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union2Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3545,7 +3545,7 @@ const union2Attribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union3Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3579,8 +3579,8 @@ unsafe extern fn set_union3Attribute<TH: TypeHolderTrait>
 }
 
 
-const union3Attribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union3Attribute as *const os::raw::c_void,
+fn union3Attribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union3Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3595,10 +3595,10 @@ const union3Attribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union3Attribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union3Attribute as *const os::raw::c_void,
+fn union3Attribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union3Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3613,7 +3613,7 @@ const union3Attribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union4Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3647,8 +3647,8 @@ unsafe extern fn set_union4Attribute<TH: TypeHolderTrait>
 }
 
 
-const union4Attribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union4Attribute as *const os::raw::c_void,
+fn union4Attribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union4Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3663,10 +3663,10 @@ const union4Attribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union4Attribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union4Attribute as *const os::raw::c_void,
+fn union4Attribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union4Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3681,7 +3681,7 @@ const union4Attribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union5Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3715,8 +3715,8 @@ unsafe extern fn set_union5Attribute<TH: TypeHolderTrait>
 }
 
 
-const union5Attribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union5Attribute as *const os::raw::c_void,
+fn union5Attribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union5Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3731,10 +3731,10 @@ const union5Attribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union5Attribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union5Attribute as *const os::raw::c_void,
+fn union5Attribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union5Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3749,7 +3749,7 @@ const union5Attribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union6Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3783,8 +3783,8 @@ unsafe extern fn set_union6Attribute<TH: TypeHolderTrait>
 }
 
 
-const union6Attribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union6Attribute as *const os::raw::c_void,
+fn union6Attribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union6Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3799,10 +3799,10 @@ const union6Attribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union6Attribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union6Attribute as *const os::raw::c_void,
+fn union6Attribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union6Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3817,7 +3817,7 @@ const union6Attribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union7Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3851,8 +3851,8 @@ unsafe extern fn set_union7Attribute<TH: TypeHolderTrait>
 }
 
 
-const union7Attribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union7Attribute as *const os::raw::c_void,
+fn union7Attribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union7Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3867,10 +3867,10 @@ const union7Attribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union7Attribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union7Attribute as *const os::raw::c_void,
+fn union7Attribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union7Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3885,7 +3885,7 @@ const union7Attribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union8Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3919,8 +3919,8 @@ unsafe extern fn set_union8Attribute<TH: TypeHolderTrait>
 }
 
 
-const union8Attribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union8Attribute as *const os::raw::c_void,
+fn union8Attribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union8Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3935,10 +3935,10 @@ const union8Attribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union8Attribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union8Attribute as *const os::raw::c_void,
+fn union8Attribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union8Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3953,7 +3953,7 @@ const union8Attribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union9Attribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3987,8 +3987,8 @@ unsafe extern fn set_union9Attribute<TH: TypeHolderTrait>
 }
 
 
-const union9Attribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union9Attribute as *const os::raw::c_void,
+fn union9Attribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union9Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4003,10 +4003,10 @@ const union9Attribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union9Attribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union9Attribute as *const os::raw::c_void,
+fn union9Attribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union9Attribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4021,7 +4021,7 @@ const union9Attribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_arrayAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4035,8 +4035,8 @@ unsafe extern fn get_arrayAttribute<TH: TypeHolderTrait>
 }
 
 
-const arrayAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_arrayAttribute as *const os::raw::c_void,
+fn arrayAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_arrayAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4051,7 +4051,7 @@ const arrayAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_anyAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4076,8 +4076,8 @@ unsafe extern fn set_anyAttribute<TH: TypeHolderTrait>
 }
 
 
-const anyAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_anyAttribute as *const os::raw::c_void,
+fn anyAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_anyAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4092,10 +4092,10 @@ const anyAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const anyAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_anyAttribute as *const os::raw::c_void,
+fn anyAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_anyAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4110,7 +4110,7 @@ const anyAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_objectAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4141,8 +4141,8 @@ unsafe extern fn set_objectAttribute<TH: TypeHolderTrait>
 }
 
 
-const objectAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_objectAttribute as *const os::raw::c_void,
+fn objectAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_objectAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4157,10 +4157,10 @@ const objectAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const objectAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_objectAttribute as *const os::raw::c_void,
+fn objectAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_objectAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4175,7 +4175,7 @@ const objectAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_booleanAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4209,8 +4209,8 @@ unsafe extern fn set_booleanAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const booleanAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_booleanAttributeNullable as *const os::raw::c_void,
+fn booleanAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_booleanAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4225,10 +4225,10 @@ const booleanAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const booleanAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_booleanAttributeNullable as *const os::raw::c_void,
+fn booleanAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_booleanAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4243,7 +4243,7 @@ const booleanAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_byteAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4277,8 +4277,8 @@ unsafe extern fn set_byteAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const byteAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_byteAttributeNullable as *const os::raw::c_void,
+fn byteAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_byteAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4293,10 +4293,10 @@ const byteAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const byteAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_byteAttributeNullable as *const os::raw::c_void,
+fn byteAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_byteAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4311,7 +4311,7 @@ const byteAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_octetAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4345,8 +4345,8 @@ unsafe extern fn set_octetAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const octetAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_octetAttributeNullable as *const os::raw::c_void,
+fn octetAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_octetAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4361,10 +4361,10 @@ const octetAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const octetAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_octetAttributeNullable as *const os::raw::c_void,
+fn octetAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_octetAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4379,7 +4379,7 @@ const octetAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_shortAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4413,8 +4413,8 @@ unsafe extern fn set_shortAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const shortAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_shortAttributeNullable as *const os::raw::c_void,
+fn shortAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_shortAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4429,10 +4429,10 @@ const shortAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const shortAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_shortAttributeNullable as *const os::raw::c_void,
+fn shortAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_shortAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4447,7 +4447,7 @@ const shortAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unsignedShortAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4481,8 +4481,8 @@ unsafe extern fn set_unsignedShortAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const unsignedShortAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unsignedShortAttributeNullable as *const os::raw::c_void,
+fn unsignedShortAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unsignedShortAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4497,10 +4497,10 @@ const unsignedShortAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unsignedShortAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unsignedShortAttributeNullable as *const os::raw::c_void,
+fn unsignedShortAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unsignedShortAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4515,7 +4515,7 @@ const unsignedShortAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_longAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4549,8 +4549,8 @@ unsafe extern fn set_longAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const longAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_longAttributeNullable as *const os::raw::c_void,
+fn longAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_longAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4565,10 +4565,10 @@ const longAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const longAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_longAttributeNullable as *const os::raw::c_void,
+fn longAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_longAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4583,7 +4583,7 @@ const longAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unsignedLongAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4617,8 +4617,8 @@ unsafe extern fn set_unsignedLongAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const unsignedLongAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unsignedLongAttributeNullable as *const os::raw::c_void,
+fn unsignedLongAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unsignedLongAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4633,10 +4633,10 @@ const unsignedLongAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unsignedLongAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unsignedLongAttributeNullable as *const os::raw::c_void,
+fn unsignedLongAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unsignedLongAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4651,7 +4651,7 @@ const unsignedLongAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_longLongAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4685,8 +4685,8 @@ unsafe extern fn set_longLongAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const longLongAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_longLongAttributeNullable as *const os::raw::c_void,
+fn longLongAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_longLongAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4701,10 +4701,10 @@ const longLongAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const longLongAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_longLongAttributeNullable as *const os::raw::c_void,
+fn longLongAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_longLongAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4719,7 +4719,7 @@ const longLongAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unsignedLongLongAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4753,8 +4753,8 @@ unsafe extern fn set_unsignedLongLongAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const unsignedLongLongAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unsignedLongLongAttributeNullable as *const os::raw::c_void,
+fn unsignedLongLongAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unsignedLongLongAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4769,10 +4769,10 @@ const unsignedLongLongAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unsignedLongLongAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unsignedLongLongAttributeNullable as *const os::raw::c_void,
+fn unsignedLongLongAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unsignedLongLongAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4787,7 +4787,7 @@ const unsignedLongLongAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unrestrictedFloatAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4821,8 +4821,8 @@ unsafe extern fn set_unrestrictedFloatAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const unrestrictedFloatAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unrestrictedFloatAttributeNullable as *const os::raw::c_void,
+fn unrestrictedFloatAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unrestrictedFloatAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4837,10 +4837,10 @@ const unrestrictedFloatAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unrestrictedFloatAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unrestrictedFloatAttributeNullable as *const os::raw::c_void,
+fn unrestrictedFloatAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unrestrictedFloatAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4855,7 +4855,7 @@ const unrestrictedFloatAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_floatAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4889,8 +4889,8 @@ unsafe extern fn set_floatAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const floatAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_floatAttributeNullable as *const os::raw::c_void,
+fn floatAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_floatAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4905,10 +4905,10 @@ const floatAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const floatAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_floatAttributeNullable as *const os::raw::c_void,
+fn floatAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_floatAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4923,7 +4923,7 @@ const floatAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unrestrictedDoubleAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4957,8 +4957,8 @@ unsafe extern fn set_unrestrictedDoubleAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const unrestrictedDoubleAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unrestrictedDoubleAttributeNullable as *const os::raw::c_void,
+fn unrestrictedDoubleAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unrestrictedDoubleAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4973,10 +4973,10 @@ const unrestrictedDoubleAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unrestrictedDoubleAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unrestrictedDoubleAttributeNullable as *const os::raw::c_void,
+fn unrestrictedDoubleAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unrestrictedDoubleAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4991,7 +4991,7 @@ const unrestrictedDoubleAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_doubleAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5025,8 +5025,8 @@ unsafe extern fn set_doubleAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const doubleAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_doubleAttributeNullable as *const os::raw::c_void,
+fn doubleAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_doubleAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5041,10 +5041,10 @@ const doubleAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const doubleAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_doubleAttributeNullable as *const os::raw::c_void,
+fn doubleAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_doubleAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5059,7 +5059,7 @@ const doubleAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_stringAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5093,8 +5093,8 @@ unsafe extern fn set_stringAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const stringAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_stringAttributeNullable as *const os::raw::c_void,
+fn stringAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_stringAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5109,10 +5109,10 @@ const stringAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const stringAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_stringAttributeNullable as *const os::raw::c_void,
+fn stringAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_stringAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5127,7 +5127,7 @@ const stringAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_usvstringAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5161,8 +5161,8 @@ unsafe extern fn set_usvstringAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const usvstringAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_usvstringAttributeNullable as *const os::raw::c_void,
+fn usvstringAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_usvstringAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5177,10 +5177,10 @@ const usvstringAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const usvstringAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_usvstringAttributeNullable as *const os::raw::c_void,
+fn usvstringAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_usvstringAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5195,7 +5195,7 @@ const usvstringAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_byteStringAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5229,8 +5229,8 @@ unsafe extern fn set_byteStringAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const byteStringAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_byteStringAttributeNullable as *const os::raw::c_void,
+fn byteStringAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_byteStringAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5245,10 +5245,10 @@ const byteStringAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const byteStringAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_byteStringAttributeNullable as *const os::raw::c_void,
+fn byteStringAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_byteStringAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5263,7 +5263,7 @@ const byteStringAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_enumAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5277,8 +5277,8 @@ unsafe extern fn get_enumAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const enumAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_enumAttributeNullable as *const os::raw::c_void,
+fn enumAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_enumAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5293,7 +5293,7 @@ const enumAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_interfaceAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5334,8 +5334,8 @@ unsafe extern fn set_interfaceAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const interfaceAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_interfaceAttributeNullable as *const os::raw::c_void,
+fn interfaceAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_interfaceAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5350,10 +5350,10 @@ const interfaceAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const interfaceAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_interfaceAttributeNullable as *const os::raw::c_void,
+fn interfaceAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_interfaceAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5368,7 +5368,7 @@ const interfaceAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_interfaceAttributeWeak<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5409,8 +5409,8 @@ unsafe extern fn set_interfaceAttributeWeak<TH: TypeHolderTrait>
 }
 
 
-const interfaceAttributeWeak_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_interfaceAttributeWeak as *const os::raw::c_void,
+fn interfaceAttributeWeak_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_interfaceAttributeWeak::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5425,10 +5425,10 @@ const interfaceAttributeWeak_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const interfaceAttributeWeak_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_interfaceAttributeWeak as *const os::raw::c_void,
+fn interfaceAttributeWeak_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_interfaceAttributeWeak::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5443,7 +5443,7 @@ const interfaceAttributeWeak_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_objectAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5476,8 +5476,8 @@ unsafe extern fn set_objectAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const objectAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_objectAttributeNullable as *const os::raw::c_void,
+fn objectAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_objectAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5492,10 +5492,10 @@ const objectAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const objectAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_objectAttributeNullable as *const os::raw::c_void,
+fn objectAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_objectAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5510,7 +5510,7 @@ const objectAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_unionAttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5544,8 +5544,8 @@ unsafe extern fn set_unionAttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const unionAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_unionAttributeNullable as *const os::raw::c_void,
+fn unionAttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_unionAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5560,10 +5560,10 @@ const unionAttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const unionAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_unionAttributeNullable as *const os::raw::c_void,
+fn unionAttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_unionAttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5578,7 +5578,7 @@ const unionAttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union2AttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5612,8 +5612,8 @@ unsafe extern fn set_union2AttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const union2AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union2AttributeNullable as *const os::raw::c_void,
+fn union2AttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union2AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5628,10 +5628,10 @@ const union2AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union2AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union2AttributeNullable as *const os::raw::c_void,
+fn union2AttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union2AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5646,7 +5646,7 @@ const union2AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union3AttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5680,8 +5680,8 @@ unsafe extern fn set_union3AttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const union3AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union3AttributeNullable as *const os::raw::c_void,
+fn union3AttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union3AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5696,10 +5696,10 @@ const union3AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union3AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union3AttributeNullable as *const os::raw::c_void,
+fn union3AttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union3AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5714,7 +5714,7 @@ const union3AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union4AttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5748,8 +5748,8 @@ unsafe extern fn set_union4AttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const union4AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union4AttributeNullable as *const os::raw::c_void,
+fn union4AttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union4AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5764,10 +5764,10 @@ const union4AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union4AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union4AttributeNullable as *const os::raw::c_void,
+fn union4AttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union4AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5782,7 +5782,7 @@ const union4AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union5AttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5816,8 +5816,8 @@ unsafe extern fn set_union5AttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const union5AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union5AttributeNullable as *const os::raw::c_void,
+fn union5AttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union5AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5832,10 +5832,10 @@ const union5AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union5AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union5AttributeNullable as *const os::raw::c_void,
+fn union5AttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union5AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5850,7 +5850,7 @@ const union5AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_union6AttributeNullable<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5884,8 +5884,8 @@ unsafe extern fn set_union6AttributeNullable<TH: TypeHolderTrait>
 }
 
 
-const union6AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_union6AttributeNullable as *const os::raw::c_void,
+fn union6AttributeNullable_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_union6AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5900,10 +5900,10 @@ const union6AttributeNullable_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const union6AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_union6AttributeNullable as *const os::raw::c_void,
+fn union6AttributeNullable_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_union6AttributeNullable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5918,7 +5918,7 @@ const union6AttributeNullable_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_attrToBinaryRename<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5952,8 +5952,8 @@ unsafe extern fn set_attrToBinaryRename<TH: TypeHolderTrait>
 }
 
 
-const attrToBinaryRename_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_attrToBinaryRename as *const os::raw::c_void,
+fn attrToBinaryRename_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_attrToBinaryRename::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5968,10 +5968,10 @@ const attrToBinaryRename_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const attrToBinaryRename_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_attrToBinaryRename as *const os::raw::c_void,
+fn attrToBinaryRename_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_attrToBinaryRename::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5986,7 +5986,7 @@ const attrToBinaryRename_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_attr_to_binary_rename<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6020,8 +6020,8 @@ unsafe extern fn set_attr_to_binary_rename<TH: TypeHolderTrait>
 }
 
 
-const attr_to_binary_rename_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_attr_to_binary_rename as *const os::raw::c_void,
+fn attr_to_binary_rename_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_attr_to_binary_rename::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6036,10 +6036,10 @@ const attr_to_binary_rename_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const attr_to_binary_rename_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_attr_to_binary_rename as *const os::raw::c_void,
+fn attr_to_binary_rename_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_attr_to_binary_rename::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6054,7 +6054,7 @@ const attr_to_binary_rename_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_attr_to_automatically_rename<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6088,8 +6088,8 @@ unsafe extern fn set_attr_to_automatically_rename<TH: TypeHolderTrait>
 }
 
 
-const attr_to_automatically_rename_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_attr_to_automatically_rename as *const os::raw::c_void,
+fn attr_to_automatically_rename_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_attr_to_automatically_rename::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6104,10 +6104,10 @@ const attr_to_automatically_rename_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const attr_to_automatically_rename_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_attr_to_automatically_rename as *const os::raw::c_void,
+fn attr_to_automatically_rename_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_attr_to_automatically_rename::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6122,7 +6122,7 @@ const attr_to_automatically_rename_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_forwardedAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -6153,8 +6153,8 @@ unsafe extern fn set_forwardedAttribute<TH: TypeHolderTrait>
 }
 
 
-const forwardedAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_forwardedAttribute as *const os::raw::c_void,
+fn forwardedAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_forwardedAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6169,10 +6169,10 @@ const forwardedAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const forwardedAttribute_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_forwardedAttribute as *const os::raw::c_void,
+fn forwardedAttribute_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_forwardedAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6187,7 +6187,7 @@ const forwardedAttribute_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn methToBinaryRename<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6203,8 +6203,8 @@ unsafe extern fn methToBinaryRename<TH: TypeHolderTrait>
 }
 
 
-const methToBinaryRename_methodinfo: JSJitInfo = JSJitInfo {
-    call: methToBinaryRename as *const os::raw::c_void,
+fn methToBinaryRename_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: methToBinaryRename::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6219,7 +6219,7 @@ const methToBinaryRename_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveVoid<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6235,8 +6235,8 @@ unsafe extern fn receiveVoid<TH: TypeHolderTrait>
 }
 
 
-const receiveVoid_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveVoid as *const os::raw::c_void,
+fn receiveVoid_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveVoid::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6251,7 +6251,7 @@ const receiveVoid_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveBoolean<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6267,8 +6267,8 @@ unsafe extern fn receiveBoolean<TH: TypeHolderTrait>
 }
 
 
-const receiveBoolean_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveBoolean as *const os::raw::c_void,
+fn receiveBoolean_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveBoolean::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6283,7 +6283,7 @@ const receiveBoolean_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveByte<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6299,8 +6299,8 @@ unsafe extern fn receiveByte<TH: TypeHolderTrait>
 }
 
 
-const receiveByte_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveByte as *const os::raw::c_void,
+fn receiveByte_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveByte::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6315,7 +6315,7 @@ const receiveByte_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveOctet<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6331,8 +6331,8 @@ unsafe extern fn receiveOctet<TH: TypeHolderTrait>
 }
 
 
-const receiveOctet_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveOctet as *const os::raw::c_void,
+fn receiveOctet_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveOctet::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6347,7 +6347,7 @@ const receiveOctet_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6363,8 +6363,8 @@ unsafe extern fn receiveShort<TH: TypeHolderTrait>
 }
 
 
-const receiveShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveShort as *const os::raw::c_void,
+fn receiveShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6379,7 +6379,7 @@ const receiveShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnsignedShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6395,8 +6395,8 @@ unsafe extern fn receiveUnsignedShort<TH: TypeHolderTrait>
 }
 
 
-const receiveUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnsignedShort as *const os::raw::c_void,
+fn receiveUnsignedShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnsignedShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6411,7 +6411,7 @@ const receiveUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6427,8 +6427,8 @@ unsafe extern fn receiveLong<TH: TypeHolderTrait>
 }
 
 
-const receiveLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveLong as *const os::raw::c_void,
+fn receiveLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6443,7 +6443,7 @@ const receiveLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnsignedLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6459,8 +6459,8 @@ unsafe extern fn receiveUnsignedLong<TH: TypeHolderTrait>
 }
 
 
-const receiveUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnsignedLong as *const os::raw::c_void,
+fn receiveUnsignedLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnsignedLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6475,7 +6475,7 @@ const receiveUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6491,8 +6491,8 @@ unsafe extern fn receiveLongLong<TH: TypeHolderTrait>
 }
 
 
-const receiveLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveLongLong as *const os::raw::c_void,
+fn receiveLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6507,7 +6507,7 @@ const receiveLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnsignedLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6523,8 +6523,8 @@ unsafe extern fn receiveUnsignedLongLong<TH: TypeHolderTrait>
 }
 
 
-const receiveUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnsignedLongLong as *const os::raw::c_void,
+fn receiveUnsignedLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnsignedLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6539,7 +6539,7 @@ const receiveUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnrestrictedFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6555,8 +6555,8 @@ unsafe extern fn receiveUnrestrictedFloat<TH: TypeHolderTrait>
 }
 
 
-const receiveUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnrestrictedFloat as *const os::raw::c_void,
+fn receiveUnrestrictedFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnrestrictedFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6571,7 +6571,7 @@ const receiveUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6587,8 +6587,8 @@ unsafe extern fn receiveFloat<TH: TypeHolderTrait>
 }
 
 
-const receiveFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveFloat as *const os::raw::c_void,
+fn receiveFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6603,7 +6603,7 @@ const receiveFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnrestrictedDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6619,8 +6619,8 @@ unsafe extern fn receiveUnrestrictedDouble<TH: TypeHolderTrait>
 }
 
 
-const receiveUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnrestrictedDouble as *const os::raw::c_void,
+fn receiveUnrestrictedDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnrestrictedDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6635,7 +6635,7 @@ const receiveUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6651,8 +6651,8 @@ unsafe extern fn receiveDouble<TH: TypeHolderTrait>
 }
 
 
-const receiveDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveDouble as *const os::raw::c_void,
+fn receiveDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6667,7 +6667,7 @@ const receiveDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6683,8 +6683,8 @@ unsafe extern fn receiveString<TH: TypeHolderTrait>
 }
 
 
-const receiveString_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveString as *const os::raw::c_void,
+fn receiveString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6699,7 +6699,7 @@ const receiveString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUsvstring<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6715,8 +6715,8 @@ unsafe extern fn receiveUsvstring<TH: TypeHolderTrait>
 }
 
 
-const receiveUsvstring_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUsvstring as *const os::raw::c_void,
+fn receiveUsvstring_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUsvstring::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6731,7 +6731,7 @@ const receiveUsvstring_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveByteString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6747,8 +6747,8 @@ unsafe extern fn receiveByteString<TH: TypeHolderTrait>
 }
 
 
-const receiveByteString_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveByteString as *const os::raw::c_void,
+fn receiveByteString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveByteString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6763,7 +6763,7 @@ const receiveByteString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveEnum<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6779,8 +6779,8 @@ unsafe extern fn receiveEnum<TH: TypeHolderTrait>
 }
 
 
-const receiveEnum_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveEnum as *const os::raw::c_void,
+fn receiveEnum_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveEnum::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6795,7 +6795,7 @@ const receiveEnum_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6811,8 +6811,8 @@ unsafe extern fn receiveInterface<TH: TypeHolderTrait>
 }
 
 
-const receiveInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveInterface as *const os::raw::c_void,
+fn receiveInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6827,7 +6827,7 @@ const receiveInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveAny<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6843,8 +6843,8 @@ unsafe extern fn receiveAny<TH: TypeHolderTrait>
 }
 
 
-const receiveAny_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveAny as *const os::raw::c_void,
+fn receiveAny_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveAny::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6859,7 +6859,7 @@ const receiveAny_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6875,8 +6875,8 @@ unsafe extern fn receiveObject<TH: TypeHolderTrait>
 }
 
 
-const receiveObject_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveObject as *const os::raw::c_void,
+fn receiveObject_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6891,7 +6891,7 @@ const receiveObject_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6907,8 +6907,8 @@ unsafe extern fn receiveUnion<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion as *const os::raw::c_void,
+fn receiveUnion_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6923,7 +6923,7 @@ const receiveUnion_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6939,8 +6939,8 @@ unsafe extern fn receiveUnion2<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion2_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion2 as *const os::raw::c_void,
+fn receiveUnion2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6955,7 +6955,7 @@ const receiveUnion2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -6971,8 +6971,8 @@ unsafe extern fn receiveUnion3<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion3_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion3 as *const os::raw::c_void,
+fn receiveUnion3_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -6987,7 +6987,7 @@ const receiveUnion3_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion4<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7003,8 +7003,8 @@ unsafe extern fn receiveUnion4<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion4_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion4 as *const os::raw::c_void,
+fn receiveUnion4_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion4::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7019,7 +7019,7 @@ const receiveUnion4_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion5<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7035,8 +7035,8 @@ unsafe extern fn receiveUnion5<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion5_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion5 as *const os::raw::c_void,
+fn receiveUnion5_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion5::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7051,7 +7051,7 @@ const receiveUnion5_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion6<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7067,8 +7067,8 @@ unsafe extern fn receiveUnion6<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion6_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion6 as *const os::raw::c_void,
+fn receiveUnion6_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion6::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7083,7 +7083,7 @@ const receiveUnion6_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion7<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7099,8 +7099,8 @@ unsafe extern fn receiveUnion7<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion7_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion7 as *const os::raw::c_void,
+fn receiveUnion7_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion7::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7115,7 +7115,7 @@ const receiveUnion7_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion8<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7131,8 +7131,8 @@ unsafe extern fn receiveUnion8<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion8_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion8 as *const os::raw::c_void,
+fn receiveUnion8_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion8::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7147,7 +7147,7 @@ const receiveUnion8_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion9<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7163,8 +7163,8 @@ unsafe extern fn receiveUnion9<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion9_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion9 as *const os::raw::c_void,
+fn receiveUnion9_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion9::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7179,7 +7179,7 @@ const receiveUnion9_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion10<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7195,8 +7195,8 @@ unsafe extern fn receiveUnion10<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion10_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion10 as *const os::raw::c_void,
+fn receiveUnion10_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion10::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7211,7 +7211,7 @@ const receiveUnion10_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnion11<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7227,8 +7227,8 @@ unsafe extern fn receiveUnion11<TH: TypeHolderTrait>
 }
 
 
-const receiveUnion11_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnion11 as *const os::raw::c_void,
+fn receiveUnion11_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnion11::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7243,7 +7243,7 @@ const receiveUnion11_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7259,8 +7259,8 @@ unsafe extern fn receiveSequence<TH: TypeHolderTrait>
 }
 
 
-const receiveSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveSequence as *const os::raw::c_void,
+fn receiveSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7275,7 +7275,7 @@ const receiveSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveInterfaceSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7291,8 +7291,8 @@ unsafe extern fn receiveInterfaceSequence<TH: TypeHolderTrait>
 }
 
 
-const receiveInterfaceSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveInterfaceSequence as *const os::raw::c_void,
+fn receiveInterfaceSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveInterfaceSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7307,7 +7307,7 @@ const receiveInterfaceSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableByte<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7323,8 +7323,8 @@ unsafe extern fn receiveNullableByte<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableByte_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableByte as *const os::raw::c_void,
+fn receiveNullableByte_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableByte::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7339,7 +7339,7 @@ const receiveNullableByte_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableBoolean<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7355,8 +7355,8 @@ unsafe extern fn receiveNullableBoolean<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableBoolean_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableBoolean as *const os::raw::c_void,
+fn receiveNullableBoolean_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableBoolean::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7371,7 +7371,7 @@ const receiveNullableBoolean_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableOctet<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7387,8 +7387,8 @@ unsafe extern fn receiveNullableOctet<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableOctet_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableOctet as *const os::raw::c_void,
+fn receiveNullableOctet_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableOctet::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7403,7 +7403,7 @@ const receiveNullableOctet_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7419,8 +7419,8 @@ unsafe extern fn receiveNullableShort<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableShort as *const os::raw::c_void,
+fn receiveNullableShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7435,7 +7435,7 @@ const receiveNullableShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnsignedShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7451,8 +7451,8 @@ unsafe extern fn receiveNullableUnsignedShort<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnsignedShort as *const os::raw::c_void,
+fn receiveNullableUnsignedShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnsignedShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7467,7 +7467,7 @@ const receiveNullableUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7483,8 +7483,8 @@ unsafe extern fn receiveNullableLong<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableLong as *const os::raw::c_void,
+fn receiveNullableLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7499,7 +7499,7 @@ const receiveNullableLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnsignedLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7515,8 +7515,8 @@ unsafe extern fn receiveNullableUnsignedLong<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnsignedLong as *const os::raw::c_void,
+fn receiveNullableUnsignedLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnsignedLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7531,7 +7531,7 @@ const receiveNullableUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7547,8 +7547,8 @@ unsafe extern fn receiveNullableLongLong<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableLongLong as *const os::raw::c_void,
+fn receiveNullableLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7563,7 +7563,7 @@ const receiveNullableLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnsignedLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7579,8 +7579,8 @@ unsafe extern fn receiveNullableUnsignedLongLong<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnsignedLongLong as *const os::raw::c_void,
+fn receiveNullableUnsignedLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnsignedLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7595,7 +7595,7 @@ const receiveNullableUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnrestrictedFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7611,8 +7611,8 @@ unsafe extern fn receiveNullableUnrestrictedFloat<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnrestrictedFloat as *const os::raw::c_void,
+fn receiveNullableUnrestrictedFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnrestrictedFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7627,7 +7627,7 @@ const receiveNullableUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7643,8 +7643,8 @@ unsafe extern fn receiveNullableFloat<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableFloat as *const os::raw::c_void,
+fn receiveNullableFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7659,7 +7659,7 @@ const receiveNullableFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnrestrictedDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7675,8 +7675,8 @@ unsafe extern fn receiveNullableUnrestrictedDouble<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnrestrictedDouble as *const os::raw::c_void,
+fn receiveNullableUnrestrictedDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnrestrictedDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7691,7 +7691,7 @@ const receiveNullableUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7707,8 +7707,8 @@ unsafe extern fn receiveNullableDouble<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableDouble as *const os::raw::c_void,
+fn receiveNullableDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7723,7 +7723,7 @@ const receiveNullableDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7739,8 +7739,8 @@ unsafe extern fn receiveNullableString<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableString_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableString as *const os::raw::c_void,
+fn receiveNullableString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7755,7 +7755,7 @@ const receiveNullableString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUsvstring<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7771,8 +7771,8 @@ unsafe extern fn receiveNullableUsvstring<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUsvstring_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUsvstring as *const os::raw::c_void,
+fn receiveNullableUsvstring_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUsvstring::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7787,7 +7787,7 @@ const receiveNullableUsvstring_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableByteString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7803,8 +7803,8 @@ unsafe extern fn receiveNullableByteString<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableByteString_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableByteString as *const os::raw::c_void,
+fn receiveNullableByteString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableByteString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7819,7 +7819,7 @@ const receiveNullableByteString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableEnum<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7835,8 +7835,8 @@ unsafe extern fn receiveNullableEnum<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableEnum_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableEnum as *const os::raw::c_void,
+fn receiveNullableEnum_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableEnum::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7851,7 +7851,7 @@ const receiveNullableEnum_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7867,8 +7867,8 @@ unsafe extern fn receiveNullableInterface<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableInterface as *const os::raw::c_void,
+fn receiveNullableInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7883,7 +7883,7 @@ const receiveNullableInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7899,8 +7899,8 @@ unsafe extern fn receiveNullableObject<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableObject_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableObject as *const os::raw::c_void,
+fn receiveNullableObject_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7915,7 +7915,7 @@ const receiveNullableObject_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnion<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7931,8 +7931,8 @@ unsafe extern fn receiveNullableUnion<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnion_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnion as *const os::raw::c_void,
+fn receiveNullableUnion_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnion::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7947,7 +7947,7 @@ const receiveNullableUnion_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnion2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7963,8 +7963,8 @@ unsafe extern fn receiveNullableUnion2<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnion2_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnion2 as *const os::raw::c_void,
+fn receiveNullableUnion2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnion2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -7979,7 +7979,7 @@ const receiveNullableUnion2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnion3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -7995,8 +7995,8 @@ unsafe extern fn receiveNullableUnion3<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnion3_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnion3 as *const os::raw::c_void,
+fn receiveNullableUnion3_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnion3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8011,7 +8011,7 @@ const receiveNullableUnion3_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnion4<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8027,8 +8027,8 @@ unsafe extern fn receiveNullableUnion4<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnion4_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnion4 as *const os::raw::c_void,
+fn receiveNullableUnion4_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnion4::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8043,7 +8043,7 @@ const receiveNullableUnion4_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnion5<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8059,8 +8059,8 @@ unsafe extern fn receiveNullableUnion5<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnion5_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnion5 as *const os::raw::c_void,
+fn receiveNullableUnion5_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnion5::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8075,7 +8075,7 @@ const receiveNullableUnion5_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableUnion6<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8091,8 +8091,8 @@ unsafe extern fn receiveNullableUnion6<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableUnion6_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableUnion6 as *const os::raw::c_void,
+fn receiveNullableUnion6_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableUnion6::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8107,7 +8107,7 @@ const receiveNullableUnion6_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8123,8 +8123,8 @@ unsafe extern fn receiveNullableSequence<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableSequence as *const os::raw::c_void,
+fn receiveNullableSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8139,7 +8139,7 @@ const receiveNullableSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveTestDictionaryWithSuccessOnKeyword<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8155,8 +8155,8 @@ unsafe extern fn receiveTestDictionaryWithSuccessOnKeyword<TH: TypeHolderTrait>
 }
 
 
-const receiveTestDictionaryWithSuccessOnKeyword_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveTestDictionaryWithSuccessOnKeyword as *const os::raw::c_void,
+fn receiveTestDictionaryWithSuccessOnKeyword_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveTestDictionaryWithSuccessOnKeyword::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8171,7 +8171,7 @@ const receiveTestDictionaryWithSuccessOnKeyword_methodinfo: JSJitInfo = JSJitInf
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn dictMatchesPassedValues<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8202,8 +8202,8 @@ unsafe extern fn dictMatchesPassedValues<TH: TypeHolderTrait>
 }
 
 
-const dictMatchesPassedValues_methodinfo: JSJitInfo = JSJitInfo {
-    call: dictMatchesPassedValues as *const os::raw::c_void,
+fn dictMatchesPassedValues_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: dictMatchesPassedValues::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8218,7 +8218,7 @@ const dictMatchesPassedValues_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveUnionIdentity<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8249,8 +8249,8 @@ unsafe extern fn receiveUnionIdentity<TH: TypeHolderTrait>
 }
 
 
-const receiveUnionIdentity_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveUnionIdentity as *const os::raw::c_void,
+fn receiveUnionIdentity_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveUnionIdentity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8265,7 +8265,7 @@ const receiveUnionIdentity_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passBoolean<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8296,8 +8296,8 @@ unsafe extern fn passBoolean<TH: TypeHolderTrait>
 }
 
 
-const passBoolean_methodinfo: JSJitInfo = JSJitInfo {
-    call: passBoolean as *const os::raw::c_void,
+fn passBoolean_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passBoolean::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8312,7 +8312,7 @@ const passBoolean_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passByte<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8343,8 +8343,8 @@ unsafe extern fn passByte<TH: TypeHolderTrait>
 }
 
 
-const passByte_methodinfo: JSJitInfo = JSJitInfo {
-    call: passByte as *const os::raw::c_void,
+fn passByte_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passByte::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8359,7 +8359,7 @@ const passByte_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOctet<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8390,8 +8390,8 @@ unsafe extern fn passOctet<TH: TypeHolderTrait>
 }
 
 
-const passOctet_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOctet as *const os::raw::c_void,
+fn passOctet_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOctet::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8406,7 +8406,7 @@ const passOctet_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8437,8 +8437,8 @@ unsafe extern fn passShort<TH: TypeHolderTrait>
 }
 
 
-const passShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passShort as *const os::raw::c_void,
+fn passShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8453,7 +8453,7 @@ const passShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnsignedShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8484,8 +8484,8 @@ unsafe extern fn passUnsignedShort<TH: TypeHolderTrait>
 }
 
 
-const passUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnsignedShort as *const os::raw::c_void,
+fn passUnsignedShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnsignedShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8500,7 +8500,7 @@ const passUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8531,8 +8531,8 @@ unsafe extern fn passLong<TH: TypeHolderTrait>
 }
 
 
-const passLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passLong as *const os::raw::c_void,
+fn passLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8547,7 +8547,7 @@ const passLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnsignedLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8578,8 +8578,8 @@ unsafe extern fn passUnsignedLong<TH: TypeHolderTrait>
 }
 
 
-const passUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnsignedLong as *const os::raw::c_void,
+fn passUnsignedLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnsignedLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8594,7 +8594,7 @@ const passUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8625,8 +8625,8 @@ unsafe extern fn passLongLong<TH: TypeHolderTrait>
 }
 
 
-const passLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passLongLong as *const os::raw::c_void,
+fn passLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8641,7 +8641,7 @@ const passLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnsignedLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8672,8 +8672,8 @@ unsafe extern fn passUnsignedLongLong<TH: TypeHolderTrait>
 }
 
 
-const passUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnsignedLongLong as *const os::raw::c_void,
+fn passUnsignedLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnsignedLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8688,7 +8688,7 @@ const passUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnrestrictedFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8719,8 +8719,8 @@ unsafe extern fn passUnrestrictedFloat<TH: TypeHolderTrait>
 }
 
 
-const passUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnrestrictedFloat as *const os::raw::c_void,
+fn passUnrestrictedFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnrestrictedFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8735,7 +8735,7 @@ const passUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8766,8 +8766,8 @@ unsafe extern fn passFloat<TH: TypeHolderTrait>
 }
 
 
-const passFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passFloat as *const os::raw::c_void,
+fn passFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8782,7 +8782,7 @@ const passFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnrestrictedDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8813,8 +8813,8 @@ unsafe extern fn passUnrestrictedDouble<TH: TypeHolderTrait>
 }
 
 
-const passUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnrestrictedDouble as *const os::raw::c_void,
+fn passUnrestrictedDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnrestrictedDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8829,7 +8829,7 @@ const passUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8860,8 +8860,8 @@ unsafe extern fn passDouble<TH: TypeHolderTrait>
 }
 
 
-const passDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passDouble as *const os::raw::c_void,
+fn passDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8876,7 +8876,7 @@ const passDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8907,8 +8907,8 @@ unsafe extern fn passString<TH: TypeHolderTrait>
 }
 
 
-const passString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passString as *const os::raw::c_void,
+fn passString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8923,7 +8923,7 @@ const passString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUsvstring<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -8954,8 +8954,8 @@ unsafe extern fn passUsvstring<TH: TypeHolderTrait>
 }
 
 
-const passUsvstring_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUsvstring as *const os::raw::c_void,
+fn passUsvstring_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUsvstring::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -8970,7 +8970,7 @@ const passUsvstring_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passByteString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9001,8 +9001,8 @@ unsafe extern fn passByteString<TH: TypeHolderTrait>
 }
 
 
-const passByteString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passByteString as *const os::raw::c_void,
+fn passByteString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passByteString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9017,7 +9017,7 @@ const passByteString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passEnum<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9045,8 +9045,8 @@ unsafe extern fn passEnum<TH: TypeHolderTrait>
 }
 
 
-const passEnum_methodinfo: JSJitInfo = JSJitInfo {
-    call: passEnum as *const os::raw::c_void,
+fn passEnum_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passEnum::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9061,7 +9061,7 @@ const passEnum_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9097,8 +9097,8 @@ unsafe extern fn passInterface<TH: TypeHolderTrait>
 }
 
 
-const passInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: passInterface as *const os::raw::c_void,
+fn passInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9113,7 +9113,7 @@ const passInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passTypedArray<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9150,8 +9150,8 @@ unsafe extern fn passTypedArray<TH: TypeHolderTrait>
 }
 
 
-const passTypedArray_methodinfo: JSJitInfo = JSJitInfo {
-    call: passTypedArray as *const os::raw::c_void,
+fn passTypedArray_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passTypedArray::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9166,7 +9166,7 @@ const passTypedArray_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passTypedArray2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9203,8 +9203,8 @@ unsafe extern fn passTypedArray2<TH: TypeHolderTrait>
 }
 
 
-const passTypedArray2_methodinfo: JSJitInfo = JSJitInfo {
-    call: passTypedArray2 as *const os::raw::c_void,
+fn passTypedArray2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passTypedArray2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9219,7 +9219,7 @@ const passTypedArray2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passTypedArray3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9256,8 +9256,8 @@ unsafe extern fn passTypedArray3<TH: TypeHolderTrait>
 }
 
 
-const passTypedArray3_methodinfo: JSJitInfo = JSJitInfo {
-    call: passTypedArray3 as *const os::raw::c_void,
+fn passTypedArray3_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passTypedArray3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9272,7 +9272,7 @@ const passTypedArray3_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9303,8 +9303,8 @@ unsafe extern fn passUnion<TH: TypeHolderTrait>
 }
 
 
-const passUnion_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion as *const os::raw::c_void,
+fn passUnion_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9319,7 +9319,7 @@ const passUnion_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9350,8 +9350,8 @@ unsafe extern fn passUnion2<TH: TypeHolderTrait>
 }
 
 
-const passUnion2_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion2 as *const os::raw::c_void,
+fn passUnion2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9366,7 +9366,7 @@ const passUnion2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9397,8 +9397,8 @@ unsafe extern fn passUnion3<TH: TypeHolderTrait>
 }
 
 
-const passUnion3_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion3 as *const os::raw::c_void,
+fn passUnion3_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9413,7 +9413,7 @@ const passUnion3_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion4<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9444,8 +9444,8 @@ unsafe extern fn passUnion4<TH: TypeHolderTrait>
 }
 
 
-const passUnion4_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion4 as *const os::raw::c_void,
+fn passUnion4_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion4::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9460,7 +9460,7 @@ const passUnion4_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion5<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9491,8 +9491,8 @@ unsafe extern fn passUnion5<TH: TypeHolderTrait>
 }
 
 
-const passUnion5_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion5 as *const os::raw::c_void,
+fn passUnion5_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion5::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9507,7 +9507,7 @@ const passUnion5_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion6<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9538,8 +9538,8 @@ unsafe extern fn passUnion6<TH: TypeHolderTrait>
 }
 
 
-const passUnion6_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion6 as *const os::raw::c_void,
+fn passUnion6_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion6::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9554,7 +9554,7 @@ const passUnion6_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion7<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9585,8 +9585,8 @@ unsafe extern fn passUnion7<TH: TypeHolderTrait>
 }
 
 
-const passUnion7_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion7 as *const os::raw::c_void,
+fn passUnion7_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion7::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9601,7 +9601,7 @@ const passUnion7_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion8<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9632,8 +9632,8 @@ unsafe extern fn passUnion8<TH: TypeHolderTrait>
 }
 
 
-const passUnion8_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion8 as *const os::raw::c_void,
+fn passUnion8_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion8::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9648,7 +9648,7 @@ const passUnion8_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion9<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9679,8 +9679,8 @@ unsafe extern fn passUnion9<TH: TypeHolderTrait>
 }
 
 
-const passUnion9_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion9 as *const os::raw::c_void,
+fn passUnion9_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion9::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9695,7 +9695,7 @@ const passUnion9_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion10<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9726,8 +9726,8 @@ unsafe extern fn passUnion10<TH: TypeHolderTrait>
 }
 
 
-const passUnion10_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion10 as *const os::raw::c_void,
+fn passUnion10_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion10::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9742,7 +9742,7 @@ const passUnion10_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnion11<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9773,8 +9773,8 @@ unsafe extern fn passUnion11<TH: TypeHolderTrait>
 }
 
 
-const passUnion11_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnion11 as *const os::raw::c_void,
+fn passUnion11_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnion11::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9789,7 +9789,7 @@ const passUnion11_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnionWithTypedef<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9820,8 +9820,8 @@ unsafe extern fn passUnionWithTypedef<TH: TypeHolderTrait>
 }
 
 
-const passUnionWithTypedef_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnionWithTypedef as *const os::raw::c_void,
+fn passUnionWithTypedef_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnionWithTypedef::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9836,7 +9836,7 @@ const passUnionWithTypedef_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnionWithTypedef2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9867,8 +9867,8 @@ unsafe extern fn passUnionWithTypedef2<TH: TypeHolderTrait>
 }
 
 
-const passUnionWithTypedef2_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnionWithTypedef2 as *const os::raw::c_void,
+fn passUnionWithTypedef2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnionWithTypedef2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9883,7 +9883,7 @@ const passUnionWithTypedef2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passAny<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9905,8 +9905,8 @@ unsafe extern fn passAny<TH: TypeHolderTrait>
 }
 
 
-const passAny_methodinfo: JSJitInfo = JSJitInfo {
-    call: passAny as *const os::raw::c_void,
+fn passAny_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passAny::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9921,7 +9921,7 @@ const passAny_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9949,8 +9949,8 @@ unsafe extern fn passObject<TH: TypeHolderTrait>
 }
 
 
-const passObject_methodinfo: JSJitInfo = JSJitInfo {
-    call: passObject as *const os::raw::c_void,
+fn passObject_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -9965,7 +9965,7 @@ const passObject_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passCallbackFunction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -9999,8 +9999,8 @@ unsafe extern fn passCallbackFunction<TH: TypeHolderTrait>
 }
 
 
-const passCallbackFunction_methodinfo: JSJitInfo = JSJitInfo {
-    call: passCallbackFunction as *const os::raw::c_void,
+fn passCallbackFunction_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passCallbackFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10015,7 +10015,7 @@ const passCallbackFunction_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passCallbackInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10037,8 +10037,8 @@ unsafe extern fn passCallbackInterface<TH: TypeHolderTrait>
 }
 
 
-const passCallbackInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: passCallbackInterface as *const os::raw::c_void,
+fn passCallbackInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passCallbackInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10053,7 +10053,7 @@ const passCallbackInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10084,8 +10084,8 @@ unsafe extern fn passSequence<TH: TypeHolderTrait>
 }
 
 
-const passSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passSequence as *const os::raw::c_void,
+fn passSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10100,7 +10100,7 @@ const passSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passAnySequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10132,8 +10132,8 @@ unsafe extern fn passAnySequence<TH: TypeHolderTrait>
 }
 
 
-const passAnySequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passAnySequence as *const os::raw::c_void,
+fn passAnySequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passAnySequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10148,7 +10148,7 @@ const passAnySequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn anySequencePassthrough<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10180,8 +10180,8 @@ unsafe extern fn anySequencePassthrough<TH: TypeHolderTrait>
 }
 
 
-const anySequencePassthrough_methodinfo: JSJitInfo = JSJitInfo {
-    call: anySequencePassthrough as *const os::raw::c_void,
+fn anySequencePassthrough_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: anySequencePassthrough::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10196,7 +10196,7 @@ const anySequencePassthrough_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passObjectSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10228,8 +10228,8 @@ unsafe extern fn passObjectSequence<TH: TypeHolderTrait>
 }
 
 
-const passObjectSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passObjectSequence as *const os::raw::c_void,
+fn passObjectSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passObjectSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10244,7 +10244,7 @@ const passObjectSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passStringSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10275,8 +10275,8 @@ unsafe extern fn passStringSequence<TH: TypeHolderTrait>
 }
 
 
-const passStringSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passStringSequence as *const os::raw::c_void,
+fn passStringSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passStringSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10291,7 +10291,7 @@ const passStringSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passInterfaceSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10322,8 +10322,8 @@ unsafe extern fn passInterfaceSequence<TH: TypeHolderTrait>
 }
 
 
-const passInterfaceSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passInterfaceSequence as *const os::raw::c_void,
+fn passInterfaceSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passInterfaceSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10338,7 +10338,7 @@ const passInterfaceSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOverloaded<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10390,8 +10390,8 @@ unsafe extern fn passOverloaded<TH: TypeHolderTrait>
 }
 
 
-const passOverloaded_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOverloaded as *const os::raw::c_void,
+fn passOverloaded_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOverloaded::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10406,7 +10406,7 @@ const passOverloaded_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableBoolean<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10437,8 +10437,8 @@ unsafe extern fn passNullableBoolean<TH: TypeHolderTrait>
 }
 
 
-const passNullableBoolean_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableBoolean as *const os::raw::c_void,
+fn passNullableBoolean_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableBoolean::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10453,7 +10453,7 @@ const passNullableBoolean_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableByte<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10484,8 +10484,8 @@ unsafe extern fn passNullableByte<TH: TypeHolderTrait>
 }
 
 
-const passNullableByte_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableByte as *const os::raw::c_void,
+fn passNullableByte_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableByte::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10500,7 +10500,7 @@ const passNullableByte_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableOctet<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10531,8 +10531,8 @@ unsafe extern fn passNullableOctet<TH: TypeHolderTrait>
 }
 
 
-const passNullableOctet_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableOctet as *const os::raw::c_void,
+fn passNullableOctet_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableOctet::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10547,7 +10547,7 @@ const passNullableOctet_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10578,8 +10578,8 @@ unsafe extern fn passNullableShort<TH: TypeHolderTrait>
 }
 
 
-const passNullableShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableShort as *const os::raw::c_void,
+fn passNullableShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10594,7 +10594,7 @@ const passNullableShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnsignedShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10625,8 +10625,8 @@ unsafe extern fn passNullableUnsignedShort<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnsignedShort as *const os::raw::c_void,
+fn passNullableUnsignedShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnsignedShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10641,7 +10641,7 @@ const passNullableUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10672,8 +10672,8 @@ unsafe extern fn passNullableLong<TH: TypeHolderTrait>
 }
 
 
-const passNullableLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableLong as *const os::raw::c_void,
+fn passNullableLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10688,7 +10688,7 @@ const passNullableLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnsignedLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10719,8 +10719,8 @@ unsafe extern fn passNullableUnsignedLong<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnsignedLong as *const os::raw::c_void,
+fn passNullableUnsignedLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnsignedLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10735,7 +10735,7 @@ const passNullableUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10766,8 +10766,8 @@ unsafe extern fn passNullableLongLong<TH: TypeHolderTrait>
 }
 
 
-const passNullableLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableLongLong as *const os::raw::c_void,
+fn passNullableLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10782,7 +10782,7 @@ const passNullableLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnsignedLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10813,8 +10813,8 @@ unsafe extern fn passNullableUnsignedLongLong<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnsignedLongLong as *const os::raw::c_void,
+fn passNullableUnsignedLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnsignedLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10829,7 +10829,7 @@ const passNullableUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnrestrictedFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10860,8 +10860,8 @@ unsafe extern fn passNullableUnrestrictedFloat<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnrestrictedFloat as *const os::raw::c_void,
+fn passNullableUnrestrictedFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnrestrictedFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10876,7 +10876,7 @@ const passNullableUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10907,8 +10907,8 @@ unsafe extern fn passNullableFloat<TH: TypeHolderTrait>
 }
 
 
-const passNullableFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableFloat as *const os::raw::c_void,
+fn passNullableFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10923,7 +10923,7 @@ const passNullableFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnrestrictedDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -10954,8 +10954,8 @@ unsafe extern fn passNullableUnrestrictedDouble<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnrestrictedDouble as *const os::raw::c_void,
+fn passNullableUnrestrictedDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnrestrictedDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -10970,7 +10970,7 @@ const passNullableUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11001,8 +11001,8 @@ unsafe extern fn passNullableDouble<TH: TypeHolderTrait>
 }
 
 
-const passNullableDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableDouble as *const os::raw::c_void,
+fn passNullableDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11017,7 +11017,7 @@ const passNullableDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11048,8 +11048,8 @@ unsafe extern fn passNullableString<TH: TypeHolderTrait>
 }
 
 
-const passNullableString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableString as *const os::raw::c_void,
+fn passNullableString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11064,7 +11064,7 @@ const passNullableString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUsvstring<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11095,8 +11095,8 @@ unsafe extern fn passNullableUsvstring<TH: TypeHolderTrait>
 }
 
 
-const passNullableUsvstring_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUsvstring as *const os::raw::c_void,
+fn passNullableUsvstring_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUsvstring::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11111,7 +11111,7 @@ const passNullableUsvstring_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableByteString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11142,8 +11142,8 @@ unsafe extern fn passNullableByteString<TH: TypeHolderTrait>
 }
 
 
-const passNullableByteString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableByteString as *const os::raw::c_void,
+fn passNullableByteString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableByteString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11158,7 +11158,7 @@ const passNullableByteString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11196,8 +11196,8 @@ unsafe extern fn passNullableInterface<TH: TypeHolderTrait>
 }
 
 
-const passNullableInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableInterface as *const os::raw::c_void,
+fn passNullableInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11212,7 +11212,7 @@ const passNullableInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11242,8 +11242,8 @@ unsafe extern fn passNullableObject<TH: TypeHolderTrait>
 }
 
 
-const passNullableObject_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableObject as *const os::raw::c_void,
+fn passNullableObject_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11258,7 +11258,7 @@ const passNullableObject_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableTypedArray<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11297,8 +11297,8 @@ unsafe extern fn passNullableTypedArray<TH: TypeHolderTrait>
 }
 
 
-const passNullableTypedArray_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableTypedArray as *const os::raw::c_void,
+fn passNullableTypedArray_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableTypedArray::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11313,7 +11313,7 @@ const passNullableTypedArray_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnion<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11344,8 +11344,8 @@ unsafe extern fn passNullableUnion<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnion_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnion as *const os::raw::c_void,
+fn passNullableUnion_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnion::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11360,7 +11360,7 @@ const passNullableUnion_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnion2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11391,8 +11391,8 @@ unsafe extern fn passNullableUnion2<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnion2_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnion2 as *const os::raw::c_void,
+fn passNullableUnion2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnion2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11407,7 +11407,7 @@ const passNullableUnion2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnion3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11438,8 +11438,8 @@ unsafe extern fn passNullableUnion3<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnion3_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnion3 as *const os::raw::c_void,
+fn passNullableUnion3_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnion3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11454,7 +11454,7 @@ const passNullableUnion3_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnion4<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11485,8 +11485,8 @@ unsafe extern fn passNullableUnion4<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnion4_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnion4 as *const os::raw::c_void,
+fn passNullableUnion4_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnion4::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11501,7 +11501,7 @@ const passNullableUnion4_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnion5<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11532,8 +11532,8 @@ unsafe extern fn passNullableUnion5<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnion5_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnion5 as *const os::raw::c_void,
+fn passNullableUnion5_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnion5::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11548,7 +11548,7 @@ const passNullableUnion5_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableUnion6<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11579,8 +11579,8 @@ unsafe extern fn passNullableUnion6<TH: TypeHolderTrait>
 }
 
 
-const passNullableUnion6_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableUnion6 as *const os::raw::c_void,
+fn passNullableUnion6_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableUnion6::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11595,7 +11595,7 @@ const passNullableUnion6_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableCallbackFunction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11631,8 +11631,8 @@ unsafe extern fn passNullableCallbackFunction<TH: TypeHolderTrait>
 }
 
 
-const passNullableCallbackFunction_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableCallbackFunction as *const os::raw::c_void,
+fn passNullableCallbackFunction_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableCallbackFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11647,7 +11647,7 @@ const passNullableCallbackFunction_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableCallbackInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11677,8 +11677,8 @@ unsafe extern fn passNullableCallbackInterface<TH: TypeHolderTrait>
 }
 
 
-const passNullableCallbackInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableCallbackInterface as *const os::raw::c_void,
+fn passNullableCallbackInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableCallbackInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11693,7 +11693,7 @@ const passNullableCallbackInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11724,8 +11724,8 @@ unsafe extern fn passNullableSequence<TH: TypeHolderTrait>
 }
 
 
-const passNullableSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableSequence as *const os::raw::c_void,
+fn passNullableSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11740,7 +11740,7 @@ const passNullableSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalBoolean<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11770,8 +11770,8 @@ unsafe extern fn passOptionalBoolean<TH: TypeHolderTrait>
 }
 
 
-const passOptionalBoolean_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalBoolean as *const os::raw::c_void,
+fn passOptionalBoolean_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalBoolean::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11786,7 +11786,7 @@ const passOptionalBoolean_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalByte<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11816,8 +11816,8 @@ unsafe extern fn passOptionalByte<TH: TypeHolderTrait>
 }
 
 
-const passOptionalByte_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalByte as *const os::raw::c_void,
+fn passOptionalByte_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalByte::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11832,7 +11832,7 @@ const passOptionalByte_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalOctet<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11862,8 +11862,8 @@ unsafe extern fn passOptionalOctet<TH: TypeHolderTrait>
 }
 
 
-const passOptionalOctet_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalOctet as *const os::raw::c_void,
+fn passOptionalOctet_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalOctet::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11878,7 +11878,7 @@ const passOptionalOctet_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11908,8 +11908,8 @@ unsafe extern fn passOptionalShort<TH: TypeHolderTrait>
 }
 
 
-const passOptionalShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalShort as *const os::raw::c_void,
+fn passOptionalShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11924,7 +11924,7 @@ const passOptionalShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnsignedShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -11954,8 +11954,8 @@ unsafe extern fn passOptionalUnsignedShort<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnsignedShort as *const os::raw::c_void,
+fn passOptionalUnsignedShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnsignedShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -11970,7 +11970,7 @@ const passOptionalUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12000,8 +12000,8 @@ unsafe extern fn passOptionalLong<TH: TypeHolderTrait>
 }
 
 
-const passOptionalLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalLong as *const os::raw::c_void,
+fn passOptionalLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12016,7 +12016,7 @@ const passOptionalLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnsignedLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12046,8 +12046,8 @@ unsafe extern fn passOptionalUnsignedLong<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnsignedLong as *const os::raw::c_void,
+fn passOptionalUnsignedLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnsignedLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12062,7 +12062,7 @@ const passOptionalUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12092,8 +12092,8 @@ unsafe extern fn passOptionalLongLong<TH: TypeHolderTrait>
 }
 
 
-const passOptionalLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalLongLong as *const os::raw::c_void,
+fn passOptionalLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12108,7 +12108,7 @@ const passOptionalLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnsignedLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12138,8 +12138,8 @@ unsafe extern fn passOptionalUnsignedLongLong<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnsignedLongLong as *const os::raw::c_void,
+fn passOptionalUnsignedLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnsignedLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12154,7 +12154,7 @@ const passOptionalUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnrestrictedFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12184,8 +12184,8 @@ unsafe extern fn passOptionalUnrestrictedFloat<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnrestrictedFloat as *const os::raw::c_void,
+fn passOptionalUnrestrictedFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnrestrictedFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12200,7 +12200,7 @@ const passOptionalUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12230,8 +12230,8 @@ unsafe extern fn passOptionalFloat<TH: TypeHolderTrait>
 }
 
 
-const passOptionalFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalFloat as *const os::raw::c_void,
+fn passOptionalFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12246,7 +12246,7 @@ const passOptionalFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnrestrictedDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12276,8 +12276,8 @@ unsafe extern fn passOptionalUnrestrictedDouble<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnrestrictedDouble as *const os::raw::c_void,
+fn passOptionalUnrestrictedDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnrestrictedDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12292,7 +12292,7 @@ const passOptionalUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12322,8 +12322,8 @@ unsafe extern fn passOptionalDouble<TH: TypeHolderTrait>
 }
 
 
-const passOptionalDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalDouble as *const os::raw::c_void,
+fn passOptionalDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12338,7 +12338,7 @@ const passOptionalDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12368,8 +12368,8 @@ unsafe extern fn passOptionalString<TH: TypeHolderTrait>
 }
 
 
-const passOptionalString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalString as *const os::raw::c_void,
+fn passOptionalString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12384,7 +12384,7 @@ const passOptionalString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUsvstring<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12414,8 +12414,8 @@ unsafe extern fn passOptionalUsvstring<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUsvstring_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUsvstring as *const os::raw::c_void,
+fn passOptionalUsvstring_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUsvstring::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12430,7 +12430,7 @@ const passOptionalUsvstring_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalByteString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12460,8 +12460,8 @@ unsafe extern fn passOptionalByteString<TH: TypeHolderTrait>
 }
 
 
-const passOptionalByteString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalByteString as *const os::raw::c_void,
+fn passOptionalByteString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalByteString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12476,7 +12476,7 @@ const passOptionalByteString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalEnum<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12503,8 +12503,8 @@ unsafe extern fn passOptionalEnum<TH: TypeHolderTrait>
 }
 
 
-const passOptionalEnum_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalEnum as *const os::raw::c_void,
+fn passOptionalEnum_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalEnum::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12519,7 +12519,7 @@ const passOptionalEnum_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12554,8 +12554,8 @@ unsafe extern fn passOptionalInterface<TH: TypeHolderTrait>
 }
 
 
-const passOptionalInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalInterface as *const os::raw::c_void,
+fn passOptionalInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12570,7 +12570,7 @@ const passOptionalInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnion<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12600,8 +12600,8 @@ unsafe extern fn passOptionalUnion<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnion_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnion as *const os::raw::c_void,
+fn passOptionalUnion_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnion::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12616,7 +12616,7 @@ const passOptionalUnion_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnion2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12646,8 +12646,8 @@ unsafe extern fn passOptionalUnion2<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnion2_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnion2 as *const os::raw::c_void,
+fn passOptionalUnion2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnion2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12662,7 +12662,7 @@ const passOptionalUnion2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnion3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12692,8 +12692,8 @@ unsafe extern fn passOptionalUnion3<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnion3_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnion3 as *const os::raw::c_void,
+fn passOptionalUnion3_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnion3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12708,7 +12708,7 @@ const passOptionalUnion3_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnion4<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12738,8 +12738,8 @@ unsafe extern fn passOptionalUnion4<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnion4_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnion4 as *const os::raw::c_void,
+fn passOptionalUnion4_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnion4::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12754,7 +12754,7 @@ const passOptionalUnion4_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnion5<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12784,8 +12784,8 @@ unsafe extern fn passOptionalUnion5<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnion5_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnion5 as *const os::raw::c_void,
+fn passOptionalUnion5_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnion5::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12800,7 +12800,7 @@ const passOptionalUnion5_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnion6<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12830,8 +12830,8 @@ unsafe extern fn passOptionalUnion6<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnion6_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnion6 as *const os::raw::c_void,
+fn passOptionalUnion6_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnion6::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12846,7 +12846,7 @@ const passOptionalUnion6_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalAny<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12867,8 +12867,8 @@ unsafe extern fn passOptionalAny<TH: TypeHolderTrait>
 }
 
 
-const passOptionalAny_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalAny as *const os::raw::c_void,
+fn passOptionalAny_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalAny::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12883,7 +12883,7 @@ const passOptionalAny_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12910,8 +12910,8 @@ unsafe extern fn passOptionalObject<TH: TypeHolderTrait>
 }
 
 
-const passOptionalObject_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalObject as *const os::raw::c_void,
+fn passOptionalObject_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12926,7 +12926,7 @@ const passOptionalObject_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalCallbackFunction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12959,8 +12959,8 @@ unsafe extern fn passOptionalCallbackFunction<TH: TypeHolderTrait>
 }
 
 
-const passOptionalCallbackFunction_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalCallbackFunction as *const os::raw::c_void,
+fn passOptionalCallbackFunction_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalCallbackFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -12975,7 +12975,7 @@ const passOptionalCallbackFunction_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalCallbackInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -12996,8 +12996,8 @@ unsafe extern fn passOptionalCallbackInterface<TH: TypeHolderTrait>
 }
 
 
-const passOptionalCallbackInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalCallbackInterface as *const os::raw::c_void,
+fn passOptionalCallbackInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalCallbackInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13012,7 +13012,7 @@ const passOptionalCallbackInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13042,8 +13042,8 @@ unsafe extern fn passOptionalSequence<TH: TypeHolderTrait>
 }
 
 
-const passOptionalSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalSequence as *const os::raw::c_void,
+fn passOptionalSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13058,7 +13058,7 @@ const passOptionalSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableBoolean<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13088,8 +13088,8 @@ unsafe extern fn passOptionalNullableBoolean<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableBoolean_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableBoolean as *const os::raw::c_void,
+fn passOptionalNullableBoolean_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableBoolean::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13104,7 +13104,7 @@ const passOptionalNullableBoolean_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableByte<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13134,8 +13134,8 @@ unsafe extern fn passOptionalNullableByte<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableByte_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableByte as *const os::raw::c_void,
+fn passOptionalNullableByte_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableByte::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13150,7 +13150,7 @@ const passOptionalNullableByte_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableOctet<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13180,8 +13180,8 @@ unsafe extern fn passOptionalNullableOctet<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableOctet_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableOctet as *const os::raw::c_void,
+fn passOptionalNullableOctet_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableOctet::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13196,7 +13196,7 @@ const passOptionalNullableOctet_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13226,8 +13226,8 @@ unsafe extern fn passOptionalNullableShort<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableShort as *const os::raw::c_void,
+fn passOptionalNullableShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13242,7 +13242,7 @@ const passOptionalNullableShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnsignedShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13272,8 +13272,8 @@ unsafe extern fn passOptionalNullableUnsignedShort<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnsignedShort as *const os::raw::c_void,
+fn passOptionalNullableUnsignedShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnsignedShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13288,7 +13288,7 @@ const passOptionalNullableUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13318,8 +13318,8 @@ unsafe extern fn passOptionalNullableLong<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableLong as *const os::raw::c_void,
+fn passOptionalNullableLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13334,7 +13334,7 @@ const passOptionalNullableLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnsignedLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13364,8 +13364,8 @@ unsafe extern fn passOptionalNullableUnsignedLong<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnsignedLong as *const os::raw::c_void,
+fn passOptionalNullableUnsignedLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnsignedLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13380,7 +13380,7 @@ const passOptionalNullableUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13410,8 +13410,8 @@ unsafe extern fn passOptionalNullableLongLong<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableLongLong as *const os::raw::c_void,
+fn passOptionalNullableLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13426,7 +13426,7 @@ const passOptionalNullableLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnsignedLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13456,8 +13456,8 @@ unsafe extern fn passOptionalNullableUnsignedLongLong<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnsignedLongLong as *const os::raw::c_void,
+fn passOptionalNullableUnsignedLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnsignedLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13472,7 +13472,7 @@ const passOptionalNullableUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnrestrictedFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13502,8 +13502,8 @@ unsafe extern fn passOptionalNullableUnrestrictedFloat<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnrestrictedFloat as *const os::raw::c_void,
+fn passOptionalNullableUnrestrictedFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnrestrictedFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13518,7 +13518,7 @@ const passOptionalNullableUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13548,8 +13548,8 @@ unsafe extern fn passOptionalNullableFloat<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableFloat as *const os::raw::c_void,
+fn passOptionalNullableFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13564,7 +13564,7 @@ const passOptionalNullableFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnrestrictedDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13594,8 +13594,8 @@ unsafe extern fn passOptionalNullableUnrestrictedDouble<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnrestrictedDouble as *const os::raw::c_void,
+fn passOptionalNullableUnrestrictedDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnrestrictedDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13610,7 +13610,7 @@ const passOptionalNullableUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13640,8 +13640,8 @@ unsafe extern fn passOptionalNullableDouble<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableDouble as *const os::raw::c_void,
+fn passOptionalNullableDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13656,7 +13656,7 @@ const passOptionalNullableDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13686,8 +13686,8 @@ unsafe extern fn passOptionalNullableString<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableString as *const os::raw::c_void,
+fn passOptionalNullableString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13702,7 +13702,7 @@ const passOptionalNullableString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUsvstring<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13732,8 +13732,8 @@ unsafe extern fn passOptionalNullableUsvstring<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUsvstring_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUsvstring as *const os::raw::c_void,
+fn passOptionalNullableUsvstring_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUsvstring::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13748,7 +13748,7 @@ const passOptionalNullableUsvstring_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableByteString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13778,8 +13778,8 @@ unsafe extern fn passOptionalNullableByteString<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableByteString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableByteString as *const os::raw::c_void,
+fn passOptionalNullableByteString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableByteString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13794,7 +13794,7 @@ const passOptionalNullableByteString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13831,8 +13831,8 @@ unsafe extern fn passOptionalNullableInterface<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableInterface as *const os::raw::c_void,
+fn passOptionalNullableInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13847,7 +13847,7 @@ const passOptionalNullableInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13876,8 +13876,8 @@ unsafe extern fn passOptionalNullableObject<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableObject_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableObject as *const os::raw::c_void,
+fn passOptionalNullableObject_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13892,7 +13892,7 @@ const passOptionalNullableObject_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnion<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13922,8 +13922,8 @@ unsafe extern fn passOptionalNullableUnion<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnion_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnion as *const os::raw::c_void,
+fn passOptionalNullableUnion_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnion::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13938,7 +13938,7 @@ const passOptionalNullableUnion_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnion2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -13968,8 +13968,8 @@ unsafe extern fn passOptionalNullableUnion2<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnion2_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnion2 as *const os::raw::c_void,
+fn passOptionalNullableUnion2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnion2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -13984,7 +13984,7 @@ const passOptionalNullableUnion2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnion3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14014,8 +14014,8 @@ unsafe extern fn passOptionalNullableUnion3<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnion3_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnion3 as *const os::raw::c_void,
+fn passOptionalNullableUnion3_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnion3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14030,7 +14030,7 @@ const passOptionalNullableUnion3_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnion4<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14060,8 +14060,8 @@ unsafe extern fn passOptionalNullableUnion4<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnion4_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnion4 as *const os::raw::c_void,
+fn passOptionalNullableUnion4_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnion4::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14076,7 +14076,7 @@ const passOptionalNullableUnion4_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnion5<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14106,8 +14106,8 @@ unsafe extern fn passOptionalNullableUnion5<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnion5_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnion5 as *const os::raw::c_void,
+fn passOptionalNullableUnion5_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnion5::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14122,7 +14122,7 @@ const passOptionalNullableUnion5_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnion6<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14152,8 +14152,8 @@ unsafe extern fn passOptionalNullableUnion6<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnion6_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnion6 as *const os::raw::c_void,
+fn passOptionalNullableUnion6_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnion6::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14168,7 +14168,7 @@ const passOptionalNullableUnion6_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableCallbackFunction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14203,8 +14203,8 @@ unsafe extern fn passOptionalNullableCallbackFunction<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableCallbackFunction_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableCallbackFunction as *const os::raw::c_void,
+fn passOptionalNullableCallbackFunction_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableCallbackFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14219,7 +14219,7 @@ const passOptionalNullableCallbackFunction_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableCallbackInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14248,8 +14248,8 @@ unsafe extern fn passOptionalNullableCallbackInterface<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableCallbackInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableCallbackInterface as *const os::raw::c_void,
+fn passOptionalNullableCallbackInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableCallbackInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14264,7 +14264,7 @@ const passOptionalNullableCallbackInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14294,8 +14294,8 @@ unsafe extern fn passOptionalNullableSequence<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableSequence as *const os::raw::c_void,
+fn passOptionalNullableSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14310,7 +14310,7 @@ const passOptionalNullableSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalBooleanWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14340,8 +14340,8 @@ unsafe extern fn passOptionalBooleanWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalBooleanWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalBooleanWithDefault as *const os::raw::c_void,
+fn passOptionalBooleanWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalBooleanWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14356,7 +14356,7 @@ const passOptionalBooleanWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalByteWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14386,8 +14386,8 @@ unsafe extern fn passOptionalByteWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalByteWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalByteWithDefault as *const os::raw::c_void,
+fn passOptionalByteWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalByteWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14402,7 +14402,7 @@ const passOptionalByteWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalOctetWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14432,8 +14432,8 @@ unsafe extern fn passOptionalOctetWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalOctetWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalOctetWithDefault as *const os::raw::c_void,
+fn passOptionalOctetWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalOctetWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14448,7 +14448,7 @@ const passOptionalOctetWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalShortWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14478,8 +14478,8 @@ unsafe extern fn passOptionalShortWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalShortWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalShortWithDefault as *const os::raw::c_void,
+fn passOptionalShortWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalShortWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14494,7 +14494,7 @@ const passOptionalShortWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnsignedShortWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14524,8 +14524,8 @@ unsafe extern fn passOptionalUnsignedShortWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnsignedShortWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnsignedShortWithDefault as *const os::raw::c_void,
+fn passOptionalUnsignedShortWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnsignedShortWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14540,7 +14540,7 @@ const passOptionalUnsignedShortWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalLongWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14570,8 +14570,8 @@ unsafe extern fn passOptionalLongWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalLongWithDefault as *const os::raw::c_void,
+fn passOptionalLongWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalLongWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14586,7 +14586,7 @@ const passOptionalLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnsignedLongWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14616,8 +14616,8 @@ unsafe extern fn passOptionalUnsignedLongWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnsignedLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnsignedLongWithDefault as *const os::raw::c_void,
+fn passOptionalUnsignedLongWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnsignedLongWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14632,7 +14632,7 @@ const passOptionalUnsignedLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalLongLongWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14662,8 +14662,8 @@ unsafe extern fn passOptionalLongLongWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalLongLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalLongLongWithDefault as *const os::raw::c_void,
+fn passOptionalLongLongWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalLongLongWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14678,7 +14678,7 @@ const passOptionalLongLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUnsignedLongLongWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14708,8 +14708,8 @@ unsafe extern fn passOptionalUnsignedLongLongWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUnsignedLongLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUnsignedLongLongWithDefault as *const os::raw::c_void,
+fn passOptionalUnsignedLongLongWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUnsignedLongLongWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14724,7 +14724,7 @@ const passOptionalUnsignedLongLongWithDefault_methodinfo: JSJitInfo = JSJitInfo 
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalBytestringWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14754,8 +14754,8 @@ unsafe extern fn passOptionalBytestringWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalBytestringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalBytestringWithDefault as *const os::raw::c_void,
+fn passOptionalBytestringWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalBytestringWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14770,7 +14770,7 @@ const passOptionalBytestringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalStringWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14800,8 +14800,8 @@ unsafe extern fn passOptionalStringWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalStringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalStringWithDefault as *const os::raw::c_void,
+fn passOptionalStringWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalStringWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14816,7 +14816,7 @@ const passOptionalStringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalUsvstringWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14846,8 +14846,8 @@ unsafe extern fn passOptionalUsvstringWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalUsvstringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalUsvstringWithDefault as *const os::raw::c_void,
+fn passOptionalUsvstringWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalUsvstringWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14862,7 +14862,7 @@ const passOptionalUsvstringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalEnumWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14889,8 +14889,8 @@ unsafe extern fn passOptionalEnumWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalEnumWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalEnumWithDefault as *const os::raw::c_void,
+fn passOptionalEnumWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalEnumWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14905,7 +14905,7 @@ const passOptionalEnumWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableBooleanWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14935,8 +14935,8 @@ unsafe extern fn passOptionalNullableBooleanWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableBooleanWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableBooleanWithDefault as *const os::raw::c_void,
+fn passOptionalNullableBooleanWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableBooleanWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14951,7 +14951,7 @@ const passOptionalNullableBooleanWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableByteWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -14981,8 +14981,8 @@ unsafe extern fn passOptionalNullableByteWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableByteWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableByteWithDefault as *const os::raw::c_void,
+fn passOptionalNullableByteWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableByteWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -14997,7 +14997,7 @@ const passOptionalNullableByteWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableOctetWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15027,8 +15027,8 @@ unsafe extern fn passOptionalNullableOctetWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableOctetWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableOctetWithDefault as *const os::raw::c_void,
+fn passOptionalNullableOctetWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableOctetWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15043,7 +15043,7 @@ const passOptionalNullableOctetWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableShortWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15073,8 +15073,8 @@ unsafe extern fn passOptionalNullableShortWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableShortWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableShortWithDefault as *const os::raw::c_void,
+fn passOptionalNullableShortWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableShortWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15089,7 +15089,7 @@ const passOptionalNullableShortWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnsignedShortWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15119,8 +15119,8 @@ unsafe extern fn passOptionalNullableUnsignedShortWithDefault<TH: TypeHolderTrai
 }
 
 
-const passOptionalNullableUnsignedShortWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnsignedShortWithDefault as *const os::raw::c_void,
+fn passOptionalNullableUnsignedShortWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnsignedShortWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15135,7 +15135,7 @@ const passOptionalNullableUnsignedShortWithDefault_methodinfo: JSJitInfo = JSJit
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableLongWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15165,8 +15165,8 @@ unsafe extern fn passOptionalNullableLongWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableLongWithDefault as *const os::raw::c_void,
+fn passOptionalNullableLongWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableLongWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15181,7 +15181,7 @@ const passOptionalNullableLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnsignedLongWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15211,8 +15211,8 @@ unsafe extern fn passOptionalNullableUnsignedLongWithDefault<TH: TypeHolderTrait
 }
 
 
-const passOptionalNullableUnsignedLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnsignedLongWithDefault as *const os::raw::c_void,
+fn passOptionalNullableUnsignedLongWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnsignedLongWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15227,7 +15227,7 @@ const passOptionalNullableUnsignedLongWithDefault_methodinfo: JSJitInfo = JSJitI
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableLongLongWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15257,8 +15257,8 @@ unsafe extern fn passOptionalNullableLongLongWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableLongLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableLongLongWithDefault as *const os::raw::c_void,
+fn passOptionalNullableLongLongWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableLongLongWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15273,7 +15273,7 @@ const passOptionalNullableLongLongWithDefault_methodinfo: JSJitInfo = JSJitInfo 
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnsignedLongLongWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15303,8 +15303,8 @@ unsafe extern fn passOptionalNullableUnsignedLongLongWithDefault<TH: TypeHolderT
 }
 
 
-const passOptionalNullableUnsignedLongLongWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnsignedLongLongWithDefault as *const os::raw::c_void,
+fn passOptionalNullableUnsignedLongLongWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnsignedLongLongWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15319,7 +15319,7 @@ const passOptionalNullableUnsignedLongLongWithDefault_methodinfo: JSJitInfo = JS
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableStringWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15349,8 +15349,8 @@ unsafe extern fn passOptionalNullableStringWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableStringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableStringWithDefault as *const os::raw::c_void,
+fn passOptionalNullableStringWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableStringWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15365,7 +15365,7 @@ const passOptionalNullableStringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUsvstringWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15395,8 +15395,8 @@ unsafe extern fn passOptionalNullableUsvstringWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUsvstringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUsvstringWithDefault as *const os::raw::c_void,
+fn passOptionalNullableUsvstringWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUsvstringWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15411,7 +15411,7 @@ const passOptionalNullableUsvstringWithDefault_methodinfo: JSJitInfo = JSJitInfo
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableByteStringWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15441,8 +15441,8 @@ unsafe extern fn passOptionalNullableByteStringWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableByteStringWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableByteStringWithDefault as *const os::raw::c_void,
+fn passOptionalNullableByteStringWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableByteStringWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15457,7 +15457,7 @@ const passOptionalNullableByteStringWithDefault_methodinfo: JSJitInfo = JSJitInf
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableInterfaceWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15494,8 +15494,8 @@ unsafe extern fn passOptionalNullableInterfaceWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableInterfaceWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableInterfaceWithDefault as *const os::raw::c_void,
+fn passOptionalNullableInterfaceWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableInterfaceWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15510,7 +15510,7 @@ const passOptionalNullableInterfaceWithDefault_methodinfo: JSJitInfo = JSJitInfo
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableObjectWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15539,8 +15539,8 @@ unsafe extern fn passOptionalNullableObjectWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableObjectWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableObjectWithDefault as *const os::raw::c_void,
+fn passOptionalNullableObjectWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableObjectWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15555,7 +15555,7 @@ const passOptionalNullableObjectWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnionWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15585,8 +15585,8 @@ unsafe extern fn passOptionalNullableUnionWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnionWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnionWithDefault as *const os::raw::c_void,
+fn passOptionalNullableUnionWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnionWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15601,7 +15601,7 @@ const passOptionalNullableUnionWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnion2WithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15631,8 +15631,8 @@ unsafe extern fn passOptionalNullableUnion2WithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableUnion2WithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnion2WithDefault as *const os::raw::c_void,
+fn passOptionalNullableUnion2WithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnion2WithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15647,7 +15647,7 @@ const passOptionalNullableUnion2WithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableCallbackInterfaceWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15676,8 +15676,8 @@ unsafe extern fn passOptionalNullableCallbackInterfaceWithDefault<TH: TypeHolder
 }
 
 
-const passOptionalNullableCallbackInterfaceWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableCallbackInterfaceWithDefault as *const os::raw::c_void,
+fn passOptionalNullableCallbackInterfaceWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableCallbackInterfaceWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15692,7 +15692,7 @@ const passOptionalNullableCallbackInterfaceWithDefault_methodinfo: JSJitInfo = J
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalAnyWithDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15713,8 +15713,8 @@ unsafe extern fn passOptionalAnyWithDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalAnyWithDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalAnyWithDefault as *const os::raw::c_void,
+fn passOptionalAnyWithDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalAnyWithDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15729,7 +15729,7 @@ const passOptionalAnyWithDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableBooleanWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15759,8 +15759,8 @@ unsafe extern fn passOptionalNullableBooleanWithNonNullDefault<TH: TypeHolderTra
 }
 
 
-const passOptionalNullableBooleanWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableBooleanWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableBooleanWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableBooleanWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15775,7 +15775,7 @@ const passOptionalNullableBooleanWithNonNullDefault_methodinfo: JSJitInfo = JSJi
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableByteWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15805,8 +15805,8 @@ unsafe extern fn passOptionalNullableByteWithNonNullDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableByteWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableByteWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableByteWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableByteWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15821,7 +15821,7 @@ const passOptionalNullableByteWithNonNullDefault_methodinfo: JSJitInfo = JSJitIn
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableOctetWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15851,8 +15851,8 @@ unsafe extern fn passOptionalNullableOctetWithNonNullDefault<TH: TypeHolderTrait
 }
 
 
-const passOptionalNullableOctetWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableOctetWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableOctetWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableOctetWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15867,7 +15867,7 @@ const passOptionalNullableOctetWithNonNullDefault_methodinfo: JSJitInfo = JSJitI
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableShortWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15897,8 +15897,8 @@ unsafe extern fn passOptionalNullableShortWithNonNullDefault<TH: TypeHolderTrait
 }
 
 
-const passOptionalNullableShortWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableShortWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableShortWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableShortWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15913,7 +15913,7 @@ const passOptionalNullableShortWithNonNullDefault_methodinfo: JSJitInfo = JSJitI
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnsignedShortWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15943,8 +15943,8 @@ unsafe extern fn passOptionalNullableUnsignedShortWithNonNullDefault<TH: TypeHol
 }
 
 
-const passOptionalNullableUnsignedShortWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnsignedShortWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableUnsignedShortWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnsignedShortWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -15959,7 +15959,7 @@ const passOptionalNullableUnsignedShortWithNonNullDefault_methodinfo: JSJitInfo 
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableLongWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -15989,8 +15989,8 @@ unsafe extern fn passOptionalNullableLongWithNonNullDefault<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableLongWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableLongWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableLongWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableLongWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16005,7 +16005,7 @@ const passOptionalNullableLongWithNonNullDefault_methodinfo: JSJitInfo = JSJitIn
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnsignedLongWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16035,8 +16035,8 @@ unsafe extern fn passOptionalNullableUnsignedLongWithNonNullDefault<TH: TypeHold
 }
 
 
-const passOptionalNullableUnsignedLongWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnsignedLongWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableUnsignedLongWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnsignedLongWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16051,7 +16051,7 @@ const passOptionalNullableUnsignedLongWithNonNullDefault_methodinfo: JSJitInfo =
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableLongLongWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16081,8 +16081,8 @@ unsafe extern fn passOptionalNullableLongLongWithNonNullDefault<TH: TypeHolderTr
 }
 
 
-const passOptionalNullableLongLongWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableLongLongWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableLongLongWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableLongLongWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16097,7 +16097,7 @@ const passOptionalNullableLongLongWithNonNullDefault_methodinfo: JSJitInfo = JSJ
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUnsignedLongLongWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16127,8 +16127,8 @@ unsafe extern fn passOptionalNullableUnsignedLongLongWithNonNullDefault<TH: Type
 }
 
 
-const passOptionalNullableUnsignedLongLongWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUnsignedLongLongWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableUnsignedLongLongWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUnsignedLongLongWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16143,7 +16143,7 @@ const passOptionalNullableUnsignedLongLongWithNonNullDefault_methodinfo: JSJitIn
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableStringWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16173,8 +16173,8 @@ unsafe extern fn passOptionalNullableStringWithNonNullDefault<TH: TypeHolderTrai
 }
 
 
-const passOptionalNullableStringWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableStringWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableStringWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableStringWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16189,7 +16189,7 @@ const passOptionalNullableStringWithNonNullDefault_methodinfo: JSJitInfo = JSJit
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableUsvstringWithNonNullDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16219,8 +16219,8 @@ unsafe extern fn passOptionalNullableUsvstringWithNonNullDefault<TH: TypeHolderT
 }
 
 
-const passOptionalNullableUsvstringWithNonNullDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableUsvstringWithNonNullDefault as *const os::raw::c_void,
+fn passOptionalNullableUsvstringWithNonNullDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableUsvstringWithNonNullDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16235,7 +16235,7 @@ const passOptionalNullableUsvstringWithNonNullDefault_methodinfo: JSJitInfo = JS
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalOverloaded<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16452,8 +16452,8 @@ unsafe extern fn passOptionalOverloaded<TH: TypeHolderTrait>
 }
 
 
-const passOptionalOverloaded_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalOverloaded as *const os::raw::c_void,
+fn passOptionalOverloaded_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalOverloaded::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16468,7 +16468,7 @@ const passOptionalOverloaded_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicBoolean<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16501,8 +16501,8 @@ unsafe extern fn passVariadicBoolean<TH: TypeHolderTrait>
 }
 
 
-const passVariadicBoolean_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicBoolean as *const os::raw::c_void,
+fn passVariadicBoolean_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicBoolean::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16517,7 +16517,7 @@ const passVariadicBoolean_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicBooleanAndDefault<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16564,8 +16564,8 @@ unsafe extern fn passVariadicBooleanAndDefault<TH: TypeHolderTrait>
 }
 
 
-const passVariadicBooleanAndDefault_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicBooleanAndDefault as *const os::raw::c_void,
+fn passVariadicBooleanAndDefault_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicBooleanAndDefault::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16580,7 +16580,7 @@ const passVariadicBooleanAndDefault_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicByte<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16613,8 +16613,8 @@ unsafe extern fn passVariadicByte<TH: TypeHolderTrait>
 }
 
 
-const passVariadicByte_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicByte as *const os::raw::c_void,
+fn passVariadicByte_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicByte::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16629,7 +16629,7 @@ const passVariadicByte_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicOctet<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16662,8 +16662,8 @@ unsafe extern fn passVariadicOctet<TH: TypeHolderTrait>
 }
 
 
-const passVariadicOctet_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicOctet as *const os::raw::c_void,
+fn passVariadicOctet_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicOctet::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16678,7 +16678,7 @@ const passVariadicOctet_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16711,8 +16711,8 @@ unsafe extern fn passVariadicShort<TH: TypeHolderTrait>
 }
 
 
-const passVariadicShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicShort as *const os::raw::c_void,
+fn passVariadicShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16727,7 +16727,7 @@ const passVariadicShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnsignedShort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16760,8 +16760,8 @@ unsafe extern fn passVariadicUnsignedShort<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnsignedShort as *const os::raw::c_void,
+fn passVariadicUnsignedShort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnsignedShort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16776,7 +16776,7 @@ const passVariadicUnsignedShort_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16809,8 +16809,8 @@ unsafe extern fn passVariadicLong<TH: TypeHolderTrait>
 }
 
 
-const passVariadicLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicLong as *const os::raw::c_void,
+fn passVariadicLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16825,7 +16825,7 @@ const passVariadicLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnsignedLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16858,8 +16858,8 @@ unsafe extern fn passVariadicUnsignedLong<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnsignedLong as *const os::raw::c_void,
+fn passVariadicUnsignedLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnsignedLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16874,7 +16874,7 @@ const passVariadicUnsignedLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16907,8 +16907,8 @@ unsafe extern fn passVariadicLongLong<TH: TypeHolderTrait>
 }
 
 
-const passVariadicLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicLongLong as *const os::raw::c_void,
+fn passVariadicLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16923,7 +16923,7 @@ const passVariadicLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnsignedLongLong<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -16956,8 +16956,8 @@ unsafe extern fn passVariadicUnsignedLongLong<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnsignedLongLong as *const os::raw::c_void,
+fn passVariadicUnsignedLongLong_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnsignedLongLong::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -16972,7 +16972,7 @@ const passVariadicUnsignedLongLong_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnrestrictedFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17005,8 +17005,8 @@ unsafe extern fn passVariadicUnrestrictedFloat<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnrestrictedFloat as *const os::raw::c_void,
+fn passVariadicUnrestrictedFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnrestrictedFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17021,7 +17021,7 @@ const passVariadicUnrestrictedFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17054,8 +17054,8 @@ unsafe extern fn passVariadicFloat<TH: TypeHolderTrait>
 }
 
 
-const passVariadicFloat_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicFloat as *const os::raw::c_void,
+fn passVariadicFloat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17070,7 +17070,7 @@ const passVariadicFloat_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnrestrictedDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17103,8 +17103,8 @@ unsafe extern fn passVariadicUnrestrictedDouble<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnrestrictedDouble as *const os::raw::c_void,
+fn passVariadicUnrestrictedDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnrestrictedDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17119,7 +17119,7 @@ const passVariadicUnrestrictedDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicDouble<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17152,8 +17152,8 @@ unsafe extern fn passVariadicDouble<TH: TypeHolderTrait>
 }
 
 
-const passVariadicDouble_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicDouble as *const os::raw::c_void,
+fn passVariadicDouble_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicDouble::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17168,7 +17168,7 @@ const passVariadicDouble_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17201,8 +17201,8 @@ unsafe extern fn passVariadicString<TH: TypeHolderTrait>
 }
 
 
-const passVariadicString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicString as *const os::raw::c_void,
+fn passVariadicString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17217,7 +17217,7 @@ const passVariadicString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUsvstring<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17250,8 +17250,8 @@ unsafe extern fn passVariadicUsvstring<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUsvstring_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUsvstring as *const os::raw::c_void,
+fn passVariadicUsvstring_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUsvstring::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17266,7 +17266,7 @@ const passVariadicUsvstring_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicByteString<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17299,8 +17299,8 @@ unsafe extern fn passVariadicByteString<TH: TypeHolderTrait>
 }
 
 
-const passVariadicByteString_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicByteString as *const os::raw::c_void,
+fn passVariadicByteString_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicByteString::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17315,7 +17315,7 @@ const passVariadicByteString_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicEnum<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17345,8 +17345,8 @@ unsafe extern fn passVariadicEnum<TH: TypeHolderTrait>
 }
 
 
-const passVariadicEnum_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicEnum as *const os::raw::c_void,
+fn passVariadicEnum_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicEnum::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17361,7 +17361,7 @@ const passVariadicEnum_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17399,8 +17399,8 @@ unsafe extern fn passVariadicInterface<TH: TypeHolderTrait>
 }
 
 
-const passVariadicInterface_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicInterface as *const os::raw::c_void,
+fn passVariadicInterface_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicInterface::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17415,7 +17415,7 @@ const passVariadicInterface_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnion<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17448,8 +17448,8 @@ unsafe extern fn passVariadicUnion<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnion_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnion as *const os::raw::c_void,
+fn passVariadicUnion_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnion::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17464,7 +17464,7 @@ const passVariadicUnion_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnion2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17497,8 +17497,8 @@ unsafe extern fn passVariadicUnion2<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnion2_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnion2 as *const os::raw::c_void,
+fn passVariadicUnion2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnion2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17513,7 +17513,7 @@ const passVariadicUnion2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnion3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17546,8 +17546,8 @@ unsafe extern fn passVariadicUnion3<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnion3_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnion3 as *const os::raw::c_void,
+fn passVariadicUnion3_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnion3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17562,7 +17562,7 @@ const passVariadicUnion3_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnion4<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17595,8 +17595,8 @@ unsafe extern fn passVariadicUnion4<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnion4_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnion4 as *const os::raw::c_void,
+fn passVariadicUnion4_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnion4::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17611,7 +17611,7 @@ const passVariadicUnion4_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnion5<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17644,8 +17644,8 @@ unsafe extern fn passVariadicUnion5<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnion5_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnion5 as *const os::raw::c_void,
+fn passVariadicUnion5_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnion5::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17660,7 +17660,7 @@ const passVariadicUnion5_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnion6<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17693,8 +17693,8 @@ unsafe extern fn passVariadicUnion6<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnion6_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnion6 as *const os::raw::c_void,
+fn passVariadicUnion6_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnion6::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17709,7 +17709,7 @@ const passVariadicUnion6_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicUnion7<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17742,8 +17742,8 @@ unsafe extern fn passVariadicUnion7<TH: TypeHolderTrait>
 }
 
 
-const passVariadicUnion7_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicUnion7 as *const os::raw::c_void,
+fn passVariadicUnion7_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicUnion7::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17758,7 +17758,7 @@ const passVariadicUnion7_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicAny<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17782,8 +17782,8 @@ unsafe extern fn passVariadicAny<TH: TypeHolderTrait>
 }
 
 
-const passVariadicAny_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicAny as *const os::raw::c_void,
+fn passVariadicAny_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicAny::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17798,7 +17798,7 @@ const passVariadicAny_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passVariadicObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17828,8 +17828,8 @@ unsafe extern fn passVariadicObject<TH: TypeHolderTrait>
 }
 
 
-const passVariadicObject_methodinfo: JSJitInfo = JSJitInfo {
-    call: passVariadicObject as *const os::raw::c_void,
+fn passVariadicObject_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passVariadicObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17844,7 +17844,7 @@ const passVariadicObject_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passSequenceSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17875,8 +17875,8 @@ unsafe extern fn passSequenceSequence<TH: TypeHolderTrait>
 }
 
 
-const passSequenceSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passSequenceSequence as *const os::raw::c_void,
+fn passSequenceSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passSequenceSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17891,7 +17891,7 @@ const passSequenceSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn returnSequenceSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17907,8 +17907,8 @@ unsafe extern fn returnSequenceSequence<TH: TypeHolderTrait>
 }
 
 
-const returnSequenceSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: returnSequenceSequence as *const os::raw::c_void,
+fn returnSequenceSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: returnSequenceSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17923,7 +17923,7 @@ const returnSequenceSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passUnionSequenceSequence<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -17954,8 +17954,8 @@ unsafe extern fn passUnionSequenceSequence<TH: TypeHolderTrait>
 }
 
 
-const passUnionSequenceSequence_methodinfo: JSJitInfo = JSJitInfo {
-    call: passUnionSequenceSequence as *const os::raw::c_void,
+fn passUnionSequenceSequence_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passUnionSequenceSequence::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -17970,7 +17970,7 @@ const passUnionSequenceSequence_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18001,8 +18001,8 @@ unsafe extern fn passMozMap<TH: TypeHolderTrait>
 }
 
 
-const passMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passMozMap as *const os::raw::c_void,
+fn passMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18017,7 +18017,7 @@ const passMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18048,8 +18048,8 @@ unsafe extern fn passNullableMozMap<TH: TypeHolderTrait>
 }
 
 
-const passNullableMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableMozMap as *const os::raw::c_void,
+fn passNullableMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18064,7 +18064,7 @@ const passNullableMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passMozMapOfNullableInts<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18095,8 +18095,8 @@ unsafe extern fn passMozMapOfNullableInts<TH: TypeHolderTrait>
 }
 
 
-const passMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo {
-    call: passMozMapOfNullableInts as *const os::raw::c_void,
+fn passMozMapOfNullableInts_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passMozMapOfNullableInts::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18111,7 +18111,7 @@ const passMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalMozMapOfNullableInts<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18141,8 +18141,8 @@ unsafe extern fn passOptionalMozMapOfNullableInts<TH: TypeHolderTrait>
 }
 
 
-const passOptionalMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalMozMapOfNullableInts as *const os::raw::c_void,
+fn passOptionalMozMapOfNullableInts_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalMozMapOfNullableInts::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18157,7 +18157,7 @@ const passOptionalMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableMozMapOfNullableInts<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18187,8 +18187,8 @@ unsafe extern fn passOptionalNullableMozMapOfNullableInts<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableMozMapOfNullableInts as *const os::raw::c_void,
+fn passOptionalNullableMozMapOfNullableInts_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableMozMapOfNullableInts::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18203,7 +18203,7 @@ const passOptionalNullableMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passCastableObjectMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18234,8 +18234,8 @@ unsafe extern fn passCastableObjectMozMap<TH: TypeHolderTrait>
 }
 
 
-const passCastableObjectMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passCastableObjectMozMap as *const os::raw::c_void,
+fn passCastableObjectMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passCastableObjectMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18250,7 +18250,7 @@ const passCastableObjectMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableCastableObjectMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18281,8 +18281,8 @@ unsafe extern fn passNullableCastableObjectMozMap<TH: TypeHolderTrait>
 }
 
 
-const passNullableCastableObjectMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableCastableObjectMozMap as *const os::raw::c_void,
+fn passNullableCastableObjectMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableCastableObjectMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18297,7 +18297,7 @@ const passNullableCastableObjectMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passCastableObjectNullableMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18328,8 +18328,8 @@ unsafe extern fn passCastableObjectNullableMozMap<TH: TypeHolderTrait>
 }
 
 
-const passCastableObjectNullableMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passCastableObjectNullableMozMap as *const os::raw::c_void,
+fn passCastableObjectNullableMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passCastableObjectNullableMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18344,7 +18344,7 @@ const passCastableObjectNullableMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passNullableCastableObjectNullableMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18375,8 +18375,8 @@ unsafe extern fn passNullableCastableObjectNullableMozMap<TH: TypeHolderTrait>
 }
 
 
-const passNullableCastableObjectNullableMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passNullableCastableObjectNullableMozMap as *const os::raw::c_void,
+fn passNullableCastableObjectNullableMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passNullableCastableObjectNullableMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18391,7 +18391,7 @@ const passNullableCastableObjectNullableMozMap_methodinfo: JSJitInfo = JSJitInfo
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18421,8 +18421,8 @@ unsafe extern fn passOptionalMozMap<TH: TypeHolderTrait>
 }
 
 
-const passOptionalMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalMozMap as *const os::raw::c_void,
+fn passOptionalMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18437,7 +18437,7 @@ const passOptionalMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18467,8 +18467,8 @@ unsafe extern fn passOptionalNullableMozMap<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableMozMap as *const os::raw::c_void,
+fn passOptionalNullableMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18483,7 +18483,7 @@ const passOptionalNullableMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalNullableMozMapWithDefaultValue<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18513,8 +18513,8 @@ unsafe extern fn passOptionalNullableMozMapWithDefaultValue<TH: TypeHolderTrait>
 }
 
 
-const passOptionalNullableMozMapWithDefaultValue_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalNullableMozMapWithDefaultValue as *const os::raw::c_void,
+fn passOptionalNullableMozMapWithDefaultValue_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalNullableMozMapWithDefaultValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18529,7 +18529,7 @@ const passOptionalNullableMozMapWithDefaultValue_methodinfo: JSJitInfo = JSJitIn
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passOptionalObjectMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18559,8 +18559,8 @@ unsafe extern fn passOptionalObjectMozMap<TH: TypeHolderTrait>
 }
 
 
-const passOptionalObjectMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passOptionalObjectMozMap as *const os::raw::c_void,
+fn passOptionalObjectMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passOptionalObjectMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18575,7 +18575,7 @@ const passOptionalObjectMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passStringMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18606,8 +18606,8 @@ unsafe extern fn passStringMozMap<TH: TypeHolderTrait>
 }
 
 
-const passStringMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passStringMozMap as *const os::raw::c_void,
+fn passStringMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passStringMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18622,7 +18622,7 @@ const passStringMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passByteStringMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18653,8 +18653,8 @@ unsafe extern fn passByteStringMozMap<TH: TypeHolderTrait>
 }
 
 
-const passByteStringMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: passByteStringMozMap as *const os::raw::c_void,
+fn passByteStringMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passByteStringMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18669,7 +18669,7 @@ const passByteStringMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passMozMapOfMozMaps<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18700,8 +18700,8 @@ unsafe extern fn passMozMapOfMozMaps<TH: TypeHolderTrait>
 }
 
 
-const passMozMapOfMozMaps_methodinfo: JSJitInfo = JSJitInfo {
-    call: passMozMapOfMozMaps as *const os::raw::c_void,
+fn passMozMapOfMozMaps_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passMozMapOfMozMaps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18716,7 +18716,7 @@ const passMozMapOfMozMaps_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passMozMapUnion<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18747,8 +18747,8 @@ unsafe extern fn passMozMapUnion<TH: TypeHolderTrait>
 }
 
 
-const passMozMapUnion_methodinfo: JSJitInfo = JSJitInfo {
-    call: passMozMapUnion as *const os::raw::c_void,
+fn passMozMapUnion_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passMozMapUnion::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18763,7 +18763,7 @@ const passMozMapUnion_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passMozMapUnion2<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18794,8 +18794,8 @@ unsafe extern fn passMozMapUnion2<TH: TypeHolderTrait>
 }
 
 
-const passMozMapUnion2_methodinfo: JSJitInfo = JSJitInfo {
-    call: passMozMapUnion2 as *const os::raw::c_void,
+fn passMozMapUnion2_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passMozMapUnion2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18810,7 +18810,7 @@ const passMozMapUnion2_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn passMozMapUnion3<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18841,8 +18841,8 @@ unsafe extern fn passMozMapUnion3<TH: TypeHolderTrait>
 }
 
 
-const passMozMapUnion3_methodinfo: JSJitInfo = JSJitInfo {
-    call: passMozMapUnion3 as *const os::raw::c_void,
+fn passMozMapUnion3_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: passMozMapUnion3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18857,7 +18857,7 @@ const passMozMapUnion3_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18873,8 +18873,8 @@ unsafe extern fn receiveMozMap<TH: TypeHolderTrait>
 }
 
 
-const receiveMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveMozMap as *const os::raw::c_void,
+fn receiveMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18889,7 +18889,7 @@ const receiveMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18905,8 +18905,8 @@ unsafe extern fn receiveNullableMozMap<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableMozMap as *const os::raw::c_void,
+fn receiveNullableMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18921,7 +18921,7 @@ const receiveNullableMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveMozMapOfNullableInts<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18937,8 +18937,8 @@ unsafe extern fn receiveMozMapOfNullableInts<TH: TypeHolderTrait>
 }
 
 
-const receiveMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveMozMapOfNullableInts as *const os::raw::c_void,
+fn receiveMozMapOfNullableInts_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveMozMapOfNullableInts::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18953,7 +18953,7 @@ const receiveMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveNullableMozMapOfNullableInts<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -18969,8 +18969,8 @@ unsafe extern fn receiveNullableMozMapOfNullableInts<TH: TypeHolderTrait>
 }
 
 
-const receiveNullableMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveNullableMozMapOfNullableInts as *const os::raw::c_void,
+fn receiveNullableMozMapOfNullableInts_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveNullableMozMapOfNullableInts::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -18985,7 +18985,7 @@ const receiveNullableMozMapOfNullableInts_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveMozMapOfMozMaps<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -19001,8 +19001,8 @@ unsafe extern fn receiveMozMapOfMozMaps<TH: TypeHolderTrait>
 }
 
 
-const receiveMozMapOfMozMaps_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveMozMapOfMozMaps as *const os::raw::c_void,
+fn receiveMozMapOfMozMaps_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveMozMapOfMozMaps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19017,7 +19017,7 @@ const receiveMozMapOfMozMaps_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn receiveAnyMozMap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -19033,8 +19033,8 @@ unsafe extern fn receiveAnyMozMap<TH: TypeHolderTrait>
 }
 
 
-const receiveAnyMozMap_methodinfo: JSJitInfo = JSJitInfo {
-    call: receiveAnyMozMap as *const os::raw::c_void,
+fn receiveAnyMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: receiveAnyMozMap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19049,7 +19049,7 @@ const receiveAnyMozMap_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_booleanAttributeStatic<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
@@ -19128,8 +19128,8 @@ unsafe extern fn BooleanMozPreference<TH: TypeHolderTrait>
 }
 
 
-const BooleanMozPreference_methodinfo: JSJitInfo = JSJitInfo {
-    call: BooleanMozPreference as *const os::raw::c_void,
+fn BooleanMozPreference_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: BooleanMozPreference::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19144,7 +19144,7 @@ const BooleanMozPreference_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn StringMozPreference<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -19175,8 +19175,8 @@ unsafe extern fn StringMozPreference<TH: TypeHolderTrait>
 }
 
 
-const StringMozPreference_methodinfo: JSJitInfo = JSJitInfo {
-    call: StringMozPreference as *const os::raw::c_void,
+fn StringMozPreference_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: StringMozPreference::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19191,7 +19191,7 @@ const StringMozPreference_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_prefControlledAttributeDisabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19205,8 +19205,8 @@ unsafe extern fn get_prefControlledAttributeDisabled<TH: TypeHolderTrait>
 }
 
 
-const prefControlledAttributeDisabled_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_prefControlledAttributeDisabled as *const os::raw::c_void,
+fn prefControlledAttributeDisabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_prefControlledAttributeDisabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19221,7 +19221,7 @@ const prefControlledAttributeDisabled_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_prefControlledStaticAttributeDisabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
@@ -19249,8 +19249,8 @@ unsafe extern fn prefControlledMethodDisabled<TH: TypeHolderTrait>
 }
 
 
-const prefControlledMethodDisabled_methodinfo: JSJitInfo = JSJitInfo {
-    call: prefControlledMethodDisabled as *const os::raw::c_void,
+fn prefControlledMethodDisabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: prefControlledMethodDisabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19265,7 +19265,7 @@ const prefControlledMethodDisabled_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn prefControlledStaticMethodDisabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
@@ -19322,8 +19322,8 @@ unsafe extern fn advanceClock<TH: TypeHolderTrait>
 }
 
 
-const advanceClock_methodinfo: JSJitInfo = JSJitInfo {
-    call: advanceClock as *const os::raw::c_void,
+fn advanceClock_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: advanceClock::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19338,7 +19338,7 @@ const advanceClock_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_prefControlledAttributeEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19352,8 +19352,8 @@ unsafe extern fn get_prefControlledAttributeEnabled<TH: TypeHolderTrait>
 }
 
 
-const prefControlledAttributeEnabled_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_prefControlledAttributeEnabled as *const os::raw::c_void,
+fn prefControlledAttributeEnabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_prefControlledAttributeEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19368,7 +19368,7 @@ const prefControlledAttributeEnabled_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_prefControlledStaticAttributeEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
@@ -19396,8 +19396,8 @@ unsafe extern fn prefControlledMethodEnabled<TH: TypeHolderTrait>
 }
 
 
-const prefControlledMethodEnabled_methodinfo: JSJitInfo = JSJitInfo {
-    call: prefControlledMethodEnabled as *const os::raw::c_void,
+fn prefControlledMethodEnabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: prefControlledMethodEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19412,7 +19412,7 @@ const prefControlledMethodEnabled_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn prefControlledStaticMethodEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
@@ -19438,8 +19438,8 @@ unsafe extern fn get_funcControlledAttributeDisabled<TH: TypeHolderTrait>
 }
 
 
-const funcControlledAttributeDisabled_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_funcControlledAttributeDisabled as *const os::raw::c_void,
+fn funcControlledAttributeDisabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_funcControlledAttributeDisabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19454,7 +19454,7 @@ const funcControlledAttributeDisabled_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_funcControlledStaticAttributeDisabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
@@ -19482,8 +19482,8 @@ unsafe extern fn funcControlledMethodDisabled<TH: TypeHolderTrait>
 }
 
 
-const funcControlledMethodDisabled_methodinfo: JSJitInfo = JSJitInfo {
-    call: funcControlledMethodDisabled as *const os::raw::c_void,
+fn funcControlledMethodDisabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: funcControlledMethodDisabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19498,7 +19498,7 @@ const funcControlledMethodDisabled_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn funcControlledStaticMethodDisabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
@@ -19524,8 +19524,8 @@ unsafe extern fn get_funcControlledAttributeEnabled<TH: TypeHolderTrait>
 }
 
 
-const funcControlledAttributeEnabled_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_funcControlledAttributeEnabled as *const os::raw::c_void,
+fn funcControlledAttributeEnabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_funcControlledAttributeEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19540,7 +19540,7 @@ const funcControlledAttributeEnabled_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_funcControlledStaticAttributeEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
@@ -19568,8 +19568,8 @@ unsafe extern fn funcControlledMethodEnabled<TH: TypeHolderTrait>
 }
 
 
-const funcControlledMethodEnabled_methodinfo: JSJitInfo = JSJitInfo {
-    call: funcControlledMethodEnabled as *const os::raw::c_void,
+fn funcControlledMethodEnabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: funcControlledMethodEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19584,7 +19584,7 @@ const funcControlledMethodEnabled_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn funcControlledStaticMethodEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
@@ -19625,8 +19625,8 @@ unsafe extern fn returnResolvedPromise<TH: TypeHolderTrait>
 }
 
 
-const returnResolvedPromise_methodinfo: JSJitInfo = JSJitInfo {
-    call: returnResolvedPromise as *const os::raw::c_void,
+fn returnResolvedPromise_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: returnResolvedPromise::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19641,7 +19641,7 @@ const returnResolvedPromise_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn returnRejectedPromise<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -19670,8 +19670,8 @@ unsafe extern fn returnRejectedPromise<TH: TypeHolderTrait>
 }
 
 
-const returnRejectedPromise_methodinfo: JSJitInfo = JSJitInfo {
-    call: returnRejectedPromise as *const os::raw::c_void,
+fn returnRejectedPromise_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: returnRejectedPromise::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19686,7 +19686,7 @@ const returnRejectedPromise_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_promiseAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -19700,8 +19700,8 @@ unsafe extern fn get_promiseAttribute<TH: TypeHolderTrait>
 }
 
 
-const promiseAttribute_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_promiseAttribute as *const os::raw::c_void,
+fn promiseAttribute_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_promiseAttribute::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19716,7 +19716,7 @@ const promiseAttribute_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn acceptPromise<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -19755,8 +19755,8 @@ unsafe extern fn acceptPromise<TH: TypeHolderTrait>
 }
 
 
-const acceptPromise_methodinfo: JSJitInfo = JSJitInfo {
-    call: acceptPromise as *const os::raw::c_void,
+fn acceptPromise_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: acceptPromise::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19771,7 +19771,7 @@ const acceptPromise_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn promiseNativeHandler<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -19822,8 +19822,8 @@ unsafe extern fn promiseNativeHandler<TH: TypeHolderTrait>
 }
 
 
-const promiseNativeHandler_methodinfo: JSJitInfo = JSJitInfo {
-    call: promiseNativeHandler as *const os::raw::c_void,
+fn promiseNativeHandler_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: promiseNativeHandler::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19838,7 +19838,7 @@ const promiseNativeHandler_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn promiseResolveNative<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -19878,8 +19878,8 @@ unsafe extern fn promiseResolveNative<TH: TypeHolderTrait>
 }
 
 
-const promiseResolveNative_methodinfo: JSJitInfo = JSJitInfo {
-    call: promiseResolveNative as *const os::raw::c_void,
+fn promiseResolveNative_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: promiseResolveNative::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19894,7 +19894,7 @@ const promiseResolveNative_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn promiseRejectNative<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -19934,8 +19934,8 @@ unsafe extern fn promiseRejectNative<TH: TypeHolderTrait>
 }
 
 
-const promiseRejectNative_methodinfo: JSJitInfo = JSJitInfo {
-    call: promiseRejectNative as *const os::raw::c_void,
+fn promiseRejectNative_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: promiseRejectNative::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -19950,7 +19950,7 @@ const promiseRejectNative_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn promiseRejectWithTypeError<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -19999,8 +19999,8 @@ unsafe extern fn promiseRejectWithTypeError<TH: TypeHolderTrait>
 }
 
 
-const promiseRejectWithTypeError_methodinfo: JSJitInfo = JSJitInfo {
-    call: promiseRejectWithTypeError as *const os::raw::c_void,
+fn promiseRejectWithTypeError_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: promiseRejectWithTypeError::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20015,7 +20015,7 @@ const promiseRejectWithTypeError_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn resolvePromiseDelayed<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -20074,8 +20074,8 @@ unsafe extern fn resolvePromiseDelayed<TH: TypeHolderTrait>
 }
 
 
-const resolvePromiseDelayed_methodinfo: JSJitInfo = JSJitInfo {
-    call: resolvePromiseDelayed as *const os::raw::c_void,
+fn resolvePromiseDelayed_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: resolvePromiseDelayed::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20090,7 +20090,7 @@ const resolvePromiseDelayed_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn panic<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -20106,8 +20106,8 @@ unsafe extern fn panic<TH: TypeHolderTrait>
 }
 
 
-const panic_methodinfo: JSJitInfo = JSJitInfo {
-    call: panic as *const os::raw::c_void,
+fn panic_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: panic::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20122,7 +20122,7 @@ const panic_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn entryGlobal<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -20138,8 +20138,8 @@ unsafe extern fn entryGlobal<TH: TypeHolderTrait>
 }
 
 
-const entryGlobal_methodinfo: JSJitInfo = JSJitInfo {
-    call: entryGlobal as *const os::raw::c_void,
+fn entryGlobal_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: entryGlobal::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20154,7 +20154,7 @@ const entryGlobal_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn incumbentGlobal<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -20170,8 +20170,8 @@ unsafe extern fn incumbentGlobal<TH: TypeHolderTrait>
 }
 
 
-const incumbentGlobal_methodinfo: JSJitInfo = JSJitInfo {
-    call: incumbentGlobal as *const os::raw::c_void,
+fn incumbentGlobal_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: incumbentGlobal::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20186,7 +20186,7 @@ const incumbentGlobal_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn crashHard<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TestBinding<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -20202,8 +20202,8 @@ unsafe extern fn crashHard<TH: TypeHolderTrait>
 }
 
 
-const crashHard_methodinfo: JSJitInfo = JSJitInfo {
-    call: crashHard as *const os::raw::c_void,
+fn crashHard_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: crashHard::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::TestBinding as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -20218,7 +20218,7 @@ const crashHard_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -20936,2062 +20936,2062 @@ const sStaticAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
     Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sStaticAttributes_specs[3]),
     Guard::new(Condition::Func(TestBinding::condition_satisfied), sStaticAttributes_specs[4])
 ];
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"methToBinaryRename\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &methToBinaryRename_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &methToBinaryRename_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveVoid\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveVoid_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveVoid_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveBoolean\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveBoolean_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveBoolean_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveByte\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveByte_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveByte_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveOctet\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveOctet_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveOctet_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnsignedShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnsignedShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnsignedShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnsignedLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnsignedLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnsignedLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnsignedLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnsignedLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnsignedLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnrestrictedFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnrestrictedFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnrestrictedFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnrestrictedDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnrestrictedDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnrestrictedDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUsvstring\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUsvstring_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUsvstring_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveByteString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveByteString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveByteString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveEnum\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveEnum_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveEnum_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveAny\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveAny_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveAny_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveObject\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveObject_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveObject_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion3\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion3_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion3_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion4\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion4_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion4_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion5\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion5_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion5_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion6\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion6_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion6_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion7\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion7_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion7_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion8\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion8_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion8_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion9\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion9_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion9_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion10\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion10_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion10_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnion11\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion11_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnion11_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveInterfaceSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveInterfaceSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveInterfaceSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableByte\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableByte_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableByte_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableBoolean\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableBoolean_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableBoolean_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableOctet\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableOctet_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableOctet_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnsignedShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnsignedShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnsignedShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnsignedLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnsignedLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnsignedLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnsignedLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnsignedLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnsignedLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnrestrictedFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnrestrictedFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnrestrictedFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnrestrictedDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnrestrictedDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnrestrictedDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUsvstring\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUsvstring_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUsvstring_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableByteString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableByteString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableByteString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableEnum\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableEnum_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableEnum_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableObject\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableObject_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableObject_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnion\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnion2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnion3\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion3_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion3_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnion4\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion4_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion4_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnion5\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion5_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion5_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableUnion6\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion6_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableUnion6_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveTestDictionaryWithSuccessOnKeyword\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveTestDictionaryWithSuccessOnKeyword_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveTestDictionaryWithSuccessOnKeyword_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"dictMatchesPassedValues\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &dictMatchesPassedValues_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &dictMatchesPassedValues_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveUnionIdentity\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnionIdentity_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveUnionIdentity_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passBoolean\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passBoolean_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passBoolean_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passByte\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passByte_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passByte_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOctet\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOctet_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOctet_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnsignedShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnsignedShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnsignedShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnsignedLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnsignedLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnsignedLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnsignedLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnsignedLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnsignedLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnrestrictedFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnrestrictedFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnrestrictedFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnrestrictedDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnrestrictedDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnrestrictedDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUsvstring\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUsvstring_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUsvstring_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passByteString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passByteString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passByteString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passEnum\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passEnum_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passEnum_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passTypedArray\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passTypedArray_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passTypedArray_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passTypedArray2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passTypedArray2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passTypedArray2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passTypedArray3\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passTypedArray3_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passTypedArray3_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion3\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion3_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion3_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion4\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion4_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion4_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion5\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion5_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion5_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion6\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion6_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion6_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion7\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion7_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion7_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion8\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion8_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion8_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion9\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion9_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion9_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion10\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion10_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion10_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnion11\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion11_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnion11_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnionWithTypedef\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnionWithTypedef_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnionWithTypedef_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnionWithTypedef2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnionWithTypedef2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnionWithTypedef2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passAny\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passAny_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passAny_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passObject\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passObject_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passObject_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passCallbackFunction\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passCallbackFunction_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passCallbackFunction_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passCallbackInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passCallbackInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passCallbackInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passAnySequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passAnySequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passAnySequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"anySequencePassthrough\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &anySequencePassthrough_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &anySequencePassthrough_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passObjectSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passObjectSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passObjectSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passStringSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passStringSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passStringSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passInterfaceSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passInterfaceSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passInterfaceSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOverloaded\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOverloaded_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOverloaded_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableBoolean\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableBoolean_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableBoolean_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableByte\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableByte_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableByte_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableOctet\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableOctet_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableOctet_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnsignedShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnsignedShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnsignedShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnsignedLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnsignedLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnsignedLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnsignedLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnsignedLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnsignedLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnrestrictedFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnrestrictedFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnrestrictedFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnrestrictedDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnrestrictedDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnrestrictedDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUsvstring\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUsvstring_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUsvstring_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableByteString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableByteString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableByteString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableObject\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableObject_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableObject_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableTypedArray\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableTypedArray_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableTypedArray_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnion\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnion2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnion3\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion3_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion3_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnion4\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion4_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion4_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnion5\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion5_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion5_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableUnion6\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion6_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableUnion6_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableCallbackFunction\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableCallbackFunction_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableCallbackFunction_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableCallbackInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableCallbackInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableCallbackInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalBoolean\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalBoolean_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalBoolean_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalByte\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalByte_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalByte_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalOctet\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalOctet_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalOctet_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnsignedShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnsignedLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnsignedLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnrestrictedFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnrestrictedFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnrestrictedFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnrestrictedDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnrestrictedDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnrestrictedDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUsvstring\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUsvstring_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUsvstring_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalByteString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalByteString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalByteString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalEnum\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalEnum_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalEnum_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnion\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnion2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnion3\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion3_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion3_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnion4\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion4_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion4_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnion5\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion5_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion5_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnion6\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion6_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnion6_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalAny\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalAny_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalAny_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalObject\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalObject_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalObject_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalCallbackFunction\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalCallbackFunction_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalCallbackFunction_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalCallbackInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalCallbackInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalCallbackInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableBoolean\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableBoolean_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableBoolean_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableByte\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByte_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByte_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableOctet\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableOctet_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableOctet_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnsignedShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnsignedLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnsignedLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnrestrictedFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnrestrictedFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnrestrictedFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnrestrictedDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnrestrictedDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnrestrictedDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUsvstring\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUsvstring_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUsvstring_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableByteString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByteString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByteString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableObject\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableObject_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableObject_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnion\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnion2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnion3\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion3_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion3_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnion4\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion4_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion4_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnion5\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion5_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion5_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnion6\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion6_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion6_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableCallbackFunction\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableCallbackFunction_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableCallbackFunction_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableCallbackInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableCallbackInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableCallbackInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalBooleanWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalBooleanWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalBooleanWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalByteWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalByteWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalByteWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalOctetWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalOctetWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalOctetWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalShortWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalShortWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalShortWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnsignedShortWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedShortWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedShortWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalLongWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalLongWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalLongWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnsignedLongWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedLongWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedLongWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalLongLongWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalLongLongWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalLongLongWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUnsignedLongLongWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedLongLongWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUnsignedLongLongWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalBytestringWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalBytestringWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalBytestringWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalStringWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalStringWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalStringWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalUsvstringWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUsvstringWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalUsvstringWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalEnumWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalEnumWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalEnumWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableBooleanWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableBooleanWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableBooleanWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableByteWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByteWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByteWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableOctetWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableOctetWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableOctetWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableShortWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableShortWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableShortWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnsignedShortWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedShortWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedShortWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableLongWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnsignedLongWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableLongLongWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongLongWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongLongWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnsignedLongLongWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongLongWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongLongWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableStringWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableStringWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableStringWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUsvstringWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUsvstringWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUsvstringWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableByteStringWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByteStringWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByteStringWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableInterfaceWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableInterfaceWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableInterfaceWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableObjectWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableObjectWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableObjectWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnionWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnionWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnionWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnion2WithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion2WithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnion2WithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableCallbackInterfaceWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableCallbackInterfaceWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableCallbackInterfaceWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalAnyWithDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalAnyWithDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalAnyWithDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableBooleanWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableBooleanWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableBooleanWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableByteWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByteWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableByteWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableOctetWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableOctetWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableOctetWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableShortWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableShortWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableShortWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnsignedShortWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedShortWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedShortWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableLongWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnsignedLongWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableLongLongWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongLongWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableLongLongWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUnsignedLongLongWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongLongWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUnsignedLongLongWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableStringWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableStringWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableStringWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableUsvstringWithNonNullDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUsvstringWithNonNullDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableUsvstringWithNonNullDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalOverloaded\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalOverloaded_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalOverloaded_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicBoolean\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicBoolean_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicBoolean_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicBooleanAndDefault\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicBooleanAndDefault_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicBooleanAndDefault_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicByte\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicByte_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicByte_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicOctet\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicOctet_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicOctet_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnsignedShort\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnsignedShort_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnsignedShort_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnsignedLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnsignedLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnsignedLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnsignedLongLong\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnsignedLongLong_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnsignedLongLong_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnrestrictedFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnrestrictedFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnrestrictedFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicFloat\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicFloat_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicFloat_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnrestrictedDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnrestrictedDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnrestrictedDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicDouble\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicDouble_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicDouble_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUsvstring\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUsvstring_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUsvstring_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicByteString\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicByteString_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicByteString_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicEnum\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicEnum_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicEnum_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicInterface\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicInterface_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicInterface_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnion\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnion2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnion3\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion3_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion3_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnion4\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion4_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion4_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnion5\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion5_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion5_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnion6\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion6_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion6_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicUnion7\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion7_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicUnion7_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicAny\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicAny_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicAny_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passVariadicObject\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicObject_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passVariadicObject_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passSequenceSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passSequenceSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passSequenceSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"returnSequenceSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &returnSequenceSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &returnSequenceSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passUnionSequenceSequence\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passUnionSequenceSequence_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passUnionSequenceSequence_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passMozMapOfNullableInts\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapOfNullableInts_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapOfNullableInts_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalMozMapOfNullableInts\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalMozMapOfNullableInts_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalMozMapOfNullableInts_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableMozMapOfNullableInts\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableMozMapOfNullableInts_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableMozMapOfNullableInts_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passCastableObjectMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passCastableObjectMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passCastableObjectMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableCastableObjectMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableCastableObjectMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableCastableObjectMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passCastableObjectNullableMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passCastableObjectNullableMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passCastableObjectNullableMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passNullableCastableObjectNullableMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableCastableObjectNullableMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passNullableCastableObjectNullableMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalNullableMozMapWithDefaultValue\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableMozMapWithDefaultValue_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalNullableMozMapWithDefaultValue_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passOptionalObjectMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalObjectMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passOptionalObjectMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passStringMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passStringMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passStringMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passByteStringMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passByteStringMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passByteStringMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passMozMapOfMozMaps\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapOfMozMaps_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapOfMozMaps_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passMozMapUnion\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapUnion_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapUnion_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passMozMapUnion2\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapUnion2_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapUnion2_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"passMozMapUnion3\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapUnion3_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &passMozMapUnion3_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveMozMapOfNullableInts\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveMozMapOfNullableInts_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveMozMapOfNullableInts_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveNullableMozMapOfNullableInts\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableMozMapOfNullableInts_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveNullableMozMapOfNullableInts_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveMozMapOfMozMaps\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveMozMapOfMozMaps_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveMozMapOfMozMaps_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"receiveAnyMozMap\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &receiveAnyMozMap_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &receiveAnyMozMap_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"BooleanMozPreference\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &BooleanMozPreference_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &BooleanMozPreference_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"StringMozPreference\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &StringMozPreference_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &StringMozPreference_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -23007,7 +23007,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"prefControlledMethodDisabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &prefControlledMethodDisabled_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &prefControlledMethodDisabled_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -23023,7 +23023,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"advanceClock\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &advanceClock_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &advanceClock_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -23039,7 +23039,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"prefControlledMethodEnabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &prefControlledMethodEnabled_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &prefControlledMethodEnabled_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -23055,7 +23055,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"funcControlledMethodDisabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &funcControlledMethodDisabled_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &funcControlledMethodDisabled_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -23071,7 +23071,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"funcControlledMethodEnabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &funcControlledMethodEnabled_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &funcControlledMethodEnabled_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -23087,77 +23087,77 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"returnResolvedPromise\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &returnResolvedPromise_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &returnResolvedPromise_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"returnRejectedPromise\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &returnRejectedPromise_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &returnRejectedPromise_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"acceptPromise\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &acceptPromise_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &acceptPromise_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"promiseNativeHandler\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &promiseNativeHandler_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &promiseNativeHandler_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"promiseResolveNative\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &promiseResolveNative_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &promiseResolveNative_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"promiseRejectNative\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &promiseRejectNative_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &promiseRejectNative_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"promiseRejectWithTypeError\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &promiseRejectWithTypeError_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &promiseRejectWithTypeError_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 2,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"resolvePromiseDelayed\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &resolvePromiseDelayed_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &resolvePromiseDelayed_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 3,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"panic\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &panic_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &panic_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"entryGlobal\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &entryGlobal_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &entryGlobal_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"incumbentGlobal\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &incumbentGlobal_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &incumbentGlobal_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -23173,7 +23173,7 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"crashHard\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &crashHard_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &crashHard_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -23186,378 +23186,378 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sMethods_specs[0]),
-    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sMethods_specs[1]),
-    Guard::new(Condition::Pref("layout.animations.test.enabled"), sMethods_specs[2]),
-    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sMethods_specs[3]),
-    Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sMethods_specs[4]),
-    Guard::new(Condition::Func(TestBinding::condition_satisfied), sMethods_specs[5]),
-    Guard::new(Condition::Satisfied, sMethods_specs[6]),
-    Guard::new(Condition::Pref("dom.testable_crash.enabled"), sMethods_specs[7])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sMethods_specs::<TH>()[1]),
+    Guard::new(Condition::Pref("layout.animations.test.enabled"), sMethods_specs::<TH>()[2]),
+    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sMethods_specs::<TH>()[3]),
+    Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sMethods_specs::<TH>()[4]),
+    Guard::new(Condition::Func(TestBinding::condition_satisfied), sMethods_specs::<TH>()[5]),
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[6]),
+    Guard::new(Condition::Pref("dom.testable_crash.enabled"), sMethods_specs::<TH>()[7])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"booleanAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &booleanAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &booleanAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &booleanAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &booleanAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"byteAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &byteAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &byteAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &byteAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &byteAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"octetAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &octetAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &octetAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &octetAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &octetAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"shortAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &shortAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &shortAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &shortAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &shortAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unsignedShortAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedShortAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedShortAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedShortAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedShortAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"longAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &longAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &longAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &longAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &longAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unsignedLongAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedLongAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedLongAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedLongAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedLongAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"longLongAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &longLongAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &longLongAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &longLongAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &longLongAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unsignedLongLongAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedLongLongAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedLongLongAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedLongLongAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedLongLongAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unrestrictedFloatAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unrestrictedFloatAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unrestrictedFloatAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unrestrictedFloatAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unrestrictedFloatAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"floatAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &floatAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &floatAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &floatAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &floatAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unrestrictedDoubleAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unrestrictedDoubleAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unrestrictedDoubleAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unrestrictedDoubleAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unrestrictedDoubleAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"doubleAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &doubleAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &doubleAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &doubleAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &doubleAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"stringAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &stringAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &stringAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &stringAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &stringAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"usvstringAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &usvstringAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &usvstringAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &usvstringAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &usvstringAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"byteStringAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &byteStringAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &byteStringAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &byteStringAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &byteStringAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"enumAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &enumAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &enumAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &enumAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &enumAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"interfaceAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &interfaceAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &interfaceAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &interfaceAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &interfaceAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unionAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unionAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unionAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unionAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unionAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union2Attribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union2Attribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union2Attribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union2Attribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union2Attribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union3Attribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union3Attribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union3Attribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union3Attribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union3Attribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union4Attribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union4Attribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union4Attribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union4Attribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union4Attribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union5Attribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union5Attribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union5Attribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union5Attribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union5Attribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union6Attribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union6Attribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union6Attribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union6Attribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union6Attribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union7Attribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union7Attribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union7Attribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union7Attribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union7Attribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union8Attribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union8Attribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union8Attribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union8Attribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union8Attribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union9Attribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union9Attribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union9Attribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union9Attribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union9Attribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"arrayAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &arrayAttribute_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &arrayAttribute_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"anyAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &anyAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &anyAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &anyAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &anyAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"objectAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &objectAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &objectAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &objectAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &objectAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"booleanAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &booleanAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &booleanAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &booleanAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &booleanAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"byteAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &byteAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &byteAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &byteAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &byteAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"octetAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &octetAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &octetAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &octetAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &octetAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"shortAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &shortAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &shortAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &shortAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &shortAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unsignedShortAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedShortAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedShortAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedShortAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedShortAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"longAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &longAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &longAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &longAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &longAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unsignedLongAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedLongAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedLongAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedLongAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedLongAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"longLongAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &longLongAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &longLongAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &longLongAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &longLongAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unsignedLongLongAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedLongLongAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedLongLongAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unsignedLongLongAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unsignedLongLongAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unrestrictedFloatAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unrestrictedFloatAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unrestrictedFloatAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unrestrictedFloatAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unrestrictedFloatAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"floatAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &floatAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &floatAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &floatAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &floatAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unrestrictedDoubleAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unrestrictedDoubleAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unrestrictedDoubleAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unrestrictedDoubleAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unrestrictedDoubleAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"doubleAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &doubleAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &doubleAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &doubleAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &doubleAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"stringAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &stringAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &stringAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &stringAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &stringAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"usvstringAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &usvstringAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &usvstringAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &usvstringAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &usvstringAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"byteStringAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &byteStringAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &byteStringAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &byteStringAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &byteStringAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"enumAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &enumAttributeNullable_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &enumAttributeNullable_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"interfaceAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &interfaceAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &interfaceAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &interfaceAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &interfaceAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"interfaceAttributeWeak\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &interfaceAttributeWeak_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &interfaceAttributeWeak_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &interfaceAttributeWeak_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &interfaceAttributeWeak_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"objectAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &objectAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &objectAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &objectAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &objectAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"unionAttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &unionAttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &unionAttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &unionAttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &unionAttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union2AttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union2AttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union2AttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union2AttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union2AttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union3AttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union3AttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union3AttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union3AttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union3AttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union4AttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union4AttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union4AttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union4AttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union4AttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union5AttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union5AttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union5AttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union5AttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union5AttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"union6AttributeNullable\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &union6AttributeNullable_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &union6AttributeNullable_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &union6AttributeNullable_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &union6AttributeNullable_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"attrToBinaryRename\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &attrToBinaryRename_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &attrToBinaryRename_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &attrToBinaryRename_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &attrToBinaryRename_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"attr-to-binary-rename\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &attr_to_binary_rename_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &attr_to_binary_rename_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &attr_to_binary_rename_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &attr_to_binary_rename_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"attr-to-automatically-rename\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &attr_to_automatically_rename_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &attr_to_automatically_rename_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &attr_to_automatically_rename_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &attr_to_automatically_rename_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"forwardedAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &forwardedAttribute_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &forwardedAttribute_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &forwardedAttribute_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &forwardedAttribute_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -23570,7 +23570,7 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"prefControlledAttributeDisabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &prefControlledAttributeDisabled_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &prefControlledAttributeDisabled_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -23584,7 +23584,7 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"prefControlledAttributeEnabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &prefControlledAttributeEnabled_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &prefControlledAttributeEnabled_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -23598,7 +23598,7 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"funcControlledAttributeDisabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &funcControlledAttributeDisabled_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &funcControlledAttributeDisabled_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -23612,7 +23612,7 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"funcControlledAttributeEnabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &funcControlledAttributeEnabled_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &funcControlledAttributeEnabled_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -23626,7 +23626,7 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"promiseAttribute\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &promiseAttribute_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &promiseAttribute_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -23636,15 +23636,15 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0]),
-    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sAttributes_specs[1]),
-    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sAttributes_specs[2]),
-    Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sAttributes_specs[3]),
-    Guard::new(Condition::Func(TestBinding::condition_satisfied), sAttributes_specs[4]),
-    Guard::new(Condition::Satisfied, sAttributes_specs[5])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sAttributes_specs::<TH>()[1]),
+    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sAttributes_specs::<TH>()[2]),
+    Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sAttributes_specs::<TH>()[3]),
+    Guard::new(Condition::Func(TestBinding::condition_satisfied), sAttributes_specs::<TH>()[4]),
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[5])
+]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
 &[
     ConstantSpec { name: b"constantInt64\0", value: ConstantVal::DoubleVal(-1 as f64) },
@@ -23833,8 +23833,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       sConstants,
                                       &[],
                                       prototype.handle_mut().into());

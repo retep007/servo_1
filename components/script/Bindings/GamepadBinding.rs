@@ -519,8 +519,8 @@ unsafe extern fn get_id<TH: TypeHolderTrait>
 }
 
 
-const id_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_id as *const os::raw::c_void,
+fn id_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_id::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -535,7 +535,7 @@ const id_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_index<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -549,8 +549,8 @@ unsafe extern fn get_index<TH: TypeHolderTrait>
 }
 
 
-const index_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_index as *const os::raw::c_void,
+fn index_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_index::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -565,7 +565,7 @@ const index_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_connected<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -579,8 +579,8 @@ unsafe extern fn get_connected<TH: TypeHolderTrait>
 }
 
 
-const connected_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_connected as *const os::raw::c_void,
+fn connected_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_connected::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -595,7 +595,7 @@ const connected_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_timestamp<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -609,8 +609,8 @@ unsafe extern fn get_timestamp<TH: TypeHolderTrait>
 }
 
 
-const timestamp_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_timestamp as *const os::raw::c_void,
+fn timestamp_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_timestamp::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -625,7 +625,7 @@ const timestamp_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_mapping<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -639,8 +639,8 @@ unsafe extern fn get_mapping<TH: TypeHolderTrait>
 }
 
 
-const mapping_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_mapping as *const os::raw::c_void,
+fn mapping_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_mapping::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -655,7 +655,7 @@ const mapping_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_axes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -669,8 +669,8 @@ unsafe extern fn get_axes<TH: TypeHolderTrait>
 }
 
 
-const axes_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_axes as *const os::raw::c_void,
+fn axes_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_axes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -685,7 +685,7 @@ const axes_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_buttons<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -699,8 +699,8 @@ unsafe extern fn get_buttons<TH: TypeHolderTrait>
 }
 
 
-const buttons_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_buttons as *const os::raw::c_void,
+fn buttons_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_buttons::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -715,7 +715,7 @@ const buttons_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_hand<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -729,8 +729,8 @@ unsafe extern fn get_hand<TH: TypeHolderTrait>
 }
 
 
-const hand_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_hand as *const os::raw::c_void,
+fn hand_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_hand::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -745,7 +745,7 @@ const hand_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_pose<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -759,8 +759,8 @@ unsafe extern fn get_pose<TH: TypeHolderTrait>
 }
 
 
-const pose_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_pose as *const os::raw::c_void,
+fn pose_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_pose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -775,7 +775,7 @@ const pose_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_displayId<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -789,8 +789,8 @@ unsafe extern fn get_displayId<TH: TypeHolderTrait>
 }
 
 
-const displayId_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_displayId as *const os::raw::c_void,
+fn displayId_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_displayId::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -805,7 +805,7 @@ const displayId_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -851,7 +851,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -880,7 +880,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -895,7 +895,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 impl<TH: TypeHolderTrait> IDLInterface for Gamepad<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
+        class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
@@ -917,66 +917,66 @@ pub trait GamepadMethods<TH: TypeHolderTrait> {
     fn GetPose(&self) -> Option<DomRoot<VRPose<TH>>>;
     fn DisplayId(&self) -> u32;
 }
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"id\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &id_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &id_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"index\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &index_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &index_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"connected\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &connected_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &connected_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"timestamp\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &timestamp_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &timestamp_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"mapping\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &mapping_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &mapping_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"axes\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &axes_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &axes_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"buttons\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &buttons_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &buttons_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"hand\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &hand_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &hand_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"pose\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &pose_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &pose_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"displayId\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &displayId_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &displayId_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -986,10 +986,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -1056,7 +1056,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
                                       &[],
-                                      sAttributes,
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());

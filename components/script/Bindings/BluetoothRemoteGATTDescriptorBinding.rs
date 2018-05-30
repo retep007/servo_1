@@ -661,7 +661,7 @@ unsafe extern fn writeValue<TH: TypeHolderTrait>
 
 
 fn writeValue_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
-    call: writeValue as *const os::raw::c_void,
+    call: writeValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTDescriptor as u16,
     depth: 0,
     _bitfield_1: new_jsjitinfo_bitfield_1!(

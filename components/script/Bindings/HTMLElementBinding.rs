@@ -553,8 +553,8 @@ unsafe extern fn set_title<TH: TypeHolderTrait>
 }
 
 
-const title_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_title as *const os::raw::c_void,
+fn title_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_title::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -569,10 +569,10 @@ const title_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const title_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_title as *const os::raw::c_void,
+fn title_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_title::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -587,7 +587,7 @@ const title_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_lang<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -629,8 +629,8 @@ unsafe extern fn set_lang<TH: TypeHolderTrait>
 }
 
 
-const lang_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_lang as *const os::raw::c_void,
+fn lang_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_lang::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -645,10 +645,10 @@ const lang_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const lang_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_lang as *const os::raw::c_void,
+fn lang_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_lang::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -663,7 +663,7 @@ const lang_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_dataset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -677,8 +677,8 @@ unsafe extern fn get_dataset<TH: TypeHolderTrait>
 }
 
 
-const dataset_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_dataset as *const os::raw::c_void,
+fn dataset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_dataset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -693,7 +693,7 @@ const dataset_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn propertyNames<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -709,8 +709,8 @@ unsafe extern fn propertyNames<TH: TypeHolderTrait>
 }
 
 
-const propertyNames_methodinfo: JSJitInfo = JSJitInfo {
-    call: propertyNames as *const os::raw::c_void,
+fn propertyNames_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: propertyNames::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -725,7 +725,7 @@ const propertyNames_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn itemtypes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -741,8 +741,8 @@ unsafe extern fn itemtypes<TH: TypeHolderTrait>
 }
 
 
-const itemtypes_methodinfo: JSJitInfo = JSJitInfo {
-    call: itemtypes as *const os::raw::c_void,
+fn itemtypes_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: itemtypes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -757,7 +757,7 @@ const itemtypes_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_hidden<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -799,8 +799,8 @@ unsafe extern fn set_hidden<TH: TypeHolderTrait>
 }
 
 
-const hidden_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_hidden as *const os::raw::c_void,
+fn hidden_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_hidden::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -815,10 +815,10 @@ const hidden_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const hidden_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_hidden as *const os::raw::c_void,
+fn hidden_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_hidden::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -833,7 +833,7 @@ const hidden_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn click<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -849,8 +849,8 @@ unsafe extern fn click<TH: TypeHolderTrait>
 }
 
 
-const click_methodinfo: JSJitInfo = JSJitInfo {
-    call: click as *const os::raw::c_void,
+fn click_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: click::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -865,7 +865,7 @@ const click_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn focus<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -881,8 +881,8 @@ unsafe extern fn focus<TH: TypeHolderTrait>
 }
 
 
-const focus_methodinfo: JSJitInfo = JSJitInfo {
-    call: focus as *const os::raw::c_void,
+fn focus_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: focus::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -897,7 +897,7 @@ const focus_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn blur<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -913,8 +913,8 @@ unsafe extern fn blur<TH: TypeHolderTrait>
 }
 
 
-const blur_methodinfo: JSJitInfo = JSJitInfo {
-    call: blur as *const os::raw::c_void,
+fn blur_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: blur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -929,7 +929,7 @@ const blur_methodinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_innerText<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -963,8 +963,8 @@ unsafe extern fn set_innerText<TH: TypeHolderTrait>
 }
 
 
-const innerText_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_innerText as *const os::raw::c_void,
+fn innerText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_innerText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -979,10 +979,10 @@ const innerText_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const innerText_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_innerText as *const os::raw::c_void,
+fn innerText_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_innerText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -997,7 +997,7 @@ const innerText_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offsetParent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1011,8 +1011,8 @@ unsafe extern fn get_offsetParent<TH: TypeHolderTrait>
 }
 
 
-const offsetParent_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offsetParent as *const os::raw::c_void,
+fn offsetParent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offsetParent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1027,7 +1027,7 @@ const offsetParent_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offsetTop<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1041,8 +1041,8 @@ unsafe extern fn get_offsetTop<TH: TypeHolderTrait>
 }
 
 
-const offsetTop_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offsetTop as *const os::raw::c_void,
+fn offsetTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offsetTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1057,7 +1057,7 @@ const offsetTop_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offsetLeft<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1071,8 +1071,8 @@ unsafe extern fn get_offsetLeft<TH: TypeHolderTrait>
 }
 
 
-const offsetLeft_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offsetLeft as *const os::raw::c_void,
+fn offsetLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offsetLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1087,7 +1087,7 @@ const offsetLeft_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offsetWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1101,8 +1101,8 @@ unsafe extern fn get_offsetWidth<TH: TypeHolderTrait>
 }
 
 
-const offsetWidth_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offsetWidth as *const os::raw::c_void,
+fn offsetWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offsetWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1117,7 +1117,7 @@ const offsetWidth_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_offsetHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1131,8 +1131,8 @@ unsafe extern fn get_offsetHeight<TH: TypeHolderTrait>
 }
 
 
-const offsetHeight_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_offsetHeight as *const os::raw::c_void,
+fn offsetHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_offsetHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1147,7 +1147,7 @@ const offsetHeight_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oncopy<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1176,8 +1176,8 @@ unsafe extern fn set_oncopy<TH: TypeHolderTrait>
 }
 
 
-const oncopy_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oncopy as *const os::raw::c_void,
+fn oncopy_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oncopy::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1192,10 +1192,10 @@ const oncopy_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const oncopy_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_oncopy as *const os::raw::c_void,
+fn oncopy_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_oncopy::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1210,7 +1210,7 @@ const oncopy_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oncut<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1239,8 +1239,8 @@ unsafe extern fn set_oncut<TH: TypeHolderTrait>
 }
 
 
-const oncut_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oncut as *const os::raw::c_void,
+fn oncut_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oncut::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1255,10 +1255,10 @@ const oncut_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const oncut_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_oncut as *const os::raw::c_void,
+fn oncut_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_oncut::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1273,7 +1273,7 @@ const oncut_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onpaste<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1302,8 +1302,8 @@ unsafe extern fn set_onpaste<TH: TypeHolderTrait>
 }
 
 
-const onpaste_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onpaste as *const os::raw::c_void,
+fn onpaste_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onpaste::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1318,10 +1318,10 @@ const onpaste_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onpaste_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onpaste as *const os::raw::c_void,
+fn onpaste_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onpaste::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1336,7 +1336,7 @@ const onpaste_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1350,8 +1350,8 @@ unsafe extern fn get_style<TH: TypeHolderTrait>
 }
 
 
-const style_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_style as *const os::raw::c_void,
+fn style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1366,7 +1366,7 @@ const style_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onabort<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1395,8 +1395,8 @@ unsafe extern fn set_onabort<TH: TypeHolderTrait>
 }
 
 
-const onabort_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onabort as *const os::raw::c_void,
+fn onabort_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onabort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1411,10 +1411,10 @@ const onabort_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onabort_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onabort as *const os::raw::c_void,
+fn onabort_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onabort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1429,7 +1429,7 @@ const onabort_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onblur<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1458,8 +1458,8 @@ unsafe extern fn set_onblur<TH: TypeHolderTrait>
 }
 
 
-const onblur_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onblur as *const os::raw::c_void,
+fn onblur_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onblur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1474,10 +1474,10 @@ const onblur_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onblur_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onblur as *const os::raw::c_void,
+fn onblur_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onblur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1492,7 +1492,7 @@ const onblur_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oncancel<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1521,8 +1521,8 @@ unsafe extern fn set_oncancel<TH: TypeHolderTrait>
 }
 
 
-const oncancel_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oncancel as *const os::raw::c_void,
+fn oncancel_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oncancel::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1537,10 +1537,10 @@ const oncancel_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const oncancel_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_oncancel as *const os::raw::c_void,
+fn oncancel_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_oncancel::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1555,7 +1555,7 @@ const oncancel_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oncanplay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1584,8 +1584,8 @@ unsafe extern fn set_oncanplay<TH: TypeHolderTrait>
 }
 
 
-const oncanplay_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oncanplay as *const os::raw::c_void,
+fn oncanplay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oncanplay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1600,10 +1600,10 @@ const oncanplay_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const oncanplay_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_oncanplay as *const os::raw::c_void,
+fn oncanplay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_oncanplay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1618,7 +1618,7 @@ const oncanplay_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oncanplaythrough<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1647,8 +1647,8 @@ unsafe extern fn set_oncanplaythrough<TH: TypeHolderTrait>
 }
 
 
-const oncanplaythrough_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oncanplaythrough as *const os::raw::c_void,
+fn oncanplaythrough_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oncanplaythrough::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1663,10 +1663,10 @@ const oncanplaythrough_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const oncanplaythrough_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_oncanplaythrough as *const os::raw::c_void,
+fn oncanplaythrough_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_oncanplaythrough::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1681,7 +1681,7 @@ const oncanplaythrough_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1710,8 +1710,8 @@ unsafe extern fn set_onchange<TH: TypeHolderTrait>
 }
 
 
-const onchange_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onchange as *const os::raw::c_void,
+fn onchange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1726,10 +1726,10 @@ const onchange_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onchange_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onchange as *const os::raw::c_void,
+fn onchange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1744,7 +1744,7 @@ const onchange_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onclick<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1773,8 +1773,8 @@ unsafe extern fn set_onclick<TH: TypeHolderTrait>
 }
 
 
-const onclick_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onclick as *const os::raw::c_void,
+fn onclick_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onclick::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1789,10 +1789,10 @@ const onclick_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onclick_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onclick as *const os::raw::c_void,
+fn onclick_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onclick::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1807,7 +1807,7 @@ const onclick_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onclose<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1836,8 +1836,8 @@ unsafe extern fn set_onclose<TH: TypeHolderTrait>
 }
 
 
-const onclose_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onclose as *const os::raw::c_void,
+fn onclose_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onclose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1852,10 +1852,10 @@ const onclose_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onclose_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onclose as *const os::raw::c_void,
+fn onclose_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onclose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1870,7 +1870,7 @@ const onclose_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oncontextmenu<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1899,8 +1899,8 @@ unsafe extern fn set_oncontextmenu<TH: TypeHolderTrait>
 }
 
 
-const oncontextmenu_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oncontextmenu as *const os::raw::c_void,
+fn oncontextmenu_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oncontextmenu::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1915,10 +1915,10 @@ const oncontextmenu_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const oncontextmenu_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_oncontextmenu as *const os::raw::c_void,
+fn oncontextmenu_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_oncontextmenu::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1933,7 +1933,7 @@ const oncontextmenu_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oncuechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1962,8 +1962,8 @@ unsafe extern fn set_oncuechange<TH: TypeHolderTrait>
 }
 
 
-const oncuechange_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oncuechange as *const os::raw::c_void,
+fn oncuechange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oncuechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1978,10 +1978,10 @@ const oncuechange_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const oncuechange_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_oncuechange as *const os::raw::c_void,
+fn oncuechange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_oncuechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -1996,7 +1996,7 @@ const oncuechange_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondblclick<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2025,8 +2025,8 @@ unsafe extern fn set_ondblclick<TH: TypeHolderTrait>
 }
 
 
-const ondblclick_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondblclick as *const os::raw::c_void,
+fn ondblclick_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondblclick::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2041,10 +2041,10 @@ const ondblclick_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondblclick_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondblclick as *const os::raw::c_void,
+fn ondblclick_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondblclick::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2059,7 +2059,7 @@ const ondblclick_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondrag<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2088,8 +2088,8 @@ unsafe extern fn set_ondrag<TH: TypeHolderTrait>
 }
 
 
-const ondrag_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondrag as *const os::raw::c_void,
+fn ondrag_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondrag::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2104,10 +2104,10 @@ const ondrag_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondrag_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondrag as *const os::raw::c_void,
+fn ondrag_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondrag::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2122,7 +2122,7 @@ const ondrag_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondragend<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2151,8 +2151,8 @@ unsafe extern fn set_ondragend<TH: TypeHolderTrait>
 }
 
 
-const ondragend_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondragend as *const os::raw::c_void,
+fn ondragend_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondragend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2167,10 +2167,10 @@ const ondragend_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondragend_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondragend as *const os::raw::c_void,
+fn ondragend_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondragend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2185,7 +2185,7 @@ const ondragend_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondragenter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2214,8 +2214,8 @@ unsafe extern fn set_ondragenter<TH: TypeHolderTrait>
 }
 
 
-const ondragenter_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondragenter as *const os::raw::c_void,
+fn ondragenter_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondragenter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2230,10 +2230,10 @@ const ondragenter_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondragenter_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondragenter as *const os::raw::c_void,
+fn ondragenter_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondragenter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2248,7 +2248,7 @@ const ondragenter_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondragexit<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2277,8 +2277,8 @@ unsafe extern fn set_ondragexit<TH: TypeHolderTrait>
 }
 
 
-const ondragexit_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondragexit as *const os::raw::c_void,
+fn ondragexit_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondragexit::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2293,10 +2293,10 @@ const ondragexit_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondragexit_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondragexit as *const os::raw::c_void,
+fn ondragexit_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondragexit::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2311,7 +2311,7 @@ const ondragexit_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondragleave<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2340,8 +2340,8 @@ unsafe extern fn set_ondragleave<TH: TypeHolderTrait>
 }
 
 
-const ondragleave_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondragleave as *const os::raw::c_void,
+fn ondragleave_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondragleave::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2356,10 +2356,10 @@ const ondragleave_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondragleave_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondragleave as *const os::raw::c_void,
+fn ondragleave_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondragleave::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2374,7 +2374,7 @@ const ondragleave_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondragover<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2403,8 +2403,8 @@ unsafe extern fn set_ondragover<TH: TypeHolderTrait>
 }
 
 
-const ondragover_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondragover as *const os::raw::c_void,
+fn ondragover_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondragover::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2419,10 +2419,10 @@ const ondragover_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondragover_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondragover as *const os::raw::c_void,
+fn ondragover_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondragover::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2437,7 +2437,7 @@ const ondragover_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondragstart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2466,8 +2466,8 @@ unsafe extern fn set_ondragstart<TH: TypeHolderTrait>
 }
 
 
-const ondragstart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondragstart as *const os::raw::c_void,
+fn ondragstart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondragstart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2482,10 +2482,10 @@ const ondragstart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondragstart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondragstart as *const os::raw::c_void,
+fn ondragstart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondragstart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2500,7 +2500,7 @@ const ondragstart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondrop<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2529,8 +2529,8 @@ unsafe extern fn set_ondrop<TH: TypeHolderTrait>
 }
 
 
-const ondrop_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondrop as *const os::raw::c_void,
+fn ondrop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondrop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2545,10 +2545,10 @@ const ondrop_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondrop_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondrop as *const os::raw::c_void,
+fn ondrop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondrop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2563,7 +2563,7 @@ const ondrop_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ondurationchange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2592,8 +2592,8 @@ unsafe extern fn set_ondurationchange<TH: TypeHolderTrait>
 }
 
 
-const ondurationchange_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ondurationchange as *const os::raw::c_void,
+fn ondurationchange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ondurationchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2608,10 +2608,10 @@ const ondurationchange_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ondurationchange_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ondurationchange as *const os::raw::c_void,
+fn ondurationchange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ondurationchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2626,7 +2626,7 @@ const ondurationchange_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onemptied<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2655,8 +2655,8 @@ unsafe extern fn set_onemptied<TH: TypeHolderTrait>
 }
 
 
-const onemptied_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onemptied as *const os::raw::c_void,
+fn onemptied_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onemptied::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2671,10 +2671,10 @@ const onemptied_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onemptied_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onemptied as *const os::raw::c_void,
+fn onemptied_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onemptied::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2689,7 +2689,7 @@ const onemptied_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onended<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2718,8 +2718,8 @@ unsafe extern fn set_onended<TH: TypeHolderTrait>
 }
 
 
-const onended_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onended as *const os::raw::c_void,
+fn onended_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onended::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2734,10 +2734,10 @@ const onended_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onended_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onended as *const os::raw::c_void,
+fn onended_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onended::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2752,7 +2752,7 @@ const onended_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onerror<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2781,8 +2781,8 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 }
 
 
-const onerror_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onerror as *const os::raw::c_void,
+fn onerror_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2797,10 +2797,10 @@ const onerror_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onerror_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onerror as *const os::raw::c_void,
+fn onerror_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2815,7 +2815,7 @@ const onerror_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onfocus<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2844,8 +2844,8 @@ unsafe extern fn set_onfocus<TH: TypeHolderTrait>
 }
 
 
-const onfocus_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onfocus as *const os::raw::c_void,
+fn onfocus_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onfocus::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2860,10 +2860,10 @@ const onfocus_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onfocus_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onfocus as *const os::raw::c_void,
+fn onfocus_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onfocus::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2878,7 +2878,7 @@ const onfocus_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oninput<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2907,8 +2907,8 @@ unsafe extern fn set_oninput<TH: TypeHolderTrait>
 }
 
 
-const oninput_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oninput as *const os::raw::c_void,
+fn oninput_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oninput::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2923,10 +2923,10 @@ const oninput_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const oninput_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_oninput as *const os::raw::c_void,
+fn oninput_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_oninput::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2941,7 +2941,7 @@ const oninput_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_oninvalid<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -2970,8 +2970,8 @@ unsafe extern fn set_oninvalid<TH: TypeHolderTrait>
 }
 
 
-const oninvalid_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_oninvalid as *const os::raw::c_void,
+fn oninvalid_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_oninvalid::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -2986,10 +2986,10 @@ const oninvalid_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const oninvalid_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_oninvalid as *const os::raw::c_void,
+fn oninvalid_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_oninvalid::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3004,7 +3004,7 @@ const oninvalid_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onkeydown<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3033,8 +3033,8 @@ unsafe extern fn set_onkeydown<TH: TypeHolderTrait>
 }
 
 
-const onkeydown_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onkeydown as *const os::raw::c_void,
+fn onkeydown_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onkeydown::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3049,10 +3049,10 @@ const onkeydown_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onkeydown_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onkeydown as *const os::raw::c_void,
+fn onkeydown_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onkeydown::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3067,7 +3067,7 @@ const onkeydown_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onkeypress<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3096,8 +3096,8 @@ unsafe extern fn set_onkeypress<TH: TypeHolderTrait>
 }
 
 
-const onkeypress_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onkeypress as *const os::raw::c_void,
+fn onkeypress_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onkeypress::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3112,10 +3112,10 @@ const onkeypress_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onkeypress_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onkeypress as *const os::raw::c_void,
+fn onkeypress_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onkeypress::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3130,7 +3130,7 @@ const onkeypress_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onkeyup<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3159,8 +3159,8 @@ unsafe extern fn set_onkeyup<TH: TypeHolderTrait>
 }
 
 
-const onkeyup_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onkeyup as *const os::raw::c_void,
+fn onkeyup_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onkeyup::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3175,10 +3175,10 @@ const onkeyup_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onkeyup_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onkeyup as *const os::raw::c_void,
+fn onkeyup_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onkeyup::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3193,7 +3193,7 @@ const onkeyup_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onload<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3222,8 +3222,8 @@ unsafe extern fn set_onload<TH: TypeHolderTrait>
 }
 
 
-const onload_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onload as *const os::raw::c_void,
+fn onload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3238,10 +3238,10 @@ const onload_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onload_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onload as *const os::raw::c_void,
+fn onload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3256,7 +3256,7 @@ const onload_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onloadeddata<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3285,8 +3285,8 @@ unsafe extern fn set_onloadeddata<TH: TypeHolderTrait>
 }
 
 
-const onloadeddata_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onloadeddata as *const os::raw::c_void,
+fn onloadeddata_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onloadeddata::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3301,10 +3301,10 @@ const onloadeddata_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onloadeddata_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onloadeddata as *const os::raw::c_void,
+fn onloadeddata_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onloadeddata::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3319,7 +3319,7 @@ const onloadeddata_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onloadedmetadata<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3348,8 +3348,8 @@ unsafe extern fn set_onloadedmetadata<TH: TypeHolderTrait>
 }
 
 
-const onloadedmetadata_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onloadedmetadata as *const os::raw::c_void,
+fn onloadedmetadata_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onloadedmetadata::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3364,10 +3364,10 @@ const onloadedmetadata_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onloadedmetadata_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onloadedmetadata as *const os::raw::c_void,
+fn onloadedmetadata_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onloadedmetadata::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3382,7 +3382,7 @@ const onloadedmetadata_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onloadstart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3411,8 +3411,8 @@ unsafe extern fn set_onloadstart<TH: TypeHolderTrait>
 }
 
 
-const onloadstart_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onloadstart as *const os::raw::c_void,
+fn onloadstart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onloadstart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3427,10 +3427,10 @@ const onloadstart_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onloadstart_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onloadstart as *const os::raw::c_void,
+fn onloadstart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onloadstart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3445,7 +3445,7 @@ const onloadstart_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onmousedown<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3474,8 +3474,8 @@ unsafe extern fn set_onmousedown<TH: TypeHolderTrait>
 }
 
 
-const onmousedown_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onmousedown as *const os::raw::c_void,
+fn onmousedown_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onmousedown::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3490,10 +3490,10 @@ const onmousedown_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onmousedown_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onmousedown as *const os::raw::c_void,
+fn onmousedown_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onmousedown::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3508,7 +3508,7 @@ const onmousedown_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onmouseenter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3537,8 +3537,8 @@ unsafe extern fn set_onmouseenter<TH: TypeHolderTrait>
 }
 
 
-const onmouseenter_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onmouseenter as *const os::raw::c_void,
+fn onmouseenter_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onmouseenter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3553,10 +3553,10 @@ const onmouseenter_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onmouseenter_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onmouseenter as *const os::raw::c_void,
+fn onmouseenter_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onmouseenter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3571,7 +3571,7 @@ const onmouseenter_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onmouseleave<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3600,8 +3600,8 @@ unsafe extern fn set_onmouseleave<TH: TypeHolderTrait>
 }
 
 
-const onmouseleave_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onmouseleave as *const os::raw::c_void,
+fn onmouseleave_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onmouseleave::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3616,10 +3616,10 @@ const onmouseleave_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onmouseleave_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onmouseleave as *const os::raw::c_void,
+fn onmouseleave_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onmouseleave::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3634,7 +3634,7 @@ const onmouseleave_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onmousemove<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3663,8 +3663,8 @@ unsafe extern fn set_onmousemove<TH: TypeHolderTrait>
 }
 
 
-const onmousemove_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onmousemove as *const os::raw::c_void,
+fn onmousemove_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onmousemove::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3679,10 +3679,10 @@ const onmousemove_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onmousemove_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onmousemove as *const os::raw::c_void,
+fn onmousemove_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onmousemove::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3697,7 +3697,7 @@ const onmousemove_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onmouseout<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3726,8 +3726,8 @@ unsafe extern fn set_onmouseout<TH: TypeHolderTrait>
 }
 
 
-const onmouseout_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onmouseout as *const os::raw::c_void,
+fn onmouseout_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onmouseout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3742,10 +3742,10 @@ const onmouseout_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onmouseout_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onmouseout as *const os::raw::c_void,
+fn onmouseout_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onmouseout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3760,7 +3760,7 @@ const onmouseout_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onmouseover<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3789,8 +3789,8 @@ unsafe extern fn set_onmouseover<TH: TypeHolderTrait>
 }
 
 
-const onmouseover_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onmouseover as *const os::raw::c_void,
+fn onmouseover_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onmouseover::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3805,10 +3805,10 @@ const onmouseover_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onmouseover_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onmouseover as *const os::raw::c_void,
+fn onmouseover_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onmouseover::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3823,7 +3823,7 @@ const onmouseover_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onmouseup<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3852,8 +3852,8 @@ unsafe extern fn set_onmouseup<TH: TypeHolderTrait>
 }
 
 
-const onmouseup_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onmouseup as *const os::raw::c_void,
+fn onmouseup_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onmouseup::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3868,10 +3868,10 @@ const onmouseup_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onmouseup_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onmouseup as *const os::raw::c_void,
+fn onmouseup_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onmouseup::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3886,7 +3886,7 @@ const onmouseup_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onwheel<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3915,8 +3915,8 @@ unsafe extern fn set_onwheel<TH: TypeHolderTrait>
 }
 
 
-const onwheel_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onwheel as *const os::raw::c_void,
+fn onwheel_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onwheel::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3931,10 +3931,10 @@ const onwheel_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onwheel_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onwheel as *const os::raw::c_void,
+fn onwheel_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onwheel::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3949,7 +3949,7 @@ const onwheel_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onpause<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -3978,8 +3978,8 @@ unsafe extern fn set_onpause<TH: TypeHolderTrait>
 }
 
 
-const onpause_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onpause as *const os::raw::c_void,
+fn onpause_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onpause::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -3994,10 +3994,10 @@ const onpause_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onpause_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onpause as *const os::raw::c_void,
+fn onpause_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onpause::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4012,7 +4012,7 @@ const onpause_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onplay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4041,8 +4041,8 @@ unsafe extern fn set_onplay<TH: TypeHolderTrait>
 }
 
 
-const onplay_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onplay as *const os::raw::c_void,
+fn onplay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onplay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4057,10 +4057,10 @@ const onplay_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onplay_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onplay as *const os::raw::c_void,
+fn onplay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onplay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4075,7 +4075,7 @@ const onplay_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onplaying<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4104,8 +4104,8 @@ unsafe extern fn set_onplaying<TH: TypeHolderTrait>
 }
 
 
-const onplaying_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onplaying as *const os::raw::c_void,
+fn onplaying_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onplaying::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4120,10 +4120,10 @@ const onplaying_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onplaying_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onplaying as *const os::raw::c_void,
+fn onplaying_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onplaying::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4138,7 +4138,7 @@ const onplaying_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onprogress<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4167,8 +4167,8 @@ unsafe extern fn set_onprogress<TH: TypeHolderTrait>
 }
 
 
-const onprogress_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onprogress as *const os::raw::c_void,
+fn onprogress_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onprogress::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4183,10 +4183,10 @@ const onprogress_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onprogress_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onprogress as *const os::raw::c_void,
+fn onprogress_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onprogress::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4201,7 +4201,7 @@ const onprogress_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onratechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4230,8 +4230,8 @@ unsafe extern fn set_onratechange<TH: TypeHolderTrait>
 }
 
 
-const onratechange_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onratechange as *const os::raw::c_void,
+fn onratechange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onratechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4246,10 +4246,10 @@ const onratechange_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onratechange_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onratechange as *const os::raw::c_void,
+fn onratechange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onratechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4264,7 +4264,7 @@ const onratechange_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onreset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4293,8 +4293,8 @@ unsafe extern fn set_onreset<TH: TypeHolderTrait>
 }
 
 
-const onreset_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onreset as *const os::raw::c_void,
+fn onreset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onreset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4309,10 +4309,10 @@ const onreset_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onreset_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onreset as *const os::raw::c_void,
+fn onreset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onreset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4327,7 +4327,7 @@ const onreset_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onresize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4356,8 +4356,8 @@ unsafe extern fn set_onresize<TH: TypeHolderTrait>
 }
 
 
-const onresize_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onresize as *const os::raw::c_void,
+fn onresize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onresize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4372,10 +4372,10 @@ const onresize_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onresize_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onresize as *const os::raw::c_void,
+fn onresize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onresize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4390,7 +4390,7 @@ const onresize_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onscroll<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4419,8 +4419,8 @@ unsafe extern fn set_onscroll<TH: TypeHolderTrait>
 }
 
 
-const onscroll_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onscroll as *const os::raw::c_void,
+fn onscroll_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onscroll::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4435,10 +4435,10 @@ const onscroll_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onscroll_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onscroll as *const os::raw::c_void,
+fn onscroll_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onscroll::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4453,7 +4453,7 @@ const onscroll_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onseeked<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4482,8 +4482,8 @@ unsafe extern fn set_onseeked<TH: TypeHolderTrait>
 }
 
 
-const onseeked_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onseeked as *const os::raw::c_void,
+fn onseeked_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onseeked::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4498,10 +4498,10 @@ const onseeked_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onseeked_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onseeked as *const os::raw::c_void,
+fn onseeked_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onseeked::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4516,7 +4516,7 @@ const onseeked_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onseeking<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4545,8 +4545,8 @@ unsafe extern fn set_onseeking<TH: TypeHolderTrait>
 }
 
 
-const onseeking_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onseeking as *const os::raw::c_void,
+fn onseeking_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onseeking::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4561,10 +4561,10 @@ const onseeking_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onseeking_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onseeking as *const os::raw::c_void,
+fn onseeking_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onseeking::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4579,7 +4579,7 @@ const onseeking_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onselect<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4608,8 +4608,8 @@ unsafe extern fn set_onselect<TH: TypeHolderTrait>
 }
 
 
-const onselect_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onselect as *const os::raw::c_void,
+fn onselect_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onselect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4624,10 +4624,10 @@ const onselect_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onselect_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onselect as *const os::raw::c_void,
+fn onselect_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onselect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4642,7 +4642,7 @@ const onselect_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onshow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4671,8 +4671,8 @@ unsafe extern fn set_onshow<TH: TypeHolderTrait>
 }
 
 
-const onshow_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onshow as *const os::raw::c_void,
+fn onshow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onshow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4687,10 +4687,10 @@ const onshow_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onshow_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onshow as *const os::raw::c_void,
+fn onshow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onshow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4705,7 +4705,7 @@ const onshow_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onstalled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4734,8 +4734,8 @@ unsafe extern fn set_onstalled<TH: TypeHolderTrait>
 }
 
 
-const onstalled_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onstalled as *const os::raw::c_void,
+fn onstalled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onstalled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4750,10 +4750,10 @@ const onstalled_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onstalled_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onstalled as *const os::raw::c_void,
+fn onstalled_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onstalled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4768,7 +4768,7 @@ const onstalled_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onsubmit<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4797,8 +4797,8 @@ unsafe extern fn set_onsubmit<TH: TypeHolderTrait>
 }
 
 
-const onsubmit_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onsubmit as *const os::raw::c_void,
+fn onsubmit_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onsubmit::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4813,10 +4813,10 @@ const onsubmit_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onsubmit_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onsubmit as *const os::raw::c_void,
+fn onsubmit_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onsubmit::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4831,7 +4831,7 @@ const onsubmit_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onsuspend<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4860,8 +4860,8 @@ unsafe extern fn set_onsuspend<TH: TypeHolderTrait>
 }
 
 
-const onsuspend_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onsuspend as *const os::raw::c_void,
+fn onsuspend_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onsuspend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4876,10 +4876,10 @@ const onsuspend_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onsuspend_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onsuspend as *const os::raw::c_void,
+fn onsuspend_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onsuspend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4894,7 +4894,7 @@ const onsuspend_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ontimeupdate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4923,8 +4923,8 @@ unsafe extern fn set_ontimeupdate<TH: TypeHolderTrait>
 }
 
 
-const ontimeupdate_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ontimeupdate as *const os::raw::c_void,
+fn ontimeupdate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ontimeupdate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4939,10 +4939,10 @@ const ontimeupdate_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ontimeupdate_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ontimeupdate as *const os::raw::c_void,
+fn ontimeupdate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ontimeupdate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -4957,7 +4957,7 @@ const ontimeupdate_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ontoggle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -4986,8 +4986,8 @@ unsafe extern fn set_ontoggle<TH: TypeHolderTrait>
 }
 
 
-const ontoggle_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ontoggle as *const os::raw::c_void,
+fn ontoggle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ontoggle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5002,10 +5002,10 @@ const ontoggle_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ontoggle_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ontoggle as *const os::raw::c_void,
+fn ontoggle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ontoggle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5020,7 +5020,7 @@ const ontoggle_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onvolumechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5049,8 +5049,8 @@ unsafe extern fn set_onvolumechange<TH: TypeHolderTrait>
 }
 
 
-const onvolumechange_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onvolumechange as *const os::raw::c_void,
+fn onvolumechange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onvolumechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5065,10 +5065,10 @@ const onvolumechange_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onvolumechange_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onvolumechange as *const os::raw::c_void,
+fn onvolumechange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onvolumechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5083,7 +5083,7 @@ const onvolumechange_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_onwaiting<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5112,8 +5112,8 @@ unsafe extern fn set_onwaiting<TH: TypeHolderTrait>
 }
 
 
-const onwaiting_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_onwaiting as *const os::raw::c_void,
+fn onwaiting_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_onwaiting::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5128,10 +5128,10 @@ const onwaiting_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const onwaiting_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_onwaiting as *const os::raw::c_void,
+fn onwaiting_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_onwaiting::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5146,7 +5146,7 @@ const onwaiting_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn get_ontransitionend<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLElement<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -5175,8 +5175,8 @@ unsafe extern fn set_ontransitionend<TH: TypeHolderTrait>
 }
 
 
-const ontransitionend_getterinfo: JSJitInfo = JSJitInfo {
-    call: get_ontransitionend as *const os::raw::c_void,
+fn ontransitionend_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: get_ontransitionend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5191,10 +5191,10 @@ const ontransitionend_getterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
-const ontransitionend_setterinfo: JSJitInfo = JSJitInfo {
-    call: set_ontransitionend as *const os::raw::c_void,
+fn ontransitionend_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+    call: set_ontransitionend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLElement as u16,
     depth: 3,
     _bitfield_1: new_jsjitinfo_bitfield_1!(
@@ -5209,7 +5209,7 @@ const ontransitionend_setterinfo: JSJitInfo = JSJitInfo {
         false,
         0,
     ),
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -5255,7 +5255,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
                (((1) & JSCLASS_RESERVED_SLOTS_MASK) << JSCLASS_RESERVED_SLOTS_SHIFT)
                /* JSCLASS_HAS_RESERVED_SLOTS(1) */,
-        cOps: &CLASS_OPS,
+        cOps: &CLASS_OPS::<TH>(),
         reserved: [0 as *mut _; 3],
     },
     dom_class: DOMClass {
@@ -5284,7 +5284,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
     rooted!(in(cx) let obj = JS_NewObjectWithGivenProto(
-        cx, &Class.base as *const JSClass, proto.handle()));
+        cx, &Class::<TH>().base as *const JSClass, proto.handle()));
     assert!(!obj.is_null());
 
     JS_SetReservedSlot(obj.get(), DOM_OBJECT_SLOT,
@@ -5459,18 +5459,18 @@ pub trait HTMLElementMethods<TH: TypeHolderTrait> {
     fn GetOntransitionend(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOntransitionend(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
-const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"propertyNames\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &propertyNames_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &propertyNames_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"itemtypes\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &itemtypes_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &itemtypes_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -5486,21 +5486,21 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"click\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &click_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &click_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"focus\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &focus_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &focus_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"blur\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(generic_method), info: &blur_methodinfo as *const _ as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(generic_method), info: &blur_methodinfo::<TH>() as *const _ as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -5513,462 +5513,462 @@ const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Pref("dom.microdata.testing.enabled"), sMethods_specs[0]),
-    Guard::new(Condition::Satisfied, sMethods_specs[1])
-];
-const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Pref("dom.microdata.testing.enabled"), sMethods_specs::<TH>()[0]),
+    Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[1])
+]}
+fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"title\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &title_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &title_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &title_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &title_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"lang\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &lang_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &lang_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &lang_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &lang_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"dataset\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &dataset_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &dataset_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"hidden\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &hidden_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &hidden_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &hidden_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &hidden_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"innerText\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &innerText_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &innerText_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &innerText_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &innerText_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"offsetParent\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetParent_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetParent_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"offsetTop\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetTop_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetTop_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"offsetLeft\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetLeft_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetLeft_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"offsetWidth\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetWidth_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetWidth_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"offsetHeight\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetHeight_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &offsetHeight_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"oncopy\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncopy_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncopy_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncopy_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncopy_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"oncut\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncut_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncut_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncut_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncut_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onpaste\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onpaste_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onpaste_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onpaste_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onpaste_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"style\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &style_getterinfo },
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &style_getterinfo::<TH>() },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: b"onabort\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onabort_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onabort_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onabort_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onabort_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onblur\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onblur_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onblur_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onblur_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onblur_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"oncancel\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncancel_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncancel_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncancel_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncancel_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"oncanplay\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncanplay_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncanplay_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncanplay_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncanplay_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"oncanplaythrough\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncanplaythrough_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncanplaythrough_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncanplaythrough_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncanplaythrough_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onchange\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onchange_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onchange_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onchange_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onchange_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onclick\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onclick_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onclick_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onclick_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onclick_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onclose\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onclose_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onclose_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onclose_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onclose_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"oncontextmenu\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncontextmenu_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncontextmenu_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncontextmenu_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncontextmenu_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"oncuechange\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncuechange_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncuechange_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oncuechange_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &oncuechange_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondblclick\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondblclick_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondblclick_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondblclick_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondblclick_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondrag\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondrag_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondrag_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondrag_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondrag_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondragend\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragend_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragend_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragend_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragend_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondragenter\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragenter_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragenter_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragenter_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragenter_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondragexit\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragexit_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragexit_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragexit_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragexit_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondragleave\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragleave_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragleave_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragleave_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragleave_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondragover\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragover_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragover_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragover_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragover_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondragstart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragstart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragstart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondragstart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondragstart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondrop\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondrop_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondrop_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondrop_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondrop_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ondurationchange\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondurationchange_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondurationchange_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ondurationchange_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ondurationchange_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onemptied\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onemptied_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onemptied_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onemptied_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onemptied_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onended\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onended_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onended_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onended_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onended_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onerror\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onerror_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onerror_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onerror_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onerror_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onfocus\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onfocus_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onfocus_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onfocus_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onfocus_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"oninput\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oninput_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &oninput_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oninput_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &oninput_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"oninvalid\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &oninvalid_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &oninvalid_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &oninvalid_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &oninvalid_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onkeydown\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onkeydown_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onkeydown_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onkeydown_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onkeydown_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onkeypress\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onkeypress_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onkeypress_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onkeypress_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onkeypress_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onkeyup\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onkeyup_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onkeyup_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onkeyup_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onkeyup_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onload\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onload_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onload_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onload_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onload_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onloadeddata\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadeddata_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadeddata_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadeddata_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadeddata_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onloadedmetadata\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadedmetadata_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadedmetadata_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadedmetadata_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadedmetadata_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onloadstart\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadstart_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadstart_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onloadstart_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onloadstart_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onmousedown\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmousedown_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmousedown_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmousedown_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmousedown_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onmouseenter\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_lenient_getter), info: &onmouseenter_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_lenient_setter), info: &onmouseenter_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_lenient_getter), info: &onmouseenter_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_lenient_setter), info: &onmouseenter_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onmouseleave\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_lenient_getter), info: &onmouseleave_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_lenient_setter), info: &onmouseleave_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_lenient_getter), info: &onmouseleave_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_lenient_setter), info: &onmouseleave_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onmousemove\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmousemove_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmousemove_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmousemove_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmousemove_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onmouseout\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmouseout_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmouseout_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmouseout_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmouseout_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onmouseover\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmouseover_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmouseover_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmouseover_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmouseover_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onmouseup\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmouseup_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmouseup_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onmouseup_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onmouseup_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onwheel\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onwheel_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onwheel_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onwheel_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onwheel_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onpause\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onpause_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onpause_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onpause_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onpause_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onplay\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onplay_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onplay_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onplay_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onplay_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onplaying\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onplaying_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onplaying_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onplaying_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onplaying_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onprogress\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onprogress_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onprogress_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onprogress_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onprogress_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onratechange\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onratechange_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onratechange_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onratechange_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onratechange_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onreset\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onreset_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onreset_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onreset_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onreset_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onresize\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onresize_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onresize_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onresize_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onresize_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onscroll\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onscroll_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onscroll_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onscroll_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onscroll_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onseeked\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onseeked_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onseeked_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onseeked_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onseeked_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onseeking\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onseeking_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onseeking_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onseeking_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onseeking_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onselect\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onselect_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onselect_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onselect_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onselect_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onshow\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onshow_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onshow_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onshow_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onshow_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onstalled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onstalled_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onstalled_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onstalled_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onstalled_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onsubmit\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onsubmit_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onsubmit_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onsubmit_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onsubmit_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onsuspend\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onsuspend_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onsuspend_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onsuspend_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onsuspend_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ontimeupdate\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ontimeupdate_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ontimeupdate_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ontimeupdate_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ontimeupdate_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ontoggle\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ontoggle_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ontoggle_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ontoggle_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ontoggle_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onvolumechange\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onvolumechange_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onvolumechange_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onvolumechange_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onvolumechange_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"onwaiting\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &onwaiting_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &onwaiting_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &onwaiting_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &onwaiting_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: b"ontransitionend\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(generic_getter), info: &ontransitionend_getterinfo },
-        setter: JSNativeWrapper { op: Some(generic_setter), info: &ontransitionend_setterinfo }
+        getter: JSNativeWrapper { op: Some(generic_getter), info: &ontransitionend_getterinfo::<TH>() },
+        setter: JSNativeWrapper { op: Some(generic_setter), info: &ontransitionend_setterinfo::<TH>() }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -5977,10 +5977,10 @@ const sAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sAttributes_specs[0])
-];
+]}
+fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -6141,8 +6141,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_interface_prototype_object(cx,
                                       prototype_proto.handle().into(),
                                       &PrototypeClass,
-                                      sMethods,
-                                      sAttributes,
+                                      sMethods::<TH>(),
+                                      sAttributes::<TH>(),
                                       &[],
                                       &[],
                                       prototype.handle_mut().into());
