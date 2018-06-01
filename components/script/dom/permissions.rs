@@ -226,7 +226,7 @@ impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Permissions<TH> {
                         _descriptor: &PermissionDescriptor,
                         status: &PermissionStatus<TH>) {
         // Step 1.
-        status.set_state(get_descriptor_permission_state(status.get_query(), None));
+        status.set_state(get_descriptor_permission_state::<TH>(status.get_query(), None));
     }
 
     // https://w3c.github.io/permissions/#boolean-permission-request-algorithm

@@ -207,7 +207,7 @@ impl<TH: TypeHolderTrait> Bluetooth<TH> {
                                                ServiceUUIDSequence::new(optional_services_uuids));
 
         // Step 4 - 5.
-        if let PermissionState::Denied = get_descriptor_permission_state(PermissionName::Bluetooth, None) {
+        if let PermissionState::Denied = get_descriptor_permission_state::<TH>(PermissionName::Bluetooth, None) {
             return p.reject_error(Error::NotFound);
         }
 
@@ -582,7 +582,7 @@ impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Bluetooth<TH> {
         // Step 1: We are not using the `global` variable.
 
         // Step 2.
-        status.set_state(get_descriptor_permission_state(status.get_query(), None));
+        status.set_state(get_descriptor_permission_state::<TH>(status.get_query(), None));
 
         // Step 3.
         if let PermissionState::Denied = status.get_state() {

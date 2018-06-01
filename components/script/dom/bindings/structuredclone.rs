@@ -106,13 +106,13 @@ impl StructuredCloneReader {
     }
 }
 
-unsafe fn read_blob(cx: *mut JSContext,
+unsafe fn read_blob<TH: TypeHolderTrait>(cx: *mut JSContext,
                     r: *mut JSStructuredCloneReader)
                     -> *mut JSObject {
     let structured_reader = StructuredCloneReader { r: r };
     let blob_buffer = structured_reader.read_bytes();
     let type_str = structured_reader.read_str();
-    let target_global = GlobalScope::from_context(cx);
+    let target_global = GlobalScope::<TH>::from_context(cx);
     let blob = Blob::new(&target_global, BlobImpl::new_from_bytes(blob_buffer), type_str);
     return blob.reflector().get_jsobject().get()
 }
@@ -128,7 +128,7 @@ unsafe fn write_blob<TH: TypeHolderTrait>(blob: DomRoot<Blob<TH>>,
     return Ok(())
 }
 
-unsafe extern "C" fn read_callback(cx: *mut JSContext,
+unsafe extern "C" fn read_callback<TH: TypeHolderTrait>(cx: *mut JSContext,
                                    r: *mut JSStructuredCloneReader,
                                    tag: u32,
                                    _data: u32,
@@ -137,7 +137,7 @@ unsafe extern "C" fn read_callback(cx: *mut JSContext,
     assert!(tag < StructuredCloneTags::Max as u32, "tag should be lower than StructuredCloneTags::Max");
     assert!(tag > StructuredCloneTags::Min as u32, "tag should be higher than StructuredCloneTags::Min");
     if tag == StructuredCloneTags::DomBlob as u32 {
-        return read_blob(cx, r)
+        return read_blob::<TH>(cx, r)
     }
     return ptr::null_mut()
 }
@@ -187,7 +187,7 @@ unsafe extern "C" fn report_error_callback(_cx: *mut JSContext, _errorid: u32) {
 
 fn STRUCTURED_CLONE_CALLBACKS<TH: TypeHolderTrait>() -> JSStructuredCloneCallbacks {
   JSStructuredCloneCallbacks {
-      read: Some(read_callback),
+      read: Some(read_callback::<TH>),
       write: Some(write_callback::<TH>),
       reportError: Some(report_error_callback),
       readTransfer: Some(read_transfer_callback),
