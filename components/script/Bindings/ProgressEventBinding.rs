@@ -985,12 +985,14 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
+ 
     NonCallbackInterfaceObjectClass::new(
-        &InterfaceConstructorBehavior::call(_constructor),
+        &InterfaceConstructorBehavior::call(_constructor::<TH>),
         b"function ProgressEvent() {\n    [native code]\n}",
         PrototypeList::ID::ProgressEvent,
-        1);
+        1) 
+}
 
 pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject) {
@@ -1041,7 +1043,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_noncallback_interface_object(cx,
                                         global.into(),
                                         interface_proto.handle(),
-                                        &INTERFACE_OBJECT_CLASS,
+                                        &INTERFACE_OBJECT_CLASS::<TH>(),
                                         &[],
                                         &[],
                                         &[],

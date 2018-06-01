@@ -959,18 +959,18 @@ pub trait DOMQuadMethods<TH: TypeHolderTrait> {
     fn P4(&self) -> DomRoot<DOMPoint<TH>>;
     fn GetBounds(&self) -> DomRoot<DOMRect<TH>>;
 }
-const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"fromRect\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(fromRect), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(fromRect::<TH>), info: 0 as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"fromQuad\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(fromQuad), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(fromQuad::<TH>), info: 0 as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -983,10 +983,10 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sStaticMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sStaticMethods_specs[0])
-];
+]}
+fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0])
+]}
 fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
@@ -1149,12 +1149,14 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
+ 
     NonCallbackInterfaceObjectClass::new(
-        &InterfaceConstructorBehavior::call(_constructor),
+        &InterfaceConstructorBehavior::call(_constructor::<TH>),
         b"function DOMQuad() {\n    [native code]\n}",
         PrototypeList::ID::DOMQuad,
-        0);
+        0) 
+}
 
 pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject) {
@@ -1204,8 +1206,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_noncallback_interface_object(cx,
                                         global.into(),
                                         interface_proto.handle(),
-                                        &INTERFACE_OBJECT_CLASS,
-                                        sStaticMethods,
+                                        &INTERFACE_OBJECT_CLASS::<TH>(),
+                                        sStaticMethods::<TH>(),
                                         &[],
                                         &[],
                                         prototype.handle(),

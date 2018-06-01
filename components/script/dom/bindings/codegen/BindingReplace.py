@@ -53,10 +53,21 @@ def replace(s):
     s = re.sub('sUnforgeableMethods_specs\[', 'sUnforgeableMethods_specs::<TH>()[', s);
     s = re.sub(' sUnforgeableMethods,', ' sUnforgeableMethods::<TH>(),', s);
    
+    s = re.sub('const sStaticMethods_specs: &\'static \[&\'static\[JSFunctionSpec\]\] = &\[', 'fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &\'static [&\'static[JSFunctionSpec]] { &[', s);
+    s = re.sub('const sStaticMethods: &\'static \[Guard<&\'static \[JSFunctionSpec\]>\] = &\[', 'fn sStaticMethods<TH: TypeHolderTrait>() -> &\'static [Guard<&\'static [JSFunctionSpec]>] { &[', s);
+    s = re.sub('fn sStaticMethods<TH: TypeHolderTrait>\(\) -> &\'static \[Guard<&\'static \[JSFunctionSpec\]>] { &\[\n(.+)\n\];', 'fn sStaticMethods<TH: TypeHolderTrait>() -> &\'static [Guard<&\'static [JSFunctionSpec]>] { &[\n\\1\n]}', s);
+    s = re.sub('sStaticMethods_specs\[', 'sStaticMethods_specs::<TH>()[', s);
+    s = re.sub(' sStaticMethods,', ' sStaticMethods::<TH>(),', s);
+    s = re.sub(' op: Some\((?!generic)([a-zA-Z_]+)\),', ' op: Some(\\1::<TH>),',s);
+
     s = re.sub('}\nconst sConstants:', ';\nconst sConstants:', s);
-    s = re.sub('}\nconst sStaticMethods:', ';\nconst sStaticMethods:', s);
     s = re.sub('const ([a-zA-Z_0-9]+): JSTypedMethodJitInfo = JSTypedMethodJitInfo {', 'fn \\1<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {', s)
     s = re.sub('JSJitInfo_ArgType,\n};', 'JSJitInfo_ArgType,\n}}', s)
+    if 'call(_constructor)' in s:
+        s = re.sub('call\(_constructor\)', 'call(_constructor::<TH>)',s)
+        s = re.sub('static ([a-zA-Z_]+): ([a-zA-Z]+) =([\w\s:()&<>,\"{}\\\[\]]+);', 'fn \\1<TH: TypeHolderTrait>() -> \\2 {\n \\3 \n}',s)
+        s = re.sub('&INTERFACE_OBJECT_CLASS,', '&INTERFACE_OBJECT_CLASS::<TH>(),',s)
+
     return s
 def findReplace(directory, filePattern):
     for path, dirs, files in os.walk(os.path.abspath(directory)):

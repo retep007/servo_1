@@ -670,7 +670,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
 
 fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
     NonCallbackInterfaceObjectClass::new(
-        &InterfaceConstructorBehavior::call(_constructor),
+        &InterfaceConstructorBehavior::call(_constructor::<TH>),
         b"function Comment() {\n    [native code]\n}",
         PrototypeList::ID::Comment,
         3)

@@ -421,9 +421,8 @@ pub unsafe fn private_from_proto_check<F>(mut obj: *mut JSObject,
 }
 
 /// Get a `*const T` for a DOM object accessible from a `JSObject`.
-pub fn native_from_object<T, TH>(obj: *mut JSObject) -> Result<*const T, ()>
-    where T: DomObject + IDLInterface,
-          TH: TypeHolderTrait
+pub fn native_from_object<T>(obj: *mut JSObject) -> Result<*const T, ()>
+    where T: DomObject + IDLInterface
 {
     unsafe {
         private_from_proto_check(obj, T::derives).map(|ptr| ptr as *const T)
@@ -436,18 +435,16 @@ pub fn native_from_object<T, TH>(obj: *mut JSObject) -> Result<*const T, ()>
 /// Returns Err(()) if `obj` is an opaque security wrapper or if the object is
 /// not a reflector for a DOM object of the given type (as defined by the
 /// proto_id and proto_depth).
-pub fn root_from_object<T, TH>(obj: *mut JSObject) -> Result<DomRoot<T>, ()>
-    where T: DomObject + IDLInterface,
-          TH: TypeHolderTrait
+pub fn root_from_object<T>(obj: *mut JSObject) -> Result<DomRoot<T>, ()>
+    where T: DomObject + IDLInterface
 {
     native_from_object(obj).map(|ptr| unsafe { DomRoot::from_ref(&*ptr) })
 }
 
 /// Get a `*const T` for a DOM object accessible from a `HandleValue`.
 /// Caller is responsible for throwing a JS exception if needed in case of error.
-pub fn native_from_handlevalue<T, TH>(v: HandleValue) -> Result<*const T, ()>
-    where T: DomObject + IDLInterface,
-          TH: TypeHolderTrait
+pub fn native_from_handlevalue<T>(v: HandleValue) -> Result<*const T, ()>
+    where T: DomObject + IDLInterface
 {
     if !v.get().is_object() {
         return Err(());
@@ -457,9 +454,8 @@ pub fn native_from_handlevalue<T, TH>(v: HandleValue) -> Result<*const T, ()>
 
 /// Get a `DomRoot<T>` for a DOM object accessible from a `HandleValue`.
 /// Caller is responsible for throwing a JS exception if needed in case of error.
-pub fn root_from_handlevalue<T, TH>(v: HandleValue) -> Result<DomRoot<T>, ()>
-    where T: DomObject + IDLInterface,
-          TH: TypeHolderTrait
+pub fn root_from_handlevalue<T>(v: HandleValue) -> Result<DomRoot<T>, ()>
+    where T: DomObject + IDLInterface
 {
     if !v.get().is_object() {
         return Err(());
@@ -468,9 +464,8 @@ pub fn root_from_handlevalue<T, TH>(v: HandleValue) -> Result<DomRoot<T>, ()>
 }
 
 /// Get a `DomRoot<T>` for a DOM object accessible from a `HandleObject`.
-pub fn root_from_handleobject<T, TH>(obj: HandleObject) -> Result<DomRoot<T>, ()>
-    where T: DomObject + IDLInterface,
-          TH: TypeHolderTrait
+pub fn root_from_handleobject<T>(obj: HandleObject) -> Result<DomRoot<T>, ()>
+    where T: DomObject + IDLInterface
 {
     root_from_object(obj.get())
 }

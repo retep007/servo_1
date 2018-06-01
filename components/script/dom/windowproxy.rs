@@ -276,14 +276,14 @@ impl<TH: TypeHolderTrait> WindowProxy<TH> {
 
     pub fn set_currently_active(&self, window: &Window<TH>) {
         let globalscope = window.upcast();
-        self.set_window(&*globalscope, &PROXY_HANDLER);
+        self.set_window(&*globalscope, &PROXY_HANDLER::<TH>());
         self.currently_active.set(Some(globalscope.pipeline_id()));
     }
 
     pub fn unset_currently_active(&self) {
         let globalscope = self.global();
         let window = DissimilarOriginWindow::new(&*globalscope, self);
-        self.set_window(&*window.upcast(), &XORIGIN_PROXY_HANDLER);
+        self.set_window(&*window.upcast(), &XORIGIN_PROXY_HANDLER::<TH>());
         self.currently_active.set(None);
     }
 

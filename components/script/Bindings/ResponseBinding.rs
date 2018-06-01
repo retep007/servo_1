@@ -1283,18 +1283,18 @@ pub trait ResponseMethods<TH: TypeHolderTrait> {
     fn Json(&self) -> Rc<Promise<TH>>;
     fn Text(&self) -> Rc<Promise<TH>>;
 }
-const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"error\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(error), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(error::<TH>), info: 0 as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"redirect\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(redirect), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(redirect::<TH>), info: 0 as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -1307,10 +1307,10 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sStaticMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sStaticMethods_specs[0])
-];
+]}
+fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0])
+]}
 fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
@@ -1504,12 +1504,14 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
+ 
     NonCallbackInterfaceObjectClass::new(
-        &InterfaceConstructorBehavior::call(_constructor),
+        &InterfaceConstructorBehavior::call(_constructor::<TH>),
         b"function Response() {\n    [native code]\n}",
         PrototypeList::ID::Response,
-        0);
+        0) 
+}
 
 pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject) {
@@ -1559,8 +1561,8 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_noncallback_interface_object(cx,
                                         global.into(),
                                         interface_proto.handle(),
-                                        &INTERFACE_OBJECT_CLASS,
-                                        sStaticMethods,
+                                        &INTERFACE_OBJECT_CLASS::<TH>(),
+                                        sStaticMethods::<TH>(),
                                         &[],
                                         &[],
                                         prototype.handle(),

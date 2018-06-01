@@ -20768,11 +20768,11 @@ pub trait TestBindingMethods<TH: TypeHolderTrait> {
     fn IncumbentGlobal(&self) -> DomRoot<GlobalScope<TH>>;
     fn CrashHard(&self) -> ();
 }
-const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"receiveVoidStatic\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(receiveVoidStatic), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(receiveVoidStatic::<TH>), info: 0 as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -20788,7 +20788,7 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"prefControlledStaticMethodDisabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(prefControlledStaticMethodDisabled), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(prefControlledStaticMethodDisabled::<TH>), info: 0 as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -20804,7 +20804,7 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"prefControlledStaticMethodEnabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(prefControlledStaticMethodEnabled), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(prefControlledStaticMethodEnabled::<TH>), info: 0 as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -20820,7 +20820,7 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"funcControlledStaticMethodDisabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(funcControlledStaticMethodDisabled), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(funcControlledStaticMethodDisabled::<TH>), info: 0 as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -20836,7 +20836,7 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
         name: b"funcControlledStaticMethodEnabled\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(funcControlledStaticMethodEnabled), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(funcControlledStaticMethodEnabled::<TH>), info: 0 as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -20849,21 +20849,21 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sStaticMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sStaticMethods_specs[0]),
-    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sStaticMethods_specs[1]),
-    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sStaticMethods_specs[2]),
-    Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sStaticMethods_specs[3]),
-    Guard::new(Condition::Func(TestBinding::condition_satisfied), sStaticMethods_specs[4])
-];
-const sStaticAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
+]}
+fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sStaticMethods_specs::<TH>()[1]),
+    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sStaticMethods_specs::<TH>()[2]),
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sStaticMethods_specs::<TH>()[3]),
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sStaticMethods_specs::<TH>()[4])
+]}
+fn sStaticAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"booleanAttributeStatic\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(get_booleanAttributeStatic), info: 0 as *const JSJitInfo },
-        setter: JSNativeWrapper { op: Some(set_booleanAttributeStatic), info: 0 as *const JSJitInfo }
+        getter: JSNativeWrapper { op: Some(get_booleanAttributeStatic::<TH>), info: 0 as *const JSJitInfo },
+        setter: JSNativeWrapper { op: Some(set_booleanAttributeStatic::<TH>), info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
         name: 0 as *const libc::c_char,
@@ -20876,7 +20876,7 @@ const sStaticAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"prefControlledStaticAttributeDisabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(get_prefControlledStaticAttributeDisabled), info: 0 as *const JSJitInfo },
+        getter: JSNativeWrapper { op: Some(get_prefControlledStaticAttributeDisabled::<TH>), info: 0 as *const JSJitInfo },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -20890,7 +20890,7 @@ const sStaticAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"prefControlledStaticAttributeEnabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(get_prefControlledStaticAttributeEnabled), info: 0 as *const JSJitInfo },
+        getter: JSNativeWrapper { op: Some(get_prefControlledStaticAttributeEnabled::<TH>), info: 0 as *const JSJitInfo },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -20904,7 +20904,7 @@ const sStaticAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"funcControlledStaticAttributeDisabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(get_funcControlledStaticAttributeDisabled), info: 0 as *const JSJitInfo },
+        getter: JSNativeWrapper { op: Some(get_funcControlledStaticAttributeDisabled::<TH>), info: 0 as *const JSJitInfo },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -20918,7 +20918,7 @@ const sStaticAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
     JSPropertySpec {
         name: b"funcControlledStaticAttributeEnabled\0" as *const u8 as *const libc::c_char,
         flags: (JSPROP_ENUMERATE | JSPROP_SHARED) as u8,
-        getter: JSNativeWrapper { op: Some(get_funcControlledStaticAttributeEnabled), info: 0 as *const JSJitInfo },
+        getter: JSNativeWrapper { op: Some(get_funcControlledStaticAttributeEnabled::<TH>), info: 0 as *const JSJitInfo },
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     },
     JSPropertySpec {
@@ -20928,14 +20928,14 @@ const sStaticAttributes_specs: &'static [&'static[JSPropertySpec]] = &[
         setter: JSNativeWrapper { op: None, info: 0 as *const JSJitInfo }
     }]
 
-];
-const sStaticAttributes: &'static [Guard<&'static [JSPropertySpec]>] = &[
-    Guard::new(Condition::Satisfied, sStaticAttributes_specs[0]),
-    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sStaticAttributes_specs[1]),
-    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sStaticAttributes_specs[2]),
-    Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sStaticAttributes_specs[3]),
-    Guard::new(Condition::Func(TestBinding::condition_satisfied), sStaticAttributes_specs[4])
-];
+]}
+fn sStaticAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+    Guard::new(Condition::Satisfied, sStaticAttributes_specs::<TH>()[0]),
+    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sStaticAttributes_specs::<TH>()[1]),
+    Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sStaticAttributes_specs::<TH>()[2]),
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sStaticAttributes_specs::<TH>()[3]),
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sStaticAttributes_specs::<TH>()[4])
+]}
 fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
@@ -23192,8 +23192,8 @@ fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>
     Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sMethods_specs::<TH>()[1]),
     Guard::new(Condition::Pref("layout.animations.test.enabled"), sMethods_specs::<TH>()[2]),
     Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sMethods_specs::<TH>()[3]),
-    Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sMethods_specs::<TH>()[4]),
-    Guard::new(Condition::Func(TestBinding::condition_satisfied), sMethods_specs::<TH>()[5]),
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sMethods_specs::<TH>()[4]),
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sMethods_specs::<TH>()[5]),
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[6]),
     Guard::new(Condition::Pref("dom.testable_crash.enabled"), sMethods_specs::<TH>()[7])
 ]}
@@ -23641,8 +23641,8 @@ fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpe
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0]),
     Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sAttributes_specs::<TH>()[1]),
     Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sAttributes_specs::<TH>()[2]),
-    Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sAttributes_specs::<TH>()[3]),
-    Guard::new(Condition::Func(TestBinding::condition_satisfied), sAttributes_specs::<TH>()[4]),
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sAttributes_specs::<TH>()[3]),
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sAttributes_specs::<TH>()[4]),
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[5])
 ]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
@@ -23667,13 +23667,13 @@ const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
     ConstantSpec { name: b"funcControlledConstEnabled\0", value: ConstantVal::IntVal(0) }]
 
 ];
-const sConstants: &'static [Guard<&'static [ConstantSpec]>] = &[
+fn sConstants<TH: TypeHolderTrait>() -> &'static [Guard<&'static [ConstantSpec]>] { &[
     Guard::new(Condition::Satisfied, sConstants_specs[0]),
     Guard::new(Condition::Pref("dom.testbinding.prefcontrolled.enabled"), sConstants_specs[1]),
     Guard::new(Condition::Pref("dom.testbinding.prefcontrolled2.enabled"), sConstants_specs[2]),
-    Guard::new(Condition::Func(TestBinding::condition_unsatisfied), sConstants_specs[3]),
-    Guard::new(Condition::Func(TestBinding::condition_satisfied), sConstants_specs[4])
-];
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sConstants_specs[3]),
+    Guard::new(Condition::Func(TestBinding::<TH>::condition_satisfied), sConstants_specs[4])
+]}
 
 pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -23778,12 +23778,14 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
+ 
     NonCallbackInterfaceObjectClass::new(
-        &InterfaceConstructorBehavior::call(_constructor),
+        &InterfaceConstructorBehavior::call(_constructor::<TH>),
         b"function TestBinding() {\n    [native code]\n}",
         PrototypeList::ID::TestBinding,
-        0);
+        0) 
+}
 
 pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
@@ -23835,7 +23837,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                       &PrototypeClass,
                                       sMethods::<TH>(),
                                       sAttributes::<TH>(),
-                                      sConstants,
+                                      sConstants::<TH>(),
                                       &[],
                                       prototype.handle_mut().into());
     assert!(!prototype.is_null());
@@ -23853,10 +23855,10 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_noncallback_interface_object(cx,
                                         global.into(),
                                         interface_proto.handle(),
-                                        &INTERFACE_OBJECT_CLASS,
-                                        sStaticMethods,
-                                        sStaticAttributes,
-                                        sConstants,
+                                        &INTERFACE_OBJECT_CLASS::<TH>(),
+                                        sStaticMethods::<TH>(),
+                                        sStaticAttributes::<TH>(),
+                                        sConstants::<TH>(),
                                         prototype.handle(),
                                         b"TestBinding\0",
                                         0,

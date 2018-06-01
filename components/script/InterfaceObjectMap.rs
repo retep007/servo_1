@@ -4,6 +4,7 @@ use dom::bindings::codegen;
 use js::jsapi::JSContext;
 use js::rust::HandleObject;
 use phf;
+use typeholder::TypeHolderTrait;
 
 bitflags! {
     pub struct Globals: u8 {
@@ -17,4 +18,4 @@ bitflags! {
     }
 }
 
-include!(concat!(env!("OUT_DIR"), "/InterfaceObjectMapPhf.rs"));
+include!("./InterfaceObjectMapPhf.rs");
