@@ -22,6 +22,7 @@ impl<TH: TypeHolderTrait> OESTextureHalfFloatLinear<TH> {
     fn new_inherited() -> OESTextureHalfFloatLinear<TH> {
         Self {
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 }

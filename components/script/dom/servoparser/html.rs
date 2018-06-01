@@ -103,7 +103,7 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
 unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         struct Tracer<THH: TypeHolderTrait + 'static>(*mut JSTracer, PhantomData<THH>);
-        let tracer = Tracer(trc);
+        let tracer = Tracer(trc, Default::default());
 
         impl<THH: TypeHolderTrait> HtmlTracer for Tracer<THH> {
             type Handle = Dom<Node<THH>>;

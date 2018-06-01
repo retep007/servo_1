@@ -69,7 +69,7 @@ where
         STACK_ROOTS.with(|ref root_list| {
             let root_list = &*root_list.get().unwrap();
             root_list.root(value.stable_trace_object());
-            Root { value, root_list }
+            Root { value, root_list}
         })
     }
 }
@@ -98,7 +98,7 @@ where
             }
         }
         unsafe {
-            &*(self.reflector() as *const Reflector as *const ReflectorStackRoot)
+            &*(self.reflector() as *const Reflector<T::TypeHolder> as *const ReflectorStackRoot<T::TypeHolder>)
         }
     }
 }
@@ -474,7 +474,7 @@ impl<TH: TypeHolderTrait> LayoutDom<Node<TH>> {
         debug_assert!(thread_state::get().is_layout());
         let TrustedNodeAddress(addr) = inner;
         LayoutDom {
-            ptr: ptr::NonNull::new_unchecked(addr as *const Node as *mut Node),
+            ptr: ptr::NonNull::new_unchecked(addr as *const Node<TH> as *mut Node<TH>),
         }
     }
 }

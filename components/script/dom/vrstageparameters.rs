@@ -34,7 +34,8 @@ impl<TH: TypeHolderTrait> VRStageParameters<TH> {
         VRStageParameters {
             reflector_: Reflector::new(),
             parameters: DomRefCell::new(parameters),
-            transform: Heap::default()
+            transform: Heap::default(),
+            _p: Default::default(),
         }
     }
 

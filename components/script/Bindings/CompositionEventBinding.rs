@@ -700,6 +700,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::Event, PrototypeList::ID::UIEvent, PrototypeList::ID::CompositionEvent, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { event: (::dom::bindings::codegen::InheritTypes::EventTypeId::UIEvent(::dom::bindings::codegen::InheritTypes::UIEventTypeId::CompositionEvent)) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<CompositionEvent<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 
@@ -871,12 +872,13 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
     NonCallbackInterfaceObjectClass::new(
         &InterfaceConstructorBehavior::call(_constructor),
         b"function CompositionEvent() {\n    [native code]\n}",
         PrototypeList::ID::CompositionEvent,
-        2);
+        2)
+}
 
 pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject) {
@@ -928,7 +930,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_noncallback_interface_object(cx,
                                         global.into(),
                                         interface_proto.handle(),
-                                        &INTERFACE_OBJECT_CLASS,
+                                        &INTERFACE_OBJECT_CLASS::<TH>(),
                                         &[],
                                         &[],
                                         &[],

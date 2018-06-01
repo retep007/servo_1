@@ -734,8 +734,8 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     assert!(JS_SetImmutablePrototype(cx, obj.handle(), &mut immutable));
     assert!(immutable);
 
-    define_guarded_properties(cx, obj.handle(), sAttributes);
-    define_guarded_methods(cx, obj.handle(), sMethods);
+    define_guarded_properties(cx, obj.handle(), sAttributes::<TH>());
+    define_guarded_methods(cx, obj.handle(), sMethods::<TH>());
 
 
 

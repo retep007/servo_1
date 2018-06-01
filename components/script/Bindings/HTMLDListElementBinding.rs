@@ -558,6 +558,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::EventTarget, PrototypeList::ID::Node, PrototypeList::ID::Element, PrototypeList::ID::HTMLElement, PrototypeList::ID::HTMLDListElement, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { eventtarget: (::dom::bindings::codegen::InheritTypes::EventTargetTypeId::Node(::dom::bindings::codegen::InheritTypes::NodeTypeId::Element(::dom::bindings::codegen::InheritTypes::ElementTypeId::HTMLElement(::dom::bindings::codegen::InheritTypes::HTMLElementTypeId::HTMLDListElement)))) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<HTMLDListElement<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

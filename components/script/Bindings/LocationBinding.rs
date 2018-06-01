@@ -1719,7 +1719,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     assert!(!unforgeable_holder.is_null());
 
     define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes::<TH>());
-    define_guarded_methods(cx, unforgeable_holder.handle(), sUnforgeableMethods);
+    define_guarded_methods(cx, unforgeable_holder.handle(), sUnforgeableMethods::<TH>());
     JS_SetReservedSlot(prototype.get(), DOM_PROTO_UNFORGEABLE_HOLDER_SLOT,
                        ObjectValue(unforgeable_holder.get()))
 }

@@ -76,6 +76,7 @@ impl<TH: TypeHolderTrait> VRPose<TH> {
             angular_vel: Heap::default(),
             linear_acc: Heap::default(),
             angular_acc: Heap::default(),
+            _p: Default::default(),
         }
     }
 

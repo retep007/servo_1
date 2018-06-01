@@ -27,6 +27,7 @@ impl<TH: TypeHolderTrait> TestRunner<TH> {
     pub fn new_inherited() -> TestRunner<TH> {
         TestRunner {
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 

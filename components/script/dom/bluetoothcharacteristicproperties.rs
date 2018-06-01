@@ -50,6 +50,7 @@ impl<TH: TypeHolderTrait> BluetoothCharacteristicProperties<TH> {
             authenticated_signed_writes: authenticated_signed_writes,
             reliable_write: reliable_write,
             writable_auxiliaries: writable_auxiliaries,
+            _p: Default::default(),
         }
     }
 

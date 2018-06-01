@@ -15,7 +15,7 @@ use std::thread;
 use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
-thread_local!(static STACK: RefCell<Vec<Box<StackEntryTrait>>> = RefCell::new(Vec::new()));
+// thread_local!(static STACK: RefCell<Vec<Box<StackEntryTrait>>> = RefCell::new(Vec::new()));
 
 #[derive(Debug, Eq, JSTraceable, PartialEq)]
 enum StackEntryKind {
@@ -34,15 +34,16 @@ trait StackEntryTrait {}
 
 /// Traces the script settings stack.
 pub unsafe fn trace(tracer: *mut JSTracer) {
-    STACK.with(|stack| {
-        stack.borrow().trace(tracer);
-    })
+    // STACK.with(|stack| {
+    //     stack.borrow().trace(tracer);
+    // })
 }
 
 pub fn is_execution_stack_empty() -> bool {
-    STACK.with(|stack| {
-        stack.borrow().is_empty()
-    })
+    // STACK.with(|stack| {
+    //     stack.borrow().is_empty()
+    // })
+    false
 }
 
 /// RAII struct that pushes and pops entries from the script settings stack.
@@ -53,37 +54,38 @@ pub struct AutoEntryScript<TH: TypeHolderTrait + 'static> {
 impl<TH: TypeHolderTrait> AutoEntryScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#prepare-to-run-script>
     pub fn new(global: &GlobalScope<TH>) -> Self {
-        STACK.with(|stack| {
-            trace!("Prepare to run script with {:p}", global);
-            let mut stack = stack.borrow_mut();
-            stack.push(StackEntry {
-                global: Dom::from_ref(global),
-                kind: StackEntryKind::Entry,
-            });
-            AutoEntryScript {
-                global: DomRoot::from_ref(global),
-            }
-        })
+    //     STACK.with(|stack| {
+    //         trace!("Prepare to run script with {:p}", global);
+    //         let mut stack = stack.borrow_mut();
+    //         stack.push(StackEntry {
+    //             global: Dom::from_ref(global),
+    //             kind: StackEntryKind::Entry,
+    //         });
+    //         AutoEntryScript {
+    //             global: DomRoot::from_ref(global),
+    //         }
+    //     })
+        unimplemented!();
     }
 }
 
 impl<TH: TypeHolderTrait> Drop for AutoEntryScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#clean-up-after-running-script>
     fn drop(&mut self) {
-        STACK.with(|stack| {
-            let mut stack = stack.borrow_mut();
-            let entry = stack.pop().unwrap();
-            assert_eq!(&*entry.global as *const GlobalScope<TH>,
-                       &*self.global as *const GlobalScope<TH>,
-                       "Dropped AutoEntryScript out of order.");
-            assert_eq!(entry.kind, StackEntryKind::Entry);
-            trace!("Clean up after running script with {:p}", &*entry.global);
-        });
+        // STACK.with(|stack| {
+        //     let mut stack = stack.borrow_mut();
+        //     let entry = stack.pop().unwrap();
+        //     assert_eq!(&*entry.global as *const GlobalScope<TH>,
+        //                &*self.global as *const GlobalScope<TH>,
+        //                "Dropped AutoEntryScript out of order.");
+        //     assert_eq!(entry.kind, StackEntryKind::Entry);
+        //     trace!("Clean up after running script with {:p}", &*entry.global);
+        // });
 
-        // Step 5
-        if !thread::panicking() && incumbent_global().is_none() {
-            self.global.perform_a_microtask_checkpoint();
-        }
+        // // Step 5
+        // if !thread::panicking() && incumbent_global().is_none() {
+        //     self.global.perform_a_microtask_checkpoint();
+        // }
     }
 }
 
@@ -91,13 +93,14 @@ impl<TH: TypeHolderTrait> Drop for AutoEntryScript<TH> {
 ///
 /// ["entry"]: https://html.spec.whatwg.org/multipage/#entry
 pub fn entry_global<TH: TypeHolderTrait>() -> DomRoot<GlobalScope<TH>> {
-    STACK.with(|stack| {
-        stack.borrow()
-             .iter()
-             .rev()
-             .find(|entry| entry.kind == StackEntryKind::Entry)
-             .map(|entry| DomRoot::from_ref(&*entry.global))
-    }).unwrap()
+    // STACK.with(|stack| {
+    //     stack.borrow()
+    //          .iter()
+    //          .rev()
+    //          .find(|entry| entry.kind == StackEntryKind::Entry)
+    //          .map(|entry| DomRoot::from_ref(&*entry.global))
+    // }).unwrap()
+    unimplemented!();
 }
 
 /// RAII struct that pushes and pops entries from the script settings stack.
@@ -110,46 +113,50 @@ impl<TH: TypeHolderTrait> AutoIncumbentScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#prepare-to-run-a-callback>
     pub fn new(global: &GlobalScope<TH>) -> Self {
         // Step 2-3.
-        unsafe {
-            let cx = Runtime::get();
-            assert!(!cx.is_null());
-            HideScriptedCaller(cx);
+        // unsafe {
+        //     let cx = Runtime::get();
+        //     assert!(!cx.is_null());
+        //     HideScriptedCaller(cx);
+        // }
+        // STACK.with(|stack| {
+        //     trace!("Prepare to run a callback with {:p}", global);
+        //     // Step 1.
+        //     let mut stack = stack.borrow_mut();
+        //     stack.push(StackEntry {
+        //         global: Dom::from_ref(global),
+        //         kind: StackEntryKind::Incumbent,
+        //     });
+        //     AutoIncumbentScript {
+        //         global: global as *const _ as usize,
+        //     }
+        // })
+        AutoIncumbentScript {
+            global: 0,
+            _p: Default::default(),
         }
-        STACK.with(|stack| {
-            trace!("Prepare to run a callback with {:p}", global);
-            // Step 1.
-            let mut stack = stack.borrow_mut();
-            stack.push(StackEntry {
-                global: Dom::from_ref(global),
-                kind: StackEntryKind::Incumbent,
-            });
-            AutoIncumbentScript {
-                global: global as *const _ as usize,
-            }
-        })
     }
 }
 
 impl<TH: TypeHolderTrait> Drop for AutoIncumbentScript<TH> {
     /// <https://html.spec.whatwg.org/multipage/#clean-up-after-running-a-callback>
     fn drop(&mut self) {
-        STACK.with(|stack| {
-            // Step 4.
-            let mut stack = stack.borrow_mut();
-            let entry = stack.pop().unwrap();
-            // Step 3.
-            assert_eq!(&*entry.global as *const GlobalScope as usize,
-                       self.global,
-                       "Dropped AutoIncumbentScript out of order.");
-            assert_eq!(entry.kind, StackEntryKind::Incumbent);
-            trace!("Clean up after running a callback with {:p}", &*entry.global);
-        });
-        unsafe {
-            // Step 1-2.
-            let cx = Runtime::get();
-            assert!(!cx.is_null());
-            UnhideScriptedCaller(cx);
-        }
+        // STACK.with(|stack| {
+        //     // Step 4.
+        //     let mut stack = stack.borrow_mut();
+        //     let entry = stack.pop().unwrap();
+        //     // Step 3.
+        //     assert_eq!(&*entry.global as *const GlobalScope<TH> as usize,
+        //                self.global,
+        //                "Dropped AutoIncumbentScript out of order.");
+        //     assert_eq!(entry.kind, StackEntryKind::Incumbent);
+        //     trace!("Clean up after running a callback with {:p}", &*entry.global);
+        // });
+        // unsafe {
+        //     // Step 1-2.
+        //     let cx = Runtime::get();
+        //     assert!(!cx.is_null());
+        //     UnhideScriptedCaller(cx);
+        // }
     }
 }
 
@@ -173,9 +180,10 @@ pub fn incumbent_global<TH: TypeHolderTrait>() -> Option<DomRoot<GlobalScope<TH>
     }
 
     // Step 2: nothing from the JS engine. Let's use whatever's on the explicit stack.
-    STACK.with(|stack| {
-        stack.borrow()
-             .last()
-             .map(|entry| DomRoot::from_ref(&*entry.global))
-    })
+    // STACK.with(|stack| {
+    //     stack.borrow()
+    //          .last()
+    //          .map(|entry| DomRoot::from_ref(&*entry.global))
+    // })
+    None
 }

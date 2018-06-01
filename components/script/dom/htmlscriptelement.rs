@@ -43,6 +43,7 @@ use std::sync::{Arc, Mutex};
 use style::str::{HTML_SPACE_CHARACTERS, StaticStringVec};
 use uuid::Uuid;
 use typeholder::TypeHolderTrait;
+use dom::servoparser::ServoParser;
 
 #[dom_struct]
 pub struct HTMLScriptElement<TH: TypeHolderTrait + 'static> {

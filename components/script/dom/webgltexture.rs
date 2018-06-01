@@ -69,6 +69,7 @@ impl<TH: TypeHolderTrait> WebGLTexture<TH> {
             image_info_array: DomRefCell::new([ImageInfo::new(); MAX_LEVEL_COUNT * MAX_FACE_COUNT]),
             renderer: renderer,
             attached_to_dom: Cell::new(false),
+            _p: Default::default(),
         }
     }
 

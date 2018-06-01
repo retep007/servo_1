@@ -147,7 +147,7 @@ unsafe extern "C" fn write_callback<TH: TypeHolderTrait>(_cx: *mut JSContext,
                                     obj: RawHandleObject,
                                     _closure: *mut raw::c_void)
                                     -> bool {
-    if let Ok(blob) = root_from_handleobject::<Blob<TH>>(Handle::from_raw(obj)) {
+    if let Ok(blob) = root_from_handleobject::<Blob<TH>, TH>(Handle::from_raw(obj)) {
         return write_blob(blob, w).is_ok()
     }
     return false
@@ -250,15 +250,15 @@ impl<TH: TypeHolderTrait> StructuredCloneData<TH> {
         let cx = global.get_cx();
         let globalhandle = global.reflector().get_jsobject();
         let _ac = JSAutoCompartment::new(cx, globalhandle.get());
-        unsafe {
-            assert!(JS_ReadStructuredClone(cx,
-                                           data,
-                                           nbytes,
-                                           JS_STRUCTURED_CLONE_VERSION,
-                                           rval,
-                                           &STRUCTURED_CLONE_CALLBACKS,
-                                           ptr::null_mut()));
-        }
+        // unsafe {
+        //     assert!(JS_ReadStructuredClone(cx,
+        //                                    data,
+        //                                    nbytes,
+        //                                    JS_STRUCTURED_CLONE_VERSION,
+        //                                    rval,
+        //                                    &STRUCTURED_CLONE_CALLBACKS,
+        //                                    ptr::null_mut()));
+        // }
     }
 
     /// Thunk for the actual `read_clone` method. Resolves proper variant for read_clone.

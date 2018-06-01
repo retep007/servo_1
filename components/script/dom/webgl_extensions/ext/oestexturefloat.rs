@@ -22,6 +22,7 @@ impl<TH: TypeHolderTrait> OESTextureFloat<TH> {
     fn new_inherited() -> OESTextureFloat<TH> {
         Self {
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 }

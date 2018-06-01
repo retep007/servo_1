@@ -44,6 +44,8 @@ use std::ffi::CString;
 use std::os::raw::{c_char, c_void};
 use std::ptr;
 use std::slice;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// Proxy handler for a WindowProxy.
 pub struct WindowProxyHandler(pub *const libc::c_void);
@@ -57,16 +59,18 @@ impl MallocSizeOf for WindowProxyHandler {
 
 #[derive(JSTraceable, MallocSizeOf)]
 /// Static data associated with a global object.
-pub struct GlobalStaticData {
+pub struct GlobalStaticData<TH: TypeHolderTrait> {
     /// The WindowProxy proxy handler for this global.
     pub windowproxy_handler: WindowProxyHandler,
+    _p: PhantomData<TH>,
 }
 
-impl GlobalStaticData {
+impl<TH: TypeHolderTrait> GlobalStaticData<TH> {
     /// Creates a new GlobalStaticData.
-    pub fn new() -> GlobalStaticData {
+    pub fn new() -> GlobalStaticData<TH> {
         GlobalStaticData {
-            windowproxy_handler: windowproxy::new_window_proxy_handler(),
+            windowproxy_handler: windowproxy::new_window_proxy_handler::<TH>(),
+            _p: Default::default(),
         }
     }
 }

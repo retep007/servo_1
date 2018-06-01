@@ -6,7 +6,9 @@ use std::marker::Send;
 use dom::bindings::inheritance::Castable;
 use std::clone::Clone;
 use std::marker::Copy;
+use std::fmt::Debug;
+use std::cmp::PartialEq;
 
-pub trait TypeHolderTrait: MallocSizeOf + JSTraceable + 'static + Sized + Default + Send + Castable + Clone + Copy {
+pub trait TypeHolderTrait: MallocSizeOf + JSTraceable + 'static + Sized + Default + Send + Castable + Clone + Copy + Debug + PartialEq {
     type ServoParser: ServoParser<Self>;
 }

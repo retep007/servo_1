@@ -824,6 +824,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::DissimilarOriginLocation, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { alone: () },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<DissimilarOriginLocation<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 
@@ -1002,7 +1003,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     assert!(!unforgeable_holder.is_null());
 
     define_guarded_properties(cx, unforgeable_holder.handle(), sUnforgeableAttributes::<TH>());
-    define_guarded_methods(cx, unforgeable_holder.handle(), sUnforgeableMethods);
+    define_guarded_methods(cx, unforgeable_holder.handle(), sUnforgeableMethods::<TH>());
     JS_SetReservedSlot(prototype.get(), DOM_PROTO_UNFORGEABLE_HOLDER_SLOT,
                        ObjectValue(unforgeable_holder.get()))
 }

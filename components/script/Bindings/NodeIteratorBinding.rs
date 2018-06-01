@@ -751,7 +751,7 @@ unsafe extern fn detach<TH: TypeHolderTrait>
 }
 
 const detach_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const detach_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn detach_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: detach::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::NodeIterator as u16,
@@ -770,7 +770,7 @@ const detach_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &detach_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {

@@ -730,7 +730,7 @@ unsafe extern fn hasFeature<TH: TypeHolderTrait>
 }
 
 const hasFeature_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const hasFeature_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn hasFeature_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: hasFeature::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::DOMImplementation as u16,
@@ -749,7 +749,7 @@ const hasFeature_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &hasFeature_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
@@ -802,6 +802,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::DOMImplementation, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { alone: () },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<DOMImplementation<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

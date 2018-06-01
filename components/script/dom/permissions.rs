@@ -63,6 +63,7 @@ impl<TH: TypeHolderTrait> Permissions<TH> {
     pub fn new_inherited() -> Permissions<TH> {
         Permissions {
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 

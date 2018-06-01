@@ -42,6 +42,7 @@ impl<TH: TypeHolderTrait> TextDecoder<TH> {
             ),
             in_stream: RefCell::new(Vec::new()),
             do_not_flush: Cell::new(false),
+            _p: Default::default(),
         }
     }
 

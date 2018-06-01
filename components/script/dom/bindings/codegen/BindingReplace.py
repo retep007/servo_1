@@ -55,6 +55,8 @@ def replace(s):
    
     s = re.sub('}\nconst sConstants:', ';\nconst sConstants:', s);
     s = re.sub('}\nconst sStaticMethods:', ';\nconst sStaticMethods:', s);
+    s = re.sub('const ([a-zA-Z_0-9]+): JSTypedMethodJitInfo = JSTypedMethodJitInfo {', 'fn \\1<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {', s)
+    s = re.sub('JSJitInfo_ArgType,\n};', 'JSJitInfo_ArgType,\n}}', s)
     return s
 def findReplace(directory, filePattern):
     for path, dirs, files in os.walk(os.path.abspath(directory)):

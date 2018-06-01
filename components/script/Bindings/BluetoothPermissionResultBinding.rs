@@ -743,6 +743,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::EventTarget, PrototypeList::ID::PermissionStatus, PrototypeList::ID::BluetoothPermissionResult, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { eventtarget: (::dom::bindings::codegen::InheritTypes::EventTargetTypeId::PermissionStatus(::dom::bindings::codegen::InheritTypes::PermissionStatusTypeId::BluetoothPermissionResult)) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<BluetoothPermissionResult<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

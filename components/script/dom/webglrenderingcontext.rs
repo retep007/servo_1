@@ -485,7 +485,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
     // LINEAR filtering may be forbidden when using WebGL extensions.
     // https://www.khronos.org/registry/webgl/extensions/OES_texture_float_linear/
     fn validate_filterable_texture(&self,
-                                   texture: &WebGLProgram<TH>,
+                                   texture: &WebGLTexture<TH>,
                                    target: TexImageTarget,
                                    level: u32,
                                    format: TexFormat,
@@ -1007,7 +1007,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
     }
 
     fn tex_image_2d(&self,
-                    texture: &WebGLProgram<TH>,
+                    texture: &WebGLTexture<TH>,
                     target: TexImageTarget,
                     data_type: TexDataType,
                     internal_format: TexFormat,

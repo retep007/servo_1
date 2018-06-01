@@ -29,6 +29,7 @@ impl<TH: TypeHolderTrait> PaintSize<TH> {
             reflector: Reflector::new(),
             width: Finite::wrap(size.width as f64),
             height: Finite::wrap(size.height as f64),
+            _p: Default::default(),
         }
     }
 

@@ -159,7 +159,7 @@ impl<TH: TypeHolderTrait> WindowProxy<TH> {
                                  -> DomRoot<WindowProxy<TH>>
     {
         unsafe {
-            let handler = CreateWrapperProxyHandler(&XORIGIN_PROXY_HANDLER);
+            let handler = CreateWrapperProxyHandler(&XORIGIN_PROXY_HANDLER::<TH>());
             assert!(!handler.is_null());
 
             let cx = global_to_clone_from.get_cx();
@@ -310,7 +310,7 @@ unsafe fn GetSubframeWindow<TH: TypeHolderTrait>(cx: *mut JSContext,
     let index = get_array_index_from_id(cx, Handle::from_raw(id));
     if let Some(index) = index {
         rooted!(in(cx) let target = GetProxyPrivate(*proxy).to_object());
-        let win = root_from_handleobject::<Window<TH>>(target.handle()).unwrap();
+        let win = root_from_handleobject::<Window<TH>, TH>(target.handle()).unwrap();
         let mut found = false;
         return win.IndexedGetter(index, &mut found);
     }
@@ -451,7 +451,7 @@ unsafe extern "C" fn get_prototype_if_ordinary(_: *mut JSContext,
     return true;
 }
 
-static PROXY_HANDLER: ProxyTraps = ProxyTraps {
+fn PROXY_HANDLER<TH: TypeHolderTrait>() -> ProxyTraps { ProxyTraps {
     enter: None,
     getOwnPropertyDescriptor: Some(getOwnPropertyDescriptor),
     defineProperty: Some(defineProperty),
@@ -476,17 +476,17 @@ static PROXY_HANDLER: ProxyTraps = ProxyTraps {
     fun_toString: None,
     boxedValue_unbox: None,
     defaultValue: None,
-    trace: Some(trace),
-    finalize: Some(finalize),
+    trace: Some(trace::<TH>),
+    finalize: Some(finalize::<TH>),
     objectMoved: None,
     isCallable: None,
     isConstructor: None,
-};
+}}
 
 #[allow(unsafe_code)]
-pub fn new_window_proxy_handler() -> WindowProxyHandler {
+pub fn new_window_proxy_handler<TH: TypeHolderTrait>() -> WindowProxyHandler {
     unsafe {
-        WindowProxyHandler(CreateWrapperProxyHandler(&PROXY_HANDLER))
+        WindowProxyHandler(CreateWrapperProxyHandler(&PROXY_HANDLER::<TH>()))
     }
 }
 
@@ -588,7 +588,7 @@ unsafe extern "C" fn preventExtensions_xorigin(cx: *mut JSContext,
     throw_security_error(cx)
 }
 
-static XORIGIN_PROXY_HANDLER: ProxyTraps = ProxyTraps {
+fn XORIGIN_PROXY_HANDLER<TH: TypeHolderTrait>() -> ProxyTraps { ProxyTraps {
     enter: None,
     getOwnPropertyDescriptor: Some(getOwnPropertyDescriptor_xorigin),
     defineProperty: Some(defineProperty_xorigin),
@@ -613,18 +613,18 @@ static XORIGIN_PROXY_HANDLER: ProxyTraps = ProxyTraps {
     fun_toString: None,
     boxedValue_unbox: None,
     defaultValue: None,
-    trace: Some(trace),
-    finalize: Some(finalize),
+    trace: Some(trace::<TH>),
+    finalize: Some(finalize::<TH>),
     objectMoved: None,
     isCallable: None,
     isConstructor: None,
-};
+}}
 
 // How WindowProxy objects are garbage collected.
 
 #[allow(unsafe_code)]
-unsafe extern fn finalize(_fop: *mut JSFreeOp, obj: *mut JSObject) {
-    let this = GetProxyExtra(obj, 0).to_private() as *mut WindowProxy;
+unsafe extern fn finalize<TH: TypeHolderTrait>(_fop: *mut JSFreeOp, obj: *mut JSObject) {
+    let this = GetProxyExtra(obj, 0).to_private() as *mut WindowProxy::<TH>;
     if this.is_null() {
         // GC during obj creation or after transplanting.
         return;
@@ -635,8 +635,8 @@ unsafe extern fn finalize(_fop: *mut JSFreeOp, obj: *mut JSObject) {
 }
 
 #[allow(unsafe_code)]
-unsafe extern fn trace(trc: *mut JSTracer, obj: *mut JSObject) {
-    let this = GetProxyExtra(obj, 0).to_private() as *const WindowProxy;
+unsafe extern fn trace<TH: TypeHolderTrait>(trc: *mut JSTracer, obj: *mut JSObject) {
+    let this = GetProxyExtra(obj, 0).to_private() as *const WindowProxy::<TH>;
     if this.is_null() {
         // GC during obj creation or after transplanting.
         return;

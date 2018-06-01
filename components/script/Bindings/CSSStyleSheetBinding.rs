@@ -714,6 +714,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::StyleSheet, PrototypeList::ID::CSSStyleSheet, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { stylesheet: (::dom::bindings::codegen::InheritTypes::StyleSheetTypeId::CSSStyleSheet) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<CSSStyleSheet<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

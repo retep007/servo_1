@@ -23,6 +23,7 @@ impl<TH: TypeHolderTrait> OESStandardDerivatives<TH> {
     fn new_inherited() -> OESStandardDerivatives<TH> {
         Self {
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 }

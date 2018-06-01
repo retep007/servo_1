@@ -618,6 +618,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::CSSRule, PrototypeList::ID::CSSNamespaceRule, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { cssrule: (::dom::bindings::codegen::InheritTypes::CSSRuleTypeId::CSSNamespaceRule) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<CSSNamespaceRule<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

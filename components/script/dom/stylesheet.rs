@@ -33,6 +33,7 @@ impl<TH: TypeHolderTrait> StyleSheet<TH> {
             type_: type_,
             href: href,
             title: title,
+            _p: Default::default(),
         }
     }
 

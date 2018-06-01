@@ -645,7 +645,7 @@ unsafe extern fn getRootNode<TH: TypeHolderTrait>
 }
 
 const getRootNode_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getRootNode_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getRootNode_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getRootNode::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Node as u16,
@@ -664,7 +664,7 @@ const getRootNode_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &getRootNode_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn get_parentNode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -740,7 +740,7 @@ unsafe extern fn hasChildNodes<TH: TypeHolderTrait>
 }
 
 const hasChildNodes_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const hasChildNodes_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn hasChildNodes_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: hasChildNodes::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Node as u16,
@@ -759,7 +759,7 @@ const hasChildNodes_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &hasChildNodes_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn get_childNodes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -1185,7 +1185,7 @@ unsafe extern fn isEqualNode<TH: TypeHolderTrait>
 }
 
 const isEqualNode_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::Object as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const isEqualNode_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn isEqualNode_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: isEqualNode::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Node as u16,
@@ -1204,7 +1204,7 @@ const isEqualNode_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &isEqualNode_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn isSameNode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1242,7 +1242,7 @@ unsafe extern fn isSameNode<TH: TypeHolderTrait>
 }
 
 const isSameNode_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::Object as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const isSameNode_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn isSameNode_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: isSameNode::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Node as u16,
@@ -1261,7 +1261,7 @@ const isSameNode_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &isSameNode_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn compareDocumentPosition<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1297,7 +1297,7 @@ unsafe extern fn compareDocumentPosition<TH: TypeHolderTrait>
 }
 
 const compareDocumentPosition_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Object as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const compareDocumentPosition_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn compareDocumentPosition_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: compareDocumentPosition::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Node as u16,
@@ -1316,7 +1316,7 @@ const compareDocumentPosition_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJi
       ),
   },
     argTypes: &compareDocumentPosition_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn contains<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1354,7 +1354,7 @@ unsafe extern fn contains<TH: TypeHolderTrait>
 }
 
 const contains_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::Object as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const contains_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn contains_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: contains::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Node as u16,
@@ -1373,7 +1373,7 @@ const contains_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &contains_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn lookupPrefix<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1404,7 +1404,7 @@ unsafe extern fn lookupPrefix<TH: TypeHolderTrait>
 }
 
 const lookupPrefix_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const lookupPrefix_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn lookupPrefix_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: lookupPrefix::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Node as u16,
@@ -1423,7 +1423,7 @@ const lookupPrefix_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &lookupPrefix_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn lookupNamespaceURI<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1454,7 +1454,7 @@ unsafe extern fn lookupNamespaceURI<TH: TypeHolderTrait>
 }
 
 const lookupNamespaceURI_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const lookupNamespaceURI_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn lookupNamespaceURI_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: lookupNamespaceURI::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Node as u16,
@@ -1473,7 +1473,7 @@ const lookupNamespaceURI_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo
       ),
   },
     argTypes: &lookupNamespaceURI_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn isDefaultNamespace<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1504,7 +1504,7 @@ unsafe extern fn isDefaultNamespace<TH: TypeHolderTrait>
 }
 
 const isDefaultNamespace_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const isDefaultNamespace_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn isDefaultNamespace_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: isDefaultNamespace::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Node as u16,
@@ -1523,7 +1523,7 @@ const isDefaultNamespace_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo
       ),
   },
     argTypes: &isDefaultNamespace_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn insertBefore<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: *const JSJitMethodCallArgs) -> bool {

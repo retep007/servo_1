@@ -27,7 +27,8 @@ impl<TH: TypeHolderTrait> VRDisplayCapabilities<TH> {
     fn new_inherited(capabilities: WebVRDisplayCapabilities) -> VRDisplayCapabilities<TH> {
         VRDisplayCapabilities {
             reflector_: Reflector::new(),
-            capabilities: DomRefCell::new(capabilities)
+            capabilities: DomRefCell::new(capabilities),
+            _p: Default::default(),
         }
     }
 

@@ -92,7 +92,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             }
         }
 
-        Self::new(window, root, Box::new(NoFilter))
+        Self::new(window, root, Box::new(NoFilter(Default::default())))
     }
 
     #[allow(unrooted_must_root)]
@@ -141,7 +141,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
                     true
                 }
             }
-            return HTMLCollection::create(window, root, Box::new(AllFilter));
+            return HTMLCollection::create(window, root, Box::new(AllFilter(Default::default())));
         }
 
         #[derive(JSTraceable, MallocSizeOf)]
@@ -163,6 +163,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         let filter = HtmlDocumentFilter {
             ascii_lower_qualified_name: qualified_name.to_ascii_lowercase(),
             qualified_name: qualified_name,
+            _p: Default::default(),
         };
         HTMLCollection::create(window, root, Box::new(filter))
     }
@@ -197,7 +198,8 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             }
         }
         let filter = TagNameNSFilter {
-            qname: qname
+            qname: qname,
+            _p: Default::default(),
         };
         HTMLCollection::create(window, root, Box::new(filter))
     }
@@ -224,7 +226,8 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
             }
         }
         let filter = ClassNameFilter {
-            classes: classes
+            classes: classes,
+            _p: Default::default(),
         };
         HTMLCollection::create(window, root, Box::new(filter))
     }
@@ -237,7 +240,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
                 root.is_parent_of(elem.upcast())
             }
         }
-        HTMLCollection::create(window, root, Box::new(ElementChildFilter))
+        HTMLCollection::create(window, root, Box::new(ElementChildFilter(Default::default())))
     }
 
     pub fn elements_iter_after<'a>(&'a self, after: &'a Node<TH>) -> impl Iterator<Item=DomRoot<Element<TH>>> + 'a {

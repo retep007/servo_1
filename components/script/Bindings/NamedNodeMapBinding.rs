@@ -565,7 +565,7 @@ unsafe extern fn item<TH: TypeHolderTrait>
 }
 
 const item_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Double as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const item_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn item_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: item::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::NamedNodeMap as u16,
@@ -584,7 +584,7 @@ const item_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &item_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn getNamedItem<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -615,7 +615,7 @@ unsafe extern fn getNamedItem<TH: TypeHolderTrait>
 }
 
 const getNamedItem_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getNamedItem_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getNamedItem_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getNamedItem::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::NamedNodeMap as u16,
@@ -634,7 +634,7 @@ const getNamedItem_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &getNamedItem_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn getNamedItemNS<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -675,7 +675,7 @@ unsafe extern fn getNamedItemNS<TH: TypeHolderTrait>
 }
 
 const getNamedItemNS_methodinfo_argTypes: [i32; 3] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getNamedItemNS_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getNamedItemNS_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getNamedItemNS::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::NamedNodeMap as u16,
@@ -694,7 +694,7 @@ const getNamedItemNS_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &getNamedItemNS_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn setNamedItem<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {

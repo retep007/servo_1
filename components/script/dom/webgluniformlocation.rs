@@ -28,6 +28,7 @@ impl<TH: TypeHolderTrait> WebGLUniformLocation<TH> {
             reflector_: Reflector::new(),
             id: id,
             program_id: program_id,
+            _p: Default::default(),
         }
     }
 

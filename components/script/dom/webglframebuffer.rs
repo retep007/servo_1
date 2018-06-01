@@ -340,7 +340,7 @@ impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
         }
     }
 
-    fn with_matching_textures<F>(&self, texture: &WebGLProgram<TH>, mut closure: F)
+    fn with_matching_textures<F>(&self, texture: &WebGLTexture<TH>, mut closure: F)
         where F: FnMut(&DomRefCell<Option<WebGLFramebufferAttachment<TH>>>)
     {
         let attachments = [&self.color,

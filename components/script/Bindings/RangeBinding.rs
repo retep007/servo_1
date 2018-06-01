@@ -1279,7 +1279,7 @@ unsafe extern fn compareBoundaryPoints<TH: TypeHolderTrait>
 }
 
 const compareBoundaryPoints_methodinfo_argTypes: [i32; 3] = [ JSJitInfo_ArgType::Integer as i32, JSJitInfo_ArgType::Object as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const compareBoundaryPoints_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn compareBoundaryPoints_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: compareBoundaryPoints::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Range as u16,
@@ -1298,7 +1298,7 @@ const compareBoundaryPoints_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitI
       ),
   },
     argTypes: &compareBoundaryPoints_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn deleteContents<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Range<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1601,7 +1601,7 @@ unsafe extern fn detach<TH: TypeHolderTrait>
 }
 
 const detach_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const detach_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn detach_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: detach::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Range as u16,
@@ -1620,7 +1620,7 @@ const detach_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &detach_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn isPointInRange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Range<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1673,7 +1673,7 @@ unsafe extern fn isPointInRange<TH: TypeHolderTrait>
 }
 
 const isPointInRange_methodinfo_argTypes: [i32; 3] = [ JSJitInfo_ArgType::Object as i32, JSJitInfo_ArgType::Double as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const isPointInRange_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn isPointInRange_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: isPointInRange::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Range as u16,
@@ -1692,7 +1692,7 @@ const isPointInRange_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &isPointInRange_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn comparePoint<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Range<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1745,7 +1745,7 @@ unsafe extern fn comparePoint<TH: TypeHolderTrait>
 }
 
 const comparePoint_methodinfo_argTypes: [i32; 3] = [ JSJitInfo_ArgType::Object as i32, JSJitInfo_ArgType::Double as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const comparePoint_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn comparePoint_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: comparePoint::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Range as u16,
@@ -1764,7 +1764,7 @@ const comparePoint_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &comparePoint_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn intersectsNode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Range<TH>, args: *const JSJitMethodCallArgs) -> bool {

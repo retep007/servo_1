@@ -558,6 +558,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::CSSRule, PrototypeList::ID::CSSGroupingRule, PrototypeList::ID::CSSConditionRule, PrototypeList::ID::CSSSupportsRule, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { cssrule: (::dom::bindings::codegen::InheritTypes::CSSRuleTypeId::CSSGroupingRule(::dom::bindings::codegen::InheritTypes::CSSGroupingRuleTypeId::CSSConditionRule(::dom::bindings::codegen::InheritTypes::CSSConditionRuleTypeId::CSSSupportsRule))) },
     global: InterfaceObjectMap::Globals::EMPTY,
+	malloc_size_of: malloc_size_of_including_raw_self::<CSSSupportsRule<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

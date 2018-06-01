@@ -27,6 +27,7 @@ impl<TH: TypeHolderTrait> TextEncoder<TH> {
     fn new_inherited() -> TextEncoder<TH> {
         TextEncoder {
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 

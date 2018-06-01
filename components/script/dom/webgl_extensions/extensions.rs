@@ -116,7 +116,7 @@ impl<TH: TypeHolderTrait> WebGLExtensions<TH> {
 
     pub fn register<T:'static + WebGLExtension<TH> + JSTraceable + MallocSizeOf>(&self) {
         let name = T::name().to_uppercase();
-        self.extensions.borrow_mut().insert(name, Box::new(TypedWebGLExtensionWrapper::<T>::new()));
+        self.extensions.borrow_mut().insert(name, Box::new(TypedWebGLExtensionWrapper::<T, TH>::new()));
     }
 
     pub fn get_suported_extensions(&self) -> Vec<&'static str> {
@@ -158,7 +158,7 @@ impl<TH: TypeHolderTrait> WebGLExtensions<TH> {
     {
         let name = T::name().to_uppercase();
         self.extensions.borrow().get(&name).and_then(|extension| {
-            extension.as_any().downcast_ref::<TypedWebGLExtensionWrapper<T>>().and_then(|extension| {
+            extension.as_any().downcast_ref::<TypedWebGLExtensionWrapper<T, TH>>().and_then(|extension| {
                 extension.dom_object()
             })
         })
@@ -238,12 +238,12 @@ impl<TH: TypeHolderTrait> WebGLExtensions<TH> {
     }
 
     fn register_all_extensions(&self) {
-        self.register::<ext::oesstandardderivatives::OESStandardDerivatives>();
-        self.register::<ext::oestexturefloat::OESTextureFloat>();
-        self.register::<ext::oestexturefloatlinear::OESTextureFloatLinear>();
-        self.register::<ext::oestexturehalffloat::OESTextureHalfFloat>();
-        self.register::<ext::oestexturehalffloatlinear::OESTextureHalfFloatLinear>();
-        self.register::<ext::oesvertexarrayobject::OESVertexArrayObject>();
+        self.register::<ext::oesstandardderivatives::OESStandardDerivatives::<TH>>();
+        self.register::<ext::oestexturefloat::OESTextureFloat::<TH>>();
+        self.register::<ext::oestexturefloatlinear::OESTextureFloatLinear::<TH>>();
+        self.register::<ext::oestexturehalffloat::OESTextureHalfFloat::<TH>>();
+        self.register::<ext::oestexturehalffloatlinear::OESTextureHalfFloatLinear::<TH>>();
+        self.register::<ext::oesvertexarrayobject::OESVertexArrayObject::<TH>>();
     }
 
     pub fn enable_element_index_uint(&self) {

@@ -22,7 +22,8 @@ pub struct MimeTypeArray<TH: TypeHolderTrait + 'static> {
 impl<TH: TypeHolderTrait> MimeTypeArray<TH> {
     pub fn new_inherited() -> MimeTypeArray<TH> {
         MimeTypeArray {
-            reflector_: Reflector::new()
+            reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 

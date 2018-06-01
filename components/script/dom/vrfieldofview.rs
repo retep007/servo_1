@@ -28,7 +28,8 @@ impl<TH: TypeHolderTrait> VRFieldOfView<TH> {
     fn new_inherited(fov: WebVRFieldOfView) -> VRFieldOfView<TH> {
         VRFieldOfView {
             reflector_: Reflector::new(),
-            fov: DomRefCell::new(fov)
+            fov: DomRefCell::new(fov),
+            _p: Default::default(),
         }
     }
 

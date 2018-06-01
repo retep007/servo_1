@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> HTMLFieldSetElementMethods<TH> for HTMLFieldSetElement
                     .map_or(false, HTMLElement::is_listed_element)
             }
         }
-        let filter = Box::new(ElementsFilter);
+        let filter = Box::new(ElementsFilter(Default::default()));
         let window = window_from_node(self);
         HTMLCollection::create(&window, self.upcast(), filter)
     }

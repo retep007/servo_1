@@ -44,6 +44,7 @@ impl<TH: TypeHolderTrait> Headers<TH> {
             reflector_: Reflector::new(),
             guard: Cell::new(Guard::None),
             header_list: DomRefCell::new(HyperHeaders::new()),
+            _p: Default::default(),
         }
     }
 

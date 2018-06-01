@@ -964,6 +964,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::DOMPointReadOnly, PrototypeList::ID::DOMPoint, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { dompointreadonly: (::dom::bindings::codegen::InheritTypes::DOMPointReadOnlyTypeId::DOMPoint) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<DOMPoint<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

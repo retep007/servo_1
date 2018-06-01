@@ -981,7 +981,7 @@ impl<TH: TypeHolderTrait> PartialEq for BoundaryPoint<TH> {
 fn bp_position<TH: TypeHolderTrait>(a_node: &Node<TH>, a_offset: u32,
                b_node: &Node<TH>, b_offset: u32)
                -> Option<Ordering> {
-    if a_node as *const Node == b_node as *const Node {
+    if a_node as *const Node<TH> == b_node as *const Node<TH> {
         // Step 1.
         return Some(a_offset.cmp(&b_offset));
     }

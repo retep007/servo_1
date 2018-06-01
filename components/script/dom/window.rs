@@ -202,7 +202,7 @@ pub struct Window<TH: TypeHolderTrait + 'static> {
     parent_info: Option<PipelineId>,
 
     /// Global static data related to the DOM.
-    dom_static: GlobalStaticData,
+    dom_static: GlobalStaticData<TH>,
 
     /// The JavaScript runtime.
     #[ignore_malloc_size_of = "Rc<T> is hard"]

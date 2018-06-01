@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> HTMLDataListElementMethods<TH> for HTMLDataListElement
                 elem.is::<HTMLOptionElement<THH>>()
             }
         }
-        let filter = Box::new(HTMLDataListOptionsFilter);
+        let filter = Box::new(HTMLDataListOptionsFilter(Default::default()));
         let window = window_from_node(self);
         HTMLCollection::create(&window, self.upcast(), filter)
     }

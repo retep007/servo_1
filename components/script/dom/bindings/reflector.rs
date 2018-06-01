@@ -72,6 +72,7 @@ impl<TH: TypeHolderTrait> Reflector<TH> {
     pub fn new() -> Reflector<TH> {
         Reflector {
             object: Heap::default(),
+            _p: Default::default(),
         }
     }
 }

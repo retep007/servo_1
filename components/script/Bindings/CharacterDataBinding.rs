@@ -654,7 +654,7 @@ unsafe extern fn substringData<TH: TypeHolderTrait>
 }
 
 const substringData_methodinfo_argTypes: [i32; 3] = [ JSJitInfo_ArgType::Double as i32, JSJitInfo_ArgType::Double as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const substringData_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn substringData_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: substringData::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::CharacterData as u16,
@@ -673,7 +673,7 @@ const substringData_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &substringData_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn appendData<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CharacterData<TH>, args: *const JSJitMethodCallArgs) -> bool {

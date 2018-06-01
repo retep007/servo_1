@@ -184,11 +184,12 @@ impl<TH: TypeHolderTrait> ErrorInfo<TH> {
             message: message,
             lineno: lineno,
             column: column,
+            _p: Default::default(),
         })
     }
 
     fn from_dom_exception(object: HandleObject) -> Option<ErrorInfo<TH>> {
-        let exception = match root_from_object::<DOMException<TH>>(object.get()) {
+        let exception = match root_from_object::<DOMException<TH>, TH>(object.get()) {
             Ok(exception) => exception,
             Err(_) => return None,
         };
@@ -198,6 +199,7 @@ impl<TH: TypeHolderTrait> ErrorInfo<TH> {
             message: exception.Stringifier().into(),
             lineno: 0,
             column: 0,
+            _p: Default::default(),
         })
     }
 }
@@ -227,6 +229,7 @@ pub unsafe fn report_pending_exception(cx: *mut JSContext, dispatch_event: bool)
                     filename: String::new(),
                     lineno: 0,
                     column: 0,
+                    _p: Default::default(),
                 }
             })
     } else {
@@ -237,6 +240,7 @@ pub unsafe fn report_pending_exception(cx: *mut JSContext, dispatch_event: bool)
                     filename: String::new(),
                     lineno: 0,
                     column: 0,
+                    _p: Default::default(),
                 }
             },
             _ => {

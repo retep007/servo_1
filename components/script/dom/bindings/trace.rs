@@ -884,6 +884,7 @@ impl<'a, T: 'static + JSTraceable, TH: TypeHolderTrait> RootedVec<'a, T, TH> {
         }
         RootedVec {
             root: root,
+            _p: Default::default(),
         }
     }
 }
@@ -900,6 +901,7 @@ impl<'a, T: 'static + JSTraceable + DomObject, TH: TypeHolderTrait> RootedVec<'a
         root.v.extend(iter.map(|item| Dom::from_ref(&*item)));
         RootedVec {
             root: root,
+            _p: Default::default(),
         }
     }
 }

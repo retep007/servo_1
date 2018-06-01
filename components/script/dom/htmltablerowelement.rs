@@ -79,7 +79,7 @@ impl<TH: TypeHolderTrait> HTMLTableRowElementMethods<TH> for HTMLTableRowElement
     fn Cells(&self) -> DomRoot<HTMLCollection<TH>> {
         self.cells.or_init(|| {
             let window = window_from_node(self);
-            let filter = Box::new(CellsFilter);
+            let filter = Box::new(CellsFilter(Default::default()));
             HTMLCollection::create(&window, self.upcast(), filter)
         })
     }

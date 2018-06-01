@@ -50,7 +50,7 @@ pub enum FetchedData<TH: TypeHolderTrait + 'static> {
 
 // https://fetch.spec.whatwg.org/#concept-body-consume-body
 #[allow(unrooted_must_root)]
-pub fn consume_body<T: BodyOperations<TH> + DomObject, TH: TypeHolderTrait>(object: &T, body_type: BodyType) -> Rc<Promise<TH>> {
+pub fn consume_body<T: BodyOperations<<T as DomObject>::TypeHolder> + DomObject>(object: &T, body_type: BodyType) -> Rc<Promise<T::TypeHolder>> {
     let promise = Promise::new(&object.global());
 
     // Step 1
@@ -73,9 +73,9 @@ pub fn consume_body<T: BodyOperations<TH> + DomObject, TH: TypeHolderTrait>(obje
 
 // https://fetch.spec.whatwg.org/#concept-body-consume-body
 #[allow(unrooted_must_root)]
-pub fn consume_body_with_promise<T: BodyOperations<TH> + DomObject, TH: TypeHolderTrait>(object: &T,
+pub fn consume_body_with_promise<T: BodyOperations<<T as DomObject>::TypeHolder> + DomObject>(object: &T,
                                                                 body_type: BodyType,
-                                                                promise: &Promise<TH>) {
+                                                                promise: &Promise<T::TypeHolder>) {
     // Step 5
     let body = match object.take_body() {
         Some(body) => body,
@@ -104,11 +104,11 @@ pub fn consume_body_with_promise<T: BodyOperations<TH> + DomObject, TH: TypeHold
 
 // https://fetch.spec.whatwg.org/#concept-body-package-data
 #[allow(unsafe_code)]
-fn run_package_data_algorithm<T: BodyOperations<TH> + DomObject, TH: TypeHolderTrait>(object: &T,
+fn run_package_data_algorithm<T: BodyOperations<<T as DomObject>::TypeHolder> + DomObject>(object: &T,
                                                              bytes: Vec<u8>,
                                                              body_type: BodyType,
                                                              mime_type: Ref<Vec<u8>>)
-                                                             -> Fallible<FetchedData<TH>, TH> {
+                                                             -> Fallible<FetchedData<T::TypeHolder>, T::TypeHolder> {
     let global = object.global();
     let cx = global.get_cx();
     let mime = &*mime_type;

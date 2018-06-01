@@ -35,6 +35,7 @@ impl<TH: TypeHolderTrait> PromiseNativeHandler<TH> {
             reflector: Reflector::new(),
             resolve: resolve,
             reject: reject,
+            _p: Default::default(),
         }), global, PromiseNativeHandlerBinding::Wrap)
     }
 

@@ -46,6 +46,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
             reflector_: Reflector::new(),
             matrix: DomRefCell::new(matrix),
             is2D: Cell::new(is2D),
+            _p: Default::default(),
         }
     }
 

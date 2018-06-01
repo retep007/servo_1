@@ -99,6 +99,7 @@ impl<TH: TypeHolderTrait> ImageData<TH> {
             width: width,
             height: height,
             data: Heap::default(),
+            _p: Default::default(),
         });
 
         if let Some(jsobject) = opt_jsobject {

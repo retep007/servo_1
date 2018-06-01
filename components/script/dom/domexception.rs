@@ -51,6 +51,7 @@ impl<TH: TypeHolderTrait> DOMException<TH> {
         DOMException {
             reflector_: Reflector::new(),
             code: code,
+            _p: Default::default(),
         }
     }
 

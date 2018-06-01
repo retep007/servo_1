@@ -45,6 +45,7 @@ impl<TH: TypeHolderTrait> CanvasPattern<TH> {
             repeat_x: x,
             repeat_y: y,
             origin_clean: origin_clean,
+            _p: Default::default(),
         }
     }
     pub fn new(global: &GlobalScope<TH>,

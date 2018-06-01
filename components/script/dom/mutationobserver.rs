@@ -232,7 +232,7 @@ impl<TH: TypeHolderTrait> MutationObserverMethods<TH> for MutationObserver<TH> {
         let add_new_observer = {
             let mut replaced = false;
             for registered in &mut *target.registered_mutation_observers() {
-                if &*registered.observer as *const MutationObserver != self as *const MutationObserver {
+                if &*registered.observer as *const MutationObserver<TH> != self as *const MutationObserver<TH> {
                     continue;
                 }
                 // TODO: remove matching transient registered observers

@@ -872,7 +872,7 @@ unsafe extern fn hasAttributes<TH: TypeHolderTrait>
 }
 
 const hasAttributes_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const hasAttributes_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn hasAttributes_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: hasAttributes::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -891,7 +891,7 @@ const hasAttributes_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &hasAttributes_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn get_attributes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -937,7 +937,7 @@ unsafe extern fn getAttributeNames<TH: TypeHolderTrait>
 }
 
 const getAttributeNames_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getAttributeNames_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getAttributeNames_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getAttributeNames::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -956,7 +956,7 @@ const getAttributeNames_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo 
       ),
   },
     argTypes: &getAttributeNames_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn getAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -987,7 +987,7 @@ unsafe extern fn getAttribute<TH: TypeHolderTrait>
 }
 
 const getAttribute_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getAttribute_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getAttribute_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getAttribute::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -1006,7 +1006,7 @@ const getAttribute_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &getAttribute_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn getAttributeNS<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1047,7 +1047,7 @@ unsafe extern fn getAttributeNS<TH: TypeHolderTrait>
 }
 
 const getAttributeNS_methodinfo_argTypes: [i32; 3] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getAttributeNS_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getAttributeNS_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getAttributeNS::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -1066,7 +1066,7 @@ const getAttributeNS_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &getAttributeNS_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn setAttribute<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1459,7 +1459,7 @@ unsafe extern fn getAttributeNode<TH: TypeHolderTrait>
 }
 
 const getAttributeNode_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getAttributeNode_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getAttributeNode_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getAttributeNode::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -1478,7 +1478,7 @@ const getAttributeNode_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &getAttributeNode_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn getAttributeNodeNS<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1519,7 +1519,7 @@ unsafe extern fn getAttributeNodeNS<TH: TypeHolderTrait>
 }
 
 const getAttributeNodeNS_methodinfo_argTypes: [i32; 3] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getAttributeNodeNS_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getAttributeNodeNS_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getAttributeNodeNS::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -1538,7 +1538,7 @@ const getAttributeNodeNS_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo
       ),
   },
     argTypes: &getAttributeNodeNS_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn setAttributeNode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1765,7 +1765,7 @@ unsafe extern fn closest<TH: TypeHolderTrait>
 }
 
 const closest_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const closest_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn closest_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: closest::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -1784,7 +1784,7 @@ const closest_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &closest_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn matches<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1822,7 +1822,7 @@ unsafe extern fn matches<TH: TypeHolderTrait>
 }
 
 const matches_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const matches_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn matches_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: matches::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -1841,7 +1841,7 @@ const matches_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &matches_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn webkitMatchesSelector<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -1879,7 +1879,7 @@ unsafe extern fn webkitMatchesSelector<TH: TypeHolderTrait>
 }
 
 const webkitMatchesSelector_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const webkitMatchesSelector_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn webkitMatchesSelector_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: webkitMatchesSelector::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -1898,7 +1898,7 @@ const webkitMatchesSelector_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitI
       ),
   },
     argTypes: &webkitMatchesSelector_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn getElementsByTagName<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3784,7 +3784,7 @@ unsafe extern fn querySelector<TH: TypeHolderTrait>
 }
 
 const querySelector_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const querySelector_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn querySelector_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: querySelector::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Element as u16,
@@ -3803,7 +3803,7 @@ const querySelector_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &querySelector_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn querySelectorAll<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -3910,6 +3910,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::EventTarget, PrototypeList::ID::Node, PrototypeList::ID::Element, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { eventtarget: (::dom::bindings::codegen::InheritTypes::EventTargetTypeId::Node(::dom::bindings::codegen::InheritTypes::NodeTypeId::Element(::dom::bindings::codegen::InheritTypes::ElementTypeId::Element))) },
     global: InterfaceObjectMap::Globals::EMPTY,
+   	malloc_size_of: malloc_size_of_including_raw_self::<Element<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

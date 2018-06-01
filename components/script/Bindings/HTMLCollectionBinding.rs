@@ -567,7 +567,7 @@ unsafe extern fn item<TH: TypeHolderTrait>
 }
 
 const item_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Double as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const item_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn item_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: item::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::HTMLCollection as u16,
@@ -586,7 +586,7 @@ const item_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &item_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn namedItem<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLCollection<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -617,7 +617,7 @@ unsafe extern fn namedItem<TH: TypeHolderTrait>
 }
 
 const namedItem_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const namedItem_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn namedItem_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: namedItem::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::HTMLCollection as u16,
@@ -636,7 +636,7 @@ const namedItem_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &namedItem_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {

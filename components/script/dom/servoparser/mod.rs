@@ -285,7 +285,7 @@ impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
             Err(_) => None,
         };
         let content_type = metadata.clone().and_then(|meta| meta.content_type).map(Serde::into_inner);
-        let parser = match ScriptThread::page_headers_available(&self.id, metadata) {
+        let parser: DomRoot<TH::ServoParser> = match ScriptThread::page_headers_available(&self.id, metadata) {
             Some(parser) => parser,
             None => return,
         };

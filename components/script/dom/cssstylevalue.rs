@@ -28,6 +28,7 @@ impl<TH: TypeHolderTrait> CSSStyleValue<TH> {
         CSSStyleValue {
             reflector: Reflector::new(),
             value: value,
+            _p: Default::default(),
         }
     }
 

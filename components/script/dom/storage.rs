@@ -35,7 +35,8 @@ impl<TH: TypeHolderTrait> Storage<TH> {
     fn new_inherited(storage_type: StorageType) -> Storage<TH> {
         Storage {
             reflector_: Reflector::new(),
-            storage_type: storage_type
+            storage_type: storage_type,
+            _p: Default::default(),
         }
     }
 

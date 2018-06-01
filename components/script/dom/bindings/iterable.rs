@@ -59,24 +59,25 @@ pub struct IterableIterator<T: DomObject + JSTraceable + Iterable, TH: TypeHolde
     _p: PhantomData<TH>,
 }
 
-impl<T: DomObject + JSTraceable + Iterable, TH: TypeHolderTrait> IterableIterator<T, TH> {
+impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T, T::TypeHolder> {
     /// Create a new iterator instance for the provided iterable DOM interface.
     pub fn new(iterable: &T,
                type_: IteratorType,
-               wrap: unsafe fn(*mut JSContext, &GlobalScope<TH>, Box<IterableIterator<T, TH>>)
+               wrap: unsafe fn(*mut JSContext, &GlobalScope<T::TypeHolder>, Box<IterableIterator<T, T::TypeHolder>>)
                      -> DomRoot<Self>) -> DomRoot<Self> {
         let iterator = Box::new(IterableIterator {
             reflector: Reflector::new(),
             type_: type_,
             iterable: Dom::from_ref(iterable),
             index: Cell::new(0),
+            _p: Default::default(),
         });
-        reflect_dom_object(iterator, &*iterable.global(), wrap)
+        reflect_dom_object::<Self, GlobalScope<T::TypeHolder>,T::TypeHolder>(iterator, &*iterable.global(), wrap)
     }
 
     /// Return the next value from the iterable object.
     #[allow(non_snake_case)]
-    pub fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>, TH> {
+    pub fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>, T::TypeHolder> {
         let index = self.index.get();
         rooted!(in(cx) let mut value = UndefinedValue());
         rooted!(in(cx) let mut rval = ptr::null_mut::<JSObject>());

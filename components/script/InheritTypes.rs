@@ -1135,6 +1135,8 @@ impl<TH: TypeHolderTrait> DerivedFrom<UIEvent<TH>> for MouseEvent<TH> {}
 impl<TH: TypeHolderTrait> Castable for Node<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Node<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for Node<TH> {}
+//TODO: Maybe not needed??
+impl<TH: TypeHolderTrait> DerivedFrom<TH> for Node<TH> {}
 
 impl<TH: TypeHolderTrait> Castable for NodeList<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<NodeList<TH>> for NodeList<TH> {}

@@ -27,6 +27,7 @@ impl<TH: TypeHolderTrait> TestBindingIterable<TH> {
         reflect_dom_object(Box::new(TestBindingIterable {
             reflector: Reflector::new(),
             vals: DomRefCell::new(vec![]),
+            _p: Default::default(),
         }), global, TestBindingIterableBinding::Wrap)
     }
 

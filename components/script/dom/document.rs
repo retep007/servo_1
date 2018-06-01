@@ -907,7 +907,7 @@ impl<TH: TypeHolderTrait> Document<TH> {
     }
 
     fn get_anchor_by_name(&self, name: &str) -> Option<DomRoot<Element<TH>>> {
-        let check_anchor = |node: &HTMLAnchorElement| {
+        let check_anchor = |node: &HTMLAnchorElement<TH>| {
             let elem = node.upcast::<Element<TH>>();
             elem.get_attribute(&ns!(), &local_name!("name"))
                 .map_or(false, |attr| &**attr.value() == name)
@@ -2024,11 +2024,11 @@ impl<TH: TypeHolderTrait> Document<TH> {
         self.send_to_constellation(ScriptMsg::LoadComplete);
     }
 
-    pub fn set_current_parser<SP: ServoParser<TH, TypeHolder=TH>>(&self, script: Option<&SP>) {
+    pub fn set_current_parser(&self, script: Option<&TH::ServoParser>) {
         self.current_parser.set(script);
     }
 
-    pub fn get_current_parser<SP: ServoParser<TH, TypeHolder=TH>>(&self) -> Option<DomRoot<SP>> {
+    pub fn get_current_parser(&self) -> Option<DomRoot<TH::ServoParser>> {
         self.current_parser.get()
     }
 
@@ -3492,7 +3492,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-document-images
     fn Images(&self) -> DomRoot<HTMLCollection<TH>> {
         self.images.or_init(|| {
-            let filter = Box::new(ImagesFilter);
+            let filter = Box::new(ImagesFilter(Default::default()));
             HTMLCollection::create(&self.window, self.upcast(), filter)
         })
     }
@@ -3500,7 +3500,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-document-embeds
     fn Embeds(&self) -> DomRoot<HTMLCollection<TH>> {
         self.embeds.or_init(|| {
-            let filter = Box::new(EmbedsFilter);
+            let filter = Box::new(EmbedsFilter(Default::default()));
             HTMLCollection::create(&self.window, self.upcast(), filter)
         })
     }
@@ -3513,7 +3513,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-document-links
     fn Links(&self) -> DomRoot<HTMLCollection<TH>> {
         self.links.or_init(|| {
-            let filter = Box::new(LinksFilter);
+            let filter = Box::new(LinksFilter(Default::default()));
             HTMLCollection::create(&self.window, self.upcast(), filter)
         })
     }
@@ -3521,7 +3521,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-document-forms
     fn Forms(&self) -> DomRoot<HTMLCollection<TH>> {
         self.forms.or_init(|| {
-            let filter = Box::new(FormsFilter);
+            let filter = Box::new(FormsFilter(Default::default()));
             HTMLCollection::create(&self.window, self.upcast(), filter)
         })
     }
@@ -3529,7 +3529,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-document-scripts
     fn Scripts(&self) -> DomRoot<HTMLCollection<TH>> {
         self.scripts.or_init(|| {
-            let filter = Box::new(ScriptsFilter);
+            let filter = Box::new(ScriptsFilter(Default::default()));
             HTMLCollection::create(&self.window, self.upcast(), filter)
         })
     }
@@ -3537,7 +3537,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-document-anchors
     fn Anchors(&self) -> DomRoot<HTMLCollection<TH>> {
         self.anchors.or_init(|| {
-            let filter = Box::new(AnchorsFilter);
+            let filter = Box::new(AnchorsFilter(Default::default()));
             HTMLCollection::create(&self.window, self.upcast(), filter)
         })
     }
@@ -3745,6 +3745,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
         // Step 4.
         let filter = NamedElementFilter {
             name: name,
+            _p: Default::default(),
         };
         let collection = HTMLCollection::create(self.window(), root, Box::new(filter));
         Some(NonNull::new_unchecked(collection.reflector().get_jsobject().get()))

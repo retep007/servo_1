@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> HTMLLIElementMethods for HTMLLIElement<TH> {
 
 impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLIElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
-        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods)
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
     fn parse_plain_attribute(&self, name: &LocalName, value: DOMString) -> AttrValue {

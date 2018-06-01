@@ -136,7 +136,7 @@ impl<TH: TypeHolderTrait> HTMLOptionsCollectionMethods<TH> for HTMLOptionsCollec
     fn Add(&self, element: HTMLOptionElementOrHTMLOptGroupElement<TH>, before: Option<HTMLElementOrLong<TH>>) -> ErrorResult<TH> {
         let root = self.upcast().root_node();
 
-        let node: &Node = match element {
+        let node: &Node<TH> = match element {
             HTMLOptionElementOrHTMLOptGroupElement::HTMLOptionElement(ref element) => element.upcast(),
             HTMLOptionElementOrHTMLOptGroupElement::HTMLOptGroupElement(ref element) => element.upcast(),
         };

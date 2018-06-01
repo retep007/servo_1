@@ -800,6 +800,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::Event, PrototypeList::ID::CloseEvent, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { event: (::dom::bindings::codegen::InheritTypes::EventTypeId::CloseEvent) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<CloseEvent<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 
@@ -984,12 +985,13 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() ->  NonCallbackInterfaceObjectClass {
     NonCallbackInterfaceObjectClass::new(
         &InterfaceConstructorBehavior::call(_constructor),
         b"function CloseEvent() {\n    [native code]\n}",
         PrototypeList::ID::CloseEvent,
-        1);
+        1)
+}
 
 pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
 (cx: *mut JSContext, global: HandleObject) {
@@ -1040,7 +1042,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
     create_noncallback_interface_object(cx,
                                         global.into(),
                                         interface_proto.handle(),
-                                        &INTERFACE_OBJECT_CLASS,
+                                        &INTERFACE_OBJECT_CLASS::<TH>(),
                                         &[],
                                         &[],
                                         &[],

@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for RowsFilter<TH> {
 impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods<TH> for HTMLTableSectionElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tbody-rows
     fn Rows(&self) -> DomRoot<HTMLCollection<TH>> {
-        HTMLCollection::create(&window_from_node(self), self.upcast(), Box::new(RowsFilter))
+        HTMLCollection::create(&window_from_node(self), self.upcast(), Box::new(RowsFilter(Default::default())))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tbody-insertrow

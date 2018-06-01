@@ -30,6 +30,7 @@ impl<TH: TypeHolderTrait> WebGLShaderPrecisionFormat<TH> {
             range_min: range_min,
             range_max: range_max,
             precision: precision,
+            _p: Default::default(),
         }
     }
 

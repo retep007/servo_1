@@ -30,6 +30,7 @@ impl<TH: TypeHolderTrait> WebGLActiveInfo<TH> {
             size: size,
             ty: ty,
             name: name,
+            _p: Default::default(),
         }
     }
 

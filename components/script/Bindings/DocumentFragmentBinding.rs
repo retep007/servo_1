@@ -541,7 +541,7 @@ unsafe extern fn getElementById<TH: TypeHolderTrait>
 }
 
 const getElementById_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getElementById_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getElementById_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getElementById::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::DocumentFragment as u16,
@@ -560,7 +560,7 @@ const getElementById_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &getElementById_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn get_children<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DocumentFragment<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -838,7 +838,7 @@ unsafe extern fn querySelector<TH: TypeHolderTrait>
 }
 
 const querySelector_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const querySelector_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn querySelector_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: querySelector::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::DocumentFragment as u16,
@@ -857,7 +857,7 @@ const querySelector_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &querySelector_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn querySelectorAll<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DocumentFragment<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -964,6 +964,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::EventTarget, PrototypeList::ID::Node, PrototypeList::ID::DocumentFragment, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { eventtarget: (::dom::bindings::codegen::InheritTypes::EventTargetTypeId::Node(::dom::bindings::codegen::InheritTypes::NodeTypeId::DocumentFragment)) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<DocumentFragment<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

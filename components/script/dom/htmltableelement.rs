@@ -266,7 +266,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
 
         self.tbodies.or_init(|| {
             let window = window_from_node(self);
-            let filter = Box::new(TBodiesFilter);
+            let filter = Box::new(TBodiesFilter(Default::default()));
             HTMLCollection::create(&window, self.upcast(), filter)
         })
     }

@@ -816,7 +816,7 @@ unsafe extern fn entries<TH: TypeHolderTrait>
 }
 
 const entries_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const entries_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn entries_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: entries::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Headers as u16,
@@ -835,7 +835,7 @@ const entries_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &entries_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn keys<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Headers<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -854,7 +854,7 @@ unsafe extern fn keys<TH: TypeHolderTrait>
 }
 
 const keys_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const keys_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn keys_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: keys::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Headers as u16,
@@ -873,7 +873,7 @@ const keys_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &keys_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn values<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Headers<TH>, args: *const JSJitMethodCallArgs) -> bool {
@@ -892,7 +892,7 @@ unsafe extern fn values<TH: TypeHolderTrait>
 }
 
 const values_methodinfo_argTypes: [i32; 1] = [ JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const values_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn values_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: values::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Headers as u16,
@@ -911,7 +911,7 @@ const values_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &values_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn forEach<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Headers<TH>, args: *const JSJitMethodCallArgs) -> bool {

@@ -22,7 +22,8 @@ pub struct PluginArray<TH: TypeHolderTrait + 'static> {
 impl<TH: TypeHolderTrait> PluginArray<TH> {
     pub fn new_inherited() -> PluginArray<TH> {
         PluginArray {
-            reflector_: Reflector::new()
+            reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 

@@ -294,6 +294,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
         EventTarget {
             reflector_: Reflector::new(),
             handlers: DomRefCell::new(Default::default()),
+            _p: Default::default(),
         }
     }
 

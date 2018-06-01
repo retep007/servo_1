@@ -695,6 +695,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::Blob, PrototypeList::ID::File, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { blob: (::dom::bindings::codegen::InheritTypes::BlobTypeId::File) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<File<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 

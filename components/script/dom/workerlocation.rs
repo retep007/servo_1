@@ -27,6 +27,7 @@ impl<TH: TypeHolderTrait> WorkerLocation<TH> {
         WorkerLocation {
             reflector_: Reflector::new(),
             url: url,
+            _p: Default::default(),
         }
     }
 

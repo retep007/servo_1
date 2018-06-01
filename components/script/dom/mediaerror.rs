@@ -23,6 +23,7 @@ impl<TH: TypeHolderTrait> MediaError<TH> {
         MediaError {
             reflector_: Reflector::new(),
             code: code,
+            _p: Default::default(),
         }
     }
 

@@ -537,7 +537,7 @@ unsafe extern fn item<TH: TypeHolderTrait>
 }
 
 const item_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Double as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const item_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn item_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: item::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::NodeList as u16,
@@ -556,7 +556,7 @@ const item_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &item_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn get_length<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NodeList<TH>, args: JSJitGetterCallArgs) -> bool {

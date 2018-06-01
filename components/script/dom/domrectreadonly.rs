@@ -30,6 +30,7 @@ impl<TH: TypeHolderTrait> DOMRectReadOnly<TH> {
             width: Cell::new(width),
             height: Cell::new(height),
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 

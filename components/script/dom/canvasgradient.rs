@@ -39,6 +39,7 @@ impl<TH: TypeHolderTrait> CanvasGradient<TH> {
             reflector_: Reflector::new(),
             style: style,
             stops: DomRefCell::new(Vec::new()),
+            _p: Default::default(),
         }
     }
 

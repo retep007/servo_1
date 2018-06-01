@@ -3482,6 +3482,7 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
     interface_chain: [ PrototypeList::ID::DOMMatrixReadOnly, PrototypeList::ID::DOMMatrix, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { dommatrixreadonly: (::dom::bindings::codegen::InheritTypes::DOMMatrixReadOnlyTypeId::DOMMatrix) },
     global: InterfaceObjectMap::Globals::EMPTY,
+    malloc_size_of: malloc_size_of_including_raw_self::<DOMMatrix<TH>> as unsafe fn(&mut _, _) -> _,
 }
 }}
 
@@ -3586,25 +3587,25 @@ pub trait DOMMatrixMethods<TH: TypeHolderTrait> {
     fn SkewYSelf(&self, sy: f64) -> DomRoot<DOMMatrix<TH>>;
     fn InvertSelf(&self) -> DomRoot<DOMMatrix<TH>>;
 }
-const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
+fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"fromMatrix\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(fromMatrix), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(fromMatrix::<TH>), info: 0 as *const JSJitInfo },
         nargs: 0,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"fromFloat32Array\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(fromFloat32Array), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(fromFloat32Array::<TH>), info: 0 as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
     },
     JSFunctionSpec {
         name: b"fromFloat64Array\0" as *const u8 as *const libc::c_char,
-        call: JSNativeWrapper { op: Some(fromFloat64Array), info: 0 as *const JSJitInfo },
+        call: JSNativeWrapper { op: Some(fromFloat64Array::<TH>), info: 0 as *const JSJitInfo },
         nargs: 1,
         flags: (JSPROP_ENUMERATE) as u16,
         selfHostedName: 0 as *const libc::c_char
@@ -3617,10 +3618,10 @@ const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
         selfHostedName: 0 as *const libc::c_char
     }]
 
-];
-const sStaticMethods: &'static [Guard<&'static [JSFunctionSpec]>] = &[
-    Guard::new(Condition::Satisfied, sStaticMethods_specs[0])
-];
+]}
+fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+    Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0])
+]}
 fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
@@ -3995,7 +3996,7 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
                                         global.into(),
                                         interface_proto.handle(),
                                         &INTERFACE_OBJECT_CLASS,
-                                        sStaticMethods,
+                                        sStaticMethods::<TH>(),
                                         &[],
                                         &[],
                                         prototype.handle(),

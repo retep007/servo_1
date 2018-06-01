@@ -131,34 +131,138 @@ use typeholder::TypeHolderTrait;
 use std::marker::Copy;
 
 pub trait ScriptThreadTrait {
-    // fn box_clone(&self) -> Box<ScriptThreadTrait>;
+    // /// The documents for pipelines managed by this thread
+    // documents: DomRefCell<Documents<TH>>,
+    // /// The window proxies known by this thread
+    // /// TODO: this map grows, but never shrinks. Issue #15258.
+    // window_proxies: DomRefCell<HashMap<BrowsingContextId, Dom<WindowProxy<TH>>>>,
+    // /// A list of data pertaining to loads that have not yet received a network response
+    // incomplete_loads: DomRefCell<Vec<InProgressLoad>>,
+    // /// A vector containing parser contexts which have not yet been fully processed
+    // incomplete_parser_contexts: DomRefCell<Vec<(PipelineId, ParserContext<TH>)>>,
+    // /// A map to store service worker registrations for a given origin
+    // registration_map: DomRefCell<HashMap<ServoUrl, Dom<ServiceWorkerRegistration<TH>>>>,
+    // /// A job queue for Service Workers keyed by their scope url
+    // job_queue_map: Rc<JobQueue<TH>>,
+    // /// Image cache for this script thread.
+    // image_cache: Arc<ImageCache>,
+    fn get_image_cache(&self) -> &mut Arc<ImageCache>;
+    // /// A handle to the resource thread. This is an `Arc` to avoid running out of file descriptors if
+    // /// there are many iframes.
+    // resource_threads: ResourceThreads,
+    // /// A handle to the bluetooth thread.
+    // bluetooth_thread: IpcSender<BluetoothRequest>,
+
+    // /// The port on which the script thread receives messages (load URL, exit, etc.)
+    // port: Receiver<MainThreadScriptMsg>,
+    // /// A channel to hand out to script thread-based entities that need to be able to enqueue
+    // /// events in the event queue.
+    // chan: MainThreadScriptChan,
+
+    // dom_manipulation_task_sender: Sender<MainThreadScriptMsg>,
+
+    // user_interaction_task_sender: Sender<MainThreadScriptMsg>,
+
+    // networking_task_sender: Box<ScriptChan>,
+
+    // history_traversal_task_source: HistoryTraversalTaskSource,
+
+    // file_reading_task_sender: Box<ScriptChan>,
+
+    // performance_timeline_task_sender: Box<ScriptChan>,
+
+    // /// A channel to hand out to threads that need to respond to a message from the script thread.
+    // control_chan: IpcSender<ConstellationControlMsg>,
+
+    // /// The port on which the constellation and layout threads can communicate with the
+    // /// script thread.
+    // control_port: Receiver<ConstellationControlMsg>,
+
+    // /// For communicating load url messages to the constellation
+    // script_sender: IpcSender<(PipelineId, ScriptMsg)>,
+
+    // /// A sender for new layout threads to communicate to the constellation.
+    // layout_to_constellation_chan: IpcSender<LayoutMsg>,
+
+    // /// The port on which we receive messages from the image cache
+    // image_cache_port: Receiver<ImageCacheMsg>,
+
+    // /// The channel on which the image cache can send messages to ourself.
+    // image_cache_channel: Sender<ImageCacheMsg>,
+    // /// For providing contact with the time profiler.
+    // time_profiler_chan: time::ProfilerChan,
+
+    // /// For providing contact with the memory profiler.
+    // mem_profiler_chan: mem::ProfilerChan,
+
+    // /// For providing instructions to an optional devtools server.
+    // devtools_chan: Option<IpcSender<ScriptToDevtoolsControlMsg>>,
+    // /// For receiving commands from an optional devtools server. Will be ignored if
+    // /// no such server exists.
+    // devtools_port: Receiver<DevtoolScriptControlMsg>,
+    // devtools_sender: IpcSender<DevtoolScriptControlMsg>,
+
+    // /// The JavaScript runtime.
+    // js_runtime: Rc<Runtime>,
+
+    // /// The topmost element over the mouse.
+    // topmost_mouse_over_target: MutNullableDom<Element<TH>>,
+
+    // /// List of pipelines that have been owned and closed by this script thread.
+    // closed_pipelines: DomRefCell<HashSet<PipelineId>>,
+
+    // scheduler_chan: IpcSender<TimerSchedulerMsg>,
+    fn get_scheduler_chan(&self) -> &mut IpcSender<TimerSchedulerMsg>;
+    // timer_event_chan: Sender<TimerEvent>,
+    // timer_event_port: Receiver<TimerEvent>,
+
+    // content_process_shutdown_chan: IpcSender<()>,
+
+    // /// <https://html.spec.whatwg.org/multipage/#microtask-queue>
+    // microtask_queue: Rc<MicrotaskQueue<TH>>,
+    fn get_microtask_queue<TH: TypeHolderTrait>(&self) -> &mut Rc<MicrotaskQueue<TH>>;
+    // /// Microtask Queue for adding support for mutation observer microtasks
+    // mutation_observer_compound_microtask_queued: Cell<bool>,
+
+    // /// The unit of related similar-origin browsing contexts' list of MutationObserver objects
+    // mutation_observers: DomRefCell<Vec<Dom<MutationObserver<TH>>>>,
+
+    // /// A handle to the WebGL thread
+    // webgl_chan: Option<WebGLPipeline>,
+
+    // /// A handle to the webvr thread, if available
+    // webvr_chan: Option<IpcSender<WebVRMsg>>,
+
+    // /// The worklet thread pool
+    // worklet_thread_pool: DomRefCell<Option<Rc<WorkletThreadPool<TH>>>>,
+
+    // /// A list of pipelines containing documents that finished loading all their blocking
+    // /// resources during a turn of the event loop.
+    // docs_with_no_blocking_loads: DomRefCell<HashSet<Dom<Document<TH>>>>,
+
+    // /// A list of nodes with in-progress CSS transitions, which roots them for the duration
+    // /// of the transition.
+    // transitioning_nodes: DomRefCell<Vec<Dom<Node<TH>>>>,
+
+    // /// <https://html.spec.whatwg.org/multipage/#custom-element-reactions-stack>
+    // custom_element_reaction_stack: CustomElementReactionStack<TH>,
+    fn get_custom_element_reaction_stack<TH: TypeHolderTrait>(&self) -> &mut CustomElementReactionStack<TH>;
+    // /// The Webrender Document ID associated with this thread.
+    // webrender_document: DocumentId,
 }
 
-// impl<TH: TypeHolderTrait> ScriptThreadTrait for ScriptThread<TH> {
-//     fn box_clone(&self) -> Box<ScriptThreadTrait> {
-//         Box::new((*self).clone())
-//     }
-// }
-
-// impl Copy for Box<ScriptThreadTrait> {}
-
-// impl Clone for Box<ScriptThreadTrait> {
-//     fn clone(&self) -> Box<ScriptThreadTrait> {
-//         self.box_clone()
-//     }
-// }
 
 pub type ImageCacheMsg = (PipelineId, PendingImageResponse);
 
-thread_local!(static SCRIPT_THREAD_ROOT: RefCell<Option<Box<ScriptThreadTrait>>> = RefCell::new(None));
+// thread_local!(static SCRIPT_THREAD_ROOT: RefCell<Option<Box<ScriptThreadTrait>>> = RefCell::new(None));
 
 pub unsafe fn trace_thread(tr: *mut JSTracer) {
-    SCRIPT_THREAD_ROOT.with(|root| {
-        if let Some(script_thread) = root.get_mut() {
-            debug!("tracing fields of ScriptThread");
-            (*script_thread).trace(tr);
-        }
-    });
+    // SCRIPT_THREAD_ROOT.with(|root| {
+    //     if let Some(script_thread) = root.get_mut() {
+    //         debug!("tracing fields of ScriptThread");
+    //         (*script_thread).trace(tr);
+    //     }
+    // });
 }
 
 /// A document load that is in the process of fetching the requested resource. Contains
@@ -586,9 +690,9 @@ impl<TH: TypeHolderTrait> ScriptThreadFactory for ScriptThread<TH> {
                                                   script_port,
                                                   script_chan.clone());
 
-            SCRIPT_THREAD_ROOT.with(|root| {
-                root.set(Some(&script_thread as *const _));
-            });
+            // SCRIPT_THREAD_ROOT.with(|root| {
+            //     root.replace(Some(&script_thread as *const _));
+            // });
 
             let mut failsafe = ScriptMemoryFailsafe::new(&script_thread);
 
@@ -613,143 +717,148 @@ impl<TH: TypeHolderTrait> ScriptThreadFactory for ScriptThread<TH> {
 
 impl<TH: TypeHolderTrait> ScriptThread<TH> {
     pub unsafe fn note_newly_transitioning_nodes(nodes: Vec<UntrustedNodeAddress>) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = &*root.get().unwrap();
-            let js_runtime = script_thread.js_runtime.rt();
-            let new_nodes = nodes
-                .into_iter()
-                .map(|n| Dom::from_ref(&*from_untrusted_node_address(js_runtime, n)));
-            script_thread.transitioning_nodes.borrow_mut().extend(new_nodes);
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = &*root.get_mut().unwrap();
+        //     let js_runtime = script_thread.get_js_runtime().rt();
+        //     let new_nodes = nodes
+        //         .into_iter()
+        //         .map(|n| Dom::from_ref(&*from_untrusted_node_address(js_runtime, n)));
+        //     script_thread.get_transitioning_nodes().borrow_mut().extend(new_nodes);
+        // })
     }
 
     pub fn set_mutation_observer_compound_microtask_queued(value: bool) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            script_thread.mutation_observer_compound_microtask_queued.set(value);
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     script_thread.get_mutation_observer_compound_microtask_queued().set(value);
+        // })
     }
 
     pub fn is_mutation_observer_compound_microtask_queued() -> bool {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            return script_thread.mutation_observer_compound_microtask_queued.get();
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     return script_thread.get_mutation_observer_compound_microtask_queued().get();
+        // })
+        false
     }
 
     pub fn add_mutation_observer(observer: &MutationObserver<TH>) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            script_thread.mutation_observers
-                .borrow_mut()
-                .push(Dom::from_ref(observer));
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     script_thread.get_mutation_observers()
+        //         .borrow_mut()
+        //         .push(Dom::from_ref(observer));
+        // })
     }
 
     pub fn get_mutation_observers() -> Vec<DomRoot<MutationObserver<TH>>> {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            script_thread.mutation_observers.borrow().iter().map(|o| DomRoot::from_ref(&**o)).collect()
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     script_thread.get_mutation_observers().borrow().iter().map(|o| DomRoot::from_ref(&**o)).collect()
+        // })
+        vec![]
     }
 
     pub fn mark_document_with_no_blocked_loads(doc: &Document<TH>) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            script_thread.docs_with_no_blocking_loads
-                .borrow_mut()
-                .insert(Dom::from_ref(doc));
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     script_thread.get_docs_with_no_blocking_loads()
+        //         .borrow_mut()
+        //         .insert(Dom::from_ref(doc));
+        // })
     }
 
     pub fn invoke_perform_a_microtask_checkpoint() {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            script_thread.perform_a_microtask_checkpoint()
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     script_thread.perform_a_microtask_checkpoint()
+        // })
     }
 
     pub fn page_headers_available<SP: ServoParser<TH, TypeHolder=TH>>(id: &PipelineId, metadata: Option<Metadata>)
                                   -> Option<DomRoot<SP>> {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            script_thread.handle_page_headers_available(id, metadata)
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     script_thread.handle_page_headers_available(id, metadata)
+        // })
+        None
     }
 
     #[allow(unrooted_must_root)]
     pub fn schedule_job(job: Job<TH>) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            let job_queue = &*script_thread.job_queue_map;
-            job_queue.schedule_job(job, &script_thread);
-        });
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     let job_queue = &*script_thread.get_job_queue_map();
+        //     job_queue.schedule_job(job, &script_thread);
+        // });
     }
 
     pub fn process_event(msg: CommonScriptMsg) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            if let Some(script_thread) = root.get() {
-                let script_thread = unsafe { &*script_thread };
-                script_thread.handle_msg_from_script(MainThreadScriptMsg::Common(msg));
-            }
-        });
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     if let Some(script_thread) = root.get_mut() {
+        //         let script_thread = unsafe { &*script_thread };
+        //         script_thread.handle_msg_from_script(MainThreadScriptMsg::Common(msg));
+        //     }
+        // });
     }
 
     // https://html.spec.whatwg.org/multipage/#await-a-stable-state
     pub fn await_stable_state(task: Microtask<TH>) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            if let Some(script_thread) = root.get() {
-                let script_thread = unsafe { &*script_thread };
-                script_thread.microtask_queue.enqueue(task);
-            }
-        });
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     if let Some(script_thread) = root.get_mut() {
+        //         let script_thread = unsafe { &*script_thread };
+        //         script_thread.get_microtask_queue().enqueue(task);
+        //     }
+        // });
     }
 
     pub fn process_attach_layout(new_layout_info: NewLayoutInfo, origin: MutableOrigin) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            if let Some(script_thread) = root.get() {
-                let script_thread = unsafe { &*script_thread };
-                let pipeline_id = Some(new_layout_info.new_pipeline_id);
-                script_thread.profile_event(ScriptThreadEventCategory::AttachLayout, pipeline_id, || {
-                    script_thread.handle_new_layout(new_layout_info, origin);
-                })
-            }
-        });
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     if let Some(script_thread) = root.get_mut() {
+        //         let script_thread = unsafe { &*script_thread };
+        //         let pipeline_id = Some(new_layout_info.new_pipeline_id);
+        //         script_thread.profile_event(ScriptThreadEventCategory::AttachLayout, pipeline_id, || {
+        //             script_thread.handle_new_layout(new_layout_info, origin);
+        //         })
+        //     }
+        // });
     }
 
     pub fn find_document(id: PipelineId) -> Option<DomRoot<Document<TH>>> {
-        SCRIPT_THREAD_ROOT.with(|root| root.get().and_then(|script_thread| {
-            let script_thread = unsafe { &*script_thread };
-            script_thread.documents.borrow().find_document(id)
-        }))
+        // SCRIPT_THREAD_ROOT.with(|root| root.get_mut().and_then(|script_thread| {
+        //     let script_thread = unsafe { &*script_thread };
+        //     script_thread.get_documents().borrow().find_document(id)
+        // }))
+        None
     }
 
     pub fn find_window_proxy(id: BrowsingContextId) -> Option<DomRoot<WindowProxy<TH>>> {
-        SCRIPT_THREAD_ROOT.with(|root| root.get().and_then(|script_thread| {
-            let script_thread = unsafe { &*script_thread };
-            script_thread.window_proxies.borrow().get(&id)
-                .map(|context| DomRoot::from_ref(&**context))
-        }))
+        // SCRIPT_THREAD_ROOT.with(|root| root.get_mut().and_then(|script_thread| {
+        //     let script_thread = unsafe { &*script_thread };
+        //     script_thread.get_window_proxies().borrow().get(&id)
+        //         .map(|context| DomRoot::from_ref(&**context))
+        // }))
+        None
     }
 
-    pub fn worklet_thread_pool() -> Rc<WorkletThreadPool<TH>> {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            script_thread.worklet_thread_pool.borrow_mut().get_or_insert_with(|| {
-                let init = WorkletGlobalScopeInit {
-                    to_script_thread_sender: script_thread.chan.0.clone(),
-                    resource_threads: script_thread.resource_threads.clone(),
-                    mem_profiler_chan: script_thread.mem_profiler_chan.clone(),
-                    time_profiler_chan: script_thread.time_profiler_chan.clone(),
-                    devtools_chan: script_thread.devtools_chan.clone(),
-                    to_constellation_sender: script_thread.script_sender.clone(),
-                    scheduler_chan: script_thread.scheduler_chan.clone(),
-                    image_cache: script_thread.image_cache.clone(),
-                };
-                Rc::new(WorkletThreadPool::spawn(init))
-            }).clone()
-        })
-    }
+    // pub fn worklet_thread_pool() -> Rc<WorkletThreadPool<TH>> {
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     script_thread.worklet_thread_pool.borrow_mut().get_or_insert_with(|| {
+        //         let init = WorkletGlobalScopeInit {
+        //             to_script_thread_sender: script_thread.get_chan().0.clone(),
+        //             resource_threads: script_thread.get_resource_threads().clone(),
+        //             mem_profiler_chan: script_thread.get_mem_profiler_chan().clone(),
+        //             time_profiler_chan: script_thread.get_time_profiler_chan().clone(),
+        //             devtools_chan: script_thread.get_devtools_chan().clone(),
+        //             to_constellation_sender: script_thread.get_script_sender().clone(),
+        //             scheduler_chan: script_thread.get_scheduler_chan().clone(),
+        //             image_cache: script_thread.get_image_cache().clone(),
+        //         };
+        //         Rc::new(WorkletThreadPool::spawn(init))
+        //     }).clone()
+        // })
+    // }
 
     fn handle_register_paint_worklet(
         &self,
@@ -769,50 +878,50 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     }
 
     pub fn push_new_element_queue() {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            if let Some(script_thread) = root.get() {
-                let script_thread = unsafe { &*script_thread };
-                script_thread.custom_element_reaction_stack.push_new_element_queue();
-            }
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     if let Some(script_thread) = root.get_mut() {
+        //         let script_thread = unsafe { &*script_thread };
+        //         script_thread.get_custom_element_reaction_stack().push_new_element_queue();
+        //     }
+        // })
     }
 
     pub fn pop_current_element_queue() {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            if let Some(script_thread) = root.get() {
-                let script_thread = unsafe { &*script_thread };
-                script_thread.custom_element_reaction_stack.pop_current_element_queue();
-            }
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     if let Some(script_thread) = root.get_mut() {
+        //         let script_thread = unsafe { &*script_thread };
+        //         script_thread.get_custom_element_reaction_stack().pop_current_element_queue();
+        //     }
+        // })
     }
 
     pub fn enqueue_callback_reaction(element: &Element<TH>,
                                      reaction: CallbackReaction<TH>,
                                      definition: Option<Rc<CustomElementDefinition<TH>>>) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            if let Some(script_thread) = root.get() {
-                let script_thread = unsafe { &*script_thread };
-                script_thread.custom_element_reaction_stack.enqueue_callback_reaction(element, reaction, definition);
-            }
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     if let Some(script_thread) = root.get_mut() {
+        //         let script_thread = unsafe { &*script_thread };
+        //         script_thread.get_custom_element_reaction_stack().enqueue_callback_reaction(element, reaction, definition);
+        //     }
+        // })
     }
 
     pub fn enqueue_upgrade_reaction(element: &Element<TH>, definition: Rc<CustomElementDefinition<TH>>) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            if let Some(script_thread) = root.get() {
-                let script_thread = unsafe { &*script_thread };
-                script_thread.custom_element_reaction_stack.enqueue_upgrade_reaction(element, definition);
-            }
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     if let Some(script_thread) = root.get_mut() {
+        //         let script_thread = unsafe { &*script_thread };
+        //         script_thread.get_custom_element_reaction_stack().enqueue_upgrade_reaction(element, definition);
+        //     }
+        // })
     }
 
     pub fn invoke_backup_element_queue() {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            if let Some(script_thread) = root.get() {
-                let script_thread = unsafe { &*script_thread };
-                script_thread.custom_element_reaction_stack.invoke_backup_element_queue();
-            }
-        })
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     if let Some(script_thread) = root.get_mut() {
+        //         let script_thread = unsafe { &*script_thread };
+        //         script_thread.get_custom_element_reaction_stack().invoke_backup_element_queue();
+        //     }
+        // })
     }
 
     /// Creates a new script thread.
@@ -1741,8 +1850,8 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
 
     /// We have received notification that the response associated with a load has completed.
     /// Kick off the document and frame tree creation process using the result.
-    fn handle_page_headers_available<SP: ServoParser<TH, TypeHolder=TH>>(&self, id: &PipelineId,
-                                     metadata: Option<Metadata>) -> Option<DomRoot<SP>> {
+    fn handle_page_headers_available(&self, id: &PipelineId,
+                                     metadata: Option<Metadata>) -> Option<DomRoot<TH::ServoParser>> {
         let idx = self.incomplete_loads.borrow().iter().position(|load| { load.pipeline_id == *id });
         // The matching in progress load structure may not exist if
         // the pipeline exited before the page load completed.
@@ -2092,7 +2201,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
 
     /// The entry point to document loading. Defines bindings, sets up the window and document
     /// objects, parses HTML and CSS, and kicks off initial layout.
-    fn load<SP: ServoParser<TH, TypeHolder=TH>>(&self, metadata: Metadata, incomplete: InProgressLoad) -> DomRoot<SP> {
+    fn load(&self, metadata: Metadata, incomplete: InProgressLoad) -> DomRoot<TH::ServoParser> {
         let final_url = metadata.final_url.clone();
         {
             // send the final url to the layout thread.
@@ -2654,10 +2763,10 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     }
 
     pub fn enqueue_microtask(job: Microtask<TH>) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            let script_thread = unsafe { &*root.get().unwrap() };
-            script_thread.microtask_queue.enqueue(job);
-        });
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     let script_thread = unsafe { &*root.get_mut().unwrap() };
+        //     script_thread.get_microtask_queue().enqueue(job);
+        // });
     }
 
     fn perform_a_microtask_checkpoint(&self) {
@@ -2667,9 +2776,9 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
 
 impl<TH: TypeHolderTrait> Drop for ScriptThread<TH> {
     fn drop(&mut self) {
-        SCRIPT_THREAD_ROOT.with(|root| {
-            root.set(None);
-        });
+        // SCRIPT_THREAD_ROOT.with(|root| {
+        //     root.replace (None);
+        // });
     }
 }
 

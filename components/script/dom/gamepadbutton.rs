@@ -29,6 +29,7 @@ impl<TH: TypeHolderTrait> GamepadButton<TH> {
             pressed: Cell::new(pressed),
             touched: Cell::new(touched),
             value: Cell::new(0.0),
+            _p: Default::default(),
         }
     }
 

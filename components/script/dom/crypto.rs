@@ -35,6 +35,7 @@ impl<TH: TypeHolderTrait> Crypto<TH> {
         Crypto {
             reflector_: Reflector::new(),
             rng: DomRefCell::new(ServoRng::new()),
+            _p: Default::default(),
         }
     }
 

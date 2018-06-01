@@ -31,6 +31,7 @@ impl<TH: TypeHolderTrait> DOMPointReadOnly<TH> {
             z: Cell::new(z),
             w: Cell::new(w),
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 

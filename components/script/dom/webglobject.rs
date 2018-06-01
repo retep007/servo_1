@@ -18,6 +18,7 @@ impl<TH: TypeHolderTrait> WebGLObject<TH> {
     pub fn new_inherited() -> WebGLObject<TH> {
         WebGLObject {
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 }

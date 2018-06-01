@@ -62,6 +62,7 @@ impl<TH: TypeHolderTrait> WebGLShader<TH> {
             attached_counter: Cell::new(0),
             compilation_status: Cell::new(ShaderCompilationStatus::NotCompiled),
             renderer: renderer,
+            _p: Default::default(),
         }
     }
 

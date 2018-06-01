@@ -249,7 +249,7 @@ impl<TH: TypeHolderTrait> HTMLSelectElementMethods<TH> for HTMLSelectElement<TH>
         self.options.or_init(|| {
             let window = window_from_node(self);
             HTMLOptionsCollection::new(
-                &window, self, Box::new(OptionsFilter))
+                &window, self, Box::new(OptionsFilter(Default::default())))
         })
     }
 

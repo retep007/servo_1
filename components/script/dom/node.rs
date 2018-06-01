@@ -598,7 +598,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     pub fn to_trusted_node_address(&self) -> TrustedNodeAddress {
-        TrustedNodeAddress(&*self as *const Node as *const libc::c_void)
+        TrustedNodeAddress(&*self as *const Node<TH> as *const libc::c_void)
     }
 
     /// Returns the rendered bounding content box if the element is rendered,
@@ -997,7 +997,7 @@ pub unsafe fn from_untrusted_node_address<TH: TypeHolderTrait>(_runtime: *mut JS
     if object.is_null() {
         panic!("Attempted to create a `Dom<Node<TH>>` from an invalid pointer!")
     }
-    let boxed_node = conversions::private_from_object(object) as *const Node;
+    let boxed_node = conversions::private_from_object(object) as *const Node<TH>;
     DomRoot::from_ref(&*boxed_node)
 }
 
@@ -2489,7 +2489,7 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
     }
 }
 
-pub fn document_from_node<T: DerivedFrom<TH> + DomObject, TH: TypeHolderTrait + Castable>(derived: &T) -> DomRoot<Document<TH>> {
+pub fn document_from_node<T: DerivedFrom<Node<TH>> + DomObject, TH: TypeHolderTrait + Castable>(derived: &T) -> DomRoot<Document<TH>> {
     derived.upcast().owner_doc()
 }
 

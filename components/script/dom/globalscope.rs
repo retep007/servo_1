@@ -431,7 +431,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
                 let filename = CString::new(filename).unwrap();
 
                 let _ac = JSAutoCompartment::new(cx, globalhandle.get());
-                let _aes = AutoEntryScript::new(self);
+                // let _aes = AutoEntryScript::new(self);
                 let options = CompileOptionsWrapper::new(cx, filename.as_ptr(), line_number);
 
                 debug!("evaluating Dom string");

@@ -34,6 +34,7 @@ impl<TH: TypeHolderTrait> PerformanceEntry<TH> {
             entry_type,
             start_time,
             duration,
+            _p: Default::default(),
         }
     }
 

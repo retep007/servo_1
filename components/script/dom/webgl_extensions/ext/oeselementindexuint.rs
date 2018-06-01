@@ -20,7 +20,10 @@ pub struct OESElementIndexUint<TH: TypeHolderTrait + 'static> {
 
 impl<TH: TypeHolderTrait> OESElementIndexUint<TH> {
     fn new_inherited() -> Self {
-        Self { reflector_: Reflector::new() }
+        Self { 
+            reflector_: Reflector::new(),
+            _p: Default::default(),
+        }
     }
 }
 

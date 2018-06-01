@@ -7994,7 +7994,7 @@ unsafe extern fn getElementById<TH: TypeHolderTrait>
 }
 
 const getElementById_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const getElementById_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn getElementById_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getElementById::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Document as u16,
@@ -8013,7 +8013,7 @@ const getElementById_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &getElementById_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn get_children<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Document<TH>, args: JSJitGetterCallArgs) -> bool {
@@ -8291,7 +8291,7 @@ unsafe extern fn querySelector<TH: TypeHolderTrait>
 }
 
 const querySelector_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-const querySelector_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
+fn querySelector_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: querySelector::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::Document as u16,
@@ -8310,7 +8310,7 @@ const querySelector_methodinfo: JSTypedMethodJitInfo = JSTypedMethodJitInfo {
       ),
   },
     argTypes: &querySelector_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
-};
+}}
 
 unsafe extern fn querySelectorAll<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Document<TH>, args: *const JSJitMethodCallArgs) -> bool {

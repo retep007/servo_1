@@ -267,9 +267,9 @@ pub fn get_gatt_children<T, F, TH: TypeHolderTrait> (
         connected: bool,
         child_type: GATTType)
         -> Rc<Promise<TH>>
-        where T: AsyncBluetoothListener<TH> + DomObject + 'static,
+        where T: AsyncBluetoothListener<TH> + DomObject<TypeHolder=TH> + 'static,
               F: FnOnce(StringOrUnsignedLong) -> Fallible<UUID, TH> {
-    let p = Promise::new(&attribute.global());
+    let p= Promise::new(&attribute.global());
 
     let result_uuid = if let Some(u) = uuid {
         // Step 1.

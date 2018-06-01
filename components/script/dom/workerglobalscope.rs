@@ -340,7 +340,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods<TH> for WorkerGlobalScope<TH>
 impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
     #[allow(unsafe_code)]
     pub fn execute_script(&self, source: DOMString) {
-        let _aes = AutoEntryScript::new(self.upcast());
+        // let _aes = AutoEntryScript::new(self.upcast());
         rooted!(in(self.runtime.cx()) let mut rval = UndefinedValue());
         match self.runtime.evaluate_script(
             self.reflector().get_jsobject(), &source, self.worker_url.as_str(), 1, rval.handle_mut()) {
@@ -383,7 +383,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
     }
 
     pub fn performance_timeline_task_source(&self) -> PerformanceTimelineTaskSource<TH> {
-        PerformanceTimelineTaskSource(self.script_chan(), self.pipeline_id())
+        PerformanceTimelineTaskSource(self.script_chan(), self.pipeline_id(), Default::default())
     }
 
     pub fn new_script_pair(&self) -> (Box<ScriptChan + Send>, Box<ScriptPort + Send>) {

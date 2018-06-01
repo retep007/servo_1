@@ -43,6 +43,7 @@ impl<TH: TypeHolderTrait> TestBindingPairIterable<TH> {
         reflect_dom_object(Box::new(TestBindingPairIterable {
             reflector: Reflector::new(),
             map: DomRefCell::new(vec![]),
+            _p: Default::default(),
         }), global, TestBindingPairIterableBinding::TestBindingPairIterableWrap)
     }
 
