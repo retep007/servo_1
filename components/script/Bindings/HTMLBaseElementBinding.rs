@@ -511,10 +511,10 @@ unsafe extern fn get_href<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBaseElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Href();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -536,10 +536,10 @@ unsafe extern fn set_href<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetHref(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;

@@ -515,10 +515,10 @@ unsafe extern fn get_caption<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLTableElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Option<DomRoot<HTMLTableCaptionElement<TH>>> = this.GetCaption();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -547,10 +547,10 @@ unsafe extern fn set_caption<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetCaption(arg0.r());
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -632,10 +632,10 @@ unsafe extern fn deleteCaption<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.DeleteCaption();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -666,10 +666,10 @@ unsafe extern fn get_tHead<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLTableElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Option<DomRoot<HTMLTableSectionElement<TH>>> = this.GetTHead();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -698,10 +698,10 @@ unsafe extern fn set_tHead<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTHead(arg0.r());
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -790,10 +790,10 @@ unsafe extern fn deleteTHead<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.DeleteTHead();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -824,10 +824,10 @@ unsafe extern fn get_tFoot<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLTableElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Option<DomRoot<HTMLTableSectionElement<TH>>> = this.GetTFoot();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -856,10 +856,10 @@ unsafe extern fn set_tFoot<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTFoot(arg0.r());
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -948,10 +948,10 @@ unsafe extern fn deleteTFoot<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.DeleteTFoot();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1144,10 +1144,10 @@ unsafe extern fn deleteRow<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.DeleteRow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1185,10 +1185,10 @@ unsafe extern fn get_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLTableElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1210,10 +1210,10 @@ unsafe extern fn set_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -1261,10 +1261,10 @@ unsafe extern fn get_bgColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLTableElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BgColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1286,10 +1286,10 @@ unsafe extern fn set_bgColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetBgColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;

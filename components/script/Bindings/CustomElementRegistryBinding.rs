@@ -622,10 +622,10 @@ unsafe extern fn define<TH: TypeHolderTrait>
              },
             }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Define(arg0, arg1, &arg2);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,

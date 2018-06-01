@@ -614,10 +614,10 @@ unsafe extern fn deleteRow<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.DeleteRow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,

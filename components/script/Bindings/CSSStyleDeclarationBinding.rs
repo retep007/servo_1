@@ -509,10 +509,10 @@ unsafe extern fn get_cssText<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.CssText();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -534,10 +534,10 @@ unsafe extern fn set_cssText<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetCssText(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -804,10 +804,10 @@ unsafe extern fn setProperty<TH: TypeHolderTrait>
              },
             }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetProperty(arg0, arg1, arg2);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -872,10 +872,10 @@ unsafe extern fn setPropertyValue<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPropertyValue(arg0, arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -940,10 +940,10 @@ unsafe extern fn setPropertyPriority<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPropertyPriority(arg0, arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -998,10 +998,10 @@ unsafe extern fn removeProperty<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DOMString, Error<TH>> = this.RemoveProperty(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1039,10 +1039,10 @@ unsafe extern fn get_cssFloat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.CssFloat();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1064,10 +1064,10 @@ unsafe extern fn set_cssFloat<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetCssFloat(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1122,10 +1122,10 @@ unsafe extern fn get_all<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.All();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1147,10 +1147,10 @@ unsafe extern fn set_all<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAll(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1205,10 +1205,10 @@ unsafe extern fn get_background<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1230,10 +1230,10 @@ unsafe extern fn set_background<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1288,10 +1288,10 @@ unsafe extern fn get_backgroundColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1313,10 +1313,10 @@ unsafe extern fn set_backgroundColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1371,10 +1371,10 @@ unsafe extern fn get_background_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1396,10 +1396,10 @@ unsafe extern fn set_background_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1454,10 +1454,10 @@ unsafe extern fn get_backgroundPosition<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundPosition();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1479,10 +1479,10 @@ unsafe extern fn set_backgroundPosition<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundPosition(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1537,10 +1537,10 @@ unsafe extern fn get_background_position<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_position();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1562,10 +1562,10 @@ unsafe extern fn set_background_position<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_position(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1620,10 +1620,10 @@ unsafe extern fn get_backgroundPositionX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundPositionX();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1645,10 +1645,10 @@ unsafe extern fn set_backgroundPositionX<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundPositionX(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1703,10 +1703,10 @@ unsafe extern fn get_background_position_x<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_position_x();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1728,10 +1728,10 @@ unsafe extern fn set_background_position_x<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_position_x(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1786,10 +1786,10 @@ unsafe extern fn get_backgroundPositionY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundPositionY();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1811,10 +1811,10 @@ unsafe extern fn set_backgroundPositionY<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundPositionY(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1869,10 +1869,10 @@ unsafe extern fn get_background_position_y<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_position_y();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1894,10 +1894,10 @@ unsafe extern fn set_background_position_y<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_position_y(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1952,10 +1952,10 @@ unsafe extern fn get_backgroundRepeat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundRepeat();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1977,10 +1977,10 @@ unsafe extern fn set_backgroundRepeat<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundRepeat(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2035,10 +2035,10 @@ unsafe extern fn get_background_repeat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_repeat();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2060,10 +2060,10 @@ unsafe extern fn set_background_repeat<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_repeat(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2118,10 +2118,10 @@ unsafe extern fn get_backgroundImage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundImage();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2143,10 +2143,10 @@ unsafe extern fn set_backgroundImage<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundImage(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2201,10 +2201,10 @@ unsafe extern fn get_background_image<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_image();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2226,10 +2226,10 @@ unsafe extern fn set_background_image<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_image(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2284,10 +2284,10 @@ unsafe extern fn get_backgroundAttachment<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundAttachment();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2309,10 +2309,10 @@ unsafe extern fn set_backgroundAttachment<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundAttachment(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2367,10 +2367,10 @@ unsafe extern fn get_background_attachment<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_attachment();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2392,10 +2392,10 @@ unsafe extern fn set_background_attachment<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_attachment(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2450,10 +2450,10 @@ unsafe extern fn get_backgroundSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundSize();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2475,10 +2475,10 @@ unsafe extern fn set_backgroundSize<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundSize(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2533,10 +2533,10 @@ unsafe extern fn get_background_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_size();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2558,10 +2558,10 @@ unsafe extern fn set_background_size<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_size(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2616,10 +2616,10 @@ unsafe extern fn get_backgroundOrigin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundOrigin();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2641,10 +2641,10 @@ unsafe extern fn set_backgroundOrigin<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundOrigin(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2699,10 +2699,10 @@ unsafe extern fn get_background_origin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_origin();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2724,10 +2724,10 @@ unsafe extern fn set_background_origin<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_origin(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2782,10 +2782,10 @@ unsafe extern fn get_backgroundClip<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackgroundClip();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2807,10 +2807,10 @@ unsafe extern fn set_backgroundClip<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackgroundClip(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2865,10 +2865,10 @@ unsafe extern fn get_background_clip<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Background_clip();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2890,10 +2890,10 @@ unsafe extern fn set_background_clip<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackground_clip(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2948,10 +2948,10 @@ unsafe extern fn get_border<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2973,10 +2973,10 @@ unsafe extern fn set_border<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3031,10 +3031,10 @@ unsafe extern fn get_borderColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3056,10 +3056,10 @@ unsafe extern fn set_borderColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3114,10 +3114,10 @@ unsafe extern fn get_border_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3139,10 +3139,10 @@ unsafe extern fn set_border_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3197,10 +3197,10 @@ unsafe extern fn get_borderRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderRadius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3222,10 +3222,10 @@ unsafe extern fn set_borderRadius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderRadius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3280,10 +3280,10 @@ unsafe extern fn get_border_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_radius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3305,10 +3305,10 @@ unsafe extern fn set_border_radius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_radius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3363,10 +3363,10 @@ unsafe extern fn get_borderSpacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderSpacing();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3388,10 +3388,10 @@ unsafe extern fn set_borderSpacing<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderSpacing(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3446,10 +3446,10 @@ unsafe extern fn get_border_spacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_spacing();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3471,10 +3471,10 @@ unsafe extern fn set_border_spacing<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_spacing(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3529,10 +3529,10 @@ unsafe extern fn get_borderStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3554,10 +3554,10 @@ unsafe extern fn set_borderStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3612,10 +3612,10 @@ unsafe extern fn get_border_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3637,10 +3637,10 @@ unsafe extern fn set_border_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3695,10 +3695,10 @@ unsafe extern fn get_borderWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3720,10 +3720,10 @@ unsafe extern fn set_borderWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3778,10 +3778,10 @@ unsafe extern fn get_border_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3803,10 +3803,10 @@ unsafe extern fn set_border_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3861,10 +3861,10 @@ unsafe extern fn get_borderBottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBottom();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3886,10 +3886,10 @@ unsafe extern fn set_borderBottom<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBottom(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3944,10 +3944,10 @@ unsafe extern fn get_border_bottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_bottom();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3969,10 +3969,10 @@ unsafe extern fn set_border_bottom<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_bottom(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4027,10 +4027,10 @@ unsafe extern fn get_borderBottomColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBottomColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4052,10 +4052,10 @@ unsafe extern fn set_borderBottomColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBottomColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4110,10 +4110,10 @@ unsafe extern fn get_border_bottom_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_bottom_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4135,10 +4135,10 @@ unsafe extern fn set_border_bottom_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_bottom_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4193,10 +4193,10 @@ unsafe extern fn get_borderBottomLeftRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBottomLeftRadius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4218,10 +4218,10 @@ unsafe extern fn set_borderBottomLeftRadius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBottomLeftRadius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4276,10 +4276,10 @@ unsafe extern fn get_border_bottom_left_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_bottom_left_radius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4301,10 +4301,10 @@ unsafe extern fn set_border_bottom_left_radius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_bottom_left_radius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4359,10 +4359,10 @@ unsafe extern fn get_borderBottomRightRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBottomRightRadius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4384,10 +4384,10 @@ unsafe extern fn set_borderBottomRightRadius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBottomRightRadius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4442,10 +4442,10 @@ unsafe extern fn get_border_bottom_right_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_bottom_right_radius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4467,10 +4467,10 @@ unsafe extern fn set_border_bottom_right_radius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_bottom_right_radius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4525,10 +4525,10 @@ unsafe extern fn get_borderBottomStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBottomStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4550,10 +4550,10 @@ unsafe extern fn set_borderBottomStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBottomStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4608,10 +4608,10 @@ unsafe extern fn get_border_bottom_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_bottom_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4633,10 +4633,10 @@ unsafe extern fn set_border_bottom_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_bottom_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4691,10 +4691,10 @@ unsafe extern fn get_borderBottomWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBottomWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4716,10 +4716,10 @@ unsafe extern fn set_borderBottomWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBottomWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4774,10 +4774,10 @@ unsafe extern fn get_border_bottom_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_bottom_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4799,10 +4799,10 @@ unsafe extern fn set_border_bottom_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_bottom_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4857,10 +4857,10 @@ unsafe extern fn get_borderLeft<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderLeft();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4882,10 +4882,10 @@ unsafe extern fn set_borderLeft<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderLeft(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -4940,10 +4940,10 @@ unsafe extern fn get_border_left<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_left();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -4965,10 +4965,10 @@ unsafe extern fn set_border_left<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_left(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5023,10 +5023,10 @@ unsafe extern fn get_borderLeftColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderLeftColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5048,10 +5048,10 @@ unsafe extern fn set_borderLeftColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderLeftColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5106,10 +5106,10 @@ unsafe extern fn get_border_left_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_left_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5131,10 +5131,10 @@ unsafe extern fn set_border_left_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_left_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5189,10 +5189,10 @@ unsafe extern fn get_borderLeftStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderLeftStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5214,10 +5214,10 @@ unsafe extern fn set_borderLeftStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderLeftStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5272,10 +5272,10 @@ unsafe extern fn get_border_left_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_left_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5297,10 +5297,10 @@ unsafe extern fn set_border_left_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_left_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5355,10 +5355,10 @@ unsafe extern fn get_borderLeftWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderLeftWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5380,10 +5380,10 @@ unsafe extern fn set_borderLeftWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderLeftWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5438,10 +5438,10 @@ unsafe extern fn get_border_left_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_left_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5463,10 +5463,10 @@ unsafe extern fn set_border_left_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_left_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5521,10 +5521,10 @@ unsafe extern fn get_borderRight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderRight();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5546,10 +5546,10 @@ unsafe extern fn set_borderRight<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderRight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5604,10 +5604,10 @@ unsafe extern fn get_border_right<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_right();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5629,10 +5629,10 @@ unsafe extern fn set_border_right<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_right(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5687,10 +5687,10 @@ unsafe extern fn get_borderRightColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderRightColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5712,10 +5712,10 @@ unsafe extern fn set_borderRightColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderRightColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5770,10 +5770,10 @@ unsafe extern fn get_border_right_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_right_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5795,10 +5795,10 @@ unsafe extern fn set_border_right_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_right_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5853,10 +5853,10 @@ unsafe extern fn get_borderRightStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderRightStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5878,10 +5878,10 @@ unsafe extern fn set_borderRightStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderRightStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -5936,10 +5936,10 @@ unsafe extern fn get_border_right_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_right_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -5961,10 +5961,10 @@ unsafe extern fn set_border_right_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_right_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6019,10 +6019,10 @@ unsafe extern fn get_borderRightWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderRightWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6044,10 +6044,10 @@ unsafe extern fn set_borderRightWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderRightWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6102,10 +6102,10 @@ unsafe extern fn get_border_right_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_right_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6127,10 +6127,10 @@ unsafe extern fn set_border_right_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_right_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6185,10 +6185,10 @@ unsafe extern fn get_borderTop<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderTop();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6210,10 +6210,10 @@ unsafe extern fn set_borderTop<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderTop(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6268,10 +6268,10 @@ unsafe extern fn get_border_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_top();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6293,10 +6293,10 @@ unsafe extern fn set_border_top<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_top(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6351,10 +6351,10 @@ unsafe extern fn get_borderTopColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderTopColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6376,10 +6376,10 @@ unsafe extern fn set_borderTopColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderTopColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6434,10 +6434,10 @@ unsafe extern fn get_border_top_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_top_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6459,10 +6459,10 @@ unsafe extern fn set_border_top_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_top_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6517,10 +6517,10 @@ unsafe extern fn get_borderTopLeftRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderTopLeftRadius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6542,10 +6542,10 @@ unsafe extern fn set_borderTopLeftRadius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderTopLeftRadius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6600,10 +6600,10 @@ unsafe extern fn get_border_top_left_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_top_left_radius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6625,10 +6625,10 @@ unsafe extern fn set_border_top_left_radius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_top_left_radius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6683,10 +6683,10 @@ unsafe extern fn get_borderTopRightRadius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderTopRightRadius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6708,10 +6708,10 @@ unsafe extern fn set_borderTopRightRadius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderTopRightRadius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6766,10 +6766,10 @@ unsafe extern fn get_border_top_right_radius<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_top_right_radius();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6791,10 +6791,10 @@ unsafe extern fn set_border_top_right_radius<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_top_right_radius(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6849,10 +6849,10 @@ unsafe extern fn get_borderTopStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderTopStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6874,10 +6874,10 @@ unsafe extern fn set_borderTopStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderTopStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -6932,10 +6932,10 @@ unsafe extern fn get_border_top_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_top_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -6957,10 +6957,10 @@ unsafe extern fn set_border_top_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_top_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7015,10 +7015,10 @@ unsafe extern fn get_borderTopWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderTopWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7040,10 +7040,10 @@ unsafe extern fn set_borderTopWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderTopWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7098,10 +7098,10 @@ unsafe extern fn get_border_top_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_top_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7123,10 +7123,10 @@ unsafe extern fn set_border_top_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_top_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7181,10 +7181,10 @@ unsafe extern fn get_border_image_source<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_image_source();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7206,10 +7206,10 @@ unsafe extern fn set_border_image_source<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_image_source(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7264,10 +7264,10 @@ unsafe extern fn get_borderImageSource<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderImageSource();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7289,10 +7289,10 @@ unsafe extern fn set_borderImageSource<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderImageSource(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7347,10 +7347,10 @@ unsafe extern fn get_border_image_slice<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_image_slice();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7372,10 +7372,10 @@ unsafe extern fn set_border_image_slice<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_image_slice(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7430,10 +7430,10 @@ unsafe extern fn get_borderImageSlice<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderImageSlice();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7455,10 +7455,10 @@ unsafe extern fn set_borderImageSlice<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderImageSlice(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7513,10 +7513,10 @@ unsafe extern fn get_border_image_repeat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_image_repeat();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7538,10 +7538,10 @@ unsafe extern fn set_border_image_repeat<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_image_repeat(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7596,10 +7596,10 @@ unsafe extern fn get_borderImageRepeat<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderImageRepeat();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7621,10 +7621,10 @@ unsafe extern fn set_borderImageRepeat<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderImageRepeat(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7679,10 +7679,10 @@ unsafe extern fn get_border_image_outset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_image_outset();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7704,10 +7704,10 @@ unsafe extern fn set_border_image_outset<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_image_outset(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7762,10 +7762,10 @@ unsafe extern fn get_borderImageOutset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderImageOutset();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7787,10 +7787,10 @@ unsafe extern fn set_borderImageOutset<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderImageOutset(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7845,10 +7845,10 @@ unsafe extern fn get_border_image_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_image_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7870,10 +7870,10 @@ unsafe extern fn set_border_image_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_image_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -7928,10 +7928,10 @@ unsafe extern fn get_borderImageWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderImageWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -7953,10 +7953,10 @@ unsafe extern fn set_borderImageWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderImageWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8011,10 +8011,10 @@ unsafe extern fn get_border_image<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_image();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8036,10 +8036,10 @@ unsafe extern fn set_border_image<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_image(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8094,10 +8094,10 @@ unsafe extern fn get_borderImage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderImage();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8119,10 +8119,10 @@ unsafe extern fn set_borderImage<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderImage(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8177,10 +8177,10 @@ unsafe extern fn get_border_block_start_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_block_start_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8202,10 +8202,10 @@ unsafe extern fn set_border_block_start_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_block_start_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8260,10 +8260,10 @@ unsafe extern fn get_borderBlockStartColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBlockStartColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8285,10 +8285,10 @@ unsafe extern fn set_borderBlockStartColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBlockStartColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8343,10 +8343,10 @@ unsafe extern fn get_border_block_start_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_block_start_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8368,10 +8368,10 @@ unsafe extern fn set_border_block_start_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_block_start_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8426,10 +8426,10 @@ unsafe extern fn get_borderBlockStartWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBlockStartWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8451,10 +8451,10 @@ unsafe extern fn set_borderBlockStartWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBlockStartWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8509,10 +8509,10 @@ unsafe extern fn get_border_block_start_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_block_start_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8534,10 +8534,10 @@ unsafe extern fn set_border_block_start_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_block_start_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8592,10 +8592,10 @@ unsafe extern fn get_borderBlockStartStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBlockStartStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8617,10 +8617,10 @@ unsafe extern fn set_borderBlockStartStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBlockStartStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8675,10 +8675,10 @@ unsafe extern fn get_border_block_end_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_block_end_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8700,10 +8700,10 @@ unsafe extern fn set_border_block_end_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_block_end_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8758,10 +8758,10 @@ unsafe extern fn get_borderBlockEndColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBlockEndColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8783,10 +8783,10 @@ unsafe extern fn set_borderBlockEndColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBlockEndColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8841,10 +8841,10 @@ unsafe extern fn get_border_block_end_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_block_end_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8866,10 +8866,10 @@ unsafe extern fn set_border_block_end_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_block_end_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8924,10 +8924,10 @@ unsafe extern fn get_borderBlockEndWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBlockEndWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -8949,10 +8949,10 @@ unsafe extern fn set_borderBlockEndWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBlockEndWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9007,10 +9007,10 @@ unsafe extern fn get_border_block_end_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_block_end_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9032,10 +9032,10 @@ unsafe extern fn set_border_block_end_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_block_end_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9090,10 +9090,10 @@ unsafe extern fn get_borderBlockEndStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBlockEndStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9115,10 +9115,10 @@ unsafe extern fn set_borderBlockEndStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBlockEndStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9173,10 +9173,10 @@ unsafe extern fn get_border_inline_start_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_inline_start_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9198,10 +9198,10 @@ unsafe extern fn set_border_inline_start_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_inline_start_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9256,10 +9256,10 @@ unsafe extern fn get_borderInlineStartColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderInlineStartColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9281,10 +9281,10 @@ unsafe extern fn set_borderInlineStartColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderInlineStartColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9339,10 +9339,10 @@ unsafe extern fn get_border_inline_start_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_inline_start_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9364,10 +9364,10 @@ unsafe extern fn set_border_inline_start_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_inline_start_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9422,10 +9422,10 @@ unsafe extern fn get_borderInlineStartWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderInlineStartWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9447,10 +9447,10 @@ unsafe extern fn set_borderInlineStartWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderInlineStartWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9505,10 +9505,10 @@ unsafe extern fn get_border_inline_start_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_inline_start_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9530,10 +9530,10 @@ unsafe extern fn set_border_inline_start_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_inline_start_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9588,10 +9588,10 @@ unsafe extern fn get_borderInlineStartStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderInlineStartStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9613,10 +9613,10 @@ unsafe extern fn set_borderInlineStartStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderInlineStartStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9671,10 +9671,10 @@ unsafe extern fn get_border_inline_end_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_inline_end_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9696,10 +9696,10 @@ unsafe extern fn set_border_inline_end_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_inline_end_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9754,10 +9754,10 @@ unsafe extern fn get_borderInlineEndColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderInlineEndColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9779,10 +9779,10 @@ unsafe extern fn set_borderInlineEndColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderInlineEndColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9837,10 +9837,10 @@ unsafe extern fn get_border_inline_end_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_inline_end_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9862,10 +9862,10 @@ unsafe extern fn set_border_inline_end_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_inline_end_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -9920,10 +9920,10 @@ unsafe extern fn get_borderInlineEndWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderInlineEndWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -9945,10 +9945,10 @@ unsafe extern fn set_borderInlineEndWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderInlineEndWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10003,10 +10003,10 @@ unsafe extern fn get_border_inline_end_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_inline_end_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10028,10 +10028,10 @@ unsafe extern fn set_border_inline_end_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_inline_end_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10086,10 +10086,10 @@ unsafe extern fn get_borderInlineEndStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderInlineEndStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10111,10 +10111,10 @@ unsafe extern fn set_borderInlineEndStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderInlineEndStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10169,10 +10169,10 @@ unsafe extern fn get_border_block_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_block_start();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10194,10 +10194,10 @@ unsafe extern fn set_border_block_start<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_block_start(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10252,10 +10252,10 @@ unsafe extern fn get_borderBlockStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBlockStart();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10277,10 +10277,10 @@ unsafe extern fn set_borderBlockStart<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBlockStart(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10335,10 +10335,10 @@ unsafe extern fn get_border_block_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_block_end();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10360,10 +10360,10 @@ unsafe extern fn set_border_block_end<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_block_end(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10418,10 +10418,10 @@ unsafe extern fn get_borderBlockEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderBlockEnd();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10443,10 +10443,10 @@ unsafe extern fn set_borderBlockEnd<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderBlockEnd(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10501,10 +10501,10 @@ unsafe extern fn get_border_inline_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_inline_start();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10526,10 +10526,10 @@ unsafe extern fn set_border_inline_start<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_inline_start(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10584,10 +10584,10 @@ unsafe extern fn get_borderInlineStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderInlineStart();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10609,10 +10609,10 @@ unsafe extern fn set_borderInlineStart<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderInlineStart(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10667,10 +10667,10 @@ unsafe extern fn get_border_inline_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_inline_end();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10692,10 +10692,10 @@ unsafe extern fn set_border_inline_end<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_inline_end(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10750,10 +10750,10 @@ unsafe extern fn get_borderInlineEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderInlineEnd();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10775,10 +10775,10 @@ unsafe extern fn set_borderInlineEnd<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderInlineEnd(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10833,10 +10833,10 @@ unsafe extern fn get_content<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Content();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10858,10 +10858,10 @@ unsafe extern fn set_content<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetContent(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10916,10 +10916,10 @@ unsafe extern fn get_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -10941,10 +10941,10 @@ unsafe extern fn set_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -10999,10 +10999,10 @@ unsafe extern fn get_display<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Display();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11024,10 +11024,10 @@ unsafe extern fn set_display<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetDisplay(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11082,10 +11082,10 @@ unsafe extern fn get_opacity<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Opacity();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11107,10 +11107,10 @@ unsafe extern fn set_opacity<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOpacity(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11165,10 +11165,10 @@ unsafe extern fn get_visibility<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Visibility();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11190,10 +11190,10 @@ unsafe extern fn set_visibility<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetVisibility(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11248,10 +11248,10 @@ unsafe extern fn get_cursor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Cursor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11273,10 +11273,10 @@ unsafe extern fn set_cursor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetCursor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11331,10 +11331,10 @@ unsafe extern fn get_boxSizing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BoxSizing();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11356,10 +11356,10 @@ unsafe extern fn set_boxSizing<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBoxSizing(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11414,10 +11414,10 @@ unsafe extern fn get_box_sizing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Box_sizing();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11439,10 +11439,10 @@ unsafe extern fn set_box_sizing<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBox_sizing(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11497,10 +11497,10 @@ unsafe extern fn get_boxShadow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BoxShadow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11522,10 +11522,10 @@ unsafe extern fn set_boxShadow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBoxShadow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11580,10 +11580,10 @@ unsafe extern fn get_box_shadow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Box_shadow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11605,10 +11605,10 @@ unsafe extern fn set_box_shadow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBox_shadow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11663,10 +11663,10 @@ unsafe extern fn get_textShadow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TextShadow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11688,10 +11688,10 @@ unsafe extern fn set_textShadow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTextShadow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11746,10 +11746,10 @@ unsafe extern fn get_text_shadow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Text_shadow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11771,10 +11771,10 @@ unsafe extern fn set_text_shadow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetText_shadow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11829,10 +11829,10 @@ unsafe extern fn get_float<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Float();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11854,10 +11854,10 @@ unsafe extern fn set_float<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFloat(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11912,10 +11912,10 @@ unsafe extern fn get_clear<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Clear();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -11937,10 +11937,10 @@ unsafe extern fn set_clear<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetClear(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -11995,10 +11995,10 @@ unsafe extern fn get_clip<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Clip();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12020,10 +12020,10 @@ unsafe extern fn set_clip<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetClip(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12078,10 +12078,10 @@ unsafe extern fn get_transform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Transform();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12103,10 +12103,10 @@ unsafe extern fn set_transform<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransform(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12161,10 +12161,10 @@ unsafe extern fn get_transformOrigin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TransformOrigin();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12186,10 +12186,10 @@ unsafe extern fn set_transformOrigin<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransformOrigin(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12244,10 +12244,10 @@ unsafe extern fn get_transform_origin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Transform_origin();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12269,10 +12269,10 @@ unsafe extern fn set_transform_origin<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransform_origin(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12327,10 +12327,10 @@ unsafe extern fn get_perspective<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Perspective();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12352,10 +12352,10 @@ unsafe extern fn set_perspective<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPerspective(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12410,10 +12410,10 @@ unsafe extern fn get_perspectiveOrigin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PerspectiveOrigin();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12435,10 +12435,10 @@ unsafe extern fn set_perspectiveOrigin<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPerspectiveOrigin(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12493,10 +12493,10 @@ unsafe extern fn get_perspective_origin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Perspective_origin();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12518,10 +12518,10 @@ unsafe extern fn set_perspective_origin<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPerspective_origin(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12576,10 +12576,10 @@ unsafe extern fn get_transformStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TransformStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12601,10 +12601,10 @@ unsafe extern fn set_transformStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransformStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12659,10 +12659,10 @@ unsafe extern fn get_transform_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Transform_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12684,10 +12684,10 @@ unsafe extern fn set_transform_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransform_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12742,10 +12742,10 @@ unsafe extern fn get_backfaceVisibility<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BackfaceVisibility();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12767,10 +12767,10 @@ unsafe extern fn set_backfaceVisibility<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackfaceVisibility(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12825,10 +12825,10 @@ unsafe extern fn get_backface_visibility<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Backface_visibility();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12850,10 +12850,10 @@ unsafe extern fn set_backface_visibility<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBackface_visibility(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12908,10 +12908,10 @@ unsafe extern fn get_rotate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Rotate();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -12933,10 +12933,10 @@ unsafe extern fn set_rotate<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetRotate(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -12991,10 +12991,10 @@ unsafe extern fn get_scale<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Scale();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13016,10 +13016,10 @@ unsafe extern fn set_scale<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetScale(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13074,10 +13074,10 @@ unsafe extern fn get_translate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Translate();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13099,10 +13099,10 @@ unsafe extern fn set_translate<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTranslate(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13157,10 +13157,10 @@ unsafe extern fn get_direction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Direction();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13182,10 +13182,10 @@ unsafe extern fn set_direction<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetDirection(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13240,10 +13240,10 @@ unsafe extern fn get_unicodeBidi<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.UnicodeBidi();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13265,10 +13265,10 @@ unsafe extern fn set_unicodeBidi<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetUnicodeBidi(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13323,10 +13323,10 @@ unsafe extern fn get_unicode_bidi<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Unicode_bidi();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13348,10 +13348,10 @@ unsafe extern fn set_unicode_bidi<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetUnicode_bidi(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13406,10 +13406,10 @@ unsafe extern fn get_filter<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Filter();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13431,10 +13431,10 @@ unsafe extern fn set_filter<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFilter(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13489,10 +13489,10 @@ unsafe extern fn get_lineHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.LineHeight();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13514,10 +13514,10 @@ unsafe extern fn set_lineHeight<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetLineHeight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13572,10 +13572,10 @@ unsafe extern fn get_line_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Line_height();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13597,10 +13597,10 @@ unsafe extern fn set_line_height<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetLine_height(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13655,10 +13655,10 @@ unsafe extern fn get_mixBlendMode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MixBlendMode();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13680,10 +13680,10 @@ unsafe extern fn set_mixBlendMode<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMixBlendMode(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13738,10 +13738,10 @@ unsafe extern fn get_mix_blend_mode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Mix_blend_mode();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13763,10 +13763,10 @@ unsafe extern fn set_mix_blend_mode<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMix_blend_mode(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13821,10 +13821,10 @@ unsafe extern fn get_verticalAlign<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.VerticalAlign();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13846,10 +13846,10 @@ unsafe extern fn set_verticalAlign<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetVerticalAlign(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13904,10 +13904,10 @@ unsafe extern fn get_vertical_align<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Vertical_align();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -13929,10 +13929,10 @@ unsafe extern fn set_vertical_align<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetVertical_align(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -13987,10 +13987,10 @@ unsafe extern fn get_listStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ListStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14012,10 +14012,10 @@ unsafe extern fn set_listStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetListStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14070,10 +14070,10 @@ unsafe extern fn get_list_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.List_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14095,10 +14095,10 @@ unsafe extern fn set_list_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetList_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14153,10 +14153,10 @@ unsafe extern fn get_listStylePosition<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ListStylePosition();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14178,10 +14178,10 @@ unsafe extern fn set_listStylePosition<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetListStylePosition(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14236,10 +14236,10 @@ unsafe extern fn get_list_style_position<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.List_style_position();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14261,10 +14261,10 @@ unsafe extern fn set_list_style_position<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetList_style_position(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14319,10 +14319,10 @@ unsafe extern fn get_listStyleType<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ListStyleType();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14344,10 +14344,10 @@ unsafe extern fn set_listStyleType<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetListStyleType(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14402,10 +14402,10 @@ unsafe extern fn get_list_style_type<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.List_style_type();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14427,10 +14427,10 @@ unsafe extern fn set_list_style_type<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetList_style_type(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14485,10 +14485,10 @@ unsafe extern fn get_listStyleImage<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ListStyleImage();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14510,10 +14510,10 @@ unsafe extern fn set_listStyleImage<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetListStyleImage(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14568,10 +14568,10 @@ unsafe extern fn get_list_style_image<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.List_style_image();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14593,10 +14593,10 @@ unsafe extern fn set_list_style_image<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetList_style_image(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14651,10 +14651,10 @@ unsafe extern fn get_quotes<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Quotes();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14676,10 +14676,10 @@ unsafe extern fn set_quotes<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetQuotes(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14734,10 +14734,10 @@ unsafe extern fn get_counterIncrement<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.CounterIncrement();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14759,10 +14759,10 @@ unsafe extern fn set_counterIncrement<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetCounterIncrement(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14817,10 +14817,10 @@ unsafe extern fn get_counter_increment<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Counter_increment();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14842,10 +14842,10 @@ unsafe extern fn set_counter_increment<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetCounter_increment(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14900,10 +14900,10 @@ unsafe extern fn get_counterReset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.CounterReset();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -14925,10 +14925,10 @@ unsafe extern fn set_counterReset<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetCounterReset(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -14983,10 +14983,10 @@ unsafe extern fn get_counter_reset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Counter_reset();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15008,10 +15008,10 @@ unsafe extern fn set_counter_reset<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetCounter_reset(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15066,10 +15066,10 @@ unsafe extern fn get_overflow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Overflow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15091,10 +15091,10 @@ unsafe extern fn set_overflow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOverflow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15149,10 +15149,10 @@ unsafe extern fn get_overflowX<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OverflowX();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15174,10 +15174,10 @@ unsafe extern fn set_overflowX<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOverflowX(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15232,10 +15232,10 @@ unsafe extern fn get_overflow_x<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Overflow_x();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15257,10 +15257,10 @@ unsafe extern fn set_overflow_x<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOverflow_x(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15315,10 +15315,10 @@ unsafe extern fn get_overflowY<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OverflowY();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15340,10 +15340,10 @@ unsafe extern fn set_overflowY<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOverflowY(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15398,10 +15398,10 @@ unsafe extern fn get_overflow_y<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Overflow_y();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15423,10 +15423,10 @@ unsafe extern fn set_overflow_y<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOverflow_y(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15481,10 +15481,10 @@ unsafe extern fn get_overflowWrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OverflowWrap();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15506,10 +15506,10 @@ unsafe extern fn set_overflowWrap<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOverflowWrap(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15564,10 +15564,10 @@ unsafe extern fn get_overflow_wrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Overflow_wrap();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15589,10 +15589,10 @@ unsafe extern fn set_overflow_wrap<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOverflow_wrap(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15647,10 +15647,10 @@ unsafe extern fn get_tableLayout<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TableLayout();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15672,10 +15672,10 @@ unsafe extern fn set_tableLayout<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTableLayout(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15730,10 +15730,10 @@ unsafe extern fn get_table_layout<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Table_layout();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15755,10 +15755,10 @@ unsafe extern fn set_table_layout<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTable_layout(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15813,10 +15813,10 @@ unsafe extern fn get_borderCollapse<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BorderCollapse();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15838,10 +15838,10 @@ unsafe extern fn set_borderCollapse<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorderCollapse(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15896,10 +15896,10 @@ unsafe extern fn get_border_collapse<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Border_collapse();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -15921,10 +15921,10 @@ unsafe extern fn set_border_collapse<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBorder_collapse(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -15979,10 +15979,10 @@ unsafe extern fn get_emptyCells<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.EmptyCells();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16004,10 +16004,10 @@ unsafe extern fn set_emptyCells<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetEmptyCells(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16062,10 +16062,10 @@ unsafe extern fn get_empty_cells<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Empty_cells();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16087,10 +16087,10 @@ unsafe extern fn set_empty_cells<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetEmpty_cells(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16145,10 +16145,10 @@ unsafe extern fn get_captionSide<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.CaptionSide();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16170,10 +16170,10 @@ unsafe extern fn set_captionSide<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetCaptionSide(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16228,10 +16228,10 @@ unsafe extern fn get_caption_side<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Caption_side();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16253,10 +16253,10 @@ unsafe extern fn set_caption_side<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetCaption_side(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16311,10 +16311,10 @@ unsafe extern fn get_whiteSpace<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.WhiteSpace();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16336,10 +16336,10 @@ unsafe extern fn set_whiteSpace<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWhiteSpace(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16394,10 +16394,10 @@ unsafe extern fn get_white_space<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.White_space();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16419,10 +16419,10 @@ unsafe extern fn set_white_space<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWhite_space(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16477,10 +16477,10 @@ unsafe extern fn get_writingMode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.WritingMode();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16502,10 +16502,10 @@ unsafe extern fn set_writingMode<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWritingMode(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16560,10 +16560,10 @@ unsafe extern fn get_writing_mode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Writing_mode();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16585,10 +16585,10 @@ unsafe extern fn set_writing_mode<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWriting_mode(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16643,10 +16643,10 @@ unsafe extern fn get_letterSpacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.LetterSpacing();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16668,10 +16668,10 @@ unsafe extern fn set_letterSpacing<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetLetterSpacing(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16726,10 +16726,10 @@ unsafe extern fn get_letter_spacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Letter_spacing();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16751,10 +16751,10 @@ unsafe extern fn set_letter_spacing<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetLetter_spacing(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16809,10 +16809,10 @@ unsafe extern fn get_wordBreak<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.WordBreak();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16834,10 +16834,10 @@ unsafe extern fn set_wordBreak<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWordBreak(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16892,10 +16892,10 @@ unsafe extern fn get_word_break<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Word_break();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -16917,10 +16917,10 @@ unsafe extern fn set_word_break<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWord_break(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -16975,10 +16975,10 @@ unsafe extern fn get_wordSpacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.WordSpacing();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17000,10 +17000,10 @@ unsafe extern fn set_wordSpacing<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWordSpacing(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17058,10 +17058,10 @@ unsafe extern fn get_word_spacing<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Word_spacing();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17083,10 +17083,10 @@ unsafe extern fn set_word_spacing<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWord_spacing(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17141,10 +17141,10 @@ unsafe extern fn get_wordWrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.WordWrap();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17166,10 +17166,10 @@ unsafe extern fn set_wordWrap<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWordWrap(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17224,10 +17224,10 @@ unsafe extern fn get_word_wrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Word_wrap();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17249,10 +17249,10 @@ unsafe extern fn set_word_wrap<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWord_wrap(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17307,10 +17307,10 @@ unsafe extern fn get_textOverflow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TextOverflow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17332,10 +17332,10 @@ unsafe extern fn set_textOverflow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTextOverflow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17390,10 +17390,10 @@ unsafe extern fn get_text_overflow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Text_overflow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17415,10 +17415,10 @@ unsafe extern fn set_text_overflow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetText_overflow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17473,10 +17473,10 @@ unsafe extern fn get_textAlign<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TextAlign();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17498,10 +17498,10 @@ unsafe extern fn set_textAlign<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTextAlign(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17556,10 +17556,10 @@ unsafe extern fn get_text_align<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Text_align();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17581,10 +17581,10 @@ unsafe extern fn set_text_align<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetText_align(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17639,10 +17639,10 @@ unsafe extern fn get_textDecoration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TextDecoration();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17664,10 +17664,10 @@ unsafe extern fn set_textDecoration<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTextDecoration(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17722,10 +17722,10 @@ unsafe extern fn get_text_decoration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Text_decoration();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17747,10 +17747,10 @@ unsafe extern fn set_text_decoration<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetText_decoration(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17805,10 +17805,10 @@ unsafe extern fn get_textDecorationLine<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TextDecorationLine();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17830,10 +17830,10 @@ unsafe extern fn set_textDecorationLine<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTextDecorationLine(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17888,10 +17888,10 @@ unsafe extern fn get_text_decoration_line<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Text_decoration_line();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17913,10 +17913,10 @@ unsafe extern fn set_text_decoration_line<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetText_decoration_line(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -17971,10 +17971,10 @@ unsafe extern fn get_textIndent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TextIndent();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -17996,10 +17996,10 @@ unsafe extern fn set_textIndent<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTextIndent(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18054,10 +18054,10 @@ unsafe extern fn get_text_indent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Text_indent();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18079,10 +18079,10 @@ unsafe extern fn set_text_indent<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetText_indent(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18137,10 +18137,10 @@ unsafe extern fn get_textJustify<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TextJustify();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18162,10 +18162,10 @@ unsafe extern fn set_textJustify<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTextJustify(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18220,10 +18220,10 @@ unsafe extern fn get_text_justify<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Text_justify();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18245,10 +18245,10 @@ unsafe extern fn set_text_justify<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetText_justify(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18303,10 +18303,10 @@ unsafe extern fn get_textRendering<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TextRendering();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18328,10 +18328,10 @@ unsafe extern fn set_textRendering<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTextRendering(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18386,10 +18386,10 @@ unsafe extern fn get_text_rendering<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Text_rendering();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18411,10 +18411,10 @@ unsafe extern fn set_text_rendering<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetText_rendering(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18469,10 +18469,10 @@ unsafe extern fn get_textTransform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TextTransform();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18494,10 +18494,10 @@ unsafe extern fn set_textTransform<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTextTransform(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18552,10 +18552,10 @@ unsafe extern fn get_text_transform<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Text_transform();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18577,10 +18577,10 @@ unsafe extern fn set_text_transform<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetText_transform(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18635,10 +18635,10 @@ unsafe extern fn get_font<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Font();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18660,10 +18660,10 @@ unsafe extern fn set_font<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFont(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18718,10 +18718,10 @@ unsafe extern fn get_fontFamily<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FontFamily();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18743,10 +18743,10 @@ unsafe extern fn set_fontFamily<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFontFamily(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18801,10 +18801,10 @@ unsafe extern fn get_font_family<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Font_family();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18826,10 +18826,10 @@ unsafe extern fn set_font_family<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFont_family(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18884,10 +18884,10 @@ unsafe extern fn get_fontSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FontSize();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18909,10 +18909,10 @@ unsafe extern fn set_fontSize<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFontSize(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -18967,10 +18967,10 @@ unsafe extern fn get_font_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Font_size();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -18992,10 +18992,10 @@ unsafe extern fn set_font_size<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFont_size(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19050,10 +19050,10 @@ unsafe extern fn get_fontStretch<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FontStretch();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19075,10 +19075,10 @@ unsafe extern fn set_fontStretch<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFontStretch(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19133,10 +19133,10 @@ unsafe extern fn get_font_stretch<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Font_stretch();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19158,10 +19158,10 @@ unsafe extern fn set_font_stretch<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFont_stretch(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19216,10 +19216,10 @@ unsafe extern fn get_fontStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FontStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19241,10 +19241,10 @@ unsafe extern fn set_fontStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFontStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19299,10 +19299,10 @@ unsafe extern fn get_font_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Font_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19324,10 +19324,10 @@ unsafe extern fn set_font_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFont_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19382,10 +19382,10 @@ unsafe extern fn get_fontVariant<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FontVariant();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19407,10 +19407,10 @@ unsafe extern fn set_fontVariant<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFontVariant(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19465,10 +19465,10 @@ unsafe extern fn get_font_variant<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Font_variant();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19490,10 +19490,10 @@ unsafe extern fn set_font_variant<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFont_variant(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19548,10 +19548,10 @@ unsafe extern fn get_fontVariantCaps<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FontVariantCaps();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19573,10 +19573,10 @@ unsafe extern fn set_fontVariantCaps<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFontVariantCaps(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19631,10 +19631,10 @@ unsafe extern fn get_font_variant_caps<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Font_variant_caps();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19656,10 +19656,10 @@ unsafe extern fn set_font_variant_caps<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFont_variant_caps(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19714,10 +19714,10 @@ unsafe extern fn get_fontWeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FontWeight();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19739,10 +19739,10 @@ unsafe extern fn set_fontWeight<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFontWeight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19797,10 +19797,10 @@ unsafe extern fn get_font_weight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Font_weight();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19822,10 +19822,10 @@ unsafe extern fn set_font_weight<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFont_weight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19880,10 +19880,10 @@ unsafe extern fn get_margin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Margin();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19905,10 +19905,10 @@ unsafe extern fn set_margin<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMargin(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -19963,10 +19963,10 @@ unsafe extern fn get_marginBottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MarginBottom();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -19988,10 +19988,10 @@ unsafe extern fn set_marginBottom<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMarginBottom(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20046,10 +20046,10 @@ unsafe extern fn get_margin_bottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Margin_bottom();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20071,10 +20071,10 @@ unsafe extern fn set_margin_bottom<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMargin_bottom(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20129,10 +20129,10 @@ unsafe extern fn get_marginLeft<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MarginLeft();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20154,10 +20154,10 @@ unsafe extern fn set_marginLeft<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMarginLeft(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20212,10 +20212,10 @@ unsafe extern fn get_margin_left<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Margin_left();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20237,10 +20237,10 @@ unsafe extern fn set_margin_left<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMargin_left(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20295,10 +20295,10 @@ unsafe extern fn get_marginRight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MarginRight();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20320,10 +20320,10 @@ unsafe extern fn set_marginRight<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMarginRight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20378,10 +20378,10 @@ unsafe extern fn get_margin_right<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Margin_right();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20403,10 +20403,10 @@ unsafe extern fn set_margin_right<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMargin_right(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20461,10 +20461,10 @@ unsafe extern fn get_marginTop<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MarginTop();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20486,10 +20486,10 @@ unsafe extern fn set_marginTop<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMarginTop(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20544,10 +20544,10 @@ unsafe extern fn get_margin_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Margin_top();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20569,10 +20569,10 @@ unsafe extern fn set_margin_top<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMargin_top(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20627,10 +20627,10 @@ unsafe extern fn get_margin_block_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Margin_block_start();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20652,10 +20652,10 @@ unsafe extern fn set_margin_block_start<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMargin_block_start(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20710,10 +20710,10 @@ unsafe extern fn get_marginBlockStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MarginBlockStart();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20735,10 +20735,10 @@ unsafe extern fn set_marginBlockStart<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMarginBlockStart(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20793,10 +20793,10 @@ unsafe extern fn get_margin_block_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Margin_block_end();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20818,10 +20818,10 @@ unsafe extern fn set_margin_block_end<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMargin_block_end(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20876,10 +20876,10 @@ unsafe extern fn get_marginBlockEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MarginBlockEnd();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20901,10 +20901,10 @@ unsafe extern fn set_marginBlockEnd<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMarginBlockEnd(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -20959,10 +20959,10 @@ unsafe extern fn get_margin_inline_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Margin_inline_start();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -20984,10 +20984,10 @@ unsafe extern fn set_margin_inline_start<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMargin_inline_start(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21042,10 +21042,10 @@ unsafe extern fn get_marginInlineStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MarginInlineStart();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21067,10 +21067,10 @@ unsafe extern fn set_marginInlineStart<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMarginInlineStart(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21125,10 +21125,10 @@ unsafe extern fn get_margin_inline_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Margin_inline_end();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21150,10 +21150,10 @@ unsafe extern fn set_margin_inline_end<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMargin_inline_end(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21208,10 +21208,10 @@ unsafe extern fn get_marginInlineEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MarginInlineEnd();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21233,10 +21233,10 @@ unsafe extern fn set_marginInlineEnd<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMarginInlineEnd(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21291,10 +21291,10 @@ unsafe extern fn get_padding<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Padding();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21316,10 +21316,10 @@ unsafe extern fn set_padding<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPadding(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21374,10 +21374,10 @@ unsafe extern fn get_paddingBottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PaddingBottom();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21399,10 +21399,10 @@ unsafe extern fn set_paddingBottom<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPaddingBottom(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21457,10 +21457,10 @@ unsafe extern fn get_padding_bottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Padding_bottom();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21482,10 +21482,10 @@ unsafe extern fn set_padding_bottom<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPadding_bottom(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21540,10 +21540,10 @@ unsafe extern fn get_paddingLeft<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PaddingLeft();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21565,10 +21565,10 @@ unsafe extern fn set_paddingLeft<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPaddingLeft(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21623,10 +21623,10 @@ unsafe extern fn get_padding_left<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Padding_left();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21648,10 +21648,10 @@ unsafe extern fn set_padding_left<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPadding_left(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21706,10 +21706,10 @@ unsafe extern fn get_paddingRight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PaddingRight();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21731,10 +21731,10 @@ unsafe extern fn set_paddingRight<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPaddingRight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21789,10 +21789,10 @@ unsafe extern fn get_padding_right<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Padding_right();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21814,10 +21814,10 @@ unsafe extern fn set_padding_right<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPadding_right(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21872,10 +21872,10 @@ unsafe extern fn get_paddingTop<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PaddingTop();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21897,10 +21897,10 @@ unsafe extern fn set_paddingTop<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPaddingTop(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -21955,10 +21955,10 @@ unsafe extern fn get_padding_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Padding_top();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -21980,10 +21980,10 @@ unsafe extern fn set_padding_top<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPadding_top(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22038,10 +22038,10 @@ unsafe extern fn get_padding_block_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Padding_block_start();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22063,10 +22063,10 @@ unsafe extern fn set_padding_block_start<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPadding_block_start(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22121,10 +22121,10 @@ unsafe extern fn get_paddingBlockStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PaddingBlockStart();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22146,10 +22146,10 @@ unsafe extern fn set_paddingBlockStart<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPaddingBlockStart(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22204,10 +22204,10 @@ unsafe extern fn get_padding_block_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Padding_block_end();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22229,10 +22229,10 @@ unsafe extern fn set_padding_block_end<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPadding_block_end(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22287,10 +22287,10 @@ unsafe extern fn get_paddingBlockEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PaddingBlockEnd();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22312,10 +22312,10 @@ unsafe extern fn set_paddingBlockEnd<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPaddingBlockEnd(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22370,10 +22370,10 @@ unsafe extern fn get_padding_inline_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Padding_inline_start();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22395,10 +22395,10 @@ unsafe extern fn set_padding_inline_start<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPadding_inline_start(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22453,10 +22453,10 @@ unsafe extern fn get_paddingInlineStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PaddingInlineStart();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22478,10 +22478,10 @@ unsafe extern fn set_paddingInlineStart<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPaddingInlineStart(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22536,10 +22536,10 @@ unsafe extern fn get_padding_inline_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Padding_inline_end();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22561,10 +22561,10 @@ unsafe extern fn set_padding_inline_end<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPadding_inline_end(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22619,10 +22619,10 @@ unsafe extern fn get_paddingInlineEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PaddingInlineEnd();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22644,10 +22644,10 @@ unsafe extern fn set_paddingInlineEnd<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPaddingInlineEnd(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22702,10 +22702,10 @@ unsafe extern fn get_outline<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Outline();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22727,10 +22727,10 @@ unsafe extern fn set_outline<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOutline(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22785,10 +22785,10 @@ unsafe extern fn get_outlineColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OutlineColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22810,10 +22810,10 @@ unsafe extern fn set_outlineColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOutlineColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22868,10 +22868,10 @@ unsafe extern fn get_outline_color<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Outline_color();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22893,10 +22893,10 @@ unsafe extern fn set_outline_color<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOutline_color(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -22951,10 +22951,10 @@ unsafe extern fn get_outlineStyle<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OutlineStyle();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -22976,10 +22976,10 @@ unsafe extern fn set_outlineStyle<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOutlineStyle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23034,10 +23034,10 @@ unsafe extern fn get_outline_style<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Outline_style();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23059,10 +23059,10 @@ unsafe extern fn set_outline_style<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOutline_style(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23117,10 +23117,10 @@ unsafe extern fn get_outlineWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OutlineWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23142,10 +23142,10 @@ unsafe extern fn set_outlineWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOutlineWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23200,10 +23200,10 @@ unsafe extern fn get_outline_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Outline_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23225,10 +23225,10 @@ unsafe extern fn set_outline_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOutline_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23283,10 +23283,10 @@ unsafe extern fn get_outlineOffset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OutlineOffset();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23308,10 +23308,10 @@ unsafe extern fn set_outlineOffset<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOutlineOffset(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23366,10 +23366,10 @@ unsafe extern fn get_outline_offset<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Outline_offset();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23391,10 +23391,10 @@ unsafe extern fn set_outline_offset<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOutline_offset(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23449,10 +23449,10 @@ unsafe extern fn get_position<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Position();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23474,10 +23474,10 @@ unsafe extern fn set_position<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPosition(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23532,10 +23532,10 @@ unsafe extern fn get_pointerEvents<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.PointerEvents();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23557,10 +23557,10 @@ unsafe extern fn set_pointerEvents<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPointerEvents(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23615,10 +23615,10 @@ unsafe extern fn get_pointer_events<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Pointer_events();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23640,10 +23640,10 @@ unsafe extern fn set_pointer_events<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetPointer_events(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23698,10 +23698,10 @@ unsafe extern fn get_top<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Top();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23723,10 +23723,10 @@ unsafe extern fn set_top<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTop(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23781,10 +23781,10 @@ unsafe extern fn get_right<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Right();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23806,10 +23806,10 @@ unsafe extern fn set_right<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetRight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23864,10 +23864,10 @@ unsafe extern fn get_left<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Left();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23889,10 +23889,10 @@ unsafe extern fn set_left<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetLeft(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -23947,10 +23947,10 @@ unsafe extern fn get_bottom<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Bottom();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -23972,10 +23972,10 @@ unsafe extern fn set_bottom<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBottom(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24030,10 +24030,10 @@ unsafe extern fn get_offset_block_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Offset_block_start();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24055,10 +24055,10 @@ unsafe extern fn set_offset_block_start<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOffset_block_start(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24113,10 +24113,10 @@ unsafe extern fn get_offsetBlockStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OffsetBlockStart();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24138,10 +24138,10 @@ unsafe extern fn set_offsetBlockStart<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOffsetBlockStart(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24196,10 +24196,10 @@ unsafe extern fn get_offset_block_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Offset_block_end();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24221,10 +24221,10 @@ unsafe extern fn set_offset_block_end<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOffset_block_end(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24279,10 +24279,10 @@ unsafe extern fn get_offsetBlockEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OffsetBlockEnd();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24304,10 +24304,10 @@ unsafe extern fn set_offsetBlockEnd<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOffsetBlockEnd(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24362,10 +24362,10 @@ unsafe extern fn get_offset_inline_start<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Offset_inline_start();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24387,10 +24387,10 @@ unsafe extern fn set_offset_inline_start<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOffset_inline_start(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24445,10 +24445,10 @@ unsafe extern fn get_offsetInlineStart<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OffsetInlineStart();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24470,10 +24470,10 @@ unsafe extern fn set_offsetInlineStart<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOffsetInlineStart(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24528,10 +24528,10 @@ unsafe extern fn get_offset_inline_end<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Offset_inline_end();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24553,10 +24553,10 @@ unsafe extern fn set_offset_inline_end<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOffset_inline_end(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24611,10 +24611,10 @@ unsafe extern fn get_offsetInlineEnd<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.OffsetInlineEnd();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24636,10 +24636,10 @@ unsafe extern fn set_offsetInlineEnd<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOffsetInlineEnd(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24694,10 +24694,10 @@ unsafe extern fn get_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Height();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24719,10 +24719,10 @@ unsafe extern fn set_height<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetHeight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24777,10 +24777,10 @@ unsafe extern fn get_minHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MinHeight();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24802,10 +24802,10 @@ unsafe extern fn set_minHeight<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMinHeight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24860,10 +24860,10 @@ unsafe extern fn get_min_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Min_height();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24885,10 +24885,10 @@ unsafe extern fn set_min_height<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMin_height(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -24943,10 +24943,10 @@ unsafe extern fn get_maxHeight<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MaxHeight();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -24968,10 +24968,10 @@ unsafe extern fn set_maxHeight<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMaxHeight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25026,10 +25026,10 @@ unsafe extern fn get_max_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Max_height();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25051,10 +25051,10 @@ unsafe extern fn set_max_height<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMax_height(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25109,10 +25109,10 @@ unsafe extern fn get_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25134,10 +25134,10 @@ unsafe extern fn set_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25192,10 +25192,10 @@ unsafe extern fn get_minWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MinWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25217,10 +25217,10 @@ unsafe extern fn set_minWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMinWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25275,10 +25275,10 @@ unsafe extern fn get_min_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Min_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25300,10 +25300,10 @@ unsafe extern fn set_min_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMin_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25358,10 +25358,10 @@ unsafe extern fn get_maxWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MaxWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25383,10 +25383,10 @@ unsafe extern fn set_maxWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMaxWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25441,10 +25441,10 @@ unsafe extern fn get_max_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Max_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25466,10 +25466,10 @@ unsafe extern fn set_max_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMax_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25524,10 +25524,10 @@ unsafe extern fn get_block_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Block_size();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25549,10 +25549,10 @@ unsafe extern fn set_block_size<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBlock_size(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25607,10 +25607,10 @@ unsafe extern fn get_blockSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BlockSize();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25632,10 +25632,10 @@ unsafe extern fn set_blockSize<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBlockSize(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25690,10 +25690,10 @@ unsafe extern fn get_inline_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Inline_size();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25715,10 +25715,10 @@ unsafe extern fn set_inline_size<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetInline_size(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25773,10 +25773,10 @@ unsafe extern fn get_inlineSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.InlineSize();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25798,10 +25798,10 @@ unsafe extern fn set_inlineSize<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetInlineSize(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25856,10 +25856,10 @@ unsafe extern fn get_max_block_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Max_block_size();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25881,10 +25881,10 @@ unsafe extern fn set_max_block_size<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMax_block_size(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -25939,10 +25939,10 @@ unsafe extern fn get_maxBlockSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MaxBlockSize();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -25964,10 +25964,10 @@ unsafe extern fn set_maxBlockSize<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMaxBlockSize(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26022,10 +26022,10 @@ unsafe extern fn get_max_inline_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Max_inline_size();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26047,10 +26047,10 @@ unsafe extern fn set_max_inline_size<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMax_inline_size(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26105,10 +26105,10 @@ unsafe extern fn get_maxInlineSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MaxInlineSize();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26130,10 +26130,10 @@ unsafe extern fn set_maxInlineSize<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMaxInlineSize(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26188,10 +26188,10 @@ unsafe extern fn get_min_block_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Min_block_size();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26213,10 +26213,10 @@ unsafe extern fn set_min_block_size<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMin_block_size(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26271,10 +26271,10 @@ unsafe extern fn get_minBlockSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MinBlockSize();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26296,10 +26296,10 @@ unsafe extern fn set_minBlockSize<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMinBlockSize(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26354,10 +26354,10 @@ unsafe extern fn get_min_inline_size<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Min_inline_size();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26379,10 +26379,10 @@ unsafe extern fn set_min_inline_size<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMin_inline_size(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26437,10 +26437,10 @@ unsafe extern fn get_minInlineSize<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.MinInlineSize();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26462,10 +26462,10 @@ unsafe extern fn set_minInlineSize<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetMinInlineSize(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26520,10 +26520,10 @@ unsafe extern fn get_zIndex<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ZIndex();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26545,10 +26545,10 @@ unsafe extern fn set_zIndex<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetZIndex(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26603,10 +26603,10 @@ unsafe extern fn get_z_index<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Z_index();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26628,10 +26628,10 @@ unsafe extern fn set_z_index<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetZ_index(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26686,10 +26686,10 @@ unsafe extern fn get_imageRendering<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ImageRendering();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26711,10 +26711,10 @@ unsafe extern fn set_imageRendering<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetImageRendering(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26769,10 +26769,10 @@ unsafe extern fn get_image_rendering<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Image_rendering();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26794,10 +26794,10 @@ unsafe extern fn set_image_rendering<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetImage_rendering(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26852,10 +26852,10 @@ unsafe extern fn get_columnCount<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ColumnCount();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26877,10 +26877,10 @@ unsafe extern fn set_columnCount<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetColumnCount(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -26935,10 +26935,10 @@ unsafe extern fn get_column_count<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Column_count();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -26960,10 +26960,10 @@ unsafe extern fn set_column_count<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetColumn_count(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27018,10 +27018,10 @@ unsafe extern fn get_columnWidth<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ColumnWidth();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27043,10 +27043,10 @@ unsafe extern fn set_columnWidth<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetColumnWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27101,10 +27101,10 @@ unsafe extern fn get_column_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Column_width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27126,10 +27126,10 @@ unsafe extern fn set_column_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetColumn_width(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27184,10 +27184,10 @@ unsafe extern fn get_columns<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Columns();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27209,10 +27209,10 @@ unsafe extern fn set_columns<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetColumns(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27267,10 +27267,10 @@ unsafe extern fn get_columnGap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ColumnGap();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27292,10 +27292,10 @@ unsafe extern fn set_columnGap<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetColumnGap(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27350,10 +27350,10 @@ unsafe extern fn get_column_gap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Column_gap();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27375,10 +27375,10 @@ unsafe extern fn set_column_gap<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetColumn_gap(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27433,10 +27433,10 @@ unsafe extern fn get_transition<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Transition();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27458,10 +27458,10 @@ unsafe extern fn set_transition<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransition(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27516,10 +27516,10 @@ unsafe extern fn get_transitionDuration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TransitionDuration();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27541,10 +27541,10 @@ unsafe extern fn set_transitionDuration<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransitionDuration(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27599,10 +27599,10 @@ unsafe extern fn get_transition_duration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Transition_duration();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27624,10 +27624,10 @@ unsafe extern fn set_transition_duration<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransition_duration(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27682,10 +27682,10 @@ unsafe extern fn get_transitionTimingFunction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TransitionTimingFunction();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27707,10 +27707,10 @@ unsafe extern fn set_transitionTimingFunction<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransitionTimingFunction(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27765,10 +27765,10 @@ unsafe extern fn get_transition_timing_function<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Transition_timing_function();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27790,10 +27790,10 @@ unsafe extern fn set_transition_timing_function<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransition_timing_function(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27848,10 +27848,10 @@ unsafe extern fn get_transitionProperty<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TransitionProperty();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27873,10 +27873,10 @@ unsafe extern fn set_transitionProperty<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransitionProperty(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -27931,10 +27931,10 @@ unsafe extern fn get_transition_property<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Transition_property();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -27956,10 +27956,10 @@ unsafe extern fn set_transition_property<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransition_property(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28014,10 +28014,10 @@ unsafe extern fn get_transitionDelay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.TransitionDelay();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28039,10 +28039,10 @@ unsafe extern fn set_transitionDelay<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransitionDelay(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28097,10 +28097,10 @@ unsafe extern fn get_transition_delay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Transition_delay();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28122,10 +28122,10 @@ unsafe extern fn set_transition_delay<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetTransition_delay(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28180,10 +28180,10 @@ unsafe extern fn get_flex<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Flex();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28205,10 +28205,10 @@ unsafe extern fn set_flex<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlex(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28263,10 +28263,10 @@ unsafe extern fn get_flexFlow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FlexFlow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28288,10 +28288,10 @@ unsafe extern fn set_flexFlow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlexFlow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28346,10 +28346,10 @@ unsafe extern fn get_flex_flow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Flex_flow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28371,10 +28371,10 @@ unsafe extern fn set_flex_flow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlex_flow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28429,10 +28429,10 @@ unsafe extern fn get_flexDirection<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FlexDirection();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28454,10 +28454,10 @@ unsafe extern fn set_flexDirection<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlexDirection(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28512,10 +28512,10 @@ unsafe extern fn get_flex_direction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Flex_direction();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28537,10 +28537,10 @@ unsafe extern fn set_flex_direction<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlex_direction(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28595,10 +28595,10 @@ unsafe extern fn get_flexWrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FlexWrap();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28620,10 +28620,10 @@ unsafe extern fn set_flexWrap<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlexWrap(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28678,10 +28678,10 @@ unsafe extern fn get_flex_wrap<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Flex_wrap();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28703,10 +28703,10 @@ unsafe extern fn set_flex_wrap<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlex_wrap(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28761,10 +28761,10 @@ unsafe extern fn get_justifyContent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.JustifyContent();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28786,10 +28786,10 @@ unsafe extern fn set_justifyContent<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetJustifyContent(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28844,10 +28844,10 @@ unsafe extern fn get_justify_content<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Justify_content();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28869,10 +28869,10 @@ unsafe extern fn set_justify_content<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetJustify_content(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -28927,10 +28927,10 @@ unsafe extern fn get_alignItems<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AlignItems();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -28952,10 +28952,10 @@ unsafe extern fn set_alignItems<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAlignItems(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29010,10 +29010,10 @@ unsafe extern fn get_align_items<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Align_items();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29035,10 +29035,10 @@ unsafe extern fn set_align_items<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAlign_items(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29093,10 +29093,10 @@ unsafe extern fn get_alignContent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AlignContent();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29118,10 +29118,10 @@ unsafe extern fn set_alignContent<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAlignContent(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29176,10 +29176,10 @@ unsafe extern fn get_align_content<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Align_content();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29201,10 +29201,10 @@ unsafe extern fn set_align_content<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAlign_content(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29259,10 +29259,10 @@ unsafe extern fn get_order<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Order();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29284,10 +29284,10 @@ unsafe extern fn set_order<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOrder(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29342,10 +29342,10 @@ unsafe extern fn get_flexBasis<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FlexBasis();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29367,10 +29367,10 @@ unsafe extern fn set_flexBasis<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlexBasis(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29425,10 +29425,10 @@ unsafe extern fn get_flex_basis<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Flex_basis();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29450,10 +29450,10 @@ unsafe extern fn set_flex_basis<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlex_basis(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29508,10 +29508,10 @@ unsafe extern fn get_flexGrow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FlexGrow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29533,10 +29533,10 @@ unsafe extern fn set_flexGrow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlexGrow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29591,10 +29591,10 @@ unsafe extern fn get_flex_grow<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Flex_grow();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29616,10 +29616,10 @@ unsafe extern fn set_flex_grow<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlex_grow(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29674,10 +29674,10 @@ unsafe extern fn get_flexShrink<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FlexShrink();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29699,10 +29699,10 @@ unsafe extern fn set_flexShrink<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlexShrink(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29757,10 +29757,10 @@ unsafe extern fn get_flex_shrink<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Flex_shrink();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29782,10 +29782,10 @@ unsafe extern fn set_flex_shrink<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetFlex_shrink(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29840,10 +29840,10 @@ unsafe extern fn get_alignSelf<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AlignSelf();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29865,10 +29865,10 @@ unsafe extern fn set_alignSelf<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAlignSelf(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -29923,10 +29923,10 @@ unsafe extern fn get_align_self<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Align_self();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -29948,10 +29948,10 @@ unsafe extern fn set_align_self<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAlign_self(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30006,10 +30006,10 @@ unsafe extern fn get_animation<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Animation();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30031,10 +30031,10 @@ unsafe extern fn set_animation<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimation(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30089,10 +30089,10 @@ unsafe extern fn get_animation_name<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Animation_name();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30114,10 +30114,10 @@ unsafe extern fn set_animation_name<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimation_name(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30172,10 +30172,10 @@ unsafe extern fn get_animationName<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AnimationName();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30197,10 +30197,10 @@ unsafe extern fn set_animationName<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimationName(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30255,10 +30255,10 @@ unsafe extern fn get_animation_duration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Animation_duration();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30280,10 +30280,10 @@ unsafe extern fn set_animation_duration<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimation_duration(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30338,10 +30338,10 @@ unsafe extern fn get_animationDuration<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AnimationDuration();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30363,10 +30363,10 @@ unsafe extern fn set_animationDuration<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimationDuration(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30421,10 +30421,10 @@ unsafe extern fn get_animation_timing_function<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Animation_timing_function();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30446,10 +30446,10 @@ unsafe extern fn set_animation_timing_function<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimation_timing_function(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30504,10 +30504,10 @@ unsafe extern fn get_animationTimingFunction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AnimationTimingFunction();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30529,10 +30529,10 @@ unsafe extern fn set_animationTimingFunction<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimationTimingFunction(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30587,10 +30587,10 @@ unsafe extern fn get_animation_iteration_count<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Animation_iteration_count();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30612,10 +30612,10 @@ unsafe extern fn set_animation_iteration_count<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimation_iteration_count(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30670,10 +30670,10 @@ unsafe extern fn get_animationIterationCount<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AnimationIterationCount();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30695,10 +30695,10 @@ unsafe extern fn set_animationIterationCount<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimationIterationCount(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30753,10 +30753,10 @@ unsafe extern fn get_animation_direction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Animation_direction();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30778,10 +30778,10 @@ unsafe extern fn set_animation_direction<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimation_direction(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30836,10 +30836,10 @@ unsafe extern fn get_animationDirection<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AnimationDirection();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30861,10 +30861,10 @@ unsafe extern fn set_animationDirection<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimationDirection(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -30919,10 +30919,10 @@ unsafe extern fn get_animation_play_state<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Animation_play_state();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -30944,10 +30944,10 @@ unsafe extern fn set_animation_play_state<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimation_play_state(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -31002,10 +31002,10 @@ unsafe extern fn get_animationPlayState<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AnimationPlayState();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -31027,10 +31027,10 @@ unsafe extern fn set_animationPlayState<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimationPlayState(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -31085,10 +31085,10 @@ unsafe extern fn get_animation_fill_mode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Animation_fill_mode();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -31110,10 +31110,10 @@ unsafe extern fn set_animation_fill_mode<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimation_fill_mode(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -31168,10 +31168,10 @@ unsafe extern fn get_animationFillMode<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AnimationFillMode();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -31193,10 +31193,10 @@ unsafe extern fn set_animationFillMode<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimationFillMode(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -31251,10 +31251,10 @@ unsafe extern fn get_animation_delay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Animation_delay();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -31276,10 +31276,10 @@ unsafe extern fn set_animation_delay<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimation_delay(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -31334,10 +31334,10 @@ unsafe extern fn get_animationDelay<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.AnimationDelay();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -31359,10 +31359,10 @@ unsafe extern fn set_animationDelay<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAnimationDelay(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,

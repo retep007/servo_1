@@ -514,10 +514,10 @@ unsafe extern fn get_disabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLButtonElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: bool = this.Disabled();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -539,10 +539,10 @@ unsafe extern fn set_disabled<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetDisabled(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -620,10 +620,10 @@ unsafe extern fn get_formAction<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLButtonElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FormAction();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -645,10 +645,10 @@ unsafe extern fn set_formAction<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetFormAction(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -696,10 +696,10 @@ unsafe extern fn get_formEnctype<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLButtonElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FormEnctype();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -721,10 +721,10 @@ unsafe extern fn set_formEnctype<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetFormEnctype(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -772,10 +772,10 @@ unsafe extern fn get_formMethod<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLButtonElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FormMethod();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -797,10 +797,10 @@ unsafe extern fn set_formMethod<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetFormMethod(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -848,10 +848,10 @@ unsafe extern fn get_formNoValidate<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLButtonElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: bool = this.FormNoValidate();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -873,10 +873,10 @@ unsafe extern fn set_formNoValidate<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetFormNoValidate(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -924,10 +924,10 @@ unsafe extern fn get_formTarget<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLButtonElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FormTarget();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -949,10 +949,10 @@ unsafe extern fn set_formTarget<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetFormTarget(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -1000,10 +1000,10 @@ unsafe extern fn get_name<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLButtonElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Name();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1025,10 +1025,10 @@ unsafe extern fn set_name<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetName(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -1076,10 +1076,10 @@ unsafe extern fn get_type<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLButtonElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Type();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1101,10 +1101,10 @@ unsafe extern fn set_type<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetType(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -1152,10 +1152,10 @@ unsafe extern fn get_value<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLButtonElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Value();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1177,10 +1177,10 @@ unsafe extern fn set_value<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetValue(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;

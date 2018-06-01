@@ -1132,10 +1132,10 @@ unsafe extern fn createElement<TH: TypeHolderTrait>
              },
             }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Element<TH>>, Error<TH>> = this.CreateElement(arg0, &arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1214,10 +1214,10 @@ unsafe extern fn createElementNS<TH: TypeHolderTrait>
              },
             }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Element<TH>>, Error<TH>> = this.CreateElementNS(arg0, arg1, &arg2);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1481,10 +1481,10 @@ unsafe extern fn importNode<TH: TypeHolderTrait>
              }
             }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.ImportNode(&arg0, arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1544,10 +1544,10 @@ unsafe extern fn adoptNode<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.AdoptNode(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2224,10 +2224,10 @@ unsafe extern fn get_title<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Document<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Title();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2249,10 +2249,10 @@ unsafe extern fn set_title<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetTitle(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -2300,10 +2300,10 @@ unsafe extern fn get_body<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Document<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Option<DomRoot<HTMLElement<TH>>> = this.GetBody();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -2332,10 +2332,10 @@ unsafe extern fn set_body<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetBody(arg0.r());
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2707,10 +2707,10 @@ unsafe extern fn open<TH: TypeHolderTrait>
              },
             }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Document<TH>>, Error<TH>> = this.Open(arg0, arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2750,10 +2750,10 @@ unsafe extern fn close<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Close();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2810,10 +2810,10 @@ unsafe extern fn write<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Write(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2870,10 +2870,10 @@ unsafe extern fn writeln<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Writeln(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3066,10 +3066,10 @@ unsafe extern fn get_fgColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Document<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FgColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3091,10 +3091,10 @@ unsafe extern fn set_fgColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetFgColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -3142,10 +3142,10 @@ unsafe extern fn get_bgColor<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Document<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.BgColor();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3167,10 +3167,10 @@ unsafe extern fn set_bgColor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetBgColor(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -8158,10 +8158,10 @@ unsafe extern fn prepend<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Prepend(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -8218,10 +8218,10 @@ unsafe extern fn append<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Append(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,

@@ -515,10 +515,10 @@ unsafe extern fn get_src<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Src();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -540,10 +540,10 @@ unsafe extern fn set_src<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetSrc(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -591,10 +591,10 @@ unsafe extern fn get_name<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Name();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -616,10 +616,10 @@ unsafe extern fn set_name<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetName(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -732,10 +732,10 @@ unsafe extern fn get_allowFullscreen<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: bool = this.AllowFullscreen();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -757,10 +757,10 @@ unsafe extern fn set_allowFullscreen<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetAllowFullscreen(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -808,10 +808,10 @@ unsafe extern fn get_width<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Width();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -833,10 +833,10 @@ unsafe extern fn set_width<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetWidth(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -884,10 +884,10 @@ unsafe extern fn get_height<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Height();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -909,10 +909,10 @@ unsafe extern fn set_height<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetHeight(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -1020,10 +1020,10 @@ unsafe extern fn get_frameBorder<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLIFrameElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.FrameBorder();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1045,10 +1045,10 @@ unsafe extern fn set_frameBorder<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetFrameBorder(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;

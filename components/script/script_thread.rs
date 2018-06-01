@@ -881,7 +881,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         // SCRIPT_THREAD_ROOT.with(|root| {
         //     if let Some(script_thread) = root.get_mut() {
         //         let script_thread = unsafe { &*script_thread };
-        //         script_thread.get_custom_element_reaction_stack().push_new_element_queue();
+        //         script_thread.get_custom_element_reaction_stack().push_new_element_queue::<TH>();
         //     }
         // })
     }
@@ -890,7 +890,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
         // SCRIPT_THREAD_ROOT.with(|root| {
         //     if let Some(script_thread) = root.get_mut() {
         //         let script_thread = unsafe { &*script_thread };
-        //         script_thread.get_custom_element_reaction_stack().pop_current_element_queue();
+        //         script_thread.get_custom_element_reaction_stack().pop_current_element_queue::<TH>();
         //     }
         // })
     }

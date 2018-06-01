@@ -622,10 +622,10 @@ unsafe extern fn before<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Before(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -682,10 +682,10 @@ unsafe extern fn after<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.After(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -742,10 +742,10 @@ unsafe extern fn replaceWith<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.ReplaceWith(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -785,10 +785,10 @@ unsafe extern fn remove<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.Remove();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());

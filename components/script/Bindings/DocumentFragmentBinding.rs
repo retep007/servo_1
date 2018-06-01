@@ -705,10 +705,10 @@ unsafe extern fn prepend<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Prepend(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -765,10 +765,10 @@ unsafe extern fn append<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Append(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,

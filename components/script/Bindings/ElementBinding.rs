@@ -645,10 +645,10 @@ unsafe extern fn get_id<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.Id();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -670,10 +670,10 @@ unsafe extern fn set_id<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetId(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -721,10 +721,10 @@ unsafe extern fn get_className<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DOMString = this.ClassName();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -746,10 +746,10 @@ unsafe extern fn set_className<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetClassName(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -1099,10 +1099,10 @@ unsafe extern fn setAttribute<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAttribute(arg0, arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1177,10 +1177,10 @@ unsafe extern fn setAttributeNS<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetAttributeNS(arg0, arg1, arg2);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1235,10 +1235,10 @@ unsafe extern fn removeAttribute<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.RemoveAttribute(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1296,10 +1296,10 @@ unsafe extern fn removeAttributeNS<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.RemoveAttributeNS(arg0, arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1566,10 +1566,10 @@ unsafe extern fn setAttributeNode<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetAttributeNode(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1629,10 +1629,10 @@ unsafe extern fn setAttributeNodeNS<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetAttributeNodeNS(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1692,10 +1692,10 @@ unsafe extern fn removeAttributeNode<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.RemoveAttributeNode(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2087,10 +2087,10 @@ unsafe extern fn insertAdjacentElement<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<Option<DomRoot<Element<TH>>>, Error<TH>> = this.InsertAdjacentElement(arg0, &arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2219,10 +2219,10 @@ unsafe extern fn insertAdjacentHTML<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.InsertAdjacentHTML(arg0, arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2946,10 +2946,10 @@ unsafe extern fn get_innerHTML<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DOMString, Error<TH>> = this.GetInnerHTML();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -2978,10 +2978,10 @@ unsafe extern fn set_innerHTML<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetInnerHTML(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3036,10 +3036,10 @@ unsafe extern fn get_outerHTML<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Element<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DOMString, Error<TH>> = this.GetOuterHTML();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3068,10 +3068,10 @@ unsafe extern fn set_outerHTML<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SetOuterHTML(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3255,10 +3255,10 @@ unsafe extern fn before<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Before(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3315,10 +3315,10 @@ unsafe extern fn after<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.After(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3375,10 +3375,10 @@ unsafe extern fn replaceWith<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.ReplaceWith(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3418,10 +3418,10 @@ unsafe extern fn remove<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.Remove();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -3651,10 +3651,10 @@ unsafe extern fn prepend<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Prepend(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -3711,10 +3711,10 @@ unsafe extern fn append<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Append(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,

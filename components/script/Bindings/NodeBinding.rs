@@ -915,10 +915,10 @@ unsafe extern fn get_nodeValue<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Option<DOMString> = this.GetNodeValue();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -940,10 +940,10 @@ unsafe extern fn set_nodeValue<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetNodeValue(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -991,10 +991,10 @@ unsafe extern fn get_textContent<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Node<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Option<DOMString> = this.GetTextContent();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1016,10 +1016,10 @@ unsafe extern fn set_textContent<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetTextContent(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -1069,10 +1069,10 @@ unsafe extern fn normalize<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.Normalize();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1119,10 +1119,10 @@ unsafe extern fn cloneNode<TH: TypeHolderTrait>
              }
             }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: DomRoot<Node<TH>> = this.CloneNode(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1568,10 +1568,10 @@ unsafe extern fn insertBefore<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.InsertBefore(&arg0, arg1.r());
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1631,10 +1631,10 @@ unsafe extern fn appendChild<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.AppendChild(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1709,10 +1709,10 @@ unsafe extern fn replaceChild<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.ReplaceChild(&arg0, &arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1772,10 +1772,10 @@ unsafe extern fn removeChild<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.RemoveChild(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,

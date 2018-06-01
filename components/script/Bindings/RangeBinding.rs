@@ -1306,10 +1306,10 @@ unsafe extern fn deleteContents<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.DeleteContents();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1349,10 +1349,10 @@ unsafe extern fn extractContents<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<DocumentFragment<TH>>, Error<TH>> = this.ExtractContents();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1392,10 +1392,10 @@ unsafe extern fn cloneContents<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<DocumentFragment<TH>>, Error<TH>> = this.CloneContents();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1455,10 +1455,10 @@ unsafe extern fn insertNode<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.InsertNode(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1518,10 +1518,10 @@ unsafe extern fn surroundContents<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.SurroundContents(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -1874,10 +1874,10 @@ unsafe extern fn createContextualFragment<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<DocumentFragment<TH>>, Error<TH>> = this.CreateContextualFragment(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,

@@ -752,10 +752,10 @@ unsafe extern fn defineProperty<TH: TypeHolderTrait>
                 }
                 _ => { return false; },
             };
-            push_new_element_queue();
+            push_new_element_queue::<TH>();
 
             let result: Result<(), Error<TH>> = this.NamedSetter(name, value);
-            pop_current_element_queue();
+            pop_current_element_queue::<TH>();
 
             let result = match result {
                 Ok(result) => result,
@@ -776,10 +776,10 @@ unsafe extern fn delete<TH: TypeHolderTrait>
         let name = jsid_to_string(cx, Handle::from_raw(id)).expect("Not a string-convertible JSID?");
         let this = UnwrapProxy(proxy);
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.NamedDeleter(name);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         return proxyhandler::delete(cx, proxy, id, res);
     }), false);

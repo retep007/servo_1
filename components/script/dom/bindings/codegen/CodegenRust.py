@@ -3340,7 +3340,7 @@ class CGCallGenerator(CGThing):
         call = CGList([call, CGWrapper(args, pre="(", post=")")])
 
         if hasCEReactions:
-            self.cgRoot.append(CGGeneric("push_new_element_queue();\n"))
+            self.cgRoot.append(CGGeneric("push_new_element_queue::<TH>();\n"))
 
         self.cgRoot.append(CGList([
             CGGeneric("let result: "),
@@ -3351,7 +3351,7 @@ class CGCallGenerator(CGThing):
         ]))
 
         if hasCEReactions:
-            self.cgRoot.append(CGGeneric("pop_current_element_queue();\n"))
+            self.cgRoot.append(CGGeneric("pop_current_element_queue::<TH>();\n"))
 
         if isFallible:
             if static:

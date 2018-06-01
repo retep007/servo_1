@@ -519,10 +519,10 @@ unsafe extern fn get_length<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLOptionsCollection<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: u32 = this.Length();
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -544,10 +544,10 @@ unsafe extern fn set_length<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.SetLength(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         return true;
@@ -626,10 +626,10 @@ unsafe extern fn add<TH: TypeHolderTrait>
              },
             }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<(), Error<TH>> = this.Add(arg0, arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -684,10 +684,10 @@ unsafe extern fn remove<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: () = this.Remove(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
 
         (result).to_jsval(cx, args.rval());
@@ -1078,10 +1078,10 @@ unsafe extern fn defineProperty<TH: TypeHolderTrait>
                 throw_type_error(cx, "Value is not an object.");
                 return false;
             };
-            push_new_element_queue();
+            push_new_element_queue::<TH>();
 
             let result: Result<(), Error<TH>> = this.IndexedSetter(index, option.r());
-            pop_current_element_queue();
+            pop_current_element_queue::<TH>();
 
             let result = match result {
                 Ok(result) => result,

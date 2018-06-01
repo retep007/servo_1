@@ -722,10 +722,10 @@ unsafe extern fn setNamedItem<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetNamedItem(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -785,10 +785,10 @@ unsafe extern fn setNamedItemNS<TH: TypeHolderTrait>
             return false;
 
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetNamedItemNS(&arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -843,10 +843,10 @@ unsafe extern fn removeNamedItem<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.RemoveNamedItem(arg0);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
@@ -911,10 +911,10 @@ unsafe extern fn removeNamedItemNS<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        push_new_element_queue();
+        push_new_element_queue::<TH>();
 
         let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.RemoveNamedItemNS(arg0, arg1);
-        pop_current_element_queue();
+        pop_current_element_queue::<TH>();
 
         let result = match result {
             Ok(result) => result,
