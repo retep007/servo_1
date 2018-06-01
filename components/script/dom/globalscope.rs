@@ -443,7 +443,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
 
                 if !result {
                     debug!("error evaluating Dom string");
-                    unsafe { report_pending_exception(cx, true) };
+                    unsafe { report_pending_exception::<TH>(cx, true) };
                 }
 
                 maybe_resume_unwind();

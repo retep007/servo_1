@@ -728,7 +728,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<MediaQueryList<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<MediaQueryList<TH>>(obj).unwrap();
         let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<MediaQueryList<TH>, TH>;
         if !weak_box_ptr.is_null() {
             let count = {
@@ -756,7 +756,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<MediaQueryList<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<MediaQueryList<TH>>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());

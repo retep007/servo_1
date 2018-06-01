@@ -575,7 +575,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<ServiceWorkerGlobalScope<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<ServiceWorkerGlobalScope<TH>>(obj).unwrap();
         finalize_global(obj);
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
@@ -589,7 +589,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<ServiceWorkerGlobalScope<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<ServiceWorkerGlobalScope<TH>>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
         trace_global(trc, obj);

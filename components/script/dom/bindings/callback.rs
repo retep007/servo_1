@@ -273,7 +273,7 @@ impl<TH: TypeHolderTrait> Drop for CallSetup<TH> {
             if self.handling == ExceptionHandling::Report {
                 let _ac = JSAutoCompartment::new(self.cx,
                                                  self.exception_global.reflector().get_jsobject().get());
-                report_pending_exception(self.cx, true);
+                report_pending_exception::<TH>(self.cx, true);
             }
             drop(self.incumbent_script.take());
             drop(self.entry_script.take().unwrap());

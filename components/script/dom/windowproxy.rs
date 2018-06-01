@@ -310,7 +310,7 @@ unsafe fn GetSubframeWindow<TH: TypeHolderTrait>(cx: *mut JSContext,
     let index = get_array_index_from_id(cx, Handle::from_raw(id));
     if let Some(index) = index {
         rooted!(in(cx) let target = GetProxyPrivate(*proxy).to_object());
-        let win = root_from_handleobject::<Window<TH>, TH>(target.handle()).unwrap();
+        let win = root_from_handleobject::<Window<TH>>(target.handle()).unwrap();
         let mut found = false;
         return win.IndexedGetter(index, &mut found);
     }

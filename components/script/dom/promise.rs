@@ -257,7 +257,7 @@ unsafe extern fn native_handler_callback<TH: TypeHolderTrait>(cx: *mut JSContext
     rooted!(in(cx) let v = *GetFunctionNativeReserved(args.callee(), SLOT_NATIVEHANDLER));
     assert!(v.get().is_object());
 
-    let handler = root_from_object::<PromiseNativeHandler<TH>, TH>(v.to_object())
+    let handler = root_from_object::<PromiseNativeHandler<TH>>(v.to_object())
         .expect("unexpected value for native handler in promise native handler callback");
 
     rooted!(in(cx) let v = *GetFunctionNativeReserved(args.callee(), SLOT_NATIVEHANDLER_TASK));

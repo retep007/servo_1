@@ -355,7 +355,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
                     unsafe {
                         let _ac = JSAutoCompartment::new(self.runtime.cx(),
                                                          self.reflector().get_jsobject().get());
-                        report_pending_exception(self.runtime.cx(), true);
+                        report_pending_exception::<TH>(self.runtime.cx(), true);
                     }
                 }
             }

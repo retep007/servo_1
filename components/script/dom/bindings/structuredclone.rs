@@ -147,7 +147,7 @@ unsafe extern "C" fn write_callback<TH: TypeHolderTrait>(_cx: *mut JSContext,
                                     obj: RawHandleObject,
                                     _closure: *mut raw::c_void)
                                     -> bool {
-    if let Ok(blob) = root_from_handleobject::<Blob<TH>, TH>(Handle::from_raw(obj)) {
+    if let Ok(blob) = root_from_handleobject::<Blob<TH>>(Handle::from_raw(obj)) {
         return write_blob(blob, w).is_ok()
     }
     return false

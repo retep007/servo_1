@@ -189,7 +189,7 @@ impl<TH: TypeHolderTrait> ErrorInfo<TH> {
     }
 
     fn from_dom_exception(object: HandleObject) -> Option<ErrorInfo<TH>> {
-        let exception = match root_from_object::<DOMException<TH>, TH>(object.get()) {
+        let exception = match root_from_object::<DOMException<TH>>(object.get()) {
             Ok(exception) => exception,
             Err(_) => return None,
         };
@@ -208,7 +208,7 @@ impl<TH: TypeHolderTrait> ErrorInfo<TH> {
 ///
 /// The `dispatch_event` argument is temporary and non-standard; passing false
 /// prevents dispatching the `error` event.
-pub unsafe fn report_pending_exception(cx: *mut JSContext, dispatch_event: bool) {
+pub unsafe fn report_pending_exception<TH: TypeHolderTrait>(cx: *mut JSContext, dispatch_event: bool) {
     if !JS_IsExceptionPending(cx) { return; }
 
     rooted!(in(cx) let mut value = UndefinedValue());
@@ -221,7 +221,7 @@ pub unsafe fn report_pending_exception(cx: *mut JSContext, dispatch_event: bool)
     JS_ClearPendingException(cx);
     let error_info = if value.is_object() {
         rooted!(in(cx) let object = value.to_object());
-        ErrorInfo::from_native_error(cx, object.handle())
+        ErrorInfo::<TH>::from_native_error(cx, object.handle())
             .or_else(|| ErrorInfo::from_dom_exception(object.handle()))
             .unwrap_or_else(|| {
                 ErrorInfo {

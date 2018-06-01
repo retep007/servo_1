@@ -752,7 +752,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<TestBindingPairIterable<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<TestBindingPairIterable<TH>>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
                 let _ = Box::from_raw(this as *mut TestBindingPairIterable<TH>);
@@ -765,7 +765,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<TestBindingPairIterable<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<TestBindingPairIterable<TH>>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());
@@ -1285,7 +1285,7 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 unsafe extern fn next<TH: TypeHolderTrait>
-(cx: *mut JSContext, _obj: HandleObject, this: *const IterableIterator<TestBindingPairIterable<TH>, TH>, args: *const JSJitMethodCallArgs) -> bool {
+(cx: *mut JSContext, _obj: HandleObject, this: *const IterableIterator<TestBindingPairIterable<TH>>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
         let args = &*args;
@@ -1327,10 +1327,10 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<IterableIterator<TestBindingPairIterable<TH>, TH>, TH>(obj).unwrap();
+        let this = native_from_object::<IterableIterator<TestBindingPairIterable<TH>>>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
-                let _ = Box::from_raw(this as *mut IterableIterator<TestBindingPairIterable<TH>, TH>);
+                let _ = Box::from_raw(this as *mut IterableIterator<TestBindingPairIterable<TH>>);
             }
             debug!("IterableIterator<TestBindingPairIterable<TH>> finalize: {:p}", this);
     }), ());
@@ -1340,7 +1340,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<IterableIterator<TestBindingPairIterable<TH>, TH>, TH>(obj).unwrap();
+        let this = native_from_object::<IterableIterator<TestBindingPairIterable<TH>>>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());
@@ -1380,11 +1380,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 
 #[inline]
 fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
-    malloc_size_of_including_raw_self::<IterableIterator<TestBindingPairIterable<TH>, TH>>(ops, obj)
+    malloc_size_of_including_raw_self::<IterableIterator<TestBindingPairIterable<TH>>>(ops, obj)
 }
 
 pub unsafe fn Wrap<TH: TypeHolderTrait>
-(cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<IterableIterator<TestBindingPairIterable<TH>, TH>>) -> DomRoot<IterableIterator<TestBindingPairIterable<TH>, TH>> {
+(cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<IterableIterator<TestBindingPairIterable<TH>>>) -> DomRoot<IterableIterator<TestBindingPairIterable<TH>>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
     assert!(((*get_object_class(scope.get())).flags & JSCLASS_IS_GLOBAL) != 0);
@@ -1409,16 +1409,16 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for IterableIterator<TestBindingPairIterable<TH>, TH> {
+impl<TH: TypeHolderTrait> IDLInterface for IterableIterator<TestBindingPairIterable<TH>> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for IterableIterator<TestBindingPairIterable<TH>, TH> {
-    fn eq(&self, other: &IterableIterator<TestBindingPairIterable<TH>, TH>) -> bool {
-        self as *const IterableIterator<TestBindingPairIterable<TH>, TH> == &*other
+impl<TH: TypeHolderTrait> PartialEq for IterableIterator<TestBindingPairIterable<TH>> {
+    fn eq(&self, other: &IterableIterator<TestBindingPairIterable<TH>>) -> bool {
+        self as *const IterableIterator<TestBindingPairIterable<TH>> == &*other
     }
 }
 

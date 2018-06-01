@@ -1256,7 +1256,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<KeyboardEvent<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<KeyboardEvent<TH>>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
                 let _ = Box::from_raw(this as *mut KeyboardEvent<TH>);
@@ -1269,7 +1269,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<KeyboardEvent<TH>, TH>(obj).unwrap();
+        let this = native_from_object::<KeyboardEvent<TH>>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());

@@ -51,19 +51,19 @@ pub trait Iterable {
 
 /// An iterator over the iterable entries of a given DOM interface.
 #[dom_struct]
-pub struct IterableIterator<T: DomObject + JSTraceable + Iterable, TH: TypeHolderTrait + 'static> {
-    reflector: Reflector<TH>,
+pub struct IterableIterator<T: DomObject + JSTraceable + Iterable> {
+    reflector: Reflector<T::TypeHolder>,
     iterable: Dom<T>,
     type_: IteratorType,
     index: Cell<u32>,
-    _p: PhantomData<TH>,
+    _p: PhantomData<T::TypeHolder>,
 }
 
-impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T, T::TypeHolder> {
+impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T> {
     /// Create a new iterator instance for the provided iterable DOM interface.
     pub fn new(iterable: &T,
                type_: IteratorType,
-               wrap: unsafe fn(*mut JSContext, &GlobalScope<T::TypeHolder>, Box<IterableIterator<T, T::TypeHolder>>)
+               wrap: unsafe fn(*mut JSContext, &GlobalScope<T::TypeHolder>, Box<IterableIterator<T>>)
                      -> DomRoot<Self>) -> DomRoot<Self> {
         let iterator = Box::new(IterableIterator {
             reflector: Reflector::new(),

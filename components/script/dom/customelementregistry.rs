@@ -529,7 +529,7 @@ pub fn upgrade_element<TH: TypeHolderTrait>(definition: Rc<CustomElementDefiniti
         let cx = global.get_cx();
         unsafe {
             throw_dom_exception(cx, &global, error);
-            report_pending_exception(cx, true);
+            report_pending_exception::<TH>(cx, true);
         }
         return;
     }

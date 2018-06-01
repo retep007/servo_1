@@ -51,7 +51,7 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
             type TypeHolder = TH;
 
             #[inline]
-            fn reflector(&self) -> &::dom::bindings::reflector::Reflector<TH> {
+            fn reflector(&self) -> &::dom::bindings::reflector::Reflector<Self::TypeHolder> {
                 self.#first_field_name.reflector()
             }
         }
@@ -62,6 +62,34 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
             }
         }
     };
+    if name == "IterableIterator" {
+        items = quote! {
+            impl #impl_generics ::js::conversions::ToJSValConvertible for #name #ty_generics #where_clause {
+                #[allow(unsafe_code)]
+                unsafe fn to_jsval(&self,
+                                    cx: *mut ::js::jsapi::JSContext,
+                                    rval: ::js::rust::MutableHandleValue) {
+                    let object = ::dom::bindings::reflector::DomObject::reflector(self).get_jsobject();
+                    object.to_jsval(cx, rval)
+                }
+            }
+
+            impl #impl_generics ::dom::bindings::reflector::DomObject for #name #ty_generics #where_clause {
+                type TypeHolder = T::TypeHolder;
+
+                #[inline]
+                fn reflector(&self) -> &::dom::bindings::reflector::Reflector<Self::TypeHolder> {
+                    self.#first_field_name.reflector()
+                }
+            }
+
+            impl #impl_generics ::dom::bindings::reflector::MutDomObject for #name #ty_generics #where_clause {
+                fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
+                    self.#first_field_name.init_reflector(obj);
+                }
+            }
+        };
+    }
     let mut params = quote::Tokens::new();
     params.append_separated(input.generics.type_params().map(|param| param.ident), quote!(,));
 

@@ -465,7 +465,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
             unsafe {
                 let _ac = JSAutoCompartment::new(cx, self.reflector().get_jsobject().get());
                 // FIXME(#13152): dispatch error event.
-                report_pending_exception(cx, false);
+                report_pending_exception::<TH>(cx, false);
             }
             // Step 1.8.1 / 1.8.3
             return None;
