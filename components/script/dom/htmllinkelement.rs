@@ -36,6 +36,7 @@ use style::str::HTML_SPACE_CHARACTERS;
 use style::stylesheets::{CssRuleType, Stylesheet};
 use style_traits::ParsingMode;
 use stylesheet_loader::{StylesheetLoader, StylesheetContextSource, StylesheetOwner};
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, JSTraceable, MallocSizeOf, PartialEq)]
 pub struct RequestGenerationId(u32);
@@ -47,12 +48,12 @@ impl RequestGenerationId {
 }
 
 #[dom_struct]
-pub struct HTMLLinkElement {
-    htmlelement: HTMLElement,
-    rel_list: MutNullableDom<DOMTokenList>,
+pub struct HTMLLinkElement<TH: TypeHolderTrait<TH> + 'static> {
+    htmlelement: HTMLElement<TH>,
+    rel_list: MutNullableDom<DOMTokenList<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
-    cssom_stylesheet: MutNullableDom<CSSStyleSheet>,
+    cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
 
     /// <https://html.spec.whatwg.org/multipage/#a-style-sheet-that-is-blocking-scripts>
     parser_inserted: Cell<bool>,
@@ -65,9 +66,9 @@ pub struct HTMLLinkElement {
     request_generation_id: Cell<RequestGenerationId>,
 }
 
-impl HTMLLinkElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document,
-                     creator: ElementCreator) -> HTMLLinkElement {
+impl<TH: TypeHolderTrait<TH>> HTMLLinkElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>,
+                     creator: ElementCreator) -> HTMLLinkElement<TH> {
         HTMLLinkElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
             rel_list: Default::default(),
@@ -83,8 +84,8 @@ impl HTMLLinkElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document,
-               creator: ElementCreator) -> DomRoot<HTMLLinkElement> {
+               document: &Document<TH>,
+               creator: ElementCreator) -> DomRoot<HTMLLinkElement<TH>> {
         Node::reflect_node(Box::new(HTMLLinkElement::new_inherited(local_name, prefix, document, creator)),
                            document,
                            HTMLLinkElementBinding::Wrap)
@@ -110,11 +111,11 @@ impl HTMLLinkElement {
         self.stylesheet.borrow().clone()
     }
 
-    pub fn get_cssom_stylesheet(&self) -> Option<DomRoot<CSSStyleSheet>> {
+    pub fn get_cssom_stylesheet(&self) -> Option<DomRoot<CSSStyleSheet<TH>>> {
         self.get_stylesheet().map(|sheet| {
             self.cssom_stylesheet.or_init(|| {
                 CSSStyleSheet::new(&window_from_node(self),
-                                   self.upcast::<Element>(),
+                                   self.upcast::<Element<TH>>(),
                                    "text/css".into(),
                                    None, // todo handle location
                                    None, // todo handle title
@@ -135,7 +136,7 @@ impl HTMLLinkElement {
     }
 }
 
-fn get_attr(element: &Element, local_name: &LocalName) -> Option<String> {
+fn get_attr<TH: TypeHolderTrait<TH>>(element: &Element<TH>, local_name: &LocalName) -> Option<String> {
     let elem = element.get_attribute(&ns!(), local_name);
     elem.map(|e| {
         let value = e.value();
@@ -166,14 +167,14 @@ fn is_favicon(value: &Option<String>) -> bool {
     }
 }
 
-impl VirtualMethods for HTMLLinkElement {
-    fn super_type(&self) -> Option<&VirtualMethods> {
-        Some(self.upcast::<HTMLElement>() as &VirtualMethods)
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLLinkElement<TH> {
+    fn super_type(&self) -> Option<&VirtualMethods<TH>> {
+        Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
 
-    fn attribute_mutated(&self, attr: &Attr, mutation: AttributeMutation) {
+    fn attribute_mutated(&self, attr: &Attr<TH>, mutation: AttributeMutation<TH>) {
         self.super_type().unwrap().attribute_mutated(attr, mutation);
-        if !self.upcast::<Node>().is_in_doc() || mutation.is_removal() {
+        if !self.upcast::<Node<TH>>().is_in_doc() || mutation.is_removal() {
             return;
         }
 
@@ -229,7 +230,7 @@ impl VirtualMethods for HTMLLinkElement {
         }
     }
 
-    fn unbind_from_tree(&self, context: &UnbindContext) {
+    fn unbind_from_tree(&self, context: &UnbindContext<TH>) {
         if let Some(ref s) = self.super_type() {
             s.unbind_from_tree(context);
         }
@@ -241,7 +242,7 @@ impl VirtualMethods for HTMLLinkElement {
 }
 
 
-impl HTMLLinkElement {
+impl<TH: TypeHolderTrait<TH>> HTMLLinkElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#concept-link-obtain>
     fn handle_stylesheet_url(&self, href: &str) {
         let document = document_from_node(self);
@@ -263,7 +264,7 @@ impl HTMLLinkElement {
             }
         };
 
-        let element = self.upcast::<Element>();
+        let element = self.upcast::<Element<TH>>();
 
         // Step 3
         let cors_setting = cors_setting_for_element(element);
@@ -307,14 +308,14 @@ impl HTMLLinkElement {
         match document.base_url().join(href) {
             Ok(url) => {
                 let event = ScriptMsg::NewFavicon(url.clone());
-                document.window().upcast::<GlobalScope>().script_to_constellation_chan().send(event).unwrap();
+                document.window().upcast::<GlobalScope<TH>>().script_to_constellation_chan().send(event).unwrap();
             }
             Err(e) => debug!("Parsing url {} failed: {}", href, e)
         }
     }
 }
 
-impl StylesheetOwner for HTMLLinkElement {
+impl<TH: TypeHolderTrait<TH>> StylesheetOwner for HTMLLinkElement<TH> {
     fn increment_pending_loads_count(&self) {
         self.pending_loads.set(self.pending_loads.get() + 1)
     }
@@ -354,7 +355,7 @@ impl StylesheetOwner for HTMLLinkElement {
     }
 }
 
-impl HTMLLinkElementMethods for HTMLLinkElement {
+impl<TH: TypeHolderTrait<TH>> HTMLLinkElementMethods<TH> for HTMLLinkElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-link-href
     make_url_getter!(Href, "href");
 
@@ -366,7 +367,7 @@ impl HTMLLinkElementMethods for HTMLLinkElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-link-rel
     fn SetRel(&self, rel: DOMString) {
-        self.upcast::<Element>().set_tokenlist_attribute(&local_name!("rel"), rel);
+        self.upcast::<Element<TH>>().set_tokenlist_attribute(&local_name!("rel"), rel);
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-link-media
@@ -394,7 +395,7 @@ impl HTMLLinkElementMethods for HTMLLinkElement {
     make_setter!(SetType, "type");
 
     // https://html.spec.whatwg.org/multipage/#dom-link-rellist
-    fn RelList(&self) -> DomRoot<DOMTokenList> {
+    fn RelList(&self) -> DomRoot<DOMTokenList<TH>> {
         self.rel_list.or_init(|| DOMTokenList::new(self.upcast(), &local_name!("rel")))
     }
 
@@ -418,16 +419,16 @@ impl HTMLLinkElementMethods for HTMLLinkElement {
 
     // https://html.spec.whatwg.org/multipage/#dom-link-crossorigin
     fn GetCrossOrigin(&self) -> Option<DOMString> {
-        reflect_cross_origin_attribute(self.upcast::<Element>())
+        reflect_cross_origin_attribute(self.upcast::<Element<TH>>())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-link-crossorigin
     fn SetCrossOrigin(&self, value: Option<DOMString>) {
-        set_cross_origin_attribute(self.upcast::<Element>(), value);
+        set_cross_origin_attribute(self.upcast::<Element<TH>>(), value);
     }
 
     // https://drafts.csswg.org/cssom/#dom-linkstyle-sheet
-    fn GetSheet(&self) -> Option<DomRoot<DOMStyleSheet>> {
+    fn GetSheet(&self) -> Option<DomRoot<DOMStyleSheet<TH>>> {
         self.get_cssom_stylesheet().map(DomRoot::upcast)
     }
 }

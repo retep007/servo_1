@@ -9,6 +9,7 @@ use dom::htmlelement::HTMLElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, MallocSizeOf)]
 pub enum HeadingLevel {
@@ -21,16 +22,16 @@ pub enum HeadingLevel {
 }
 
 #[dom_struct]
-pub struct HTMLHeadingElement {
-    htmlelement: HTMLElement,
+pub struct HTMLHeadingElement<TH: TypeHolderTrait<TH> + 'static> {
+    htmlelement: HTMLElement<TH>,
     level: HeadingLevel,
 }
 
-impl HTMLHeadingElement {
+impl<TH: TypeHolderTrait<TH>> HTMLHeadingElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document,
-                     level: HeadingLevel) -> HTMLHeadingElement {
+                     document: &Document<TH>,
+                     level: HeadingLevel) -> HTMLHeadingElement<TH> {
         HTMLHeadingElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document),
@@ -41,8 +42,8 @@ impl HTMLHeadingElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document,
-               level: HeadingLevel) -> DomRoot<HTMLHeadingElement> {
+               document: &Document<TH>,
+               level: HeadingLevel) -> DomRoot<HTMLHeadingElement<TH>> {
         Node::reflect_node(Box::new(HTMLHeadingElement::new_inherited(local_name, prefix, document, level)),
                            document,
                            HTMLHeadingElementBinding::Wrap)

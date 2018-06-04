@@ -16,13 +16,16 @@ use mime::{Mime, TopLevel, SubLevel};
 use std::cell::Cell;
 use std::result::Result;
 use std::str;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct Headers {
-    reflector_: Reflector,
+pub struct Headers<TH: TypeHolderTrait<TH> + 'static> {
+    reflector_: Reflector<TH>,
     guard: Cell<Guard>,
     #[ignore_malloc_size_of = "Defined in hyper"]
-    header_list: DomRefCell<HyperHeaders>
+    header_list: DomRefCell<HyperHeaders>,
+    _p: PhantomData<TH>,
 }
 
 // https://fetch.spec.whatwg.org/#concept-headers-guard
@@ -35,31 +38,32 @@ pub enum Guard {
     None,
 }
 
-impl Headers {
-    pub fn new_inherited() -> Headers {
+impl<TH: TypeHolderTrait<TH>> Headers<TH> {
+    pub fn new_inherited() -> Headers<TH> {
         Headers {
             reflector_: Reflector::new(),
             guard: Cell::new(Guard::None),
             header_list: DomRefCell::new(HyperHeaders::new()),
+            _p: Default::default(),
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<Headers> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Headers<TH>> {
         reflect_dom_object(Box::new(Headers::new_inherited()), global, HeadersWrap)
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers
-    pub fn Constructor(global: &GlobalScope, init: Option<HeadersInit>)
-                       -> Fallible<DomRoot<Headers>> {
+    pub fn Constructor(global: &GlobalScope<TH>, init: Option<HeadersInit<TH>>)
+                       -> Fallible<DomRoot<Headers<TH>>, TH> {
         let dom_headers_new = Headers::new(global);
         dom_headers_new.fill(init)?;
         Ok(dom_headers_new)
     }
 }
 
-impl HeadersMethods for Headers {
+impl<TH: TypeHolderTrait<TH>> HeadersMethods<TH> for Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-append
-    fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult {
+    fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult<TH> {
         // Step 1
         let value = normalize_value(value);
         // Step 2
@@ -93,7 +97,7 @@ impl HeadersMethods for Headers {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-delete
-    fn Delete(&self, name: ByteString) -> ErrorResult {
+    fn Delete(&self, name: ByteString) -> ErrorResult<TH> {
         // Step 1
         let valid_name = validate_name(name)?;
         // Step 2
@@ -119,7 +123,7 @@ impl HeadersMethods for Headers {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-get
-    fn Get(&self, name: ByteString) -> Fallible<Option<ByteString>> {
+    fn Get(&self, name: ByteString) -> Fallible<Option<ByteString>, TH> {
         // Step 1
         let valid_name = &validate_name(name)?;
         Ok(self.header_list.borrow().get_raw(&valid_name).map(|v| {
@@ -128,7 +132,7 @@ impl HeadersMethods for Headers {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-has
-    fn Has(&self, name: ByteString) -> Fallible<bool> {
+    fn Has(&self, name: ByteString) -> Fallible<bool, TH> {
         // Step 1
         let valid_name = validate_name(name)?;
         // Step 2
@@ -136,7 +140,7 @@ impl HeadersMethods for Headers {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-set
-    fn Set(&self, name: ByteString, value: ByteString) -> Fallible<()> {
+    fn Set(&self, name: ByteString, value: ByteString) -> Fallible<(), TH> {
         // Step 1
         let value = normalize_value(value);
         // Step 2
@@ -165,9 +169,9 @@ impl HeadersMethods for Headers {
     }
 }
 
-impl Headers {
+impl<TH: TypeHolderTrait<TH>> Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-fill
-    pub fn fill(&self, filler: Option<HeadersInit>) -> ErrorResult {
+    pub fn fill(&self, filler: Option<HeadersInit<TH>>) -> ErrorResult<TH> {
         match filler {
             // Step 1
             Some(HeadersInit::Headers(h)) => {
@@ -206,13 +210,13 @@ impl Headers {
         }
     }
 
-    pub fn for_request(global: &GlobalScope) -> DomRoot<Headers> {
+    pub fn for_request(global: &GlobalScope<TH>) -> DomRoot<Headers<TH>> {
         let headers_for_request = Headers::new(global);
         headers_for_request.guard.set(Guard::Request);
         headers_for_request
     }
 
-    pub fn for_response(global: &GlobalScope) -> DomRoot<Headers> {
+    pub fn for_response(global: &GlobalScope<TH>) -> DomRoot<Headers<TH>> {
         let headers_for_response = Headers::new(global);
         headers_for_response.guard.set(Guard::Response);
         headers_for_response
@@ -260,7 +264,7 @@ impl Headers {
     }
 }
 
-impl Iterable for Headers {
+impl<TH: TypeHolderTrait<TH>> Iterable for Headers<TH> {
     type Key = ByteString;
     type Value = ByteString;
 
@@ -364,8 +368,8 @@ pub fn is_forbidden_header_name(name: &str) -> bool {
 // [2] https://tools.ietf.org/html/rfc7230#section-3.2
 // [3] https://tools.ietf.org/html/rfc7230#section-3.2.6
 // [4] https://www.rfc-editor.org/errata_search.php?rfc=7230
-fn validate_name_and_value(name: ByteString, value: ByteString)
-                           -> Fallible<(String, Vec<u8>)> {
+fn validate_name_and_value<TH: TypeHolderTrait<TH>>(name: ByteString, value: ByteString)
+                           -> Fallible<(String, Vec<u8>), TH> {
     let valid_name = validate_name(name)?;
     if !is_field_content(&value) {
         return Err(Error::Type("Value is not valid".to_string()));
@@ -373,7 +377,7 @@ fn validate_name_and_value(name: ByteString, value: ByteString)
     Ok((valid_name, value.into()))
 }
 
-fn validate_name(name: ByteString) -> Fallible<String> {
+fn validate_name<TH: TypeHolderTrait<TH>>(name: ByteString) -> Fallible<String, TH> {
     if !is_field_name(&name) {
         return Err(Error::Type("Name is not valid".to_string()));
     }

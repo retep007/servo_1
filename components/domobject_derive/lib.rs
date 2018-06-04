@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 #![recursion_limit = "128"]
+#![feature(log_syntax)]
 
 extern crate proc_macro;
 #[macro_use] extern crate quote;
@@ -47,8 +48,10 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
         }
 
         impl #impl_generics ::dom::bindings::reflector::DomObject for #name #ty_generics #where_clause {
+            type TypeHolder = TH;
+
             #[inline]
-            fn reflector(&self) -> &::dom::bindings::reflector::Reflector {
+            fn reflector(&self) -> &::dom::bindings::reflector::Reflector<Self::TypeHolder> {
                 self.#first_field_name.reflector()
             }
         }
@@ -59,9 +62,37 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
             }
         }
     };
+    if name == "IterableIterator" {
+        items = quote! {
+            impl #impl_generics ::js::conversions::ToJSValConvertible for #name #ty_generics #where_clause {
+                #[allow(unsafe_code)]
+                unsafe fn to_jsval(&self,
+                                    cx: *mut ::js::jsapi::JSContext,
+                                    rval: ::js::rust::MutableHandleValue) {
+                    let object = ::dom::bindings::reflector::DomObject::reflector(self).get_jsobject();
+                    object.to_jsval(cx, rval)
+                }
+            }
 
+            impl #impl_generics ::dom::bindings::reflector::DomObject for #name #ty_generics #where_clause {
+                type TypeHolder = T::TypeHolder;
+
+                #[inline]
+                fn reflector(&self) -> &::dom::bindings::reflector::Reflector<Self::TypeHolder> {
+                    self.#first_field_name.reflector()
+                }
+            }
+
+            impl #impl_generics ::dom::bindings::reflector::MutDomObject for #name #ty_generics #where_clause {
+                fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
+                    self.#first_field_name.init_reflector(obj);
+                }
+            }
+        };
+    }
     let mut params = quote::Tokens::new();
-    params.append_separated(input.generics.type_params().map(|param| param.ident), ", ");
+    params.append_separated(input.generics.type_params().map(|param| param.ident), quote!(,));
+
 
     // For each field in the struct, we implement ShouldNotImplDomObject for a
     // pair of all the type parameters of the DomObject and and the field type.
@@ -88,6 +119,8 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
         #[allow(non_upper_case_globals)]
         const #dummy_const: () = { #items };
     };
-
+    if name == "IterableIterator" {
+        println!("{}", tokens);
+    }
     tokens
 }

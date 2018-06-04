@@ -20,24 +20,25 @@ use html5ever::{Namespace, LocalName};
 use microtask::Microtask;
 use script_thread::ScriptThread;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MutationObserver {
-    reflector_: Reflector,
+pub struct MutationObserver<TH: TypeHolderTrait<TH> + 'static> {
+    reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "can't measure Rc values"]
-    callback: Rc<MutationCallback>,
-    record_queue: DomRefCell<Vec<DomRoot<MutationRecord>>>,
+    callback: Rc<MutationCallback<TH>>,
+    record_queue: DomRefCell<Vec<DomRoot<MutationRecord<TH>>>>,
 }
 
-pub enum Mutation<'a> {
+pub enum Mutation<'a, TH: TypeHolderTrait<TH> + 'static> {
     Attribute { name: LocalName, namespace: Namespace, old_value: DOMString },
-    ChildList { added: Option<&'a [&'a Node]>, removed: Option<&'a [&'a Node]>,
-                prev: Option<&'a Node>, next: Option<&'a Node> },
+    ChildList { added: Option<&'a [&'a Node<TH>]>, removed: Option<&'a [&'a Node<TH>]>,
+                prev: Option<&'a Node<TH>>, next: Option<&'a Node<TH>> },
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct RegisteredObserver {
-    observer: DomRoot<MutationObserver>,
+pub struct RegisteredObserver<TH: TypeHolderTrait<TH> + 'static> {
+    observer: DomRoot<MutationObserver<TH>>,
     options: ObserverOptions,
 }
 
@@ -52,13 +53,13 @@ pub struct ObserverOptions {
     attribute_filter: Vec<DOMString>,
 }
 
-impl MutationObserver {
-    fn new(global: &Window, callback: Rc<MutationCallback>) -> DomRoot<MutationObserver> {
+impl<TH: TypeHolderTrait<TH>> MutationObserver<TH> {
+    fn new(global: &Window<TH>, callback: Rc<MutationCallback<TH>>) -> DomRoot<MutationObserver<TH>> {
         let boxed_observer = Box::new(MutationObserver::new_inherited(callback));
         reflect_dom_object(boxed_observer, global, MutationObserverBinding::Wrap)
     }
 
-    fn new_inherited(callback: Rc<MutationCallback>) -> MutationObserver {
+    fn new_inherited(callback: Rc<MutationCallback<TH>>) -> MutationObserver<TH> {
         MutationObserver {
             reflector_: Reflector::new(),
             callback: callback,
@@ -66,35 +67,35 @@ impl MutationObserver {
         }
     }
 
-    pub fn Constructor(global: &Window, callback: Rc<MutationCallback>) -> Fallible<DomRoot<MutationObserver>> {
+    pub fn Constructor(global: &Window<TH>, callback: Rc<MutationCallback<TH>>) -> Fallible<DomRoot<MutationObserver<TH>>, TH> {
         global.set_exists_mut_observer();
         let observer = MutationObserver::new(global, callback);
-        ScriptThread::add_mutation_observer(&*observer);
+        ScriptThread::<TH>::add_mutation_observer(&*observer);
         Ok(observer)
     }
 
     /// <https://dom.spec.whatwg.org/#queue-a-mutation-observer-compound-microtask>
     pub fn queue_mutation_observer_compound_microtask() {
         // Step 1
-        if ScriptThread::is_mutation_observer_compound_microtask_queued() {
+        if ScriptThread::<TH>::is_mutation_observer_compound_microtask_queued() {
             return;
         }
         // Step 2
-        ScriptThread::set_mutation_observer_compound_microtask_queued(true);
+        ScriptThread::<TH>::set_mutation_observer_compound_microtask_queued(true);
         // Step 3
-        ScriptThread::enqueue_microtask(Microtask::NotifyMutationObservers);
+        ScriptThread::<TH>::enqueue_microtask(Microtask::NotifyMutationObservers);
     }
 
     /// <https://dom.spec.whatwg.org/#notify-mutation-observers>
     pub fn notify_mutation_observers() {
         // Step 1
-        ScriptThread::set_mutation_observer_compound_microtask_queued(false);
+        ScriptThread::<TH>::set_mutation_observer_compound_microtask_queued(false);
         // Step 2
-        let notify_list = ScriptThread::get_mutation_observers();
+        let notify_list = ScriptThread::<TH>::get_mutation_observers();
         // TODO: steps 3-4 (slots)
         // Step 5
         for mo in &notify_list {
-            let queue: Vec<DomRoot<MutationRecord>> = mo.record_queue.borrow().clone();
+            let queue: Vec<DomRoot<MutationRecord<TH>>> = mo.record_queue.borrow().clone();
             mo.record_queue.borrow_mut().clear();
             // TODO: Step 5.3 Remove all transient registered observers whose observer is mo.
             if !queue.is_empty() {
@@ -105,12 +106,12 @@ impl MutationObserver {
     }
 
     /// <https://dom.spec.whatwg.org/#queueing-a-mutation-record>
-    pub fn queue_a_mutation_record(target: &Node, attr_type: Mutation) {
+    pub fn queue_a_mutation_record(target: &Node<TH>, attr_type: Mutation<TH>) {
         if !target.global().as_window().get_exists_mut_observer() {
             return;
         }
         // Step 1
-        let mut interestedObservers: Vec<(DomRoot<MutationObserver>, Option<DOMString>)> = vec![];
+        let mut interestedObservers: Vec<(DomRoot<MutationObserver<TH>>, Option<DOMString>)> = vec![];
         // Step 2 & 3
         for node in target.inclusive_ancestors() {
             for registered in &*node.registered_mutation_observers() {
@@ -185,9 +186,9 @@ impl MutationObserver {
 
 }
 
-impl MutationObserverMethods for MutationObserver {
+impl<TH: TypeHolderTrait<TH>> MutationObserverMethods<TH> for MutationObserver<TH> {
     /// <https://dom.spec.whatwg.org/#dom-mutationobserver-observe>
-    fn Observe(&self, target: &Node, options: &MutationObserverInit) -> Fallible<()> {
+    fn Observe(&self, target: &Node<TH>, options: &MutationObserverInit) -> Fallible<(), TH> {
         let attribute_filter = options.attributeFilter.clone().unwrap_or(vec![]);
         let attribute_old_value = options.attributeOldValue.unwrap_or(false);
         let mut attributes = options.attributes.unwrap_or(false);
@@ -231,7 +232,7 @@ impl MutationObserverMethods for MutationObserver {
         let add_new_observer = {
             let mut replaced = false;
             for registered in &mut *target.registered_mutation_observers() {
-                if &*registered.observer as *const MutationObserver != self as *const MutationObserver {
+                if &*registered.observer as *const MutationObserver<TH> != self as *const MutationObserver<TH> {
                     continue;
                 }
                 // TODO: remove matching transient registered observers

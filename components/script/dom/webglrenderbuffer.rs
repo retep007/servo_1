@@ -12,10 +12,11 @@ use dom::webglobject::WebGLObject;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use std::cell::Cell;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLRenderbuffer {
-    webgl_object: WebGLObject,
+pub struct WebGLRenderbuffer<TH: TypeHolderTrait<TH> + 'static> {
+    webgl_object: WebGLObject<TH>,
     id: WebGLRenderbufferId,
     ever_bound: Cell<bool>,
     is_deleted: Cell<bool>,
@@ -25,10 +26,10 @@ pub struct WebGLRenderbuffer {
     renderer: WebGLMsgSender,
 }
 
-impl WebGLRenderbuffer {
+impl<TH: TypeHolderTrait<TH>> WebGLRenderbuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLRenderbufferId)
-                     -> WebGLRenderbuffer {
+                     -> WebGLRenderbuffer<TH> {
         WebGLRenderbuffer {
             webgl_object: WebGLObject::new_inherited(),
             id: id,
@@ -40,8 +41,8 @@ impl WebGLRenderbuffer {
         }
     }
 
-    pub fn maybe_new(window: &Window, renderer: WebGLMsgSender)
-                     -> Option<DomRoot<WebGLRenderbuffer>> {
+    pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
+                     -> Option<DomRoot<WebGLRenderbuffer<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateRenderbuffer(sender)).unwrap();
 
@@ -49,10 +50,10 @@ impl WebGLRenderbuffer {
         result.map(|renderbuffer_id| WebGLRenderbuffer::new(window, renderer, renderbuffer_id))
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLRenderbufferId)
-               -> DomRoot<WebGLRenderbuffer> {
+               -> DomRoot<WebGLRenderbuffer<TH>> {
         reflect_dom_object(Box::new(WebGLRenderbuffer::new_inherited(renderer, id)),
                            window,
                            WebGLRenderbufferBinding::Wrap)
@@ -60,7 +61,7 @@ impl WebGLRenderbuffer {
 }
 
 
-impl WebGLRenderbuffer {
+impl<TH: TypeHolderTrait<TH>> WebGLRenderbuffer<TH> {
     pub fn id(&self) -> WebGLRenderbufferId {
         self.id
     }

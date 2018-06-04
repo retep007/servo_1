@@ -9,14 +9,15 @@ use dom::htmlmediaelement::HTMLMediaElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLVideoElement {
-    htmlmediaelement: HTMLMediaElement
+pub struct HTMLVideoElement<TH: TypeHolderTrait<TH> + 'static> {
+    htmlmediaelement: HTMLMediaElement<TH>
 }
 
-impl HTMLVideoElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLVideoElement {
+impl<TH: TypeHolderTrait<TH>> HTMLVideoElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLVideoElement<TH> {
         HTMLVideoElement {
             htmlmediaelement:
                 HTMLMediaElement::new_inherited(local_name, prefix, document)
@@ -26,7 +27,7 @@ impl HTMLVideoElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLVideoElement> {
+               document: &Document<TH>) -> DomRoot<HTMLVideoElement<TH>> {
         Node::reflect_node(Box::new(HTMLVideoElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLVideoElementBinding::Wrap)

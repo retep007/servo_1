@@ -9,22 +9,28 @@ use dom::bindings::root::DomRoot;
 use dom::webglrenderingcontext::WebGLRenderingContext;
 use dom_struct::dom_struct;
 use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct OESElementIndexUint {
-    reflector_: Reflector,
+pub struct OESElementIndexUint<TH: TypeHolderTrait<TH> + 'static> {
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
-impl OESElementIndexUint {
+impl<TH: TypeHolderTrait<TH>> OESElementIndexUint<TH> {
     fn new_inherited() -> Self {
-        Self { reflector_: Reflector::new() }
+        Self { 
+            reflector_: Reflector::new(),
+            _p: Default::default(),
+        }
     }
 }
 
-impl WebGLExtension for OESElementIndexUint {
+impl<TH: TypeHolderTrait<TH>> WebGLExtension<TH> for OESElementIndexUint<TH> {
     type Extension = Self;
 
-    fn new(ctx: &WebGLRenderingContext) -> DomRoot<Self> {
+    fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<Self> {
         reflect_dom_object(
             Box::new(OESElementIndexUint::new_inherited()),
             &*ctx.global(),
@@ -36,11 +42,11 @@ impl WebGLExtension for OESElementIndexUint {
         WebGLExtensionSpec::Specific(WebGLVersion::WebGL1)
     }
 
-    fn is_supported(ext: &WebGLExtensions) -> bool {
+    fn is_supported(ext: &WebGLExtensions<TH>) -> bool {
         ext.supports_gl_extension("GL_OES_element_index_uint")
     }
 
-    fn enable(ext: &WebGLExtensions) {
+    fn enable(ext: &WebGLExtensions<TH>) {
         ext.enable_element_index_uint();
     }
 

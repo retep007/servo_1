@@ -74,6 +74,7 @@ use task_source::networking::NetworkingTaskSource;
 use time;
 use timers::{OneshotTimerCallback, OneshotTimerHandle};
 use url::Position;
+use typeholder::TypeHolderTrait;
 
 #[derive(Clone, Copy, Debug, JSTraceable, MallocSizeOf, PartialEq)]
 enum XMLHttpRequestState {
@@ -89,15 +90,15 @@ pub struct GenerationId(u32);
 
 /// Closure of required data for each async network event that comprises the
 /// XHR's response.
-struct XHRContext {
-    xhr: TrustedXHRAddress,
+struct XHRContext<TH: TypeHolderTrait<TH> + 'static> {
+    xhr: TrustedXHRAddress<TH>,
     gen_id: GenerationId,
     buf: DomRefCell<Vec<u8>>,
-    sync_status: DomRefCell<Option<ErrorResult>>,
+    sync_status: DomRefCell<Option<ErrorResult<TH>>>,
 }
 
 #[derive(Clone)]
-pub enum XHRProgress {
+pub enum XHRProgress<TH: TypeHolderTrait<TH> + 'static> {
     /// Notify that headers have been received
     HeadersReceived(GenerationId, Option<Headers>, Option<(u16, Vec<u8>)>),
     /// Partial progress (after receiving headers), containing portion of the response
@@ -105,10 +106,10 @@ pub enum XHRProgress {
     /// Loading is done
     Done(GenerationId),
     /// There was an error (only Error::Abort, Error::Timeout or Error::Network is used)
-    Errored(GenerationId, Error),
+    Errored(GenerationId, Error<TH>),
 }
 
-impl XHRProgress {
+impl<TH: TypeHolderTrait<TH>> XHRProgress<TH> {
     fn generation_id(&self) -> GenerationId {
         match *self {
             XHRProgress::HeadersReceived(id, _, _) |
@@ -120,19 +121,19 @@ impl XHRProgress {
 }
 
 #[dom_struct]
-pub struct XMLHttpRequest {
-    eventtarget: XMLHttpRequestEventTarget,
+pub struct XMLHttpRequest<TH: TypeHolderTrait<TH> + 'static> {
+    eventtarget: XMLHttpRequestEventTarget<TH>,
     ready_state: Cell<XMLHttpRequestState>,
     timeout: Cell<u32>,
     with_credentials: Cell<bool>,
-    upload: Dom<XMLHttpRequestUpload>,
+    upload: Dom<XMLHttpRequestUpload<TH>>,
     response_url: DomRefCell<String>,
     status: Cell<u16>,
     status_text: DomRefCell<ByteString>,
     response: DomRefCell<ByteString>,
     response_type: Cell<XMLHttpRequestResponseType>,
-    response_xml: MutNullableDom<Document>,
-    response_blob: MutNullableDom<Blob>,
+    response_xml: MutNullableDom<Document<TH>>,
+    response_blob: MutNullableDom<Blob<TH>>,
     response_arraybuffer: Heap<*mut JSObject>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     response_json: Heap<JSVal>,
@@ -162,10 +163,10 @@ pub struct XMLHttpRequest {
     canceller: DomRefCell<FetchCanceller>,
 }
 
-impl XMLHttpRequest {
-    fn new_inherited(global: &GlobalScope) -> XMLHttpRequest {
+impl<TH: TypeHolderTrait<TH>> XMLHttpRequest<TH> {
+    fn new_inherited(global: &GlobalScope<TH>) -> XMLHttpRequest<TH> {
         //TODO - update this when referrer policy implemented for workers
-        let (referrer_url, referrer_policy) = if let Some(window) = global.downcast::<Window>() {
+        let (referrer_url, referrer_policy) = if let Some(window) = global.downcast::<Window<TH>>() {
             let document = window.Document();
             (Some(document.url()), document.get_referrer_policy())
         } else {
@@ -208,27 +209,27 @@ impl XMLHttpRequest {
             canceller: DomRefCell::new(Default::default()),
         }
     }
-    pub fn new(global: &GlobalScope) -> DomRoot<XMLHttpRequest> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<XMLHttpRequest<TH>> {
         reflect_dom_object(Box::new(XMLHttpRequest::new_inherited(global)),
                            global,
                            XMLHttpRequestBinding::Wrap)
     }
 
     // https://xhr.spec.whatwg.org/#constructors
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<XMLHttpRequest>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<XMLHttpRequest<TH>>, TH> {
         Ok(XMLHttpRequest::new(global))
     }
 
     fn sync_in_window(&self) -> bool {
-        self.sync.get() && self.global().is::<Window>()
+        self.sync.get() && self.global().is::<Window<TH>>()
     }
 
-    fn initiate_async_xhr(context: Arc<Mutex<XHRContext>>,
+    fn initiate_async_xhr(context: Arc<Mutex<XHRContext<TH>>>,
                           task_source: NetworkingTaskSource,
-                          global: &GlobalScope,
+                          global: &GlobalScope<TH>,
                           init: RequestInit,
                           cancellation_chan: ipc::IpcReceiver<()>) {
-        impl FetchResponseListener for XHRContext {
+        impl<TH: TypeHolderTrait<TH>> FetchResponseListener for XHRContext<TH> {
             fn process_request_body(&mut self) {
                 // todo
             }
@@ -257,7 +258,7 @@ impl XMLHttpRequest {
             }
         }
 
-        impl PreInvoke for XHRContext {
+        impl<TH: TypeHolderTrait<TH>> PreInvoke for XHRContext<TH> {
             fn should_invoke(&self) -> bool {
                 self.xhr.root().generation_id.get() == self.gen_id
             }
@@ -278,7 +279,7 @@ impl XMLHttpRequest {
     }
 }
 
-impl XMLHttpRequestMethods for XMLHttpRequest {
+impl<TH: TypeHolderTrait<TH>> XMLHttpRequestMethods<TH> for XMLHttpRequest<TH> {
     // https://xhr.spec.whatwg.org/#handler-xhr-onreadystatechange
     event_handler!(readystatechange, GetOnreadystatechange, SetOnreadystatechange);
 
@@ -288,16 +289,16 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#the-open()-method
-    fn Open(&self, method: ByteString, url: USVString) -> ErrorResult {
+    fn Open(&self, method: ByteString, url: USVString) -> ErrorResult<TH> {
         // Step 8
         self.Open_(method, url, true, None, None)
     }
 
     // https://xhr.spec.whatwg.org/#the-open()-method
     fn Open_(&self, method: ByteString, url: USVString, async: bool,
-             username: Option<USVString>, password: Option<USVString>) -> ErrorResult {
+             username: Option<USVString>, password: Option<USVString>) -> ErrorResult<TH> {
         // Step 1
-        if let Some(window) = DomRoot::downcast::<Window>(self.global()) {
+        if let Some(window) = DomRoot::downcast::<Window<TH>>(self.global()) {
             if !window.Document().is_fully_active() {
                 return Err(Error::InvalidState);
             }
@@ -387,7 +388,7 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#the-setrequestheader()-method
-    fn SetRequestHeader(&self, name: ByteString, value: ByteString) -> ErrorResult {
+    fn SetRequestHeader(&self, name: ByteString, value: ByteString) -> ErrorResult<TH> {
         // Step 1, 2
         if self.ready_state.get() != XMLHttpRequestState::Opened || self.send_flag.get() {
             return Err(Error::InvalidState);
@@ -442,7 +443,7 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#the-timeout-attribute
-    fn SetTimeout(&self, timeout: u32) -> ErrorResult {
+    fn SetTimeout(&self, timeout: u32) -> ErrorResult<TH> {
         // Step 1
         if self.sync_in_window() {
             return Err(Error::InvalidAccess);
@@ -472,7 +473,7 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#dom-xmlhttprequest-withcredentials
-    fn SetWithCredentials(&self, with_credentials: bool) -> ErrorResult {
+    fn SetWithCredentials(&self, with_credentials: bool) -> ErrorResult<TH> {
         match self.ready_state.get() {
             // Step 1
             XMLHttpRequestState::HeadersReceived |
@@ -489,12 +490,12 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#the-upload-attribute
-    fn Upload(&self) -> DomRoot<XMLHttpRequestUpload> {
+    fn Upload(&self) -> DomRoot<XMLHttpRequestUpload<TH>> {
         DomRoot::from_ref(&*self.upload)
     }
 
     // https://xhr.spec.whatwg.org/#the-send()-method
-    fn Send(&self, data: Option<DocumentOrBodyInit>) -> ErrorResult {
+    fn Send(&self, data: Option<DocumentOrBodyInit<TH>>) -> ErrorResult<TH> {
         // Step 1, 2
         if self.ready_state.get() != XMLHttpRequestState::Opened || self.send_flag.get() {
             return Err(Error::InvalidState);
@@ -562,7 +563,7 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
 
         // Step 5
         //TODO - set referrer_policy/referrer_url in request
-        let has_handlers = self.upload.upcast::<EventTarget>().has_handlers();
+        let has_handlers = self.upload.upcast::<EventTarget<TH>>().has_handlers();
         let credentials_mode = if self.with_credentials.get() {
             CredentialsMode::Include
         } else {
@@ -703,7 +704,7 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#the-overridemimetype()-method
-    fn OverrideMimeType(&self, mime: DOMString) -> ErrorResult {
+    fn OverrideMimeType(&self, mime: DOMString) -> ErrorResult<TH> {
         // Step 1
         match self.ready_state.get() {
             XMLHttpRequestState::Loading | XMLHttpRequestState::Done => return Err(Error::InvalidState),
@@ -728,9 +729,9 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#the-responsetype-attribute
-    fn SetResponseType(&self, response_type: XMLHttpRequestResponseType) -> ErrorResult {
+    fn SetResponseType(&self, response_type: XMLHttpRequestResponseType) -> ErrorResult<TH> {
         // Step 1
-        if self.global().is::<WorkerGlobalScope>() && response_type == XMLHttpRequestResponseType::Document {
+        if self.global().is::<WorkerGlobalScope<TH>>() && response_type == XMLHttpRequestResponseType::Document {
             return Ok(());
         }
         match self.ready_state.get() {
@@ -789,7 +790,7 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#the-responsetext-attribute
-    fn GetResponseText(&self) -> Fallible<USVString> {
+    fn GetResponseText(&self) -> Fallible<USVString, TH> {
         match self.response_type.get() {
             XMLHttpRequestResponseType::_empty | XMLHttpRequestResponseType::Text => {
                 Ok(USVString(String::from(match self.ready_state.get() {
@@ -805,10 +806,10 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#the-responsexml-attribute
-    fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document>>> {
+    fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document<TH>>>, TH> {
         // TODO(#2823): Until [Exposed] is implemented, this attribute needs to return null
         //              explicitly in the worker scope.
-        if self.global().is::<WorkerGlobalScope>() {
+        if self.global().is::<WorkerGlobalScope<TH>>() {
             return Ok(None);
         }
 
@@ -828,10 +829,10 @@ impl XMLHttpRequestMethods for XMLHttpRequest {
     }
 }
 
-pub type TrustedXHRAddress = Trusted<XMLHttpRequest>;
+pub type TrustedXHRAddress<TH> = Trusted<XMLHttpRequest<TH>>;
 
 
-impl XMLHttpRequest {
+impl<TH: TypeHolderTrait<TH>> XMLHttpRequest<TH> {
     fn change_ready_state(&self, rs: XMLHttpRequestState) {
         assert_ne!(self.ready_state.get(), rs);
         self.ready_state.set(rs);
@@ -845,7 +846,7 @@ impl XMLHttpRequest {
     fn process_headers_available(&self,
                                  gen_id: GenerationId,
                                  metadata: Result<FetchMetadata, NetworkError>)
-                                 -> Result<(), Error> {
+                                 -> Result<(), Error<TH>> {
         let metadata = match metadata {
             Ok(meta) => match meta {
                 FetchMetadata::Unfiltered(m) => m,
@@ -877,7 +878,7 @@ impl XMLHttpRequest {
     }
 
     fn process_response_complete(&self, gen_id: GenerationId, status: Result<(), NetworkError>)
-                                 -> ErrorResult {
+                                 -> ErrorResult<TH> {
         match status {
             Ok(()) => {
                 self.process_partial_response(XHRProgress::Done(gen_id));
@@ -890,7 +891,7 @@ impl XMLHttpRequest {
         }
     }
 
-    fn process_partial_response(&self, progress: XHRProgress) {
+    fn process_partial_response(&self, progress: XHRProgress<TH>) {
         let msg_id = progress.generation_id();
 
         // Aborts processing if abort() or open() was called
@@ -1039,7 +1040,7 @@ impl XMLHttpRequest {
         } else {
             self.upcast()
         };
-        progressevent.upcast::<Event>().fire(target);
+        progressevent.upcast::<Event<TH>>().fire(target);
     }
 
     fn dispatch_upload_progress_event(&self, type_: Atom, partial_load: Option<u64>) {
@@ -1087,7 +1088,7 @@ impl XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#blob-response
-    fn blob_response(&self) -> DomRoot<Blob> {
+    fn blob_response(&self) -> DomRoot<Blob<TH>> {
         // Step 1
         if let Some(response) = self.response_blob.get() {
             return response;
@@ -1121,7 +1122,7 @@ impl XMLHttpRequest {
     }
 
     // https://xhr.spec.whatwg.org/#document-response
-    fn document_response(&self) -> Option<DomRoot<Document>> {
+    fn document_response(&self) -> Option<DomRoot<Document<TH>>> {
         // Step 1
         let response = self.response_xml.get();
         if response.is_some() {
@@ -1131,7 +1132,7 @@ impl XMLHttpRequest {
         let mime_type = self.final_mime_type();
         // TODO: prescan the response to determine encoding if final charset is null
         let charset = self.final_charset().unwrap_or(UTF_8);
-        let temp_doc: DomRoot<Document>;
+        let temp_doc: DomRoot<Document<TH>>;
         match mime_type {
             Some(Mime(mime::TopLevel::Text, mime::SubLevel::Html, _)) => {
                 // Step 5
@@ -1217,35 +1218,35 @@ impl XMLHttpRequest {
         self.response_json.get()
     }
 
-    fn document_text_html(&self) -> DomRoot<Document> {
+    fn document_text_html(&self) -> DomRoot<Document<TH>> {
         let charset = self.final_charset().unwrap_or(UTF_8);
         let wr = self.global();
         let response = self.response.borrow();
         let (decoded, _, _) = charset.decode(&response);
         let document = self.new_doc(IsHTMLDocument::HTMLDocument);
         // TODO: Disable scripting while parsing
-        ServoParser::parse_html_document(
+        ServoParser::<TH>::parse_html_document(
             &document,
             DOMString::from(decoded),
             wr.get_url());
         document
     }
 
-    fn handle_xml(&self) -> DomRoot<Document> {
+    fn handle_xml(&self) -> DomRoot<Document<TH>> {
         let charset = self.final_charset().unwrap_or(UTF_8);
         let wr = self.global();
         let response = self.response.borrow();
         let (decoded, _, _) = charset.decode(&response);
         let document = self.new_doc(IsHTMLDocument::NonHTMLDocument);
         // TODO: Disable scripting while parsing
-        ServoParser::parse_xml_document(
+        ServoParser::<TH>::parse_xml_document(
             &document,
             DOMString::from(decoded),
             wr.get_url());
         document
     }
 
-    fn new_doc(&self, is_html_document: IsHTMLDocument) -> DomRoot<Document> {
+    fn new_doc(&self, is_html_document: IsHTMLDocument) -> DomRoot<Document<TH>> {
         let wr = self.global();
         let win = wr.as_window();
         let doc = win.Document();
@@ -1309,7 +1310,7 @@ impl XMLHttpRequest {
 
     fn fetch(&self,
               init: RequestInit,
-              global: &GlobalScope) -> ErrorResult {
+              global: &GlobalScope<TH>) -> ErrorResult<TH> {
         let xhr = Trusted::new(self);
 
         let context = Arc::new(Mutex::new(XHRContext {
@@ -1373,13 +1374,13 @@ impl XMLHttpRequest {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct XHRTimeoutCallback {
+pub struct XHRTimeoutCallback<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
-    xhr: Trusted<XMLHttpRequest>,
+    xhr: Trusted<XMLHttpRequest<TH>>,
     generation_id: GenerationId,
 }
 
-impl XHRTimeoutCallback {
+impl<TH: TypeHolderTrait<TH>> XHRTimeoutCallback<TH> {
     pub fn invoke(self) {
         let xhr = self.xhr.root();
         if xhr.ready_state.get() != XMLHttpRequestState::Done {
@@ -1392,7 +1393,7 @@ pub trait Extractable {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>);
 }
 
-impl Extractable for Blob {
+impl<TH: TypeHolderTrait<TH>> Extractable for Blob<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         let content_type = if self.Type().as_ref().is_empty() {
             None
@@ -1412,7 +1413,7 @@ impl Extractable for DOMString {
     }
 }
 
-impl Extractable for FormData {
+impl<TH: TypeHolderTrait<TH>> Extractable for FormData<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         let boundary = generate_boundary();
         let bytes = encode_multipart_form_data(&mut self.datums(), boundary.clone(), UTF_8);
@@ -1420,22 +1421,22 @@ impl Extractable for FormData {
     }
 }
 
-impl Extractable for URLSearchParams {
+impl<TH: TypeHolderTrait<TH>> Extractable for URLSearchParams<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         (self.serialize_utf8().into_bytes(),
             Some(DOMString::from("application/x-www-form-urlencoded;charset=UTF-8")))
     }
 }
 
-fn serialize_document(doc: &Document) -> Fallible<DOMString> {
+fn serialize_document<TH: TypeHolderTrait<TH>>(doc: &Document<TH>) -> Fallible<DOMString, TH> {
     let mut writer = vec![];
-    match serialize(&mut writer, &doc.upcast::<Node>(), SerializeOpts::default()) {
+    match serialize(&mut writer, &doc.upcast::<Node<TH>>(), SerializeOpts::default()) {
         Ok(_) => Ok(DOMString::from(String::from_utf8(writer).unwrap())),
         Err(_) => Err(Error::InvalidState),
     }
 }
 
-impl Extractable for BodyInit {
+impl<TH: TypeHolderTrait<TH>> Extractable for BodyInit<TH> {
     // https://fetch.spec.whatwg.org/#concept-bodyinit-extract
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         match *self {

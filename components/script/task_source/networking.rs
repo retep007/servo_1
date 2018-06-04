@@ -6,6 +6,7 @@ use msg::constellation_msg::PipelineId;
 use script_runtime::{CommonScriptMsg, ScriptChan, ScriptThreadEventCategory};
 use task::{TaskCanceller, TaskOnce};
 use task_source::TaskSource;
+use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
 pub struct NetworkingTaskSource(pub Box<ScriptChan + Send + 'static>, pub PipelineId);
@@ -16,7 +17,7 @@ impl Clone for NetworkingTaskSource {
     }
 }
 
-impl TaskSource for NetworkingTaskSource {
+impl<TH: TypeHolderTrait<TH>> TaskSource<TH> for NetworkingTaskSource {
     fn queue_with_canceller<T>(
         &self,
         task: T,

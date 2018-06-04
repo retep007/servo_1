@@ -125,6 +125,7 @@ mod stylesheet_loader;
 mod task_source;
 pub mod test;
 pub mod textinput;
+pub mod typeholder;
 mod timers;
 mod unpremultiplytable;
 mod webdriver_handlers;
@@ -153,6 +154,7 @@ use dom::bindings::utils::is_platform_object;
 use js::jsapi::JSObject;
 use script_traits::SWManagerSenders;
 use serviceworker_manager::ServiceWorkerManager;
+use typeholder::TypeHolderTrait;
 
 #[cfg(target_os = "linux")]
 #[allow(unsafe_code)]
@@ -195,9 +197,9 @@ fn perform_platform_specific_initialization() {
 #[cfg(not(target_os = "linux"))]
 fn perform_platform_specific_initialization() {}
 
-pub fn init_service_workers(sw_senders: SWManagerSenders) {
+pub fn init_service_workers<TH: TypeHolderTrait<TH>>(sw_senders: SWManagerSenders) {
     // Spawn the service worker manager passing the constellation sender
-    ServiceWorkerManager::spawn_manager(sw_senders);
+    ServiceWorkerManager::<TH>::spawn_manager(sw_senders);
 }
 
 #[allow(unsafe_code)]
@@ -214,7 +216,7 @@ pub fn init() {
         // bindings to implement JS proxies.
         RegisterBindings::RegisterProxyHandlers();
 
-        js::glue::InitializeMemoryReporter(Some(is_dom_object));
+    js::glue::InitializeMemoryReporter(Some(is_dom_object));
     }
 
     perform_platform_specific_initialization();

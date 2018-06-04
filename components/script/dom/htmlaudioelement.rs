@@ -9,16 +9,17 @@ use dom::htmlmediaelement::HTMLMediaElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLAudioElement {
-    htmlmediaelement: HTMLMediaElement
+pub struct HTMLAudioElement<TH: TypeHolderTrait<TH> + 'static> {
+    htmlmediaelement: HTMLMediaElement<TH>
 }
 
-impl HTMLAudioElement {
+impl<TH: TypeHolderTrait<TH>> HTMLAudioElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLAudioElement {
+                     document: &Document<TH>) -> HTMLAudioElement<TH> {
         HTMLAudioElement {
             htmlmediaelement:
                 HTMLMediaElement::new_inherited(local_name, prefix, document)
@@ -28,7 +29,7 @@ impl HTMLAudioElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLAudioElement> {
+               document: &Document<TH>) -> DomRoot<HTMLAudioElement<TH>> {
         Node::reflect_node(Box::new(HTMLAudioElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLAudioElementBinding::Wrap)

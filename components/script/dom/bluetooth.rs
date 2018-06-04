@@ -41,6 +41,7 @@ use std::rc::Rc;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex};
 use task::TaskOnce;
+use typeholder::TypeHolderTrait;
 
 const KEY_CONVERSION_ERROR: &'static str = "This `manufacturerData` key can not be parsed as unsigned short:";
 const FILTER_EMPTY_ERROR: &'static str = "'filters' member, if present, must be nonempty to find any devices.";
@@ -88,18 +89,19 @@ impl BluetoothExtraPermissionData {
     }
 }
 
-struct BluetoothContext<T: AsyncBluetoothListener + DomObject> {
-    promise: Option<TrustedPromise>,
+struct BluetoothContext<T: AsyncBluetoothListener<TH> + DomObject, TH: TypeHolderTrait<TH>> {
+    promise: Option<TrustedPromise<TH>>,
     receiver: Trusted<T>,
 }
 
-pub trait AsyncBluetoothListener {
-    fn handle_response(&self, result: BluetoothResponse, promise: &Rc<Promise>);
+pub trait AsyncBluetoothListener<TH: TypeHolderTrait<TH>> {
+    fn handle_response(&self, result: BluetoothResponse, promise: &Rc<Promise<TH>>);
 }
 
-impl<T> BluetoothContext<T>
+impl<T, TH> BluetoothContext<T, TH>
 where
-    T: AsyncBluetoothListener + DomObject,
+    T: AsyncBluetoothListener<TH> + DomObject,
+    TH: TypeHolderTrait<TH>
 {
     #[allow(unrooted_must_root)]
     fn response(&mut self, response: BluetoothResponseResult) {
@@ -118,20 +120,20 @@ where
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetooth
 #[dom_struct]
-pub struct Bluetooth {
-    eventtarget: EventTarget,
-    device_instance_map: DomRefCell<HashMap<String, Dom<BluetoothDevice>>>,
+pub struct Bluetooth<TH: TypeHolderTrait<TH> + 'static> {
+    eventtarget: EventTarget<TH>,
+    device_instance_map: DomRefCell<HashMap<String, Dom<BluetoothDevice<TH>>>>,
 }
 
-impl Bluetooth {
-    pub fn new_inherited() -> Bluetooth {
+impl<TH: TypeHolderTrait<TH>> Bluetooth<TH> {
+    pub fn new_inherited() -> Bluetooth<TH> {
         Bluetooth {
             eventtarget: EventTarget::new_inherited(),
             device_instance_map: DomRefCell::new(HashMap::new()),
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<Bluetooth> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<Bluetooth<TH>> {
         reflect_dom_object(Box::new(Bluetooth::new_inherited()),
                            global,
                            BluetoothBinding::Wrap)
@@ -141,13 +143,13 @@ impl Bluetooth {
         self.global().as_window().bluetooth_thread()
     }
 
-    pub fn get_device_map(&self) -> &DomRefCell<HashMap<String, Dom<BluetoothDevice>>> {
+    pub fn get_device_map(&self) -> &DomRefCell<HashMap<String, Dom<BluetoothDevice<TH>>>> {
         &self.device_instance_map
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#request-bluetooth-devices
     fn request_bluetooth_devices(&self,
-                                 p: &Rc<Promise>,
+                                 p: &Rc<Promise<TH>>,
                                  filters: &Option<Vec<BluetoothLEScanFilterInit>>,
                                  optional_services: &Option<Vec<BluetoothServiceUUID>>,
                                  sender: IpcSender<BluetoothResponseResult>) {
@@ -205,7 +207,7 @@ impl Bluetooth {
                                                ServiceUUIDSequence::new(optional_services_uuids));
 
         // Step 4 - 5.
-        if let PermissionState::Denied = get_descriptor_permission_state(PermissionName::Bluetooth, None) {
+        if let PermissionState::Denied = get_descriptor_permission_state::<TH>(PermissionName::Bluetooth, None) {
             return p.reject_error(Error::NotFound);
         }
 
@@ -215,8 +217,8 @@ impl Bluetooth {
     }
 }
 
-pub fn response_async<T: AsyncBluetoothListener + DomObject + 'static>(
-        promise: &Rc<Promise>,
+pub fn response_async<T: AsyncBluetoothListener<TH> + DomObject + 'static, TH: TypeHolderTrait<TH>>(
+        promise: &Rc<Promise<TH>>,
         receiver: &T) -> IpcSender<BluetoothResponseResult> {
     let (action_sender, action_receiver) = ipc::channel().unwrap();
     let task_source = receiver.global().networking_task_source();
@@ -225,14 +227,15 @@ pub fn response_async<T: AsyncBluetoothListener + DomObject + 'static>(
         receiver: Trusted::new(receiver),
     }));
     ROUTER.add_route(action_receiver.to_opaque(), Box::new(move |message| {
-        struct ListenerTask<T: AsyncBluetoothListener + DomObject> {
-            context: Arc<Mutex<BluetoothContext<T>>>,
+        struct ListenerTask<T: AsyncBluetoothListener<TH> + DomObject, TH: TypeHolderTrait<TH>> {
+            context: Arc<Mutex<BluetoothContext<T, TH>>>,
             action: BluetoothResponseResult,
         }
 
-        impl<T> TaskOnce for ListenerTask<T>
+        impl<T, TH> TaskOnce for ListenerTask<T, TH>
         where
-            T: AsyncBluetoothListener + DomObject,
+            T: AsyncBluetoothListener<TH> + DomObject,
+            TH: TypeHolderTrait<TH>
         {
             fn run_once(self) {
                 let mut context = self.context.lock().unwrap();
@@ -255,7 +258,7 @@ pub fn response_async<T: AsyncBluetoothListener + DomObject + 'static>(
 
 #[allow(unrooted_must_root)]
 // https://webbluetoothcg.github.io/web-bluetooth/#getgattchildren
-pub fn get_gatt_children<T, F> (
+pub fn get_gatt_children<T, F, TH: TypeHolderTrait<TH>> (
         attribute: &T,
         single: bool,
         uuid_canonicalizer: F,
@@ -263,10 +266,10 @@ pub fn get_gatt_children<T, F> (
         instance_id: String,
         connected: bool,
         child_type: GATTType)
-        -> Rc<Promise>
-        where T: AsyncBluetoothListener + DomObject + 'static,
-              F: FnOnce(StringOrUnsignedLong) -> Fallible<UUID> {
-    let p = Promise::new(&attribute.global());
+        -> Rc<Promise<TH>>
+        where T: AsyncBluetoothListener<TH> + DomObject<TypeHolder=TH> + 'static,
+              F: FnOnce(StringOrUnsignedLong) -> Fallible<UUID, TH> {
+    let p= Promise::new(&attribute.global());
 
     let result_uuid = if let Some(u) = uuid {
         // Step 1.
@@ -304,7 +307,7 @@ pub fn get_gatt_children<T, F> (
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothlescanfilterinit-canonicalizing
-fn canonicalize_filter(filter: &BluetoothLEScanFilterInit) -> Fallible<BluetoothScanfilter> {
+fn canonicalize_filter<TH: TypeHolderTrait<TH>>(filter: &BluetoothLEScanFilterInit) -> Fallible<BluetoothScanfilter, TH> {
     // Step 1.
     if filter.services.is_none() &&
        filter.name.is_none() &&
@@ -440,7 +443,7 @@ fn canonicalize_filter(filter: &BluetoothLEScanFilterInit) -> Fallible<Bluetooth
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothdatafilterinit-canonicalizing
-fn canonicalize_bluetooth_data_filter_init(bdfi: &BluetoothDataFilterInit) -> Fallible<(Vec<u8>, Vec<u8>)> {
+fn canonicalize_bluetooth_data_filter_init<TH: TypeHolderTrait<TH>>(bdfi: &BluetoothDataFilterInit) -> Fallible<(Vec<u8>, Vec<u8>), TH> {
     // Step 1.
     let data_prefix = match bdfi.dataPrefix {
         Some(ArrayBufferViewOrArrayBuffer::ArrayBufferView(ref avb)) => avb.to_vec(),
@@ -466,7 +469,7 @@ fn canonicalize_bluetooth_data_filter_init(bdfi: &BluetoothDataFilterInit) -> Fa
     Ok((data_prefix, mask))
 }
 
-impl From<BluetoothError> for Error {
+impl<TH: TypeHolderTrait<TH>> From<BluetoothError> for Error<TH> {
     fn from(error: BluetoothError) -> Self {
         match error {
             BluetoothError::Type(message) => Error::Type(message),
@@ -479,10 +482,10 @@ impl From<BluetoothError> for Error {
     }
 }
 
-impl BluetoothMethods for Bluetooth {
+impl<TH: TypeHolderTrait<TH>> BluetoothMethods<TH> for Bluetooth<TH> {
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetooth-requestdevice
-    fn RequestDevice(&self, option: &RequestDeviceOptions) -> Rc<Promise> {
+    fn RequestDevice(&self, option: &RequestDeviceOptions) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
         // Step 1.
         if (option.filters.is_some() && option.acceptAllDevices) ||
@@ -500,7 +503,7 @@ impl BluetoothMethods for Bluetooth {
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetooth-getavailability
-    fn GetAvailability(&self) -> Rc<Promise> {
+    fn GetAvailability(&self) -> Rc<Promise<TH>> {
         let p = Promise::new(&self.global());
         // Step 1. We did not override the method
         // Step 2 - 3. in handle_response
@@ -514,8 +517,8 @@ impl BluetoothMethods for Bluetooth {
     event_handler!(availabilitychanged, GetOnavailabilitychanged, SetOnavailabilitychanged);
 }
 
-impl AsyncBluetoothListener for Bluetooth {
-    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise>) {
+impl<TH: TypeHolderTrait<TH>> AsyncBluetoothListener<TH> for Bluetooth<TH> {
+    fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#request-bluetooth-devices
             // Step 11, 13 - 14.
@@ -550,14 +553,14 @@ impl AsyncBluetoothListener for Bluetooth {
     }
 }
 
-impl PermissionAlgorithm for Bluetooth {
+impl<TH: TypeHolderTrait<TH>> PermissionAlgorithm<TH> for Bluetooth<TH> {
     type Descriptor = BluetoothPermissionDescriptor;
-    type Status = BluetoothPermissionResult;
+    type Status = BluetoothPermissionResult<TH>;
 
     #[allow(unsafe_code)]
     fn create_descriptor(cx: *mut JSContext,
                          permission_descriptor_obj: *mut JSObject)
-                         -> Result<BluetoothPermissionDescriptor, Error> {
+                         -> Result<BluetoothPermissionDescriptor, Error<TH>> {
         rooted!(in(cx) let mut property = UndefinedValue());
         property.handle_mut().set(ObjectValue(permission_descriptor_obj));
         unsafe {
@@ -572,14 +575,14 @@ impl PermissionAlgorithm for Bluetooth {
     // https://webbluetoothcg.github.io/web-bluetooth/#query-the-bluetooth-permission
     fn permission_query(
         _cx: *mut JSContext,
-        promise: &Rc<Promise>,
+        promise: &Rc<Promise<TH>>,
         descriptor: &BluetoothPermissionDescriptor,
-        status: &BluetoothPermissionResult,
+        status: &BluetoothPermissionResult<TH>,
     ) {
         // Step 1: We are not using the `global` variable.
 
         // Step 2.
-        status.set_state(get_descriptor_permission_state(status.get_query(), None));
+        status.set_state(get_descriptor_permission_state::<TH>(status.get_query(), None));
 
         // Step 3.
         if let PermissionState::Denied = status.get_state() {
@@ -654,9 +657,9 @@ impl PermissionAlgorithm for Bluetooth {
     // https://webbluetoothcg.github.io/web-bluetooth/#request-the-bluetooth-permission
     fn permission_request(
         _cx: *mut JSContext,
-        promise: &Rc<Promise>,
+        promise: &Rc<Promise<TH>>,
         descriptor: &BluetoothPermissionDescriptor,
-        status: &BluetoothPermissionResult,
+        status: &BluetoothPermissionResult<TH>,
     ) {
         // Step 1.
         if descriptor.filters.is_some() == descriptor.acceptAllDevices {
@@ -673,7 +676,7 @@ impl PermissionAlgorithm for Bluetooth {
 
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#revoke-bluetooth-access
-    fn permission_revoke(_descriptor: &BluetoothPermissionDescriptor, status: &BluetoothPermissionResult) {
+    fn permission_revoke(_descriptor: &BluetoothPermissionDescriptor, status: &BluetoothPermissionResult<TH>) {
         // Step 1.
         let global = status.global();
         let allowed_devices = global.as_window().bluetooth_extra_permission_data().get_allowed_devices();

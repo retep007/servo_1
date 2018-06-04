@@ -9,29 +9,33 @@ use dom::bindings::reflector::{Reflector, reflect_dom_object};
 use dom::bindings::root::DomRoot;
 use dom::window::Window;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct WebGLUniformLocation {
-    reflector_: Reflector,
+pub struct WebGLUniformLocation<TH: TypeHolderTrait<TH> + 'static> {
+    reflector_: Reflector<TH>,
     id: i32,
     program_id: WebGLProgramId,
+    _p: PhantomData<TH>,
 }
 
-impl WebGLUniformLocation {
+impl<TH: TypeHolderTrait<TH>> WebGLUniformLocation<TH> {
     fn new_inherited(id: i32,
                      program_id: WebGLProgramId)
-                     -> WebGLUniformLocation {
+                     -> WebGLUniformLocation<TH> {
         WebGLUniformLocation {
             reflector_: Reflector::new(),
             id: id,
             program_id: program_id,
+            _p: Default::default(),
         }
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                id: i32,
                program_id: WebGLProgramId)
-               -> DomRoot<WebGLUniformLocation> {
+               -> DomRoot<WebGLUniformLocation<TH>> {
         reflect_dom_object(Box::new(WebGLUniformLocation::new_inherited(id, program_id)),
                            window,
                            WebGLUniformLocationBinding::Wrap)

@@ -40,6 +40,7 @@ use std::panic::AssertUnwindSafe;
 use std::ptr;
 use style::thread_state::{self, ThreadState};
 use task::TaskBox;
+use typeholder::TypeHolderTrait;
 use time::{Tm, now};
 
 /// Common messages used to control the event loops in both the script and the worker
@@ -109,13 +110,13 @@ pub trait ScriptPort {
 /// SM callback for promise job resolution. Adds a promise callback to the current
 /// global's microtask queue.
 #[allow(unsafe_code)]
-unsafe extern "C" fn enqueue_job(cx: *mut JSContext,
+unsafe extern "C" fn enqueue_job<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                                  job: HandleObject,
                                  _allocation_site: HandleObject,
                                  _data: *mut c_void) -> bool {
     wrap_panic(AssertUnwindSafe(|| {
         //XXXjdm - use a different global now?
-        let global = GlobalScope::from_object(job.get());
+        let global = GlobalScope::<TH>::from_object(job.get());
         let pipeline = global.pipeline_id();
         global.enqueue_microtask(Microtask::Promise(EnqueuedPromiseCallback {
             callback: PromiseJobCallback::new(cx, job.get()),

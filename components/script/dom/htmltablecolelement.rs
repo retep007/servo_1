@@ -9,16 +9,17 @@ use dom::htmlelement::HTMLElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTableColElement {
-    htmlelement: HTMLElement,
+pub struct HTMLTableColElement<TH: TypeHolderTrait<TH> + 'static> {
+    htmlelement: HTMLElement<TH>,
 }
 
-impl HTMLTableColElement {
+impl<TH: TypeHolderTrait<TH>> HTMLTableColElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
-                     document: &Document) -> HTMLTableColElement {
+                     document: &Document<TH>) -> HTMLTableColElement<TH> {
         HTMLTableColElement {
             htmlelement:
                 HTMLElement::new_inherited(local_name, prefix, document)
@@ -28,7 +29,7 @@ impl HTMLTableColElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLTableColElement> {
+               document: &Document<TH>) -> DomRoot<HTMLTableColElement<TH>> {
         Node::reflect_node(Box::new(HTMLTableColElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLTableColElementBinding::Wrap)

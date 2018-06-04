@@ -19,6 +19,8 @@ use dom_struct::dom_struct;
 use mozangle::shaders::{BuiltInResources, Output, ShaderValidator};
 use std::cell::Cell;
 use std::sync::{ONCE_INIT, Once};
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(Clone, Copy, Debug, JSTraceable, MallocSizeOf, PartialEq)]
 pub enum ShaderCompilationStatus {
@@ -28,8 +30,8 @@ pub enum ShaderCompilationStatus {
 }
 
 #[dom_struct]
-pub struct WebGLShader {
-    webgl_object: WebGLObject,
+pub struct WebGLShader<TH: TypeHolderTrait<TH> + 'static> {
+    webgl_object: WebGLObject<TH>,
     id: WebGLShaderId,
     gl_type: u32,
     source: DomRefCell<Option<DOMString>>,
@@ -39,15 +41,16 @@ pub struct WebGLShader {
     compilation_status: Cell<ShaderCompilationStatus>,
     #[ignore_malloc_size_of = "Defined in ipc-channel"]
     renderer: WebGLMsgSender,
+    _p: PhantomData<TH>,
 }
 
 static GLSLANG_INITIALIZATION: Once = ONCE_INIT;
 
-impl WebGLShader {
+impl<TH: TypeHolderTrait<TH>> WebGLShader<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLShaderId,
                      shader_type: u32)
-                     -> WebGLShader {
+                     -> WebGLShader<TH> {
         GLSLANG_INITIALIZATION.call_once(|| ::mozangle::shaders::initialize().unwrap());
         WebGLShader {
             webgl_object: WebGLObject::new_inherited(),
@@ -59,13 +62,14 @@ impl WebGLShader {
             attached_counter: Cell::new(0),
             compilation_status: Cell::new(ShaderCompilationStatus::NotCompiled),
             renderer: renderer,
+            _p: Default::default(),
         }
     }
 
-    pub fn maybe_new(window: &Window,
+    pub fn maybe_new(window: &Window<TH>,
                      renderer: WebGLMsgSender,
                      shader_type: u32)
-                     -> Option<DomRoot<WebGLShader>> {
+                     -> Option<DomRoot<WebGLShader<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateShader(shader_type, sender)).unwrap();
 
@@ -73,11 +77,11 @@ impl WebGLShader {
         result.map(|shader_id| WebGLShader::new(window, renderer, shader_id, shader_type))
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLShaderId,
                shader_type: u32)
-               -> DomRoot<WebGLShader> {
+               -> DomRoot<WebGLShader<TH>> {
         reflect_dom_object(Box::new(WebGLShader::new_inherited(renderer, id, shader_type)),
                            window,
                            WebGLShaderBinding::Wrap)
@@ -85,7 +89,7 @@ impl WebGLShader {
 }
 
 
-impl WebGLShader {
+impl<TH: TypeHolderTrait<TH>> WebGLShader<TH> {
     pub fn id(&self) -> WebGLShaderId {
         self.id
     }
@@ -99,7 +103,7 @@ impl WebGLShader {
         &self,
         webgl_version: WebGLVersion,
         glsl_version: WebGLSLVersion,
-        ext: &WebGLExtensions,
+        ext: &WebGLExtensions<TH>,
     ) -> WebGLResult<()> {
         if self.is_deleted.get() && !self.is_attached() {
             return Err(WebGLError::InvalidValue);
@@ -116,7 +120,7 @@ impl WebGLShader {
 
         let mut params = BuiltInResources::default();
         params.FragmentPrecisionHigh = 1;
-        params.OES_standard_derivatives = ext.is_enabled::<OESStandardDerivatives>() as i32;
+        params.OES_standard_derivatives = ext.is_enabled::<OESStandardDerivatives<TH>>() as i32;
         let validator = match webgl_version {
             WebGLVersion::WebGL1 => {
                 let output_format = if cfg!(any(target_os = "android", target_os = "ios")) {
@@ -235,7 +239,7 @@ impl WebGLShader {
     }
 }
 
-impl Drop for WebGLShader {
+impl<TH: TypeHolderTrait<TH>> Drop for WebGLShader<TH> {
     fn drop(&mut self) {
         assert_eq!(self.attached_counter.get(), 0);
         self.delete();

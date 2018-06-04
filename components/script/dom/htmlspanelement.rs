@@ -9,14 +9,15 @@ use dom::htmlelement::HTMLElement;
 use dom::node::Node;
 use dom_struct::dom_struct;
 use html5ever::{LocalName, Prefix};
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLSpanElement {
-    htmlelement: HTMLElement
+pub struct HTMLSpanElement<TH: TypeHolderTrait<TH> + 'static> {
+    htmlelement: HTMLElement<TH>
 }
 
-impl HTMLSpanElement {
-    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document) -> HTMLSpanElement {
+impl<TH: TypeHolderTrait<TH>> HTMLSpanElement<TH> {
+    fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLSpanElement<TH> {
         HTMLSpanElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
         }
@@ -25,7 +26,7 @@ impl HTMLSpanElement {
     #[allow(unrooted_must_root)]
     pub fn new(local_name: LocalName,
                prefix: Option<Prefix>,
-               document: &Document) -> DomRoot<HTMLSpanElement> {
+               document: &Document<TH>) -> DomRoot<HTMLSpanElement<TH>> {
         Node::reflect_node(Box::new(HTMLSpanElement::new_inherited(local_name, prefix, document)),
                            document,
                            HTMLSpanElementBinding::Wrap)

@@ -10,6 +10,8 @@ use dom::bindings::str::DOMString;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use regex::Regex;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 pub type UUID = DOMString;
 pub type BluetoothServiceUUID = StringOrUnsignedLong;
@@ -18,8 +20,9 @@ pub type BluetoothDescriptorUUID = StringOrUnsignedLong;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothuuid
  #[dom_struct]
-pub struct BluetoothUUID {
-    reflector_: Reflector,
+pub struct BluetoothUUID<TH: TypeHolderTrait<TH> + 'static> {
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
 //https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx
@@ -282,38 +285,38 @@ const CHARACTERISTIC_ERROR_MESSAGE: &'static str = "https://developer.bluetooth.
 const DESCRIPTOR_ERROR_MESSAGE: &'static str = "https://developer.bluetooth.org/gatt/descriptors/Pages/\
     DescriptorsHomePage.aspx\ne.g. 'gatt.characteristic_presentation_format'.";
 
-impl BluetoothUUID {
+impl<TH: TypeHolderTrait<TH>> BluetoothUUID<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothuuid-canonicaluuid
-    pub fn CanonicalUUID(_: &Window, alias: u32) -> UUID {
+    pub fn CanonicalUUID(_: &Window<TH>, alias: u32) -> UUID {
         canonical_uuid(alias)
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothuuid-getservice
-    pub fn GetService(_: &Window, name: BluetoothServiceUUID) -> Fallible<UUID> {
+    pub fn GetService(_: &Window<TH>, name: BluetoothServiceUUID) -> Fallible<UUID, TH> {
         Self::service(name)
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothuuid-getcharacteristic
-    pub fn GetCharacteristic(_: &Window, name: BluetoothCharacteristicUUID) -> Fallible<UUID> {
+    pub fn GetCharacteristic(_: &Window<TH>, name: BluetoothCharacteristicUUID) -> Fallible<UUID, TH> {
         Self::characteristic(name)
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothuuid-getdescriptor
-    pub fn GetDescriptor(_: &Window, name: BluetoothDescriptorUUID) -> Fallible<UUID> {
+    pub fn GetDescriptor(_: &Window<TH>, name: BluetoothDescriptorUUID) -> Fallible<UUID, TH> {
         Self::descriptor(name)
     }
 }
 
-impl BluetoothUUID {
-    pub fn service(name: BluetoothServiceUUID) -> Fallible<UUID> {
+impl<TH: TypeHolderTrait<TH>> BluetoothUUID<TH> {
+    pub fn service(name: BluetoothServiceUUID) -> Fallible<UUID, TH> {
         resolve_uuid_name(name, BLUETOOTH_ASSIGNED_SERVICES, SERVICE_PREFIX)
     }
 
-    pub fn characteristic(name: BluetoothCharacteristicUUID) -> Fallible<UUID> {
+    pub fn characteristic(name: BluetoothCharacteristicUUID) -> Fallible<UUID, TH> {
         resolve_uuid_name(name, BLUETOOTH_ASSIGNED_CHARCTERISTICS, CHARACTERISTIC_PREFIX)
     }
 
-    pub fn descriptor(name: BluetoothDescriptorUUID) -> Fallible<UUID> {
+    pub fn descriptor(name: BluetoothDescriptorUUID) -> Fallible<UUID, TH> {
         resolve_uuid_name(name, BLUETOOTH_ASSIGNED_DESCRIPTORS, DESCRIPTOR_PREFIX)
     }
 }
@@ -332,11 +335,11 @@ fn canonical_uuid(alias: u32) -> UUID {
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#resolveuuidname
-fn resolve_uuid_name(
+fn resolve_uuid_name<TH: TypeHolderTrait<TH>>(
         name: StringOrUnsignedLong,
         assigned_numbers_table: &'static [(&'static str, u32)],
         prefix: &str)
-        -> Fallible<DOMString> {
+        -> Fallible<DOMString, TH> {
     match name {
         // Step 1.
         StringOrUnsignedLong::UnsignedLong(unsigned32) => {

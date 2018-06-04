@@ -31,10 +31,11 @@ use servo_url::ServoUrl;
 use std::mem;
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
+use typeholder::TypeHolderTrait;
 
-struct FetchContext {
-    fetch_promise: Option<TrustedPromise>,
-    response_object: Trusted<Response>,
+struct FetchContext<TH: TypeHolderTrait<TH> + 'static> {
+    fetch_promise: Option<TrustedPromise<TH>>,
+    response_object: Trusted<Response<TH>>,
     body: Vec<u8>,
 }
 
@@ -94,7 +95,7 @@ fn from_referrer_to_referrer_url(request: &NetTraitsRequest) -> Option<ServoUrl>
     request.referrer.to_url().map(|url| url.clone())
 }
 
-fn request_init_from_request(request: NetTraitsRequest) -> NetTraitsRequestInit {
+fn request_init_from_request<TH: TypeHolderTrait<TH>>(request: NetTraitsRequest) -> NetTraitsRequestInit {
     NetTraitsRequestInit {
         method: request.method.clone(),
         url: request.url(),
@@ -107,7 +108,7 @@ fn request_init_from_request(request: NetTraitsRequest) -> NetTraitsRequestInit 
         use_cors_preflight: request.use_cors_preflight,
         credentials_mode: request.credentials_mode,
         use_url_credentials: request.use_url_credentials,
-        origin: GlobalScope::current().expect("No current global object").origin().immutable().clone(),
+        origin: GlobalScope::<TH>::current().expect("No current global object").origin().immutable().clone(),
         referrer_url: from_referrer_to_referrer_url(&request),
         referrer_policy: request.referrer_policy,
         pipeline_id: request.pipeline_id,
@@ -119,7 +120,7 @@ fn request_init_from_request(request: NetTraitsRequest) -> NetTraitsRequestInit 
 
 // https://fetch.spec.whatwg.org/#fetch-method
 #[allow(unrooted_must_root)]
-pub fn Fetch(global: &GlobalScope, input: RequestInfo, init: RootedTraceableBox<RequestInit>) -> Rc<Promise> {
+pub fn Fetch<TH: TypeHolderTrait<TH>>(global: &GlobalScope<TH>, input: RequestInfo<TH>, init: RootedTraceableBox<RequestInit<TH>>) -> Rc<Promise<TH>> {
     let core_resource_thread = global.core_resource_thread();
 
     // Step 1
@@ -137,7 +138,7 @@ pub fn Fetch(global: &GlobalScope, input: RequestInfo, init: RootedTraceableBox<
     let mut request_init = request_init_from_request(request);
 
     // Step 3
-    if global.downcast::<ServiceWorkerGlobalScope>().is_some() {
+    if global.downcast::<ServiceWorkerGlobalScope<TH>>().is_some() {
         request_init.service_workers_mode = ServiceWorkersMode::Foreign;
     }
 
@@ -166,9 +167,9 @@ pub fn Fetch(global: &GlobalScope, input: RequestInfo, init: RootedTraceableBox<
     promise
 }
 
-impl PreInvoke for FetchContext {}
+impl<TH: TypeHolderTrait<TH>> PreInvoke for FetchContext<TH> {}
 
-impl FetchResponseListener for FetchContext {
+impl<TH: TypeHolderTrait<TH>> FetchResponseListener for FetchContext<TH> {
     fn process_request_body(&mut self) {
         // TODO
     }
@@ -237,7 +238,7 @@ impl FetchResponseListener for FetchContext {
     }
 }
 
-fn fill_headers_with_metadata(r: DomRoot<Response>, m: Metadata) {
+fn fill_headers_with_metadata<TH: TypeHolderTrait<TH>>(r: DomRoot<Response<TH>>, m: Metadata) {
     r.set_headers(m.headers);
     r.set_raw_status(m.status);
     r.set_final_url(m.final_url);

@@ -12,8 +12,9 @@ pub mod user_interaction;
 use dom::globalscope::GlobalScope;
 use std::result::Result;
 use task::{TaskCanceller, TaskOnce};
+use typeholder::TypeHolderTrait;
 
-pub trait TaskSource {
+pub trait TaskSource<TH: TypeHolderTrait<TH> + 'static> {
     fn queue_with_canceller<T>(
         &self,
         task: T,
@@ -22,7 +23,7 @@ pub trait TaskSource {
     where
         T: TaskOnce + 'static;
 
-    fn queue<T>(&self, task: T, global: &GlobalScope) -> Result<(), ()>
+    fn queue<T>(&self, task: T, global: &GlobalScope<TH>) -> Result<(), ()>
     where
         T: TaskOnce + 'static,
     {

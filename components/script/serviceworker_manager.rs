@@ -21,17 +21,18 @@ use servo_url::ServoUrl;
 use std::collections::HashMap;
 use std::sync::mpsc::{channel, Sender, Receiver, RecvError};
 use std::thread;
+use typeholder::TypeHolderTrait;
 
 enum Message {
     FromResource(CustomResponseMediator),
     FromConstellation(ServiceWorkerMsg)
 }
 
-pub struct ServiceWorkerManager {
+pub struct ServiceWorkerManager<TH: TypeHolderTrait<TH> + 'static> {
     // map of registered service worker descriptors
     registered_workers: HashMap<ServoUrl, ScopeThings>,
     // map of active service worker descriptors
-    active_workers: HashMap<ServoUrl, Sender<ServiceWorkerScriptMsg>>,
+    active_workers: HashMap<ServoUrl, Sender<ServiceWorkerScriptMsg<TH>>>,
     // own sender to send messages here
     own_sender: IpcSender<ServiceWorkerMsg>,
     // receiver to receive messages from constellation
@@ -40,10 +41,10 @@ pub struct ServiceWorkerManager {
     resource_receiver: Receiver<CustomResponseMediator>
 }
 
-impl ServiceWorkerManager {
+impl<TH: TypeHolderTrait<TH>> ServiceWorkerManager<TH> {
     fn new(own_sender: IpcSender<ServiceWorkerMsg>,
            from_constellation_receiver: Receiver<ServiceWorkerMsg>,
-           resource_port: Receiver<CustomResponseMediator>) -> ServiceWorkerManager {
+           resource_port: Receiver<CustomResponseMediator>) -> ServiceWorkerManager<TH> {
         ServiceWorkerManager {
             registered_workers: HashMap::new(),
             active_workers: HashMap::new(),
@@ -76,7 +77,7 @@ impl ServiceWorkerManager {
         None
     }
 
-    pub fn wakeup_serviceworker(&mut self, scope_url: ServoUrl) -> Option<Sender<ServiceWorkerScriptMsg>> {
+    pub fn wakeup_serviceworker(&mut self, scope_url: ServoUrl) -> Option<Sender<ServiceWorkerScriptMsg<TH>>> {
         let scope_things = self.registered_workers.get(&scope_url);
         if let Some(scope_things) = scope_things {
             let (sender, receiver) = channel();
@@ -123,7 +124,7 @@ impl ServiceWorkerManager {
         }
     }
 
-    fn forward_message(&self, msg: DOMMessage, sender: &Sender<ServiceWorkerScriptMsg>) {
+    fn forward_message(&self, msg: DOMMessage, sender: &Sender<ServiceWorkerScriptMsg<TH>>) {
         let DOMMessage(data) = msg;
         let data = StructuredCloneData::Vector(data);
         let _ = sender.send(ServiceWorkerScriptMsg::CommonWorker(WorkerScriptMsg::DOMMessage(data)));

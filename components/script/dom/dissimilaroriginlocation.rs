@@ -13,6 +13,7 @@ use dom::bindings::str::USVString;
 use dom::dissimilaroriginwindow::DissimilarOriginWindow;
 use dom_struct::dom_struct;
 use servo_url::MutableOrigin;
+use typeholder::TypeHolderTrait;
 
 /// Represents a dissimilar-origin `Location` that exists in another script thread.
 ///
@@ -21,25 +22,25 @@ use servo_url::MutableOrigin;
 /// still need to function.
 
 #[dom_struct]
-pub struct DissimilarOriginLocation {
+pub struct DissimilarOriginLocation<TH: TypeHolderTrait<TH> + 'static> {
     /// The reflector. Once we have XOWs, this will have a cross-origin
     /// wrapper placed around it.
-    reflector: Reflector,
+    reflector: Reflector<TH>,
 
     /// The window associated with this location.
-    window: Dom<DissimilarOriginWindow>,
+    window: Dom<DissimilarOriginWindow<TH>>,
 }
 
-impl DissimilarOriginLocation {
+impl<TH: TypeHolderTrait<TH>> DissimilarOriginLocation<TH> {
     #[allow(unrooted_must_root)]
-    fn new_inherited(window: &DissimilarOriginWindow) -> DissimilarOriginLocation {
+    fn new_inherited(window: &DissimilarOriginWindow<TH>) -> DissimilarOriginLocation<TH> {
         DissimilarOriginLocation {
             reflector: Reflector::new(),
             window: Dom::from_ref(window),
         }
     }
 
-    pub fn new(window: &DissimilarOriginWindow) -> DomRoot<DissimilarOriginLocation> {
+    pub fn new(window: &DissimilarOriginWindow<TH>) -> DomRoot<DissimilarOriginLocation<TH>> {
         reflect_dom_object(Box::new(DissimilarOriginLocation::new_inherited(window)),
                            window,
                            DissimilarOriginLocationBinding::Wrap)
@@ -51,37 +52,37 @@ impl DissimilarOriginLocation {
     }
 }
 
-impl DissimilarOriginLocationMethods for DissimilarOriginLocation {
+impl<TH: TypeHolderTrait<TH>> DissimilarOriginLocationMethods<TH> for DissimilarOriginLocation<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn GetHref(&self) -> Fallible<USVString> {
+    fn GetHref(&self) -> Fallible<USVString, TH> {
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn SetHref(&self, _: USVString) -> ErrorResult {
+    fn SetHref(&self, _: USVString) -> ErrorResult<TH> {
         // TODO: setting href on a cross-origin window should succeed?
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-assign
-    fn Assign(&self, _: USVString) -> Fallible<()> {
+    fn Assign(&self, _: USVString) -> Fallible<(), TH> {
         // TODO: setting href on a cross-origin window should succeed?
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-replace
-    fn Replace(&self, _: USVString) -> Fallible<()> {
+    fn Replace(&self, _: USVString) -> Fallible<(), TH> {
         // TODO: replacing href on a cross-origin window should succeed?
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-reload
-    fn Reload(&self) -> Fallible<()> {
+    fn Reload(&self) -> Fallible<(), TH> {
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn Stringifier(&self) -> Fallible<DOMString> {
+    fn Stringifier(&self) -> Fallible<DOMString, TH> {
         Err(Error::Security)
     }
 }

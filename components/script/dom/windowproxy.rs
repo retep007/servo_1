@@ -42,18 +42,19 @@ use msg::constellation_msg::PipelineId;
 use msg::constellation_msg::TopLevelBrowsingContextId;
 use std::cell::Cell;
 use std::ptr;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
 // NOTE: the browsing context for a window is managed in two places:
 // here, in script, but also in the constellation. The constellation
 // manages the session history, which in script is accessed through
 // History objects, messaging the constellation.
-pub struct WindowProxy {
+pub struct WindowProxy<TH: TypeHolderTrait<TH> + 'static> {
     /// The JS WindowProxy object.
     /// Unlike other reflectors, we mutate this field because
     /// we have to brain-transplant the reflector when the WindowProxy
     /// changes Window.
-    reflector: Reflector,
+    reflector: Reflector<TH>,
 
     /// The id of the browsing context.
     /// In the case that this is a nested browsing context, this is the id
@@ -77,19 +78,19 @@ pub struct WindowProxy {
     discarded: Cell<bool>,
 
     /// The containing iframe element, if this is a same-origin iframe
-    frame_element: Option<Dom<Element>>,
+    frame_element: Option<Dom<Element<TH>>>,
 
     /// The parent browsing context's window proxy, if this is a nested browsing context
-    parent: Option<Dom<WindowProxy>>,
+    parent: Option<Dom<WindowProxy<TH>>>,
 }
 
-impl WindowProxy {
+impl<TH: TypeHolderTrait<TH>> WindowProxy<TH> {
     pub fn new_inherited(browsing_context_id: BrowsingContextId,
                          top_level_browsing_context_id: TopLevelBrowsingContextId,
                          currently_active: Option<PipelineId>,
-                         frame_element: Option<&Element>,
-                         parent: Option<&WindowProxy>)
-                         -> WindowProxy
+                         frame_element: Option<&Element<TH>>,
+                         parent: Option<&WindowProxy<TH>>)
+                         -> WindowProxy<TH>
     {
         let name = frame_element.map_or(DOMString::new(), |e| e.get_string_attribute(&local_name!("name")));
         WindowProxy {
@@ -105,12 +106,12 @@ impl WindowProxy {
     }
 
     #[allow(unsafe_code)]
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                browsing_context_id: BrowsingContextId,
                top_level_browsing_context_id: TopLevelBrowsingContextId,
-               frame_element: Option<&Element>,
-               parent: Option<&WindowProxy>)
-               -> DomRoot<WindowProxy>
+               frame_element: Option<&Element<TH>>,
+               parent: Option<&WindowProxy<TH>>)
+               -> DomRoot<WindowProxy<TH>>
     {
         unsafe {
             let WindowProxyHandler(handler) = window.windowproxy_handler();
@@ -151,14 +152,14 @@ impl WindowProxy {
     }
 
     #[allow(unsafe_code)]
-    pub fn new_dissimilar_origin(global_to_clone_from: &GlobalScope,
+    pub fn new_dissimilar_origin(global_to_clone_from: &GlobalScope<TH>,
                                  browsing_context_id: BrowsingContextId,
                                  top_level_browsing_context_id: TopLevelBrowsingContextId,
-                                 parent: Option<&WindowProxy>)
-                                 -> DomRoot<WindowProxy>
+                                 parent: Option<&WindowProxy<TH>>)
+                                 -> DomRoot<WindowProxy<TH>>
     {
         unsafe {
-            let handler = CreateWrapperProxyHandler(&XORIGIN_PROXY_HANDLER);
+            let handler = CreateWrapperProxyHandler(&XORIGIN_PROXY_HANDLER::<TH>());
             assert!(!handler.is_null());
 
             let cx = global_to_clone_from.get_cx();
@@ -213,15 +214,15 @@ impl WindowProxy {
         self.top_level_browsing_context_id
     }
 
-    pub fn frame_element(&self) -> Option<&Element> {
+    pub fn frame_element(&self) -> Option<&Element<TH>> {
         self.frame_element.r()
     }
 
-    pub fn parent(&self) -> Option<&WindowProxy> {
+    pub fn parent(&self) -> Option<&WindowProxy<TH>> {
         self.parent.r()
     }
 
-    pub fn top(&self) -> &WindowProxy {
+    pub fn top(&self) -> &WindowProxy<TH> {
         let mut result = self;
         while let Some(parent) = result.parent() {
             result = parent;
@@ -233,7 +234,7 @@ impl WindowProxy {
     /// Change the Window that this WindowProxy resolves to.
     // TODO: support setting the window proxy to a dummy value,
     // to handle the case when the active document is in another script thread.
-    fn set_window(&self, window: &GlobalScope, traps: &ProxyTraps) {
+    fn set_window(&self, window: &GlobalScope<TH>, traps: &ProxyTraps) {
         unsafe {
             debug!("Setting window of {:p}.", self);
             let handler = CreateWrapperProxyHandler(traps);
@@ -273,16 +274,16 @@ impl WindowProxy {
         }
     }
 
-    pub fn set_currently_active(&self, window: &Window) {
+    pub fn set_currently_active(&self, window: &Window<TH>) {
         let globalscope = window.upcast();
-        self.set_window(&*globalscope, &PROXY_HANDLER);
+        self.set_window(&*globalscope, &PROXY_HANDLER::<TH>());
         self.currently_active.set(Some(globalscope.pipeline_id()));
     }
 
     pub fn unset_currently_active(&self) {
         let globalscope = self.global();
         let window = DissimilarOriginWindow::new(&*globalscope, self);
-        self.set_window(&*window.upcast(), &XORIGIN_PROXY_HANDLER);
+        self.set_window(&*window.upcast(), &XORIGIN_PROXY_HANDLER::<TH>());
         self.currently_active.set(None);
     }
 
@@ -302,14 +303,14 @@ impl WindowProxy {
 // This is only called from extern functions,
 // there's no use using the lifetimed handles here.
 #[allow(unsafe_code)]
-unsafe fn GetSubframeWindow(cx: *mut JSContext,
+unsafe fn GetSubframeWindow<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                             proxy: RawHandleObject,
                             id: RawHandleId)
-                            -> Option<DomRoot<Window>> {
+                            -> Option<DomRoot<Window<TH>>> {
     let index = get_array_index_from_id(cx, Handle::from_raw(id));
     if let Some(index) = index {
         rooted!(in(cx) let target = GetProxyPrivate(*proxy).to_object());
-        let win = root_from_handleobject::<Window>(target.handle()).unwrap();
+        let win = root_from_handleobject::<Window<TH>>(target.handle()).unwrap();
         let mut found = false;
         return win.IndexedGetter(index, &mut found);
     }
@@ -450,7 +451,7 @@ unsafe extern "C" fn get_prototype_if_ordinary(_: *mut JSContext,
     return true;
 }
 
-static PROXY_HANDLER: ProxyTraps = ProxyTraps {
+fn PROXY_HANDLER<TH: TypeHolderTrait<TH>>() -> ProxyTraps { ProxyTraps {
     enter: None,
     getOwnPropertyDescriptor: Some(getOwnPropertyDescriptor),
     defineProperty: Some(defineProperty),
@@ -475,17 +476,17 @@ static PROXY_HANDLER: ProxyTraps = ProxyTraps {
     fun_toString: None,
     boxedValue_unbox: None,
     defaultValue: None,
-    trace: Some(trace),
-    finalize: Some(finalize),
+    trace: Some(trace::<TH>),
+    finalize: Some(finalize::<TH>),
     objectMoved: None,
     isCallable: None,
     isConstructor: None,
-};
+}}
 
 #[allow(unsafe_code)]
-pub fn new_window_proxy_handler() -> WindowProxyHandler {
+pub fn new_window_proxy_handler<TH: TypeHolderTrait<TH>>() -> WindowProxyHandler {
     unsafe {
-        WindowProxyHandler(CreateWrapperProxyHandler(&PROXY_HANDLER))
+        WindowProxyHandler(CreateWrapperProxyHandler(&PROXY_HANDLER::<TH>()))
     }
 }
 
@@ -494,9 +495,9 @@ pub fn new_window_proxy_handler() -> WindowProxyHandler {
 // defined in the DissimilarOriginWindow IDL.
 
 #[allow(unsafe_code)]
-unsafe fn throw_security_error(cx: *mut JSContext) -> bool {
+unsafe fn throw_security_error<TH: TypeHolderTrait<TH>>(cx: *mut JSContext) -> bool {
     if !JS_IsExceptionPending(cx) {
-        let global = GlobalScope::from_context(cx);
+        let global = GlobalScope::<TH>::from_context(cx);
         throw_dom_exception(cx, &*global, Error::Security);
     }
     false
@@ -587,7 +588,7 @@ unsafe extern "C" fn preventExtensions_xorigin(cx: *mut JSContext,
     throw_security_error(cx)
 }
 
-static XORIGIN_PROXY_HANDLER: ProxyTraps = ProxyTraps {
+fn XORIGIN_PROXY_HANDLER<TH: TypeHolderTrait<TH>>() -> ProxyTraps { ProxyTraps {
     enter: None,
     getOwnPropertyDescriptor: Some(getOwnPropertyDescriptor_xorigin),
     defineProperty: Some(defineProperty_xorigin),
@@ -612,18 +613,18 @@ static XORIGIN_PROXY_HANDLER: ProxyTraps = ProxyTraps {
     fun_toString: None,
     boxedValue_unbox: None,
     defaultValue: None,
-    trace: Some(trace),
-    finalize: Some(finalize),
+    trace: Some(trace::<TH>),
+    finalize: Some(finalize::<TH>),
     objectMoved: None,
     isCallable: None,
     isConstructor: None,
-};
+}}
 
 // How WindowProxy objects are garbage collected.
 
 #[allow(unsafe_code)]
-unsafe extern fn finalize(_fop: *mut JSFreeOp, obj: *mut JSObject) {
-    let this = GetProxyExtra(obj, 0).to_private() as *mut WindowProxy;
+unsafe extern fn finalize<TH: TypeHolderTrait<TH>>(_fop: *mut JSFreeOp, obj: *mut JSObject) {
+    let this = GetProxyExtra(obj, 0).to_private() as *mut WindowProxy::<TH>;
     if this.is_null() {
         // GC during obj creation or after transplanting.
         return;
@@ -634,8 +635,8 @@ unsafe extern fn finalize(_fop: *mut JSFreeOp, obj: *mut JSObject) {
 }
 
 #[allow(unsafe_code)]
-unsafe extern fn trace(trc: *mut JSTracer, obj: *mut JSObject) {
-    let this = GetProxyExtra(obj, 0).to_private() as *const WindowProxy;
+unsafe extern fn trace<TH: TypeHolderTrait<TH>>(trc: *mut JSTracer, obj: *mut JSObject) {
+    let this = GetProxyExtra(obj, 0).to_private() as *const WindowProxy::<TH>;
     if this.is_null() {
         // GC during obj creation or after transplanting.
         return;

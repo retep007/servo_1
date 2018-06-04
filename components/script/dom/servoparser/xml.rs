@@ -15,16 +15,18 @@ use servo_url::ServoUrl;
 use xml5ever::buffer_queue::BufferQueue;
 use xml5ever::tokenizer::XmlTokenizer;
 use xml5ever::tree_builder::{Tracer as XmlTracer, XmlTreeBuilder};
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer {
+pub struct Tokenizer<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Defined in xml5ever"]
-    inner: XmlTokenizer<XmlTreeBuilder<Dom<Node>, Sink>>,
+    inner: XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink<TH>>>,
 }
 
-impl Tokenizer {
-    pub fn new(document: &Document, url: ServoUrl) -> Self {
+impl<TH: TypeHolderTrait<TH>> Tokenizer<TH> {
+    pub fn new(document: &Document<TH>, url: ServoUrl) -> Self {
         let sink = Sink {
             base_url: url,
             document: Dom::from_ref(document),
@@ -41,7 +43,7 @@ impl Tokenizer {
         }
     }
 
-    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement>> {
+    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         if !input.is_empty() {
             while let Some(chunk) = input.pop_front() {
                 self.inner.feed(chunk);
@@ -68,15 +70,15 @@ impl Tokenizer {
 }
 
 #[allow(unsafe_code)]
-unsafe impl JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom<Node>, Sink>> {
+unsafe impl<TH: TypeHolderTrait<TH>> JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
-        struct Tracer(*mut JSTracer);
-        let tracer = Tracer(trc);
+        struct Tracer<THH: TypeHolderTrait<THH> + 'static>(*mut JSTracer, PhantomData<THH>);
+        let tracer = Tracer(trc, Default::default());
 
-        impl XmlTracer for Tracer {
-            type Handle = Dom<Node>;
+        impl<THH: TypeHolderTrait<THH>> XmlTracer for Tracer<THH> {
+            type Handle = Dom<Node<THH>>;
             #[allow(unrooted_must_root)]
-            fn trace_handle(&self, node: &Dom<Node>) {
+            fn trace_handle(&self, node: &Dom<Node<THH>>) {
                 unsafe { node.trace(self.0); }
             }
         }

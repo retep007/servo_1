@@ -27,19 +27,21 @@ use html5ever::tree_builder::{Tracer as HtmlTracer, TreeBuilder, TreeBuilderOpts
 use js::jsapi::JSTracer;
 use servo_url::ServoUrl;
 use std::io;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer {
+pub struct Tokenizer<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Defined in html5ever"]
-    inner: HtmlTokenizer<TreeBuilder<Dom<Node>, Sink>>,
+    inner: HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>>,
 }
 
-impl Tokenizer {
+impl<TH: TypeHolderTrait<TH>> Tokenizer<TH> {
     pub fn new(
-            document: &Document,
+            document: &Document<TH>,
             url: ServoUrl,
-            fragment_context: Option<super::FragmentContext>,
+            fragment_context: Option<super::FragmentContext<TH>>,
             parsing_algorithm: ParsingAlgorithm)
             -> Self {
         let sink = Sink {
@@ -77,7 +79,7 @@ impl Tokenizer {
         }
     }
 
-    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement>> {
+    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         match self.inner.feed(input) {
             TokenizerResult::Done => Ok(()),
             TokenizerResult::Script(script) => Err(DomRoot::from_ref(script.downcast().unwrap())),
@@ -98,15 +100,15 @@ impl Tokenizer {
 }
 
 #[allow(unsafe_code)]
-unsafe impl JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node>, Sink>> {
+unsafe impl<TH: TypeHolderTrait<TH>> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
-        struct Tracer(*mut JSTracer);
-        let tracer = Tracer(trc);
+        struct Tracer<THH: TypeHolderTrait<THH> + 'static>(*mut JSTracer, PhantomData<THH>);
+        let tracer = Tracer(trc, Default::default());
 
-        impl HtmlTracer for Tracer {
-            type Handle = Dom<Node>;
+        impl<THH: TypeHolderTrait<THH>> HtmlTracer for Tracer<THH> {
+            type Handle = Dom<Node<THH>>;
             #[allow(unrooted_must_root)]
-            fn trace_handle(&self, node: &Dom<Node>) {
+            fn trace_handle(&self, node: &Dom<Node<THH>>) {
                 unsafe { node.trace(self.0); }
             }
         }
@@ -117,7 +119,7 @@ unsafe impl JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node>, Sink>> {
     }
 }
 
-fn start_element<S: Serializer>(node: &Element, serializer: &mut S) -> io::Result<()> {
+fn start_element<S: Serializer, TH: TypeHolderTrait<TH>>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
     let name = QualName::new(None, node.namespace().clone(),
                              node.local_name().clone());
     let attrs = node.attrs().iter().map(|attr| {
@@ -134,32 +136,32 @@ fn start_element<S: Serializer>(node: &Element, serializer: &mut S) -> io::Resul
     Ok(())
 }
 
-fn end_element<S: Serializer>(node: &Element, serializer: &mut S) -> io::Result<()> {
+fn end_element<S: Serializer, TH: TypeHolderTrait<TH>>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
     let name = QualName::new(None, node.namespace().clone(),
                              node.local_name().clone());
     serializer.end_elem(name)
 }
 
 
-enum SerializationCommand {
-    OpenElement(DomRoot<Element>),
-    CloseElement(DomRoot<Element>),
-    SerializeNonelement(DomRoot<Node>),
+enum SerializationCommand<TH: TypeHolderTrait<TH> + 'static> {
+    OpenElement(DomRoot<Element<TH>>),
+    CloseElement(DomRoot<Element<TH>>),
+    SerializeNonelement(DomRoot<Node<TH>>),
 }
 
-struct SerializationIterator {
-    stack: Vec<SerializationCommand>,
+struct SerializationIterator<TH: TypeHolderTrait<TH> + 'static> {
+    stack: Vec<SerializationCommand<TH>>,
 }
 
-fn rev_children_iter(n: &Node) -> impl Iterator<Item=DomRoot<Node>>{
-    match n.downcast::<HTMLTemplateElement>() {
-        Some(t) => t.Content().upcast::<Node>().rev_children(),
+fn rev_children_iter<TH: TypeHolderTrait<TH>>(n: &Node<TH>) -> impl Iterator<Item=DomRoot<Node<TH>>>{
+    match n.downcast::<HTMLTemplateElement<TH>>() {
+        Some(t) => t.Content().upcast::<Node<TH>>().rev_children(),
         None => n.rev_children(),
     }
 }
 
-impl SerializationIterator {
-    fn new(node: &Node, skip_first: bool) -> SerializationIterator {
+impl<TH: TypeHolderTrait<TH>> SerializationIterator<TH> {
+    fn new(node: &Node<TH>, skip_first: bool) -> SerializationIterator<TH> {
         let mut ret = SerializationIterator {
             stack: vec![],
         };
@@ -173,23 +175,23 @@ impl SerializationIterator {
         ret
     }
 
-    fn push_node(&mut self, n: &Node) {
-        match n.downcast::<Element>() {
+    fn push_node(&mut self, n: &Node<TH>) {
+        match n.downcast::<Element<TH>>() {
             Some(e) => self.stack.push(SerializationCommand::OpenElement(DomRoot::from_ref(e))),
             None => self.stack.push(SerializationCommand::SerializeNonelement(DomRoot::from_ref(n))),
         }
     }
 }
 
-impl Iterator for SerializationIterator {
-    type Item = SerializationCommand;
+impl<TH: TypeHolderTrait<TH>> Iterator for SerializationIterator<TH> {
+    type Item = SerializationCommand<TH>;
 
-    fn next(&mut self) -> Option<SerializationCommand> {
+    fn next(&mut self) -> Option<SerializationCommand<TH>> {
         let res = self.stack.pop();
 
         if let Some(SerializationCommand::OpenElement(ref e)) = res {
             self.stack.push(SerializationCommand::CloseElement(e.clone()));
-            for c in rev_children_iter(&*e.upcast::<Node>()) {
+            for c in rev_children_iter(&*e.upcast::<Node<TH>>()) {
                 self.push_node(&c);
             }
         }
@@ -198,7 +200,7 @@ impl Iterator for SerializationIterator {
     }
 }
 
-impl<'a> Serialize for &'a Node {
+impl<'a, TH: TypeHolderTrait<TH>> Serialize for &'a Node<TH> {
     fn serialize<S: Serializer>(&self, serializer: &mut S,
                                 traversal_scope: TraversalScope) -> io::Result<()> {
         let node = *self;
@@ -219,23 +221,23 @@ impl<'a> Serialize for &'a Node {
                 SerializationCommand::SerializeNonelement(n) => {
                     match n.type_id() {
                         NodeTypeId::DocumentType => {
-                            let doctype = n.downcast::<DocumentType>().unwrap();
+                            let doctype = n.downcast::<DocumentType<TH>>().unwrap();
                             serializer.write_doctype(&doctype.name())?;
                         },
 
                         NodeTypeId::CharacterData(CharacterDataTypeId::Text) => {
-                            let cdata = n.downcast::<CharacterData>().unwrap();
+                            let cdata = n.downcast::<CharacterData<TH>>().unwrap();
                             serializer.write_text(&cdata.data())?;
                         },
 
                         NodeTypeId::CharacterData(CharacterDataTypeId::Comment) => {
-                            let cdata = n.downcast::<CharacterData>().unwrap();
+                            let cdata = n.downcast::<CharacterData<TH>>().unwrap();
                             serializer.write_comment(&cdata.data())?;
                         },
 
                         NodeTypeId::CharacterData(CharacterDataTypeId::ProcessingInstruction) => {
-                            let pi = n.downcast::<ProcessingInstruction>().unwrap();
-                            let data = pi.upcast::<CharacterData>().data();
+                            let pi = n.downcast::<ProcessingInstruction<TH>>().unwrap();
+                            let data = pi.upcast::<CharacterData<TH>>().data();
                             serializer.write_processing_instruction(&pi.target(), &data)?;
                         },
 

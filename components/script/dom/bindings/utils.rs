@@ -44,6 +44,8 @@ use std::ffi::CString;
 use std::os::raw::{c_char, c_void};
 use std::ptr;
 use std::slice;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// Proxy handler for a WindowProxy.
 pub struct WindowProxyHandler(pub *const libc::c_void);
@@ -57,16 +59,18 @@ impl MallocSizeOf for WindowProxyHandler {
 
 #[derive(JSTraceable, MallocSizeOf)]
 /// Static data associated with a global object.
-pub struct GlobalStaticData {
+pub struct GlobalStaticData<TH: TypeHolderTrait<TH>> {
     /// The WindowProxy proxy handler for this global.
     pub windowproxy_handler: WindowProxyHandler,
+    _p: PhantomData<TH>,
 }
 
-impl GlobalStaticData {
+impl<TH: TypeHolderTrait<TH>> GlobalStaticData<TH> {
     /// Creates a new GlobalStaticData.
-    pub fn new() -> GlobalStaticData {
+    pub fn new() -> GlobalStaticData<TH> {
         GlobalStaticData {
-            windowproxy_handler: windowproxy::new_window_proxy_handler(),
+            windowproxy_handler: windowproxy::new_window_proxy_handler::<TH>(),
+            _p: Default::default(),
         }
     }
 }
@@ -328,19 +332,19 @@ pub unsafe fn trace_global(tracer: *mut JSTracer, obj: *mut JSObject) {
 }
 
 /// Enumerate lazy properties of a global object.
-pub unsafe extern "C" fn enumerate_global(cx: *mut JSContext, obj: RawHandleObject) -> bool {
+pub unsafe extern "C" fn enumerate_global<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, obj: RawHandleObject) -> bool {
     assert!(JS_IsGlobalObject(obj.get()));
     if !JS_EnumerateStandardClasses(cx, obj) {
         return false;
     }
-    for init_fun in InterfaceObjectMap::MAP.values() {
+    for init_fun in InterfaceObjectMap::MAP::<TH>().values() {
         init_fun(cx, Handle::from_raw(obj));
     }
     true
 }
 
 /// Resolve a lazy global property, for interface objects and named constructors.
-pub unsafe extern "C" fn resolve_global(
+pub unsafe extern "C" fn resolve_global<TH: TypeHolderTrait<TH>>(
         cx: *mut JSContext,
         obj: RawHandleObject,
         id: RawHandleId,
@@ -368,7 +372,7 @@ pub unsafe extern "C" fn resolve_global(
     assert!(!ptr.is_null());
     let bytes = slice::from_raw_parts(ptr, length as usize);
 
-    if let Some(init_fun) = InterfaceObjectMap::MAP.get(bytes) {
+    if let Some(init_fun) = InterfaceObjectMap::MAP::<TH>().get(bytes) {
         init_fun(cx, Handle::from_raw(obj));
         *rval = true;
     } else {

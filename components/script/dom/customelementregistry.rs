@@ -41,25 +41,26 @@ use std::mem;
 use std::ops::Deref;
 use std::ptr;
 use std::rc::Rc;
+use typeholder::TypeHolderTrait;
 
 /// <https://html.spec.whatwg.org/multipage/#customelementregistry>
 #[dom_struct]
-pub struct CustomElementRegistry {
-    reflector_: Reflector,
+pub struct CustomElementRegistry<TH: TypeHolderTrait<TH> + 'static> {
+    reflector_: Reflector<TH>,
 
-    window: Dom<Window>,
+    window: Dom<Window<TH>>,
 
     #[ignore_malloc_size_of = "Rc"]
-    when_defined: DomRefCell<HashMap<LocalName, Rc<Promise>>>,
+    when_defined: DomRefCell<HashMap<LocalName, Rc<Promise<TH>>>>,
 
     element_definition_is_running: Cell<bool>,
 
     #[ignore_malloc_size_of = "Rc"]
-    definitions: DomRefCell<HashMap<LocalName, Rc<CustomElementDefinition>>>,
+    definitions: DomRefCell<HashMap<LocalName, Rc<CustomElementDefinition<TH>>>>,
 }
 
-impl CustomElementRegistry {
-    fn new_inherited(window: &Window) -> CustomElementRegistry {
+impl<TH: TypeHolderTrait<TH>> CustomElementRegistry<TH> {
+    fn new_inherited(window: &Window<TH>) -> CustomElementRegistry<TH> {
         CustomElementRegistry {
             reflector_: Reflector::new(),
             window: Dom::from_ref(window),
@@ -69,7 +70,7 @@ impl CustomElementRegistry {
         }
     }
 
-    pub fn new(window: &Window) -> DomRoot<CustomElementRegistry> {
+    pub fn new(window: &Window<TH>) -> DomRoot<CustomElementRegistry<TH>> {
         reflect_dom_object(Box::new(CustomElementRegistry::new_inherited(window)),
                            window,
                            CustomElementRegistryBinding::Wrap)
@@ -85,7 +86,7 @@ impl CustomElementRegistry {
     pub fn lookup_definition(&self,
                              local_name: &LocalName,
                              is: Option<&LocalName>)
-                             -> Option<Rc<CustomElementDefinition>> {
+                             -> Option<Rc<CustomElementDefinition<TH>>> {
         self.definitions.borrow().values().find(|definition| {
             // Step 4-5
             definition.local_name == *local_name &&
@@ -93,7 +94,7 @@ impl CustomElementRegistry {
         }).cloned()
     }
 
-    pub fn lookup_definition_by_constructor(&self, constructor: HandleObject) -> Option<Rc<CustomElementDefinition>> {
+    pub fn lookup_definition_by_constructor(&self, constructor: HandleObject) -> Option<Rc<CustomElementDefinition<TH>>> {
         self.definitions.borrow().values().find(|definition| {
             definition.constructor.callback() == constructor.get()
         }).cloned()
@@ -102,8 +103,8 @@ impl CustomElementRegistry {
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
     /// Steps 10.1, 10.2
     #[allow(unsafe_code)]
-    fn check_prototype(&self, constructor: HandleObject, prototype: MutableHandleValue) -> ErrorResult {
-        let global_scope = self.window.upcast::<GlobalScope>();
+    fn check_prototype(&self, constructor: HandleObject, prototype: MutableHandleValue) -> ErrorResult<TH> {
+        let global_scope = self.window.upcast::<GlobalScope<TH>>();
         unsafe {
             // Step 10.1
             if !JS_GetProperty(global_scope.get_cx(),
@@ -124,7 +125,7 @@ impl CustomElementRegistry {
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
     /// Steps 10.3, 10.4
     #[allow(unsafe_code)]
-    unsafe fn get_callbacks(&self, prototype: HandleObject) -> Fallible<LifecycleCallbacks> {
+    unsafe fn get_callbacks(&self, prototype: HandleObject) -> Fallible<LifecycleCallbacks<TH>, TH> {
         let cx = self.window.get_cx();
 
         // Step 4
@@ -139,7 +140,7 @@ impl CustomElementRegistry {
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
     /// Step 10.6
     #[allow(unsafe_code)]
-    fn get_observed_attributes(&self, constructor: HandleObject) -> Fallible<Vec<DOMString>> {
+    fn get_observed_attributes(&self, constructor: HandleObject) -> Fallible<Vec<DOMString>, TH> {
         let cx = self.window.get_cx();
         rooted!(in(cx) let mut observed_attributes = UndefinedValue());
         if unsafe { !JS_GetProperty(cx,
@@ -167,11 +168,11 @@ impl CustomElementRegistry {
 /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
 /// Step 10.4
 #[allow(unsafe_code)]
-unsafe fn get_callback(
+unsafe fn get_callback<TH: TypeHolderTrait<TH>>(
     cx: *mut JSContext,
     prototype: HandleObject,
     name: &[u8],
-) -> Fallible<Option<Rc<Function>>> {
+) -> Fallible<Option<Rc<Function<TH>>>, TH> {
     rooted!(in(cx) let mut callback = UndefinedValue());
 
     // Step 10.4.1
@@ -190,10 +191,10 @@ unsafe fn get_callback(
     }
 }
 
-impl CustomElementRegistryMethods for CustomElementRegistry {
+impl<TH: TypeHolderTrait<TH>> CustomElementRegistryMethods<TH> for CustomElementRegistry<TH> {
     #[allow(unsafe_code, unrooted_must_root)]
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-define>
-    fn Define(&self, name: DOMString, constructor_: Rc<Function>, options: &ElementDefinitionOptions) -> ErrorResult {
+    fn Define(&self, name: DOMString, constructor_: Rc<Function<TH>>, options: &ElementDefinitionOptions) -> ErrorResult<TH> {
         let cx = self.window.get_cx();
         rooted!(in(cx) let constructor = constructor_.callback());
         let name = LocalName::from(&*name);
@@ -308,13 +309,13 @@ impl CustomElementRegistryMethods for CustomElementRegistry {
         let document = self.window.Document();
 
         // Steps 14-15
-        for candidate in document.upcast::<Node>().traverse_preorder().filter_map(DomRoot::downcast::<Element>) {
+        for candidate in document.upcast::<Node<TH>>().traverse_preorder().filter_map(DomRoot::downcast::<Element<TH>>) {
             let is = candidate.get_is();
             if *candidate.local_name() == local_name &&
                 *candidate.namespace() == ns!(html) &&
                 (extends.is_none() || is.as_ref() == Some(&name))
             {
-                ScriptThread::enqueue_upgrade_reaction(&*candidate, definition.clone());
+                ScriptThread::<TH>::enqueue_upgrade_reaction(&*candidate, definition.clone());
             }
         }
 
@@ -340,8 +341,8 @@ impl CustomElementRegistryMethods for CustomElementRegistry {
 
     /// <https://html.spec.whatwg.org/multipage/#dom-customelementregistry-whendefined>
     #[allow(unrooted_must_root)]
-    fn WhenDefined(&self, name: DOMString) -> Rc<Promise> {
-        let global_scope = self.window.upcast::<GlobalScope>();
+    fn WhenDefined(&self, name: DOMString) -> Rc<Promise<TH>> {
+        let global_scope = self.window.upcast::<GlobalScope<TH>>();
         let name = LocalName::from(&*name);
 
         // Step 1
@@ -374,50 +375,50 @@ impl CustomElementRegistryMethods for CustomElementRegistry {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub struct LifecycleCallbacks {
+pub struct LifecycleCallbacks<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Rc"]
-    connected_callback: Option<Rc<Function>>,
+    connected_callback: Option<Rc<Function<TH>>>,
 
     #[ignore_malloc_size_of = "Rc"]
-    disconnected_callback: Option<Rc<Function>>,
+    disconnected_callback: Option<Rc<Function<TH>>>,
 
     #[ignore_malloc_size_of = "Rc"]
-    adopted_callback: Option<Rc<Function>>,
+    adopted_callback: Option<Rc<Function<TH>>>,
 
     #[ignore_malloc_size_of = "Rc"]
-    attribute_changed_callback: Option<Rc<Function>>,
+    attribute_changed_callback: Option<Rc<Function<TH>>>,
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum ConstructionStackEntry {
-    Element(DomRoot<Element>),
+pub enum ConstructionStackEntry<TH: TypeHolderTrait<TH> + 'static> {
+    Element(DomRoot<Element<TH>>),
     AlreadyConstructedMarker,
 }
 
 /// <https://html.spec.whatwg.org/multipage/#custom-element-definition>
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub struct CustomElementDefinition {
+pub struct CustomElementDefinition<TH: TypeHolderTrait<TH> + 'static> {
     pub name: LocalName,
 
     pub local_name: LocalName,
 
     #[ignore_malloc_size_of = "Rc"]
-    pub constructor: Rc<Function>,
+    pub constructor: Rc<Function<TH>>,
 
     pub observed_attributes: Vec<DOMString>,
 
-    pub callbacks: LifecycleCallbacks,
+    pub callbacks: LifecycleCallbacks<TH>,
 
-    pub construction_stack: DomRefCell<Vec<ConstructionStackEntry>>,
+    pub construction_stack: DomRefCell<Vec<ConstructionStackEntry<TH>>>,
 }
 
-impl CustomElementDefinition {
+impl<TH: TypeHolderTrait<TH>> CustomElementDefinition<TH> {
     fn new(name: LocalName,
            local_name: LocalName,
-           constructor: Rc<Function>,
+           constructor: Rc<Function<TH>>,
            observed_attributes: Vec<DOMString>,
-           callbacks: LifecycleCallbacks)
-           -> CustomElementDefinition {
+           callbacks: LifecycleCallbacks<TH>)
+           -> CustomElementDefinition<TH> {
         CustomElementDefinition {
             name: name,
             local_name: local_name,
@@ -435,7 +436,7 @@ impl CustomElementDefinition {
 
     /// https://dom.spec.whatwg.org/#concept-create-element Step 6.1
     #[allow(unsafe_code)]
-    pub fn create_element(&self, document: &Document, prefix: Option<Prefix>) -> Fallible<DomRoot<Element>> {
+    pub fn create_element(&self, document: &Document<TH>, prefix: Option<Prefix>) -> Fallible<DomRoot<Element<TH>>, TH> {
         let window = document.window();
         let cx = window.get_cx();
         // Step 2
@@ -451,7 +452,7 @@ impl CustomElementDefinition {
         }
 
         rooted!(in(cx) let element_val = ObjectValue(element.get()));
-        let element: DomRoot<Element> = match unsafe { DomRoot::from_jsval(cx, element_val.handle(), ()) } {
+        let element: DomRoot<Element<TH>> = match unsafe { DomRoot::from_jsval(cx, element_val.handle(), ()) } {
             Ok(ConversionResult::Success(element)) => element,
             Ok(ConversionResult::Failure(..)) =>
                 return Err(Error::Type("Constructor did not return a DOM node".to_owned())),
@@ -459,15 +460,15 @@ impl CustomElementDefinition {
         };
 
         // Step 3
-        if !element.is::<HTMLElement>() {
+        if !element.is::<HTMLElement<TH>>() {
             return Err(Error::Type("Constructor did not return a DOM node".to_owned()));
         }
 
         // Steps 4-9
         if element.HasAttributes() ||
-            element.upcast::<Node>().children_count() > 0 ||
-            element.upcast::<Node>().has_parent() ||
-            &*element.upcast::<Node>().owner_doc() != document ||
+            element.upcast::<Node<TH>>().children_count() > 0 ||
+            element.upcast::<Node<TH>>().has_parent() ||
+            &*element.upcast::<Node<TH>>().owner_doc() != document ||
             *element.namespace() != ns!(html) ||
             *element.local_name() != self.local_name
         {
@@ -486,7 +487,7 @@ impl CustomElementDefinition {
 
 /// <https://html.spec.whatwg.org/multipage/#concept-upgrade-an-element>
 #[allow(unsafe_code)]
-pub fn upgrade_element(definition: Rc<CustomElementDefinition>, element: &Element) {
+pub fn upgrade_element<TH: TypeHolderTrait<TH>>(definition: Rc<CustomElementDefinition<TH>>, element: &Element<TH>) {
     // Steps 1-2
     let state = element.get_custom_element_state();
     if state == CustomElementState::Custom || state == CustomElementState::Failed {
@@ -498,13 +499,13 @@ pub fn upgrade_element(definition: Rc<CustomElementDefinition>, element: &Elemen
         let local_name = attr.local_name().clone();
         let value = DOMString::from(&**attr.value());
         let namespace = attr.namespace().clone();
-        ScriptThread::enqueue_callback_reaction(element,
+        ScriptThread::<TH>::enqueue_callback_reaction(element,
             CallbackReaction::AttributeChanged(local_name, None, Some(value), namespace), Some(definition.clone()));
     }
 
     // Step 4
     if element.is_connected() {
-        ScriptThread::enqueue_callback_reaction(element, CallbackReaction::Connected, Some(definition.clone()));
+        ScriptThread::<TH>::enqueue_callback_reaction(element, CallbackReaction::Connected, Some(definition.clone()));
     }
 
     // Step 5
@@ -524,11 +525,11 @@ pub fn upgrade_element(definition: Rc<CustomElementDefinition>, element: &Elemen
         element.clear_reaction_queue();
 
         // Step 7.3
-        let global = GlobalScope::current().expect("No current global");
+        let global = GlobalScope::<TH>::current().expect("No current global");
         let cx = global.get_cx();
         unsafe {
             throw_dom_exception(cx, &global, error);
-            report_pending_exception(cx, true);
+            report_pending_exception::<TH>(cx, true);
         }
         return;
     }
@@ -543,7 +544,7 @@ pub fn upgrade_element(definition: Rc<CustomElementDefinition>, element: &Elemen
 /// <https://html.spec.whatwg.org/multipage/#concept-upgrade-an-element>
 /// Steps 7.1-7.2
 #[allow(unsafe_code)]
-fn run_upgrade_constructor(constructor: &Rc<Function>, element: &Element) -> ErrorResult {
+fn run_upgrade_constructor<TH: TypeHolderTrait<TH>>(constructor: &Rc<Function<TH>>, element: &Element<TH>) -> ErrorResult<TH> {
     let window = window_from_node(element);
     let cx = window.get_cx();
     rooted!(in(cx) let constructor_val = ObjectValue(constructor.callback()));
@@ -572,7 +573,7 @@ fn run_upgrade_constructor(constructor: &Rc<Function>, element: &Element) -> Err
 }
 
 /// <https://html.spec.whatwg.org/multipage/#concept-try-upgrade>
-pub fn try_upgrade_element(element: &Element) {
+pub fn try_upgrade_element<TH: TypeHolderTrait<TH>>(element: &Element<TH>) {
     // Step 1
     let document = document_from_node(element);
     let namespace = element.namespace();
@@ -580,28 +581,28 @@ pub fn try_upgrade_element(element: &Element) {
     let is = element.get_is();
     if let Some(definition) = document.lookup_custom_element_definition(namespace, local_name, is.as_ref()) {
         // Step 2
-        ScriptThread::enqueue_upgrade_reaction(element, definition);
+        ScriptThread::<TH>::enqueue_upgrade_reaction(element, definition);
     }
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub enum CustomElementReaction {
+pub enum CustomElementReaction<TH: TypeHolderTrait<TH> + 'static> {
     Upgrade(
         #[ignore_malloc_size_of = "Rc"]
-        Rc<CustomElementDefinition>
+        Rc<CustomElementDefinition<TH>>
     ),
     Callback(
         #[ignore_malloc_size_of = "Rc"]
-        Rc<Function>,
+        Rc<Function<TH>>,
         Box<[Heap<JSVal>]>
     ),
 }
 
-impl CustomElementReaction {
+impl<TH: TypeHolderTrait<TH>> CustomElementReaction<TH> {
     /// <https://html.spec.whatwg.org/multipage/#invoke-custom-element-reactions>
     #[allow(unsafe_code)]
-    pub fn invoke(&self, element: &Element) {
+    pub fn invoke(&self, element: &Element<TH>) {
         // Step 2.1
         match *self {
             CustomElementReaction::Upgrade(ref definition) => upgrade_element(definition.clone(), element),
@@ -614,10 +615,10 @@ impl CustomElementReaction {
     }
 }
 
-pub enum CallbackReaction {
+pub enum CallbackReaction<TH: TypeHolderTrait<TH> + 'static> {
     Connected,
     Disconnected,
-    Adopted(DomRoot<Document>, DomRoot<Document>),
+    Adopted(DomRoot<Document<TH>>, DomRoot<Document<TH>>),
     AttributeChanged(LocalName, Option<DOMString>, Option<DOMString>, Namespace),
 }
 
@@ -631,14 +632,14 @@ enum BackupElementQueueFlag {
 /// <https://html.spec.whatwg.org/multipage/#custom-element-reactions-stack>
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct CustomElementReactionStack {
-    stack: DomRefCell<Vec<ElementQueue>>,
-    backup_queue: ElementQueue,
+pub struct CustomElementReactionStack<TH: TypeHolderTrait<TH> + 'static> {
+    stack: DomRefCell<Vec<ElementQueue<TH>>>,
+    backup_queue: ElementQueue<TH>,
     processing_backup_element_queue: Cell<BackupElementQueueFlag>,
 }
 
-impl CustomElementReactionStack {
-    pub fn new() -> CustomElementReactionStack {
+impl<TH: TypeHolderTrait<TH>> CustomElementReactionStack<TH> {
+    pub fn new() -> CustomElementReactionStack<TH> {
         CustomElementReactionStack {
             stack: DomRefCell::new(Vec::new()),
             backup_queue: ElementQueue::new(),
@@ -674,7 +675,7 @@ impl CustomElementReactionStack {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#enqueue-an-element-on-the-appropriate-element-queue>
-    pub fn enqueue_element(&self, element: &Element) {
+    pub fn enqueue_element(&self, element: &Element<TH>) {
         if let Some(current_queue) = self.stack.borrow().last() {
             // Step 2
             current_queue.append_element(element);
@@ -691,16 +692,16 @@ impl CustomElementReactionStack {
             self.processing_backup_element_queue.set(BackupElementQueueFlag::Processing);
 
             // Step 4
-            ScriptThread::enqueue_microtask(Microtask::CustomElementReaction);
+            ScriptThread::<TH>::enqueue_microtask(Microtask::CustomElementReaction);
         }
     }
 
     /// <https://html.spec.whatwg.org/multipage/#enqueue-a-custom-element-callback-reaction>
     #[allow(unsafe_code)]
     pub fn enqueue_callback_reaction(&self,
-                                     element: &Element,
-                                     reaction: CallbackReaction,
-                                     definition: Option<Rc<CustomElementDefinition>>) {
+                                     element: &Element<TH>,
+                                     reaction: CallbackReaction<TH>,
+                                     definition: Option<Rc<CustomElementDefinition<TH>>>) {
         // Step 1
         let definition = match definition.or_else(|| element.get_custom_element_definition()) {
             Some(definition) => definition,
@@ -769,7 +770,7 @@ impl CustomElementReactionStack {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#enqueue-a-custom-element-upgrade-reaction>
-    pub fn enqueue_upgrade_reaction(&self, element: &Element, definition: Rc<CustomElementDefinition>) {
+    pub fn enqueue_upgrade_reaction(&self, element: &Element<TH>, definition: Rc<CustomElementDefinition<TH>>) {
         // Step 1
         element.push_upgrade_reaction(definition);
         // Step 2
@@ -780,12 +781,12 @@ impl CustomElementReactionStack {
 /// <https://html.spec.whatwg.org/multipage/#element-queue>
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-struct ElementQueue {
-    queue: DomRefCell<VecDeque<Dom<Element>>>,
+struct ElementQueue<TH: TypeHolderTrait<TH> + 'static> {
+    queue: DomRefCell<VecDeque<Dom<Element<TH>>>>,
 }
 
-impl ElementQueue {
-    fn new() -> ElementQueue {
+impl<TH: TypeHolderTrait<TH>> ElementQueue<TH> {
+    fn new() -> ElementQueue<TH> {
         ElementQueue {
             queue: Default::default(),
         }
@@ -800,11 +801,11 @@ impl ElementQueue {
         self.queue.borrow_mut().clear();
     }
 
-    fn next_element(&self) -> Option<DomRoot<Element>> {
+    fn next_element(&self) -> Option<DomRoot<Element<TH>>> {
         self.queue.borrow_mut().pop_front().as_ref().map(Dom::deref).map(DomRoot::from_ref)
     }
 
-    fn append_element(&self, element: &Element) {
+    fn append_element(&self, element: &Element<TH>) {
         self.queue.borrow_mut().push_back(Dom::from_ref(element));
     }
 }

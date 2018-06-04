@@ -1122,7 +1122,7 @@ interface HTMLTemplateElement : HTMLElement {
  HTMLConstructor]
 interface HTMLSlotElement : HTMLElement {
   [CEReactions] attribute DOMString name;
-  sequence<Node> assignedNodes(optional AssignedNodesOptions options);
+  sequence<Node<TH>> assignedNodes(optional AssignedNodesOptions options);
   sequence<Element> assignedElements(optional AssignedNodesOptions options);
 };
 

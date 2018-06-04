@@ -35,6 +35,7 @@ use std::collections::vec_deque::VecDeque;
 use std::sync::mpsc::{channel, Receiver, Sender};
 use std::thread;
 use style::context::QuirksMode as ServoQuirksMode;
+use typeholder::TypeHolderTrait;
 
 type ParseNodeId = usize;
 
@@ -167,22 +168,22 @@ fn create_buffer_queue(mut buffers: VecDeque<SendTendril<UTF8>>) -> BufferQueue 
 //
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer {
-    document: Dom<Document>,
+pub struct Tokenizer<TH: TypeHolderTrait<TH> + 'static> {
+    document: Dom<Document<TH>>,
     #[ignore_malloc_size_of = "Defined in std"]
     receiver: Receiver<ToTokenizerMsg>,
     #[ignore_malloc_size_of = "Defined in std"]
     html_tokenizer_sender: Sender<ToHtmlTokenizerMsg>,
     #[ignore_malloc_size_of = "Defined in std"]
-    nodes: HashMap<ParseNodeId, Dom<Node>>,
+    nodes: HashMap<ParseNodeId, Dom<Node<TH>>>,
     url: ServoUrl,
 }
 
-impl Tokenizer {
+impl<TH: TypeHolderTrait<TH>> Tokenizer<TH> {
     pub fn new(
-            document: &Document,
+            document: &Document<TH>,
             url: ServoUrl,
-            fragment_context: Option<super::FragmentContext>)
+            fragment_context: Option<super::FragmentContext<TH>>)
             -> Self {
         // Messages from the Tokenizer (main thread) to HtmlTokenizer (parser thread)
         let (to_html_tokenizer_sender, html_tokenizer_receiver) = channel();
@@ -230,7 +231,7 @@ impl Tokenizer {
         tokenizer
     }
 
-    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement>> {
+    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         let mut send_tendrils = VecDeque::new();
         while let Some(str) = input.pop_front() {
             send_tendrils.push_back(SendTendril::from(str));
@@ -278,11 +279,11 @@ impl Tokenizer {
         self.html_tokenizer_sender.send(ToHtmlTokenizerMsg::SetPlainTextState).unwrap();
     }
 
-    fn insert_node(&mut self, id: ParseNodeId, node: Dom<Node>) {
+    fn insert_node(&mut self, id: ParseNodeId, node: Dom<Node<TH>>) {
         assert!(self.nodes.insert(id, node).is_none());
     }
 
-    fn get_node<'a>(&'a self, id: &ParseNodeId) -> &'a Dom<Node> {
+    fn get_node<'a>(&'a self, id: &ParseNodeId) -> &'a Dom<Node<TH>> {
         self.nodes.get(id).expect("Node not found!")
     }
 
@@ -320,18 +321,18 @@ impl Tokenizer {
         let x = self.get_node(&x);
         let y = self.get_node(&y);
 
-        let x = x.downcast::<Element>().expect("Element node expected");
-        let y = y.downcast::<Element>().expect("Element node expected");
+        let x = x.downcast::<Element<TH>>().expect("Element node expected");
+        let y = y.downcast::<Element<TH>>().expect("Element node expected");
         x.is_in_same_home_subtree(y)
     }
 
     fn process_operation(&mut self, op: ParseOperation) {
         let document = DomRoot::from_ref(&**self.get_node(&0));
-        let document = document.downcast::<Document>().expect("Document node should be downcasted!");
+        let document = document.downcast::<Document<TH>>().expect("Document node should be downcasted!");
         match op {
             ParseOperation::GetTemplateContents { target, contents } => {
                 let target = DomRoot::from_ref(&**self.get_node(&target));
-                let template = target.downcast::<HTMLTemplateElement>().expect(
+                let template = target.downcast::<HTMLTemplateElement<TH>>().expect(
                     "Tried to extract contents from non-template element while parsing");
                 self.insert_node(contents, Dom::from_ref(template.Content().upcast()));
             }
@@ -371,10 +372,10 @@ impl Tokenizer {
                     DOMString::from(String::from(name)), Some(DOMString::from(public_id)),
                     Some(DOMString::from(system_id)), document);
 
-                document.upcast::<Node>().AppendChild(doctype.upcast()).expect("Appending failed");
+                document.upcast::<Node<TH>>().AppendChild(doctype.upcast()).expect("Appending failed");
             }
             ParseOperation::AddAttrsIfMissing { target, attrs } => {
-                let elem = self.get_node(&target).downcast::<Element>()
+                let elem = self.get_node(&target).downcast::<Element<TH>>()
                     .expect("tried to set attrs on non-Element in HTML parsing");
                 for attr in attrs {
                     elem.set_attribute_from_parser(attr.name, DOMString::from(attr.value), None);
@@ -386,7 +387,7 @@ impl Tokenizer {
                 }
             }
             ParseOperation::MarkScriptAlreadyStarted { node } => {
-                let script = self.get_node(&node).downcast::<HTMLScriptElement>();
+                let script = self.get_node(&node).downcast::<HTMLScriptElement<TH>>();
                 script.map(|script| script.set_already_started(true));
             }
             ParseOperation::ReparentChildren { parent, new_parent } => {
@@ -405,11 +406,11 @@ impl Tokenizer {
                     return;
                 }
                 let form = self.get_node(&form);
-                let form = DomRoot::downcast::<HTMLFormElement>(DomRoot::from_ref(&**form))
+                let form = DomRoot::downcast::<HTMLFormElement<TH>>(DomRoot::from_ref(&**form))
                     .expect("Owner must be a form element");
 
                 let node = self.get_node(&target);
-                let elem = node.downcast::<Element>();
+                let elem = node.downcast::<Element<TH>>();
                 let control = elem.and_then(|e| e.as_maybe_form_control());
 
                 if let Some(control) = control {

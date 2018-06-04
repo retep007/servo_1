@@ -15,11 +15,11 @@ use dom::window::Window;
 use dom_struct::dom_struct;
 use std::cell::Cell;
 use std::collections::HashSet;
-
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLBuffer {
-    webgl_object: WebGLObject,
+pub struct WebGLBuffer<TH: TypeHolderTrait<TH> + 'static> {
+    webgl_object: WebGLObject<TH>,
     id: WebGLBufferId,
     /// The target to which this buffer was bound the first time
     target: Cell<Option<u32>>,
@@ -34,10 +34,10 @@ pub struct WebGLBuffer {
     usage: Cell<u32>,
 }
 
-impl WebGLBuffer {
+impl<TH: TypeHolderTrait<TH>> WebGLBuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLBufferId)
-                     -> WebGLBuffer {
+                     -> WebGLBuffer<TH> {
         WebGLBuffer {
             webgl_object: WebGLObject::new_inherited(),
             id: id,
@@ -51,8 +51,8 @@ impl WebGLBuffer {
         }
     }
 
-    pub fn maybe_new(window: &Window, renderer: WebGLMsgSender)
-                     -> Option<DomRoot<WebGLBuffer>> {
+    pub fn maybe_new(window: &Window<TH>, renderer: WebGLMsgSender)
+                     -> Option<DomRoot<WebGLBuffer<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
         renderer.send(WebGLCommand::CreateBuffer(sender)).unwrap();
 
@@ -60,17 +60,17 @@ impl WebGLBuffer {
         result.map(|buffer_id| WebGLBuffer::new(window, renderer, buffer_id))
     }
 
-    pub fn new(window: &Window,
+    pub fn new(window: &Window<TH>,
                renderer: WebGLMsgSender,
                id: WebGLBufferId)
-              -> DomRoot<WebGLBuffer> {
+              -> DomRoot<WebGLBuffer<TH>> {
         reflect_dom_object(Box::new(WebGLBuffer::new_inherited(renderer, id)),
                            window, WebGLBufferBinding::Wrap)
     }
 }
 
 
-impl WebGLBuffer {
+impl<TH: TypeHolderTrait<TH>> WebGLBuffer<TH> {
     pub fn id(&self) -> WebGLBufferId {
         self.id
     }
@@ -168,7 +168,7 @@ impl WebGLBuffer {
     }
 }
 
-impl Drop for WebGLBuffer {
+impl<TH: TypeHolderTrait<TH>> Drop for WebGLBuffer<TH> {
     fn drop(&mut self) {
         self.delete();
     }

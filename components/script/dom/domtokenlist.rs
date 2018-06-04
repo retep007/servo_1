@@ -15,16 +15,17 @@ use dom_struct::dom_struct;
 use html5ever::LocalName;
 use servo_atoms::Atom;
 use style::str::HTML_SPACE_CHARACTERS;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMTokenList {
-    reflector_: Reflector,
-    element: Dom<Element>,
+pub struct DOMTokenList<TH: TypeHolderTrait<TH> + 'static> {
+    reflector_: Reflector<TH>,
+    element: Dom<Element<TH>>,
     local_name: LocalName,
 }
 
-impl DOMTokenList {
-    pub fn new_inherited(element: &Element, local_name: LocalName) -> DOMTokenList {
+impl<TH: TypeHolderTrait<TH>> DOMTokenList<TH> {
+    pub fn new_inherited(element: &Element<TH>, local_name: LocalName) -> DOMTokenList<TH> {
         DOMTokenList {
             reflector_: Reflector::new(),
             element: Dom::from_ref(element),
@@ -32,18 +33,18 @@ impl DOMTokenList {
         }
     }
 
-    pub fn new(element: &Element, local_name: &LocalName) -> DomRoot<DOMTokenList> {
+    pub fn new(element: &Element<TH>, local_name: &LocalName) -> DomRoot<DOMTokenList<TH>> {
         let window = window_from_node(element);
         reflect_dom_object(Box::new(DOMTokenList::new_inherited(element, local_name.clone())),
                            &*window,
                            DOMTokenListBinding::Wrap)
     }
 
-    fn attribute(&self) -> Option<DomRoot<Attr>> {
+    fn attribute(&self) -> Option<DomRoot<Attr<TH>>> {
         self.element.get_attribute(&ns!(), &self.local_name)
     }
 
-    fn check_token_exceptions(&self, token: &str) -> Fallible<Atom> {
+    fn check_token_exceptions(&self, token: &str) -> Fallible<Atom, TH> {
         match token {
             "" => Err(Error::Syntax),
             slice if slice.find(HTML_SPACE_CHARACTERS).is_some() => Err(Error::InvalidCharacter),
@@ -53,7 +54,7 @@ impl DOMTokenList {
 }
 
 // https://dom.spec.whatwg.org/#domtokenlist
-impl DOMTokenListMethods for DOMTokenList {
+impl<TH: TypeHolderTrait<TH>> DOMTokenListMethods<TH> for DOMTokenList<TH> {
     // https://dom.spec.whatwg.org/#dom-domtokenlist-length
     fn Length(&self) -> u32 {
         self.attribute().map_or(0, |attr| {
@@ -81,7 +82,7 @@ impl DOMTokenListMethods for DOMTokenList {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-add
-    fn Add(&self, tokens: Vec<DOMString>) -> ErrorResult {
+    fn Add(&self, tokens: Vec<DOMString>) -> ErrorResult<TH> {
         let mut atoms = self.element.get_tokenlist_attribute(&self.local_name);
         for token in &tokens {
             let token = self.check_token_exceptions(&token)?;
@@ -94,7 +95,7 @@ impl DOMTokenListMethods for DOMTokenList {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-remove
-    fn Remove(&self, tokens: Vec<DOMString>) -> ErrorResult {
+    fn Remove(&self, tokens: Vec<DOMString>) -> ErrorResult<TH> {
         let mut atoms = self.element.get_tokenlist_attribute(&self.local_name);
         for token in &tokens {
             let token = self.check_token_exceptions(&token)?;
@@ -105,7 +106,7 @@ impl DOMTokenListMethods for DOMTokenList {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-toggle
-    fn Toggle(&self, token: DOMString, force: Option<bool>) -> Fallible<bool> {
+    fn Toggle(&self, token: DOMString, force: Option<bool>) -> Fallible<bool, TH> {
         let mut atoms = self.element.get_tokenlist_attribute(&self.local_name);
         let token = self.check_token_exceptions(&token)?;
         match atoms.iter().position(|atom| *atom == token) {
@@ -139,7 +140,7 @@ impl DOMTokenListMethods for DOMTokenList {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-replace
-    fn Replace(&self, token: DOMString, new_token: DOMString) -> ErrorResult {
+    fn Replace(&self, token: DOMString, new_token: DOMString) -> ErrorResult<TH> {
         if token.is_empty() || new_token.is_empty() {
             // Step 1.
             return Err(Error::Syntax);
