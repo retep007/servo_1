@@ -285,7 +285,7 @@ impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
             Err(_) => None,
         };
         let content_type = metadata.clone().and_then(|meta| meta.content_type).map(Serde::into_inner);
-        let parser: DomRoot<TH::ServoParser> = match ScriptThread::page_headers_available(&self.id, metadata) {
+        let parser: DomRoot<TH::ServoParser> = match ScriptThread::<TH>::page_headers_available(&self.id, metadata) {
             Some(parser) => parser,
             None => return,
         };
@@ -653,7 +653,7 @@ fn create_element_for_token<TH: TypeHolderTrait>(
             document.window().upcast::<GlobalScope<TH>>().perform_a_microtask_checkpoint();
         }
         // Step 6.3
-        ScriptThread::push_new_element_queue()
+        ScriptThread::<TH>::push_new_element_queue()
     }
 
     // Step 7.
@@ -672,7 +672,7 @@ fn create_element_for_token<TH: TypeHolderTrait>(
     // Step 9.
     if will_execute_script {
         // Steps 9.1 - 9.2.
-        ScriptThread::pop_current_element_queue();
+        ScriptThread::<TH>::pop_current_element_queue();
         // Step 9.3.
         document.decrement_throw_on_dynamic_markup_insertion_counter();
     }

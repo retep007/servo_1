@@ -1479,7 +1479,7 @@ static PrototypeClass: JSClass = JSClass {
 unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: Result<DomRoot<FileReader<TH>>, Error<TH>> = FileReader::Constructor(&global);
         let result = match result {

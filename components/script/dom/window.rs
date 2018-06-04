@@ -611,7 +611,7 @@ impl<TH: TypeHolderTrait> WindowMethods<TH> for Window<TH> {
 
         // Step 6.
         let container_doc = document_from_node(container);
-        let current_doc = GlobalScope::current().expect("No current global object").as_window().Document();
+        let current_doc = GlobalScope::<TH>::current().expect("No current global object").as_window().Document();
         if !current_doc.origin().same_origin_domain(container_doc.origin()) {
             return None;
         }
@@ -1323,7 +1323,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
         }
 
         unsafe {
-            ScriptThread::note_newly_transitioning_nodes(complete.newly_transitioning_nodes);
+            ScriptThread::<TH>::note_newly_transitioning_nodes(complete.newly_transitioning_nodes);
         }
 
         true
@@ -1789,7 +1789,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
             script_chan: Arc::new(Mutex::new(control_chan)),
         };
         let win = Box::new(Self {
-            globalscope: GlobalScope::new_inherited(
+            globalscope: GlobalScope::<TH>::new_inherited(
                 pipelineid,
                 devtools_chan,
                 mem_profiler_chan,

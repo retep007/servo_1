@@ -245,7 +245,7 @@ impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Permissions<TH> {
                 let state =
                     prompt_user(&format!("{} {} ?", REQUEST_DIALOG_MESSAGE, perm_name.clone()));
 
-                let globalscope = GlobalScope::current().expect("No current global object");
+                let globalscope = GlobalScope::<TH>::current().expect("No current global object");
                 globalscope.as_window()
                            .permission_state_invocation_results()
                            .borrow_mut()
@@ -270,7 +270,7 @@ pub fn get_descriptor_permission_state<TH: TypeHolderTrait>(permission_name: Per
     // Step 1.
     let settings = match env_settings_obj {
         Some(env_settings_obj) => DomRoot::from_ref(env_settings_obj),
-        None => GlobalScope::current().expect("No current global object"),
+        None => GlobalScope::<TH>::current().expect("No current global object"),
     };
 
     // Step 2.

@@ -91,7 +91,7 @@ impl<TH: TypeHolderTrait> MicrotaskQueue<TH> {
                         task.handler();
                     },
                     Microtask::CustomElementReaction => {
-                        ScriptThread::invoke_backup_element_queue();
+                        ScriptThread::<TH>::invoke_backup_element_queue();
                     },
                     Microtask::NotifyMutationObservers => {
                         MutationObserver::notify_mutation_observers();

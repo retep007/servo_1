@@ -85,7 +85,7 @@ impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
                meta_key: bool,
                char_code: Option<u32>,
                key_code: u32) -> DomRoot<KeyboardEvent<TH>> {
-        let ev = KeyboardEvent::new_uninitialized(window);
+        let ev = KeyboardEvent::<TH>::new_uninitialized(window);
         ev.InitKeyboardEvent(type_, can_bubble, cancelable, view, key_string, location,
                              DOMString::new(), repeat, DOMString::new());
         ev.key.set(key);
@@ -104,7 +104,7 @@ impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &KeyboardEventBinding::KeyboardEventInit<TH>) -> Fallible<DomRoot<KeyboardEvent<TH>>, TH> {
-        let event = KeyboardEvent::new(window,
+        let event = KeyboardEvent::<TH>::new(window,
                                        type_,
                                        init.parent.parent.parent.bubbles,
                                        init.parent.parent.parent.cancelable,

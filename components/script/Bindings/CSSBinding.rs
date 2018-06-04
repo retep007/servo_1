@@ -508,7 +508,7 @@ use typeholder::TypeHolderTrait;
 
 unsafe extern fn escape<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
@@ -543,7 +543,7 @@ unsafe extern fn escape<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_u
 
 unsafe extern fn supports<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
@@ -602,7 +602,7 @@ unsafe extern fn supports<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c
 
 unsafe extern fn get_paintWorklet<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);

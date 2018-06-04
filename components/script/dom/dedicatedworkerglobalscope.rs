@@ -165,7 +165,7 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
         let serialized_worker_url = worker_url.to_string();
         let name = format!("WebWorker for {}", serialized_worker_url);
         let top_level_browsing_context_id = TopLevelBrowsingContextId::installed();
-        let origin = GlobalScope::current().expect("No current global object").origin().immutable().clone();
+        let origin = GlobalScope::<TH>::current().expect("No current global object").origin().immutable().clone();
 
         thread::Builder::new().name(name).spawn(move || {
             thread_state::initialize(ThreadState::SCRIPT | ThreadState::IN_WORKER);
@@ -231,7 +231,7 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
 
             unsafe {
                 // Handle interrupt requests
-                JS_SetInterruptCallback(scope.runtime(), Some(interrupt_callback));
+                JS_SetInterruptCallback(scope.runtime(), Some(interrupt_callback::<TH>));
             }
 
             if scope.is_closing() {
@@ -393,7 +393,7 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
 #[allow(unsafe_code)]
 unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext) -> bool {
     let worker =
-        DomRoot::downcast::<WorkerGlobalScope<TH>>(GlobalScope::from_context(cx))
+        DomRoot::downcast::<WorkerGlobalScope<TH>>(GlobalScope::<TH>::from_context(cx))
             .expect("global is not a worker scope");
     assert!(worker.is::<DedicatedWorkerGlobalScope<TH>>());
 

@@ -73,7 +73,7 @@ impl<TH: TypeHolderTrait> DOMParserMethods<TH> for DOMParser<TH> {
                                              None,
                                              None,
                                              Default::default());
-                ServoParser::parse_html_document(&document, s, url);
+                ServoParser::<TH>::parse_html_document(&document, s, url);
                 document.set_ready_state(DocumentReadyState::Complete);
                 Ok(document)
             }
@@ -91,7 +91,7 @@ impl<TH: TypeHolderTrait> DOMParserMethods<TH> for DOMParser<TH> {
                                              None,
                                              None,
                                              Default::default());
-                ServoParser::parse_xml_document(&document, s, url);
+                ServoParser::<TH>::parse_xml_document(&document, s, url);
                 document.set_ready_state(DocumentReadyState::Complete);
                 Ok(document)
             }

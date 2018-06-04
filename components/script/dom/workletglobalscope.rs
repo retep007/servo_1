@@ -63,7 +63,7 @@ impl<TH: TypeHolderTrait> WorkletGlobalScope<TH> {
             pipeline_id,
         };
         Self {
-            globalscope: GlobalScope::new_inherited(
+            globalscope: GlobalScope::<TH>::new_inherited(
                 pipeline_id,
                 init.devtools_chan.clone(),
                 init.mem_profiler_chan.clone(),

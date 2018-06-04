@@ -152,7 +152,7 @@ impl<TH: TypeHolderTrait> ServiceWorkerGlobalScope<TH> {
                           .. } = scope_things;
 
         let serialized_worker_url = script_url.to_string();
-        let origin = GlobalScope::current().expect("No current global object").origin().immutable().clone();
+        let origin = GlobalScope::<TH>::current().expect("No current global object").origin().immutable().clone();
         thread::Builder::new().name(format!("ServiceWorker for {}", serialized_worker_url)).spawn(move || {
             thread_state::initialize(ThreadState::SCRIPT | ThreadState::IN_WORKER);
             let roots = RootCollection::new();
@@ -198,7 +198,7 @@ impl<TH: TypeHolderTrait> ServiceWorkerGlobalScope<TH> {
 
             unsafe {
                 // Handle interrupt requests
-                JS_SetInterruptCallback(scope.runtime(), Some(interrupt_callback));
+                JS_SetInterruptCallback(scope.runtime(), Some(interrupt_callback::<TH>));
             }
 
             scope.execute_script(DOMString::from(source));
@@ -323,7 +323,7 @@ impl<TH: TypeHolderTrait> ServiceWorkerGlobalScope<TH> {
 #[allow(unsafe_code)]
 unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext) -> bool {
     let worker =
-        DomRoot::downcast::<WorkerGlobalScope<TH>>(GlobalScope::from_context(cx))
+        DomRoot::downcast::<WorkerGlobalScope<TH>>(GlobalScope::<TH>::from_context(cx))
             .expect("global is not a worker scope");
     assert!(worker.is::<ServiceWorkerGlobalScope<TH>>());
 

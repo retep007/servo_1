@@ -256,7 +256,7 @@ pub unsafe fn report_pending_exception<TH: TypeHolderTrait>(cx: *mut JSContext, 
            error_info.message);
 
     if dispatch_event {
-        GlobalScope::from_context(cx)
+        GlobalScope::<TH>::from_context(cx)
             .report_an_error(error_info, value.handle());
     }
 }

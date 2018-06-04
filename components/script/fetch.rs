@@ -95,7 +95,7 @@ fn from_referrer_to_referrer_url(request: &NetTraitsRequest) -> Option<ServoUrl>
     request.referrer.to_url().map(|url| url.clone())
 }
 
-fn request_init_from_request(request: NetTraitsRequest) -> NetTraitsRequestInit {
+fn request_init_from_request<TH: TypeHolderTrait>(request: NetTraitsRequest) -> NetTraitsRequestInit {
     NetTraitsRequestInit {
         method: request.method.clone(),
         url: request.url(),
@@ -108,7 +108,7 @@ fn request_init_from_request(request: NetTraitsRequest) -> NetTraitsRequestInit 
         use_cors_preflight: request.use_cors_preflight,
         credentials_mode: request.credentials_mode,
         use_url_credentials: request.use_url_credentials,
-        origin: GlobalScope::current().expect("No current global object").origin().immutable().clone(),
+        origin: GlobalScope::<TH>::current().expect("No current global object").origin().immutable().clone(),
         referrer_url: from_referrer_to_referrer_url(&request),
         referrer_policy: request.referrer_policy,
         pipeline_id: request.pipeline_id,

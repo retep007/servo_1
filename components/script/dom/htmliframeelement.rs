@@ -130,7 +130,7 @@ impl<TH: TypeHolderTrait> HTMLIFrameElement<TH> {
             if is_javascript {
                 let window_proxy = self.GetContentWindow();
                 if let Some(window_proxy) = window_proxy {
-                    ScriptThread::eval_js_url(&window_proxy.global(), load_data);
+                    ScriptThread::<TH>::eval_js_url(&window_proxy.global(), load_data);
                 }
             }
         }
@@ -186,7 +186,7 @@ impl<TH: TypeHolderTrait> HTMLIFrameElement<TH> {
                 };
 
                 self.pipeline_id.set(Some(new_pipeline_id));
-                ScriptThread::process_attach_layout(new_layout_info, document.origin().clone());
+                ScriptThread::<TH>::process_attach_layout(new_layout_info, document.origin().clone());
             },
             NavigationType::Regular => {
                 let load_info = IFrameLoadInfoWithData {
@@ -426,7 +426,7 @@ impl<TH: TypeHolderTrait> HTMLIFrameElementMethods<TH> for HTMLIFrameElement<TH>
     // https://html.spec.whatwg.org/multipage/#dom-iframe-contentwindow
     fn GetContentWindow(&self) -> Option<DomRoot<WindowProxy<TH>>> {
         self.browsing_context_id.get()
-            .and_then(|browsing_context_id| ScriptThread::find_window_proxy(browsing_context_id))
+            .and_then(|browsing_context_id| ScriptThread::<TH>::find_window_proxy(browsing_context_id))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-iframe-contentdocument
@@ -438,10 +438,10 @@ impl<TH: TypeHolderTrait> HTMLIFrameElementMethods<TH> for HTMLIFrameElement<TH>
         // Step 2-3.
         // Note that this lookup will fail if the document is dissimilar-origin,
         // so we should return None in that case.
-        let document = ScriptThread::find_document(pipeline_id)?;
+        let document = ScriptThread::<TH>::find_document(pipeline_id)?;
 
         // Step 4.
-        let current = GlobalScope::current().expect("No current global object").as_window().Document();
+        let current = GlobalScope::<TH>::current().expect("No current global object").as_window().Document();
         if !current.origin().same_origin_domain(document.origin()) {
             return None;
         }
@@ -588,7 +588,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLIFrameElement<TH> {
         // so we need to discard the browsing contexts now, rather than
         // when the `PipelineExit` message arrives.
         for exited_pipeline_id in exited_pipeline_ids {
-            if let Some(exited_document) = ScriptThread::find_document(exited_pipeline_id) {
+            if let Some(exited_document) = ScriptThread::<TH>::find_document(exited_pipeline_id) {
                 debug!("Discarding browsing context for pipeline {}", exited_pipeline_id);
                 exited_document.window().window_proxy().discard_browsing_context();
                 for exited_iframe in exited_document.iter_iframes() {

@@ -1177,7 +1177,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
 
         if self.get_custom_element_definition().is_some() {
             let reaction = CallbackReaction::AttributeChanged(name, None, Some(value), namespace);
-            ScriptThread::enqueue_callback_reaction(self, reaction, None);
+            ScriptThread::<TH>::enqueue_callback_reaction(self, reaction, None);
         }
 
         assert!(attr.GetOwnerElement().r() == Some(self));
@@ -1320,7 +1320,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
             MutationObserver::queue_a_mutation_record(&self.node, mutation);
 
             let reaction = CallbackReaction::AttributeChanged(name, Some(old_value), None, namespace);
-            ScriptThread::enqueue_callback_reaction(self, reaction, None);
+            ScriptThread::<TH>::enqueue_callback_reaction(self, reaction, None);
 
             self.attrs.borrow_mut().remove(idx);
             attr.set_owner(None);
@@ -1539,7 +1539,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         // Steps 1-2.
         let context_document = document_from_node(self);
         // TODO(#11995): XML case.
-        let new_children = ServoParser::parse_html_fragment(self, markup);
+        let new_children = ServoParser::<TH>::parse_html_fragment(self, markup);
         // Step 3.
         let fragment = DocumentFragment::new(&context_document);
         // Step 4.
@@ -1755,7 +1755,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
                 let namespace = old_attr.namespace().clone();
                 let reaction = CallbackReaction::AttributeChanged(old_name, Some(old_value),
                     Some(new_value), namespace);
-                ScriptThread::enqueue_callback_reaction(self, reaction, None);
+                ScriptThread::<TH>::enqueue_callback_reaction(self, reaction, None);
             }
             self.will_mutate_attr(attr);
             attr.set_owner(Some(self));

@@ -516,7 +516,7 @@ use typeholder::TypeHolderTrait;
 unsafe extern fn getService<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
@@ -552,7 +552,7 @@ unsafe extern fn getService<TH: TypeHolderTrait>
 unsafe extern fn getCharacteristic<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
@@ -588,7 +588,7 @@ unsafe extern fn getCharacteristic<TH: TypeHolderTrait>
 unsafe extern fn getDescriptor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
@@ -624,7 +624,7 @@ unsafe extern fn getDescriptor<TH: TypeHolderTrait>
 unsafe extern fn canonicalUUID<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);

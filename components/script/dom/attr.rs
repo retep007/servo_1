@@ -193,7 +193,7 @@ impl<TH: TypeHolderTrait> Attr<TH> {
 
         if owner.get_custom_element_definition().is_some() {
             let reaction = CallbackReaction::AttributeChanged(name, Some(old_value), Some(new_value), namespace);
-            ScriptThread::enqueue_callback_reaction(owner, reaction, None);
+            ScriptThread::<TH>::enqueue_callback_reaction(owner, reaction, None);
         }
 
         assert_eq!(Some(owner), self.owner().r());

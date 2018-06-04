@@ -85,7 +85,7 @@ pub trait DomObject: 'static {
 
     /// Returns the global scope of the realm that the DomObject was created in.
     fn global(&self) -> DomRoot<GlobalScope<Self::TypeHolder>> where Self: Sized {
-        GlobalScope::from_reflector(self)
+        GlobalScope::<Self::TypeHolder>::from_reflector(self)
     }
 }
 

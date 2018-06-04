@@ -1257,7 +1257,7 @@ fn hash_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
 unsafe extern fn createObjectURL<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 1 {
@@ -1289,7 +1289,7 @@ unsafe extern fn createObjectURL<TH: TypeHolderTrait>
 unsafe extern fn revokeObjectURL<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 1 {
@@ -1652,7 +1652,7 @@ static PrototypeClass: JSClass = JSClass {
 unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
 
         if argc < 1 {

@@ -70,7 +70,7 @@ impl<TH: TypeHolderTrait> CallbackObject<TH> {
         CallbackObject {
             callback: Heap::default(),
             permanent_js_root: Heap::default(),
-            incumbent: GlobalScope::incumbent().map(|i| Dom::from_ref(&*i)),
+            incumbent: GlobalScope::<TH>::incumbent().map(|i| Dom::from_ref(&*i)),
         }
     }
 
@@ -245,7 +245,7 @@ impl<TH: TypeHolderTrait> CallSetup<TH> {
     pub fn new<T: CallbackContainer<TH>>(callback: &T,
                                      handling: ExceptionHandling)
                                      -> CallSetup<TH> {
-        let global = unsafe { GlobalScope::from_object(callback.callback()) };
+        let global = unsafe { GlobalScope::<TH>::from_object(callback.callback()) };
         let cx = global.get_cx();
 
         let aes = AutoEntryScript::new(&global);

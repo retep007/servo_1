@@ -315,7 +315,7 @@ impl<TH: TypeHolderTrait> CustomElementRegistryMethods<TH> for CustomElementRegi
                 *candidate.namespace() == ns!(html) &&
                 (extends.is_none() || is.as_ref() == Some(&name))
             {
-                ScriptThread::enqueue_upgrade_reaction(&*candidate, definition.clone());
+                ScriptThread::<TH>::enqueue_upgrade_reaction(&*candidate, definition.clone());
             }
         }
 
@@ -499,13 +499,13 @@ pub fn upgrade_element<TH: TypeHolderTrait>(definition: Rc<CustomElementDefiniti
         let local_name = attr.local_name().clone();
         let value = DOMString::from(&**attr.value());
         let namespace = attr.namespace().clone();
-        ScriptThread::enqueue_callback_reaction(element,
+        ScriptThread::<TH>::enqueue_callback_reaction(element,
             CallbackReaction::AttributeChanged(local_name, None, Some(value), namespace), Some(definition.clone()));
     }
 
     // Step 4
     if element.is_connected() {
-        ScriptThread::enqueue_callback_reaction(element, CallbackReaction::Connected, Some(definition.clone()));
+        ScriptThread::<TH>::enqueue_callback_reaction(element, CallbackReaction::Connected, Some(definition.clone()));
     }
 
     // Step 5
@@ -525,7 +525,7 @@ pub fn upgrade_element<TH: TypeHolderTrait>(definition: Rc<CustomElementDefiniti
         element.clear_reaction_queue();
 
         // Step 7.3
-        let global = GlobalScope::current().expect("No current global");
+        let global = GlobalScope::<TH>::current().expect("No current global");
         let cx = global.get_cx();
         unsafe {
             throw_dom_exception(cx, &global, error);
@@ -581,7 +581,7 @@ pub fn try_upgrade_element<TH: TypeHolderTrait>(element: &Element<TH>) {
     let is = element.get_is();
     if let Some(definition) = document.lookup_custom_element_definition(namespace, local_name, is.as_ref()) {
         // Step 2
-        ScriptThread::enqueue_upgrade_reaction(element, definition);
+        ScriptThread::<TH>::enqueue_upgrade_reaction(element, definition);
     }
 }
 
@@ -692,7 +692,7 @@ impl<TH: TypeHolderTrait> CustomElementReactionStack<TH> {
             self.processing_backup_element_queue.set(BackupElementQueueFlag::Processing);
 
             // Step 4
-            ScriptThread::enqueue_microtask(Microtask::CustomElementReaction);
+            ScriptThread::<TH>::enqueue_microtask(Microtask::CustomElementReaction);
         }
     }
 

@@ -19054,7 +19054,7 @@ fn receiveAnyMozMap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
 unsafe extern fn get_booleanAttributeStatic<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: bool = TestBinding::BooleanAttributeStatic(&global);
 
@@ -19066,7 +19066,7 @@ unsafe extern fn get_booleanAttributeStatic<TH: TypeHolderTrait>
 unsafe extern fn set_booleanAttributeStatic<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         if argc == 0 {
             throw_type_error(cx, "Not enough arguments to booleanAttributeStatic setter.");
@@ -19090,7 +19090,7 @@ unsafe extern fn set_booleanAttributeStatic<TH: TypeHolderTrait>
 unsafe extern fn receiveVoidStatic<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: () = TestBinding::ReceiveVoidStatic(&global);
 
@@ -19226,7 +19226,7 @@ fn prefControlledAttributeDisabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInf
 unsafe extern fn get_prefControlledStaticAttributeDisabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: bool = TestBinding::PrefControlledStaticAttributeDisabled(&global);
 
@@ -19270,7 +19270,7 @@ fn prefControlledMethodDisabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo {
 unsafe extern fn prefControlledStaticMethodDisabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: () = TestBinding::PrefControlledStaticMethodDisabled(&global);
 
@@ -19373,7 +19373,7 @@ fn prefControlledAttributeEnabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo
 unsafe extern fn get_prefControlledStaticAttributeEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: bool = TestBinding::PrefControlledStaticAttributeEnabled(&global);
 
@@ -19417,7 +19417,7 @@ fn prefControlledMethodEnabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { 
 unsafe extern fn prefControlledStaticMethodEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: () = TestBinding::PrefControlledStaticMethodEnabled(&global);
 
@@ -19459,7 +19459,7 @@ fn funcControlledAttributeDisabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInf
 unsafe extern fn get_funcControlledStaticAttributeDisabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: bool = TestBinding::FuncControlledStaticAttributeDisabled(&global);
 
@@ -19503,7 +19503,7 @@ fn funcControlledMethodDisabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo {
 unsafe extern fn funcControlledStaticMethodDisabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: () = TestBinding::FuncControlledStaticMethodDisabled(&global);
 
@@ -19545,7 +19545,7 @@ fn funcControlledAttributeEnabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo
 unsafe extern fn get_funcControlledStaticAttributeEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: bool = TestBinding::FuncControlledStaticAttributeEnabled(&global);
 
@@ -19589,7 +19589,7 @@ fn funcControlledMethodEnabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { 
 unsafe extern fn funcControlledStaticMethodEnabled<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let result: () = TestBinding::FuncControlledStaticMethodEnabled(&global);
 
@@ -19732,7 +19732,7 @@ unsafe extern fn acceptPromise<TH: TypeHolderTrait>
         let arg0: Rc<Promise<TH>> = { // Scope for our JSAutoCompartment.
 
             rooted!(in(cx) let globalObj = CurrentGlobalOrNull(cx));
-            let promiseGlobal = GlobalScope::from_object_maybe_wrapped(globalObj.handle().get());
+            let promiseGlobal = GlobalScope::<TH>::from_object_maybe_wrapped(globalObj.handle().get());
 
             rooted!(in(cx) let mut valueToResolve = args.get(0).get());
             if !JS_WrapValue(cx, valueToResolve.handle_mut()) {
@@ -19854,7 +19854,7 @@ unsafe extern fn promiseResolveNative<TH: TypeHolderTrait>
         let arg0: Rc<Promise<TH>> = { // Scope for our JSAutoCompartment.
 
             rooted!(in(cx) let globalObj = CurrentGlobalOrNull(cx));
-            let promiseGlobal = GlobalScope::from_object_maybe_wrapped(globalObj.handle().get());
+            let promiseGlobal = GlobalScope::<TH>::from_object_maybe_wrapped(globalObj.handle().get());
 
             rooted!(in(cx) let mut valueToResolve = args.get(0).get());
             if !JS_WrapValue(cx, valueToResolve.handle_mut()) {
@@ -19910,7 +19910,7 @@ unsafe extern fn promiseRejectNative<TH: TypeHolderTrait>
         let arg0: Rc<Promise<TH>> = { // Scope for our JSAutoCompartment.
 
             rooted!(in(cx) let globalObj = CurrentGlobalOrNull(cx));
-            let promiseGlobal = GlobalScope::from_object_maybe_wrapped(globalObj.handle().get());
+            let promiseGlobal = GlobalScope::<TH>::from_object_maybe_wrapped(globalObj.handle().get());
 
             rooted!(in(cx) let mut valueToResolve = args.get(0).get());
             if !JS_WrapValue(cx, valueToResolve.handle_mut()) {
@@ -19966,7 +19966,7 @@ unsafe extern fn promiseRejectWithTypeError<TH: TypeHolderTrait>
         let arg0: Rc<Promise<TH>> = { // Scope for our JSAutoCompartment.
 
             rooted!(in(cx) let globalObj = CurrentGlobalOrNull(cx));
-            let promiseGlobal = GlobalScope::from_object_maybe_wrapped(globalObj.handle().get());
+            let promiseGlobal = GlobalScope::<TH>::from_object_maybe_wrapped(globalObj.handle().get());
 
             rooted!(in(cx) let mut valueToResolve = args.get(0).get());
             if !JS_WrapValue(cx, valueToResolve.handle_mut()) {
@@ -20031,7 +20031,7 @@ unsafe extern fn resolvePromiseDelayed<TH: TypeHolderTrait>
         let arg0: Rc<Promise<TH>> = { // Scope for our JSAutoCompartment.
 
             rooted!(in(cx) let globalObj = CurrentGlobalOrNull(cx));
-            let promiseGlobal = GlobalScope::from_object_maybe_wrapped(globalObj.handle().get());
+            let promiseGlobal = GlobalScope::<TH>::from_object_maybe_wrapped(globalObj.handle().get());
 
             rooted!(in(cx) let mut valueToResolve = args.get(0).get());
             if !JS_WrapValue(cx, valueToResolve.handle_mut()) {
@@ -23706,7 +23706,7 @@ static PrototypeClass: JSClass = JSClass {
 unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
 
         let argcount = cmp::min(argc, 1);

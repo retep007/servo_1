@@ -175,7 +175,7 @@ pub fn incumbent_global<TH: TypeHolderTrait>() -> Option<DomRoot<GlobalScope<TH>
         assert!(!cx.is_null());
         let global = GetScriptedCallerGlobal(cx);
         if !global.is_null() {
-            return Some(GlobalScope::from_object(global));
+            return Some(GlobalScope::<TH>::from_object(global));
         }
     }
 

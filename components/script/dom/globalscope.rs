@@ -174,7 +174,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
     /// was created in.
     #[allow(unsafe_code)]
     pub fn from_reflector<T: DomObject>(reflector: &T) -> DomRoot<Self> {
-        unsafe { GlobalScope::from_object(*reflector.reflector().get_jsobject()) }
+        unsafe { GlobalScope::<TH>::from_object(*reflector.reflector().get_jsobject()) }
     }
 
     /// Returns the global scope of the realm that the given JS object was created in.
@@ -200,7 +200,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
             obj = UnwrapObject(obj, /* stopAtWindowProxy = */ 0);
             assert!(!obj.is_null());
         }
-        GlobalScope::from_object(obj)
+        GlobalScope::<TH>::from_object(obj)
     }
 
     #[allow(unsafe_code)]
@@ -551,7 +551,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
     /// in the thread queue for this global scope.
     pub fn process_event(&self, msg: CommonScriptMsg) {
         if self.is::<Window<TH>>() {
-            return ScriptThread::process_event(msg);
+            return ScriptThread::<TH>::process_event(msg);
         }
         if let Some(worker) = self.downcast::<WorkerGlobalScope<TH>>() {
             return worker.process_event(msg);

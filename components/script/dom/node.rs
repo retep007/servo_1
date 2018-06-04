@@ -311,7 +311,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
             node.style_and_layout_data.get().map(|d| node.dispose(d));
             // https://dom.spec.whatwg.org/#concept-node-remove step 14
             if let Some(element) = node.as_custom_element() {
-                ScriptThread::enqueue_callback_reaction(&*element, CallbackReaction::Disconnected, None);
+                ScriptThread::<TH>::enqueue_callback_reaction(&*element, CallbackReaction::Disconnected, None);
             }
         }
     }
@@ -1426,7 +1426,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
             }
             for descendant in node.traverse_preorder().filter_map(|d| d.as_custom_element()) {
                 // Step 3.2.
-                ScriptThread::enqueue_callback_reaction(&*descendant,
+                ScriptThread::<TH>::enqueue_callback_reaction(&*descendant,
                     CallbackReaction::Adopted(old_doc.clone(), DomRoot::from_ref(document)), None);
             }
             for descendant in node.traverse_preorder() {
@@ -1643,7 +1643,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
                 if descendant.is_connected() {
                     if descendant.get_custom_element_definition().is_some() {
                         // Step 7.7.2.1.
-                        ScriptThread::enqueue_callback_reaction(&*descendant, CallbackReaction::Connected, None);
+                        ScriptThread::<TH>::enqueue_callback_reaction(&*descendant, CallbackReaction::Connected, None);
                     } else {
                         // Step 7.7.2.2.
                         try_upgrade_element(&*descendant);

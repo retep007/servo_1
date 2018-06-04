@@ -1418,9 +1418,9 @@ impl<TH: TypeHolderTrait> Document<TH> {
                                       }
                                       .to_owned());
 
-        let props = KeyboardEvent::key_properties(ch, key, modifiers);
+        let props = KeyboardEvent::<TH>::key_properties(ch, key, modifiers);
 
-        let keyevent = KeyboardEvent::new(&self.window,
+        let keyevent = KeyboardEvent::<TH>::new(&self.window,
                                           ev_type,
                                           true,
                                           true,
@@ -1446,7 +1446,7 @@ impl<TH: TypeHolderTrait> Document<TH> {
         // https://w3c.github.io/uievents/#keys-cancelable-keys
         if state != KeyState::Released && props.is_printable() && cancel_state != EventDefault::Prevented {
             // https://w3c.github.io/uievents/#keypress-event-order
-            let event = KeyboardEvent::new(&self.window,
+            let event = KeyboardEvent::<TH>::new(&self.window,
                                            DOMString::from("keypress"),
                                            true,
                                            true,
@@ -1749,7 +1749,7 @@ impl<TH: TypeHolderTrait> Document<TH> {
             return;
         }
 
-        ScriptThread::mark_document_with_no_blocked_loads(self);
+        ScriptThread::<TH>::mark_document_with_no_blocked_loads(self);
     }
 
     // https://html.spec.whatwg.org/multipage/#the-end
@@ -3870,7 +3870,7 @@ impl<TH: TypeHolderTrait> DocumentMethods<TH> for Document<TH> {
             return Ok(DomRoot::from_ref(self));
         }
 
-        let entry_responsible_document = GlobalScope::entry().as_window().Document();
+        let entry_responsible_document = GlobalScope::<TH>::entry().as_window().Document();
 
         // This check is same-origin not same-origin-domain.
         // https://github.com/whatwg/html/issues/2282

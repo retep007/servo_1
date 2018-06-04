@@ -495,9 +495,9 @@ pub fn new_window_proxy_handler<TH: TypeHolderTrait>() -> WindowProxyHandler {
 // defined in the DissimilarOriginWindow IDL.
 
 #[allow(unsafe_code)]
-unsafe fn throw_security_error(cx: *mut JSContext) -> bool {
+unsafe fn throw_security_error<TH: TypeHolderTrait>(cx: *mut JSContext) -> bool {
     if !JS_IsExceptionPending(cx) {
-        let global = GlobalScope::from_context(cx);
+        let global = GlobalScope::<TH>::from_context(cx);
         throw_dom_exception(cx, &*global, Error::Security);
     }
     false

@@ -554,7 +554,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
 
         if !document.is_active() {
             // Step 1 (if the document is inactive)
-            // TODO: use GlobalScope::enqueue_microtask,
+            // TODO: use GlobalScope::<TH>::enqueue_microtask,
             // to queue micro task to come back to this algorithm
         }
         // Step 2 abort if user-agent does not supports images
@@ -606,7 +606,7 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
             elem: DomRoot::from_ref(self),
             generation: self.generation.get(),
         };
-        ScriptThread::await_stable_state(Microtask::ImageElement(task));
+        ScriptThread::<TH>::await_stable_state(Microtask::ImageElement(task));
     }
 
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLImageElement<TH> {

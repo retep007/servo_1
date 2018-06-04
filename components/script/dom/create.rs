@@ -133,7 +133,7 @@ fn create_html_element<TH: TypeHolderTrait>(name: QualName,
                     let result = DomRoot::upcast::<Element<TH>>(
                         HTMLElement::new(name.local.clone(), prefix.clone(), document));
                     result.set_custom_element_state(CustomElementState::Undefined);
-                    ScriptThread::enqueue_upgrade_reaction(&*result, definition);
+                    ScriptThread::<TH>::enqueue_upgrade_reaction(&*result, definition);
                     return result;
                 },
                 CustomElementCreationMode::Synchronous => {
@@ -145,14 +145,14 @@ fn create_html_element<TH: TypeHolderTrait>(name: QualName,
                         },
                         Err(error) => {
                             // Step 6. Recovering from exception.
-                            let global = GlobalScope::current().unwrap_or_else(|| document.global());
+                            let global = GlobalScope::<TH>::current().unwrap_or_else(|| document.global());
                             let cx = global.get_cx();
 
                             // Step 6.1.1
                             unsafe {
                                 let _ac = JSAutoCompartment::new(cx, global.reflector().get_jsobject().get());
                                 throw_dom_exception(cx, &global, error);
-                                report_pending_exception(cx, true);
+                                report_pending_exception::<TH>(cx, true);
                             }
 
                             // Step 6.1.2
@@ -175,7 +175,7 @@ fn create_html_element<TH: TypeHolderTrait>(name: QualName,
                     upgrade_element(definition, &*element),
                 // Step 5.4
                 CustomElementCreationMode::Asynchronous =>
-                    ScriptThread::enqueue_upgrade_reaction(&*element, definition),
+                    ScriptThread::<TH>::enqueue_upgrade_reaction(&*element, definition),
             }
             return element;
         }

@@ -106,7 +106,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
         closing: Option<Arc<AtomicBool>>,
     ) -> Self {
         Self {
-            globalscope: GlobalScope::new_inherited(
+            globalscope: GlobalScope::<TH>::new_inherited(
                 init.pipeline_id,
                 init.to_devtools_sender,
                 init.mem_profiler_chan,

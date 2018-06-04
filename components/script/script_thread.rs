@@ -686,7 +686,7 @@ impl<TH: TypeHolderTrait> ScriptThreadFactory for ScriptThread<TH> {
             let parent_info = state.parent_info;
             let mem_profiler_chan = state.mem_profiler_chan.clone();
             let window_size = state.window_size;
-            let script_thread = ScriptThread::new(state,
+            let script_thread = ScriptThread::<TH>::new(state,
                                                   script_port,
                                                   script_chan.clone());
 

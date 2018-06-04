@@ -70,28 +70,28 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
     pub fn Constructor(global: &Window<TH>, callback: Rc<MutationCallback<TH>>) -> Fallible<DomRoot<MutationObserver<TH>>, TH> {
         global.set_exists_mut_observer();
         let observer = MutationObserver::new(global, callback);
-        ScriptThread::add_mutation_observer(&*observer);
+        ScriptThread::<TH>::add_mutation_observer(&*observer);
         Ok(observer)
     }
 
     /// <https://dom.spec.whatwg.org/#queue-a-mutation-observer-compound-microtask>
     pub fn queue_mutation_observer_compound_microtask() {
         // Step 1
-        if ScriptThread::is_mutation_observer_compound_microtask_queued() {
+        if ScriptThread::<TH>::is_mutation_observer_compound_microtask_queued() {
             return;
         }
         // Step 2
-        ScriptThread::set_mutation_observer_compound_microtask_queued(true);
+        ScriptThread::<TH>::set_mutation_observer_compound_microtask_queued(true);
         // Step 3
-        ScriptThread::enqueue_microtask(Microtask::NotifyMutationObservers);
+        ScriptThread::<TH>::enqueue_microtask(Microtask::NotifyMutationObservers);
     }
 
     /// <https://dom.spec.whatwg.org/#notify-mutation-observers>
     pub fn notify_mutation_observers() {
         // Step 1
-        ScriptThread::set_mutation_observer_compound_microtask_queued(false);
+        ScriptThread::<TH>::set_mutation_observer_compound_microtask_queued(false);
         // Step 2
-        let notify_list = ScriptThread::get_mutation_observers();
+        let notify_list = ScriptThread::<TH>::get_mutation_observers();
         // TODO: steps 3-4 (slots)
         // Step 5
         for mo in &notify_list {

@@ -765,7 +765,7 @@ impl<TH: TypeHolderTrait> TestBindingMethods<TH> for TestBinding<TH> {
         impl<TH: TypeHolderTrait> Callback for SimpleHandler<TH> {
             #[allow(unsafe_code)]
             fn callback(&self, cx: *mut JSContext, v: HandleValue) {
-                let global = unsafe { GlobalScope::from_context(cx) };
+                let global = unsafe { GlobalScope::<TH>::from_context(cx) };
                 let _ = self.handler.Call_(&*global, v, ExceptionHandling::Report);
             }
         }
@@ -806,10 +806,10 @@ impl<TH: TypeHolderTrait> TestBindingMethods<TH> for TestBinding<TH> {
     fn Panic(&self) { panic!("explicit panic from script") }
 
     fn EntryGlobal(&self) -> DomRoot<GlobalScope<TH>> {
-        GlobalScope::entry()
+        GlobalScope::<TH>::entry()
     }
     fn IncumbentGlobal(&self) -> DomRoot<GlobalScope<TH>> {
-        GlobalScope::incumbent().unwrap()
+        GlobalScope::<TH>::incumbent().unwrap()
     }
 }
 

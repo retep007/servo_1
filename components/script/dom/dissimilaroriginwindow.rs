@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> DissimilarOriginWindow<TH> {
         // Any timer events fired on this window are ignored.
         let (timer_event_chan, _) = ipc::channel().unwrap();
         let win = Box::new(Self {
-            globalscope: GlobalScope::new_inherited(
+            globalscope: GlobalScope::<TH>::new_inherited(
                 PipelineId::new(),
                 global_to_clone_from.devtools_chan().cloned(),
                 global_to_clone_from.mem_profiler_chan().clone(),
@@ -193,7 +193,7 @@ impl<TH: TypeHolderTrait> DissimilarOriginWindowMethods<TH> for DissimilarOrigin
 
 impl<TH: TypeHolderTrait> DissimilarOriginWindow<TH> {
     pub fn post_message(&self, origin: Option<ImmutableOrigin>, data: StructuredCloneData<TH>) {
-        let incumbent = match GlobalScope::incumbent() {
+        let incumbent = match GlobalScope::<TH>::incumbent() {
             None => return warn!("postMessage called with no incumbent global"),
             Some(incumbent) => incumbent,
         };

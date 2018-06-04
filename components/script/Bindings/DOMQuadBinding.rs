@@ -652,7 +652,7 @@ use typeholder::TypeHolderTrait;
 unsafe extern fn fromRect<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let arg0: dom::bindings::codegen::Bindings::DOMRectReadOnlyBinding::DOMRectInit = if args.get(0).is_undefined() {
             dom::bindings::codegen::Bindings::DOMRectReadOnlyBinding::DOMRectInit::empty(cx)
@@ -678,7 +678,7 @@ unsafe extern fn fromRect<TH: TypeHolderTrait>
 unsafe extern fn fromQuad<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let arg0: dom::bindings::codegen::Bindings::DOMQuadBinding::DOMQuadInit = if args.get(0).is_undefined() {
             dom::bindings::codegen::Bindings::DOMQuadBinding::DOMQuadInit::empty(cx)
@@ -1077,7 +1077,7 @@ static PrototypeClass: JSClass = JSClass {
 unsafe extern fn _constructor<TH: TypeHolderTrait>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
-        let global = GlobalScope::from_object(JS_CALLEE(cx, vp).to_object());
+        let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
         let arg0: dom::bindings::codegen::Bindings::DOMPointBinding::DOMPointInit = if args.get(0).is_undefined() {
             dom::bindings::codegen::Bindings::DOMPointBinding::DOMPointInit::empty(cx)

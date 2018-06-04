@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> TestWorkletMethods<TH> for TestWorklet<TH> {
 
     fn Lookup(&self, key: DOMString) -> Option<DOMString> {
         let id = self.worklet.worklet_id();
-        // let pool = ScriptThread::worklet_thread_pool();
+        // let pool = ScriptThread::<TH>::worklet_thread_pool();
         // pool.test_worklet_lookup(id, String::from(key)).map(DOMString::from)
         None
     }

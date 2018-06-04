@@ -443,7 +443,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
         // method from below, if microtasks were trait objects, we would be able
         // to put the code directly in this method, without the boilerplate
         // indirections.
-        ScriptThread::await_stable_state(Microtask::MediaElement(task));
+        ScriptThread::<TH>::await_stable_state(Microtask::MediaElement(task));
     }
 
     // https://html.spec.whatwg.org/multipage/#concept-media-load-algorithm
@@ -935,7 +935,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLMediaElement<TH> {
             let task = MediaElementMicrotask::PauseIfNotInDocumentTask {
                 elem: DomRoot::from_ref(self)
             };
-            ScriptThread::await_stable_state(Microtask::MediaElement(task));
+            ScriptThread::<TH>::await_stable_state(Microtask::MediaElement(task));
         }
     }
 }

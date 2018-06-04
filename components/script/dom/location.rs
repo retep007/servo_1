@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> Location<TH> {
     }
 
     fn check_same_origin_domain(&self) -> ErrorResult<TH> {
-        let entry_document = GlobalScope::entry().as_window().Document();
+        let entry_document = GlobalScope::<TH>::entry().as_window().Document();
         let this_document = self.window.Document();
         if entry_document.origin().same_origin_domain(this_document.origin()) {
             Ok(())

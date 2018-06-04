@@ -129,7 +129,7 @@ impl<TH: TypeHolderTrait> WorkletMethods<TH> for Worklet<TH> {
         // Steps 6-12 in parallel.
         let pending_tasks_struct = PendingTasksStruct::new();
         let global = self.window.upcast::<GlobalScope<TH>>();
-        // let pool = ScriptThread::worklet_thread_pool();
+        // let pool = ScriptThread::<TH>::worklet_thread_pool();
 
         // pool.fetch_and_invoke_a_worklet_script(global.pipeline_id(),
         //                                        self.worklet_id,
