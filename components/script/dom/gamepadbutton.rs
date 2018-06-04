@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct GamepadButton<TH: TypeHolderTrait + 'static> {
+pub struct GamepadButton<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     pressed: Cell<bool>,
     touched: Cell<bool>,
@@ -22,7 +22,7 @@ pub struct GamepadButton<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> GamepadButton<TH> {
+impl<TH: TypeHolderTrait<TH>> GamepadButton<TH> {
     pub fn new_inherited(pressed: bool, touched: bool) -> GamepadButton<TH> {
         Self {
             reflector_: Reflector::new(),
@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> GamepadButton<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> GamepadButtonMethods for GamepadButton<TH> {
+impl<TH: TypeHolderTrait<TH>> GamepadButtonMethods for GamepadButton<TH> {
     // https://www.w3.org/TR/gamepad/#widl-GamepadButton-pressed
     fn Pressed(&self) -> bool {
         self.pressed.get()
@@ -57,7 +57,7 @@ impl<TH: TypeHolderTrait> GamepadButtonMethods for GamepadButton<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> GamepadButton<TH> {
+impl<TH: TypeHolderTrait<TH>> GamepadButton<TH> {
     pub fn update(&self, pressed: bool, touched: bool) {
         self.pressed.set(pressed);
         self.touched.set(touched);

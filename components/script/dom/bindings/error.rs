@@ -28,7 +28,7 @@ use std::marker::PhantomData;
 
 /// DOM exceptions that can be thrown by a native DOM method.
 #[derive(Clone, Debug, MallocSizeOf)]
-pub enum Error<TH: TypeHolderTrait + 'static> {
+pub enum Error<TH: TypeHolderTrait<TH> + 'static> {
     /// IndexSizeError DOMException
     IndexSize,
     /// NotFoundError DOMException
@@ -91,7 +91,7 @@ pub type Fallible<T, TH> = Result<T, Error<TH>>;
 pub type ErrorResult<TH> = Fallible<(), TH>;
 
 /// Set a pending exception for the given `result` on `cx`.
-pub unsafe fn throw_dom_exception<TH: TypeHolderTrait>(cx: *mut JSContext, global: &GlobalScope<TH>, result: Error<TH>) {
+pub unsafe fn throw_dom_exception<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, global: &GlobalScope<TH>, result: Error<TH>) {
     let code = match result {
         Error::IndexSize => DOMErrorName::IndexSizeError,
         Error::NotFound => DOMErrorName::NotFoundError,
@@ -138,7 +138,7 @@ pub unsafe fn throw_dom_exception<TH: TypeHolderTrait>(cx: *mut JSContext, globa
 }
 
 /// A struct encapsulating information about a runtime script error.
-pub struct ErrorInfo<TH: TypeHolderTrait + 'static> {
+pub struct ErrorInfo<TH: TypeHolderTrait<TH> + 'static> {
     /// The error message.
     pub message: String,
     /// The file name.
@@ -150,7 +150,7 @@ pub struct ErrorInfo<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> ErrorInfo<TH> {
+impl<TH: TypeHolderTrait<TH>> ErrorInfo<TH> {
     unsafe fn from_native_error(cx: *mut JSContext, object: HandleObject)
                                 -> Option<ErrorInfo<TH>> {
         let report = JS_ErrorFromException(cx, object);
@@ -208,7 +208,7 @@ impl<TH: TypeHolderTrait> ErrorInfo<TH> {
 ///
 /// The `dispatch_event` argument is temporary and non-standard; passing false
 /// prevents dispatching the `error` event.
-pub unsafe fn report_pending_exception<TH: TypeHolderTrait>(cx: *mut JSContext, dispatch_event: bool) {
+pub unsafe fn report_pending_exception<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, dispatch_event: bool) {
     if !JS_IsExceptionPending(cx) { return; }
 
     rooted!(in(cx) let mut value = UndefinedValue());
@@ -278,7 +278,7 @@ pub unsafe fn throw_invalid_this(cx: *mut JSContext, proto_id: u16) {
     throw_type_error(cx, &error);
 }
 
-impl<TH: TypeHolderTrait> Error<TH> {
+impl<TH: TypeHolderTrait<TH>> Error<TH> {
     /// Convert this error value to a JS value, consuming it in the process.
     pub unsafe fn to_jsval(self, cx: *mut JSContext, global: &GlobalScope<TH>, rval: MutableHandleValue) {
         assert!(!JS_IsExceptionPending(cx));

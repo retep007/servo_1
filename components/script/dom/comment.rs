@@ -16,11 +16,11 @@ use typeholder::TypeHolderTrait;
 
 /// An HTML comment.
 #[dom_struct]
-pub struct Comment<TH: TypeHolderTrait + 'static> {
+pub struct Comment<TH: TypeHolderTrait<TH> + 'static> {
     characterdata: CharacterData<TH>,
 }
 
-impl<TH: TypeHolderTrait> Comment<TH> {
+impl<TH: TypeHolderTrait<TH>> Comment<TH> {
     fn new_inherited(text: DOMString, document: &Document<TH>) -> Self {
         Comment {
             characterdata: CharacterData::new_inherited(text, document),

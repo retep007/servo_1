@@ -18,11 +18,11 @@ use style::attr::{AttrValue, LengthOrPercentageOrAuto};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLHRElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLHRElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH: TypeHolderTrait> HTMLHRElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLHRElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLHRElement<TH> {
         HTMLHRElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
@@ -39,7 +39,7 @@ impl<TH: TypeHolderTrait> HTMLHRElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLHRElementMethods for HTMLHRElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLHRElementMethods for HTMLHRElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-hr-align
     make_getter!(Align, "align");
 
@@ -64,7 +64,7 @@ pub trait HTMLHRLayoutHelpers {
     fn get_width(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl<TH: TypeHolderTrait> HTMLHRLayoutHelpers for LayoutDom<HTMLHRElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> HTMLHRLayoutHelpers for LayoutDom<HTMLHRElement<TH>> {
     #[allow(unsafe_code)]
     fn get_color(&self) -> Option<RGBA> {
         unsafe {
@@ -88,7 +88,7 @@ impl<TH: TypeHolderTrait> HTMLHRLayoutHelpers for LayoutDom<HTMLHRElement<TH>> {
 }
 
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLHRElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLHRElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

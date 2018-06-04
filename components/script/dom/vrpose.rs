@@ -17,7 +17,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct VRPose<TH: TypeHolderTrait + 'static> {
+pub struct VRPose<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     position: Heap<*mut JSObject>,
     orientation: Heap<*mut JSObject>,
@@ -66,7 +66,7 @@ fn heap_to_option(heap: &Heap<*mut JSObject>) -> Option<NonNull<JSObject>> {
     }
 }
 
-impl<TH: TypeHolderTrait> VRPose<TH> {
+impl<TH: TypeHolderTrait<TH>> VRPose<TH> {
     fn new_inherited() -> VRPose<TH> {
         VRPose {
             reflector_: Reflector::new(),
@@ -102,7 +102,7 @@ impl<TH: TypeHolderTrait> VRPose<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VRPoseMethods for VRPose<TH> {
+impl<TH: TypeHolderTrait<TH>> VRPoseMethods for VRPose<TH> {
     #[allow(unsafe_code)]
     // https://w3c.github.io/webvr/#dom-vrpose-position
     unsafe fn GetPosition(&self, _cx: *mut JSContext) -> Option<NonNull<JSObject>> {

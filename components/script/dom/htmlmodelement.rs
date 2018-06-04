@@ -12,11 +12,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLModElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLModElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLModElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLModElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLModElement<TH> {

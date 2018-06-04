@@ -18,11 +18,11 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct HTMLDataListElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLDataListElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLDataListElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLDataListElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLDataListElement<TH> {
@@ -42,12 +42,12 @@ impl<TH: TypeHolderTrait> HTMLDataListElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLDataListElementMethods<TH> for HTMLDataListElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLDataListElementMethods<TH> for HTMLDataListElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-datalist-options
     fn Options(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct HTMLDataListOptionsFilter<THH: TypeHolderTrait + 'static>(PhantomData<THH>);
-        impl<THH: TypeHolderTrait> CollectionFilter<THH> for HTMLDataListOptionsFilter<THH> {
+        struct HTMLDataListOptionsFilter<THH: TypeHolderTrait<THH> + 'static>(PhantomData<THH>);
+        impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for HTMLDataListOptionsFilter<THH> {
             fn filter(&self, elem: &Element<THH>, _root: &Node<THH>) -> bool {
                 elem.is::<HTMLOptionElement<THH>>()
             }

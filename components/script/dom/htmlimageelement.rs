@@ -108,7 +108,7 @@ enum ImageRequestPhase {
 }
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-struct ImageRequest<TH: TypeHolderTrait + 'static> {
+struct ImageRequest<TH: TypeHolderTrait<TH> + 'static> {
     state: State,
     parsed_url: Option<ServoUrl>,
     source_url: Option<DOMString>,
@@ -119,7 +119,7 @@ struct ImageRequest<TH: TypeHolderTrait + 'static> {
     final_url: Option<ServoUrl>,
 }
 #[dom_struct]
-pub struct HTMLImageElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLImageElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     image_request: Cell<ImageRequestPhase>,
     current_request: DomRefCell<ImageRequest<TH>>,
@@ -128,7 +128,7 @@ pub struct HTMLImageElement<TH: TypeHolderTrait + 'static> {
     generation: Cell<u32>,
 }
 
-impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLImageElement<TH> {
     pub fn get_url(&self) -> Option<ServoUrl> {
         self.current_request.borrow().parsed_url.clone()
     }
@@ -188,10 +188,10 @@ impl FetchResponseListener for ImageContext {
 
 impl PreInvoke for ImageContext {}
 
-impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLImageElement<TH> {
     /// Update the current image with a valid URL.
     fn fetch_image(&self, img_url: &ServoUrl) {
-        fn add_cache_listener_for_element<THH: TypeHolderTrait>(image_cache: Arc<ImageCache>,
+        fn add_cache_listener_for_element<THH: TypeHolderTrait<THH>>(image_cache: Arc<ImageCache>,
                                           id: PendingImageId,
                                           elem: &HTMLImageElement<THH>) {
             let trusted_node = Trusted::new(elem);
@@ -693,14 +693,14 @@ impl<TH: TypeHolderTrait> HTMLImageElement<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum ImageElementMicrotask<TH: TypeHolderTrait + 'static> {
+pub enum ImageElementMicrotask<TH: TypeHolderTrait<TH> + 'static> {
     StableStateUpdateImageDataTask {
         elem: DomRoot<HTMLImageElement<TH>>,
         generation: u32,
     }
 }
 
-impl<TH: TypeHolderTrait> MicrotaskRunnable for ImageElementMicrotask<TH> {
+impl<TH: TypeHolderTrait<TH>> MicrotaskRunnable for ImageElementMicrotask<TH> {
     fn handler(&self) {
         match self {
             &ImageElementMicrotask::StableStateUpdateImageDataTask { ref elem, ref generation } => {
@@ -725,7 +725,7 @@ pub trait LayoutHTMLImageElementHelpers {
     fn get_height(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl<TH: TypeHolderTrait> LayoutHTMLImageElementHelpers for LayoutDom<HTMLImageElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutHTMLImageElementHelpers for LayoutDom<HTMLImageElement<TH>> {
     #[allow(unsafe_code)]
     unsafe fn image(&self) -> Option<Arc<Image>> {
         (*self.unsafe_get()).current_request.borrow_for_layout().image.clone()
@@ -813,7 +813,7 @@ pub fn parse_a_sizes_attribute(input: DOMString, width: Option<u32>) -> Vec<Size
     sizes
 }
 
-impl<TH: TypeHolderTrait> HTMLImageElementMethods for HTMLImageElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLImageElementMethods for HTMLImageElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-img-alt
     make_getter!(Alt, "alt");
     // https://html.spec.whatwg.org/multipage/#dom-img-alt
@@ -958,7 +958,7 @@ impl<TH: TypeHolderTrait> HTMLImageElementMethods for HTMLImageElement<TH> {
     make_setter!(SetBorder, "border");
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLImageElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLImageElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -1022,7 +1022,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLImageElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl<TH> for HTMLImageElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControl<TH> for HTMLImageElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -1040,7 +1040,7 @@ impl<TH: TypeHolderTrait> FormControl<TH> for HTMLImageElement<TH> {
     }
 }
 
-fn image_dimension_setter<TH: TypeHolderTrait>(element: &Element<TH>, attr: LocalName, value: u32) {
+fn image_dimension_setter<TH: TypeHolderTrait<TH>>(element: &Element<TH>, attr: LocalName, value: u32) {
     // This setter is a bit weird: the IDL type is unsigned long, but it's parsed as
     // a dimension for rendering.
     let value = if value > UNSIGNED_LONG_MAX {

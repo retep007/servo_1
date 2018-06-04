@@ -649,7 +649,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn fromRect<TH: TypeHolderTrait>
+unsafe extern fn fromRect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -675,7 +675,7 @@ unsafe extern fn fromRect<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn fromQuad<TH: TypeHolderTrait>
+unsafe extern fn fromQuad<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -701,7 +701,7 @@ unsafe extern fn fromQuad<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn get_p1<TH: TypeHolderTrait>
+unsafe extern fn get_p1<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMQuad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -713,7 +713,7 @@ unsafe extern fn get_p1<TH: TypeHolderTrait>
 }
 
 
-fn p1_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn p1_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_p1::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
@@ -731,7 +731,7 @@ fn p1_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_p2<TH: TypeHolderTrait>
+unsafe extern fn get_p2<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMQuad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -743,7 +743,7 @@ unsafe extern fn get_p2<TH: TypeHolderTrait>
 }
 
 
-fn p2_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn p2_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_p2::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
@@ -761,7 +761,7 @@ fn p2_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_p3<TH: TypeHolderTrait>
+unsafe extern fn get_p3<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMQuad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -773,7 +773,7 @@ unsafe extern fn get_p3<TH: TypeHolderTrait>
 }
 
 
-fn p3_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn p3_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_p3::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
@@ -791,7 +791,7 @@ fn p3_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_p4<TH: TypeHolderTrait>
+unsafe extern fn get_p4<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMQuad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -803,7 +803,7 @@ unsafe extern fn get_p4<TH: TypeHolderTrait>
 }
 
 
-fn p4_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn p4_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_p4::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
@@ -821,7 +821,7 @@ fn p4_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getBounds<TH: TypeHolderTrait>
+unsafe extern fn getBounds<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMQuad<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -835,7 +835,7 @@ unsafe extern fn getBounds<TH: TypeHolderTrait>
 }
 
 
-fn getBounds_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getBounds_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getBounds::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMQuad as u16,
     depth: 0,
@@ -853,7 +853,7 @@ fn getBounds_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -866,7 +866,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -876,7 +876,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -891,7 +891,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"DOMQuad\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -909,11 +909,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<DOMQuad<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<DOMQuad<TH>>) -> DomRoot<DOMQuad<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -939,27 +939,27 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for DOMQuad<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for DOMQuad<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for DOMQuad<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for DOMQuad<TH> {
     fn eq(&self, other: &DOMQuad<TH>) -> bool {
         self as *const DOMQuad<TH> == &*other
     }
 }
 
-pub trait DOMQuadMethods<TH: TypeHolderTrait> {
+pub trait DOMQuadMethods<TH: TypeHolderTrait<TH>> {
     fn P1(&self) -> DomRoot<DOMPoint<TH>>;
     fn P2(&self) -> DomRoot<DOMPoint<TH>>;
     fn P3(&self) -> DomRoot<DOMPoint<TH>>;
     fn P4(&self) -> DomRoot<DOMPoint<TH>>;
     fn GetBounds(&self) -> DomRoot<DOMRect<TH>>;
 }
-fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sStaticMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"fromRect\0" as *const u8 as *const libc::c_char,
@@ -984,10 +984,10 @@ fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionS
     }]
 
 ]}
-fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sStaticMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0])
 ]}
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getBounds\0" as *const u8 as *const libc::c_char,
@@ -1005,10 +1005,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"p1\0" as *const u8 as *const libc::c_char,
@@ -1042,11 +1042,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1074,7 +1074,7 @@ static PrototypeClass: JSClass = JSClass {
     reserved: [0 as *mut os::raw::c_void; 3]
 };
 
-unsafe extern fn _constructor<TH: TypeHolderTrait>
+unsafe extern fn _constructor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -1149,7 +1149,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait<TH>>() -> NonCallbackInterfaceObjectClass {
  
     NonCallbackInterfaceObjectClass::new(
         &InterfaceConstructorBehavior::call(_constructor::<TH>),
@@ -1158,7 +1158,7 @@ fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectCl
         0) 
 }
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -1171,12 +1171,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::DEDICATED_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::SERVICE_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

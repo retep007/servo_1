@@ -505,7 +505,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_position<TH: TypeHolderTrait>
+unsafe extern fn get_position<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -517,7 +517,7 @@ unsafe extern fn get_position<TH: TypeHolderTrait>
 }
 
 
-fn position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn position_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
@@ -535,7 +535,7 @@ fn position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_linearVelocity<TH: TypeHolderTrait>
+unsafe extern fn get_linearVelocity<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -547,7 +547,7 @@ unsafe extern fn get_linearVelocity<TH: TypeHolderTrait>
 }
 
 
-fn linearVelocity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn linearVelocity_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_linearVelocity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
@@ -565,7 +565,7 @@ fn linearVelocity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_linearAcceleration<TH: TypeHolderTrait>
+unsafe extern fn get_linearAcceleration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -577,7 +577,7 @@ unsafe extern fn get_linearAcceleration<TH: TypeHolderTrait>
 }
 
 
-fn linearAcceleration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn linearAcceleration_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_linearAcceleration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
@@ -595,7 +595,7 @@ fn linearAcceleration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_orientation<TH: TypeHolderTrait>
+unsafe extern fn get_orientation<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -607,7 +607,7 @@ unsafe extern fn get_orientation<TH: TypeHolderTrait>
 }
 
 
-fn orientation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn orientation_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_orientation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
@@ -625,7 +625,7 @@ fn orientation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_angularVelocity<TH: TypeHolderTrait>
+unsafe extern fn get_angularVelocity<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -637,7 +637,7 @@ unsafe extern fn get_angularVelocity<TH: TypeHolderTrait>
 }
 
 
-fn angularVelocity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn angularVelocity_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_angularVelocity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
@@ -655,7 +655,7 @@ fn angularVelocity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_angularAcceleration<TH: TypeHolderTrait>
+unsafe extern fn get_angularAcceleration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRPose<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -667,7 +667,7 @@ unsafe extern fn get_angularAcceleration<TH: TypeHolderTrait>
 }
 
 
-fn angularAcceleration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn angularAcceleration_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_angularAcceleration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRPose as u16,
     depth: 0,
@@ -685,7 +685,7 @@ fn angularAcceleration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -698,7 +698,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -708,7 +708,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -723,7 +723,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"VRPose\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -741,11 +741,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<VRPose<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<VRPose<TH>>) -> DomRoot<VRPose<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -771,14 +771,14 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for VRPose<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for VRPose<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for VRPose<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for VRPose<TH> {
     fn eq(&self, other: &VRPose<TH>) -> bool {
         self as *const VRPose<TH> == &*other
     }
@@ -792,7 +792,7 @@ pub trait VRPoseMethods {
     unsafe fn GetAngularVelocity(&self, cx: *mut JSContext) -> Option<NonNull<JSObject>>;
     unsafe fn GetAngularAcceleration(&self, cx: *mut JSContext) -> Option<NonNull<JSObject>>;
 }
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"position\0" as *const u8 as *const libc::c_char,
@@ -838,11 +838,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -877,7 +877,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::VRPose,
         0);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -890,13 +890,13 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW) &&
     PREFS.get("dom.webvr.enabled").as_boolean().unwrap_or(false)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

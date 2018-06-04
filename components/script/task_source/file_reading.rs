@@ -20,7 +20,7 @@ impl Clone for FileReadingTaskSource {
     }
 }
 
-impl<TH: TypeHolderTrait> TaskSource<TH> for FileReadingTaskSource {
+impl<TH: TypeHolderTrait<TH>> TaskSource<TH> for FileReadingTaskSource {
     fn queue_with_canceller<T>(
         &self,
         task: T,
@@ -37,21 +37,21 @@ impl<TH: TypeHolderTrait> TaskSource<TH> for FileReadingTaskSource {
     }
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for FileReadingTask<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for FileReadingTask<TH> {
     fn run_once(self) {
         self.handle_task();
     }
 }
 
 #[allow(dead_code)]
-pub enum FileReadingTask<TH: TypeHolderTrait + 'static> {
+pub enum FileReadingTask<TH: TypeHolderTrait<TH> + 'static> {
     ProcessRead(TrustedFileReader<TH>, GenerationId),
     ProcessReadData(TrustedFileReader<TH>, GenerationId),
     ProcessReadError(TrustedFileReader<TH>, GenerationId, DOMErrorName),
     ProcessReadEOF(TrustedFileReader<TH>, GenerationId, ReadMetaData, Arc<Vec<u8>>),
 }
 
-impl<TH: TypeHolderTrait> FileReadingTask<TH> {
+impl<TH: TypeHolderTrait<TH>> FileReadingTask<TH> {
     pub fn handle_task(self) {
         use self::FileReadingTask::*;
 

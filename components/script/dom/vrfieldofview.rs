@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct VRFieldOfView<TH: TypeHolderTrait + 'static> {
+pub struct VRFieldOfView<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     fov: DomRefCell<WebVRFieldOfView>,
@@ -24,7 +24,7 @@ pub struct VRFieldOfView<TH: TypeHolderTrait + 'static> {
 
 unsafe_no_jsmanaged_fields!(WebVRFieldOfView);
 
-impl<TH: TypeHolderTrait> VRFieldOfView<TH> {
+impl<TH: TypeHolderTrait<TH>> VRFieldOfView<TH> {
     fn new_inherited(fov: WebVRFieldOfView) -> VRFieldOfView<TH> {
         VRFieldOfView {
             reflector_: Reflector::new(),
@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> VRFieldOfView<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VRFieldOfViewMethods for VRFieldOfView<TH> {
+impl<TH: TypeHolderTrait<TH>> VRFieldOfViewMethods for VRFieldOfView<TH> {
     // https://w3c.github.io/webvr/#interface-interface-vrfieldofview
     fn UpDegrees(&self) -> Finite<f64> {
         Finite::wrap(self.fov.borrow().up_degrees)

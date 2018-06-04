@@ -23,21 +23,21 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MutationObserver<TH: TypeHolderTrait + 'static> {
+pub struct MutationObserver<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<MutationCallback<TH>>,
     record_queue: DomRefCell<Vec<DomRoot<MutationRecord<TH>>>>,
 }
 
-pub enum Mutation<'a, TH: TypeHolderTrait + 'static> {
+pub enum Mutation<'a, TH: TypeHolderTrait<TH> + 'static> {
     Attribute { name: LocalName, namespace: Namespace, old_value: DOMString },
     ChildList { added: Option<&'a [&'a Node<TH>]>, removed: Option<&'a [&'a Node<TH>]>,
                 prev: Option<&'a Node<TH>>, next: Option<&'a Node<TH>> },
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct RegisteredObserver<TH: TypeHolderTrait + 'static> {
+pub struct RegisteredObserver<TH: TypeHolderTrait<TH> + 'static> {
     observer: DomRoot<MutationObserver<TH>>,
     options: ObserverOptions,
 }
@@ -53,7 +53,7 @@ pub struct ObserverOptions {
     attribute_filter: Vec<DOMString>,
 }
 
-impl<TH: TypeHolderTrait> MutationObserver<TH> {
+impl<TH: TypeHolderTrait<TH>> MutationObserver<TH> {
     fn new(global: &Window<TH>, callback: Rc<MutationCallback<TH>>) -> DomRoot<MutationObserver<TH>> {
         let boxed_observer = Box::new(MutationObserver::new_inherited(callback));
         reflect_dom_object(boxed_observer, global, MutationObserverBinding::Wrap)
@@ -186,7 +186,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
 
 }
 
-impl<TH: TypeHolderTrait> MutationObserverMethods<TH> for MutationObserver<TH> {
+impl<TH: TypeHolderTrait<TH>> MutationObserverMethods<TH> for MutationObserver<TH> {
     /// <https://dom.spec.whatwg.org/#dom-mutationobserver-observe>
     fn Observe(&self, target: &Node<TH>, options: &MutationObserverInit) -> Fallible<(), TH> {
         let attribute_filter = options.attributeFilter.clone().unwrap_or(vec![]);

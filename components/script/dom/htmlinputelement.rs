@@ -205,7 +205,7 @@ enum ValueMode {
 }
 
 #[dom_struct]
-pub struct HTMLInputElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLInputElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     input_type: Cell<InputType>,
     checked_changed: Cell<bool>,
@@ -226,7 +226,7 @@ pub struct HTMLInputElement<TH: TypeHolderTrait + 'static> {
 #[derive(JSTraceable)]
 #[must_root]
 #[derive(MallocSizeOf)]
-struct InputActivationState<TH: TypeHolderTrait + 'static> {
+struct InputActivationState<TH: TypeHolderTrait<TH> + 'static> {
     indeterminate: bool,
     checked: bool,
     checked_changed: bool,
@@ -237,7 +237,7 @@ struct InputActivationState<TH: TypeHolderTrait + 'static> {
     old_type: InputType,
 }
 
-impl<TH: TypeHolderTrait> InputActivationState<TH> {
+impl<TH: TypeHolderTrait<TH>> InputActivationState<TH> {
     fn new() -> InputActivationState<TH> {
         InputActivationState {
             indeterminate: false,
@@ -254,7 +254,7 @@ static DEFAULT_INPUT_SIZE: u32 = 20;
 static DEFAULT_MAX_LENGTH: i32 = -1;
 static DEFAULT_MIN_LENGTH: i32 = -1;
 
-impl<TH: TypeHolderTrait> HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLInputElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLInputElement<TH> {
         let chan = document.window().upcast::<GlobalScope<TH>>().script_to_constellation_chan().clone();
         HTMLInputElement {
@@ -335,15 +335,15 @@ pub trait LayoutHTMLInputElementHelpers {
 }
 
 #[allow(unsafe_code)]
-unsafe fn get_raw_textinput_value<TH: TypeHolderTrait>(input: LayoutDom<HTMLInputElement<TH>>) -> DOMString {
+unsafe fn get_raw_textinput_value<TH: TypeHolderTrait<TH>>(input: LayoutDom<HTMLInputElement<TH>>) -> DOMString {
     (*input.unsafe_get()).textinput.borrow_for_layout().get_content()
 }
 
-impl<TH: TypeHolderTrait> LayoutHTMLInputElementHelpers for LayoutDom<HTMLInputElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutHTMLInputElementHelpers for LayoutDom<HTMLInputElement<TH>> {
     #[allow(unsafe_code)]
     unsafe fn value_for_layout(self) -> String {
         #[allow(unsafe_code)]
-        unsafe fn get_raw_attr_value<THH: TypeHolderTrait>(input: LayoutDom<HTMLInputElement<THH>>, default: &str) -> String {
+        unsafe fn get_raw_attr_value<THH: TypeHolderTrait<THH>>(input: LayoutDom<HTMLInputElement<THH>>, default: &str) -> String {
             let elem = input.upcast::<Element<THH>>();
             let value = (*elem.unsafe_get())
                 .get_attr_val_for_layout(&ns!(), &local_name!("value"))
@@ -421,7 +421,7 @@ impl<TH: TypeHolderTrait> LayoutHTMLInputElementHelpers for LayoutDom<HTMLInputE
     }
 }
 
-impl<TH: TypeHolderTrait> TextControlElement<TH> for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> TextControlElement<TH> for HTMLInputElement<TH> {
     // https://html.spec.whatwg.org/multipage/#concept-input-apply
     fn selection_api_applies(&self) -> bool {
         match self.input_type() {
@@ -464,7 +464,7 @@ impl<TH: TypeHolderTrait> TextControlElement<TH> for HTMLInputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLInputElementMethods<TH> for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLInputElementMethods<TH> for HTMLInputElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-input-accept
     make_getter!(Accept, "accept");
 
@@ -800,7 +800,7 @@ impl<TH: TypeHolderTrait> HTMLInputElementMethods<TH> for HTMLInputElement<TH> {
 
 
 #[allow(unsafe_code)]
-fn broadcast_radio_checked<TH: TypeHolderTrait>(broadcaster: &HTMLInputElement<TH>, group: Option<&Atom>) {
+fn broadcast_radio_checked<TH: TypeHolderTrait<TH>>(broadcaster: &HTMLInputElement<TH>, group: Option<&Atom>) {
     match group {
         None | Some(&atom!("")) => {
             // Radio input elements with a missing or empty name are alone in their
@@ -815,7 +815,7 @@ fn broadcast_radio_checked<TH: TypeHolderTrait>(broadcaster: &HTMLInputElement<T
     let doc = document_from_node(broadcaster);
 
     // This function is a workaround for lifetime constraint difficulties.
-    fn do_broadcast<THH: TypeHolderTrait>(doc_node: &Node<THH>, broadcaster: &HTMLInputElement<THH>,
+    fn do_broadcast<THH: TypeHolderTrait<THH>>(doc_node: &Node<THH>, broadcaster: &HTMLInputElement<THH>,
                         owner: Option<&HTMLFormElement<THH>>, group: Option<&Atom>) {
         let iter = doc_node.query_selector_iter(DOMString::from("input[type=radio]")).unwrap()
                 .filter_map(DomRoot::downcast::<HTMLInputElement<THH>>)
@@ -831,7 +831,7 @@ fn broadcast_radio_checked<TH: TypeHolderTrait>(broadcaster: &HTMLInputElement<T
 }
 
 // https://html.spec.whatwg.org/multipage/#radio-button-group
-fn in_same_group<TH: TypeHolderTrait>(other: &HTMLInputElement<TH>, owner: Option<&HTMLFormElement<TH>>,
+fn in_same_group<TH: TypeHolderTrait<TH>>(other: &HTMLInputElement<TH>, owner: Option<&HTMLFormElement<TH>>,
                  group: Option<&Atom>) -> bool {
     other.input_type() == InputType::Radio &&
     // TODO Both a and b are in the same home subtree.
@@ -842,7 +842,7 @@ fn in_same_group<TH: TypeHolderTrait>(other: &HTMLInputElement<TH>, owner: Optio
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLInputElement<TH> {
     fn radio_group_updated(&self, group: Option<&Atom>) {
         if self.Checked() {
             broadcast_radio_checked(self, group);
@@ -1115,7 +1115,7 @@ impl<TH: TypeHolderTrait> HTMLInputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLInputElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -1420,7 +1420,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLInputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl<TH> for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControl<TH> for HTMLInputElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -1434,7 +1434,7 @@ impl<TH: TypeHolderTrait> FormControl<TH> for HTMLInputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Validatable for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> Validatable for HTMLInputElement<TH> {
     fn is_instance_validatable(&self) -> bool {
         // https://html.spec.whatwg.org/multipage/#candidate-for-constraint-validation
         true
@@ -1445,7 +1445,7 @@ impl<TH: TypeHolderTrait> Validatable for HTMLInputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Activatable<TH> for HTMLInputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> Activatable<TH> for HTMLInputElement<TH> {
     fn as_element(&self) -> &Element<TH> {
         self.upcast()
     }

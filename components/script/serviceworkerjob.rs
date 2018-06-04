@@ -34,14 +34,14 @@ pub enum JobType {
 }
 
 #[derive(Clone)]
-pub enum SettleType<TH: TypeHolderTrait + 'static> {
+pub enum SettleType<TH: TypeHolderTrait<TH> + 'static> {
     Resolve(Trusted<ServiceWorkerRegistration<TH>>),
     Reject(Error<TH>)
 }
 
 #[must_root]
 #[derive(JSTraceable)]
-pub struct Job<TH: TypeHolderTrait + 'static> {
+pub struct Job<TH: TypeHolderTrait<TH> + 'static> {
     pub job_type: JobType,
     pub scope_url: ServoUrl,
     pub script_url: ServoUrl,
@@ -52,7 +52,7 @@ pub struct Job<TH: TypeHolderTrait + 'static> {
     pub referrer: ServoUrl
 }
 
-impl<TH: TypeHolderTrait> Job<TH> {
+impl<TH: TypeHolderTrait<TH>> Job<TH> {
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/ServiceWorker/#create-job-algorithm
     pub fn create_job(job_type: JobType,
@@ -76,7 +76,7 @@ impl<TH: TypeHolderTrait> Job<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for Job<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for Job<TH> {
     // Equality criteria as described in https://w3c.github.io/ServiceWorker/#dfn-job-equivalent
     fn eq(&self, other: &Self) -> bool {
         let same_job = self.job_type == other.job_type;
@@ -95,9 +95,9 @@ impl<TH: TypeHolderTrait> PartialEq for Job<TH> {
 
 #[must_root]
 #[derive(JSTraceable)]
-pub struct JobQueue<TH: TypeHolderTrait + 'static>(pub DomRefCell<HashMap<ServoUrl, Vec<Job<TH>>>>, PhantomData<TH>);
+pub struct JobQueue<TH: TypeHolderTrait<TH> + 'static>(pub DomRefCell<HashMap<ServoUrl, Vec<Job<TH>>>>, PhantomData<TH>);
 
-impl<TH: TypeHolderTrait> JobQueue<TH> {
+impl<TH: TypeHolderTrait<TH>> JobQueue<TH> {
     pub fn new() -> JobQueue<TH> {
         JobQueue(DomRefCell::new(HashMap::new()), Default::default())
     }
@@ -264,7 +264,7 @@ impl<TH: TypeHolderTrait> JobQueue<TH> {
     }
 }
 
-fn settle_job_promise<TH: TypeHolderTrait>(promise: &Promise<TH>, settle: SettleType<TH>) {
+fn settle_job_promise<TH: TypeHolderTrait<TH>>(promise: &Promise<TH>, settle: SettleType<TH>) {
     match settle {
         SettleType::Resolve(reg) => promise.resolve_native(&*reg.root()),
         SettleType::Reject(err) => promise.reject_error(err),
@@ -272,7 +272,7 @@ fn settle_job_promise<TH: TypeHolderTrait>(promise: &Promise<TH>, settle: Settle
 }
 
 #[allow(unrooted_must_root)]
-fn queue_settle_promise_for_job<TH: TypeHolderTrait>(job: &Job<TH>, settle: SettleType<TH>, task_source: &DOMManipulationTaskSource<TH>) {
+fn queue_settle_promise_for_job<TH: TypeHolderTrait<TH>>(job: &Job<TH>, settle: SettleType<TH>, task_source: &DOMManipulationTaskSource<TH>) {
     let global = job.client.global();
     let promise = TrustedPromise::new(job.promise.clone());
     // FIXME(nox): Why are errors silenced here?
@@ -287,7 +287,7 @@ fn queue_settle_promise_for_job<TH: TypeHolderTrait>(job: &Job<TH>, settle: Sett
 
 // https://w3c.github.io/ServiceWorker/#reject-job-promise-algorithm
 // https://w3c.github.io/ServiceWorker/#resolve-job-promise-algorithm
-fn queue_settle_promise<TH: TypeHolderTrait>(job: &Job<TH>, settle: SettleType<TH>, task_source: &DOMManipulationTaskSource<TH>) {
+fn queue_settle_promise<TH: TypeHolderTrait<TH>>(job: &Job<TH>, settle: SettleType<TH>, task_source: &DOMManipulationTaskSource<TH>) {
     // Step 1
     queue_settle_promise_for_job(job, settle.clone(), task_source);
     // Step 2
@@ -296,10 +296,10 @@ fn queue_settle_promise<TH: TypeHolderTrait>(job: &Job<TH>, settle: SettleType<T
     }
 }
 
-fn reject_job_promise<TH: TypeHolderTrait>(job: &Job<TH>, err: Error<TH>, task_source: &DOMManipulationTaskSource<TH>) {
+fn reject_job_promise<TH: TypeHolderTrait<TH>>(job: &Job<TH>, err: Error<TH>, task_source: &DOMManipulationTaskSource<TH>) {
     queue_settle_promise(job, SettleType::Reject(err), task_source)
 }
 
-fn resolve_job_promise<TH: TypeHolderTrait>(job: &Job<TH>, reg: &ServiceWorkerRegistration<TH>, task_source: &DOMManipulationTaskSource<TH>) {
+fn resolve_job_promise<TH: TypeHolderTrait<TH>>(job: &Job<TH>, reg: &ServiceWorkerRegistration<TH>, task_source: &DOMManipulationTaskSource<TH>) {
     queue_settle_promise(job, SettleType::Resolve(Trusted::new(reg)), task_source)
 }

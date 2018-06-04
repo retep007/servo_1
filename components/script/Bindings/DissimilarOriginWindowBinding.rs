@@ -508,7 +508,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_window<TH: TypeHolderTrait>
+unsafe extern fn get_window<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -520,7 +520,7 @@ unsafe extern fn get_window<TH: TypeHolderTrait>
 }
 
 
-fn window_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn window_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_window::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -538,7 +538,7 @@ fn window_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_self<TH: TypeHolderTrait>
+unsafe extern fn get_self<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -549,7 +549,7 @@ unsafe extern fn get_self<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_self<TH: TypeHolderTrait>
+unsafe extern fn set_self<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         JS_DefineProperty(cx, obj, b"self\0" as *const u8 as *const libc::c_char,
@@ -558,7 +558,7 @@ unsafe extern fn set_self<TH: TypeHolderTrait>
 }
 
 
-fn self_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn self_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_self::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -576,7 +576,7 @@ fn self_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn self_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn self_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_self::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -594,7 +594,7 @@ fn self_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_parent<TH: TypeHolderTrait>
+unsafe extern fn get_parent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -606,7 +606,7 @@ unsafe extern fn get_parent<TH: TypeHolderTrait>
 }
 
 
-fn parent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn parent_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_parent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -624,7 +624,7 @@ fn parent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_top<TH: TypeHolderTrait>
+unsafe extern fn get_top<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -636,7 +636,7 @@ unsafe extern fn get_top<TH: TypeHolderTrait>
 }
 
 
-fn top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn top_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -654,7 +654,7 @@ fn top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_frames<TH: TypeHolderTrait>
+unsafe extern fn get_frames<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -665,7 +665,7 @@ unsafe extern fn get_frames<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_frames<TH: TypeHolderTrait>
+unsafe extern fn set_frames<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         JS_DefineProperty(cx, obj, b"frames\0" as *const u8 as *const libc::c_char,
@@ -674,7 +674,7 @@ unsafe extern fn set_frames<TH: TypeHolderTrait>
 }
 
 
-fn frames_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn frames_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_frames::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -692,7 +692,7 @@ fn frames_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn frames_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn frames_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_frames::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -710,7 +710,7 @@ fn frames_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_length<TH: TypeHolderTrait>
+unsafe extern fn get_length<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -721,7 +721,7 @@ unsafe extern fn get_length<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_length<TH: TypeHolderTrait>
+unsafe extern fn set_length<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         JS_DefineProperty(cx, obj, b"length\0" as *const u8 as *const libc::c_char,
@@ -730,7 +730,7 @@ unsafe extern fn set_length<TH: TypeHolderTrait>
 }
 
 
-fn length_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn length_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_length::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -748,7 +748,7 @@ fn length_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn length_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn length_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_length::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -766,7 +766,7 @@ fn length_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_location<TH: TypeHolderTrait>
+unsafe extern fn get_location<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -778,7 +778,7 @@ unsafe extern fn get_location<TH: TypeHolderTrait>
 }
 
 
-fn location_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn location_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_location::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -796,7 +796,7 @@ fn location_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn close<TH: TypeHolderTrait>
+unsafe extern fn close<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -810,7 +810,7 @@ unsafe extern fn close<TH: TypeHolderTrait>
 }
 
 
-fn close_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn close_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: close::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -828,7 +828,7 @@ fn close_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_closed<TH: TypeHolderTrait>
+unsafe extern fn get_closed<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -840,7 +840,7 @@ unsafe extern fn get_closed<TH: TypeHolderTrait>
 }
 
 
-fn closed_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn closed_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_closed::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -858,7 +858,7 @@ fn closed_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn postMessage<TH: TypeHolderTrait>
+unsafe extern fn postMessage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -895,7 +895,7 @@ unsafe extern fn postMessage<TH: TypeHolderTrait>
 }
 
 
-fn postMessage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn postMessage_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: postMessage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -913,7 +913,7 @@ fn postMessage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_opener<TH: TypeHolderTrait>
+unsafe extern fn get_opener<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -924,7 +924,7 @@ unsafe extern fn get_opener<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_opener<TH: TypeHolderTrait>
+unsafe extern fn set_opener<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -936,7 +936,7 @@ unsafe extern fn set_opener<TH: TypeHolderTrait>
 }
 
 
-fn opener_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn opener_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_opener::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -954,7 +954,7 @@ fn opener_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn opener_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn opener_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_opener::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -972,7 +972,7 @@ fn opener_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn blur<TH: TypeHolderTrait>
+unsafe extern fn blur<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -986,7 +986,7 @@ unsafe extern fn blur<TH: TypeHolderTrait>
 }
 
 
-fn blur_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn blur_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: blur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -1004,7 +1004,7 @@ fn blur_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn focus<TH: TypeHolderTrait>
+unsafe extern fn focus<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginWindow<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1018,7 +1018,7 @@ unsafe extern fn focus<TH: TypeHolderTrait>
 }
 
 
-fn focus_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn focus_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: focus::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DissimilarOriginWindow as u16,
     depth: 2,
@@ -1036,7 +1036,7 @@ fn focus_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1050,7 +1050,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1061,7 +1061,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -1076,7 +1076,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(js::jsapi::JS_GlobalObjectTraceHook),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"DissimilarOriginWindow\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | JSCLASS_IS_GLOBAL | JSCLASS_DOM_GLOBAL |
@@ -1094,11 +1094,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<DissimilarOriginWindow<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, object: Box<DissimilarOriginWindow<TH>>) -> DomRoot<DissimilarOriginWindow<TH>> {
     let raw = Box::into_raw(object);
     let _rt = RootedTraceable::new(&*raw);
@@ -1134,20 +1134,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for DissimilarOriginWindow<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for DissimilarOriginWindow<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for DissimilarOriginWindow<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for DissimilarOriginWindow<TH> {
     fn eq(&self, other: &DissimilarOriginWindow<TH>) -> bool {
         self as *const DissimilarOriginWindow<TH> == &*other
     }
 }
 
-pub trait DissimilarOriginWindowMethods<TH: TypeHolderTrait> {
+pub trait DissimilarOriginWindowMethods<TH: TypeHolderTrait<TH>> {
     fn Window(&self) -> DomRoot<WindowProxy<TH>>;
     fn Self_(&self) -> DomRoot<WindowProxy<TH>>;
     fn GetParent(&self) -> Option<DomRoot<WindowProxy<TH>>>;
@@ -1163,7 +1163,7 @@ pub trait DissimilarOriginWindowMethods<TH: TypeHolderTrait> {
     fn Blur(&self) -> ();
     fn Focus(&self) -> ();
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"close\0" as *const u8 as *const libc::c_char,
@@ -1202,10 +1202,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"self\0" as *const u8 as *const libc::c_char,
@@ -1245,10 +1245,10 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
-fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sUnforgeableAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"window\0" as *const u8 as *const libc::c_char,
@@ -1282,11 +1282,11 @@ fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSP
     }]
 
 ]}
-fn sUnforgeableAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sUnforgeableAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1314,7 +1314,7 @@ static PrototypeClass: JSClass = JSClass {
     reserved: [0 as *mut os::raw::c_void; 3]
 };
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     EventTargetBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

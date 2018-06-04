@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 /// still need to function.
 
 #[dom_struct]
-pub struct DissimilarOriginLocation<TH: TypeHolderTrait + 'static> {
+pub struct DissimilarOriginLocation<TH: TypeHolderTrait<TH> + 'static> {
     /// The reflector. Once we have XOWs, this will have a cross-origin
     /// wrapper placed around it.
     reflector: Reflector<TH>,
@@ -31,7 +31,7 @@ pub struct DissimilarOriginLocation<TH: TypeHolderTrait + 'static> {
     window: Dom<DissimilarOriginWindow<TH>>,
 }
 
-impl<TH: TypeHolderTrait> DissimilarOriginLocation<TH> {
+impl<TH: TypeHolderTrait<TH>> DissimilarOriginLocation<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(window: &DissimilarOriginWindow<TH>) -> DissimilarOriginLocation<TH> {
         DissimilarOriginLocation {
@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> DissimilarOriginLocation<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DissimilarOriginLocationMethods<TH> for DissimilarOriginLocation<TH> {
+impl<TH: TypeHolderTrait<TH>> DissimilarOriginLocationMethods<TH> for DissimilarOriginLocation<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-href
     fn GetHref(&self) -> Fallible<USVString, TH> {
         Err(Error::Security)

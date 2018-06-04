@@ -27,7 +27,7 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#interface-attr
 #[dom_struct]
-pub struct Attr<TH: TypeHolderTrait + 'static> {
+pub struct Attr<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     identifier: AttrIdentifier,
     value: DomRefCell<AttrValue>,
@@ -36,7 +36,7 @@ pub struct Attr<TH: TypeHolderTrait + 'static> {
     owner: MutNullableDom<Element<TH>>,
 }
 
-impl<TH: TypeHolderTrait> Attr<TH> {
+impl<TH: TypeHolderTrait<TH>> Attr<TH> {
     fn new_inherited(local_name: LocalName,
                      value: AttrValue,
                      name: LocalName,
@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> Attr<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> AttrMethods<TH> for Attr<TH> {
+impl<TH: TypeHolderTrait<TH>> AttrMethods<TH> for Attr<TH> {
     // https://dom.spec.whatwg.org/#dom-attr-localname
     fn LocalName(&self) -> DOMString {
         // FIXME(ajeffrey): convert directly from LocalName to DOMString
@@ -177,7 +177,7 @@ impl<TH: TypeHolderTrait> AttrMethods<TH> for Attr<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> Attr<TH> {
+impl<TH: TypeHolderTrait<TH>> Attr<TH> {
     pub fn set_value(&self, mut value: AttrValue, owner: &Element<TH>) {
         let name = self.local_name().clone();
         let namespace = self.namespace().clone();
@@ -261,7 +261,7 @@ pub trait AttrHelpersForLayout {
 }
 
 #[allow(unsafe_code)]
-impl<TH: TypeHolderTrait> AttrHelpersForLayout for LayoutDom<Attr<TH>> {
+impl<TH: TypeHolderTrait<TH>> AttrHelpersForLayout for LayoutDom<Attr<TH>> {
     #[inline]
     unsafe fn value_forever(&self) -> &'static AttrValue {
         // This transmute is used to cheat the lifetime restriction.

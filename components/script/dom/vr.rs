@@ -27,13 +27,13 @@ use webvr_traits::{WebVRGamepadData, WebVRGamepadEvent, WebVRGamepadState};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VR<TH: TypeHolderTrait + 'static> {
+pub struct VR<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     displays: DomRefCell<Vec<Dom<VRDisplay<TH>>>>,
     gamepads: DomRefCell<Vec<Dom<Gamepad<TH>>>>
 }
 
-impl<TH: TypeHolderTrait> VR<TH> {
+impl<TH: TypeHolderTrait<TH>> VR<TH> {
     fn new_inherited() -> VR<TH> {
         VR {
             reflector_: Reflector::new(),
@@ -49,13 +49,13 @@ impl<TH: TypeHolderTrait> VR<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for VR<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for VR<TH> {
     fn drop(&mut self) {
         self.unregister();
     }
 }
 
-impl<TH: TypeHolderTrait> VRMethods<TH> for VR<TH> {
+impl<TH: TypeHolderTrait<TH>> VRMethods<TH> for VR<TH> {
     #[allow(unrooted_must_root)]
     // https://w3c.github.io/webvr/#interface-navigator
     fn GetDisplays(&self) -> Rc<Promise<TH>> {
@@ -93,7 +93,7 @@ impl<TH: TypeHolderTrait> VRMethods<TH> for VR<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> VR<TH> {
+impl<TH: TypeHolderTrait<TH>> VR<TH> {
     fn webvr_thread(&self) -> Option<IpcSender<WebVRMsg>> {
         self.global().as_window().webvr_thread()
     }
@@ -204,7 +204,7 @@ impl<TH: TypeHolderTrait> VR<TH> {
 }
 
 // Gamepad
-impl<TH: TypeHolderTrait> VR<TH> {
+impl<TH: TypeHolderTrait<TH>> VR<TH> {
     fn find_gamepad(&self, gamepad_id: u32) -> Option<DomRoot<Gamepad<TH>>> {
         self.gamepads.borrow()
                      .iter()

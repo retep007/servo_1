@@ -794,7 +794,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn bufferData<TH: TypeHolderTrait>
+unsafe extern fn bufferData<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1009,7 +1009,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
 }
 
 
-fn bufferData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bufferData_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: bufferData::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1027,7 +1027,7 @@ fn bufferData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn bufferSubData<TH: TypeHolderTrait>
+unsafe extern fn bufferSubData<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1076,7 +1076,7 @@ unsafe extern fn bufferSubData<TH: TypeHolderTrait>
 }
 
 
-fn bufferSubData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bufferSubData_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: bufferSubData::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1094,7 +1094,7 @@ fn bufferSubData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn texImage2D<TH: TypeHolderTrait>
+unsafe extern fn texImage2D<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1296,7 +1296,7 @@ unsafe extern fn texImage2D<TH: TypeHolderTrait>
 }
 
 
-fn texImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn texImage2D_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: texImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1314,7 +1314,7 @@ fn texImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn texSubImage2D<TH: TypeHolderTrait>
+unsafe extern fn texSubImage2D<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1526,7 +1526,7 @@ unsafe extern fn texSubImage2D<TH: TypeHolderTrait>
 }
 
 
-fn texSubImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn texSubImage2D_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: texSubImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1544,7 +1544,7 @@ fn texSubImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn readPixels<TH: TypeHolderTrait>
+unsafe extern fn readPixels<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1641,7 +1641,7 @@ unsafe extern fn readPixels<TH: TypeHolderTrait>
 }
 
 
-fn readPixels_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn readPixels_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: readPixels::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1659,7 +1659,7 @@ fn readPixels_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_canvas<TH: TypeHolderTrait>
+unsafe extern fn get_canvas<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1671,7 +1671,7 @@ unsafe extern fn get_canvas<TH: TypeHolderTrait>
 }
 
 
-fn canvas_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn canvas_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_canvas::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1689,7 +1689,7 @@ fn canvas_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_drawingBufferWidth<TH: TypeHolderTrait>
+unsafe extern fn get_drawingBufferWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1701,7 +1701,7 @@ unsafe extern fn get_drawingBufferWidth<TH: TypeHolderTrait>
 }
 
 
-fn drawingBufferWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn drawingBufferWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_drawingBufferWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1719,7 +1719,7 @@ fn drawingBufferWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_drawingBufferHeight<TH: TypeHolderTrait>
+unsafe extern fn get_drawingBufferHeight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1731,7 +1731,7 @@ unsafe extern fn get_drawingBufferHeight<TH: TypeHolderTrait>
 }
 
 
-fn drawingBufferHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn drawingBufferHeight_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_drawingBufferHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1749,7 +1749,7 @@ fn drawingBufferHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn getContextAttributes<TH: TypeHolderTrait>
+unsafe extern fn getContextAttributes<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1763,7 +1763,7 @@ unsafe extern fn getContextAttributes<TH: TypeHolderTrait>
 }
 
 
-fn getContextAttributes_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getContextAttributes_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getContextAttributes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1781,7 +1781,7 @@ fn getContextAttributes_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn getSupportedExtensions<TH: TypeHolderTrait>
+unsafe extern fn getSupportedExtensions<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1795,7 +1795,7 @@ unsafe extern fn getSupportedExtensions<TH: TypeHolderTrait>
 }
 
 
-fn getSupportedExtensions_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getSupportedExtensions_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getSupportedExtensions::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1813,7 +1813,7 @@ fn getSupportedExtensions_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn getExtension<TH: TypeHolderTrait>
+unsafe extern fn getExtension<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1842,7 +1842,7 @@ unsafe extern fn getExtension<TH: TypeHolderTrait>
 }
 
 
-fn getExtension_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getExtension_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getExtension::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1860,7 +1860,7 @@ fn getExtension_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn activeTexture<TH: TypeHolderTrait>
+unsafe extern fn activeTexture<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1889,7 +1889,7 @@ unsafe extern fn activeTexture<TH: TypeHolderTrait>
 }
 
 
-fn activeTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn activeTexture_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: activeTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1907,7 +1907,7 @@ fn activeTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn attachShader<TH: TypeHolderTrait>
+unsafe extern fn attachShader<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1956,7 +1956,7 @@ unsafe extern fn attachShader<TH: TypeHolderTrait>
 }
 
 
-fn attachShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn attachShader_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: attachShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -1974,7 +1974,7 @@ fn attachShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn bindAttribLocation<TH: TypeHolderTrait>
+unsafe extern fn bindAttribLocation<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2028,7 +2028,7 @@ unsafe extern fn bindAttribLocation<TH: TypeHolderTrait>
 }
 
 
-fn bindAttribLocation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bindAttribLocation_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: bindAttribLocation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2046,7 +2046,7 @@ fn bindAttribLocation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn bindBuffer<TH: TypeHolderTrait>
+unsafe extern fn bindBuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2092,7 +2092,7 @@ unsafe extern fn bindBuffer<TH: TypeHolderTrait>
 }
 
 
-fn bindBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bindBuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: bindBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2110,7 +2110,7 @@ fn bindBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn bindFramebuffer<TH: TypeHolderTrait>
+unsafe extern fn bindFramebuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2156,7 +2156,7 @@ unsafe extern fn bindFramebuffer<TH: TypeHolderTrait>
 }
 
 
-fn bindFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bindFramebuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: bindFramebuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2174,7 +2174,7 @@ fn bindFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn bindRenderbuffer<TH: TypeHolderTrait>
+unsafe extern fn bindRenderbuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2220,7 +2220,7 @@ unsafe extern fn bindRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-fn bindRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bindRenderbuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: bindRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2238,7 +2238,7 @@ fn bindRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn bindTexture<TH: TypeHolderTrait>
+unsafe extern fn bindTexture<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2284,7 +2284,7 @@ unsafe extern fn bindTexture<TH: TypeHolderTrait>
 }
 
 
-fn bindTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bindTexture_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: bindTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2302,7 +2302,7 @@ fn bindTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn blendColor<TH: TypeHolderTrait>
+unsafe extern fn blendColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2361,7 +2361,7 @@ unsafe extern fn blendColor<TH: TypeHolderTrait>
 }
 
 
-fn blendColor_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn blendColor_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: blendColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2379,7 +2379,7 @@ fn blendColor_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn blendEquation<TH: TypeHolderTrait>
+unsafe extern fn blendEquation<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2408,7 +2408,7 @@ unsafe extern fn blendEquation<TH: TypeHolderTrait>
 }
 
 
-fn blendEquation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn blendEquation_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: blendEquation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2426,7 +2426,7 @@ fn blendEquation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn blendEquationSeparate<TH: TypeHolderTrait>
+unsafe extern fn blendEquationSeparate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2465,7 +2465,7 @@ unsafe extern fn blendEquationSeparate<TH: TypeHolderTrait>
 }
 
 
-fn blendEquationSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn blendEquationSeparate_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: blendEquationSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2483,7 +2483,7 @@ fn blendEquationSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn blendFunc<TH: TypeHolderTrait>
+unsafe extern fn blendFunc<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2522,7 +2522,7 @@ unsafe extern fn blendFunc<TH: TypeHolderTrait>
 }
 
 
-fn blendFunc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn blendFunc_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: blendFunc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2540,7 +2540,7 @@ fn blendFunc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn blendFuncSeparate<TH: TypeHolderTrait>
+unsafe extern fn blendFuncSeparate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2599,7 +2599,7 @@ unsafe extern fn blendFuncSeparate<TH: TypeHolderTrait>
 }
 
 
-fn blendFuncSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn blendFuncSeparate_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: blendFuncSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2617,7 +2617,7 @@ fn blendFuncSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn checkFramebufferStatus<TH: TypeHolderTrait>
+unsafe extern fn checkFramebufferStatus<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2646,7 +2646,7 @@ unsafe extern fn checkFramebufferStatus<TH: TypeHolderTrait>
 }
 
 
-fn checkFramebufferStatus_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn checkFramebufferStatus_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: checkFramebufferStatus::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2664,7 +2664,7 @@ fn checkFramebufferStatus_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn clear<TH: TypeHolderTrait>
+unsafe extern fn clear<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2693,7 +2693,7 @@ unsafe extern fn clear<TH: TypeHolderTrait>
 }
 
 
-fn clear_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clear_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: clear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2711,7 +2711,7 @@ fn clear_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn clearColor<TH: TypeHolderTrait>
+unsafe extern fn clearColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2770,7 +2770,7 @@ unsafe extern fn clearColor<TH: TypeHolderTrait>
 }
 
 
-fn clearColor_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clearColor_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: clearColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2788,7 +2788,7 @@ fn clearColor_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn clearDepth<TH: TypeHolderTrait>
+unsafe extern fn clearDepth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2817,7 +2817,7 @@ unsafe extern fn clearDepth<TH: TypeHolderTrait>
 }
 
 
-fn clearDepth_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clearDepth_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: clearDepth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2835,7 +2835,7 @@ fn clearDepth_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn clearStencil<TH: TypeHolderTrait>
+unsafe extern fn clearStencil<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2864,7 +2864,7 @@ unsafe extern fn clearStencil<TH: TypeHolderTrait>
 }
 
 
-fn clearStencil_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clearStencil_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: clearStencil::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2882,7 +2882,7 @@ fn clearStencil_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn colorMask<TH: TypeHolderTrait>
+unsafe extern fn colorMask<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2941,7 +2941,7 @@ unsafe extern fn colorMask<TH: TypeHolderTrait>
 }
 
 
-fn colorMask_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn colorMask_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: colorMask::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -2959,7 +2959,7 @@ fn colorMask_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn compileShader<TH: TypeHolderTrait>
+unsafe extern fn compileShader<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2993,7 +2993,7 @@ unsafe extern fn compileShader<TH: TypeHolderTrait>
 }
 
 
-fn compileShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn compileShader_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: compileShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3011,7 +3011,7 @@ fn compileShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn compressedTexImage2D<TH: TypeHolderTrait>
+unsafe extern fn compressedTexImage2D<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3106,7 +3106,7 @@ unsafe extern fn compressedTexImage2D<TH: TypeHolderTrait>
 }
 
 
-fn compressedTexImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn compressedTexImage2D_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: compressedTexImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3124,7 +3124,7 @@ fn compressedTexImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn compressedTexSubImage2D<TH: TypeHolderTrait>
+unsafe extern fn compressedTexSubImage2D<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3229,7 +3229,7 @@ unsafe extern fn compressedTexSubImage2D<TH: TypeHolderTrait>
 }
 
 
-fn compressedTexSubImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn compressedTexSubImage2D_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: compressedTexSubImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3247,7 +3247,7 @@ fn compressedTexSubImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn copyTexImage2D<TH: TypeHolderTrait>
+unsafe extern fn copyTexImage2D<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3346,7 +3346,7 @@ unsafe extern fn copyTexImage2D<TH: TypeHolderTrait>
 }
 
 
-fn copyTexImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn copyTexImage2D_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: copyTexImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3364,7 +3364,7 @@ fn copyTexImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn copyTexSubImage2D<TH: TypeHolderTrait>
+unsafe extern fn copyTexSubImage2D<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3463,7 +3463,7 @@ unsafe extern fn copyTexSubImage2D<TH: TypeHolderTrait>
 }
 
 
-fn copyTexSubImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn copyTexSubImage2D_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: copyTexSubImage2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3481,7 +3481,7 @@ fn copyTexSubImage2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn createBuffer<TH: TypeHolderTrait>
+unsafe extern fn createBuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3495,7 +3495,7 @@ unsafe extern fn createBuffer<TH: TypeHolderTrait>
 }
 
 
-fn createBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createBuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3513,7 +3513,7 @@ fn createBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn createFramebuffer<TH: TypeHolderTrait>
+unsafe extern fn createFramebuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3527,7 +3527,7 @@ unsafe extern fn createFramebuffer<TH: TypeHolderTrait>
 }
 
 
-fn createFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createFramebuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createFramebuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3545,7 +3545,7 @@ fn createFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn createProgram<TH: TypeHolderTrait>
+unsafe extern fn createProgram<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3559,7 +3559,7 @@ unsafe extern fn createProgram<TH: TypeHolderTrait>
 }
 
 
-fn createProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createProgram_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3577,7 +3577,7 @@ fn createProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn createRenderbuffer<TH: TypeHolderTrait>
+unsafe extern fn createRenderbuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3591,7 +3591,7 @@ unsafe extern fn createRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-fn createRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createRenderbuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3609,7 +3609,7 @@ fn createRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn createShader<TH: TypeHolderTrait>
+unsafe extern fn createShader<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3638,7 +3638,7 @@ unsafe extern fn createShader<TH: TypeHolderTrait>
 }
 
 
-fn createShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createShader_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3656,7 +3656,7 @@ fn createShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn createTexture<TH: TypeHolderTrait>
+unsafe extern fn createTexture<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3670,7 +3670,7 @@ unsafe extern fn createTexture<TH: TypeHolderTrait>
 }
 
 
-fn createTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createTexture_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3688,7 +3688,7 @@ fn createTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn cullFace<TH: TypeHolderTrait>
+unsafe extern fn cullFace<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3717,7 +3717,7 @@ unsafe extern fn cullFace<TH: TypeHolderTrait>
 }
 
 
-fn cullFace_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn cullFace_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: cullFace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3735,7 +3735,7 @@ fn cullFace_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn deleteBuffer<TH: TypeHolderTrait>
+unsafe extern fn deleteBuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3771,7 +3771,7 @@ unsafe extern fn deleteBuffer<TH: TypeHolderTrait>
 }
 
 
-fn deleteBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn deleteBuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: deleteBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3789,7 +3789,7 @@ fn deleteBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn deleteFramebuffer<TH: TypeHolderTrait>
+unsafe extern fn deleteFramebuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3825,7 +3825,7 @@ unsafe extern fn deleteFramebuffer<TH: TypeHolderTrait>
 }
 
 
-fn deleteFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn deleteFramebuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: deleteFramebuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3843,7 +3843,7 @@ fn deleteFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn deleteProgram<TH: TypeHolderTrait>
+unsafe extern fn deleteProgram<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3879,7 +3879,7 @@ unsafe extern fn deleteProgram<TH: TypeHolderTrait>
 }
 
 
-fn deleteProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn deleteProgram_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: deleteProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3897,7 +3897,7 @@ fn deleteProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn deleteRenderbuffer<TH: TypeHolderTrait>
+unsafe extern fn deleteRenderbuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3933,7 +3933,7 @@ unsafe extern fn deleteRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-fn deleteRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn deleteRenderbuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: deleteRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -3951,7 +3951,7 @@ fn deleteRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn deleteShader<TH: TypeHolderTrait>
+unsafe extern fn deleteShader<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3987,7 +3987,7 @@ unsafe extern fn deleteShader<TH: TypeHolderTrait>
 }
 
 
-fn deleteShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn deleteShader_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: deleteShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4005,7 +4005,7 @@ fn deleteShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn deleteTexture<TH: TypeHolderTrait>
+unsafe extern fn deleteTexture<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4041,7 +4041,7 @@ unsafe extern fn deleteTexture<TH: TypeHolderTrait>
 }
 
 
-fn deleteTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn deleteTexture_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: deleteTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4059,7 +4059,7 @@ fn deleteTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn depthFunc<TH: TypeHolderTrait>
+unsafe extern fn depthFunc<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4088,7 +4088,7 @@ unsafe extern fn depthFunc<TH: TypeHolderTrait>
 }
 
 
-fn depthFunc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn depthFunc_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: depthFunc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4106,7 +4106,7 @@ fn depthFunc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn depthMask<TH: TypeHolderTrait>
+unsafe extern fn depthMask<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4135,7 +4135,7 @@ unsafe extern fn depthMask<TH: TypeHolderTrait>
 }
 
 
-fn depthMask_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn depthMask_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: depthMask::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4153,7 +4153,7 @@ fn depthMask_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn depthRange<TH: TypeHolderTrait>
+unsafe extern fn depthRange<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4192,7 +4192,7 @@ unsafe extern fn depthRange<TH: TypeHolderTrait>
 }
 
 
-fn depthRange_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn depthRange_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: depthRange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4210,7 +4210,7 @@ fn depthRange_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn detachShader<TH: TypeHolderTrait>
+unsafe extern fn detachShader<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4259,7 +4259,7 @@ unsafe extern fn detachShader<TH: TypeHolderTrait>
 }
 
 
-fn detachShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn detachShader_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: detachShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4277,7 +4277,7 @@ fn detachShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn disable<TH: TypeHolderTrait>
+unsafe extern fn disable<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4306,7 +4306,7 @@ unsafe extern fn disable<TH: TypeHolderTrait>
 }
 
 
-fn disable_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn disable_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: disable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4324,7 +4324,7 @@ fn disable_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn disableVertexAttribArray<TH: TypeHolderTrait>
+unsafe extern fn disableVertexAttribArray<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4353,7 +4353,7 @@ unsafe extern fn disableVertexAttribArray<TH: TypeHolderTrait>
 }
 
 
-fn disableVertexAttribArray_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn disableVertexAttribArray_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: disableVertexAttribArray::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4371,7 +4371,7 @@ fn disableVertexAttribArray_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-unsafe extern fn drawArrays<TH: TypeHolderTrait>
+unsafe extern fn drawArrays<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4420,7 +4420,7 @@ unsafe extern fn drawArrays<TH: TypeHolderTrait>
 }
 
 
-fn drawArrays_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn drawArrays_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: drawArrays::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4438,7 +4438,7 @@ fn drawArrays_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn drawElements<TH: TypeHolderTrait>
+unsafe extern fn drawElements<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4497,7 +4497,7 @@ unsafe extern fn drawElements<TH: TypeHolderTrait>
 }
 
 
-fn drawElements_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn drawElements_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: drawElements::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4515,7 +4515,7 @@ fn drawElements_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn enable<TH: TypeHolderTrait>
+unsafe extern fn enable<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4544,7 +4544,7 @@ unsafe extern fn enable<TH: TypeHolderTrait>
 }
 
 
-fn enable_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn enable_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: enable::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4562,7 +4562,7 @@ fn enable_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn enableVertexAttribArray<TH: TypeHolderTrait>
+unsafe extern fn enableVertexAttribArray<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4591,7 +4591,7 @@ unsafe extern fn enableVertexAttribArray<TH: TypeHolderTrait>
 }
 
 
-fn enableVertexAttribArray_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn enableVertexAttribArray_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: enableVertexAttribArray::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4609,7 +4609,7 @@ fn enableVertexAttribArray_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn finish<TH: TypeHolderTrait>
+unsafe extern fn finish<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4623,7 +4623,7 @@ unsafe extern fn finish<TH: TypeHolderTrait>
 }
 
 
-fn finish_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn finish_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: finish::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4641,7 +4641,7 @@ fn finish_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn flush<TH: TypeHolderTrait>
+unsafe extern fn flush<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4655,7 +4655,7 @@ unsafe extern fn flush<TH: TypeHolderTrait>
 }
 
 
-fn flush_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flush_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: flush::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4673,7 +4673,7 @@ fn flush_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn framebufferRenderbuffer<TH: TypeHolderTrait>
+unsafe extern fn framebufferRenderbuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4739,7 +4739,7 @@ unsafe extern fn framebufferRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-fn framebufferRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn framebufferRenderbuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: framebufferRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4757,7 +4757,7 @@ fn framebufferRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn framebufferTexture2D<TH: TypeHolderTrait>
+unsafe extern fn framebufferTexture2D<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4833,7 +4833,7 @@ unsafe extern fn framebufferTexture2D<TH: TypeHolderTrait>
 }
 
 
-fn framebufferTexture2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn framebufferTexture2D_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: framebufferTexture2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4851,7 +4851,7 @@ fn framebufferTexture2D_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn frontFace<TH: TypeHolderTrait>
+unsafe extern fn frontFace<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4880,7 +4880,7 @@ unsafe extern fn frontFace<TH: TypeHolderTrait>
 }
 
 
-fn frontFace_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn frontFace_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: frontFace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4898,7 +4898,7 @@ fn frontFace_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn generateMipmap<TH: TypeHolderTrait>
+unsafe extern fn generateMipmap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4927,7 +4927,7 @@ unsafe extern fn generateMipmap<TH: TypeHolderTrait>
 }
 
 
-fn generateMipmap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn generateMipmap_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: generateMipmap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -4945,7 +4945,7 @@ fn generateMipmap_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getActiveAttrib<TH: TypeHolderTrait>
+unsafe extern fn getActiveAttrib<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4989,7 +4989,7 @@ unsafe extern fn getActiveAttrib<TH: TypeHolderTrait>
 }
 
 
-fn getActiveAttrib_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getActiveAttrib_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getActiveAttrib::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5007,7 +5007,7 @@ fn getActiveAttrib_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getActiveUniform<TH: TypeHolderTrait>
+unsafe extern fn getActiveUniform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5051,7 +5051,7 @@ unsafe extern fn getActiveUniform<TH: TypeHolderTrait>
 }
 
 
-fn getActiveUniform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getActiveUniform_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getActiveUniform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5069,7 +5069,7 @@ fn getActiveUniform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getAttachedShaders<TH: TypeHolderTrait>
+unsafe extern fn getAttachedShaders<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5103,7 +5103,7 @@ unsafe extern fn getAttachedShaders<TH: TypeHolderTrait>
 }
 
 
-fn getAttachedShaders_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getAttachedShaders_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getAttachedShaders::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5121,7 +5121,7 @@ fn getAttachedShaders_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn getAttribLocation<TH: TypeHolderTrait>
+unsafe extern fn getAttribLocation<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5165,7 +5165,7 @@ unsafe extern fn getAttribLocation<TH: TypeHolderTrait>
 }
 
 
-fn getAttribLocation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getAttribLocation_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getAttribLocation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5183,7 +5183,7 @@ fn getAttribLocation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn getBufferParameter<TH: TypeHolderTrait>
+unsafe extern fn getBufferParameter<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5222,7 +5222,7 @@ unsafe extern fn getBufferParameter<TH: TypeHolderTrait>
 }
 
 
-fn getBufferParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getBufferParameter_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getBufferParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5240,7 +5240,7 @@ fn getBufferParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn getParameter<TH: TypeHolderTrait>
+unsafe extern fn getParameter<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5269,7 +5269,7 @@ unsafe extern fn getParameter<TH: TypeHolderTrait>
 }
 
 
-fn getParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getParameter_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5287,7 +5287,7 @@ fn getParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getError<TH: TypeHolderTrait>
+unsafe extern fn getError<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5301,7 +5301,7 @@ unsafe extern fn getError<TH: TypeHolderTrait>
 }
 
 
-fn getError_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getError_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getError::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5319,7 +5319,7 @@ fn getError_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getFramebufferAttachmentParameter<TH: TypeHolderTrait>
+unsafe extern fn getFramebufferAttachmentParameter<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5368,7 +5368,7 @@ unsafe extern fn getFramebufferAttachmentParameter<TH: TypeHolderTrait>
 }
 
 
-fn getFramebufferAttachmentParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getFramebufferAttachmentParameter_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getFramebufferAttachmentParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5386,7 +5386,7 @@ fn getFramebufferAttachmentParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitI
     ),
 }}
 
-unsafe extern fn getProgramParameter<TH: TypeHolderTrait>
+unsafe extern fn getProgramParameter<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5430,7 +5430,7 @@ unsafe extern fn getProgramParameter<TH: TypeHolderTrait>
 }
 
 
-fn getProgramParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getProgramParameter_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getProgramParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5448,7 +5448,7 @@ fn getProgramParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn getProgramInfoLog<TH: TypeHolderTrait>
+unsafe extern fn getProgramInfoLog<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5482,7 +5482,7 @@ unsafe extern fn getProgramInfoLog<TH: TypeHolderTrait>
 }
 
 
-fn getProgramInfoLog_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getProgramInfoLog_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getProgramInfoLog::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5500,7 +5500,7 @@ fn getProgramInfoLog_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn getRenderbufferParameter<TH: TypeHolderTrait>
+unsafe extern fn getRenderbufferParameter<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5539,7 +5539,7 @@ unsafe extern fn getRenderbufferParameter<TH: TypeHolderTrait>
 }
 
 
-fn getRenderbufferParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getRenderbufferParameter_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getRenderbufferParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5557,7 +5557,7 @@ fn getRenderbufferParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-unsafe extern fn getShaderParameter<TH: TypeHolderTrait>
+unsafe extern fn getShaderParameter<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5601,7 +5601,7 @@ unsafe extern fn getShaderParameter<TH: TypeHolderTrait>
 }
 
 
-fn getShaderParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getShaderParameter_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getShaderParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5619,7 +5619,7 @@ fn getShaderParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn getShaderPrecisionFormat<TH: TypeHolderTrait>
+unsafe extern fn getShaderPrecisionFormat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5658,7 +5658,7 @@ unsafe extern fn getShaderPrecisionFormat<TH: TypeHolderTrait>
 }
 
 
-fn getShaderPrecisionFormat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getShaderPrecisionFormat_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getShaderPrecisionFormat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5676,7 +5676,7 @@ fn getShaderPrecisionFormat_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-unsafe extern fn getShaderInfoLog<TH: TypeHolderTrait>
+unsafe extern fn getShaderInfoLog<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5710,7 +5710,7 @@ unsafe extern fn getShaderInfoLog<TH: TypeHolderTrait>
 }
 
 
-fn getShaderInfoLog_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getShaderInfoLog_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getShaderInfoLog::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5728,7 +5728,7 @@ fn getShaderInfoLog_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getShaderSource<TH: TypeHolderTrait>
+unsafe extern fn getShaderSource<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5762,7 +5762,7 @@ unsafe extern fn getShaderSource<TH: TypeHolderTrait>
 }
 
 
-fn getShaderSource_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getShaderSource_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getShaderSource::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5780,7 +5780,7 @@ fn getShaderSource_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getTexParameter<TH: TypeHolderTrait>
+unsafe extern fn getTexParameter<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5819,7 +5819,7 @@ unsafe extern fn getTexParameter<TH: TypeHolderTrait>
 }
 
 
-fn getTexParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getTexParameter_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getTexParameter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5837,7 +5837,7 @@ fn getTexParameter_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getUniformLocation<TH: TypeHolderTrait>
+unsafe extern fn getUniformLocation<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5881,7 +5881,7 @@ unsafe extern fn getUniformLocation<TH: TypeHolderTrait>
 }
 
 
-fn getUniformLocation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getUniformLocation_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getUniformLocation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5899,7 +5899,7 @@ fn getUniformLocation_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn getVertexAttrib<TH: TypeHolderTrait>
+unsafe extern fn getVertexAttrib<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5938,7 +5938,7 @@ unsafe extern fn getVertexAttrib<TH: TypeHolderTrait>
 }
 
 
-fn getVertexAttrib_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getVertexAttrib_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getVertexAttrib::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -5956,7 +5956,7 @@ fn getVertexAttrib_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getVertexAttribOffset<TH: TypeHolderTrait>
+unsafe extern fn getVertexAttribOffset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5995,7 +5995,7 @@ unsafe extern fn getVertexAttribOffset<TH: TypeHolderTrait>
 }
 
 
-fn getVertexAttribOffset_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getVertexAttribOffset_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getVertexAttribOffset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6013,7 +6013,7 @@ fn getVertexAttribOffset_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn hint<TH: TypeHolderTrait>
+unsafe extern fn hint<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6052,7 +6052,7 @@ unsafe extern fn hint<TH: TypeHolderTrait>
 }
 
 
-fn hint_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn hint_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: hint::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6070,7 +6070,7 @@ fn hint_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn isBuffer<TH: TypeHolderTrait>
+unsafe extern fn isBuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6106,7 +6106,7 @@ unsafe extern fn isBuffer<TH: TypeHolderTrait>
 }
 
 
-fn isBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isBuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: isBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6124,7 +6124,7 @@ fn isBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn isEnabled<TH: TypeHolderTrait>
+unsafe extern fn isEnabled<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6153,7 +6153,7 @@ unsafe extern fn isEnabled<TH: TypeHolderTrait>
 }
 
 
-fn isEnabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isEnabled_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: isEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6171,7 +6171,7 @@ fn isEnabled_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn isFramebuffer<TH: TypeHolderTrait>
+unsafe extern fn isFramebuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6207,7 +6207,7 @@ unsafe extern fn isFramebuffer<TH: TypeHolderTrait>
 }
 
 
-fn isFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isFramebuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: isFramebuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6225,7 +6225,7 @@ fn isFramebuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn isProgram<TH: TypeHolderTrait>
+unsafe extern fn isProgram<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6261,7 +6261,7 @@ unsafe extern fn isProgram<TH: TypeHolderTrait>
 }
 
 
-fn isProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isProgram_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: isProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6279,7 +6279,7 @@ fn isProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn isRenderbuffer<TH: TypeHolderTrait>
+unsafe extern fn isRenderbuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6315,7 +6315,7 @@ unsafe extern fn isRenderbuffer<TH: TypeHolderTrait>
 }
 
 
-fn isRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isRenderbuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: isRenderbuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6333,7 +6333,7 @@ fn isRenderbuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn isShader<TH: TypeHolderTrait>
+unsafe extern fn isShader<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6369,7 +6369,7 @@ unsafe extern fn isShader<TH: TypeHolderTrait>
 }
 
 
-fn isShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isShader_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: isShader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6387,7 +6387,7 @@ fn isShader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn isTexture<TH: TypeHolderTrait>
+unsafe extern fn isTexture<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6423,7 +6423,7 @@ unsafe extern fn isTexture<TH: TypeHolderTrait>
 }
 
 
-fn isTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isTexture_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: isTexture::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6441,7 +6441,7 @@ fn isTexture_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn lineWidth<TH: TypeHolderTrait>
+unsafe extern fn lineWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6470,7 +6470,7 @@ unsafe extern fn lineWidth<TH: TypeHolderTrait>
 }
 
 
-fn lineWidth_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineWidth_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: lineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6488,7 +6488,7 @@ fn lineWidth_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn linkProgram<TH: TypeHolderTrait>
+unsafe extern fn linkProgram<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6524,7 +6524,7 @@ unsafe extern fn linkProgram<TH: TypeHolderTrait>
 }
 
 
-fn linkProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn linkProgram_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: linkProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6542,7 +6542,7 @@ fn linkProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn pixelStorei<TH: TypeHolderTrait>
+unsafe extern fn pixelStorei<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6581,7 +6581,7 @@ unsafe extern fn pixelStorei<TH: TypeHolderTrait>
 }
 
 
-fn pixelStorei_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn pixelStorei_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: pixelStorei::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6599,7 +6599,7 @@ fn pixelStorei_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn polygonOffset<TH: TypeHolderTrait>
+unsafe extern fn polygonOffset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6638,7 +6638,7 @@ unsafe extern fn polygonOffset<TH: TypeHolderTrait>
 }
 
 
-fn polygonOffset_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn polygonOffset_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: polygonOffset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6656,7 +6656,7 @@ fn polygonOffset_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn renderbufferStorage<TH: TypeHolderTrait>
+unsafe extern fn renderbufferStorage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6715,7 +6715,7 @@ unsafe extern fn renderbufferStorage<TH: TypeHolderTrait>
 }
 
 
-fn renderbufferStorage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn renderbufferStorage_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: renderbufferStorage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6733,7 +6733,7 @@ fn renderbufferStorage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn sampleCoverage<TH: TypeHolderTrait>
+unsafe extern fn sampleCoverage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6772,7 +6772,7 @@ unsafe extern fn sampleCoverage<TH: TypeHolderTrait>
 }
 
 
-fn sampleCoverage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn sampleCoverage_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: sampleCoverage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6790,7 +6790,7 @@ fn sampleCoverage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn scissor<TH: TypeHolderTrait>
+unsafe extern fn scissor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6849,7 +6849,7 @@ unsafe extern fn scissor<TH: TypeHolderTrait>
 }
 
 
-fn scissor_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn scissor_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: scissor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6867,7 +6867,7 @@ fn scissor_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn shaderSource<TH: TypeHolderTrait>
+unsafe extern fn shaderSource<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6911,7 +6911,7 @@ unsafe extern fn shaderSource<TH: TypeHolderTrait>
 }
 
 
-fn shaderSource_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn shaderSource_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: shaderSource::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6929,7 +6929,7 @@ fn shaderSource_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn stencilFunc<TH: TypeHolderTrait>
+unsafe extern fn stencilFunc<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6978,7 +6978,7 @@ unsafe extern fn stencilFunc<TH: TypeHolderTrait>
 }
 
 
-fn stencilFunc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn stencilFunc_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: stencilFunc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -6996,7 +6996,7 @@ fn stencilFunc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn stencilFuncSeparate<TH: TypeHolderTrait>
+unsafe extern fn stencilFuncSeparate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7055,7 +7055,7 @@ unsafe extern fn stencilFuncSeparate<TH: TypeHolderTrait>
 }
 
 
-fn stencilFuncSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn stencilFuncSeparate_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: stencilFuncSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7073,7 +7073,7 @@ fn stencilFuncSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn stencilMask<TH: TypeHolderTrait>
+unsafe extern fn stencilMask<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7102,7 +7102,7 @@ unsafe extern fn stencilMask<TH: TypeHolderTrait>
 }
 
 
-fn stencilMask_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn stencilMask_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: stencilMask::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7120,7 +7120,7 @@ fn stencilMask_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn stencilMaskSeparate<TH: TypeHolderTrait>
+unsafe extern fn stencilMaskSeparate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7159,7 +7159,7 @@ unsafe extern fn stencilMaskSeparate<TH: TypeHolderTrait>
 }
 
 
-fn stencilMaskSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn stencilMaskSeparate_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: stencilMaskSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7177,7 +7177,7 @@ fn stencilMaskSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn stencilOp<TH: TypeHolderTrait>
+unsafe extern fn stencilOp<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7226,7 +7226,7 @@ unsafe extern fn stencilOp<TH: TypeHolderTrait>
 }
 
 
-fn stencilOp_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn stencilOp_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: stencilOp::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7244,7 +7244,7 @@ fn stencilOp_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn stencilOpSeparate<TH: TypeHolderTrait>
+unsafe extern fn stencilOpSeparate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7303,7 +7303,7 @@ unsafe extern fn stencilOpSeparate<TH: TypeHolderTrait>
 }
 
 
-fn stencilOpSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn stencilOpSeparate_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: stencilOpSeparate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7321,7 +7321,7 @@ fn stencilOpSeparate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn texImageDOM<TH: TypeHolderTrait>
+unsafe extern fn texImageDOM<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7432,7 +7432,7 @@ unsafe extern fn texImageDOM<TH: TypeHolderTrait>
 }
 
 
-fn texImageDOM_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn texImageDOM_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: texImageDOM::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7450,7 +7450,7 @@ fn texImageDOM_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn texParameterf<TH: TypeHolderTrait>
+unsafe extern fn texParameterf<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7499,7 +7499,7 @@ unsafe extern fn texParameterf<TH: TypeHolderTrait>
 }
 
 
-fn texParameterf_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn texParameterf_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: texParameterf::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7517,7 +7517,7 @@ fn texParameterf_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn texParameteri<TH: TypeHolderTrait>
+unsafe extern fn texParameteri<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7566,7 +7566,7 @@ unsafe extern fn texParameteri<TH: TypeHolderTrait>
 }
 
 
-fn texParameteri_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn texParameteri_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: texParameteri::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7584,7 +7584,7 @@ fn texParameteri_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform1f<TH: TypeHolderTrait>
+unsafe extern fn uniform1f<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7630,7 +7630,7 @@ unsafe extern fn uniform1f<TH: TypeHolderTrait>
 }
 
 
-fn uniform1f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform1f_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform1f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7648,7 +7648,7 @@ fn uniform1f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform2f<TH: TypeHolderTrait>
+unsafe extern fn uniform2f<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7704,7 +7704,7 @@ unsafe extern fn uniform2f<TH: TypeHolderTrait>
 }
 
 
-fn uniform2f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform2f_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform2f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7722,7 +7722,7 @@ fn uniform2f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform3f<TH: TypeHolderTrait>
+unsafe extern fn uniform3f<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7788,7 +7788,7 @@ unsafe extern fn uniform3f<TH: TypeHolderTrait>
 }
 
 
-fn uniform3f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform3f_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform3f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7806,7 +7806,7 @@ fn uniform3f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform4f<TH: TypeHolderTrait>
+unsafe extern fn uniform4f<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7882,7 +7882,7 @@ unsafe extern fn uniform4f<TH: TypeHolderTrait>
 }
 
 
-fn uniform4f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform4f_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform4f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7900,7 +7900,7 @@ fn uniform4f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform1i<TH: TypeHolderTrait>
+unsafe extern fn uniform1i<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7946,7 +7946,7 @@ unsafe extern fn uniform1i<TH: TypeHolderTrait>
 }
 
 
-fn uniform1i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform1i_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform1i::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -7964,7 +7964,7 @@ fn uniform1i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform2i<TH: TypeHolderTrait>
+unsafe extern fn uniform2i<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8020,7 +8020,7 @@ unsafe extern fn uniform2i<TH: TypeHolderTrait>
 }
 
 
-fn uniform2i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform2i_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform2i::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8038,7 +8038,7 @@ fn uniform2i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform3i<TH: TypeHolderTrait>
+unsafe extern fn uniform3i<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8104,7 +8104,7 @@ unsafe extern fn uniform3i<TH: TypeHolderTrait>
 }
 
 
-fn uniform3i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform3i_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform3i::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8122,7 +8122,7 @@ fn uniform3i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform4i<TH: TypeHolderTrait>
+unsafe extern fn uniform4i<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8198,7 +8198,7 @@ unsafe extern fn uniform4i<TH: TypeHolderTrait>
 }
 
 
-fn uniform4i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform4i_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform4i::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8216,7 +8216,7 @@ fn uniform4i_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform1fv<TH: TypeHolderTrait>
+unsafe extern fn uniform1fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8262,7 +8262,7 @@ unsafe extern fn uniform1fv<TH: TypeHolderTrait>
 }
 
 
-fn uniform1fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform1fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform1fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8280,7 +8280,7 @@ fn uniform1fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform2fv<TH: TypeHolderTrait>
+unsafe extern fn uniform2fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8326,7 +8326,7 @@ unsafe extern fn uniform2fv<TH: TypeHolderTrait>
 }
 
 
-fn uniform2fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform2fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform2fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8344,7 +8344,7 @@ fn uniform2fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform3fv<TH: TypeHolderTrait>
+unsafe extern fn uniform3fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8390,7 +8390,7 @@ unsafe extern fn uniform3fv<TH: TypeHolderTrait>
 }
 
 
-fn uniform3fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform3fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform3fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8408,7 +8408,7 @@ fn uniform3fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform4fv<TH: TypeHolderTrait>
+unsafe extern fn uniform4fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8454,7 +8454,7 @@ unsafe extern fn uniform4fv<TH: TypeHolderTrait>
 }
 
 
-fn uniform4fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform4fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform4fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8472,7 +8472,7 @@ fn uniform4fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform1iv<TH: TypeHolderTrait>
+unsafe extern fn uniform1iv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8518,7 +8518,7 @@ unsafe extern fn uniform1iv<TH: TypeHolderTrait>
 }
 
 
-fn uniform1iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform1iv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform1iv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8536,7 +8536,7 @@ fn uniform1iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform2iv<TH: TypeHolderTrait>
+unsafe extern fn uniform2iv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8582,7 +8582,7 @@ unsafe extern fn uniform2iv<TH: TypeHolderTrait>
 }
 
 
-fn uniform2iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform2iv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform2iv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8600,7 +8600,7 @@ fn uniform2iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform3iv<TH: TypeHolderTrait>
+unsafe extern fn uniform3iv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8646,7 +8646,7 @@ unsafe extern fn uniform3iv<TH: TypeHolderTrait>
 }
 
 
-fn uniform3iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform3iv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform3iv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8664,7 +8664,7 @@ fn uniform3iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniform4iv<TH: TypeHolderTrait>
+unsafe extern fn uniform4iv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8710,7 +8710,7 @@ unsafe extern fn uniform4iv<TH: TypeHolderTrait>
 }
 
 
-fn uniform4iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniform4iv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniform4iv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8728,7 +8728,7 @@ fn uniform4iv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniformMatrix2fv<TH: TypeHolderTrait>
+unsafe extern fn uniformMatrix2fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8784,7 +8784,7 @@ unsafe extern fn uniformMatrix2fv<TH: TypeHolderTrait>
 }
 
 
-fn uniformMatrix2fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniformMatrix2fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniformMatrix2fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8802,7 +8802,7 @@ fn uniformMatrix2fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniformMatrix3fv<TH: TypeHolderTrait>
+unsafe extern fn uniformMatrix3fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8858,7 +8858,7 @@ unsafe extern fn uniformMatrix3fv<TH: TypeHolderTrait>
 }
 
 
-fn uniformMatrix3fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniformMatrix3fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniformMatrix3fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8876,7 +8876,7 @@ fn uniformMatrix3fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn uniformMatrix4fv<TH: TypeHolderTrait>
+unsafe extern fn uniformMatrix4fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8932,7 +8932,7 @@ unsafe extern fn uniformMatrix4fv<TH: TypeHolderTrait>
 }
 
 
-fn uniformMatrix4fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn uniformMatrix4fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: uniformMatrix4fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -8950,7 +8950,7 @@ fn uniformMatrix4fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn useProgram<TH: TypeHolderTrait>
+unsafe extern fn useProgram<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8986,7 +8986,7 @@ unsafe extern fn useProgram<TH: TypeHolderTrait>
 }
 
 
-fn useProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn useProgram_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: useProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9004,7 +9004,7 @@ fn useProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn validateProgram<TH: TypeHolderTrait>
+unsafe extern fn validateProgram<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9038,7 +9038,7 @@ unsafe extern fn validateProgram<TH: TypeHolderTrait>
 }
 
 
-fn validateProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn validateProgram_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: validateProgram::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9056,7 +9056,7 @@ fn validateProgram_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn vertexAttrib1f<TH: TypeHolderTrait>
+unsafe extern fn vertexAttrib1f<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9095,7 +9095,7 @@ unsafe extern fn vertexAttrib1f<TH: TypeHolderTrait>
 }
 
 
-fn vertexAttrib1f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertexAttrib1f_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: vertexAttrib1f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9113,7 +9113,7 @@ fn vertexAttrib1f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn vertexAttrib2f<TH: TypeHolderTrait>
+unsafe extern fn vertexAttrib2f<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9162,7 +9162,7 @@ unsafe extern fn vertexAttrib2f<TH: TypeHolderTrait>
 }
 
 
-fn vertexAttrib2f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertexAttrib2f_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: vertexAttrib2f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9180,7 +9180,7 @@ fn vertexAttrib2f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn vertexAttrib3f<TH: TypeHolderTrait>
+unsafe extern fn vertexAttrib3f<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9239,7 +9239,7 @@ unsafe extern fn vertexAttrib3f<TH: TypeHolderTrait>
 }
 
 
-fn vertexAttrib3f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertexAttrib3f_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: vertexAttrib3f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9257,7 +9257,7 @@ fn vertexAttrib3f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn vertexAttrib4f<TH: TypeHolderTrait>
+unsafe extern fn vertexAttrib4f<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9326,7 +9326,7 @@ unsafe extern fn vertexAttrib4f<TH: TypeHolderTrait>
 }
 
 
-fn vertexAttrib4f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertexAttrib4f_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: vertexAttrib4f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9344,7 +9344,7 @@ fn vertexAttrib4f_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn vertexAttrib1fv<TH: TypeHolderTrait>
+unsafe extern fn vertexAttrib1fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9383,7 +9383,7 @@ unsafe extern fn vertexAttrib1fv<TH: TypeHolderTrait>
 }
 
 
-fn vertexAttrib1fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertexAttrib1fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: vertexAttrib1fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9401,7 +9401,7 @@ fn vertexAttrib1fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn vertexAttrib2fv<TH: TypeHolderTrait>
+unsafe extern fn vertexAttrib2fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9440,7 +9440,7 @@ unsafe extern fn vertexAttrib2fv<TH: TypeHolderTrait>
 }
 
 
-fn vertexAttrib2fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertexAttrib2fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: vertexAttrib2fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9458,7 +9458,7 @@ fn vertexAttrib2fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn vertexAttrib3fv<TH: TypeHolderTrait>
+unsafe extern fn vertexAttrib3fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9497,7 +9497,7 @@ unsafe extern fn vertexAttrib3fv<TH: TypeHolderTrait>
 }
 
 
-fn vertexAttrib3fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertexAttrib3fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: vertexAttrib3fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9515,7 +9515,7 @@ fn vertexAttrib3fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn vertexAttrib4fv<TH: TypeHolderTrait>
+unsafe extern fn vertexAttrib4fv<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9554,7 +9554,7 @@ unsafe extern fn vertexAttrib4fv<TH: TypeHolderTrait>
 }
 
 
-fn vertexAttrib4fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertexAttrib4fv_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: vertexAttrib4fv::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9572,7 +9572,7 @@ fn vertexAttrib4fv_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn vertexAttribPointer<TH: TypeHolderTrait>
+unsafe extern fn vertexAttribPointer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9651,7 +9651,7 @@ unsafe extern fn vertexAttribPointer<TH: TypeHolderTrait>
 }
 
 
-fn vertexAttribPointer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertexAttribPointer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: vertexAttribPointer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9669,7 +9669,7 @@ fn vertexAttribPointer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn viewport<TH: TypeHolderTrait>
+unsafe extern fn viewport<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WebGLRenderingContext<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9728,7 +9728,7 @@ unsafe extern fn viewport<TH: TypeHolderTrait>
 }
 
 
-fn viewport_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn viewport_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: viewport::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WebGLRenderingContext as u16,
     depth: 0,
@@ -9746,7 +9746,7 @@ fn viewport_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -9759,7 +9759,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -10068,7 +10068,7 @@ pub mod WebGLRenderingContextConstants {
     pub const UNPACK_COLORSPACE_CONVERSION_WEBGL: u32 = 37443;
     pub const BROWSER_DEFAULT_WEBGL: u32 = 37444;
 } // mod WebGLRenderingContextConstants
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -10083,7 +10083,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"WebGLRenderingContext\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -10101,11 +10101,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<WebGLRenderingContext<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<WebGLRenderingContext<TH>>) -> DomRoot<WebGLRenderingContext<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -10131,20 +10131,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for WebGLRenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for WebGLRenderingContext<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for WebGLRenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for WebGLRenderingContext<TH> {
     fn eq(&self, other: &WebGLRenderingContext<TH>) -> bool {
         self as *const WebGLRenderingContext<TH> == &*other
     }
 }
 
-pub trait WebGLRenderingContextMethods<TH: TypeHolderTrait> {
+pub trait WebGLRenderingContextMethods<TH: TypeHolderTrait<TH>> {
     unsafe fn BufferData(&self, cx: *mut JSContext, target: u32, data: *mut JSObject, usage: u32) -> Fallible<(), TH>;
     fn BufferData_(&self, target: u32, size: i64, usage: u32) -> Fallible<(), TH>;
     fn BufferSubData(&self, target: u32, offset: i64, data: UnionTypes::ArrayBufferViewOrArrayBuffer) -> ();
@@ -10287,7 +10287,7 @@ pub trait WebGLRenderingContextMethods<TH: TypeHolderTrait> {
     fn VertexAttribPointer(&self, indx: u32, size: i32, type_: u32, normalized: bool, stride: i32, offset: i64) -> ();
     fn Viewport(&self, x: i32, y: i32, width: i32, height: i32) -> ();
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"bufferData\0" as *const u8 as *const libc::c_char,
@@ -11261,12 +11261,12 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0]),
     Guard::new(Condition::Pref("dom.webgl.dom_to_texture.enabled"), sMethods_specs::<TH>()[1]),
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[2])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"canvas\0" as *const u8 as *const libc::c_char,
@@ -11294,7 +11294,7 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
@@ -11602,7 +11602,7 @@ const sConstants: &'static [Guard<&'static [ConstantSpec]>] = &[
     Guard::new(Condition::Satisfied, sConstants_specs[0])
 ];
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -11637,7 +11637,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::WebGLRenderingContext,
         0);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -11650,12 +11650,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

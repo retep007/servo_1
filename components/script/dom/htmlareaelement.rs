@@ -216,12 +216,12 @@ impl Area {
 }
 
 #[dom_struct]
-pub struct HTMLAreaElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLAreaElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     rel_list: MutNullableDom<DOMTokenList<TH>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLAreaElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLAreaElement<TH> {
         HTMLAreaElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
@@ -259,7 +259,7 @@ impl<TH: TypeHolderTrait> HTMLAreaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLAreaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -272,7 +272,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLAreaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLAreaElementMethods<TH> for HTMLAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLAreaElementMethods<TH> for HTMLAreaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-area-rellist
     fn RelList(&self) -> DomRoot<DOMTokenList<TH>> {
         self.rel_list.or_init(|| {
@@ -281,7 +281,7 @@ impl<TH: TypeHolderTrait> HTMLAreaElementMethods<TH> for HTMLAreaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Activatable<TH> for HTMLAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> Activatable<TH> for HTMLAreaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#the-area-element:activation-behaviour
     fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()

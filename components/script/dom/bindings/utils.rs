@@ -59,13 +59,13 @@ impl MallocSizeOf for WindowProxyHandler {
 
 #[derive(JSTraceable, MallocSizeOf)]
 /// Static data associated with a global object.
-pub struct GlobalStaticData<TH: TypeHolderTrait> {
+pub struct GlobalStaticData<TH: TypeHolderTrait<TH>> {
     /// The WindowProxy proxy handler for this global.
     pub windowproxy_handler: WindowProxyHandler,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> GlobalStaticData<TH> {
+impl<TH: TypeHolderTrait<TH>> GlobalStaticData<TH> {
     /// Creates a new GlobalStaticData.
     pub fn new() -> GlobalStaticData<TH> {
         GlobalStaticData {
@@ -332,7 +332,7 @@ pub unsafe fn trace_global(tracer: *mut JSTracer, obj: *mut JSObject) {
 }
 
 /// Enumerate lazy properties of a global object.
-pub unsafe extern "C" fn enumerate_global<TH: TypeHolderTrait>(cx: *mut JSContext, obj: RawHandleObject) -> bool {
+pub unsafe extern "C" fn enumerate_global<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, obj: RawHandleObject) -> bool {
     assert!(JS_IsGlobalObject(obj.get()));
     if !JS_EnumerateStandardClasses(cx, obj) {
         return false;
@@ -344,7 +344,7 @@ pub unsafe extern "C" fn enumerate_global<TH: TypeHolderTrait>(cx: *mut JSContex
 }
 
 /// Resolve a lazy global property, for interface objects and named constructors.
-pub unsafe extern "C" fn resolve_global<TH: TypeHolderTrait>(
+pub unsafe extern "C" fn resolve_global<TH: TypeHolderTrait<TH>>(
         cx: *mut JSContext,
         obj: RawHandleObject,
         id: RawHandleId,

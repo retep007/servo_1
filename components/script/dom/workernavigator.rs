@@ -15,12 +15,12 @@ use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#workernavigator
 #[dom_struct]
-pub struct WorkerNavigator<TH: TypeHolderTrait + 'static> {
+pub struct WorkerNavigator<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     permissions: MutNullableDom<Permissions<TH>>,
 }
 
-impl<TH: TypeHolderTrait> WorkerNavigator<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkerNavigator<TH> {
     fn new_inherited() -> WorkerNavigator<TH> {
         WorkerNavigator {
             reflector_: Reflector::new(),
@@ -35,7 +35,7 @@ impl<TH: TypeHolderTrait> WorkerNavigator<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WorkerNavigatorMethods<TH> for WorkerNavigator<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkerNavigatorMethods<TH> for WorkerNavigator<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-navigator-product
     fn Product(&self) -> DOMString {
         navigatorinfo::Product()

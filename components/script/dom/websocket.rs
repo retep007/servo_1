@@ -69,7 +69,7 @@ mod close_code {
     pub const TLS_FAILED: u16 = 1015;
 }
 
-pub fn close_the_websocket_connection<TH: TypeHolderTrait>(
+pub fn close_the_websocket_connection<TH: TypeHolderTrait<TH>>(
     address: Trusted<WebSocket<TH>>,
     task_source: &NetworkingTaskSource,
     canceller: &TaskCanceller,
@@ -85,7 +85,7 @@ pub fn close_the_websocket_connection<TH: TypeHolderTrait>(
     task_source.queue_with_canceller(close_task, &canceller).unwrap();
 }
 
-pub fn fail_the_websocket_connection<TH: TypeHolderTrait>(
+pub fn fail_the_websocket_connection<TH: TypeHolderTrait<TH>>(
     address: Trusted<WebSocket<TH>>,
     task_source: &NetworkingTaskSource,
     canceller: &TaskCanceller,
@@ -100,7 +100,7 @@ pub fn fail_the_websocket_connection<TH: TypeHolderTrait>(
 }
 
 #[dom_struct]
-pub struct WebSocket<TH: TypeHolderTrait + 'static> {
+pub struct WebSocket<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     url: ServoUrl,
     ready_state: Cell<WebSocketRequestState>,
@@ -112,7 +112,7 @@ pub struct WebSocket<TH: TypeHolderTrait + 'static> {
     protocol: DomRefCell<String>, //Subprotocol selected by server
 }
 
-impl<TH: TypeHolderTrait> WebSocket<TH> {
+impl<TH: TypeHolderTrait<TH>> WebSocket<TH> {
     fn new_inherited(url: ServoUrl, sender: IpcSender<WebSocketDomAction>) -> WebSocket<TH> {
         WebSocket {
             eventtarget: EventTarget::new_inherited(),
@@ -274,7 +274,7 @@ impl<TH: TypeHolderTrait> WebSocket<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
+impl<TH: TypeHolderTrait<TH>> WebSocketMethods<TH> for WebSocket<TH> {
     // https://html.spec.whatwg.org/multipage/#handler-websocket-onopen
     event_handler!(open, GetOnopen, SetOnopen);
 
@@ -411,12 +411,12 @@ impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
 
 /// Task queued when *the WebSocket connection is established*.
 /// <https://html.spec.whatwg.org/multipage/#feedback-from-the-protocol:concept-websocket-established>
-struct ConnectionEstablishedTask<TH: TypeHolderTrait + 'static> {
+struct ConnectionEstablishedTask<TH: TypeHolderTrait<TH> + 'static> {
     address: Trusted<WebSocket<TH>>,
     protocol_in_use: Option<String>,
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for ConnectionEstablishedTask<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for ConnectionEstablishedTask<TH> {
     /// <https://html.spec.whatwg.org/multipage/#feedback-from-the-protocol:concept-websocket-established>
     fn run_once(self) {
         let ws = self.address.root();
@@ -437,11 +437,11 @@ impl<TH: TypeHolderTrait> TaskOnce for ConnectionEstablishedTask<TH> {
     }
 }
 
-struct BufferedAmountTask<TH: TypeHolderTrait + 'static> {
+struct BufferedAmountTask<TH: TypeHolderTrait<TH> + 'static> {
     address: Trusted<WebSocket<TH>>,
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for BufferedAmountTask<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for BufferedAmountTask<TH> {
     // See https://html.spec.whatwg.org/multipage/#dom-websocket-bufferedamount
     //
     // To be compliant with standards, we need to reset bufferedAmount only when the event loop
@@ -455,14 +455,14 @@ impl<TH: TypeHolderTrait> TaskOnce for BufferedAmountTask<TH> {
     }
 }
 
-struct CloseTask<TH: TypeHolderTrait + 'static> {
+struct CloseTask<TH: TypeHolderTrait<TH> + 'static> {
     address: Trusted<WebSocket<TH>>,
     failed: bool,
     code: Option<u16>,
     reason: Option<String>,
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for CloseTask<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for CloseTask<TH> {
     fn run_once(self) {
         let ws = self.address.root();
 
@@ -497,12 +497,12 @@ impl<TH: TypeHolderTrait> TaskOnce for CloseTask<TH> {
     }
 }
 
-struct MessageReceivedTask<TH: TypeHolderTrait + 'static> {
+struct MessageReceivedTask<TH: TypeHolderTrait<TH> + 'static> {
     address: Trusted<WebSocket<TH>>,
     message: MessageData,
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for MessageReceivedTask<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for MessageReceivedTask<TH> {
     #[allow(unsafe_code)]
     fn run_once(self) {
         let ws = self.address.root();

@@ -48,7 +48,7 @@ const DEFAULT_DISABLED_GET_PARAMETER_NAMES_WEBGL1: [GLenum; 1] = [
 
 /// WebGL features that are enabled/disabled by WebGL Extensions.
 #[derive(JSTraceable, MallocSizeOf)]
-struct WebGLExtensionFeatures<TH: TypeHolderTrait + 'static> {
+struct WebGLExtensionFeatures<TH: TypeHolderTrait<TH> + 'static> {
     gl_extensions: FnvHashSet<String>,
     disabled_tex_types: FnvHashSet<GLenum>,
     not_filterable_tex_types: FnvHashSet<GLenum>,
@@ -62,7 +62,7 @@ struct WebGLExtensionFeatures<TH: TypeHolderTrait + 'static> {
     element_index_uint_enabled: bool,
 }
 
-impl<TH: TypeHolderTrait> WebGLExtensionFeatures<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLExtensionFeatures<TH> {
     fn new(webgl_version: WebGLVersion) -> Self {
         let (disabled_tex_types, disabled_get_parameter_names, element_index_uint_enabled) = match webgl_version {
             WebGLVersion::WebGL1 => {
@@ -90,13 +90,13 @@ impl<TH: TypeHolderTrait> WebGLExtensionFeatures<TH> {
 /// Handles the list of implemented, supported and enabled WebGL extensions.
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct WebGLExtensions<TH: TypeHolderTrait + 'static> {
+pub struct WebGLExtensions<TH: TypeHolderTrait<TH> + 'static> {
     extensions: DomRefCell<HashMap<String, Box<WebGLExtensionWrapper<TH>>>>,
     features: DomRefCell<WebGLExtensionFeatures<TH>>,
     webgl_version: WebGLVersion,
 }
 
-impl<TH: TypeHolderTrait> WebGLExtensions<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLExtensions<TH> {
     pub fn new(webgl_version: WebGLVersion) -> WebGLExtensions<TH> {
         Self {
             extensions: DomRefCell::new(HashMap::new()),
@@ -263,7 +263,7 @@ type WebGLQueryParameterFunc<TH> = Fn(*mut JSContext, &WebGLRenderingContext<TH>
                                -> Result<JSVal, WebGLError>;
 
 #[derive(MallocSizeOf)]
-struct WebGLQueryParameterHandler<TH: TypeHolderTrait + 'static> {
+struct WebGLQueryParameterHandler<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Closures are hard"]
     func: Box<WebGLQueryParameterFunc<TH>>
 }

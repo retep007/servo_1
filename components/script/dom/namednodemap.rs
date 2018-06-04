@@ -18,12 +18,12 @@ use html5ever::LocalName;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct NamedNodeMap<TH: TypeHolderTrait + 'static> {
+pub struct NamedNodeMap<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     owner: Dom<Element<TH>>,
 }
 
-impl<TH: TypeHolderTrait> NamedNodeMap<TH> {
+impl<TH: TypeHolderTrait<TH>> NamedNodeMap<TH> {
     fn new_inherited(elem: &Element<TH>) -> NamedNodeMap<TH> {
         NamedNodeMap {
             reflector_: Reflector::new(),
@@ -37,7 +37,7 @@ impl<TH: TypeHolderTrait> NamedNodeMap<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> NamedNodeMapMethods<TH> for NamedNodeMap<TH> {
+impl<TH: TypeHolderTrait<TH>> NamedNodeMapMethods<TH> for NamedNodeMap<TH> {
     // https://dom.spec.whatwg.org/#dom-namednodemap-length
     fn Length(&self) -> u32 {
         self.owner.attrs().len() as u32

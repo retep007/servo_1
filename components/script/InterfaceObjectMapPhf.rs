@@ -1,4 +1,4 @@
-pub fn MAP<TH: TypeHolderTrait>() -> phf::Map<&'static [u8], unsafe fn(*mut JSContext, HandleObject)> { ::phf::Map {
+pub fn MAP<TH: TypeHolderTrait<TH>>() -> phf::Map<&'static [u8], unsafe fn(*mut JSContext, HandleObject)> { ::phf::Map {
     key: 1897749892740154578,
     disps: ::phf::Slice::Static(&[
         (0, 31),

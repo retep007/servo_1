@@ -14,12 +14,12 @@ use typeholder::TypeHolderTrait;
 
 /// An HTML processing instruction node.
 #[dom_struct]
-pub struct ProcessingInstruction<TH: TypeHolderTrait + 'static> {
+pub struct ProcessingInstruction<TH: TypeHolderTrait<TH> + 'static> {
     characterdata: CharacterData<TH>,
     target: DOMString,
 }
 
-impl<TH: TypeHolderTrait> ProcessingInstruction<TH> {
+impl<TH: TypeHolderTrait<TH>> ProcessingInstruction<TH> {
     fn new_inherited(target: DOMString, data: DOMString, document: &Document<TH>) -> ProcessingInstruction<TH> {
         ProcessingInstruction {
             characterdata: CharacterData::new_inherited(data, document),
@@ -34,13 +34,13 @@ impl<TH: TypeHolderTrait> ProcessingInstruction<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> ProcessingInstruction<TH> {
+impl<TH: TypeHolderTrait<TH>> ProcessingInstruction<TH> {
     pub fn target(&self) -> &DOMString {
         &self.target
     }
 }
 
-impl<TH: TypeHolderTrait> ProcessingInstructionMethods for ProcessingInstruction<TH> {
+impl<TH: TypeHolderTrait<TH>> ProcessingInstructionMethods for ProcessingInstruction<TH> {
     // https://dom.spec.whatwg.org/#dom-processinginstruction-target
     fn Target(&self) -> DOMString {
         self.target.clone()

@@ -20,12 +20,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct CSS<TH: TypeHolderTrait + 'static> {
+pub struct CSS<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> CSS<TH> {
+impl<TH: TypeHolderTrait<TH>> CSS<TH> {
     /// <http://dev.w3.org/csswg/cssom/#serialize-an-identifier>
     pub fn Escape(_: &Window<TH>, ident: DOMString) -> Fallible<DOMString, TH> {
         let mut escaped = String::new();

@@ -134,7 +134,7 @@ use std::marker::PhantomData;
 // https://html.spec.whatwg.org/multipage/#selector-focus
 
 #[dom_struct]
-pub struct Element<TH: TypeHolderTrait + 'static> {
+pub struct Element<TH: TypeHolderTrait<TH> + 'static> {
     node: Node<TH>,
     local_name: LocalName,
     tag_name: TagName,
@@ -163,7 +163,7 @@ pub struct Element<TH: TypeHolderTrait + 'static> {
     custom_element_state: Cell<CustomElementState>,
 }
 
-impl<TH: TypeHolderTrait> fmt::Debug for Element<TH> {
+impl<TH: TypeHolderTrait<TH>> fmt::Debug for Element<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "<{}", self.local_name)?;
         if let Some(ref id) = *self.id_attribute.borrow() {
@@ -173,7 +173,7 @@ impl<TH: TypeHolderTrait> fmt::Debug for Element<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> fmt::Debug for DomRoot<Element<TH>> {
+impl<TH: TypeHolderTrait<TH>> fmt::Debug for DomRoot<Element<TH>> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         (**self).fmt(f)
     }
@@ -214,7 +214,7 @@ impl ElementCreator {
     }
 }
 
-pub enum AdjacentPosition<TH: TypeHolderTrait + 'static> {
+pub enum AdjacentPosition<TH: TypeHolderTrait<TH> + 'static> {
     BeforeBegin,
     AfterEnd,
     AfterBegin,
@@ -222,7 +222,7 @@ pub enum AdjacentPosition<TH: TypeHolderTrait + 'static> {
     _p(PhantomData<TH>),
 }
 
-impl<TH: TypeHolderTrait> FromStr for AdjacentPosition<TH> {
+impl<TH: TypeHolderTrait<TH>> FromStr for AdjacentPosition<TH> {
     type Err = Error<TH>;
 
     fn from_str(position: &str) -> Result<Self, Self::Err> {
@@ -239,7 +239,7 @@ impl<TH: TypeHolderTrait> FromStr for AdjacentPosition<TH> {
 //
 // Element methods
 //
-impl<TH: TypeHolderTrait> Element<TH> {
+impl<TH: TypeHolderTrait<TH>> Element<TH> {
     pub fn create(name: QualName,
                   is: Option<LocalName>,
                   document: &Document<TH>,
@@ -410,7 +410,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
 }
 
 #[allow(unsafe_code)]
-pub trait RawLayoutElementHelpers<TH: TypeHolderTrait> {
+pub trait RawLayoutElementHelpers<TH: TypeHolderTrait<TH>> {
     unsafe fn get_attr_for_layout<'a>(&'a self, namespace: &Namespace, name: &LocalName)
                                       -> Option<&'a AttrValue>;
     unsafe fn get_attr_val_for_layout<'a>(&'a self, namespace: &Namespace, name: &LocalName)
@@ -420,7 +420,7 @@ pub trait RawLayoutElementHelpers<TH: TypeHolderTrait> {
 
 #[inline]
 #[allow(unsafe_code)]
-pub unsafe fn get_attr_for_layout<'a, TH: TypeHolderTrait>(elem: &'a Element<TH>, namespace: &Namespace, name: &LocalName)
+pub unsafe fn get_attr_for_layout<'a, TH: TypeHolderTrait<TH>>(elem: &'a Element<TH>, namespace: &Namespace, name: &LocalName)
                                       -> Option<LayoutDom<Attr<TH>>> {
     // cast to point to T in RefCell<T> directly
     let attrs = elem.attrs.borrow_for_layout();
@@ -432,7 +432,7 @@ pub unsafe fn get_attr_for_layout<'a, TH: TypeHolderTrait>(elem: &'a Element<TH>
 }
 
 #[allow(unsafe_code)]
-impl<TH: TypeHolderTrait> RawLayoutElementHelpers<TH> for Element<TH> {
+impl<TH: TypeHolderTrait<TH>> RawLayoutElementHelpers<TH> for Element<TH> {
     #[inline]
     unsafe fn get_attr_for_layout<'a>(&'a self, namespace: &Namespace, name: &LocalName)
                                       -> Option<&'a AttrValue> {
@@ -490,7 +490,7 @@ pub trait LayoutElementHelpers {
     fn has_selector_flags(&self, flags: ElementSelectorFlags) -> bool;
 }
 
-impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutElementHelpers for LayoutDom<Element<TH>> {
     #[allow(unsafe_code)]
     #[inline]
     unsafe fn has_class_for_layout(&self, name: &Atom, case_sensitivity: CaseSensitivity) -> bool {
@@ -919,7 +919,7 @@ impl<TH: TypeHolderTrait> LayoutElementHelpers for LayoutDom<Element<TH>> {
     }
 }
 
-impl<TH: TypeHolderTrait> Element<TH> {
+impl<TH: TypeHolderTrait<TH>> Element<TH> {
     pub fn is_html_element(&self) -> bool {
         self.namespace == ns!(html)
     }
@@ -1579,7 +1579,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
+impl<TH: TypeHolderTrait<TH>> ElementMethods<TH> for Element<TH> {
     // https://dom.spec.whatwg.org/#dom-element-namespaceuri
     fn GetNamespaceURI(&self) -> Option<DOMString> {
         Node::namespace_to_string(self.namespace.clone())
@@ -2385,7 +2385,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for Element<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for Element<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<Node<TH>>() as &VirtualMethods<TH>)
     }
@@ -2579,7 +2579,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for Element<TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
+impl<'a, TH: TypeHolderTrait<TH>> SelectorsElement for DomRoot<Element<TH>> {
     type Impl = SelectorImpl;
 
     fn opaque(&self) -> ::selectors::OpaqueElement {
@@ -2751,7 +2751,7 @@ impl<'a, TH: TypeHolderTrait> SelectorsElement for DomRoot<Element<TH>> {
 }
 
 
-impl<TH: TypeHolderTrait> Element<TH> {
+impl<TH: TypeHolderTrait<TH>> Element<TH> {
     pub fn as_maybe_activatable(&self) -> Option<&Activatable<TH>> {
         let element = match self.upcast::<Node<TH>>().type_id() {
             NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLInputElement)) => {
@@ -3018,7 +3018,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Element<TH> {
+impl<TH: TypeHolderTrait<TH>> Element<TH> {
     pub fn check_ancestors_disabled_state_for_form_control(&self) {
         let node = self.upcast::<Node<TH>>();
         if self.disabled_state() {
@@ -3070,7 +3070,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
 }
 
 #[derive(Clone, Copy)]
-pub enum AttributeMutation<'a, TH: TypeHolderTrait + 'static> {
+pub enum AttributeMutation<'a, TH: TypeHolderTrait<TH> + 'static> {
     /// The attribute is set, keep track of old value.
     /// <https://dom.spec.whatwg.org/#attribute-is-set>
     Set(Option<&'a AttrValue>),
@@ -3082,7 +3082,7 @@ pub enum AttributeMutation<'a, TH: TypeHolderTrait + 'static> {
     _p(PhantomData<TH>),
 }
 
-impl<'a, TH: TypeHolderTrait> AttributeMutation<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> AttributeMutation<'a, TH> {
     pub fn is_removal(&self) -> bool {
         match *self {
             AttributeMutation::Removed => true,
@@ -3133,13 +3133,13 @@ impl TagName {
     }
 }
 
-pub struct ElementPerformFullscreenEnter<TH: TypeHolderTrait + 'static> {
+pub struct ElementPerformFullscreenEnter<TH: TypeHolderTrait<TH> + 'static> {
     element: Trusted<Element<TH>>,
     promise: TrustedPromise<TH>,
     error: bool,
 }
 
-impl<TH: TypeHolderTrait> ElementPerformFullscreenEnter<TH> {
+impl<TH: TypeHolderTrait<TH>> ElementPerformFullscreenEnter<TH> {
     pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise<TH>, error: bool) -> Box<ElementPerformFullscreenEnter<TH>> {
         Box::new(ElementPerformFullscreenEnter {
             element: element,
@@ -3149,7 +3149,7 @@ impl<TH: TypeHolderTrait> ElementPerformFullscreenEnter<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for ElementPerformFullscreenEnter<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for ElementPerformFullscreenEnter<TH> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         let element = self.element.root();
@@ -3177,12 +3177,12 @@ impl<TH: TypeHolderTrait> TaskOnce for ElementPerformFullscreenEnter<TH> {
     }
 }
 
-pub struct ElementPerformFullscreenExit<TH: TypeHolderTrait + 'static> {
+pub struct ElementPerformFullscreenExit<TH: TypeHolderTrait<TH> + 'static> {
     element: Trusted<Element<TH>>,
     promise: TrustedPromise<TH>,
 }
 
-impl<TH: TypeHolderTrait> ElementPerformFullscreenExit<TH> {
+impl<TH: TypeHolderTrait<TH>> ElementPerformFullscreenExit<TH> {
     pub fn new(element: Trusted<Element<TH>>, promise: TrustedPromise<TH>) -> Box<ElementPerformFullscreenExit<TH>> {
         Box::new(ElementPerformFullscreenExit {
             element: element,
@@ -3191,7 +3191,7 @@ impl<TH: TypeHolderTrait> ElementPerformFullscreenExit<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for ElementPerformFullscreenExit<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for ElementPerformFullscreenExit<TH> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         let element = self.element.root();
@@ -3212,7 +3212,7 @@ impl<TH: TypeHolderTrait> TaskOnce for ElementPerformFullscreenExit<TH> {
     }
 }
 
-pub fn reflect_cross_origin_attribute<TH: TypeHolderTrait>(element: &Element<TH>) -> Option<DOMString> {
+pub fn reflect_cross_origin_attribute<TH: TypeHolderTrait<TH>>(element: &Element<TH>) -> Option<DOMString> {
     let attr = element.get_attribute(&ns!(), &local_name!("crossorigin"));
 
     if let Some(mut val) = attr.map(|v| v.Value()) {
@@ -3225,7 +3225,7 @@ pub fn reflect_cross_origin_attribute<TH: TypeHolderTrait>(element: &Element<TH>
     None
 }
 
-pub fn set_cross_origin_attribute<TH: TypeHolderTrait>(element: &Element<TH>, value: Option<DOMString>) {
+pub fn set_cross_origin_attribute<TH: TypeHolderTrait<TH>>(element: &Element<TH>, value: Option<DOMString>) {
     match value {
         Some(val) => element.set_string_attribute(&local_name!("crossorigin"), val),
         None => {
@@ -3234,7 +3234,7 @@ pub fn set_cross_origin_attribute<TH: TypeHolderTrait>(element: &Element<TH>, va
     }
 }
 
-pub fn cors_setting_for_element<TH: TypeHolderTrait>(element: &Element<TH>) -> Option<CorsSettings> {
+pub fn cors_setting_for_element<TH: TypeHolderTrait<TH>>(element: &Element<TH>) -> Option<CorsSettings> {
     reflect_cross_origin_attribute(element).map_or(None, |attr| {
         match &*attr {
             "anonymous" => Some(CorsSettings::Anonymous),

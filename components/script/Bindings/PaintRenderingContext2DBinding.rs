@@ -519,7 +519,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_globalAlpha<TH: TypeHolderTrait>
+unsafe extern fn get_globalAlpha<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -530,7 +530,7 @@ unsafe extern fn get_globalAlpha<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_globalAlpha<TH: TypeHolderTrait>
+unsafe extern fn set_globalAlpha<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -551,7 +551,7 @@ unsafe extern fn set_globalAlpha<TH: TypeHolderTrait>
 }
 
 
-fn globalAlpha_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn globalAlpha_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_globalAlpha::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -569,7 +569,7 @@ fn globalAlpha_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn globalAlpha_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn globalAlpha_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_globalAlpha::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -587,7 +587,7 @@ fn globalAlpha_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_globalCompositeOperation<TH: TypeHolderTrait>
+unsafe extern fn get_globalCompositeOperation<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -598,7 +598,7 @@ unsafe extern fn get_globalCompositeOperation<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_globalCompositeOperation<TH: TypeHolderTrait>
+unsafe extern fn set_globalCompositeOperation<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -619,7 +619,7 @@ unsafe extern fn set_globalCompositeOperation<TH: TypeHolderTrait>
 }
 
 
-fn globalCompositeOperation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn globalCompositeOperation_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_globalCompositeOperation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -637,7 +637,7 @@ fn globalCompositeOperation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-fn globalCompositeOperation_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn globalCompositeOperation_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_globalCompositeOperation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -655,7 +655,7 @@ fn globalCompositeOperation_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-unsafe extern fn drawImage<TH: TypeHolderTrait>
+unsafe extern fn drawImage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -882,7 +882,7 @@ unsafe extern fn drawImage<TH: TypeHolderTrait>
 }
 
 
-fn drawImage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn drawImage_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: drawImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -900,7 +900,7 @@ fn drawImage_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn beginPath<TH: TypeHolderTrait>
+unsafe extern fn beginPath<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -914,7 +914,7 @@ unsafe extern fn beginPath<TH: TypeHolderTrait>
 }
 
 
-fn beginPath_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn beginPath_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: beginPath::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -932,7 +932,7 @@ fn beginPath_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn fill<TH: TypeHolderTrait>
+unsafe extern fn fill<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -957,7 +957,7 @@ unsafe extern fn fill<TH: TypeHolderTrait>
 }
 
 
-fn fill_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fill_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: fill::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -975,7 +975,7 @@ fn fill_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn stroke<TH: TypeHolderTrait>
+unsafe extern fn stroke<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -989,7 +989,7 @@ unsafe extern fn stroke<TH: TypeHolderTrait>
 }
 
 
-fn stroke_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn stroke_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: stroke::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1007,7 +1007,7 @@ fn stroke_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn clip<TH: TypeHolderTrait>
+unsafe extern fn clip<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1032,7 +1032,7 @@ unsafe extern fn clip<TH: TypeHolderTrait>
 }
 
 
-fn clip_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clip_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1050,7 +1050,7 @@ fn clip_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn isPointInPath<TH: TypeHolderTrait>
+unsafe extern fn isPointInPath<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1100,7 +1100,7 @@ unsafe extern fn isPointInPath<TH: TypeHolderTrait>
 }
 
 
-fn isPointInPath_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isPointInPath_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: isPointInPath::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1118,7 +1118,7 @@ fn isPointInPath_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_strokeStyle<TH: TypeHolderTrait>
+unsafe extern fn get_strokeStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1129,7 +1129,7 @@ unsafe extern fn get_strokeStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_strokeStyle<TH: TypeHolderTrait>
+unsafe extern fn set_strokeStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1150,7 +1150,7 @@ unsafe extern fn set_strokeStyle<TH: TypeHolderTrait>
 }
 
 
-fn strokeStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn strokeStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_strokeStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1168,7 +1168,7 @@ fn strokeStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn strokeStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn strokeStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_strokeStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1186,7 +1186,7 @@ fn strokeStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_fillStyle<TH: TypeHolderTrait>
+unsafe extern fn get_fillStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1197,7 +1197,7 @@ unsafe extern fn get_fillStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_fillStyle<TH: TypeHolderTrait>
+unsafe extern fn set_fillStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1218,7 +1218,7 @@ unsafe extern fn set_fillStyle<TH: TypeHolderTrait>
 }
 
 
-fn fillStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fillStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_fillStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1236,7 +1236,7 @@ fn fillStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn fillStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fillStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_fillStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1254,7 +1254,7 @@ fn fillStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn createLinearGradient<TH: TypeHolderTrait>
+unsafe extern fn createLinearGradient<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1313,7 +1313,7 @@ unsafe extern fn createLinearGradient<TH: TypeHolderTrait>
 }
 
 
-fn createLinearGradient_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createLinearGradient_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createLinearGradient::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1331,7 +1331,7 @@ fn createLinearGradient_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn createRadialGradient<TH: TypeHolderTrait>
+unsafe extern fn createRadialGradient<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1417,7 +1417,7 @@ unsafe extern fn createRadialGradient<TH: TypeHolderTrait>
 }
 
 
-fn createRadialGradient_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createRadialGradient_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createRadialGradient::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1435,7 +1435,7 @@ fn createRadialGradient_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn createPattern<TH: TypeHolderTrait>
+unsafe extern fn createPattern<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1481,7 +1481,7 @@ unsafe extern fn createPattern<TH: TypeHolderTrait>
 }
 
 
-fn createPattern_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createPattern_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createPattern::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1499,7 +1499,7 @@ fn createPattern_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_imageSmoothingEnabled<TH: TypeHolderTrait>
+unsafe extern fn get_imageSmoothingEnabled<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1510,7 +1510,7 @@ unsafe extern fn get_imageSmoothingEnabled<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_imageSmoothingEnabled<TH: TypeHolderTrait>
+unsafe extern fn set_imageSmoothingEnabled<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1531,7 +1531,7 @@ unsafe extern fn set_imageSmoothingEnabled<TH: TypeHolderTrait>
 }
 
 
-fn imageSmoothingEnabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn imageSmoothingEnabled_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_imageSmoothingEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1549,7 +1549,7 @@ fn imageSmoothingEnabled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-fn imageSmoothingEnabled_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn imageSmoothingEnabled_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_imageSmoothingEnabled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1567,7 +1567,7 @@ fn imageSmoothingEnabled_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn closePath<TH: TypeHolderTrait>
+unsafe extern fn closePath<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1581,7 +1581,7 @@ unsafe extern fn closePath<TH: TypeHolderTrait>
 }
 
 
-fn closePath_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn closePath_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: closePath::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1599,7 +1599,7 @@ fn closePath_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn moveTo<TH: TypeHolderTrait>
+unsafe extern fn moveTo<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1638,7 +1638,7 @@ unsafe extern fn moveTo<TH: TypeHolderTrait>
 }
 
 
-fn moveTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn moveTo_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: moveTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1656,7 +1656,7 @@ fn moveTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn lineTo<TH: TypeHolderTrait>
+unsafe extern fn lineTo<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1695,7 +1695,7 @@ unsafe extern fn lineTo<TH: TypeHolderTrait>
 }
 
 
-fn lineTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineTo_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: lineTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1713,7 +1713,7 @@ fn lineTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn quadraticCurveTo<TH: TypeHolderTrait>
+unsafe extern fn quadraticCurveTo<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1772,7 +1772,7 @@ unsafe extern fn quadraticCurveTo<TH: TypeHolderTrait>
 }
 
 
-fn quadraticCurveTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn quadraticCurveTo_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: quadraticCurveTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1790,7 +1790,7 @@ fn quadraticCurveTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn bezierCurveTo<TH: TypeHolderTrait>
+unsafe extern fn bezierCurveTo<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1869,7 +1869,7 @@ unsafe extern fn bezierCurveTo<TH: TypeHolderTrait>
 }
 
 
-fn bezierCurveTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bezierCurveTo_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: bezierCurveTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1887,7 +1887,7 @@ fn bezierCurveTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn arcTo<TH: TypeHolderTrait>
+unsafe extern fn arcTo<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1963,7 +1963,7 @@ unsafe extern fn arcTo<TH: TypeHolderTrait>
 }
 
 
-fn arcTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn arcTo_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: arcTo::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -1981,7 +1981,7 @@ fn arcTo_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn rect<TH: TypeHolderTrait>
+unsafe extern fn rect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2040,7 +2040,7 @@ unsafe extern fn rect<TH: TypeHolderTrait>
 }
 
 
-fn rect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn rect_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: rect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2058,7 +2058,7 @@ fn rect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn arc<TH: TypeHolderTrait>
+unsafe extern fn arc<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2148,7 +2148,7 @@ unsafe extern fn arc<TH: TypeHolderTrait>
 }
 
 
-fn arc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn arc_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: arc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2166,7 +2166,7 @@ fn arc_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn ellipse<TH: TypeHolderTrait>
+unsafe extern fn ellipse<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2276,7 +2276,7 @@ unsafe extern fn ellipse<TH: TypeHolderTrait>
 }
 
 
-fn ellipse_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn ellipse_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: ellipse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2294,7 +2294,7 @@ fn ellipse_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_lineWidth<TH: TypeHolderTrait>
+unsafe extern fn get_lineWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2305,7 +2305,7 @@ unsafe extern fn get_lineWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_lineWidth<TH: TypeHolderTrait>
+unsafe extern fn set_lineWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2326,7 +2326,7 @@ unsafe extern fn set_lineWidth<TH: TypeHolderTrait>
 }
 
 
-fn lineWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_lineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2344,7 +2344,7 @@ fn lineWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn lineWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_lineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2362,7 +2362,7 @@ fn lineWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_lineCap<TH: TypeHolderTrait>
+unsafe extern fn get_lineCap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2373,7 +2373,7 @@ unsafe extern fn get_lineCap<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_lineCap<TH: TypeHolderTrait>
+unsafe extern fn set_lineCap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2390,7 +2390,7 @@ unsafe extern fn set_lineCap<TH: TypeHolderTrait>
 }
 
 
-fn lineCap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineCap_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_lineCap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2408,7 +2408,7 @@ fn lineCap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn lineCap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineCap_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_lineCap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2426,7 +2426,7 @@ fn lineCap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_lineJoin<TH: TypeHolderTrait>
+unsafe extern fn get_lineJoin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2437,7 +2437,7 @@ unsafe extern fn get_lineJoin<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_lineJoin<TH: TypeHolderTrait>
+unsafe extern fn set_lineJoin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2454,7 +2454,7 @@ unsafe extern fn set_lineJoin<TH: TypeHolderTrait>
 }
 
 
-fn lineJoin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineJoin_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_lineJoin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2472,7 +2472,7 @@ fn lineJoin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn lineJoin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineJoin_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_lineJoin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2490,7 +2490,7 @@ fn lineJoin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_miterLimit<TH: TypeHolderTrait>
+unsafe extern fn get_miterLimit<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2501,7 +2501,7 @@ unsafe extern fn get_miterLimit<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_miterLimit<TH: TypeHolderTrait>
+unsafe extern fn set_miterLimit<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2522,7 +2522,7 @@ unsafe extern fn set_miterLimit<TH: TypeHolderTrait>
 }
 
 
-fn miterLimit_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn miterLimit_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_miterLimit::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2540,7 +2540,7 @@ fn miterLimit_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn miterLimit_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn miterLimit_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_miterLimit::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2558,7 +2558,7 @@ fn miterLimit_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn clearRect<TH: TypeHolderTrait>
+unsafe extern fn clearRect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2617,7 +2617,7 @@ unsafe extern fn clearRect<TH: TypeHolderTrait>
 }
 
 
-fn clearRect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clearRect_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: clearRect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2635,7 +2635,7 @@ fn clearRect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn fillRect<TH: TypeHolderTrait>
+unsafe extern fn fillRect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2694,7 +2694,7 @@ unsafe extern fn fillRect<TH: TypeHolderTrait>
 }
 
 
-fn fillRect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fillRect_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: fillRect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2712,7 +2712,7 @@ fn fillRect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn strokeRect<TH: TypeHolderTrait>
+unsafe extern fn strokeRect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2771,7 +2771,7 @@ unsafe extern fn strokeRect<TH: TypeHolderTrait>
 }
 
 
-fn strokeRect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn strokeRect_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: strokeRect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2789,7 +2789,7 @@ fn strokeRect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_shadowOffsetX<TH: TypeHolderTrait>
+unsafe extern fn get_shadowOffsetX<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2800,7 +2800,7 @@ unsafe extern fn get_shadowOffsetX<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_shadowOffsetX<TH: TypeHolderTrait>
+unsafe extern fn set_shadowOffsetX<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2821,7 +2821,7 @@ unsafe extern fn set_shadowOffsetX<TH: TypeHolderTrait>
 }
 
 
-fn shadowOffsetX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn shadowOffsetX_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_shadowOffsetX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2839,7 +2839,7 @@ fn shadowOffsetX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn shadowOffsetX_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn shadowOffsetX_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_shadowOffsetX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2857,7 +2857,7 @@ fn shadowOffsetX_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_shadowOffsetY<TH: TypeHolderTrait>
+unsafe extern fn get_shadowOffsetY<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2868,7 +2868,7 @@ unsafe extern fn get_shadowOffsetY<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_shadowOffsetY<TH: TypeHolderTrait>
+unsafe extern fn set_shadowOffsetY<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2889,7 +2889,7 @@ unsafe extern fn set_shadowOffsetY<TH: TypeHolderTrait>
 }
 
 
-fn shadowOffsetY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn shadowOffsetY_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_shadowOffsetY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2907,7 +2907,7 @@ fn shadowOffsetY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn shadowOffsetY_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn shadowOffsetY_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_shadowOffsetY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2925,7 +2925,7 @@ fn shadowOffsetY_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_shadowBlur<TH: TypeHolderTrait>
+unsafe extern fn get_shadowBlur<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2936,7 +2936,7 @@ unsafe extern fn get_shadowBlur<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_shadowBlur<TH: TypeHolderTrait>
+unsafe extern fn set_shadowBlur<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2957,7 +2957,7 @@ unsafe extern fn set_shadowBlur<TH: TypeHolderTrait>
 }
 
 
-fn shadowBlur_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn shadowBlur_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_shadowBlur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2975,7 +2975,7 @@ fn shadowBlur_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn shadowBlur_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn shadowBlur_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_shadowBlur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -2993,7 +2993,7 @@ fn shadowBlur_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_shadowColor<TH: TypeHolderTrait>
+unsafe extern fn get_shadowColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3004,7 +3004,7 @@ unsafe extern fn get_shadowColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_shadowColor<TH: TypeHolderTrait>
+unsafe extern fn set_shadowColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3025,7 +3025,7 @@ unsafe extern fn set_shadowColor<TH: TypeHolderTrait>
 }
 
 
-fn shadowColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn shadowColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_shadowColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3043,7 +3043,7 @@ fn shadowColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn shadowColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn shadowColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_shadowColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3061,7 +3061,7 @@ fn shadowColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn save<TH: TypeHolderTrait>
+unsafe extern fn save<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3075,7 +3075,7 @@ unsafe extern fn save<TH: TypeHolderTrait>
 }
 
 
-fn save_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn save_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: save::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3093,7 +3093,7 @@ fn save_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn restore<TH: TypeHolderTrait>
+unsafe extern fn restore<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3107,7 +3107,7 @@ unsafe extern fn restore<TH: TypeHolderTrait>
 }
 
 
-fn restore_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn restore_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: restore::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3125,7 +3125,7 @@ fn restore_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn scale<TH: TypeHolderTrait>
+unsafe extern fn scale<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3164,7 +3164,7 @@ unsafe extern fn scale<TH: TypeHolderTrait>
 }
 
 
-fn scale_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn scale_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: scale::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3182,7 +3182,7 @@ fn scale_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn rotate<TH: TypeHolderTrait>
+unsafe extern fn rotate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3211,7 +3211,7 @@ unsafe extern fn rotate<TH: TypeHolderTrait>
 }
 
 
-fn rotate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn rotate_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: rotate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3229,7 +3229,7 @@ fn rotate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn translate<TH: TypeHolderTrait>
+unsafe extern fn translate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3268,7 +3268,7 @@ unsafe extern fn translate<TH: TypeHolderTrait>
 }
 
 
-fn translate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn translate_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: translate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3286,7 +3286,7 @@ fn translate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn transform<TH: TypeHolderTrait>
+unsafe extern fn transform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3365,7 +3365,7 @@ unsafe extern fn transform<TH: TypeHolderTrait>
 }
 
 
-fn transform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transform_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3383,7 +3383,7 @@ fn transform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn setTransform<TH: TypeHolderTrait>
+unsafe extern fn setTransform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3462,7 +3462,7 @@ unsafe extern fn setTransform<TH: TypeHolderTrait>
 }
 
 
-fn setTransform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn setTransform_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: setTransform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3480,7 +3480,7 @@ fn setTransform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn resetTransform<TH: TypeHolderTrait>
+unsafe extern fn resetTransform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const PaintRenderingContext2D<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3494,7 +3494,7 @@ unsafe extern fn resetTransform<TH: TypeHolderTrait>
 }
 
 
-fn resetTransform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn resetTransform_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: resetTransform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::PaintRenderingContext2D as u16,
     depth: 0,
@@ -3512,7 +3512,7 @@ fn resetTransform_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -3525,7 +3525,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -3535,7 +3535,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -3550,7 +3550,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"PaintRenderingContext2D\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -3568,11 +3568,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<PaintRenderingContext2D<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<PaintRenderingContext2D<TH>>) -> DomRoot<PaintRenderingContext2D<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -3598,20 +3598,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for PaintRenderingContext2D<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for PaintRenderingContext2D<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for PaintRenderingContext2D<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for PaintRenderingContext2D<TH> {
     fn eq(&self, other: &PaintRenderingContext2D<TH>) -> bool {
         self as *const PaintRenderingContext2D<TH> == &*other
     }
 }
 
-pub trait PaintRenderingContext2DMethods<TH: TypeHolderTrait> {
+pub trait PaintRenderingContext2DMethods<TH: TypeHolderTrait<TH>> {
     fn GlobalAlpha(&self) -> f64;
     fn SetGlobalAlpha(&self, value: f64) -> ();
     fn GlobalCompositeOperation(&self) -> DOMString;
@@ -3670,7 +3670,7 @@ pub trait PaintRenderingContext2DMethods<TH: TypeHolderTrait> {
     fn SetTransform(&self, a: f64, b: f64, c: f64, d: f64, e: f64, f: f64) -> ();
     fn ResetTransform(&self) -> ();
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"drawImage\0" as *const u8 as *const libc::c_char,
@@ -3884,10 +3884,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"globalAlpha\0" as *const u8 as *const libc::c_char,
@@ -3975,11 +3975,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -4014,7 +4014,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::PaintRenderingContext2D,
         0);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -4027,13 +4027,13 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::PAINT_WORKLET_GLOBAL_SCOPE) &&
     PREFS.get("dom.worklet.enabled").as_boolean().unwrap_or(false)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

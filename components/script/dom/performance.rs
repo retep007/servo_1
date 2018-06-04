@@ -53,11 +53,11 @@ const INVALID_ENTRY_NAMES: &'static [&'static str] = &[
 /// Implementation of a list of PerformanceEntry items shared by the
 /// Performance and PerformanceObserverEntryList interfaces implementations.
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct PerformanceEntryList<TH: TypeHolderTrait + 'static> {
+pub struct PerformanceEntryList<TH: TypeHolderTrait<TH> + 'static> {
     entries: DOMPerformanceEntryList<TH>,
 }
 
-impl<TH: TypeHolderTrait> PerformanceEntryList<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceEntryList<TH> {
     pub fn new(entries: DOMPerformanceEntryList<TH>) -> Self {
         PerformanceEntryList {
             entries,
@@ -94,7 +94,7 @@ impl<TH: TypeHolderTrait> PerformanceEntryList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> IntoIterator for PerformanceEntryList<TH> {
+impl<TH: TypeHolderTrait<TH>> IntoIterator for PerformanceEntryList<TH> {
     type Item = DomRoot<PerformanceEntry<TH>>;
     type IntoIter = ::std::vec::IntoIter<DomRoot<PerformanceEntry<TH>>>;
 
@@ -104,13 +104,13 @@ impl<TH: TypeHolderTrait> IntoIterator for PerformanceEntryList<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct PerformanceObserver<TH: TypeHolderTrait + 'static> {
+struct PerformanceObserver<TH: TypeHolderTrait<TH> + 'static> {
     observer: DomRoot<DOMPerformanceObserver<TH>>,
     entry_types: Vec<DOMString>,
 }
 
 #[dom_struct]
-pub struct Performance<TH: TypeHolderTrait + 'static> {
+pub struct Performance<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     timing: Option<Dom<PerformanceTiming<TH>>>,
     entries: DomRefCell<PerformanceEntryList<TH>>,
@@ -119,7 +119,7 @@ pub struct Performance<TH: TypeHolderTrait + 'static> {
     navigation_start_precise: u64,
 }
 
-impl<TH: TypeHolderTrait> Performance<TH> {
+impl<TH: TypeHolderTrait<TH>> Performance<TH> {
     fn new_inherited(global: &GlobalScope<TH>,
                      navigation_start: u64,
                      navigation_start_precise: u64) -> Performance<TH> {
@@ -258,7 +258,7 @@ impl<TH: TypeHolderTrait> Performance<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PerformanceMethods<TH> for Performance<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceMethods<TH> for Performance<TH> {
     // https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html#performance-timing-attribute
     fn Timing(&self) -> DomRoot<PerformanceTiming<TH>> {
         match self.timing {

@@ -506,7 +506,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn escape<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn escape<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
@@ -541,7 +541,7 @@ unsafe extern fn escape<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_u
     }), false);
 }
 
-unsafe extern fn supports<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn supports<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
@@ -600,7 +600,7 @@ unsafe extern fn supports<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c
     }), false);
 }
 
-unsafe extern fn get_paintWorklet<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn get_paintWorklet<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
 
@@ -613,7 +613,7 @@ unsafe extern fn get_paintWorklet<TH: TypeHolderTrait>(cx: *mut JSContext, argc:
     }), false);
 }
 
-fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sStaticMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"escape\0" as *const u8 as *const libc::c_char,
@@ -639,10 +639,10 @@ fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionS
 
 ]}
 
-fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sStaticMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0])
 ]}
-fn sStaticAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sStaticAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"paintWorklet\0" as *const u8 as *const libc::c_char,
@@ -658,7 +658,7 @@ fn sStaticAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSProper
     }]
 
 ]}
-fn sStaticAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sStaticAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Pref("dom.worklet.enabled"), sStaticAttributes_specs::<TH>()[0])
 ]}
 
@@ -712,7 +712,7 @@ unsafe fn ConstructorEnabled(aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>(cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));
     assert!(!prototype_proto.is_null());

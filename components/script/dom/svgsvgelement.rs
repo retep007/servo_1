@@ -22,11 +22,11 @@ const DEFAULT_WIDTH: u32 = 300;
 const DEFAULT_HEIGHT: u32 = 150;
 
 #[dom_struct]
-pub struct SVGSVGElement<TH: TypeHolderTrait + 'static> {
+pub struct SVGSVGElement<TH: TypeHolderTrait<TH> + 'static> {
     svggraphicselement: SVGGraphicsElement<TH>
 }
 
-impl<TH: TypeHolderTrait> SVGSVGElement<TH> {
+impl<TH: TypeHolderTrait<TH>> SVGSVGElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> SVGSVGElement<TH> {
@@ -50,7 +50,7 @@ pub trait LayoutSVGSVGElementHelpers {
     fn data(&self) -> SVGSVGData;
 }
 
-impl<TH: TypeHolderTrait> LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement<TH>> {
     #[allow(unsafe_code)]
     fn data(&self) -> SVGSVGData {
         unsafe {
@@ -66,7 +66,7 @@ impl<TH: TypeHolderTrait> LayoutSVGSVGElementHelpers for LayoutDom<SVGSVGElement
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for SVGSVGElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for SVGSVGElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<SVGGraphicsElement<TH>>() as &VirtualMethods<TH>)
     }

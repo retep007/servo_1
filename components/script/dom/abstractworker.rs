@@ -11,7 +11,7 @@ use script_runtime::CommonScriptMsg;
 use typeholder::TypeHolderTrait;
 
 /// Messages used to control the worker event loops
-pub enum WorkerScriptMsg<TH: TypeHolderTrait + 'static> {
+pub enum WorkerScriptMsg<TH: TypeHolderTrait<TH> + 'static> {
     /// Common variants associated with the script messages
     Common(CommonScriptMsg),
     /// Message sent through Worker.postMessage

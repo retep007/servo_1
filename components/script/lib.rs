@@ -197,7 +197,7 @@ fn perform_platform_specific_initialization() {
 #[cfg(not(target_os = "linux"))]
 fn perform_platform_specific_initialization() {}
 
-pub fn init_service_workers<TH: TypeHolderTrait>(sw_senders: SWManagerSenders) {
+pub fn init_service_workers<TH: TypeHolderTrait<TH>>(sw_senders: SWManagerSenders) {
     // Spawn the service worker manager passing the constellation sender
     ServiceWorkerManager::<TH>::spawn_manager(sw_senders);
 }

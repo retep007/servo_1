@@ -19,7 +19,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct NodeIterator<TH: TypeHolderTrait + 'static> {
+pub struct NodeIterator<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     root_node: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
@@ -31,7 +31,7 @@ pub struct NodeIterator<TH: TypeHolderTrait + 'static> {
     active: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> NodeIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> NodeIterator<TH> {
     fn new_inherited(root_node: &Node<TH>,
                      what_to_show: u32,
                      filter: Filter<TH>) -> NodeIterator<TH> {
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> NodeIterator<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> NodeIteratorMethods<TH> for NodeIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> NodeIteratorMethods<TH> for NodeIterator<TH> {
     // https://dom.spec.whatwg.org/#dom-nodeiterator-root
     fn Root(&self) -> DomRoot<Node<TH>> {
         DomRoot::from_ref(&*self.root_node)
@@ -191,7 +191,7 @@ impl<TH: TypeHolderTrait> NodeIteratorMethods<TH> for NodeIterator<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> NodeIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> NodeIterator<TH> {
     // https://dom.spec.whatwg.org/#concept-node-filter
     fn accept_node(&self, node: &Node<TH>) -> Fallible<u16, TH> {
         // Step 1.
@@ -224,7 +224,7 @@ impl<TH: TypeHolderTrait> NodeIterator<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum Filter<TH: TypeHolderTrait + 'static> {
+pub enum Filter<TH: TypeHolderTrait<TH> + 'static> {
     None,
     Callback(Rc<NodeFilter<TH>>)
 }

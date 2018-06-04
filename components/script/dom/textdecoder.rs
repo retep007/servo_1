@@ -18,7 +18,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct TextDecoder<TH: TypeHolderTrait + 'static> {
+pub struct TextDecoder<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     encoding: &'static Encoding,
     fatal: bool,
@@ -30,7 +30,7 @@ pub struct TextDecoder<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> TextDecoder<TH> {
+impl<TH: TypeHolderTrait<TH>> TextDecoder<TH> {
     fn new_inherited(encoding: &'static Encoding, fatal: bool, ignoreBOM: bool) -> TextDecoder<TH> {
         TextDecoder {
             reflector_: Reflector::new(),
@@ -71,7 +71,7 @@ impl<TH: TypeHolderTrait> TextDecoder<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> TextDecoderMethods<TH> for TextDecoder<TH> {
+impl<TH: TypeHolderTrait<TH>> TextDecoderMethods<TH> for TextDecoder<TH> {
     // https://encoding.spec.whatwg.org/#dom-textdecoder-encoding
     fn Encoding(&self) -> DOMString {
         DOMString::from(self.encoding.name().to_ascii_lowercase())

@@ -72,7 +72,7 @@ impl Drop for AutoCloseWorker {
 }
 
 #[dom_struct]
-pub struct GlobalScope<TH: TypeHolderTrait + 'static> {
+pub struct GlobalScope<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     crypto: MutNullableDom<Crypto<TH>>,
     next_worker_id: Cell<WorkerId>,
@@ -132,7 +132,7 @@ pub struct GlobalScope<TH: TypeHolderTrait + 'static> {
     list_auto_close_worker: DomRefCell<Vec<AutoCloseWorker>>,
 }
 
-impl<TH: TypeHolderTrait> GlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> GlobalScope<TH> {
     pub fn new_inherited(
         pipeline_id: PipelineId,
         devtools_chan: Option<IpcSender<ScriptToDevtoolsControlMsg>>,
@@ -632,7 +632,7 @@ fn timestamp_in_ms(time: Timespec) -> u64 {
 
 /// Returns the Rust global scope from a JS global object.
 #[allow(unsafe_code)]
-unsafe fn global_scope_from_global<TH: TypeHolderTrait>(global: *mut JSObject) -> DomRoot<GlobalScope<TH>> {
+unsafe fn global_scope_from_global<TH: TypeHolderTrait<TH>>(global: *mut JSObject) -> DomRoot<GlobalScope<TH>> {
     assert!(!global.is_null());
     let clasp = get_object_class(global);
     assert_ne!(((*clasp).flags & (JSCLASS_IS_DOMJSCLASS | JSCLASS_IS_GLOBAL)), 0);

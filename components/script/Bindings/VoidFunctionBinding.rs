@@ -253,11 +253,11 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct VoidFunction<TH: TypeHolderTrait + 'static> {
+pub struct VoidFunction<TH: TypeHolderTrait<TH> + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> VoidFunction<TH> {
+impl<TH: TypeHolderTrait<TH>> VoidFunction<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<VoidFunction<TH>> {
         let mut ret = Rc::new(VoidFunction {
             parent: CallbackFunction::new()
@@ -308,7 +308,7 @@ impl<TH: TypeHolderTrait> VoidFunction<TH> {
 
     }
 }
-impl<TH: TypeHolderTrait> CallbackContainer<TH> for VoidFunction<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackContainer<TH> for VoidFunction<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<VoidFunction<TH>> {
         VoidFunction::new(cx, callback)
     }
@@ -318,7 +318,7 @@ impl<TH: TypeHolderTrait> CallbackContainer<TH> for VoidFunction<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for VoidFunction<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for VoidFunction<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

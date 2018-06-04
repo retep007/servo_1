@@ -21,13 +21,13 @@ use typeholder::TypeHolderTrait;
 
 // https://drafts.csswg.org/cssom-view/#dom-mediaquerylistevent-mediaquerylistevent
 #[dom_struct]
-pub struct MediaQueryListEvent<TH: TypeHolderTrait + 'static> {
+pub struct MediaQueryListEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     media: DOMString,
     matches: Cell<bool>
 }
 
-impl<TH: TypeHolderTrait> MediaQueryListEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> MediaQueryListEvent<TH> {
     pub fn new_initialized(global: &GlobalScope<TH>,
                            media: DOMString,
                            matches: bool) -> DomRoot<MediaQueryListEvent<TH>> {
@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> MediaQueryListEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MediaQueryListEventMethods for MediaQueryListEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> MediaQueryListEventMethods for MediaQueryListEvent<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylistevent-media
     fn Media(&self) -> DOMString {
         self.media.clone()

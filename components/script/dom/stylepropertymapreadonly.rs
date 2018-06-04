@@ -19,12 +19,12 @@ use style::custom_properties;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct StylePropertyMapReadOnly<TH: TypeHolderTrait + 'static> {
+pub struct StylePropertyMapReadOnly<TH: TypeHolderTrait<TH> + 'static> {
     reflector: Reflector<TH>,
     entries: HashMap<Atom, Dom<CSSStyleValue<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> StylePropertyMapReadOnly<TH> {
+impl<TH: TypeHolderTrait<TH>> StylePropertyMapReadOnly<TH> {
     fn new_inherited<Entries>(entries: Entries) -> StylePropertyMapReadOnly<TH> where
         Entries: IntoIterator<Item=(Atom, Dom<CSSStyleValue<TH>>)>
     {
@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> StylePropertyMapReadOnly<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> StylePropertyMapReadOnlyMethods<TH> for StylePropertyMapReadOnly<TH> {
+impl<TH: TypeHolderTrait<TH>> StylePropertyMapReadOnlyMethods<TH> for StylePropertyMapReadOnly<TH> {
     /// <https://drafts.css-houdini.org/css-typed-om-1/#dom-stylepropertymapreadonly-get>
     fn Get(&self, property: DOMString) -> Option<DomRoot<CSSStyleValue<TH>>> {
         // TODO: avoid constructing an Atom

@@ -89,7 +89,7 @@ use std::ptr;
 use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#htmlconstructor
-pub unsafe fn html_constructor<T, TH: TypeHolderTrait>(window: &Window<TH>, call_args: &CallArgs) -> Fallible<DomRoot<T>, TH>
+pub unsafe fn html_constructor<T, TH: TypeHolderTrait<TH>>(window: &Window<TH>, call_args: &CallArgs) -> Fallible<DomRoot<T>, TH>
                                   where T: DerivedFrom<Element<TH>> {
     let document = window.Document();
 
@@ -177,7 +177,7 @@ pub unsafe fn html_constructor<T, TH: TypeHolderTrait>(window: &Window<TH>, call
 
 /// Returns the constructor object for the element associated with the given local name.
 /// This list should only include elements marked with the [HTMLConstructor] extended attribute.
-pub fn get_constructor_object_from_local_name<TH: TypeHolderTrait>(name: LocalName,
+pub fn get_constructor_object_from_local_name<TH: TypeHolderTrait<TH>>(name: LocalName,
                                               cx: *mut JSContext,
                                               global: HandleObject,
                                               rval: MutableHandleObject)
@@ -318,10 +318,10 @@ pub fn get_constructor_object_from_local_name<TH: TypeHolderTrait>(name: LocalNa
     }
 }
 
-pub fn pop_current_element_queue<TH: TypeHolderTrait>() {
+pub fn pop_current_element_queue<TH: TypeHolderTrait<TH>>() {
     ScriptThread::<TH>::pop_current_element_queue();
 }
 
-pub fn push_new_element_queue<TH: TypeHolderTrait>() {
+pub fn push_new_element_queue<TH: TypeHolderTrait<TH>>() {
     ScriptThread::<TH>::push_new_element_queue();
 }

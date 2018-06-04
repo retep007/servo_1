@@ -28,7 +28,7 @@ use time;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Event<TH: TypeHolderTrait + 'static> {
+pub struct Event<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     current_target: MutNullableDom<EventTarget<TH>>,
     target: MutNullableDom<EventTarget<TH>>,
@@ -45,7 +45,7 @@ pub struct Event<TH: TypeHolderTrait + 'static> {
     timestamp: u64,
 }
 
-impl<TH: TypeHolderTrait> Event<TH> {
+impl<TH: TypeHolderTrait<TH>> Event<TH> {
     pub fn new_inherited() -> Event<TH> {
         Event {
             reflector_: Reflector::new(),
@@ -222,7 +222,7 @@ impl<TH: TypeHolderTrait> Event<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> EventMethods<TH> for Event<TH> {
+impl<TH: TypeHolderTrait<TH>> EventMethods<TH> for Event<TH> {
     // https://dom.spec.whatwg.org/#dom-event-eventphase
     fn EventPhase(&self) -> u16 {
         self.phase.get() as u16
@@ -382,14 +382,14 @@ pub enum EventStatus {
 }
 
 // https://dom.spec.whatwg.org/#concept-event-fire
-pub struct EventTask<TH: TypeHolderTrait + 'static> {
+pub struct EventTask<TH: TypeHolderTrait<TH> + 'static> {
     pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
     pub bubbles: EventBubbles,
     pub cancelable: EventCancelable,
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for EventTask<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for EventTask<TH> {
     fn run_once(self) {
         let target = self.target.root();
         let bubbles = self.bubbles;
@@ -399,12 +399,12 @@ impl<TH: TypeHolderTrait> TaskOnce for EventTask<TH> {
 }
 
 // https://html.spec.whatwg.org/multipage/#fire-a-simple-event
-pub struct SimpleEventTask<TH: TypeHolderTrait + 'static> {
+pub struct SimpleEventTask<TH: TypeHolderTrait<TH> + 'static> {
     pub target: Trusted<EventTarget<TH>>,
     pub name: Atom,
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for SimpleEventTask<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for SimpleEventTask<TH> {
     fn run_once(self) {
         let target = self.target.root();
         target.fire_event(self.name);
@@ -413,7 +413,7 @@ impl<TH: TypeHolderTrait> TaskOnce for SimpleEventTask<TH> {
 
 // See dispatch_event.
 // https://dom.spec.whatwg.org/#concept-event-dispatch
-fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event<TH>, target: &EventTarget<TH>, event_path: &[&EventTarget<TH>]) {
+fn dispatch_to_listeners<TH: TypeHolderTrait<TH>>(event: &Event<TH>, target: &EventTarget<TH>, event_path: &[&EventTarget<TH>]) {
     assert!(!event.stop_propagation.get());
     assert!(!event.stop_immediate.get());
 
@@ -469,7 +469,7 @@ fn dispatch_to_listeners<TH: TypeHolderTrait>(event: &Event<TH>, target: &EventT
 }
 
 // https://dom.spec.whatwg.org/#concept-event-listener-invoke
-fn invoke<TH: TypeHolderTrait>(window: Option<&Window<TH>>,
+fn invoke<TH: TypeHolderTrait<TH>>(window: Option<&Window<TH>>,
           object: &EventTarget<TH>,
           event: &Event<TH>,
           specific_listener_phase: Option<ListenerPhase>) {
@@ -489,7 +489,7 @@ fn invoke<TH: TypeHolderTrait>(window: Option<&Window<TH>>,
 }
 
 // https://dom.spec.whatwg.org/#concept-event-listener-inner-invoke
-fn inner_invoke<TH: TypeHolderTrait>(window: Option<&Window<TH>>,
+fn inner_invoke<TH: TypeHolderTrait<TH>>(window: Option<&Window<TH>>,
                 object: &EventTarget<TH>,
                 event: &Event<TH>,
                 listeners: &[CompiledEventListener<TH>])

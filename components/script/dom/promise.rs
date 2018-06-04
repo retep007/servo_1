@@ -36,7 +36,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct Promise<TH: TypeHolderTrait + 'static> {
+pub struct Promise<TH: TypeHolderTrait<TH> + 'static> {
     reflector: Reflector<TH>,
     /// Since Promise values are natively reference counted without the knowledge of
     /// the SpiderMonkey GC, an explicit root for the reflector is stored while any
@@ -53,7 +53,7 @@ trait PromiseHelper {
     unsafe fn initialize(&self, cx: *mut JSContext);
 }
 
-impl<TH: TypeHolderTrait> PromiseHelper for Rc<Promise<TH>> {
+impl<TH: TypeHolderTrait<TH>> PromiseHelper for Rc<Promise<TH>> {
     #[allow(unsafe_code)]
     unsafe fn initialize(&self, cx: *mut JSContext) {
         let obj = self.reflector().get_jsobject();
@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> PromiseHelper for Rc<Promise<TH>> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for Promise<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for Promise<TH> {
     #[allow(unsafe_code)]
     fn drop(&mut self) {
         unsafe {
@@ -79,7 +79,7 @@ impl<TH: TypeHolderTrait> Drop for Promise<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Promise<TH> {
+impl<TH: TypeHolderTrait<TH>> Promise<TH> {
     #[allow(unsafe_code)]
     pub fn new(global: &GlobalScope<TH>) -> Rc<Promise<TH>> {
         let cx = global.get_cx();
@@ -252,7 +252,7 @@ enum NativeHandlerTask {
 }
 
 #[allow(unsafe_code)]
-unsafe extern fn native_handler_callback<TH: TypeHolderTrait>(cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
+unsafe extern fn native_handler_callback<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     let args = CallArgs::from_vp(vp, argc);
     rooted!(in(cx) let v = *GetFunctionNativeReserved(args.callee(), SLOT_NATIVEHANDLER));
     assert!(v.get().is_object());

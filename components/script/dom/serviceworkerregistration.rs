@@ -18,7 +18,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ServiceWorkerRegistration<TH: TypeHolderTrait + 'static> {
+pub struct ServiceWorkerRegistration<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     active: Option<Dom<ServiceWorker<TH>>>,
     installing: Option<Dom<ServiceWorker<TH>>>,
@@ -27,7 +27,7 @@ pub struct ServiceWorkerRegistration<TH: TypeHolderTrait + 'static> {
     uninstalling: Cell<bool>
 }
 
-impl<TH: TypeHolderTrait> ServiceWorkerRegistration<TH> {
+impl<TH: TypeHolderTrait<TH>> ServiceWorkerRegistration<TH> {
     fn new_inherited(active_sw: &ServiceWorker<TH>, scope: ServoUrl) -> ServiceWorkerRegistration<TH> {
         ServiceWorkerRegistration {
             eventtarget: EventTarget::new_inherited(),
@@ -103,7 +103,7 @@ pub fn longest_prefix_match(stored_scope: &ServoUrl, potential_match: &ServoUrl)
     stored_scope.path().chars().zip(potential_match.path().chars()).all(|(scope, matched)| scope == matched)
 }
 
-impl<TH: TypeHolderTrait> ServiceWorkerRegistrationMethods<TH> for ServiceWorkerRegistration<TH> {
+impl<TH: TypeHolderTrait<TH>> ServiceWorkerRegistrationMethods<TH> for ServiceWorkerRegistration<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-registration-installing-attribute
     fn GetInstalling(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.installing.as_ref().map(|sw| DomRoot::from_ref(&**sw))

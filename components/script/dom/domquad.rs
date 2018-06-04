@@ -16,7 +16,7 @@ use typeholder::TypeHolderTrait;
 
 // https://drafts.fxtf.org/geometry/#DOMQuad
 #[dom_struct]
-pub struct DOMQuad<TH: TypeHolderTrait + 'static> {
+pub struct DOMQuad<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     p1: Dom<DOMPoint<TH>>,
     p2: Dom<DOMPoint<TH>>,
@@ -24,7 +24,7 @@ pub struct DOMQuad<TH: TypeHolderTrait + 'static> {
     p4: Dom<DOMPoint<TH>>,
 }
 
-impl<TH: TypeHolderTrait> DOMQuad<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMQuad<TH> {
     fn new_inherited(p1: &DOMPoint<TH>,
                      p2: &DOMPoint<TH>,
                      p3: &DOMPoint<TH>,
@@ -79,7 +79,7 @@ impl<TH: TypeHolderTrait> DOMQuad<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DOMQuadMethods<TH> for DOMQuad<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMQuadMethods<TH> for DOMQuad<TH> {
     // https://drafts.fxtf.org/geometry/#dom-domquad-p1
     fn P1(&self) -> DomRoot<DOMPoint<TH>> {
         DomRoot::from_ref(&self.p1)

@@ -19,13 +19,13 @@ use time;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct File<TH: TypeHolderTrait + 'static> {
+pub struct File<TH: TypeHolderTrait<TH> + 'static> {
     blob: Blob<TH>,
     name: DOMString,
     modified: i64,
 }
 
-impl<TH: TypeHolderTrait> File<TH> {
+impl<TH: TypeHolderTrait<TH>> File<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(blob_impl: BlobImpl<TH>, name: DOMString,
                      modified: Option<i64>, type_string: &str) -> File<TH> {
@@ -89,7 +89,7 @@ impl<TH: TypeHolderTrait> File<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FileMethods for File<TH> {
+impl<TH: TypeHolderTrait<TH>> FileMethods for File<TH> {
     // https://w3c.github.io/FileAPI/#dfn-name
     fn Name(&self) -> DOMString {
         self.name.clone()

@@ -28,7 +28,7 @@ enum Message {
     FromConstellation(ServiceWorkerMsg)
 }
 
-pub struct ServiceWorkerManager<TH: TypeHolderTrait + 'static> {
+pub struct ServiceWorkerManager<TH: TypeHolderTrait<TH> + 'static> {
     // map of registered service worker descriptors
     registered_workers: HashMap<ServoUrl, ScopeThings>,
     // map of active service worker descriptors
@@ -41,7 +41,7 @@ pub struct ServiceWorkerManager<TH: TypeHolderTrait + 'static> {
     resource_receiver: Receiver<CustomResponseMediator>
 }
 
-impl<TH: TypeHolderTrait> ServiceWorkerManager<TH> {
+impl<TH: TypeHolderTrait<TH>> ServiceWorkerManager<TH> {
     fn new(own_sender: IpcSender<ServiceWorkerMsg>,
            from_constellation_receiver: Receiver<ServiceWorkerMsg>,
            resource_port: Receiver<CustomResponseMediator>) -> ServiceWorkerManager<TH> {

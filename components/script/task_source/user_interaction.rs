@@ -20,15 +20,15 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[derive(Clone, JSTraceable)]
-pub struct UserInteractionTaskSource<TH: TypeHolderTrait>(pub Sender<MainThreadScriptMsg>, pub PipelineId, pub PhantomData<TH>);
+pub struct UserInteractionTaskSource<TH: TypeHolderTrait<TH>>(pub Sender<MainThreadScriptMsg>, pub PipelineId, pub PhantomData<TH>);
 
-impl<TH: TypeHolderTrait> fmt::Debug for UserInteractionTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> fmt::Debug for UserInteractionTaskSource<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "UserInteractionTaskSource(...)")
     }
 }
 
-impl<TH: TypeHolderTrait> TaskSource<TH> for UserInteractionTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskSource<TH> for UserInteractionTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,
@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> TaskSource<TH> for UserInteractionTaskSource<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> UserInteractionTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> UserInteractionTaskSource<TH> {
     pub fn queue_event(&self,
                        target: &EventTarget<TH>,
                        name: Atom,

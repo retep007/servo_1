@@ -13,12 +13,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct OESElementIndexUint<TH: TypeHolderTrait + 'static> {
+pub struct OESElementIndexUint<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> OESElementIndexUint<TH> {
+impl<TH: TypeHolderTrait<TH>> OESElementIndexUint<TH> {
     fn new_inherited() -> Self {
         Self { 
             reflector_: Reflector::new(),
@@ -27,7 +27,7 @@ impl<TH: TypeHolderTrait> OESElementIndexUint<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebGLExtension<TH> for OESElementIndexUint<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLExtension<TH> for OESElementIndexUint<TH> {
     type Extension = Self;
 
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<Self> {

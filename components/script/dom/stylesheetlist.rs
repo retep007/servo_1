@@ -13,12 +13,12 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct StyleSheetList<TH: TypeHolderTrait + 'static> {
+pub struct StyleSheetList<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     document: Dom<Document<TH>>,
 }
 
-impl<TH: TypeHolderTrait> StyleSheetList<TH> {
+impl<TH: TypeHolderTrait<TH>> StyleSheetList<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(doc: Dom<Document<TH>>) -> StyleSheetList<TH> {
         StyleSheetList {
@@ -34,7 +34,7 @@ impl<TH: TypeHolderTrait> StyleSheetList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> StyleSheetListMethods<TH> for StyleSheetList<TH> {
+impl<TH: TypeHolderTrait<TH>> StyleSheetListMethods<TH> for StyleSheetList<TH> {
     // https://drafts.csswg.org/cssom/#dom-stylesheetlist-length
     fn Length(&self) -> u32 {
        self.document.stylesheet_count() as u32

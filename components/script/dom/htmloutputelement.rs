@@ -20,12 +20,12 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOutputElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLOutputElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLOutputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLOutputElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLOutputElement<TH> {
@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> HTMLOutputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLOutputElementMethods<TH> for HTMLOutputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLOutputElementMethods<TH> for HTMLOutputElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> HTMLOutputElementMethods<TH> for HTMLOutputElement<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLOutputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLOutputElement<TH> {
     fn super_type<'b>(&'b self) -> Option<&'b VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -80,7 +80,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLOutputElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl<TH> for HTMLOutputElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControl<TH> for HTMLOutputElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }

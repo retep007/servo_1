@@ -30,7 +30,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct HTMLTableElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLTableElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     border: Cell<Option<u32>>,
     cellspacing: Cell<Option<u32>>,
@@ -39,11 +39,11 @@ pub struct HTMLTableElement<TH: TypeHolderTrait + 'static> {
 
 #[allow(unrooted_must_root)]
 #[derive(JSTraceable, MallocSizeOf)]
-struct TableRowFilter<TH: TypeHolderTrait + 'static> {
+struct TableRowFilter<TH: TypeHolderTrait<TH> + 'static> {
     sections: Vec<Dom<Node<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> CollectionFilter<TH> for TableRowFilter<TH> {
+impl<TH: TypeHolderTrait<TH>> CollectionFilter<TH> for TableRowFilter<TH> {
     fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
         elem.is::<HTMLTableRowElement<TH>>() &&
             (root.is_parent_of(elem.upcast())
@@ -51,7 +51,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for TableRowFilter<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>)
                      -> HTMLTableElement<TH> {
         HTMLTableElement {
@@ -149,7 +149,7 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-rows
     fn Rows(&self) -> DomRoot<HTMLCollection<TH>> {
         let filter = self.get_rows();
@@ -255,8 +255,8 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-table-tbodies
     fn TBodies(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable)]
-        struct TBodiesFilter<THH: TypeHolderTrait>(PhantomData<THH>);
-        impl<THH: TypeHolderTrait> CollectionFilter<THH> for TBodiesFilter<THH> {
+        struct TBodiesFilter<THH: TypeHolderTrait<THH>>(PhantomData<THH>);
+        impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for TBodiesFilter<THH> {
             fn filter(&self, elem: &Element<THH>, root: &Node<THH>) -> bool {
                 elem.is::<HTMLTableSectionElement<THH>>() &&
                     elem.local_name() == &local_name!("tbody") &&
@@ -381,7 +381,7 @@ pub trait HTMLTableElementLayoutHelpers {
     fn get_width(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl<TH: TypeHolderTrait> HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableElement<TH>> {
     #[allow(unsafe_code)]
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
@@ -418,7 +418,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementLayoutHelpers for LayoutDom<HTMLTableE
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTableElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLTableElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

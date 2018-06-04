@@ -14,11 +14,11 @@ use script_traits::ProgressiveWebMetricType;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PerformancePaintTiming<TH: TypeHolderTrait + 'static> {
+pub struct PerformancePaintTiming<TH: TypeHolderTrait<TH> + 'static> {
     entry: PerformanceEntry<TH>,
 }
 
-impl<TH: TypeHolderTrait> PerformancePaintTiming<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformancePaintTiming<TH> {
     fn new_inherited(metric_type: ProgressiveWebMetricType, start_time: u64) -> PerformancePaintTiming<TH> {
         let name = match metric_type {
             ProgressiveWebMetricType::FirstPaint => DOMString::from("first-paint"),

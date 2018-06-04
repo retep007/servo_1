@@ -15,12 +15,12 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PerformanceObserverEntryList<TH: TypeHolderTrait + 'static> {
+pub struct PerformanceObserverEntryList<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     entries: DomRefCell<PerformanceEntryList<TH>>,
 }
 
-impl<TH: TypeHolderTrait> PerformanceObserverEntryList<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceObserverEntryList<TH> {
     fn new_inherited(entries: PerformanceEntryList<TH>) -> PerformanceObserverEntryList<TH> {
         PerformanceObserverEntryList {
             reflector_: Reflector::new(),
@@ -36,7 +36,7 @@ impl<TH: TypeHolderTrait> PerformanceObserverEntryList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PerformanceObserverEntryListMethods<TH> for PerformanceObserverEntryList<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceObserverEntryListMethods<TH> for PerformanceObserverEntryList<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver
     fn GetEntries(&self) -> Vec<DomRoot<PerformanceEntry<TH>>> {
         self.entries.borrow().get_entries_by_name_and_type(None, None)

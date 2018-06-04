@@ -13,11 +13,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLDivElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLDivElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLDivElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLDivElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLDivElement<TH> {
@@ -36,7 +36,7 @@ impl<TH: TypeHolderTrait> HTMLDivElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLDivElementMethods for HTMLDivElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLDivElementMethods for HTMLDivElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-div-align
     make_getter!(Align, "align");
 

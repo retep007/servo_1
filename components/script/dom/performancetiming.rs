@@ -13,14 +13,14 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct PerformanceTiming<TH: TypeHolderTrait + 'static> {
+pub struct PerformanceTiming<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     navigation_start: u64,
     navigation_start_precise: u64,
     document: Dom<Document<TH>>,
 }
 
-impl<TH: TypeHolderTrait> PerformanceTiming<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceTiming<TH> {
     fn new_inherited(nav_start: u64,
                      nav_start_precise: u64,
                      document: &Document<TH>)
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> PerformanceTiming<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PerformanceTimingMethods for PerformanceTiming<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceTimingMethods for PerformanceTiming<TH> {
     // https://w3c.github.io/navigation-timing/#widl-PerformanceTiming-navigationStart
     fn NavigationStart(&self) -> u64 {
         self.navigation_start
@@ -96,7 +96,7 @@ impl<TH: TypeHolderTrait> PerformanceTimingMethods for PerformanceTiming<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> PerformanceTiming<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceTiming<TH> {
     pub fn navigation_start_precise(&self) -> u64 {
         self.navigation_start_precise
     }

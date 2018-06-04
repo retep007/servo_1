@@ -26,7 +26,7 @@ use typeholder::TypeHolderTrait;
 pub type TrustedServiceWorkerAddress<TH> = Trusted<ServiceWorker<TH>>;
 
 #[dom_struct]
-pub struct ServiceWorker<TH: TypeHolderTrait + 'static> {
+pub struct ServiceWorker<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     script_url: DomRefCell<String>,
     scope_url: ServoUrl,
@@ -34,7 +34,7 @@ pub struct ServiceWorker<TH: TypeHolderTrait + 'static> {
     skip_waiting: Cell<bool>
 }
 
-impl<TH: TypeHolderTrait> ServiceWorker<TH> {
+impl<TH: TypeHolderTrait<TH>> ServiceWorker<TH> {
     fn new_inherited(script_url: &str,
                      skip_waiting: bool,
                      scope_url: ServoUrl) -> ServiceWorker<TH> {
@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> ServiceWorker<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ServiceWorkerMethods<TH> for ServiceWorker<TH> {
+impl<TH: TypeHolderTrait<TH>> ServiceWorkerMethods<TH> for ServiceWorker<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-state-attribute
     fn State(&self) -> ServiceWorkerState {
         self.state.get()
@@ -110,7 +110,7 @@ impl<TH: TypeHolderTrait> ServiceWorkerMethods<TH> for ServiceWorker<TH> {
     event_handler!(statechange, GetOnstatechange, SetOnstatechange);
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for SimpleWorkerErrorHandler<ServiceWorker<TH>> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for SimpleWorkerErrorHandler<ServiceWorker<TH>> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         ServiceWorker::dispatch_simple_error(self.addr);

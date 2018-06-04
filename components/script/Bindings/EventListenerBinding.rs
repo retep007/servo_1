@@ -254,11 +254,11 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct EventListener<TH: TypeHolderTrait + 'static> {
+pub struct EventListener<TH: TypeHolderTrait<TH> + 'static> {
     pub parent: CallbackInterface<TH>,
 }
 
-impl<TH: TypeHolderTrait> EventListener<TH> {
+impl<TH: TypeHolderTrait<TH>> EventListener<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<EventListener<TH>> {
         let mut ret = Rc::new(EventListener {
             parent: CallbackInterface::new()
@@ -325,7 +325,7 @@ impl<TH: TypeHolderTrait> EventListener<TH> {
 
     }
 }
-impl<TH: TypeHolderTrait> CallbackContainer<TH> for EventListener<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackContainer<TH> for EventListener<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<EventListener<TH>> {
         EventListener::new(cx, callback)
     }
@@ -335,7 +335,7 @@ impl<TH: TypeHolderTrait> CallbackContainer<TH> for EventListener<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for EventListener<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for EventListener<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

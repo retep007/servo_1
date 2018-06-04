@@ -58,7 +58,7 @@ pub trait StylesheetOwner {
     fn set_origin_clean(&self, origin_clean: bool);
 }
 
-pub enum StylesheetContextSource<TH: TypeHolderTrait + 'static> {
+pub enum StylesheetContextSource<TH: TypeHolderTrait<TH> + 'static> {
     // NB: `media` is just an option so we avoid cloning it.
     LinkElement { media: Option<MediaList>, },
     Import(Arc<Stylesheet>),
@@ -66,7 +66,7 @@ pub enum StylesheetContextSource<TH: TypeHolderTrait + 'static> {
 }
 
 /// The context required for asynchronously loading an external stylesheet.
-pub struct StylesheetContext<TH: TypeHolderTrait + 'static> {
+pub struct StylesheetContext<TH: TypeHolderTrait<TH> + 'static> {
     /// The element that initiated the request.
     elem: Trusted<HTMLElement<TH>>,
     source: StylesheetContextSource<TH>,
@@ -82,9 +82,9 @@ pub struct StylesheetContext<TH: TypeHolderTrait + 'static> {
     request_generation_id: Option<RequestGenerationId>,
 }
 
-impl<TH: TypeHolderTrait> PreInvoke for StylesheetContext<TH> {}
+impl<TH: TypeHolderTrait<TH>> PreInvoke for StylesheetContext<TH> {}
 
-impl<TH: TypeHolderTrait> FetchResponseListener for StylesheetContext<TH> {
+impl<TH: TypeHolderTrait<TH>> FetchResponseListener for StylesheetContext<TH> {
     fn process_request_body(&mut self) {}
 
     fn process_request_eof(&mut self) {}
@@ -197,11 +197,11 @@ impl<TH: TypeHolderTrait> FetchResponseListener for StylesheetContext<TH> {
     }
 }
 
-pub struct StylesheetLoader<'a, TH: TypeHolderTrait + 'static> {
+pub struct StylesheetLoader<'a, TH: TypeHolderTrait<TH> + 'static> {
     elem: &'a HTMLElement<TH>,
 }
 
-impl<'a, TH: TypeHolderTrait> StylesheetLoader<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> StylesheetLoader<'a, TH> {
     pub fn for_element(element: &'a HTMLElement<TH>) -> Self {
         StylesheetLoader {
             elem: element,
@@ -209,7 +209,7 @@ impl<'a, TH: TypeHolderTrait> StylesheetLoader<'a, TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> StylesheetLoader<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> StylesheetLoader<'a, TH> {
     pub fn load(&self, source: StylesheetContextSource<TH>, url: ServoUrl,
                 cors_setting: Option<CorsSettings>,
                 integrity_metadata: String) {
@@ -274,7 +274,7 @@ impl<'a, TH: TypeHolderTrait> StylesheetLoader<'a, TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> StyleStylesheetLoader for StylesheetLoader<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> StyleStylesheetLoader for StylesheetLoader<'a, TH> {
     /// Request a stylesheet after parsing a given `@import` rule, and return
     /// the constructed `@import` rule.
     fn request_stylesheet(

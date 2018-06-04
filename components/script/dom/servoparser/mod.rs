@@ -64,7 +64,7 @@ mod async_html;
 mod html;
 mod xml;
 
-pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TypeHolder=TH> + MutDomObject + MallocSizeOf + JSTraceable + IDLInterface + 'static {
+pub trait ServoParser<TH: TypeHolderTrait<TH>>: DomObject<TypeHolder=TH> + MutDomObject + MallocSizeOf + JSTraceable + IDLInterface + 'static {
 
     fn parser_is_not_active(&self) -> bool;
 
@@ -150,13 +150,13 @@ impl ElementAttribute {
     }
 }
 
-struct FragmentParsingResult<I, TH: TypeHolderTrait + 'static>
+struct FragmentParsingResult<I, TH: TypeHolderTrait<TH> + 'static>
     where I: Iterator<Item=DomRoot<Node<TH>>>
 {
     inner: I,
 }
 
-impl<I, TH: TypeHolderTrait + 'static> Iterator for FragmentParsingResult<I, TH>
+impl<I, TH: TypeHolderTrait<TH> + 'static> Iterator for FragmentParsingResult<I, TH>
     where I: Iterator<Item=DomRoot<Node<TH>>>
 {
     type Item = DomRoot<Node<TH>>;
@@ -180,13 +180,13 @@ enum ParserKind {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-enum Tokenizer<TH: TypeHolderTrait + 'static> {
+enum Tokenizer<TH: TypeHolderTrait<TH> + 'static> {
     Html(self::html::Tokenizer<TH>),
     AsyncHtml(self::async_html::Tokenizer<TH>),
     Xml(self::xml::Tokenizer<TH>),
 }
 
-impl<TH: TypeHolderTrait + 'static> Tokenizer<TH> {
+impl<TH: TypeHolderTrait<TH> + 'static> Tokenizer<TH> {
     fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         match *self {
             Tokenizer::Html(ref mut tokenizer) => tokenizer.feed(input),
@@ -231,7 +231,7 @@ impl<TH: TypeHolderTrait + 'static> Tokenizer<TH> {
 /// The context required for asynchronously fetching a document
 /// and parsing it progressively.
 #[derive(JSTraceable)]
-pub struct ParserContext<TH: TypeHolderTrait + 'static> {
+pub struct ParserContext<TH: TypeHolderTrait<TH> + 'static> {
     /// The parser that initiated the request.
     parser: Option<Trusted<TH::ServoParser>>,
     /// Is this a synthesized document
@@ -242,7 +242,7 @@ pub struct ParserContext<TH: TypeHolderTrait + 'static> {
     url: ServoUrl,
 }
 
-impl<TH: TypeHolderTrait> ParserContext<TH> {
+impl<TH: TypeHolderTrait<TH>> ParserContext<TH> {
     pub fn new(id: PipelineId, url: ServoUrl) -> ParserContext<TH> {
         ParserContext {
             parser: None,
@@ -253,7 +253,7 @@ impl<TH: TypeHolderTrait> ParserContext<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
+impl<TH: TypeHolderTrait<TH>> FetchResponseListener for ParserContext<TH> {
     fn process_request_body(&mut self) {}
 
     fn process_request_eof(&mut self) {}
@@ -388,15 +388,15 @@ impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PreInvoke for ParserContext<TH> {}
+impl<TH: TypeHolderTrait<TH>> PreInvoke for ParserContext<TH> {}
 
-pub struct FragmentContext<'a, TH: TypeHolderTrait + 'static> {
+pub struct FragmentContext<'a, TH: TypeHolderTrait<TH> + 'static> {
     pub context_elem: &'a Node<TH>,
     pub form_elem: Option<&'a Node<TH>>,
 }
 
 #[allow(unrooted_must_root)]
-fn insert<TH: TypeHolderTrait>(parent: &Node<TH>, reference_child: Option<&Node<TH>>, child: NodeOrText<Dom<Node<TH>>>) {
+fn insert<TH: TypeHolderTrait<TH>>(parent: &Node<TH>, reference_child: Option<&Node<TH>>, child: NodeOrText<Dom<Node<TH>>>) {
     match child {
         NodeOrText::AppendNode(n) => {
             parent.InsertBefore(&n, reference_child).unwrap();
@@ -419,7 +419,7 @@ fn insert<TH: TypeHolderTrait>(parent: &Node<TH>, reference_child: Option<&Node<
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Sink<TH: TypeHolderTrait + 'static> {
+pub struct Sink<TH: TypeHolderTrait<TH> + 'static> {
     base_url: ServoUrl,
     document: Dom<Document<TH>>,
     current_line: u64,
@@ -427,7 +427,7 @@ pub struct Sink<TH: TypeHolderTrait + 'static> {
     parsing_algorithm: ParsingAlgorithm,
 }
 
-impl<TH: TypeHolderTrait> Sink<TH> {
+impl<TH: TypeHolderTrait<TH>> Sink<TH> {
     fn same_tree(&self, x: &Dom<Node<TH>>, y: &Dom<Node<TH>>) -> bool {
         let x = x.downcast::<Element<TH>>().expect("Element node expected");
         let y = y.downcast::<Element<TH>>().expect("Element node expected");
@@ -441,7 +441,7 @@ impl<TH: TypeHolderTrait> Sink<TH> {
 }
 
 #[allow(unrooted_must_root)]  // FIXME: really?
-impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
+impl<TH: TypeHolderTrait<TH>> TreeSink for Sink<TH> {
     type Output = Self;
     fn finish(self) -> Self { self }
 
@@ -626,7 +626,7 @@ impl<TH: TypeHolderTrait> TreeSink for Sink<TH> {
 }
 
 /// https://html.spec.whatwg.org/multipage/#create-an-element-for-the-token
-fn create_element_for_token<TH: TypeHolderTrait>(
+fn create_element_for_token<TH: TypeHolderTrait<TH>>(
     name: QualName,
     attrs: Vec<ElementAttribute>,
     document: &Document<TH>,

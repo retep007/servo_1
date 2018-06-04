@@ -14,7 +14,7 @@ use std::marker::PhantomData;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#characteristicproperties
  #[dom_struct]
-pub struct BluetoothCharacteristicProperties<TH: TypeHolderTrait + 'static> {
+pub struct BluetoothCharacteristicProperties<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     broadcast: bool,
     read: bool,
@@ -28,7 +28,7 @@ pub struct BluetoothCharacteristicProperties<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> BluetoothCharacteristicProperties<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothCharacteristicProperties<TH> {
     pub fn new_inherited(broadcast: bool,
                          read: bool,
                          write_without_response: bool,
@@ -83,7 +83,7 @@ impl<TH: TypeHolderTrait> BluetoothCharacteristicProperties<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BluetoothCharacteristicPropertiesMethods for BluetoothCharacteristicProperties<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothCharacteristicPropertiesMethods for BluetoothCharacteristicProperties<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothcharacteristicproperties-broadcast
     fn Broadcast(&self) -> bool {
         self.broadcast

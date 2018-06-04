@@ -15,7 +15,7 @@ use script_layout_interface::message::ReflowGoal;
 use typeholder::TypeHolderTrait;
 
 /// Trait for elements with defined activation behavior
-pub trait Activatable<TH: TypeHolderTrait> {
+pub trait Activatable<TH: TypeHolderTrait<TH>> {
     fn as_element(&self) -> &Element<TH>;
 
     // Is this particular instance of the element activatable?
@@ -57,7 +57,7 @@ pub enum ActivationSource {
 }
 
 // https://html.spec.whatwg.org/multipage/#run-synthetic-click-activation-steps
-pub fn synthetic_click_activation<TH: TypeHolderTrait>(element: &Element<TH>,
+pub fn synthetic_click_activation<TH: TypeHolderTrait<TH>>(element: &Element<TH>,
                                   ctrl_key: bool,
                                   shift_key: bool,
                                   alt_key: bool,

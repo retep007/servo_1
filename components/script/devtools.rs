@@ -34,7 +34,7 @@ use uuid::Uuid;
 use typeholder::TypeHolderTrait;
 
 #[allow(unsafe_code)]
-pub fn handle_evaluate_js<TH: TypeHolderTrait>(global: &GlobalScope<TH>, eval: String, reply: IpcSender<EvaluateJSReply>) {
+pub fn handle_evaluate_js<TH: TypeHolderTrait<TH>>(global: &GlobalScope<TH>, eval: String, reply: IpcSender<EvaluateJSReply>) {
     // global.get_cx() returns a valid `JSContext` pointer, so this is safe.
     let result = unsafe {
         let cx = global.get_cx();
@@ -73,13 +73,13 @@ pub fn handle_evaluate_js<TH: TypeHolderTrait>(global: &GlobalScope<TH>, eval: S
     reply.send(result).unwrap();
 }
 
-pub fn handle_get_root_node<TH: TypeHolderTrait>(documents: &Documents<TH>, pipeline: PipelineId, reply: IpcSender<Option<NodeInfo>>) {
+pub fn handle_get_root_node<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>, pipeline: PipelineId, reply: IpcSender<Option<NodeInfo>>) {
     let info = documents.find_document(pipeline)
         .map(|document| document.upcast::<Node<TH>>().summarize());
     reply.send(info).unwrap();
 }
 
-pub fn handle_get_document_element<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_document_element<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                                    pipeline: PipelineId,
                                    reply: IpcSender<Option<NodeInfo>>) {
     let info = documents.find_document(pipeline)
@@ -88,7 +88,7 @@ pub fn handle_get_document_element<TH: TypeHolderTrait>(documents: &Documents<TH
     reply.send(info).unwrap();
 }
 
-fn find_node_by_unique_id<TH: TypeHolderTrait>(documents: &Documents<TH>,
+fn find_node_by_unique_id<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                           pipeline: PipelineId,
                           node_id: &str)
                           -> Option<DomRoot<Node<TH>>> {
@@ -97,7 +97,7 @@ fn find_node_by_unique_id<TH: TypeHolderTrait>(documents: &Documents<TH>,
     )
 }
 
-pub fn handle_get_children<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_children<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                            pipeline: PipelineId,
                            node_id: String,
                            reply: IpcSender<Option<Vec<NodeInfo>>>) {
@@ -113,7 +113,7 @@ pub fn handle_get_children<TH: TypeHolderTrait>(documents: &Documents<TH>,
     };
 }
 
-pub fn handle_get_layout<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_layout<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                          pipeline: PipelineId,
                          node_id: String,
                          reply: IpcSender<Option<ComputedNodeLayout>>) {
@@ -154,7 +154,7 @@ pub fn handle_get_layout<TH: TypeHolderTrait>(documents: &Documents<TH>,
     })).unwrap();
 }
 
-fn determine_auto_margins<TH: TypeHolderTrait>(window: &Window<TH>, node: &Node<TH>) -> AutoMargins {
+fn determine_auto_margins<TH: TypeHolderTrait<TH>>(window: &Window<TH>, node: &Node<TH>) -> AutoMargins {
     let style = window.style_query(node.to_trusted_node_address()).unwrap();
     let margin = style.get_margin();
     AutoMargins {
@@ -207,7 +207,7 @@ pub fn handle_get_cached_messages(_pipeline_id: PipelineId,
     reply.send(messages).unwrap();
 }
 
-pub fn handle_modify_attribute<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_modify_attribute<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                                pipeline: PipelineId,
                                node_id: String,
                                modifications: Vec<Modification>) {
@@ -229,11 +229,11 @@ pub fn handle_modify_attribute<TH: TypeHolderTrait>(documents: &Documents<TH>,
     }
 }
 
-pub fn handle_wants_live_notifications<TH: TypeHolderTrait>(global: &GlobalScope<TH>, send_notifications: bool) {
+pub fn handle_wants_live_notifications<TH: TypeHolderTrait<TH>>(global: &GlobalScope<TH>, send_notifications: bool) {
     global.set_devtools_wants_updates(send_notifications);
 }
 
-pub fn handle_set_timeline_markers<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_set_timeline_markers<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                                    pipeline: PipelineId,
                                    marker_types: Vec<TimelineMarkerType>,
                                    reply: IpcSender<Option<TimelineMarker>>) {
@@ -243,7 +243,7 @@ pub fn handle_set_timeline_markers<TH: TypeHolderTrait>(documents: &Documents<TH
     }
 }
 
-pub fn handle_drop_timeline_markers<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_drop_timeline_markers<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                                     pipeline: PipelineId,
                                     marker_types: Vec<TimelineMarkerType>) {
     if let Some(window) = documents.find_window(pipeline) {
@@ -251,7 +251,7 @@ pub fn handle_drop_timeline_markers<TH: TypeHolderTrait>(documents: &Documents<T
     }
 }
 
-pub fn handle_request_animation_frame<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_request_animation_frame<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                                       id: PipelineId,
                                       actor_name: String) {
     if let Some(doc) = documents.find_document(id) {
@@ -259,7 +259,7 @@ pub fn handle_request_animation_frame<TH: TypeHolderTrait>(documents: &Documents
     }
 }
 
-pub fn handle_reload<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_reload<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                      id: PipelineId) {
     if let Some(win) = documents.find_window(id) {
         win.Location().reload_without_origin_check();

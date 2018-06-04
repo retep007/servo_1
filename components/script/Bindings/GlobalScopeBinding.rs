@@ -505,14 +505,14 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-impl<TH: TypeHolderTrait> IDLInterface for GlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for GlobalScope<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class.interface_chain[1] == PrototypeList::ID::GlobalScope
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for GlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for GlobalScope<TH> {
     fn eq(&self, other: &GlobalScope<TH>) -> bool {
         self as *const GlobalScope<TH> == &*other
     }

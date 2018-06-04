@@ -14,12 +14,12 @@ use typeholder::TypeHolderTrait;
 
 // https://www.w3.org/TR/gamepad/
 #[dom_struct]
-pub struct GamepadList<TH: TypeHolderTrait + 'static> {
+pub struct GamepadList<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     list: DomRefCell<Vec<Dom<Gamepad<TH>>>>
 }
 
-impl<TH: TypeHolderTrait> GamepadList<TH> {
+impl<TH: TypeHolderTrait<TH>> GamepadList<TH> {
     fn new_inherited(list: &[&Gamepad<TH>]) -> GamepadList<TH> {
         GamepadList {
             reflector_: Reflector::new(),
@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> GamepadList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> GamepadListMethods<TH> for GamepadList<TH> {
+impl<TH: TypeHolderTrait<TH>> GamepadListMethods<TH> for GamepadList<TH> {
     // https://w3c.github.io/gamepad/#dom-navigator-getgamepads
     fn Length(&self) -> u32 {
         self.list.borrow().len() as u32

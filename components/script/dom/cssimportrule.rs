@@ -16,13 +16,13 @@ use style::stylesheets::ImportRule;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSImportRule<TH: TypeHolderTrait + 'static> {
+pub struct CSSImportRule<TH: TypeHolderTrait<TH> + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     import_rule: Arc<Locked<ImportRule>>,
 }
 
-impl<TH: TypeHolderTrait> CSSImportRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSImportRule<TH> {
     fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
                      import_rule: Arc<Locked<ImportRule>>)
                      -> Self {
@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> CSSImportRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> SpecificCSSRule for CSSImportRule<TH> {
+impl<TH: TypeHolderTrait<TH>> SpecificCSSRule for CSSImportRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::IMPORT_RULE

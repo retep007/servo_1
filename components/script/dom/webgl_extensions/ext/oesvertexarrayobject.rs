@@ -18,13 +18,13 @@ use super::{WebGLExtension, WebGLExtensions, WebGLExtensionSpec};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct OESVertexArrayObject<TH: TypeHolderTrait + 'static> {
+pub struct OESVertexArrayObject<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     ctx: Dom<WebGLRenderingContext<TH>>,
     bound_vao: MutNullableDom<WebGLVertexArrayObjectOES<TH>>,
 }
 
-impl<TH: TypeHolderTrait> OESVertexArrayObject<TH> {
+impl<TH: TypeHolderTrait<TH>> OESVertexArrayObject<TH> {
     fn new_inherited(ctx: &WebGLRenderingContext<TH>) -> OESVertexArrayObject<TH> {
         Self {
             reflector_: Reflector::new(),
@@ -45,7 +45,7 @@ impl<TH: TypeHolderTrait> OESVertexArrayObject<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> OESVertexArrayObjectMethods<TH> for OESVertexArrayObject<TH> {
+impl<TH: TypeHolderTrait<TH>> OESVertexArrayObjectMethods<TH> for OESVertexArrayObject<TH> {
     // https://www.khronos.org/registry/webgl/extensions/OES_vertex_array_object/
     fn CreateVertexArrayOES(&self) -> Option<DomRoot<WebGLVertexArrayObjectOES<TH>>> {
         let (sender, receiver) = webgl_channel().unwrap();
@@ -131,7 +131,7 @@ impl<TH: TypeHolderTrait> OESVertexArrayObjectMethods<TH> for OESVertexArrayObje
     }
 }
 
-impl<TH: TypeHolderTrait> WebGLExtension<TH> for OESVertexArrayObject<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLExtension<TH> for OESVertexArrayObject<TH> {
     type Extension = OESVertexArrayObject<TH>;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESVertexArrayObject<TH>> {
         reflect_dom_object(Box::new(OESVertexArrayObject::new_inherited(ctx)),

@@ -14,11 +14,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFrameSetElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLFrameSetElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLFrameSetElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFrameSetElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLFrameSetElement<TH> {
@@ -38,7 +38,7 @@ impl<TH: TypeHolderTrait> HTMLFrameSetElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLFrameSetElementMethods<TH> for HTMLFrameSetElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFrameSetElementMethods<TH> for HTMLFrameSetElement<TH> {
     // https://html.spec.whatwg.org/multipage/#windoweventhandlers
     window_event_handlers!(ForwardToWindow);
 }

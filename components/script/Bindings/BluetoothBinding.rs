@@ -876,7 +876,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn getAvailability<TH: TypeHolderTrait>
+unsafe extern fn getAvailability<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Bluetooth<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -890,7 +890,7 @@ unsafe extern fn getAvailability<TH: TypeHolderTrait>
 }
 
 
-fn getAvailability_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo {
+fn getAvailability_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo {
     JSJitInfo {
     call: getAvailability::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Bluetooth as u16,
@@ -909,7 +909,7 @@ fn getAvailability_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onavailabilitychanged<TH: TypeHolderTrait>
+unsafe extern fn get_onavailabilitychanged<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Bluetooth<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -920,7 +920,7 @@ unsafe extern fn get_onavailabilitychanged<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onavailabilitychanged<TH: TypeHolderTrait>
+unsafe extern fn set_onavailabilitychanged<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const Bluetooth<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -936,7 +936,7 @@ unsafe extern fn set_onavailabilitychanged<TH: TypeHolderTrait>
 }
 
 
-fn onavailabilitychanged_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo {
+fn onavailabilitychanged_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo {
     JSJitInfo {
     call: get_onavailabilitychanged::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Bluetooth as u16,
@@ -955,7 +955,7 @@ fn onavailabilitychanged_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo {
     ),
 }}
 
-fn onavailabilitychanged_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onavailabilitychanged_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onavailabilitychanged::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Bluetooth as u16,
     depth: 1,
@@ -973,7 +973,7 @@ fn onavailabilitychanged_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn requestDevice<TH: TypeHolderTrait>
+unsafe extern fn requestDevice<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Bluetooth<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1001,7 +1001,7 @@ unsafe extern fn requestDevice<TH: TypeHolderTrait>
 }
 
 
-fn requestDevice_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn requestDevice_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: requestDevice::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Bluetooth as u16,
     depth: 1,
@@ -1019,7 +1019,7 @@ fn requestDevice_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1032,7 +1032,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1042,7 +1042,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -1057,7 +1057,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"Bluetooth\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -1075,11 +1075,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<Bluetooth<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<Bluetooth<TH>>) -> DomRoot<Bluetooth<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -1105,26 +1105,26 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for Bluetooth<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for Bluetooth<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for Bluetooth<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for Bluetooth<TH> {
     fn eq(&self, other: &Bluetooth<TH>) -> bool {
         self as *const Bluetooth<TH> == &*other
     }
 }
 
-pub trait BluetoothMethods<TH: TypeHolderTrait> {
+pub trait BluetoothMethods<TH: TypeHolderTrait<TH>> {
     fn GetAvailability(&self) -> Rc<Promise<TH>>;
     fn GetOnavailabilitychanged(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnavailabilitychanged(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
     fn RequestDevice(&self, options: &dom::bindings::codegen::Bindings::BluetoothBinding::RequestDeviceOptions) -> Rc<Promise<TH>>;
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getAvailability\0" as *const u8 as *const libc::c_char,
@@ -1149,10 +1149,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"onavailabilitychanged\0" as *const u8 as *const libc::c_char,
@@ -1168,11 +1168,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1207,7 +1207,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::Bluetooth,
         1);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -1220,13 +1220,13 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW) &&
     PREFS.get("dom.bluetooth.enabled").as_boolean().unwrap_or(false)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     EventTargetBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

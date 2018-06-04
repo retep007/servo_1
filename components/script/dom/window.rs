@@ -155,7 +155,7 @@ pub enum ReflowReason {
 }
 
 #[dom_struct]
-pub struct Window<TH: TypeHolderTrait + 'static> {
+pub struct Window<TH: TypeHolderTrait<TH> + 'static> {
     globalscope: GlobalScope<TH>,
     #[ignore_malloc_size_of = "trait objects are hard"]
     script_chan: MainThreadScriptChan,
@@ -293,7 +293,7 @@ pub struct Window<TH: TypeHolderTrait + 'static> {
     exists_mut_observer: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> Window<TH> {
+impl<TH: TypeHolderTrait<TH>> Window<TH> {
     pub fn get_exists_mut_observer(&self) -> bool {
         self.exists_mut_observer.get()
     }
@@ -458,7 +458,7 @@ fn display_alert_dialog(_message: &str) {
 }
 
 // https://html.spec.whatwg.org/multipage/#atob
-pub fn base64_btoa<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString, TH> {
+pub fn base64_btoa<TH: TypeHolderTrait<TH>>(input: DOMString) -> Fallible<DOMString, TH> {
     // "The btoa() method must throw an InvalidCharacterError exception if
     //  the method's first argument contains any character whose code point
     //  is greater than U+00FF."
@@ -478,7 +478,7 @@ pub fn base64_btoa<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString,
 }
 
 // https://html.spec.whatwg.org/multipage/#atob
-pub fn base64_atob<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString, TH> {
+pub fn base64_atob<TH: TypeHolderTrait<TH>>(input: DOMString) -> Fallible<DOMString, TH> {
     // "Remove all space characters from input."
     fn is_html_space(c: char) -> bool {
         HTML_SPACE_CHARACTERS.iter().any(|&m| m == c)
@@ -522,7 +522,7 @@ pub fn base64_atob<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString,
     }
 }
 
-impl<TH: TypeHolderTrait> WindowMethods<TH> for Window<TH> {
+impl<TH: TypeHolderTrait<TH>> WindowMethods<TH> for Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-alert
     fn Alert_(&self) {
         self.Alert(DOMString::new());
@@ -1046,7 +1046,7 @@ impl<TH: TypeHolderTrait> WindowMethods<TH> for Window<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Window<TH> {
+impl<TH: TypeHolderTrait<TH>> Window<TH> {
     // https://drafts.css-houdini.org/css-paint-api-1/#paint-worklet
     pub fn paint_worklet(&self) -> DomRoot<Worklet<TH>> {
         self.paint_worklet.or_init(|| self.new_paint_worklet())
@@ -1745,7 +1745,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Window<TH> {
+impl<TH: TypeHolderTrait<TH>> Window<TH> {
     #[allow(unsafe_code)]
     pub fn new(
         runtime: Rc<Runtime>,
@@ -1930,7 +1930,7 @@ fn debug_reflow_events(id: PipelineId, reflow_goal: &ReflowGoal, reason: &Reflow
     println!("{}", debug_msg);
 }
 
-impl<TH: TypeHolderTrait> Window<TH> {
+impl<TH: TypeHolderTrait<TH>> Window<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-window-postmessage step 7.
     pub fn post_message(
         &self,

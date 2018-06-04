@@ -46,7 +46,7 @@ use typeholder::TypeHolderTrait;
 use dom::servoparser::ServoParser;
 
 #[dom_struct]
-pub struct HTMLScriptElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLScriptElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#already-started>
@@ -67,7 +67,7 @@ pub struct HTMLScriptElement<TH: TypeHolderTrait + 'static> {
     line_number: u64,
 }
 
-impl<TH: TypeHolderTrait> HTMLScriptElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLScriptElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>,
                      creator: ElementCreator) -> HTMLScriptElement<TH> {
         HTMLScriptElement {
@@ -140,7 +140,7 @@ impl ClassicScript {
 pub type ScriptResult = Result<ClassicScript, NetworkError>;
 
 /// The context required for asynchronously loading an external script source.
-struct ScriptContext<TH: TypeHolderTrait + 'static> {
+struct ScriptContext<TH: TypeHolderTrait<TH> + 'static> {
     /// The element that initiated the request.
     elem: Trusted<HTMLScriptElement<TH>>,
     /// The kind of external script.
@@ -158,7 +158,7 @@ struct ScriptContext<TH: TypeHolderTrait + 'static> {
     status: Result<(), NetworkError>
 }
 
-impl<TH: TypeHolderTrait> FetchResponseListener for ScriptContext<TH> {
+impl<TH: TypeHolderTrait<TH>> FetchResponseListener for ScriptContext<TH> {
     fn process_request_body(&mut self) {} // TODO(KiChjang): Perhaps add custom steps to perform fetch here?
 
     fn process_request_eof(&mut self) {} // TODO(KiChjang): Perhaps add custom steps to perform fetch here?
@@ -224,10 +224,10 @@ impl<TH: TypeHolderTrait> FetchResponseListener for ScriptContext<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PreInvoke for ScriptContext<TH> {}
+impl<TH: TypeHolderTrait<TH>> PreInvoke for ScriptContext<TH> {}
 
 /// <https://html.spec.whatwg.org/multipage/#fetch-a-classic-script>
-fn fetch_a_classic_script<TH: TypeHolderTrait>(script: &HTMLScriptElement<TH>,
+fn fetch_a_classic_script<TH: TypeHolderTrait<TH>>(script: &HTMLScriptElement<TH>,
                           kind: ExternalScriptKind,
                           url: ServoUrl,
                           cors_setting: Option<CorsSettings>,
@@ -284,7 +284,7 @@ fn fetch_a_classic_script<TH: TypeHolderTrait>(script: &HTMLScriptElement<TH>,
     doc.fetch_async(LoadType::Script(url), request, action_sender);
 }
 
-impl<TH: TypeHolderTrait> HTMLScriptElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLScriptElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#prepare-a-script>
     pub fn prepare(&self) {
         // Step 1.
@@ -647,7 +647,7 @@ impl<TH: TypeHolderTrait> HTMLScriptElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLScriptElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLScriptElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -698,7 +698,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLScriptElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLScriptElementMethods for HTMLScriptElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLScriptElementMethods for HTMLScriptElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-script-src
     make_url_getter!(Src, "src");
 

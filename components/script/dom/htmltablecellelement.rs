@@ -24,11 +24,11 @@ const DEFAULT_COLSPAN: u32 = 1;
 const DEFAULT_ROWSPAN: u32 = 1;
 
 #[dom_struct]
-pub struct HTMLTableCellElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLTableCellElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH: TypeHolderTrait> HTMLTableCellElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableCellElement<TH> {
     pub fn new_inherited(tag_name: LocalName,
                          prefix: Option<Prefix>,
                          document: &Document<TH>)
@@ -39,7 +39,7 @@ impl<TH: TypeHolderTrait> HTMLTableCellElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLTableCellElementMethods for HTMLTableCellElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableCellElementMethods for HTMLTableCellElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tdth-colspan
     make_uint_getter!(ColSpan, "colspan", DEFAULT_COLSPAN);
 
@@ -90,7 +90,7 @@ pub trait HTMLTableCellElementLayoutHelpers {
 }
 
 #[allow(unsafe_code)]
-impl<TH: TypeHolderTrait> HTMLTableCellElementLayoutHelpers for LayoutDom<HTMLTableCellElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableCellElementLayoutHelpers for LayoutDom<HTMLTableCellElement<TH>> {
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
             (&*self.upcast::<Element<TH>>().unsafe_get())
@@ -127,7 +127,7 @@ impl<TH: TypeHolderTrait> HTMLTableCellElementLayoutHelpers for LayoutDom<HTMLTa
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTableCellElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLTableCellElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

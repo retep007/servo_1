@@ -114,7 +114,7 @@ impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T> {
     }
 }
 
-fn dict_return<TH: TypeHolderTrait>(cx: *mut JSContext,
+fn dict_return<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                mut result: MutableHandleObject,
                done: bool,
                value: HandleValue) -> Fallible<(), TH> {
@@ -129,7 +129,7 @@ fn dict_return<TH: TypeHolderTrait>(cx: *mut JSContext,
     Ok(())
 }
 
-fn key_and_value_return<TH: TypeHolderTrait>(cx: *mut JSContext,
+fn key_and_value_return<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                         mut result: MutableHandleObject,
                         key: HandleValue,
                         value: HandleValue) -> Fallible<(), TH> {

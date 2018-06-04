@@ -21,12 +21,12 @@ use task_source::TaskSource;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLDetailsElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLDetailsElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     toggle_counter: Cell<u32>
 }
 
-impl<TH: TypeHolderTrait> HTMLDetailsElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLDetailsElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLDetailsElement<TH> {
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> HTMLDetailsElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLDetailsElementMethods for HTMLDetailsElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLDetailsElementMethods for HTMLDetailsElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-details-open
     make_bool_getter!(Open, "open");
 
@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> HTMLDetailsElementMethods for HTMLDetailsElement<TH> {
     make_bool_setter!(SetOpen, "open");
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLDetailsElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLDetailsElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

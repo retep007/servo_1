@@ -14,11 +14,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLMeterElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLMeterElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLMeterElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLMeterElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLMeterElement<TH> {
@@ -37,7 +37,7 @@ impl<TH: TypeHolderTrait> HTMLMeterElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLMeterElementMethods<TH> for HTMLMeterElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLMeterElementMethods<TH> for HTMLMeterElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
     fn Labels(&self) -> DomRoot<NodeList<TH>> {
         self.upcast::<HTMLElement<TH>>().labels()

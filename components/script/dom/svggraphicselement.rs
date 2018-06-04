@@ -12,11 +12,11 @@ use style::element_state::ElementState;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct SVGGraphicsElement<TH: TypeHolderTrait + 'static> {
+pub struct SVGGraphicsElement<TH: TypeHolderTrait<TH> + 'static> {
     svgelement: SVGElement<TH>,
 }
 
-impl<TH: TypeHolderTrait> SVGGraphicsElement<TH> {
+impl<TH: TypeHolderTrait<TH>> SVGGraphicsElement<TH> {
     pub fn new_inherited(tag_name: LocalName, prefix: Option<Prefix>,
                          document: &Document<TH>) -> SVGGraphicsElement<TH> {
         SVGGraphicsElement::new_inherited_with_state(ElementState::empty(), tag_name, prefix, document)
@@ -32,7 +32,7 @@ impl<TH: TypeHolderTrait> SVGGraphicsElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for SVGGraphicsElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for SVGGraphicsElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<SVGElement<TH>>() as &VirtualMethods<TH>)
     }

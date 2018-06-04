@@ -14,13 +14,13 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct InputEvent<TH: TypeHolderTrait + 'static> {
+pub struct InputEvent<TH: TypeHolderTrait<TH> + 'static> {
     uievent: UIEvent<TH>,
     data: Option<DOMString>,
     is_composing: bool,
 }
 
-impl<TH: TypeHolderTrait> InputEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> InputEvent<TH> {
     pub fn new(window: &Window<TH>,
                type_: DOMString,
                can_bubble: bool,
@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> InputEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> InputEventMethods for InputEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> InputEventMethods for InputEvent<TH> {
     // https://w3c.github.io/uievents/#dom-inputevent-data
     fn GetData(&self) -> Option<DOMString> {
         self.data.clone()

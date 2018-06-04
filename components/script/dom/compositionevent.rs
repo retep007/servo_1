@@ -14,12 +14,12 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CompositionEvent<TH: TypeHolderTrait + 'static> {
+pub struct CompositionEvent<TH: TypeHolderTrait<TH> + 'static> {
     uievent: UIEvent<TH>,
     data: DOMString,
 }
 
-impl<TH: TypeHolderTrait> CompositionEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> CompositionEvent<TH> {
     pub fn new(window: &Window<TH>,
                type_: DOMString,
                can_bubble: bool,
@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> CompositionEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CompositionEventMethods for CompositionEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> CompositionEventMethods for CompositionEvent<TH> {
     // https://w3c.github.io/uievents/#dom-compositionevent-data
     fn Data(&self) -> DOMString {
         self.data.clone()

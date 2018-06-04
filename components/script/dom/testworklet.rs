@@ -24,12 +24,12 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TestWorklet<TH: TypeHolderTrait + 'static> {
+pub struct TestWorklet<TH: TypeHolderTrait<TH> + 'static> {
     reflector: Reflector<TH>,
     worklet: Dom<Worklet<TH>>,
 }
 
-impl<TH: TypeHolderTrait> TestWorklet<TH> {
+impl<TH: TypeHolderTrait<TH>> TestWorklet<TH> {
     fn new_inherited(worklet: &Worklet<TH>) -> TestWorklet<TH> {
         TestWorklet {
             reflector: Reflector::new(),
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> TestWorklet<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TestWorkletMethods<TH> for TestWorklet<TH> {
+impl<TH: TypeHolderTrait<TH>> TestWorkletMethods<TH> for TestWorklet<TH> {
     #[allow(unrooted_must_root)]
     fn AddModule(&self, moduleURL: USVString, options: &WorkletOptions) -> Rc<Promise<TH>> {
         self.worklet.AddModule(moduleURL, options)

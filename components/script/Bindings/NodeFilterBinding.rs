@@ -552,7 +552,7 @@ const sConstants: &'static [Guard<&'static [ConstantSpec]>] = &[
     Guard::new(Condition::Satisfied, sConstants_specs[0])
 ];
 
-pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
+pub unsafe fn GetConstructorObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface object for this class.  This will create the object as
        needed. */
@@ -571,7 +571,7 @@ pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
 
 }
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -584,12 +584,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut interface = ptr::null_mut::<JSObject>());
     create_callback_interface_object(cx, global, sConstants, b"NodeFilter\0", interface.handle_mut());
@@ -606,11 +606,11 @@ unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct NodeFilter<TH: TypeHolderTrait + 'static> {
+pub struct NodeFilter<TH: TypeHolderTrait<TH> + 'static> {
     pub parent: CallbackInterface<TH>,
 }
 
-impl<TH: TypeHolderTrait> NodeFilter<TH> {
+impl<TH: TypeHolderTrait<TH>> NodeFilter<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<NodeFilter<TH>> {
         let mut ret = Rc::new(NodeFilter {
             parent: CallbackInterface::new()
@@ -684,7 +684,7 @@ impl<TH: TypeHolderTrait> NodeFilter<TH> {
 
     }
 }
-impl<TH: TypeHolderTrait> CallbackContainer<TH> for NodeFilter<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackContainer<TH> for NodeFilter<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<NodeFilter<TH>> {
         NodeFilter::new(cx, callback)
     }
@@ -694,7 +694,7 @@ impl<TH: TypeHolderTrait> CallbackContainer<TH> for NodeFilter<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for NodeFilter<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for NodeFilter<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

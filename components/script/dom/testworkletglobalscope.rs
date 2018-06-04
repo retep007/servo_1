@@ -20,14 +20,14 @@ use typeholder::TypeHolderTrait;
 // check-tidy: no specs after this line
 
 #[dom_struct]
-pub struct TestWorkletGlobalScope<TH: TypeHolderTrait + 'static> {
+pub struct TestWorkletGlobalScope<TH: TypeHolderTrait<TH> + 'static> {
     // The worklet global for this object
     worklet_global: WorkletGlobalScope<TH>,
     // The key/value pairs
     lookup_table: DomRefCell<HashMap<String, String>>,
 }
 
-impl<TH: TypeHolderTrait> TestWorkletGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> TestWorkletGlobalScope<TH> {
     #[allow(unsafe_code)]
     pub fn new(runtime: &Runtime,
                pipeline_id: PipelineId,
@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> TestWorkletGlobalScope<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TestWorkletGlobalScopeMethods for TestWorkletGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> TestWorkletGlobalScopeMethods for TestWorkletGlobalScope<TH> {
     fn RegisterKeyValue(&self, key: DOMString, value: DOMString) {
         debug!("Registering test worklet key/value {}/{}.", key, value);
         self.lookup_table.borrow_mut().insert(String::from(key), String::from(value));

@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#interface-treewalker
 #[dom_struct]
-pub struct TreeWalker<TH: TypeHolderTrait + 'static> {
+pub struct TreeWalker<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     root_node: Dom<Node<TH>>,
     current_node: MutDom<Node<TH>>,
@@ -30,7 +30,7 @@ pub struct TreeWalker<TH: TypeHolderTrait + 'static> {
     active: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> TreeWalker<TH> {
+impl<TH: TypeHolderTrait<TH>> TreeWalker<TH> {
     fn new_inherited(root_node: &Node<TH>,
                          what_to_show: u32,
                          filter: Filter<TH>) -> TreeWalker<TH> {
@@ -65,7 +65,7 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TreeWalkerMethods<TH> for TreeWalker<TH> {
+impl<TH: TypeHolderTrait<TH>> TreeWalkerMethods<TH> for TreeWalker<TH> {
     // https://dom.spec.whatwg.org/#dom-treewalker-root
     fn Root(&self) -> DomRoot<Node<TH>> {
         DomRoot::from_ref(&*self.root_node)
@@ -255,7 +255,7 @@ impl<TH: TypeHolderTrait> TreeWalkerMethods<TH> for TreeWalker<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TreeWalker<TH> {
+impl<TH: TypeHolderTrait<TH>> TreeWalker<TH> {
     // https://dom.spec.whatwg.org/#concept-traverse-children
     fn traverse_children<F, G>(&self,
                                next_child: F,
@@ -451,7 +451,7 @@ impl<TH: TypeHolderTrait> TreeWalker<TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> Iterator for &'a TreeWalker<TH> {
+impl<'a, TH: TypeHolderTrait<TH>> Iterator for &'a TreeWalker<TH> {
     type Item = DomRoot<Node<TH>>;
 
     fn next(&mut self) -> Option<DomRoot<Node<TH>>> {
@@ -469,7 +469,7 @@ impl<'a, TH: TypeHolderTrait> Iterator for &'a TreeWalker<TH> {
 }
 
 #[derive(JSTraceable)]
-pub enum Filter<TH: TypeHolderTrait + 'static> {
+pub enum Filter<TH: TypeHolderTrait<TH> + 'static> {
     None,
     Native(fn (node: &Node<TH>) -> u16),
     Dom(Rc<NodeFilter<TH>>)

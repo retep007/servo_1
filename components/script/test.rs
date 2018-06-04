@@ -31,35 +31,35 @@ pub mod size_of {
     use std::mem::size_of;
     use typeholder::TypeHolderTrait;
 
-    pub fn CharacterData<TH: TypeHolderTrait>() -> usize {
+    pub fn CharacterData<TH: TypeHolderTrait<TH>>() -> usize {
         size_of::<CharacterData<TH>>()
     }
 
-    pub fn Element<TH: TypeHolderTrait>() -> usize {
+    pub fn Element<TH: TypeHolderTrait<TH>>() -> usize {
         size_of::<Element<TH>>()
     }
 
-    pub fn EventTarget<TH: TypeHolderTrait>() -> usize {
+    pub fn EventTarget<TH: TypeHolderTrait<TH>>() -> usize {
         size_of::<EventTarget<TH>>()
     }
 
-    pub fn HTMLDivElement<TH: TypeHolderTrait>() -> usize {
+    pub fn HTMLDivElement<TH: TypeHolderTrait<TH>>() -> usize {
         size_of::<HTMLDivElement<TH>>()
     }
 
-    pub fn HTMLElement<TH: TypeHolderTrait>() -> usize {
+    pub fn HTMLElement<TH: TypeHolderTrait<TH>>() -> usize {
         size_of::<HTMLElement<TH>>()
     }
 
-    pub fn HTMLSpanElement<TH: TypeHolderTrait>() -> usize {
+    pub fn HTMLSpanElement<TH: TypeHolderTrait<TH>>() -> usize {
         size_of::<HTMLSpanElement<TH>>()
     }
 
-    pub fn Node<TH: TypeHolderTrait>() -> usize {
+    pub fn Node<TH: TypeHolderTrait<TH>>() -> usize {
         size_of::<Node<TH>>()
     }
 
-    pub fn Text<TH: TypeHolderTrait>() -> usize {
+    pub fn Text<TH: TypeHolderTrait<TH>>() -> usize {
         size_of::<Text<TH>>()
     }
 }

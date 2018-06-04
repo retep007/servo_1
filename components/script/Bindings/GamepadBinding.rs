@@ -507,7 +507,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_id<TH: TypeHolderTrait>
+unsafe extern fn get_id<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -519,7 +519,7 @@ unsafe extern fn get_id<TH: TypeHolderTrait>
 }
 
 
-fn id_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn id_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_id::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -537,7 +537,7 @@ fn id_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_index<TH: TypeHolderTrait>
+unsafe extern fn get_index<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -549,7 +549,7 @@ unsafe extern fn get_index<TH: TypeHolderTrait>
 }
 
 
-fn index_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn index_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_index::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -567,7 +567,7 @@ fn index_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_connected<TH: TypeHolderTrait>
+unsafe extern fn get_connected<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -579,7 +579,7 @@ unsafe extern fn get_connected<TH: TypeHolderTrait>
 }
 
 
-fn connected_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn connected_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_connected::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -597,7 +597,7 @@ fn connected_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_timestamp<TH: TypeHolderTrait>
+unsafe extern fn get_timestamp<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -609,7 +609,7 @@ unsafe extern fn get_timestamp<TH: TypeHolderTrait>
 }
 
 
-fn timestamp_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn timestamp_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_timestamp::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -627,7 +627,7 @@ fn timestamp_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_mapping<TH: TypeHolderTrait>
+unsafe extern fn get_mapping<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -639,7 +639,7 @@ unsafe extern fn get_mapping<TH: TypeHolderTrait>
 }
 
 
-fn mapping_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn mapping_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_mapping::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -657,7 +657,7 @@ fn mapping_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_axes<TH: TypeHolderTrait>
+unsafe extern fn get_axes<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -669,7 +669,7 @@ unsafe extern fn get_axes<TH: TypeHolderTrait>
 }
 
 
-fn axes_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn axes_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_axes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -687,7 +687,7 @@ fn axes_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_buttons<TH: TypeHolderTrait>
+unsafe extern fn get_buttons<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -699,7 +699,7 @@ unsafe extern fn get_buttons<TH: TypeHolderTrait>
 }
 
 
-fn buttons_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn buttons_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_buttons::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -717,7 +717,7 @@ fn buttons_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_hand<TH: TypeHolderTrait>
+unsafe extern fn get_hand<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -729,7 +729,7 @@ unsafe extern fn get_hand<TH: TypeHolderTrait>
 }
 
 
-fn hand_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn hand_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_hand::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -747,7 +747,7 @@ fn hand_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_pose<TH: TypeHolderTrait>
+unsafe extern fn get_pose<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -759,7 +759,7 @@ unsafe extern fn get_pose<TH: TypeHolderTrait>
 }
 
 
-fn pose_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn pose_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_pose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -777,7 +777,7 @@ fn pose_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_displayId<TH: TypeHolderTrait>
+unsafe extern fn get_displayId<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Gamepad<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -789,7 +789,7 @@ unsafe extern fn get_displayId<TH: TypeHolderTrait>
 }
 
 
-fn displayId_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn displayId_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_displayId::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::Gamepad as u16,
     depth: 0,
@@ -807,7 +807,7 @@ fn displayId_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -820,7 +820,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -830,7 +830,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -845,7 +845,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"Gamepad\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -863,11 +863,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<Gamepad<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<Gamepad<TH>>) -> DomRoot<Gamepad<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -893,20 +893,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for Gamepad<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for Gamepad<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for Gamepad<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for Gamepad<TH> {
     fn eq(&self, other: &Gamepad<TH>) -> bool {
         self as *const Gamepad<TH> == &*other
     }
 }
 
-pub trait GamepadMethods<TH: TypeHolderTrait> {
+pub trait GamepadMethods<TH: TypeHolderTrait<TH>> {
     fn Id(&self) -> DOMString;
     fn Index(&self) -> i32;
     fn Connected(&self) -> bool;
@@ -918,7 +918,7 @@ pub trait GamepadMethods<TH: TypeHolderTrait> {
     fn GetPose(&self) -> Option<DomRoot<VRPose<TH>>>;
     fn DisplayId(&self) -> u32;
 }
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"id\0" as *const u8 as *const libc::c_char,
@@ -988,11 +988,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1027,7 +1027,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::Gamepad,
         0);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -1040,13 +1040,13 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW) &&
     PREFS.get("dom.gamepad.enabled").as_boolean().unwrap_or(false)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

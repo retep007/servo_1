@@ -16,11 +16,11 @@ use style::stylesheets::CssRules as StyleCssRules;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSConditionRule<TH: TypeHolderTrait + 'static> {
+pub struct CSSConditionRule<TH: TypeHolderTrait<TH> + 'static> {
     cssgroupingrule: CSSGroupingRule<TH>,
 }
 
-impl<TH: TypeHolderTrait> CSSConditionRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSConditionRule<TH> {
     pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
                          rules: Arc<Locked<StyleCssRules>>) -> CSSConditionRule<TH> {
         CSSConditionRule {
@@ -37,7 +37,7 @@ impl<TH: TypeHolderTrait> CSSConditionRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CSSConditionRuleMethods for CSSConditionRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSConditionRuleMethods for CSSConditionRule<TH> {
     /// <https://drafts.csswg.org/css-conditional-3/#dom-cssconditionrule-conditiontext>
     fn ConditionText(&self) -> DOMString {
         if let Some(rule) = self.downcast::<CSSMediaRule<TH>>() {

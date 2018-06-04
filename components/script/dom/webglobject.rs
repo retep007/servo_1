@@ -9,12 +9,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct WebGLObject<TH: TypeHolderTrait + 'static> {
+pub struct WebGLObject<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> WebGLObject<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLObject<TH> {
     pub fn new_inherited() -> WebGLObject<TH> {
         WebGLObject {
             reflector_: Reflector::new(),

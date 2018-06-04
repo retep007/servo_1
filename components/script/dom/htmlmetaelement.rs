@@ -30,14 +30,14 @@ use style::stylesheets::{Stylesheet, StylesheetContents, CssRule, CssRules, Orig
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLMetaElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLMetaElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "Arc"]
     stylesheet: DomRefCell<Option<Arc<Stylesheet>>>,
     cssom_stylesheet: MutNullableDom<CSSStyleSheet<TH>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLMetaElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLMetaElement<TH> {
@@ -145,7 +145,7 @@ impl<TH: TypeHolderTrait> HTMLMetaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLMetaElementMethods for HTMLMetaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLMetaElementMethods for HTMLMetaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-meta-name
     make_getter!(Name, "name");
 
@@ -159,7 +159,7 @@ impl<TH: TypeHolderTrait> HTMLMetaElementMethods for HTMLMetaElement<TH> {
     make_setter!(SetContent, "content");
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLMetaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLMetaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

@@ -16,7 +16,7 @@ use uuid::Uuid;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Client<TH: TypeHolderTrait + 'static> {
+pub struct Client<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     active_worker: MutNullableDom<ServiceWorker<TH>>,
     url: ServoUrl,
@@ -25,7 +25,7 @@ pub struct Client<TH: TypeHolderTrait + 'static> {
     id: Uuid
 }
 
-impl<TH: TypeHolderTrait> Client<TH> {
+impl<TH: TypeHolderTrait<TH>> Client<TH> {
     fn new_inherited(url: ServoUrl) -> Client<TH> {
         Client {
             reflector_: Reflector::new(),
@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> Client<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ClientMethods for Client<TH> {
+impl<TH: TypeHolderTrait<TH>> ClientMethods for Client<TH> {
     // https://w3c.github.io/ServiceWorker/#client-url-attribute
     fn Url(&self) -> USVString {
         USVString(self.url.as_str().to_owned())

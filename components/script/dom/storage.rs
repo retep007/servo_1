@@ -25,13 +25,13 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct Storage<TH: TypeHolderTrait + 'static> {
+pub struct Storage<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     storage_type: StorageType,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> Storage<TH> {
+impl<TH: TypeHolderTrait<TH>> Storage<TH> {
     fn new_inherited(storage_type: StorageType) -> Storage<TH> {
         Storage {
             reflector_: Reflector::new(),
@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> Storage<TH> {
 
 }
 
-impl<TH: TypeHolderTrait> StorageMethods<TH> for Storage<TH> {
+impl<TH: TypeHolderTrait<TH>> StorageMethods<TH> for Storage<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-storage-length
     fn Length(&self) -> u32 {
         let (sender, receiver) = ipc::channel(self.global().time_profiler_chan().clone()).unwrap();
@@ -151,7 +151,7 @@ impl<TH: TypeHolderTrait> StorageMethods<TH> for Storage<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> Storage<TH> {
+impl<TH: TypeHolderTrait<TH>> Storage<TH> {
     /// <https://html.spec.whatwg.org/multipage/#send-a-storage-notification>
     fn broadcast_change_notification(&self, key: Option<String>, old_value: Option<String>,
                                      new_value: Option<String>) {

@@ -50,7 +50,7 @@ use time::precise_time_ns;
 use timers::{IsInterval, TimerCallback};
 use typeholder::TypeHolderTrait;
 
-pub fn prepare_workerscope_init<TH: TypeHolderTrait>(global: &GlobalScope<TH>,
+pub fn prepare_workerscope_init<TH: TypeHolderTrait<TH>>(global: &GlobalScope<TH>,
                                 devtools_sender: Option<IpcSender<DevtoolScriptControlMsg>>) -> WorkerGlobalScopeInit {
     let init = WorkerGlobalScopeInit {
             resource_threads: global.resource_threads().clone(),
@@ -70,7 +70,7 @@ pub fn prepare_workerscope_init<TH: TypeHolderTrait>(global: &GlobalScope<TH>,
 
 // https://html.spec.whatwg.org/multipage/#the-workerglobalscope-common-interface
 #[dom_struct]
-pub struct WorkerGlobalScope<TH: TypeHolderTrait + 'static> {
+pub struct WorkerGlobalScope<TH: TypeHolderTrait<TH> + 'static> {
     globalscope: GlobalScope<TH>,
 
     worker_id: WorkerId,
@@ -96,7 +96,7 @@ pub struct WorkerGlobalScope<TH: TypeHolderTrait + 'static> {
     performance: MutNullableDom<Performance<TH>>,
 }
 
-impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkerGlobalScope<TH> {
     pub fn new_inherited(
         init: WorkerGlobalScopeInit,
         worker_url: ServoUrl,
@@ -174,7 +174,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods<TH> for WorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkerGlobalScopeMethods<TH> for WorkerGlobalScope<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-workerglobalscope-self
     fn Self_(&self) -> DomRoot<WorkerGlobalScope<TH>> {
         DomRoot::from_ref(self)
@@ -337,7 +337,7 @@ impl<TH: TypeHolderTrait> WorkerGlobalScopeMethods<TH> for WorkerGlobalScope<TH>
 }
 
 
-impl<TH: TypeHolderTrait> WorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkerGlobalScope<TH> {
     #[allow(unsafe_code)]
     pub fn execute_script(&self, source: DOMString) {
         // let _aes = AutoEntryScript::new(self.upcast());

@@ -19,11 +19,11 @@ use std::iter;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFormControlsCollection<TH: TypeHolderTrait + 'static> {
+pub struct HTMLFormControlsCollection<TH: TypeHolderTrait<TH> + 'static> {
     collection: HTMLCollection<TH>,
 }
 
-impl<TH: TypeHolderTrait> HTMLFormControlsCollection<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFormControlsCollection<TH> {
     fn new_inherited(root: &Node<TH>, filter: Box<CollectionFilter<TH> + 'static>) -> HTMLFormControlsCollection<TH> {
         HTMLFormControlsCollection {
             collection: HTMLCollection::new_inherited(root, filter)
@@ -45,7 +45,7 @@ impl<TH: TypeHolderTrait> HTMLFormControlsCollection<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLFormControlsCollectionMethods<TH> for HTMLFormControlsCollection<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFormControlsCollectionMethods<TH> for HTMLFormControlsCollection<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-htmlformcontrolscollection-nameditem
     fn NamedItem(&self, name: DOMString) -> Option<RadioNodeListOrElement<TH>> {
         // Step 1

@@ -12,13 +12,13 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct MediaError<TH: TypeHolderTrait + 'static> {
+pub struct MediaError<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     code: u16,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> MediaError<TH> {
+impl<TH: TypeHolderTrait<TH>> MediaError<TH> {
     fn new_inherited(code: u16) -> MediaError<TH> {
         MediaError {
             reflector_: Reflector::new(),
@@ -34,7 +34,7 @@ impl<TH: TypeHolderTrait> MediaError<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MediaErrorMethods for MediaError<TH> {
+impl<TH: TypeHolderTrait<TH>> MediaErrorMethods for MediaError<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-mediaerror-code
     fn Code(&self) -> u16 {
         self.code

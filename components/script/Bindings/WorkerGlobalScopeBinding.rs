@@ -526,7 +526,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_self<TH: TypeHolderTrait>
+unsafe extern fn get_self<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -538,7 +538,7 @@ unsafe extern fn get_self<TH: TypeHolderTrait>
 }
 
 
-fn self_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn self_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_self::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -556,7 +556,7 @@ fn self_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_location<TH: TypeHolderTrait>
+unsafe extern fn get_location<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -568,7 +568,7 @@ unsafe extern fn get_location<TH: TypeHolderTrait>
 }
 
 
-fn location_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn location_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_location::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -586,7 +586,7 @@ fn location_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onerror<TH: TypeHolderTrait>
+unsafe extern fn get_onerror<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -597,7 +597,7 @@ unsafe extern fn get_onerror<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onerror<TH: TypeHolderTrait>
+unsafe extern fn set_onerror<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -613,7 +613,7 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 }
 
 
-fn onerror_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onerror_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -631,7 +631,7 @@ fn onerror_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onerror_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onerror_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -649,7 +649,7 @@ fn onerror_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn importScripts<TH: TypeHolderTrait>
+unsafe extern fn importScripts<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -687,7 +687,7 @@ unsafe extern fn importScripts<TH: TypeHolderTrait>
 }
 
 
-fn importScripts_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn importScripts_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: importScripts::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -705,7 +705,7 @@ fn importScripts_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_navigator<TH: TypeHolderTrait>
+unsafe extern fn get_navigator<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -717,7 +717,7 @@ unsafe extern fn get_navigator<TH: TypeHolderTrait>
 }
 
 
-fn navigator_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn navigator_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_navigator::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -735,7 +735,7 @@ fn navigator_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_crypto<TH: TypeHolderTrait>
+unsafe extern fn get_crypto<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -747,7 +747,7 @@ unsafe extern fn get_crypto<TH: TypeHolderTrait>
 }
 
 
-fn crypto_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn crypto_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_crypto::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -765,7 +765,7 @@ fn crypto_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_origin<TH: TypeHolderTrait>
+unsafe extern fn get_origin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -776,7 +776,7 @@ unsafe extern fn get_origin<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_origin<TH: TypeHolderTrait>
+unsafe extern fn set_origin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         JS_DefineProperty(cx, obj, b"origin\0" as *const u8 as *const libc::c_char,
@@ -785,7 +785,7 @@ unsafe extern fn set_origin<TH: TypeHolderTrait>
 }
 
 
-fn origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn origin_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -803,7 +803,7 @@ fn origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn origin_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -821,7 +821,7 @@ fn origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn btoa<TH: TypeHolderTrait>
+unsafe extern fn btoa<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -857,7 +857,7 @@ unsafe extern fn btoa<TH: TypeHolderTrait>
 }
 
 
-fn btoa_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn btoa_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: btoa::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -875,7 +875,7 @@ fn btoa_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn atob<TH: TypeHolderTrait>
+unsafe extern fn atob<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -911,7 +911,7 @@ unsafe extern fn atob<TH: TypeHolderTrait>
 }
 
 
-fn atob_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn atob_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: atob::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -929,7 +929,7 @@ fn atob_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn setTimeout<TH: TypeHolderTrait>
+unsafe extern fn setTimeout<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1184,7 +1184,7 @@ unsafe extern fn setTimeout<TH: TypeHolderTrait>
 }
 
 
-fn setTimeout_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn setTimeout_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: setTimeout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -1202,7 +1202,7 @@ fn setTimeout_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn clearTimeout<TH: TypeHolderTrait>
+unsafe extern fn clearTimeout<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1230,7 +1230,7 @@ unsafe extern fn clearTimeout<TH: TypeHolderTrait>
 }
 
 
-fn clearTimeout_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clearTimeout_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: clearTimeout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -1248,7 +1248,7 @@ fn clearTimeout_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn setInterval<TH: TypeHolderTrait>
+unsafe extern fn setInterval<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1503,7 +1503,7 @@ unsafe extern fn setInterval<TH: TypeHolderTrait>
 }
 
 
-fn setInterval_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn setInterval_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: setInterval::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -1521,7 +1521,7 @@ fn setInterval_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn clearInterval<TH: TypeHolderTrait>
+unsafe extern fn clearInterval<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1549,7 +1549,7 @@ unsafe extern fn clearInterval<TH: TypeHolderTrait>
 }
 
 
-fn clearInterval_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clearInterval_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: clearInterval::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -1567,7 +1567,7 @@ fn clearInterval_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn fetch<TH: TypeHolderTrait>
+unsafe extern fn fetch<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1610,7 +1610,7 @@ unsafe extern fn fetch<TH: TypeHolderTrait>
 }
 
 
-fn fetch_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fetch_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: fetch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -1628,7 +1628,7 @@ fn fetch_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_performance<TH: TypeHolderTrait>
+unsafe extern fn get_performance<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1639,7 +1639,7 @@ unsafe extern fn get_performance<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_performance<TH: TypeHolderTrait>
+unsafe extern fn set_performance<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const WorkerGlobalScope<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         JS_DefineProperty(cx, obj, b"performance\0" as *const u8 as *const libc::c_char,
@@ -1648,7 +1648,7 @@ unsafe extern fn set_performance<TH: TypeHolderTrait>
 }
 
 
-fn performance_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn performance_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_performance::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -1666,7 +1666,7 @@ fn performance_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn performance_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn performance_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_performance::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::WorkerGlobalScope as u16,
     depth: 2,
@@ -1684,20 +1684,20 @@ fn performance_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-impl<TH: TypeHolderTrait> IDLInterface for WorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for WorkerGlobalScope<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class.interface_chain[2] == PrototypeList::ID::WorkerGlobalScope
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for WorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for WorkerGlobalScope<TH> {
     fn eq(&self, other: &WorkerGlobalScope<TH>) -> bool {
         self as *const WorkerGlobalScope<TH> == &*other
     }
 }
 
-pub trait WorkerGlobalScopeMethods<TH: TypeHolderTrait> {
+pub trait WorkerGlobalScopeMethods<TH: TypeHolderTrait<TH>> {
     fn Self_(&self) -> DomRoot<WorkerGlobalScope<TH>>;
     fn Location(&self) -> DomRoot<WorkerLocation<TH>>;
     fn GetOnerror(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull<TH>>>;
@@ -1717,7 +1717,7 @@ pub trait WorkerGlobalScopeMethods<TH: TypeHolderTrait> {
     fn Fetch(&self, input: UnionTypes::RequestOrUSVString<TH>, init: RootedTraceableBox<dom::bindings::codegen::Bindings::RequestBinding::RequestInit<TH>>) -> Rc<Promise<TH>>;
     fn Performance(&self) -> DomRoot<Performance<TH>>;
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"importScripts\0" as *const u8 as *const libc::c_char,
@@ -1784,10 +1784,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"self\0" as *const u8 as *const libc::c_char,
@@ -1839,11 +1839,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1878,7 +1878,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::WorkerGlobalScope,
         2);
 
-pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
+pub unsafe fn GetConstructorObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface object for this class.  This will create the object as
        needed. */
@@ -1897,7 +1897,7 @@ pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
 
 }
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -1910,12 +1910,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::DEDICATED_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::SERVICE_WORKER_GLOBAL_SCOPE)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     EventTargetBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

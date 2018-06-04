@@ -20,11 +20,11 @@ use typeholder::TypeHolderTrait;
 
 /// An HTML text node.
 #[dom_struct]
-pub struct Text<TH: TypeHolderTrait + 'static> {
+pub struct Text<TH: TypeHolderTrait<TH> + 'static> {
     characterdata: CharacterData<TH>,
 }
 
-impl<TH: TypeHolderTrait> Text<TH> {
+impl<TH: TypeHolderTrait<TH>> Text<TH> {
     fn new_inherited(text: DOMString, document: &Document<TH>) -> Text<TH> {
         Text {
             characterdata: CharacterData::new_inherited(text, document)
@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> Text<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TextMethods<TH> for Text<TH> {
+impl<TH: TypeHolderTrait<TH>> TextMethods<TH> for Text<TH> {
     // https://dom.spec.whatwg.org/#dom-text-splittext
     // https://dom.spec.whatwg.org/#concept-text-split
     fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text<TH>>, TH> {

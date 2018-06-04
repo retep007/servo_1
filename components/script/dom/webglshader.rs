@@ -30,7 +30,7 @@ pub enum ShaderCompilationStatus {
 }
 
 #[dom_struct]
-pub struct WebGLShader<TH: TypeHolderTrait + 'static> {
+pub struct WebGLShader<TH: TypeHolderTrait<TH> + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLShaderId,
     gl_type: u32,
@@ -46,7 +46,7 @@ pub struct WebGLShader<TH: TypeHolderTrait + 'static> {
 
 static GLSLANG_INITIALIZATION: Once = ONCE_INIT;
 
-impl<TH: TypeHolderTrait> WebGLShader<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLShader<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLShaderId,
                      shader_type: u32)
@@ -89,7 +89,7 @@ impl<TH: TypeHolderTrait> WebGLShader<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> WebGLShader<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLShader<TH> {
     pub fn id(&self) -> WebGLShaderId {
         self.id
     }
@@ -239,7 +239,7 @@ impl<TH: TypeHolderTrait> WebGLShader<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for WebGLShader<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for WebGLShader<TH> {
     fn drop(&mut self) {
         assert_eq!(self.attached_counter.get(), 0);
         self.delete();

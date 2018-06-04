@@ -23,13 +23,13 @@ use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattserver
 #[dom_struct]
-pub struct BluetoothRemoteGATTServer<TH: TypeHolderTrait + 'static> {
+pub struct BluetoothRemoteGATTServer<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     device: Dom<BluetoothDevice<TH>>,
     connected: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> BluetoothRemoteGATTServer<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothRemoteGATTServer<TH> {
     pub fn new_inherited(device: &BluetoothDevice<TH>) -> BluetoothRemoteGATTServer<TH> {
         BluetoothRemoteGATTServer {
             reflector_: Reflector::new(),
@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServer<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BluetoothRemoteGATTServerMethods<TH> for BluetoothRemoteGATTServer<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothRemoteGATTServerMethods<TH> for BluetoothRemoteGATTServer<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-device
     fn Device(&self) -> DomRoot<BluetoothDevice<TH>> {
         DomRoot::from_ref(&self.device)
@@ -119,7 +119,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServerMethods<TH> for BluetoothRemo
     }
 }
 
-impl<TH: TypeHolderTrait> AsyncBluetoothListener<TH> for BluetoothRemoteGATTServer<TH> {
+impl<TH: TypeHolderTrait<TH>> AsyncBluetoothListener<TH> for BluetoothRemoteGATTServer<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-connect

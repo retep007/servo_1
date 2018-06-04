@@ -46,7 +46,7 @@ use webvr_traits::{WebVRDisplayData, WebVRDisplayEvent, WebVRFrameData, WebVRLay
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRDisplay<TH: TypeHolderTrait + 'static> {
+pub struct VRDisplay<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     display: DomRefCell<WebVRDisplayData>,
@@ -89,7 +89,7 @@ enum VRFrameDataStatus {
 
 unsafe_no_jsmanaged_fields!(VRFrameDataStatus);
 
-impl<TH: TypeHolderTrait> VRDisplay<TH> {
+impl<TH: TypeHolderTrait<TH>> VRDisplay<TH> {
     fn new_inherited(global: &GlobalScope<TH>, display: WebVRDisplayData) -> VRDisplay<TH> {
         let stage = match display.stage_parameters {
             Some(ref params) => Some(VRStageParameters::new(params.clone(), &global)),
@@ -130,7 +130,7 @@ impl<TH: TypeHolderTrait> VRDisplay<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for VRDisplay<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for VRDisplay<TH> {
     fn drop(&mut self) {
         if self.presenting.get() {
             self.force_stop_present();
@@ -138,7 +138,7 @@ impl<TH: TypeHolderTrait> Drop for VRDisplay<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VRDisplayMethods<TH> for VRDisplay<TH> {
+impl<TH: TypeHolderTrait<TH>> VRDisplayMethods<TH> for VRDisplay<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplay-isconnected
     fn IsConnected(&self) -> bool {
         self.display.borrow().connected
@@ -408,7 +408,7 @@ impl<TH: TypeHolderTrait> VRDisplayMethods<TH> for VRDisplay<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VRDisplay<TH> {
+impl<TH: TypeHolderTrait<TH>> VRDisplay<TH> {
     fn webvr_thread(&self) -> IpcSender<WebVRMsg> {
         self.global().as_window().webvr_thread().expect("Shouldn't arrive here with WebVR disabled")
     }
@@ -631,7 +631,7 @@ fn parse_bounds(src: &Option<Vec<Finite<f32>>>, dst: &mut [f32; 4]) -> Result<()
     }
 }
 
-fn validate_layer<TH: TypeHolderTrait>(layer: &VRLayer<TH>) -> Result<(WebVRLayer, DomRoot<WebGLRenderingContext<TH>>), &'static str> {
+fn validate_layer<TH: TypeHolderTrait<TH>>(layer: &VRLayer<TH>) -> Result<(WebVRLayer, DomRoot<WebGLRenderingContext<TH>>), &'static str> {
     let ctx = layer.source.as_ref().map(|ref s| s.get_base_webgl_context()).unwrap_or(None);
     if let Some(ctx) = ctx {
         let mut data = WebVRLayer::default();

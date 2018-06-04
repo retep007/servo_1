@@ -33,7 +33,7 @@ use std::rc::Rc;
 use std::sync::{Arc, Mutex};
 use typeholder::TypeHolderTrait;
 
-struct FetchContext<TH: TypeHolderTrait + 'static> {
+struct FetchContext<TH: TypeHolderTrait<TH> + 'static> {
     fetch_promise: Option<TrustedPromise<TH>>,
     response_object: Trusted<Response<TH>>,
     body: Vec<u8>,
@@ -95,7 +95,7 @@ fn from_referrer_to_referrer_url(request: &NetTraitsRequest) -> Option<ServoUrl>
     request.referrer.to_url().map(|url| url.clone())
 }
 
-fn request_init_from_request<TH: TypeHolderTrait>(request: NetTraitsRequest) -> NetTraitsRequestInit {
+fn request_init_from_request<TH: TypeHolderTrait<TH>>(request: NetTraitsRequest) -> NetTraitsRequestInit {
     NetTraitsRequestInit {
         method: request.method.clone(),
         url: request.url(),
@@ -120,7 +120,7 @@ fn request_init_from_request<TH: TypeHolderTrait>(request: NetTraitsRequest) -> 
 
 // https://fetch.spec.whatwg.org/#fetch-method
 #[allow(unrooted_must_root)]
-pub fn Fetch<TH: TypeHolderTrait>(global: &GlobalScope<TH>, input: RequestInfo<TH>, init: RootedTraceableBox<RequestInit<TH>>) -> Rc<Promise<TH>> {
+pub fn Fetch<TH: TypeHolderTrait<TH>>(global: &GlobalScope<TH>, input: RequestInfo<TH>, init: RootedTraceableBox<RequestInit<TH>>) -> Rc<Promise<TH>> {
     let core_resource_thread = global.core_resource_thread();
 
     // Step 1
@@ -167,9 +167,9 @@ pub fn Fetch<TH: TypeHolderTrait>(global: &GlobalScope<TH>, input: RequestInfo<T
     promise
 }
 
-impl<TH: TypeHolderTrait> PreInvoke for FetchContext<TH> {}
+impl<TH: TypeHolderTrait<TH>> PreInvoke for FetchContext<TH> {}
 
-impl<TH: TypeHolderTrait> FetchResponseListener for FetchContext<TH> {
+impl<TH: TypeHolderTrait<TH>> FetchResponseListener for FetchContext<TH> {
     fn process_request_body(&mut self) {
         // TODO
     }
@@ -238,7 +238,7 @@ impl<TH: TypeHolderTrait> FetchResponseListener for FetchContext<TH> {
     }
 }
 
-fn fill_headers_with_metadata<TH: TypeHolderTrait>(r: DomRoot<Response<TH>>, m: Metadata) {
+fn fill_headers_with_metadata<TH: TypeHolderTrait<TH>>(r: DomRoot<Response<TH>>, m: Metadata) {
     r.set_headers(m.headers);
     r.set_raw_status(m.status);
     r.set_final_url(m.final_url);

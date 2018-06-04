@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct WebGLActiveInfo<TH: TypeHolderTrait + 'static> {
+pub struct WebGLActiveInfo<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     size: i32,
     // NOTE: `ty` stands for `type`, which is a reserved keyword
@@ -23,7 +23,7 @@ pub struct WebGLActiveInfo<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> WebGLActiveInfo<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLActiveInfo<TH> {
     fn new_inherited(size: i32, ty: u32, name: DOMString) -> WebGLActiveInfo<TH> {
         WebGLActiveInfo {
             reflector_: Reflector::new(),
@@ -43,7 +43,7 @@ impl<TH: TypeHolderTrait> WebGLActiveInfo<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebGLActiveInfoMethods for WebGLActiveInfo<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLActiveInfoMethods for WebGLActiveInfo<TH> {
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.11.1
     fn Size(&self) -> i32 {
         self.size

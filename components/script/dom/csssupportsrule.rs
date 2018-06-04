@@ -22,13 +22,13 @@ use style_traits::{ParsingMode, ToCss};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSSupportsRule<TH: TypeHolderTrait + 'static> {
+pub struct CSSSupportsRule<TH: TypeHolderTrait<TH> + 'static> {
     cssconditionrule: CSSConditionRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     supportsrule: Arc<Locked<SupportsRule>>,
 }
 
-impl<TH: TypeHolderTrait> CSSSupportsRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSSupportsRule<TH> {
     fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, supportsrule: Arc<Locked<SupportsRule>>)
                      -> Self {
         let guard = parent_stylesheet.shared_lock().read();
@@ -76,7 +76,7 @@ impl<TH: TypeHolderTrait> CSSSupportsRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> SpecificCSSRule for CSSSupportsRule<TH> {
+impl<TH: TypeHolderTrait<TH>> SpecificCSSRule for CSSSupportsRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::SUPPORTS_RULE

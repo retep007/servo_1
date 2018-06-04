@@ -69,7 +69,7 @@ use typeholder::TypeHolderTrait;
 
 /// <https://drafts.css-houdini.org/css-paint-api/#paintworkletglobalscope>
 #[dom_struct]
-pub struct PaintWorkletGlobalScope<TH: TypeHolderTrait + 'static> {
+pub struct PaintWorkletGlobalScope<TH: TypeHolderTrait<TH> + 'static> {
     /// The worklet global for this object
     worklet_global: WorkletGlobalScope<TH>,
     /// The image cache
@@ -93,7 +93,7 @@ pub struct PaintWorkletGlobalScope<TH: TypeHolderTrait + 'static> {
     cached_result: DomRefCell<DrawAPaintImageResult>,
 }
 
-impl<TH: TypeHolderTrait> PaintWorkletGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> PaintWorkletGlobalScope<TH> {
     #[allow(unsafe_code)]
     pub fn new(runtime: &Runtime,
                pipeline_id: PipelineId,
@@ -396,7 +396,7 @@ pub enum PaintWorkletTask {
 /// which can't be moved.
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-struct PaintDefinition<TH: TypeHolderTrait + 'static> {
+struct PaintDefinition<TH: TypeHolderTrait<TH> + 'static> {
     class_constructor: Heap<JSVal>,
     paint_function: Heap<JSVal>,
     constructor_valid_flag: Cell<bool>,
@@ -409,7 +409,7 @@ struct PaintDefinition<TH: TypeHolderTrait + 'static> {
     context: Dom<PaintRenderingContext2D<TH>>,
 }
 
-impl<TH: TypeHolderTrait> PaintDefinition<TH> {
+impl<TH: TypeHolderTrait<TH>> PaintDefinition<TH> {
     fn new(class_constructor: HandleValue,
            paint_function: HandleValue,
            alpha: bool,
@@ -431,7 +431,7 @@ impl<TH: TypeHolderTrait> PaintDefinition<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PaintWorkletGlobalScopeMethods<TH> for PaintWorkletGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> PaintWorkletGlobalScopeMethods<TH> for PaintWorkletGlobalScope<TH> {
     #[allow(unsafe_code)]
     #[allow(unrooted_must_root)]
     /// <https://drafts.css-houdini.org/css-paint-api/#dom-paintworkletglobalscope-registerpaint>

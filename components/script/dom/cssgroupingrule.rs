@@ -18,14 +18,14 @@ use style::stylesheets::CssRules as StyleCssRules;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSGroupingRule<TH: TypeHolderTrait + 'static> {
+pub struct CSSGroupingRule<TH: TypeHolderTrait<TH> + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     rules: Arc<Locked<StyleCssRules>>,
     rulelist: MutNullableDom<CSSRuleList<TH>>,
 }
 
-impl<TH: TypeHolderTrait> CSSGroupingRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSGroupingRule<TH> {
     pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
                          rules: Arc<Locked<StyleCssRules>>) -> CSSGroupingRule<TH> {
         CSSGroupingRule {
@@ -51,7 +51,7 @@ impl<TH: TypeHolderTrait> CSSGroupingRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CSSGroupingRuleMethods<TH> for CSSGroupingRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSGroupingRuleMethods<TH> for CSSGroupingRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssgroupingrule-cssrules
     fn CssRules(&self) -> DomRoot<CSSRuleList<TH>> {
         // XXXManishearth check origin clean flag

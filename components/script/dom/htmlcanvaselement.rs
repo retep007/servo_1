@@ -48,19 +48,19 @@ const DEFAULT_HEIGHT: u32 = 150;
 
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum CanvasContext<TH: TypeHolderTrait + 'static> {
+pub enum CanvasContext<TH: TypeHolderTrait<TH> + 'static> {
     Context2d(Dom<CanvasRenderingContext2D<TH>>),
     WebGL(Dom<WebGLRenderingContext<TH>>),
     WebGL2(Dom<WebGL2RenderingContext<TH>>),
 }
 
 #[dom_struct]
-pub struct HTMLCanvasElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLCanvasElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     context: DomRefCell<Option<CanvasContext<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLCanvasElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLCanvasElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLCanvasElement<TH> {
@@ -109,7 +109,7 @@ pub trait LayoutHTMLCanvasElementHelpers {
     fn get_canvas_id_for_layout(&self) -> CanvasId;
 }
 
-impl<TH: TypeHolderTrait> LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanvasElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanvasElement<TH>> {
     #[allow(unsafe_code)]
     fn data(&self) -> HTMLCanvasData {
         unsafe {
@@ -174,7 +174,7 @@ impl<TH: TypeHolderTrait> LayoutHTMLCanvasElementHelpers for LayoutDom<HTMLCanva
 }
 
 
-impl<TH: TypeHolderTrait> HTMLCanvasElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLCanvasElement<TH> {
     pub fn get_or_init_2d_context(&self) -> Option<DomRoot<CanvasRenderingContext2D<TH>>> {
         if self.context.borrow().is_none() {
             let window = window_from_node(self);
@@ -298,7 +298,7 @@ impl<TH: TypeHolderTrait> HTMLCanvasElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLCanvasElementMethods<TH> for HTMLCanvasElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLCanvasElementMethods<TH> for HTMLCanvasElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-canvas-width
     make_uint_getter!(Width, "width", DEFAULT_WIDTH);
 
@@ -393,7 +393,7 @@ impl<TH: TypeHolderTrait> HTMLCanvasElementMethods<TH> for HTMLCanvasElement<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLCanvasElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLCanvasElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -435,7 +435,7 @@ pub mod utils {
     use servo_url::ServoUrl;
     use typeholder::TypeHolderTrait;
 
-    pub fn request_image_from_cache<TH: TypeHolderTrait>(window: &Window<TH>, url: ServoUrl) -> ImageResponse {
+    pub fn request_image_from_cache<TH: TypeHolderTrait<TH>>(window: &Window<TH>, url: ServoUrl) -> ImageResponse {
         let image_cache = window.image_cache();
         let response =
             image_cache.find_image_or_metadata(url.into(),

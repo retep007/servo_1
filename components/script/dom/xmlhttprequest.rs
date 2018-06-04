@@ -90,7 +90,7 @@ pub struct GenerationId(u32);
 
 /// Closure of required data for each async network event that comprises the
 /// XHR's response.
-struct XHRContext<TH: TypeHolderTrait + 'static> {
+struct XHRContext<TH: TypeHolderTrait<TH> + 'static> {
     xhr: TrustedXHRAddress<TH>,
     gen_id: GenerationId,
     buf: DomRefCell<Vec<u8>>,
@@ -98,7 +98,7 @@ struct XHRContext<TH: TypeHolderTrait + 'static> {
 }
 
 #[derive(Clone)]
-pub enum XHRProgress<TH: TypeHolderTrait + 'static> {
+pub enum XHRProgress<TH: TypeHolderTrait<TH> + 'static> {
     /// Notify that headers have been received
     HeadersReceived(GenerationId, Option<Headers>, Option<(u16, Vec<u8>)>),
     /// Partial progress (after receiving headers), containing portion of the response
@@ -109,7 +109,7 @@ pub enum XHRProgress<TH: TypeHolderTrait + 'static> {
     Errored(GenerationId, Error<TH>),
 }
 
-impl<TH: TypeHolderTrait> XHRProgress<TH> {
+impl<TH: TypeHolderTrait<TH>> XHRProgress<TH> {
     fn generation_id(&self) -> GenerationId {
         match *self {
             XHRProgress::HeadersReceived(id, _, _) |
@@ -121,7 +121,7 @@ impl<TH: TypeHolderTrait> XHRProgress<TH> {
 }
 
 #[dom_struct]
-pub struct XMLHttpRequest<TH: TypeHolderTrait + 'static> {
+pub struct XMLHttpRequest<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: XMLHttpRequestEventTarget<TH>,
     ready_state: Cell<XMLHttpRequestState>,
     timeout: Cell<u32>,
@@ -163,7 +163,7 @@ pub struct XMLHttpRequest<TH: TypeHolderTrait + 'static> {
     canceller: DomRefCell<FetchCanceller>,
 }
 
-impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
+impl<TH: TypeHolderTrait<TH>> XMLHttpRequest<TH> {
     fn new_inherited(global: &GlobalScope<TH>) -> XMLHttpRequest<TH> {
         //TODO - update this when referrer policy implemented for workers
         let (referrer_url, referrer_policy) = if let Some(window) = global.downcast::<Window<TH>>() {
@@ -229,7 +229,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
                           global: &GlobalScope<TH>,
                           init: RequestInit,
                           cancellation_chan: ipc::IpcReceiver<()>) {
-        impl<TH: TypeHolderTrait> FetchResponseListener for XHRContext<TH> {
+        impl<TH: TypeHolderTrait<TH>> FetchResponseListener for XHRContext<TH> {
             fn process_request_body(&mut self) {
                 // todo
             }
@@ -258,7 +258,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
             }
         }
 
-        impl<TH: TypeHolderTrait> PreInvoke for XHRContext<TH> {
+        impl<TH: TypeHolderTrait<TH>> PreInvoke for XHRContext<TH> {
             fn should_invoke(&self) -> bool {
                 self.xhr.root().generation_id.get() == self.gen_id
             }
@@ -279,7 +279,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> XMLHttpRequestMethods<TH> for XMLHttpRequest<TH> {
+impl<TH: TypeHolderTrait<TH>> XMLHttpRequestMethods<TH> for XMLHttpRequest<TH> {
     // https://xhr.spec.whatwg.org/#handler-xhr-onreadystatechange
     event_handler!(readystatechange, GetOnreadystatechange, SetOnreadystatechange);
 
@@ -832,7 +832,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestMethods<TH> for XMLHttpRequest<TH> {
 pub type TrustedXHRAddress<TH> = Trusted<XMLHttpRequest<TH>>;
 
 
-impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
+impl<TH: TypeHolderTrait<TH>> XMLHttpRequest<TH> {
     fn change_ready_state(&self, rs: XMLHttpRequestState) {
         assert_ne!(self.ready_state.get(), rs);
         self.ready_state.set(rs);
@@ -1374,13 +1374,13 @@ impl<TH: TypeHolderTrait> XMLHttpRequest<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct XHRTimeoutCallback<TH: TypeHolderTrait + 'static> {
+pub struct XHRTimeoutCallback<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
     xhr: Trusted<XMLHttpRequest<TH>>,
     generation_id: GenerationId,
 }
 
-impl<TH: TypeHolderTrait> XHRTimeoutCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> XHRTimeoutCallback<TH> {
     pub fn invoke(self) {
         let xhr = self.xhr.root();
         if xhr.ready_state.get() != XMLHttpRequestState::Done {
@@ -1393,7 +1393,7 @@ pub trait Extractable {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>);
 }
 
-impl<TH: TypeHolderTrait> Extractable for Blob<TH> {
+impl<TH: TypeHolderTrait<TH>> Extractable for Blob<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         let content_type = if self.Type().as_ref().is_empty() {
             None
@@ -1413,7 +1413,7 @@ impl Extractable for DOMString {
     }
 }
 
-impl<TH: TypeHolderTrait> Extractable for FormData<TH> {
+impl<TH: TypeHolderTrait<TH>> Extractable for FormData<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         let boundary = generate_boundary();
         let bytes = encode_multipart_form_data(&mut self.datums(), boundary.clone(), UTF_8);
@@ -1421,14 +1421,14 @@ impl<TH: TypeHolderTrait> Extractable for FormData<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Extractable for URLSearchParams<TH> {
+impl<TH: TypeHolderTrait<TH>> Extractable for URLSearchParams<TH> {
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         (self.serialize_utf8().into_bytes(),
             Some(DOMString::from("application/x-www-form-urlencoded;charset=UTF-8")))
     }
 }
 
-fn serialize_document<TH: TypeHolderTrait>(doc: &Document<TH>) -> Fallible<DOMString, TH> {
+fn serialize_document<TH: TypeHolderTrait<TH>>(doc: &Document<TH>) -> Fallible<DOMString, TH> {
     let mut writer = vec![];
     match serialize(&mut writer, &doc.upcast::<Node<TH>>(), SerializeOpts::default()) {
         Ok(_) => Ok(DOMString::from(String::from_utf8(writer).unwrap())),
@@ -1436,7 +1436,7 @@ fn serialize_document<TH: TypeHolderTrait>(doc: &Document<TH>) -> Fallible<DOMSt
     }
 }
 
-impl<TH: TypeHolderTrait> Extractable for BodyInit<TH> {
+impl<TH: TypeHolderTrait<TH>> Extractable for BodyInit<TH> {
     // https://fetch.spec.whatwg.org/#concept-bodyinit-extract
     fn extract(&self) -> (Vec<u8>, Option<DOMString>) {
         match *self {

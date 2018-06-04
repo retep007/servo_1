@@ -84,7 +84,7 @@ pub enum FileReaderResult {
 }
 
 #[dom_struct]
-pub struct FileReader<TH: TypeHolderTrait + 'static> {
+pub struct FileReader<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     ready_state: Cell<FileReaderReadyState>,
     error: MutNullableDom<DOMException<TH>>,
@@ -92,7 +92,7 @@ pub struct FileReader<TH: TypeHolderTrait + 'static> {
     generation_id: Cell<GenerationId>,
 }
 
-impl<TH: TypeHolderTrait> FileReader<TH> {
+impl<TH: TypeHolderTrait<TH>> FileReader<TH> {
     pub fn new_inherited() -> FileReader<TH> {
         FileReader {
             eventtarget: EventTarget::new_inherited(),
@@ -275,7 +275,7 @@ impl<TH: TypeHolderTrait> FileReader<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FileReaderMethods<TH> for FileReader<TH> {
+impl<TH: TypeHolderTrait<TH>> FileReaderMethods<TH> for FileReader<TH> {
     // https://w3c.github.io/FileAPI/#dfn-onloadstart
     event_handler!(loadstart, GetOnloadstart, SetOnloadstart);
 
@@ -353,7 +353,7 @@ impl<TH: TypeHolderTrait> FileReaderMethods<TH> for FileReader<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> FileReader<TH> {
+impl<TH: TypeHolderTrait<TH>> FileReader<TH> {
     fn dispatch_progress_event(&self, type_: Atom, loaded: u64, total: Option<u64>) {
         let progressevent = ProgressEvent::new(&self.global(),
             type_, EventBubbles::DoesNotBubble, EventCancelable::NotCancelable,
@@ -409,7 +409,7 @@ impl<TH: TypeHolderTrait> FileReader<TH> {
 }
 
 // https://w3c.github.io/FileAPI/#thread-read-operation
-fn perform_annotated_read_operation<TH: TypeHolderTrait>(
+fn perform_annotated_read_operation<TH: TypeHolderTrait<TH>>(
     gen_id: GenerationId,
     data: ReadMetaData,
     blob_contents: Arc<Vec<u8>>,

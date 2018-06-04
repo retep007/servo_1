@@ -22,12 +22,12 @@ pub enum HeadingLevel {
 }
 
 #[dom_struct]
-pub struct HTMLHeadingElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLHeadingElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     level: HeadingLevel,
 }
 
-impl<TH: TypeHolderTrait> HTMLHeadingElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLHeadingElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>,

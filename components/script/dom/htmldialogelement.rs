@@ -18,12 +18,12 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLDialogElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLDialogElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     return_value: DomRefCell<DOMString>,
 }
 
-impl<TH: TypeHolderTrait> HTMLDialogElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLDialogElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLDialogElement<TH> {
@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> HTMLDialogElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLDialogElementMethods for HTMLDialogElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLDialogElementMethods for HTMLDialogElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-dialog-open
     make_bool_getter!(Open, "open");
 

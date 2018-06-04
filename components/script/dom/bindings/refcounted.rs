@@ -66,14 +66,14 @@ impl TrustedReference {
 /// in asynchronous operations. The underlying DOM object is guaranteed to live at least
 /// as long as the last outstanding `TrustedPromise` instance. These values cannot be cloned,
 /// only created from existing Rc<Promise<TH>> values.
-pub struct TrustedPromise<TH: TypeHolderTrait + 'static> {
+pub struct TrustedPromise<TH: TypeHolderTrait<TH> + 'static> {
     dom_object: *const Promise<TH>,
     owner_thread: *const libc::c_void,
 }
 
-unsafe impl<TH: TypeHolderTrait> Send for TrustedPromise<TH> {}
+unsafe impl<TH: TypeHolderTrait<TH>> Send for TrustedPromise<TH> {}
 
-impl<TH: TypeHolderTrait> TrustedPromise<TH> {
+impl<TH: TypeHolderTrait<TH>> TrustedPromise<TH> {
     /// Create a new `TrustedPromise` instance from an existing DOM object. The object will
     /// be prevented from being GCed for the duration of the resulting `TrustedPromise` object's
     /// lifetime.
@@ -206,7 +206,7 @@ impl<T: DomObject> Clone for Trusted<T> {
 /// The set of live, pinned DOM objects that are currently prevented
 /// from being garbage collected due to outstanding references.
 #[allow(unrooted_must_root)]
-pub struct LiveDOMReferences<TH: TypeHolderTrait + 'static> {
+pub struct LiveDOMReferences<TH: TypeHolderTrait<TH> + 'static> {
     // keyed on pointer to Rust DOM object
     reflectable_table: RefCell<HashMap<*const libc::c_void, Weak<TrustedReference>>>,
     promise_table: RefCell<HashMap<*const Promise<TH>, Vec<Rc<Promise<TH>>>>>,
@@ -216,7 +216,7 @@ pub trait LiveDOMReferencesTrait {
 
 }
 
-impl<TH: TypeHolderTrait> LiveDOMReferences<TH> {
+impl<TH: TypeHolderTrait<TH>> LiveDOMReferences<TH> {
     /// Set up the thread-local data required for storing the outstanding DOM references.
     pub fn initialize() {
         // LIVE_REFERENCES.with(|ref r| {

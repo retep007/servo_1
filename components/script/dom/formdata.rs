@@ -24,12 +24,12 @@ use std::iter;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct FormData<TH: TypeHolderTrait + 'static> {
+pub struct FormData<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     data: DomRefCell<HashMap<LocalName, Vec<FormDatum<TH>>>>,
 }
 
-impl<TH: TypeHolderTrait> FormData<TH> {
+impl<TH: TypeHolderTrait<TH>> FormData<TH> {
     fn new_inherited(opt_form: Option<&HTMLFormElement<TH>>) -> FormData<TH> {
         let mut hashmap: HashMap<LocalName, Vec<FormDatum<TH>>> = HashMap::new();
 
@@ -59,7 +59,7 @@ impl<TH: TypeHolderTrait> FormData<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormDataMethods<TH> for FormData<TH> {
+impl<TH: TypeHolderTrait<TH>> FormDataMethods<TH> for FormData<TH> {
     // https://xhr.spec.whatwg.org/#dom-formdata-append
     fn Append(&self, name: USVString, str_value: USVString) {
         let datum = FormDatum {
@@ -146,7 +146,7 @@ impl<TH: TypeHolderTrait> FormDataMethods<TH> for FormData<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> FormData<TH> {
+impl<TH: TypeHolderTrait<TH>> FormData<TH> {
     // https://xhr.spec.whatwg.org/#create-an-entry
     // Steps 3-4.
     fn create_an_entry(&self, blob: &Blob<TH>, opt_filename: Option<USVString>) -> DomRoot<File<TH>> {
@@ -169,7 +169,7 @@ impl<TH: TypeHolderTrait> FormData<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Iterable for FormData<TH> {
+impl<TH: TypeHolderTrait<TH>> Iterable for FormData<TH> {
     type Key = USVString;
     type Value = FileOrUSVString<TH>;
 

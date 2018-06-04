@@ -18,11 +18,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLHeadElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLHeadElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLHeadElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLHeadElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLHeadElement<TH> {
@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> HTMLHeadElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLHeadElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLHeadElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

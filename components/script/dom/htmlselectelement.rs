@@ -40,8 +40,8 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[derive(JSTraceable, MallocSizeOf)]
-struct OptionsFilter<TH: TypeHolderTrait + 'static>(PhantomData<TH>);
-impl<TH: TypeHolderTrait> CollectionFilter<TH> for OptionsFilter<TH> {
+struct OptionsFilter<TH: TypeHolderTrait<TH> + 'static>(PhantomData<TH>);
+impl<TH: TypeHolderTrait<TH>> CollectionFilter<TH> for OptionsFilter<TH> {
     fn filter<'a>(&self, elem: &'a Element<TH>, root: &'a Node<TH>) -> bool {
         if !elem.is::<HTMLOptionElement<TH>>() {
             return false;
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for OptionsFilter<TH> {
 }
 
 #[dom_struct]
-pub struct HTMLSelectElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLSelectElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     options: MutNullableDom<HTMLOptionsCollection<TH>>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
@@ -69,7 +69,7 @@ pub struct HTMLSelectElement<TH: TypeHolderTrait + 'static> {
 
 static DEFAULT_SELECT_SIZE: u32 = 0;
 
-impl<TH: TypeHolderTrait> HTMLSelectElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLSelectElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLSelectElement<TH> {
@@ -189,7 +189,7 @@ impl<TH: TypeHolderTrait> HTMLSelectElement<TH> {
      }
 }
 
-impl<TH: TypeHolderTrait> HTMLSelectElementMethods<TH> for HTMLSelectElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLSelectElementMethods<TH> for HTMLSelectElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
@@ -342,7 +342,7 @@ impl<TH: TypeHolderTrait> HTMLSelectElementMethods<TH> for HTMLSelectElement<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLSelectElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLSelectElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -399,7 +399,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLSelectElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl<TH> for HTMLSelectElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControl<TH> for HTMLSelectElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -413,7 +413,7 @@ impl<TH: TypeHolderTrait> FormControl<TH> for HTMLSelectElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Validatable for HTMLSelectElement<TH> {
+impl<TH: TypeHolderTrait<TH>> Validatable for HTMLSelectElement<TH> {
     fn is_instance_validatable(&self) -> bool {
         true
     }

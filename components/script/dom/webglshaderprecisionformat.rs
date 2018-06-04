@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct WebGLShaderPrecisionFormat<TH: TypeHolderTrait + 'static> {
+pub struct WebGLShaderPrecisionFormat<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     range_min: i32,
     range_max: i32,
@@ -23,7 +23,7 @@ pub struct WebGLShaderPrecisionFormat<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> WebGLShaderPrecisionFormat<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLShaderPrecisionFormat<TH> {
     fn new_inherited(range_min: i32, range_max: i32, precision: i32) -> WebGLShaderPrecisionFormat<TH> {
         WebGLShaderPrecisionFormat {
             reflector_: Reflector::new(),
@@ -45,7 +45,7 @@ impl<TH: TypeHolderTrait> WebGLShaderPrecisionFormat<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebGLShaderPrecisionFormatMethods for WebGLShaderPrecisionFormat<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLShaderPrecisionFormatMethods for WebGLShaderPrecisionFormat<TH> {
     // https://www.khronos.org/registry/webgl/specs/1.0/#5.12.1
     fn RangeMin(&self) -> i32 {
         self.range_min

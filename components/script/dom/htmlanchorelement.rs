@@ -34,13 +34,13 @@ use style::attr::AttrValue;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLAnchorElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLAnchorElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     rel_list: MutNullableDom<DOMTokenList<TH>>,
     url: DomRefCell<Option<ServoUrl>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLAnchorElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLAnchorElement<TH> {
@@ -88,7 +88,7 @@ impl<TH: TypeHolderTrait> HTMLAnchorElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLAnchorElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLAnchorElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -101,7 +101,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLAnchorElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLAnchorElementMethods<TH> for HTMLAnchorElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLAnchorElementMethods<TH> for HTMLAnchorElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-a-text
     fn Text(&self) -> DOMString {
         self.upcast::<Node<TH>>().GetTextContent().unwrap()
@@ -511,7 +511,7 @@ impl<TH: TypeHolderTrait> HTMLAnchorElementMethods<TH> for HTMLAnchorElement<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> Activatable<TH> for HTMLAnchorElement<TH> {
+impl<TH: TypeHolderTrait<TH>> Activatable<TH> for HTMLAnchorElement<TH> {
     fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()
     }
@@ -581,7 +581,7 @@ fn is_current_browsing_context(target: DOMString) -> bool {
 }
 
 /// <https://html.spec.whatwg.org/multipage/#following-hyperlinks-2>
-pub fn follow_hyperlink<TH: TypeHolderTrait>(subject: &Element<TH>, hyperlink_suffix: Option<String>, referrer_policy: Option<ReferrerPolicy>) {
+pub fn follow_hyperlink<TH: TypeHolderTrait<TH>>(subject: &Element<TH>, hyperlink_suffix: Option<String>, referrer_policy: Option<ReferrerPolicy>) {
     // Step 1: replace.
     // Step 2: source browsing context.
     // Step 3: target browsing context.

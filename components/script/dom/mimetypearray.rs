@@ -14,12 +14,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct MimeTypeArray<TH: TypeHolderTrait + 'static> {
+pub struct MimeTypeArray<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> MimeTypeArray<TH> {
+impl<TH: TypeHolderTrait<TH>> MimeTypeArray<TH> {
     pub fn new_inherited() -> MimeTypeArray<TH> {
         MimeTypeArray {
             reflector_: Reflector::new(),
@@ -34,7 +34,7 @@ impl<TH: TypeHolderTrait> MimeTypeArray<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MimeTypeArrayMethods<TH> for MimeTypeArray<TH> {
+impl<TH: TypeHolderTrait<TH>> MimeTypeArrayMethods<TH> for MimeTypeArray<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-mimetypearray-length
     fn Length(&self) -> u32 {
         0

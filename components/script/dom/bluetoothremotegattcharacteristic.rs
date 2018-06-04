@@ -36,7 +36,7 @@ pub const MAXIMUM_ATTRIBUTE_LENGTH: usize = 512;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattcharacteristic
 #[dom_struct]
-pub struct BluetoothRemoteGATTCharacteristic<TH: TypeHolderTrait + 'static> {
+pub struct BluetoothRemoteGATTCharacteristic<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     service: Dom<BluetoothRemoteGATTService<TH>>,
     uuid: DOMString,
@@ -45,7 +45,7 @@ pub struct BluetoothRemoteGATTCharacteristic<TH: TypeHolderTrait + 'static> {
     instance_id: String,
 }
 
-impl<TH: TypeHolderTrait> BluetoothRemoteGATTCharacteristic<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothRemoteGATTCharacteristic<TH> {
     pub fn new_inherited(service: &BluetoothRemoteGATTService<TH>,
                          uuid: DOMString,
                          properties: &BluetoothCharacteristicProperties<TH>,
@@ -85,7 +85,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTCharacteristic<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BluetoothRemoteGATTCharacteristicMethods<TH> for BluetoothRemoteGATTCharacteristic<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothRemoteGATTCharacteristicMethods<TH> for BluetoothRemoteGATTCharacteristic<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-properties
     fn Properties(&self) -> DomRoot<BluetoothCharacteristicProperties<TH>> {
         DomRoot::from_ref(&self.properties)
@@ -258,7 +258,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTCharacteristicMethods<TH> for Bluet
     event_handler!(characteristicvaluechanged, GetOncharacteristicvaluechanged, SetOncharacteristicvaluechanged);
 }
 
-impl<TH: TypeHolderTrait> AsyncBluetoothListener<TH> for BluetoothRemoteGATTCharacteristic<TH> {
+impl<TH: TypeHolderTrait<TH>> AsyncBluetoothListener<TH> for BluetoothRemoteGATTCharacteristic<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         let device = self.Service().Device();
         match response {

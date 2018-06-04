@@ -508,7 +508,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_cssRules<TH: TypeHolderTrait>
+unsafe extern fn get_cssRules<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSGroupingRule<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -520,7 +520,7 @@ unsafe extern fn get_cssRules<TH: TypeHolderTrait>
 }
 
 
-fn cssRules_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn cssRules_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_cssRules::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSGroupingRule as u16,
     depth: 1,
@@ -538,7 +538,7 @@ fn cssRules_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn insertRule<TH: TypeHolderTrait>
+unsafe extern fn insertRule<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSGroupingRule<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -584,7 +584,7 @@ unsafe extern fn insertRule<TH: TypeHolderTrait>
 }
 
 
-fn insertRule_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn insertRule_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: insertRule::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSGroupingRule as u16,
     depth: 1,
@@ -602,7 +602,7 @@ fn insertRule_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn deleteRule<TH: TypeHolderTrait>
+unsafe extern fn deleteRule<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSGroupingRule<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -638,7 +638,7 @@ unsafe extern fn deleteRule<TH: TypeHolderTrait>
 }
 
 
-fn deleteRule_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn deleteRule_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: deleteRule::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSGroupingRule as u16,
     depth: 1,
@@ -656,25 +656,25 @@ fn deleteRule_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-impl<TH: TypeHolderTrait> IDLInterface for CSSGroupingRule<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for CSSGroupingRule<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class.interface_chain[1] == PrototypeList::ID::CSSGroupingRule
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for CSSGroupingRule<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for CSSGroupingRule<TH> {
     fn eq(&self, other: &CSSGroupingRule<TH>) -> bool {
         self as *const CSSGroupingRule<TH> == &*other
     }
 }
 
-pub trait CSSGroupingRuleMethods<TH: TypeHolderTrait> {
+pub trait CSSGroupingRuleMethods<TH: TypeHolderTrait<TH>> {
     fn CssRules(&self) -> DomRoot<CSSRuleList<TH>>;
     fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32, TH>;
     fn DeleteRule(&self, index: u32) -> Fallible<(), TH>;
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"insertRule\0" as *const u8 as *const libc::c_char,
@@ -699,10 +699,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"cssRules\0" as *const u8 as *const libc::c_char,
@@ -718,11 +718,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -757,7 +757,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::CSSGroupingRule,
         1);
 
-pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
+pub unsafe fn GetConstructorObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface object for this class.  This will create the object as
        needed. */
@@ -776,7 +776,7 @@ pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
 
 }
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -789,12 +789,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     CSSRuleBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

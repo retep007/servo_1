@@ -21,13 +21,13 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ServiceWorkerContainer<TH: TypeHolderTrait + 'static> {
+pub struct ServiceWorkerContainer<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     controller: MutNullableDom<ServiceWorker<TH>>,
     client: Dom<Client<TH>>
 }
 
-impl<TH: TypeHolderTrait> ServiceWorkerContainer<TH> {
+impl<TH: TypeHolderTrait<TH>> ServiceWorkerContainer<TH> {
     fn new_inherited(client: &Client<TH>) -> ServiceWorkerContainer<TH> {
         ServiceWorkerContainer {
             eventtarget: EventTarget::new_inherited(),
@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> ServiceWorkerContainer<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ServiceWorkerContainerMethods<TH> for ServiceWorkerContainer<TH> {
+impl<TH: TypeHolderTrait<TH>> ServiceWorkerContainerMethods<TH> for ServiceWorkerContainer<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-container-controller-attribute
     fn GetController(&self) -> Option<DomRoot<ServiceWorker<TH>>> {
         self.client.get_controller()

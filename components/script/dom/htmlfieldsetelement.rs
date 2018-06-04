@@ -24,12 +24,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct HTMLFieldSetElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLFieldSetElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLFieldSetElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFieldSetElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLFieldSetElement<TH> {
@@ -51,12 +51,12 @@ impl<TH: TypeHolderTrait> HTMLFieldSetElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLFieldSetElementMethods<TH> for HTMLFieldSetElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFieldSetElementMethods<TH> for HTMLFieldSetElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-fieldset-elements
     fn Elements(&self) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ElementsFilter<THH: TypeHolderTrait + 'static>(PhantomData<THH>);
-        impl<THH: TypeHolderTrait> CollectionFilter<THH> for ElementsFilter<THH> {
+        struct ElementsFilter<THH: TypeHolderTrait<THH> + 'static>(PhantomData<THH>);
+        impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for ElementsFilter<THH> {
             fn filter<'a>(&self, elem: &'a Element<THH>, _root: &'a Node<THH>) -> bool {
                 elem.downcast::<HTMLElement<THH>>()
                     .map_or(false, HTMLElement::is_listed_element)
@@ -85,7 +85,7 @@ impl<TH: TypeHolderTrait> HTMLFieldSetElementMethods<TH> for HTMLFieldSetElement
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLFieldSetElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLFieldSetElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -160,7 +160,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLFieldSetElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl<TH> for HTMLFieldSetElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControl<TH> for HTMLFieldSetElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }

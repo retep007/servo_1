@@ -556,7 +556,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_isConnected<TH: TypeHolderTrait>
+unsafe extern fn get_isConnected<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -568,7 +568,7 @@ unsafe extern fn get_isConnected<TH: TypeHolderTrait>
 }
 
 
-fn isConnected_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isConnected_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_isConnected::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -586,7 +586,7 @@ fn isConnected_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_isPresenting<TH: TypeHolderTrait>
+unsafe extern fn get_isPresenting<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -598,7 +598,7 @@ unsafe extern fn get_isPresenting<TH: TypeHolderTrait>
 }
 
 
-fn isPresenting_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isPresenting_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_isPresenting::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -616,7 +616,7 @@ fn isPresenting_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_capabilities<TH: TypeHolderTrait>
+unsafe extern fn get_capabilities<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -628,7 +628,7 @@ unsafe extern fn get_capabilities<TH: TypeHolderTrait>
 }
 
 
-fn capabilities_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn capabilities_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_capabilities::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -646,7 +646,7 @@ fn capabilities_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_stageParameters<TH: TypeHolderTrait>
+unsafe extern fn get_stageParameters<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -658,7 +658,7 @@ unsafe extern fn get_stageParameters<TH: TypeHolderTrait>
 }
 
 
-fn stageParameters_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn stageParameters_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_stageParameters::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -676,7 +676,7 @@ fn stageParameters_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getEyeParameters<TH: TypeHolderTrait>
+unsafe extern fn getEyeParameters<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -702,7 +702,7 @@ unsafe extern fn getEyeParameters<TH: TypeHolderTrait>
 }
 
 
-fn getEyeParameters_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getEyeParameters_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getEyeParameters::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -720,7 +720,7 @@ fn getEyeParameters_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_displayId<TH: TypeHolderTrait>
+unsafe extern fn get_displayId<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -732,7 +732,7 @@ unsafe extern fn get_displayId<TH: TypeHolderTrait>
 }
 
 
-fn displayId_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn displayId_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_displayId::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -750,7 +750,7 @@ fn displayId_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_displayName<TH: TypeHolderTrait>
+unsafe extern fn get_displayName<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -762,7 +762,7 @@ unsafe extern fn get_displayName<TH: TypeHolderTrait>
 }
 
 
-fn displayName_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn displayName_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_displayName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -780,7 +780,7 @@ fn displayName_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getFrameData<TH: TypeHolderTrait>
+unsafe extern fn getFrameData<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -814,7 +814,7 @@ unsafe extern fn getFrameData<TH: TypeHolderTrait>
 }
 
 
-fn getFrameData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getFrameData_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getFrameData::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -832,7 +832,7 @@ fn getFrameData_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getPose<TH: TypeHolderTrait>
+unsafe extern fn getPose<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -846,7 +846,7 @@ unsafe extern fn getPose<TH: TypeHolderTrait>
 }
 
 
-fn getPose_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getPose_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getPose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -864,7 +864,7 @@ fn getPose_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn resetPose<TH: TypeHolderTrait>
+unsafe extern fn resetPose<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -878,7 +878,7 @@ unsafe extern fn resetPose<TH: TypeHolderTrait>
 }
 
 
-fn resetPose_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn resetPose_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: resetPose::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -896,7 +896,7 @@ fn resetPose_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_depthNear<TH: TypeHolderTrait>
+unsafe extern fn get_depthNear<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -907,7 +907,7 @@ unsafe extern fn get_depthNear<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_depthNear<TH: TypeHolderTrait>
+unsafe extern fn set_depthNear<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -928,7 +928,7 @@ unsafe extern fn set_depthNear<TH: TypeHolderTrait>
 }
 
 
-fn depthNear_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn depthNear_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_depthNear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -946,7 +946,7 @@ fn depthNear_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn depthNear_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn depthNear_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_depthNear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -964,7 +964,7 @@ fn depthNear_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_depthFar<TH: TypeHolderTrait>
+unsafe extern fn get_depthFar<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -975,7 +975,7 @@ unsafe extern fn get_depthFar<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_depthFar<TH: TypeHolderTrait>
+unsafe extern fn set_depthFar<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const VRDisplay<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -996,7 +996,7 @@ unsafe extern fn set_depthFar<TH: TypeHolderTrait>
 }
 
 
-fn depthFar_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn depthFar_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_depthFar::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -1014,7 +1014,7 @@ fn depthFar_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn depthFar_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn depthFar_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_depthFar::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -1032,7 +1032,7 @@ fn depthFar_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn requestAnimationFrame<TH: TypeHolderTrait>
+unsafe extern fn requestAnimationFrame<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1064,7 +1064,7 @@ unsafe extern fn requestAnimationFrame<TH: TypeHolderTrait>
 }
 
 
-fn requestAnimationFrame_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn requestAnimationFrame_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: requestAnimationFrame::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -1082,7 +1082,7 @@ fn requestAnimationFrame_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn cancelAnimationFrame<TH: TypeHolderTrait>
+unsafe extern fn cancelAnimationFrame<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1111,7 +1111,7 @@ unsafe extern fn cancelAnimationFrame<TH: TypeHolderTrait>
 }
 
 
-fn cancelAnimationFrame_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn cancelAnimationFrame_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: cancelAnimationFrame::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -1129,7 +1129,7 @@ fn cancelAnimationFrame_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn requestPresent<TH: TypeHolderTrait>
+unsafe extern fn requestPresent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1158,7 +1158,7 @@ unsafe extern fn requestPresent<TH: TypeHolderTrait>
 }
 
 
-fn requestPresent_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn requestPresent_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: requestPresent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -1176,7 +1176,7 @@ fn requestPresent_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn exitPresent<TH: TypeHolderTrait>
+unsafe extern fn exitPresent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1190,7 +1190,7 @@ unsafe extern fn exitPresent<TH: TypeHolderTrait>
 }
 
 
-fn exitPresent_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn exitPresent_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: exitPresent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -1208,7 +1208,7 @@ fn exitPresent_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getLayers<TH: TypeHolderTrait>
+unsafe extern fn getLayers<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1222,7 +1222,7 @@ unsafe extern fn getLayers<TH: TypeHolderTrait>
 }
 
 
-fn getLayers_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getLayers_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getLayers::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -1240,7 +1240,7 @@ fn getLayers_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn submitFrame<TH: TypeHolderTrait>
+unsafe extern fn submitFrame<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const VRDisplay<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1254,7 +1254,7 @@ unsafe extern fn submitFrame<TH: TypeHolderTrait>
 }
 
 
-fn submitFrame_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn submitFrame_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: submitFrame::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::VRDisplay as u16,
     depth: 1,
@@ -1272,7 +1272,7 @@ fn submitFrame_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1285,7 +1285,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1295,7 +1295,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -1310,7 +1310,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"VRDisplay\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -1328,11 +1328,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<VRDisplay<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<VRDisplay<TH>>) -> DomRoot<VRDisplay<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -1358,20 +1358,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for VRDisplay<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for VRDisplay<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for VRDisplay<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for VRDisplay<TH> {
     fn eq(&self, other: &VRDisplay<TH>) -> bool {
         self as *const VRDisplay<TH> == &*other
     }
 }
 
-pub trait VRDisplayMethods<TH: TypeHolderTrait> {
+pub trait VRDisplayMethods<TH: TypeHolderTrait<TH>> {
     fn IsConnected(&self) -> bool;
     fn IsPresenting(&self) -> bool;
     fn Capabilities(&self) -> DomRoot<VRDisplayCapabilities<TH>>;
@@ -1393,7 +1393,7 @@ pub trait VRDisplayMethods<TH: TypeHolderTrait> {
     fn GetLayers(&self) -> Vec<VRLayer<TH>>;
     fn SubmitFrame(&self) -> ();
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"getEyeParameters\0" as *const u8 as *const libc::c_char,
@@ -1474,10 +1474,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"isConnected\0" as *const u8 as *const libc::c_char,
@@ -1535,11 +1535,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1574,7 +1574,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::VRDisplay,
         1);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -1587,13 +1587,13 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW) &&
     PREFS.get("dom.webvr.enabled").as_boolean().unwrap_or(false)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     EventTargetBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

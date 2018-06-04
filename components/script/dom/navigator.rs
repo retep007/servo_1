@@ -23,7 +23,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Navigator<TH: TypeHolderTrait + 'static> {
+pub struct Navigator<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     bluetooth: MutNullableDom<Bluetooth<TH>>,
     plugins: MutNullableDom<PluginArray<TH>>,
@@ -34,7 +34,7 @@ pub struct Navigator<TH: TypeHolderTrait + 'static> {
     permissions: MutNullableDom<Permissions<TH>>,
 }
 
-impl<TH: TypeHolderTrait> Navigator<TH> {
+impl<TH: TypeHolderTrait<TH>> Navigator<TH> {
     fn new_inherited() -> Navigator<TH> {
         Navigator {
             reflector_: Reflector::new(),
@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> Navigator<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> NavigatorMethods<TH> for Navigator<TH> {
+impl<TH: TypeHolderTrait<TH>> NavigatorMethods<TH> for Navigator<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-navigator-product
     fn Product(&self) -> DOMString {
         navigatorinfo::Product()
@@ -151,7 +151,7 @@ impl<TH: TypeHolderTrait> NavigatorMethods<TH> for Navigator<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Navigator<TH> {
+impl<TH: TypeHolderTrait<TH>> Navigator<TH> {
     pub fn Vr(&self) -> DomRoot<VR<TH>> {
         self.vr.or_init(|| VR::new(&self.global()))
     }

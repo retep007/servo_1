@@ -2160,7 +2160,7 @@ class CGDOMJSClass(CGThing):
             args["traceHook"] = "js::jsapi::JS_GlobalObjectTraceHook"
         elif self.descriptor.weakReferenceable:
             args["slots"] = "2"
-        args["malloc_generic"] = "<TH: TypeHolderTrait>" if self.descriptor.isGeneric else ""
+        args["malloc_generic"] = "<TH: TypeHolderTrait<TH>>" if self.descriptor.isGeneric else ""
         if self.descriptor.concreteType == 'ServoParser':
             mallocSizeOf = 'malloc_size_of_including_raw_self::<Box<%s>>' % self.descriptor.concreteType
         else:
@@ -2469,7 +2469,7 @@ class CGAbstractMethod(CGThing):
         if descriptor and descriptor.isGeneric:
             if self.templateArgs is None:
                 self.templateArgs = []
-            self.templateArgs.append('TH: TypeHolderTrait')
+            self.templateArgs.append('TH: TypeHolderTrait<TH>')
         self.pub = pub
         self.docs = docs
         self.catchPanic = self.extern and not doesNotPanic
@@ -2824,7 +2824,7 @@ impl%(generic)s PartialEq for %(name)s {
         self as *const %(name)s == &*other
     }
 }
-""" % {'check': check, 'name': name, 'generic': '<TH: TypeHolderTrait>' if self.descriptor.isGeneric else ''}
+""" % {'check': check, 'name': name, 'generic': '<TH: TypeHolderTrait<TH>>' if self.descriptor.isGeneric else ''}
 
 
 class CGAbstractExternMethod(CGAbstractMethod):
@@ -4350,7 +4350,7 @@ impl%s ToJSValConvertible for %s%s {
         }
     }
 }
-""") % (self.type, "<TH: TypeHolderTrait>" if len(generics) > 0 or isGeneric else "", "\n".join(enumValues), "<TH: TypeHolderTrait>" if len(generics) > 0 or isGeneric else "", self.type, "<TH>" if len(generics) > 0 else "", "\n".join(enumConversions))
+""") % (self.type, "<TH: TypeHolderTrait<TH>>" if len(generics) > 0 or isGeneric else "", "\n".join(enumValues), "<TH: TypeHolderTrait<TH>>" if len(generics) > 0 or isGeneric else "", self.type, "<TH>" if len(generics) > 0 else "", "\n".join(enumConversions))
 
 
 class CGUnionConversionStruct(CGThing):
@@ -4509,7 +4509,7 @@ class CGUnionConversionStruct(CGThing):
                 CGGeneric("type Config = ();"),
                 method,
             ], "\n")),
-            pre=("impl%s FromJSValConvertible for %s%s {\n" % ("<TH: TypeHolderTrait>" if self.isGeneric else "", self.type, "<TH>" if self.isGeneric else "")),
+            pre=("impl%s FromJSValConvertible for %s%s {\n" % ("<TH: TypeHolderTrait<TH>>" if self.isGeneric else "", self.type, "<TH>" if self.isGeneric else "")),
             post="\n}")
 
     def try_method(self, t):
@@ -4545,7 +4545,7 @@ class CGUnionConversionStruct(CGThing):
 impl%s %s%s {
 %s
 }
-""" % (from_jsval.define(), "<TH: TypeHolderTrait>" if self.isGeneric else "", self.type, "<TH>" if self.isGeneric else "", methods.define())
+""" % (from_jsval.define(), "<TH: TypeHolderTrait<TH>>" if self.isGeneric else "", self.type, "<TH>" if self.isGeneric else "", methods.define())
 
 
 class ClassItem:
@@ -5789,7 +5789,7 @@ class CGInterfaceTrait(CGThing):
             )
         if methods:
             self.cgRoot = CGWrapper(CGIndenter(CGList(methods, "")),
-                                    pre="pub trait %sMethods%s {\n" % (descriptor.interface.identifier.name, '<TH: TypeHolderTrait>' if isGeneric else ''),
+                                    pre="pub trait %sMethods%s {\n" % (descriptor.interface.identifier.name, '<TH: TypeHolderTrait<TH>>' if isGeneric else ''),
                                     post="}")
         else:
             self.cgRoot = CGGeneric("")
@@ -6329,7 +6329,7 @@ class CGDictionary(CGThing):
                                  "inheritance": inheritance,
                                  "mustRoot": mustRoot,
                                  "derive": ', '.join(derive),
-                                 "generic": '<TH: TypeHolderTrait>' if self.isGeneric else ''}))
+                                 "generic": '<TH: TypeHolderTrait<TH>>' if self.isGeneric else ''}))
 
     def impl(self):
         d = self.dictionary
@@ -6876,7 +6876,7 @@ class CGCallback(CGClass):
             })
         return [ClassMethod(method.name + '_', method.returnType, args,
                             bodyInHeader=True,
-                            templateArgs=["T: DomObject", "TH: TypeHolderTrait"],
+                            templateArgs=["T: DomObject", "TH: TypeHolderTrait<TH>"],
                             body=bodyWithThis,
                             visibility='pub'),
                 ClassMethod(method.name + '__', method.returnType, argsWithoutThis,

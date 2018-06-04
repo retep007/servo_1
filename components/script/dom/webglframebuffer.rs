@@ -22,19 +22,19 @@ use typeholder::TypeHolderTrait;
 
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-enum WebGLFramebufferAttachment<TH: TypeHolderTrait + 'static> {
+enum WebGLFramebufferAttachment<TH: TypeHolderTrait<TH> + 'static> {
     Renderbuffer(Dom<WebGLRenderbuffer<TH>>),
     Texture { texture: Dom<WebGLTexture<TH>>, level: i32 },
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum WebGLFramebufferAttachmentRoot<TH: TypeHolderTrait + 'static> {
+pub enum WebGLFramebufferAttachmentRoot<TH: TypeHolderTrait<TH> + 'static> {
     Renderbuffer(DomRoot<WebGLRenderbuffer<TH>>),
     Texture(DomRoot<WebGLTexture<TH>>),
 }
 
 #[dom_struct]
-pub struct WebGLFramebuffer<TH: TypeHolderTrait + 'static> {
+pub struct WebGLFramebuffer<TH: TypeHolderTrait<TH> + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLFramebufferId,
     /// target can only be gl::FRAMEBUFFER at the moment
@@ -53,7 +53,7 @@ pub struct WebGLFramebuffer<TH: TypeHolderTrait + 'static> {
     depthstencil: DomRefCell<Option<WebGLFramebufferAttachment<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLFramebuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLFramebufferId)
                      -> WebGLFramebuffer<TH> {
@@ -92,7 +92,7 @@ impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLFramebuffer<TH> {
     pub fn id(&self) -> WebGLFramebufferId {
         self.id
     }
@@ -394,7 +394,7 @@ impl<TH: TypeHolderTrait> WebGLFramebuffer<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for WebGLFramebuffer<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for WebGLFramebuffer<TH> {
     fn drop(&mut self) {
         self.delete();
     }

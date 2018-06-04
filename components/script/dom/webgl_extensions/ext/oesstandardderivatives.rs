@@ -14,12 +14,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct OESStandardDerivatives<TH: TypeHolderTrait + 'static> {
+pub struct OESStandardDerivatives<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> OESStandardDerivatives<TH> {
+impl<TH: TypeHolderTrait<TH>> OESStandardDerivatives<TH> {
     fn new_inherited() -> OESStandardDerivatives<TH> {
         Self {
             reflector_: Reflector::new(),
@@ -28,7 +28,7 @@ impl<TH: TypeHolderTrait> OESStandardDerivatives<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebGLExtension<TH> for OESStandardDerivatives<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLExtension<TH> for OESStandardDerivatives<TH> {
     type Extension = OESStandardDerivatives<TH>;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESStandardDerivatives<TH>> {
         reflect_dom_object(Box::new(OESStandardDerivatives::new_inherited()),

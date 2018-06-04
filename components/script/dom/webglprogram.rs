@@ -20,7 +20,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLProgram<TH: TypeHolderTrait + 'static> {
+pub struct WebGLProgram<TH: TypeHolderTrait<TH> + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLProgramId,
     is_deleted: Cell<bool>,
@@ -72,7 +72,7 @@ fn map_dot_separated<F: Fn(&str, &mut String)>(s: &str, f: F) -> String {
     mapped
 }
 
-impl<TH: TypeHolderTrait> WebGLProgram<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLProgram<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLProgramId)
                      -> WebGLProgram<TH> {
@@ -108,7 +108,7 @@ impl<TH: TypeHolderTrait> WebGLProgram<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> WebGLProgram<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLProgram<TH> {
     pub fn id(&self) -> WebGLProgramId {
         self.id
     }
@@ -384,7 +384,7 @@ impl<TH: TypeHolderTrait> WebGLProgram<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for WebGLProgram<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for WebGLProgram<TH> {
     fn drop(&mut self) {
         self.delete();
     }

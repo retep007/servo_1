@@ -38,14 +38,14 @@ enum PushOrReplace {
 
 // https://html.spec.whatwg.org/multipage/#the-history-interface
 #[dom_struct]
-pub struct History<TH: TypeHolderTrait + 'static> {
+pub struct History<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     window: Dom<Window<TH>>,
     state: Heap<JSVal>,
     state_id: Cell<Option<HistoryStateId>>,
 }
 
-impl <TH: TypeHolderTrait> History<TH> {
+impl <TH: TypeHolderTrait<TH>> History<TH> {
     pub fn new_inherited(window: &Window<TH>) -> History<TH> {
         let state = Heap::default();
         state.set(NullValue());
@@ -64,7 +64,7 @@ impl <TH: TypeHolderTrait> History<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> History<TH> {
+impl<TH: TypeHolderTrait<TH>> History<TH> {
     fn traverse_history(&self, direction: TraversalDirection) -> ErrorResult<TH> {
         if !self.window.Document().is_fully_active() {
             return Err(Error::Security);
@@ -256,7 +256,7 @@ impl<TH: TypeHolderTrait> History<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HistoryMethods<TH> for History<TH> {
+impl<TH: TypeHolderTrait<TH>> HistoryMethods<TH> for History<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-history-state
     #[allow(unsafe_code)]
     unsafe fn GetState(&self, _cx: *mut JSContext) -> Fallible<JSVal, TH> {

@@ -20,12 +20,12 @@ use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#beforeunloadevent
 #[dom_struct]
-pub struct BeforeUnloadEvent<TH: TypeHolderTrait + 'static> {
+pub struct BeforeUnloadEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     return_value: DomRefCell<DOMString>,
 }
 
-impl<TH: TypeHolderTrait> BeforeUnloadEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> BeforeUnloadEvent<TH> {
     fn new_inherited() -> Self {
         BeforeUnloadEvent {
             event: Event::new_inherited(),
@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> BeforeUnloadEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BeforeUnloadEventMethods for BeforeUnloadEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> BeforeUnloadEventMethods for BeforeUnloadEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-beforeunloadevent-returnvalue
     fn ReturnValue(&self) -> DOMString {
         self.return_value.borrow().clone()

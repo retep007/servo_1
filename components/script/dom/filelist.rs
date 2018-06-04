@@ -14,12 +14,12 @@ use typeholder::TypeHolderTrait;
 
 // https://w3c.github.io/FileAPI/#dfn-filelist
 #[dom_struct]
-pub struct FileList<TH: TypeHolderTrait + 'static> {
+pub struct FileList<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     list: Vec<Dom<File<TH>>>
 }
 
-impl<TH: TypeHolderTrait> FileList<TH> {
+impl<TH: TypeHolderTrait<TH>> FileList<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(files: Vec<Dom<File<TH>>>) -> FileList<TH> {
         FileList {
@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> FileList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FileListMethods<TH> for FileList<TH> {
+impl<TH: TypeHolderTrait<TH>> FileListMethods<TH> for FileList<TH> {
     // https://w3c.github.io/FileAPI/#dfn-length
     fn Length(&self) -> u32 {
         self.list.len() as u32

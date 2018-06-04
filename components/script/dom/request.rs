@@ -41,7 +41,7 @@ use std::rc::Rc;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Request<TH: TypeHolderTrait + 'static> {
+pub struct Request<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     request: DomRefCell<NetTraitsRequest>,
     body_used: Cell<bool>,
@@ -51,7 +51,7 @@ pub struct Request<TH: TypeHolderTrait + 'static> {
     body_promise: DomRefCell<Option<(Rc<Promise<TH>>, BodyType)>>,
 }
 
-impl<TH: TypeHolderTrait> Request<TH> {
+impl<TH: TypeHolderTrait<TH>> Request<TH> {
     fn new_inherited(global: &GlobalScope<TH>,
                      url: ServoUrl) -> Request<TH> {
         Request {
@@ -404,7 +404,7 @@ impl<TH: TypeHolderTrait> Request<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Request<TH> {
+impl<TH: TypeHolderTrait<TH>> Request<TH> {
     fn from_net_request(global: &GlobalScope<TH>,
                         net_request: NetTraitsRequest) -> DomRoot<Request<TH>> {
         let r = Request::new(global,
@@ -438,7 +438,7 @@ impl<TH: TypeHolderTrait> Request<TH> {
     }
 }
 
-fn net_request_from_global<TH: TypeHolderTrait>(global: &GlobalScope<TH>,
+fn net_request_from_global<TH: TypeHolderTrait<TH>>(global: &GlobalScope<TH>,
                            url: ServoUrl) -> NetTraitsRequest {
     let origin = Origin::Origin(global.get_url().origin());
     let pipeline_id = global.pipeline_id();
@@ -490,17 +490,17 @@ fn includes_credentials(input: &ServoUrl) -> bool {
 
 // TODO: `Readable Stream` object is not implemented in Servo yet.
 // https://fetch.spec.whatwg.org/#concept-body-disturbed
-fn request_is_disturbed<TH: TypeHolderTrait>(_input: &Request<TH>) -> bool {
+fn request_is_disturbed<TH: TypeHolderTrait<TH>>(_input: &Request<TH>) -> bool {
     false
 }
 
 // TODO: `Readable Stream` object is not implemented in Servo yet.
 // https://fetch.spec.whatwg.org/#concept-body-locked
-fn request_is_locked<TH: TypeHolderTrait>(_input: &Request<TH>) -> bool {
+fn request_is_locked<TH: TypeHolderTrait<TH>>(_input: &Request<TH>) -> bool {
     false
 }
 
-impl<TH: TypeHolderTrait> RequestMethods<TH> for Request<TH> {
+impl<TH: TypeHolderTrait<TH>> RequestMethods<TH> for Request<TH> {
     // https://fetch.spec.whatwg.org/#dom-request-method
     fn Method(&self) -> ByteString {
         let r = self.request.borrow();
@@ -620,7 +620,7 @@ impl<TH: TypeHolderTrait> RequestMethods<TH> for Request<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BodyOperations<TH> for Request<TH> {
+impl<TH: TypeHolderTrait<TH>> BodyOperations<TH> for Request<TH> {
     fn get_body_used(&self) -> bool {
         self.BodyUsed()
     }
@@ -820,7 +820,7 @@ impl Into<RequestRedirect> for NetTraitsRequestRedirect {
     }
 }
 
-impl<TH: TypeHolderTrait> Clone for HeadersInit<TH> {
+impl<TH: TypeHolderTrait<TH>> Clone for HeadersInit<TH> {
     fn clone(&self) -> HeadersInit<TH> {
     match self {
         &HeadersInit::Headers(ref h) =>

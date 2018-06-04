@@ -22,7 +22,7 @@ use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothremotegattservice
 #[dom_struct]
-pub struct BluetoothRemoteGATTService<TH: TypeHolderTrait + 'static> {
+pub struct BluetoothRemoteGATTService<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     device: Dom<BluetoothDevice<TH>>,
     uuid: DOMString,
@@ -30,7 +30,7 @@ pub struct BluetoothRemoteGATTService<TH: TypeHolderTrait + 'static> {
     instance_id: String,
 }
 
-impl<TH: TypeHolderTrait> BluetoothRemoteGATTService<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothRemoteGATTService<TH> {
     pub fn new_inherited(device: &BluetoothDevice<TH>,
                          uuid: DOMString,
                          is_primary: bool,
@@ -65,7 +65,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTService<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BluetoothRemoteGATTServiceMethods<TH> for BluetoothRemoteGATTService<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothRemoteGATTServiceMethods<TH> for BluetoothRemoteGATTService<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattservice-device
     fn Device(&self) -> DomRoot<BluetoothDevice<TH>> {
         DomRoot::from_ref(&self.device)
@@ -128,7 +128,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServiceMethods<TH> for BluetoothRem
     event_handler!(serviceremoved, GetOnserviceremoved, SetOnserviceremoved);
 }
 
-impl<TH: TypeHolderTrait> AsyncBluetoothListener<TH> for BluetoothRemoteGATTService<TH> {
+impl<TH: TypeHolderTrait<TH>> AsyncBluetoothListener<TH> for BluetoothRemoteGATTService<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         let device = self.Device();
         match response {

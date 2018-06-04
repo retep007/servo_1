@@ -18,13 +18,13 @@ use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#hashchangeevent
 #[dom_struct]
-pub struct HashChangeEvent<TH: TypeHolderTrait + 'static> {
+pub struct HashChangeEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     old_url: String,
     new_url: String,
 }
 
-impl<TH: TypeHolderTrait> HashChangeEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> HashChangeEvent<TH> {
     fn new_inherited(old_url: String, new_url: String) -> HashChangeEvent<TH> {
         HashChangeEvent {
             event: Event::new_inherited(),
@@ -69,7 +69,7 @@ impl<TH: TypeHolderTrait> HashChangeEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HashChangeEventMethods for HashChangeEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> HashChangeEventMethods for HashChangeEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-hashchangeevent-oldurl
     fn OldURL(&self) -> USVString {
         USVString(self.old_url.clone())

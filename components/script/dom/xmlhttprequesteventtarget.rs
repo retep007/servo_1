@@ -8,11 +8,11 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct XMLHttpRequestEventTarget<TH: TypeHolderTrait + 'static> {
+pub struct XMLHttpRequestEventTarget<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
 }
 
-impl<TH: TypeHolderTrait> XMLHttpRequestEventTarget<TH> {
+impl<TH: TypeHolderTrait<TH>> XMLHttpRequestEventTarget<TH> {
     pub fn new_inherited() -> XMLHttpRequestEventTarget<TH> {
         XMLHttpRequestEventTarget {
             eventtarget: EventTarget::new_inherited()
@@ -20,7 +20,7 @@ impl<TH: TypeHolderTrait> XMLHttpRequestEventTarget<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> XMLHttpRequestEventTargetMethods<TH> for XMLHttpRequestEventTarget<TH> {
+impl<TH: TypeHolderTrait<TH>> XMLHttpRequestEventTargetMethods<TH> for XMLHttpRequestEventTarget<TH> {
     // https://xhr.spec.whatwg.org/#handler-xhr-onloadstart
     event_handler!(loadstart, GetOnloadstart, SetOnloadstart);
 

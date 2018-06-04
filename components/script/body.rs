@@ -39,7 +39,7 @@ pub enum BodyType {
     ArrayBuffer
 }
 
-pub enum FetchedData<TH: TypeHolderTrait + 'static> {
+pub enum FetchedData<TH: TypeHolderTrait<TH> + 'static> {
     Text(String),
     Json(RootedTraceableBox<Heap<JSValue>>),
     BlobData(DomRoot<Blob<TH>>),
@@ -123,12 +123,12 @@ fn run_package_data_algorithm<T: BodyOperations<<T as DomObject>::TypeHolder> + 
     }
 }
 
-fn run_text_data_algorithm<TH: TypeHolderTrait>(bytes: Vec<u8>) -> Fallible<FetchedData<TH>, TH> {
+fn run_text_data_algorithm<TH: TypeHolderTrait<TH>>(bytes: Vec<u8>) -> Fallible<FetchedData<TH>, TH> {
     Ok(FetchedData::Text(String::from_utf8_lossy(&bytes).into_owned()))
 }
 
 #[allow(unsafe_code)]
-fn run_json_data_algorithm<TH: TypeHolderTrait>(cx: *mut JSContext,
+fn run_json_data_algorithm<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                            bytes: Vec<u8>) -> Fallible<FetchedData<TH>, TH> {
     let json_text = String::from_utf8_lossy(&bytes);
     let json_text: Vec<u16> = json_text.encode_utf16().collect();
@@ -148,7 +148,7 @@ fn run_json_data_algorithm<TH: TypeHolderTrait>(cx: *mut JSContext,
     }
 }
 
-fn run_blob_data_algorithm<TH: TypeHolderTrait>(root: &GlobalScope<TH>,
+fn run_blob_data_algorithm<TH: TypeHolderTrait<TH>>(root: &GlobalScope<TH>,
                            bytes: Vec<u8>,
                            mime: &[u8]) -> Fallible<FetchedData<TH>, TH> {
     let mime_string = if let Ok(s) = String::from_utf8(mime.to_vec()) {
@@ -160,7 +160,7 @@ fn run_blob_data_algorithm<TH: TypeHolderTrait>(root: &GlobalScope<TH>,
     Ok(FetchedData::BlobData(blob))
 }
 
-fn run_form_data_algorithm<TH: TypeHolderTrait>(root: &GlobalScope<TH>, bytes: Vec<u8>, mime: &[u8]) -> Fallible<FetchedData<TH>, TH> {
+fn run_form_data_algorithm<TH: TypeHolderTrait<TH>>(root: &GlobalScope<TH>, bytes: Vec<u8>, mime: &[u8]) -> Fallible<FetchedData<TH>, TH> {
     let mime_str = if let Ok(s) = str::from_utf8(mime) {
         s
     } else {
@@ -185,7 +185,7 @@ fn run_form_data_algorithm<TH: TypeHolderTrait>(root: &GlobalScope<TH>, bytes: V
 }
 
 #[allow(unsafe_code)]
-unsafe fn run_array_buffer_data_algorithm<TH: TypeHolderTrait>(cx: *mut JSContext, bytes: Vec<u8>) -> Fallible<FetchedData<TH>, TH> {
+unsafe fn run_array_buffer_data_algorithm<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, bytes: Vec<u8>) -> Fallible<FetchedData<TH>, TH> {
     rooted!(in(cx) let mut array_buffer_ptr = ptr::null_mut::<JSObject>());
     let arraybuffer = ArrayBuffer::create(cx, CreateWith::Slice(&bytes), array_buffer_ptr.handle_mut());
     if arraybuffer.is_err() {
@@ -195,7 +195,7 @@ unsafe fn run_array_buffer_data_algorithm<TH: TypeHolderTrait>(cx: *mut JSContex
     Ok(FetchedData::ArrayBuffer(rooted_heap))
 }
 
-pub trait BodyOperations<TH: TypeHolderTrait> {
+pub trait BodyOperations<TH: TypeHolderTrait<TH>> {
     fn get_body_used(&self) -> bool;
     fn set_body_promise(&self, p: &Rc<Promise<TH>>, body_type: BodyType);
     /// Returns `Some(_)` if the body is complete, `None` if there is more to

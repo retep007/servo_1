@@ -19,12 +19,12 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLLegendElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLLegendElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLLegendElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLegendElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>)
@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> HTMLLegendElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLegendElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLLegendElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -73,7 +73,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLegendElement<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> HTMLLegendElementMethods<TH> for HTMLLegendElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLegendElementMethods<TH> for HTMLLegendElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-legend-form
     fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         let parent = self.upcast::<Node<TH>>().GetParentElement()?;
@@ -84,7 +84,7 @@ impl<TH: TypeHolderTrait> HTMLLegendElementMethods<TH> for HTMLLegendElement<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl<TH> for HTMLLegendElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControl<TH> for HTMLLegendElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }

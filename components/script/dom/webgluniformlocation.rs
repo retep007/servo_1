@@ -13,14 +13,14 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct WebGLUniformLocation<TH: TypeHolderTrait + 'static> {
+pub struct WebGLUniformLocation<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     id: i32,
     program_id: WebGLProgramId,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> WebGLUniformLocation<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLUniformLocation<TH> {
     fn new_inherited(id: i32,
                      program_id: WebGLProgramId)
                      -> WebGLUniformLocation<TH> {

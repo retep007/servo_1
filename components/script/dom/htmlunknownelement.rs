@@ -12,11 +12,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLUnknownElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLUnknownElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLUnknownElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLUnknownElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLUnknownElement<TH> {

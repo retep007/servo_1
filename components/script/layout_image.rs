@@ -47,7 +47,7 @@ impl FetchResponseListener for LayoutImageContext {
 
 impl PreInvoke for LayoutImageContext {}
 
-pub fn fetch_image_for_layout<TH: TypeHolderTrait>(url: ServoUrl,
+pub fn fetch_image_for_layout<TH: TypeHolderTrait<TH>>(url: ServoUrl,
                               node: &Node<TH>,
                               id: PendingImageId,
                               cache: Arc<ImageCache>) {

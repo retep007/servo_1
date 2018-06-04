@@ -22,13 +22,13 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#interface-customevent
 #[dom_struct]
-pub struct CustomEvent<TH: TypeHolderTrait + 'static> {
+pub struct CustomEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     detail: Heap<JSVal>,
 }
 
-impl<TH: TypeHolderTrait> CustomEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> CustomEvent<TH> {
     fn new_inherited() -> CustomEvent<TH> {
         CustomEvent {
             event: Event::new_inherited(),
@@ -77,7 +77,7 @@ impl<TH: TypeHolderTrait> CustomEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CustomEventMethods for CustomEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> CustomEventMethods for CustomEvent<TH> {
     #[allow(unsafe_code)]
     // https://dom.spec.whatwg.org/#dom-customevent-detail
     unsafe fn Detail(&self, _cx: *mut JSContext) -> JSVal {

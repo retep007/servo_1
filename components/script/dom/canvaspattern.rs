@@ -15,7 +15,7 @@ use std::marker::PhantomData;
 
 // https://html.spec.whatwg.org/multipage/#canvaspattern
 #[dom_struct]
-pub struct CanvasPattern<TH: TypeHolderTrait + 'static> {
+pub struct CanvasPattern<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     surface_data: Vec<u8>,
     surface_size: Size2D<i32>,
@@ -25,7 +25,7 @@ pub struct CanvasPattern<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> CanvasPattern<TH> {
+impl<TH: TypeHolderTrait<TH>> CanvasPattern<TH> {
     fn new_inherited(surface_data: Vec<u8>,
                      surface_size: Size2D<i32>,
                      repeat: RepetitionStyle,
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> CanvasPattern<TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> ToFillOrStrokeStyle for &'a CanvasPattern<TH> {
+impl<'a, TH: TypeHolderTrait<TH>> ToFillOrStrokeStyle for &'a CanvasPattern<TH> {
     fn to_fill_or_stroke_style(self) -> FillOrStrokeStyle {
         FillOrStrokeStyle::Surface(SurfaceStyle::new(self.surface_data.clone(),
                                                      self.surface_size,

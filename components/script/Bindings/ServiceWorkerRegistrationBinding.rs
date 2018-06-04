@@ -508,7 +508,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_installing<TH: TypeHolderTrait>
+unsafe extern fn get_installing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorkerRegistration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -520,7 +520,7 @@ unsafe extern fn get_installing<TH: TypeHolderTrait>
 }
 
 
-fn installing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn installing_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_installing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorkerRegistration as u16,
     depth: 1,
@@ -538,7 +538,7 @@ fn installing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_waiting<TH: TypeHolderTrait>
+unsafe extern fn get_waiting<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorkerRegistration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -550,7 +550,7 @@ unsafe extern fn get_waiting<TH: TypeHolderTrait>
 }
 
 
-fn waiting_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn waiting_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_waiting::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorkerRegistration as u16,
     depth: 1,
@@ -568,7 +568,7 @@ fn waiting_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_active<TH: TypeHolderTrait>
+unsafe extern fn get_active<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorkerRegistration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -580,7 +580,7 @@ unsafe extern fn get_active<TH: TypeHolderTrait>
 }
 
 
-fn active_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn active_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_active::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorkerRegistration as u16,
     depth: 1,
@@ -598,7 +598,7 @@ fn active_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_scope<TH: TypeHolderTrait>
+unsafe extern fn get_scope<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const ServiceWorkerRegistration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -610,7 +610,7 @@ unsafe extern fn get_scope<TH: TypeHolderTrait>
 }
 
 
-fn scope_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn scope_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_scope::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::ServiceWorkerRegistration as u16,
     depth: 1,
@@ -628,7 +628,7 @@ fn scope_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -641,7 +641,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -651,7 +651,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -666,7 +666,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"ServiceWorkerRegistration\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -684,11 +684,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<ServiceWorkerRegistration<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<ServiceWorkerRegistration<TH>>) -> DomRoot<ServiceWorkerRegistration<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -718,26 +718,26 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for ServiceWorkerRegistration<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for ServiceWorkerRegistration<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for ServiceWorkerRegistration<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for ServiceWorkerRegistration<TH> {
     fn eq(&self, other: &ServiceWorkerRegistration<TH>) -> bool {
         self as *const ServiceWorkerRegistration<TH> == &*other
     }
 }
 
-pub trait ServiceWorkerRegistrationMethods<TH: TypeHolderTrait> {
+pub trait ServiceWorkerRegistrationMethods<TH: TypeHolderTrait<TH>> {
     fn GetInstalling(&self) -> Option<DomRoot<ServiceWorker<TH>>>;
     fn GetWaiting(&self) -> Option<DomRoot<ServiceWorker<TH>>>;
     fn GetActive(&self) -> Option<DomRoot<ServiceWorker<TH>>>;
     fn Scope(&self) -> USVString;
 }
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"scope\0" as *const u8 as *const libc::c_char,
@@ -753,10 +753,10 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
-fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sUnforgeableAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"installing\0" as *const u8 as *const libc::c_char,
@@ -784,11 +784,11 @@ fn sUnforgeableAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSP
     }]
 
 ]}
-fn sUnforgeableAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sUnforgeableAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sUnforgeableAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -823,7 +823,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::ServiceWorkerRegistration,
         1);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -836,13 +836,13 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::DEDICATED_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::SERVICE_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::WINDOW) &&
     PREFS.get("dom.serviceworker.enabled").as_boolean().unwrap_or(false)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     EventTargetBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

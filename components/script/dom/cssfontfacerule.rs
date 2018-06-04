@@ -16,13 +16,13 @@ use style::stylesheets::FontFaceRule;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSFontFaceRule<TH: TypeHolderTrait + 'static> {
+pub struct CSSFontFaceRule<TH: TypeHolderTrait<TH> + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     fontfacerule: Arc<Locked<FontFaceRule>>,
 }
 
-impl<TH: TypeHolderTrait> CSSFontFaceRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSFontFaceRule<TH> {
     fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, fontfacerule: Arc<Locked<FontFaceRule>>)
                      -> Self {
         CSSFontFaceRule {
@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> CSSFontFaceRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> SpecificCSSRule for CSSFontFaceRule<TH> {
+impl<TH: TypeHolderTrait<TH>> SpecificCSSRule for CSSFontFaceRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::FONT_FACE_RULE

@@ -19,12 +19,12 @@ use typeholder::TypeHolderTrait;
 
 // https://w3c.github.io/ServiceWorker/#extendable-event
 #[dom_struct]
-pub struct ExtendableEvent<TH: TypeHolderTrait + 'static> {
+pub struct ExtendableEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     extensions_allowed: bool
 }
 
-impl<TH: TypeHolderTrait> ExtendableEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> ExtendableEvent<TH> {
     pub fn new_inherited() -> ExtendableEvent<TH> {
         ExtendableEvent {
             event: Event::new_inherited(),

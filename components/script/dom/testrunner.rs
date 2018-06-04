@@ -18,12 +18,12 @@ use std::marker::PhantomData;
 
 // https://webbluetoothcg.github.io/web-bluetooth/tests#test-runner
  #[dom_struct]
-pub struct TestRunner<TH: TypeHolderTrait + 'static> {
+pub struct TestRunner<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> TestRunner<TH> {
+impl<TH: TypeHolderTrait<TH>> TestRunner<TH> {
     pub fn new_inherited() -> TestRunner<TH> {
         TestRunner {
             reflector_: Reflector::new(),
@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> TestRunner<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TestRunnerMethods<TH> for TestRunner<TH> {
+impl<TH: TypeHolderTrait<TH>> TestRunnerMethods<TH> for TestRunner<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/tests#setBluetoothMockDataSet
     fn SetBluetoothMockDataSet(&self, dataSetName: DOMString) -> ErrorResult<TH> {
         let (sender, receiver) = ipc::channel(self.global().time_profiler_chan().clone()).unwrap();

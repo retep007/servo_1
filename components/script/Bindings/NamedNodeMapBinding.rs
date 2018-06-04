@@ -506,7 +506,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_length<TH: TypeHolderTrait>
+unsafe extern fn get_length<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -518,7 +518,7 @@ unsafe extern fn get_length<TH: TypeHolderTrait>
 }
 
 
-fn length_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn length_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_length::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::NamedNodeMap as u16,
     depth: 0,
@@ -536,7 +536,7 @@ fn length_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn item<TH: TypeHolderTrait>
+unsafe extern fn item<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -565,7 +565,7 @@ unsafe extern fn item<TH: TypeHolderTrait>
 }
 
 const item_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::Double as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-fn item_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
+fn item_methodinfo<TH: TypeHolderTrait<TH>>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: item::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::NamedNodeMap as u16,
@@ -586,7 +586,7 @@ fn item_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMetho
     argTypes: &item_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
 }}
 
-unsafe extern fn getNamedItem<TH: TypeHolderTrait>
+unsafe extern fn getNamedItem<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -615,7 +615,7 @@ unsafe extern fn getNamedItem<TH: TypeHolderTrait>
 }
 
 const getNamedItem_methodinfo_argTypes: [i32; 2] = [ JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-fn getNamedItem_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
+fn getNamedItem_methodinfo<TH: TypeHolderTrait<TH>>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getNamedItem::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::NamedNodeMap as u16,
@@ -636,7 +636,7 @@ fn getNamedItem_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTy
     argTypes: &getNamedItem_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
 }}
 
-unsafe extern fn getNamedItemNS<TH: TypeHolderTrait>
+unsafe extern fn getNamedItemNS<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -675,7 +675,7 @@ unsafe extern fn getNamedItemNS<TH: TypeHolderTrait>
 }
 
 const getNamedItemNS_methodinfo_argTypes: [i32; 3] = [ JSJitInfo_ArgType::Null as i32 | JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::String as i32, JSJitInfo_ArgType::ArgTypeListEnd as i32 ];
-fn getNamedItemNS_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
+fn getNamedItemNS_methodinfo<TH: TypeHolderTrait<TH>>() -> JSTypedMethodJitInfo { JSTypedMethodJitInfo {
     base:   JSJitInfo {
       call: getNamedItemNS::<TH> as *const os::raw::c_void,
       protoID: PrototypeList::ID::NamedNodeMap as u16,
@@ -696,7 +696,7 @@ fn getNamedItemNS_methodinfo<TH: TypeHolderTrait>() -> JSTypedMethodJitInfo { JS
     argTypes: &getNamedItemNS_methodinfo_argTypes as *const _ as *const JSJitInfo_ArgType,
 }}
 
-unsafe extern fn setNamedItem<TH: TypeHolderTrait>
+unsafe extern fn setNamedItem<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -741,7 +741,7 @@ unsafe extern fn setNamedItem<TH: TypeHolderTrait>
 }
 
 
-fn setNamedItem_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn setNamedItem_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: setNamedItem::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::NamedNodeMap as u16,
     depth: 0,
@@ -759,7 +759,7 @@ fn setNamedItem_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn setNamedItemNS<TH: TypeHolderTrait>
+unsafe extern fn setNamedItemNS<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -804,7 +804,7 @@ unsafe extern fn setNamedItemNS<TH: TypeHolderTrait>
 }
 
 
-fn setNamedItemNS_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn setNamedItemNS_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: setNamedItemNS::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::NamedNodeMap as u16,
     depth: 0,
@@ -822,7 +822,7 @@ fn setNamedItemNS_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn removeNamedItem<TH: TypeHolderTrait>
+unsafe extern fn removeNamedItem<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -862,7 +862,7 @@ unsafe extern fn removeNamedItem<TH: TypeHolderTrait>
 }
 
 
-fn removeNamedItem_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn removeNamedItem_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: removeNamedItem::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::NamedNodeMap as u16,
     depth: 0,
@@ -880,7 +880,7 @@ fn removeNamedItem_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn removeNamedItemNS<TH: TypeHolderTrait>
+unsafe extern fn removeNamedItemNS<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const NamedNodeMap<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -930,7 +930,7 @@ unsafe extern fn removeNamedItemNS<TH: TypeHolderTrait>
 }
 
 
-fn removeNamedItemNS_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn removeNamedItemNS_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: removeNamedItemNS::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::NamedNodeMap as u16,
     depth: 0,
@@ -948,7 +948,7 @@ fn removeNamedItemNS_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -961,7 +961,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -971,7 +971,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait>
+pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait<TH>>
 () -> *const libc::c_void {
     let traps = ProxyTraps {
         enter: None,
@@ -1008,7 +1008,7 @@ pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait>
     CreateProxyHandler(&traps, Class::<TH>().as_void_ptr())
 }
 
-#[inline] unsafe fn UnwrapProxy<TH: TypeHolderTrait>
+#[inline] unsafe fn UnwrapProxy<TH: TypeHolderTrait<TH>>
 (obj: RawHandleObject) -> *const NamedNodeMap<TH> {
     /*if (xpc::WrapperFactory::IsXrayWrapper(obj)) {
         obj = js::UnwrapObject(obj);
@@ -1018,14 +1018,14 @@ pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait>
     return box_;
 }
 
-fn Class<TH: TypeHolderTrait>() -> DOMClass { DOMClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMClass { DOMClass {
     interface_chain: [ PrototypeList::ID::NamedNodeMap, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { alone: () },
     global: InterfaceObjectMap::Globals::EMPTY,
     malloc_size_of: malloc_size_of_including_raw_self::<NamedNodeMap<TH>> as unsafe fn(&mut _, _) -> _,
 }}
 
-unsafe extern fn own_property_keys<TH: TypeHolderTrait>
+unsafe extern fn own_property_keys<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, proxy: RawHandleObject, props: *mut AutoIdVector) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let unwrapped_proxy = UnwrapProxy(proxy);
@@ -1052,7 +1052,7 @@ unsafe extern fn own_property_keys<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn getOwnEnumerablePropertyKeys<TH: TypeHolderTrait>
+unsafe extern fn getOwnEnumerablePropertyKeys<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, proxy: RawHandleObject, props: *mut AutoIdVector) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let unwrapped_proxy = UnwrapProxy(proxy);
@@ -1071,7 +1071,7 @@ unsafe extern fn getOwnEnumerablePropertyKeys<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn getOwnPropertyDescriptor<TH: TypeHolderTrait>
+unsafe extern fn getOwnPropertyDescriptor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, proxy: RawHandleObject, id: RawHandleId, desc: RawMutableHandle<PropertyDescriptor>) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let index = get_array_index_from_id(cx, Handle::from_raw(id));
@@ -1129,12 +1129,12 @@ unsafe extern fn getOwnPropertyDescriptor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn className<TH: TypeHolderTrait>
+unsafe extern fn className<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _proxy: RawHandleObject) -> *const i8 {
     b"NamedNodeMap\0" as *const u8 as *const i8
 }
 
-unsafe extern fn get<TH: TypeHolderTrait>
+unsafe extern fn get<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, proxy: RawHandleObject, receiver: RawHandleValue, id: RawHandleId, vp: RawMutableHandleValue) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         //MOZ_ASSERT(!xpc::WrapperFactory::IsXrayWrapper(proxy),
@@ -1196,7 +1196,7 @@ unsafe extern fn get<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn hasOwn<TH: TypeHolderTrait>
+unsafe extern fn hasOwn<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, proxy: RawHandleObject, id: RawHandleId, bp: *mut bool) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let index = get_array_index_from_id(cx, Handle::from_raw(id));
@@ -1240,7 +1240,7 @@ unsafe extern fn hasOwn<TH: TypeHolderTrait>
     }), false);
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<NamedNodeMap<TH>>) -> DomRoot<NamedNodeMap<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -1269,20 +1269,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for NamedNodeMap<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for NamedNodeMap<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>() as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for NamedNodeMap<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for NamedNodeMap<TH> {
     fn eq(&self, other: &NamedNodeMap<TH>) -> bool {
         self as *const NamedNodeMap<TH> == &*other
     }
 }
 
-pub trait NamedNodeMapMethods<TH: TypeHolderTrait> {
+pub trait NamedNodeMapMethods<TH: TypeHolderTrait<TH>> {
     fn Length(&self) -> u32;
     fn Item(&self, index: u32) -> Option<DomRoot<Attr<TH>>>;
     fn GetNamedItem(&self, qualifiedName: DOMString) -> Option<DomRoot<Attr<TH>>>;
@@ -1295,7 +1295,7 @@ pub trait NamedNodeMapMethods<TH: TypeHolderTrait> {
     fn NamedGetter(&self, qualifiedName: DOMString) -> Option<DomRoot<Attr<TH>>>;
     fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Attr<TH>>>;
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"item\0" as *const u8 as *const libc::c_char,
@@ -1362,10 +1362,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"length\0" as *const u8 as *const libc::c_char,
@@ -1381,11 +1381,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1420,7 +1420,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::NamedNodeMap,
         0);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -1433,12 +1433,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

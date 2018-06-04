@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct VRDisplayCapabilities<TH: TypeHolderTrait + 'static> {
+pub struct VRDisplayCapabilities<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     capabilities: DomRefCell<WebVRDisplayCapabilities>,
@@ -23,7 +23,7 @@ pub struct VRDisplayCapabilities<TH: TypeHolderTrait + 'static> {
 
 unsafe_no_jsmanaged_fields!(WebVRDisplayCapabilities);
 
-impl<TH: TypeHolderTrait> VRDisplayCapabilities<TH> {
+impl<TH: TypeHolderTrait<TH>> VRDisplayCapabilities<TH> {
     fn new_inherited(capabilities: WebVRDisplayCapabilities) -> VRDisplayCapabilities<TH> {
         VRDisplayCapabilities {
             reflector_: Reflector::new(),
@@ -39,7 +39,7 @@ impl<TH: TypeHolderTrait> VRDisplayCapabilities<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VRDisplayCapabilitiesMethods for VRDisplayCapabilities<TH> {
+impl<TH: TypeHolderTrait<TH>> VRDisplayCapabilitiesMethods for VRDisplayCapabilities<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplaycapabilities-hasposition
     fn HasPosition(&self) -> bool {
         self.capabilities.borrow().has_position

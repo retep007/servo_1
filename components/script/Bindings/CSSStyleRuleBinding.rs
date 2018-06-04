@@ -508,7 +508,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_selectorText<TH: TypeHolderTrait>
+unsafe extern fn get_selectorText<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleRule<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -519,7 +519,7 @@ unsafe extern fn get_selectorText<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_selectorText<TH: TypeHolderTrait>
+unsafe extern fn set_selectorText<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleRule<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -540,7 +540,7 @@ unsafe extern fn set_selectorText<TH: TypeHolderTrait>
 }
 
 
-fn selectorText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn selectorText_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_selectorText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleRule as u16,
     depth: 1,
@@ -558,7 +558,7 @@ fn selectorText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn selectorText_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn selectorText_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_selectorText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleRule as u16,
     depth: 1,
@@ -576,7 +576,7 @@ fn selectorText_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_style<TH: TypeHolderTrait>
+unsafe extern fn get_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleRule<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -587,7 +587,7 @@ unsafe extern fn get_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_style<TH: TypeHolderTrait>
+unsafe extern fn set_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleRule<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         rooted!(in(cx) let mut v = UndefinedValue());
@@ -605,7 +605,7 @@ unsafe extern fn set_style<TH: TypeHolderTrait>
 }
 
 
-fn style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleRule as u16,
     depth: 1,
@@ -623,7 +623,7 @@ fn style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleRule as u16,
     depth: 1,
@@ -641,7 +641,7 @@ fn style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -654,7 +654,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -664,7 +664,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -679,7 +679,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"CSSStyleRule\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -697,11 +697,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<CSSStyleRule<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<CSSStyleRule<TH>>) -> DomRoot<CSSStyleRule<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -727,25 +727,25 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for CSSStyleRule<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for CSSStyleRule<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for CSSStyleRule<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for CSSStyleRule<TH> {
     fn eq(&self, other: &CSSStyleRule<TH>) -> bool {
         self as *const CSSStyleRule<TH> == &*other
     }
 }
 
-pub trait CSSStyleRuleMethods<TH: TypeHolderTrait> {
+pub trait CSSStyleRuleMethods<TH: TypeHolderTrait<TH>> {
     fn SelectorText(&self) -> DOMString;
     fn SetSelectorText(&self, value: DOMString) -> ();
     fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>>;
 }
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"selectorText\0" as *const u8 as *const libc::c_char,
@@ -767,11 +767,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -806,7 +806,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::CSSStyleRule,
         1);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -819,12 +819,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     CSSRuleBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

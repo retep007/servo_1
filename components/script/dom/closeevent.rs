@@ -17,14 +17,14 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CloseEvent<TH: TypeHolderTrait + 'static> {
+pub struct CloseEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     was_clean: bool,
     code: u16,
     reason: DOMString,
 }
 
-impl<TH: TypeHolderTrait> CloseEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> CloseEvent<TH> {
     pub fn new_inherited(was_clean: bool, code: u16, reason: DOMString) -> CloseEvent<TH> {
         CloseEvent {
             event: Event::new_inherited(),
@@ -76,7 +76,7 @@ impl<TH: TypeHolderTrait> CloseEvent<TH> {
 
 }
 
-impl<TH: TypeHolderTrait> CloseEventMethods for CloseEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> CloseEventMethods for CloseEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-closeevent-wasclean
     fn WasClean(&self) -> bool {
         self.was_clean

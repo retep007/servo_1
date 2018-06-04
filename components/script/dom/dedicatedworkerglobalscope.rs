@@ -48,12 +48,12 @@ use typeholder::TypeHolderTrait;
 /// value for the duration of this object's lifetime. This ensures that the related Worker
 /// object only lives as long as necessary (ie. while events are being executed), while
 /// providing a reference that can be cloned freely.
-struct AutoWorkerReset<'a, TH: TypeHolderTrait + 'static> {
+struct AutoWorkerReset<'a, TH: TypeHolderTrait<TH> + 'static> {
     workerscope: &'a DedicatedWorkerGlobalScope<TH>,
     old_worker: Option<TrustedWorkerAddress<TH>>,
 }
 
-impl<'a, TH: TypeHolderTrait> AutoWorkerReset<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> AutoWorkerReset<'a, TH> {
     fn new(workerscope: &'a DedicatedWorkerGlobalScope<TH>,
            worker: TrustedWorkerAddress<TH>)
            -> AutoWorkerReset<'a, TH> {
@@ -64,13 +64,13 @@ impl<'a, TH: TypeHolderTrait> AutoWorkerReset<'a, TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> Drop for AutoWorkerReset<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> Drop for AutoWorkerReset<'a, TH> {
     fn drop(&mut self) {
         *self.workerscope.worker.borrow_mut() = self.old_worker.clone();
     }
 }
 
-enum MixedMessage<TH: TypeHolderTrait + 'static> {
+enum MixedMessage<TH: TypeHolderTrait<TH> + 'static> {
     FromWorker((TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)),
     FromScheduler((TrustedWorkerAddress<TH>, TimerEvent)),
     FromDevtools(DevtoolScriptControlMsg)
@@ -78,7 +78,7 @@ enum MixedMessage<TH: TypeHolderTrait + 'static> {
 
 // https://html.spec.whatwg.org/multipage/#dedicatedworkerglobalscope
 #[dom_struct]
-pub struct DedicatedWorkerGlobalScope<TH: TypeHolderTrait + 'static>
+pub struct DedicatedWorkerGlobalScope<TH: TypeHolderTrait<TH> + 'static>
  {
     workerglobalscope: WorkerGlobalScope<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
@@ -94,7 +94,7 @@ pub struct DedicatedWorkerGlobalScope<TH: TypeHolderTrait + 'static>
     parent_sender: Box<ScriptChan + Send>,
 }
 
-impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> DedicatedWorkerGlobalScope<TH> {
     fn new_inherited(init: WorkerGlobalScopeInit,
                      worker_url: ServoUrl,
                      from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
@@ -391,7 +391,7 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext) -> bool {
+unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait<TH>>(cx: *mut JSContext) -> bool {
     let worker =
         DomRoot::downcast::<WorkerGlobalScope<TH>>(GlobalScope::<TH>::from_context(cx))
             .expect("global is not a worker scope");
@@ -401,7 +401,7 @@ unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext)
     !worker.is_closing()
 }
 
-impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScopeMethods<TH> for DedicatedWorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> DedicatedWorkerGlobalScopeMethods<TH> for DedicatedWorkerGlobalScope<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-dedicatedworkerglobalscope-postmessage
     unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {

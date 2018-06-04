@@ -33,7 +33,7 @@ use std::marker::PhantomData;
 pub struct OneshotTimerHandle(i32);
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
-pub struct OneshotTimers<TH: TypeHolderTrait + 'static> {
+pub struct OneshotTimers<TH: TypeHolderTrait<TH> + 'static> {
     js_timers: JsTimers<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
     timer_event_chan: IpcSender<TimerEvent>,
@@ -57,7 +57,7 @@ pub struct OneshotTimers<TH: TypeHolderTrait + 'static> {
 }
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
-struct OneshotTimer<TH: TypeHolderTrait + 'static> {
+struct OneshotTimer<TH: TypeHolderTrait<TH> + 'static> {
     handle: OneshotTimerHandle,
     source: TimerSource,
     callback: OneshotTimerCallback<TH>,
@@ -68,7 +68,7 @@ struct OneshotTimer<TH: TypeHolderTrait + 'static> {
 // A replacement trait would have a method such as
 //     `invoke<T: DomObject>(self: Box<Self>, this: &T, js_timers: &JsTimers);`.
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum OneshotTimerCallback<TH: TypeHolderTrait + 'static> {
+pub enum OneshotTimerCallback<TH: TypeHolderTrait<TH> + 'static> {
     XhrTimeout(XHRTimeoutCallback<TH>),
     EventSourceTimeout(EventSourceTimeoutCallback<TH>),
     JsTimer(JsTimerTask<TH>),
@@ -76,7 +76,7 @@ pub enum OneshotTimerCallback<TH: TypeHolderTrait + 'static> {
     FakeRequestAnimationFrame(FakeRequestAnimationFrameCallback<TH>),
 }
 
-impl<TH: TypeHolderTrait> OneshotTimerCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> OneshotTimerCallback<TH> {
     //TODO: should be generic fn invoke<T: DomObject>(self, this: &T, js_timers: &JsTimers<TH>) {
     fn invoke(self, this: &GlobalScope<TH>, js_timers: &JsTimers<TH>) {
         match self {
@@ -89,7 +89,7 @@ impl<TH: TypeHolderTrait> OneshotTimerCallback<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Ord for OneshotTimer<TH> {
+impl<TH: TypeHolderTrait<TH>> Ord for OneshotTimer<TH> {
     fn cmp(&self, other: &OneshotTimer<TH>) -> Ordering {
         match self.scheduled_for.cmp(&other.scheduled_for).reverse() {
             Ordering::Equal => self.handle.cmp(&other.handle).reverse(),
@@ -98,20 +98,20 @@ impl<TH: TypeHolderTrait> Ord for OneshotTimer<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PartialOrd for OneshotTimer<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialOrd for OneshotTimer<TH> {
     fn partial_cmp(&self, other: &OneshotTimer<TH>) -> Option<Ordering> {
         Some(self.cmp(other))
     }
 }
 
-impl<TH: TypeHolderTrait> Eq for OneshotTimer<TH> {}
-impl<TH: TypeHolderTrait> PartialEq for OneshotTimer<TH> {
+impl<TH: TypeHolderTrait<TH>> Eq for OneshotTimer<TH> {}
+impl<TH: TypeHolderTrait<TH>> PartialEq for OneshotTimer<TH> {
     fn eq(&self, other: &OneshotTimer<TH>) -> bool {
         self as *const OneshotTimer<TH> == other as *const OneshotTimer<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> OneshotTimers<TH> {
+impl<TH: TypeHolderTrait<TH>> OneshotTimers<TH> {
     pub fn new(timer_event_chan: IpcSender<TimerEvent>,
                scheduler_chan: IpcSender<TimerSchedulerMsg>)
                -> OneshotTimers<TH> {
@@ -308,7 +308,7 @@ impl<TH: TypeHolderTrait> OneshotTimers<TH> {
 pub struct JsTimerHandle(i32);
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
-pub struct JsTimers<TH: TypeHolderTrait + 'static> {
+pub struct JsTimers<TH: TypeHolderTrait<TH> + 'static> {
     next_timer_handle: Cell<JsTimerHandle>,
     active_timers: DomRefCell<HashMap<JsTimerHandle, JsTimerEntry>>,
     /// The nesting level of the currently executing timer task or 0.
@@ -328,7 +328,7 @@ struct JsTimerEntry {
 //      to the function when calling it)
 // TODO: Handle rooting during invocation when movable GC is turned on
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct JsTimerTask<TH: TypeHolderTrait + 'static> {
+pub struct JsTimerTask<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
     handle: JsTimerHandle,
     source: TimerSource,
@@ -346,13 +346,13 @@ pub enum IsInterval {
 }
 
 #[derive(Clone)]
-pub enum TimerCallback<TH: TypeHolderTrait + 'static> {
+pub enum TimerCallback<TH: TypeHolderTrait<TH> + 'static> {
     StringTimerCallback(DOMString),
     FunctionTimerCallback(Rc<Function<TH>>),
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-enum InternalTimerCallback<TH: TypeHolderTrait + 'static> {
+enum InternalTimerCallback<TH: TypeHolderTrait<TH> + 'static> {
     StringTimerCallback(DOMString),
     FunctionTimerCallback(
         #[ignore_malloc_size_of = "Rc"]
@@ -361,7 +361,7 @@ enum InternalTimerCallback<TH: TypeHolderTrait + 'static> {
         Rc<Box<[Heap<JSVal>]>>),
 }
 
-impl<TH: TypeHolderTrait> JsTimers<TH> {
+impl<TH: TypeHolderTrait<TH>> JsTimers<TH> {
     pub fn new() -> JsTimers<TH> {
         JsTimers {
             next_timer_handle: Cell::new(JsTimerHandle(1)),
@@ -486,7 +486,7 @@ fn clamp_duration(nesting_level: u32, unclamped: MsDuration) -> MsDuration {
     cmp::max(Length::new(lower_bound), unclamped)
 }
 
-impl<TH: TypeHolderTrait> JsTimerTask<TH> {
+impl<TH: TypeHolderTrait<TH>> JsTimerTask<TH> {
     // see https://html.spec.whatwg.org/multipage/#timer-initialisation-steps
     pub fn invoke(self, this: &GlobalScope<TH>, timers: &JsTimers<TH>) {
         // step 4.1 can be ignored, because we proactively prevent execution

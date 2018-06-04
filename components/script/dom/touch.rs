@@ -13,7 +13,7 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Touch<TH: TypeHolderTrait + 'static> {
+pub struct Touch<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     identifier: i32,
     target: MutDom<EventTarget<TH>>,
@@ -25,7 +25,7 @@ pub struct Touch<TH: TypeHolderTrait + 'static> {
     page_y: f64,
 }
 
-impl<TH: TypeHolderTrait> Touch<TH> {
+impl<TH: TypeHolderTrait<TH>> Touch<TH> {
     fn new_inherited(identifier: i32, target: &EventTarget<TH>,
                      screen_x: Finite<f64>, screen_y: Finite<f64>,
                      client_x: Finite<f64>, client_y: Finite<f64>,
@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> Touch<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TouchMethods<TH> for Touch<TH> {
+impl<TH: TypeHolderTrait<TH>> TouchMethods<TH> for Touch<TH> {
     /// <https://w3c.github.io/touch-events/#widl-Touch-identifier>
     fn Identifier(&self) -> i32 {
         self.identifier

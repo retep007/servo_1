@@ -79,7 +79,7 @@ pub struct SelectionState {
 
 /// Encapsulated state for handling keyboard input in a single or multiline text input control.
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct TextInput<T: ClipboardProvider, TH: TypeHolderTrait> {
+pub struct TextInput<T: ClipboardProvider, TH: TypeHolderTrait<TH>> {
     /// Current text input content, split across lines without trailing '\n'
     lines: Vec<DOMString>,
 
@@ -175,7 +175,7 @@ fn len_of_first_n_code_units(text: &str, n: usize) -> usize {
     utf8_len
 }
 
-impl<T: ClipboardProvider, TH: TypeHolderTrait> TextInput<T, TH> {
+impl<T: ClipboardProvider, TH: TypeHolderTrait<TH>> TextInput<T, TH> {
     /// Instantiate a new text input control
     pub fn new(lines: Lines, initial: DOMString,
                clipboard_provider: T, max_length: Option<usize>,

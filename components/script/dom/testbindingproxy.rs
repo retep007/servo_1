@@ -12,12 +12,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct TestBindingProxy<TH: TypeHolderTrait + 'static> {
+pub struct TestBindingProxy<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> TestBindingProxyMethods for TestBindingProxy<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBindingProxyMethods for TestBindingProxy<TH> {
     fn Length(&self) -> u32 { 0 }
     fn SupportedPropertyNames(&self) -> Vec<DOMString> { vec![] }
     fn GetNamedItem(&self, _: DOMString) -> DOMString { DOMString::new() }

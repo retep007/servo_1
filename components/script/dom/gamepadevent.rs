@@ -19,7 +19,7 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct GamepadEvent<TH: TypeHolderTrait + 'static> {
+pub struct GamepadEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     gamepad: Dom<Gamepad<TH>>,
 }
@@ -29,7 +29,7 @@ pub enum GamepadEventType {
     Disconnected
 }
 
-impl<TH: TypeHolderTrait> GamepadEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> GamepadEvent<TH> {
     fn new_inherited(gamepad: &Gamepad<TH>) -> GamepadEvent<TH> {
         GamepadEvent {
             event: Event::new_inherited(),
@@ -80,7 +80,7 @@ impl<TH: TypeHolderTrait> GamepadEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> GamepadEventMethods<TH> for GamepadEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> GamepadEventMethods<TH> for GamepadEvent<TH> {
     // https://w3c.github.io/gamepad/#gamepadevent-interface
     fn Gamepad(&self) -> DomRoot<Gamepad<TH>> {
         DomRoot::from_ref(&*self.gamepad)

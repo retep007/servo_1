@@ -49,7 +49,7 @@ use typeholder::TypeHolderTrait;
 // here, in script, but also in the constellation. The constellation
 // manages the session history, which in script is accessed through
 // History objects, messaging the constellation.
-pub struct WindowProxy<TH: TypeHolderTrait + 'static> {
+pub struct WindowProxy<TH: TypeHolderTrait<TH> + 'static> {
     /// The JS WindowProxy object.
     /// Unlike other reflectors, we mutate this field because
     /// we have to brain-transplant the reflector when the WindowProxy
@@ -84,7 +84,7 @@ pub struct WindowProxy<TH: TypeHolderTrait + 'static> {
     parent: Option<Dom<WindowProxy<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> WindowProxy<TH> {
+impl<TH: TypeHolderTrait<TH>> WindowProxy<TH> {
     pub fn new_inherited(browsing_context_id: BrowsingContextId,
                          top_level_browsing_context_id: TopLevelBrowsingContextId,
                          currently_active: Option<PipelineId>,
@@ -303,7 +303,7 @@ impl<TH: TypeHolderTrait> WindowProxy<TH> {
 // This is only called from extern functions,
 // there's no use using the lifetimed handles here.
 #[allow(unsafe_code)]
-unsafe fn GetSubframeWindow<TH: TypeHolderTrait>(cx: *mut JSContext,
+unsafe fn GetSubframeWindow<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                             proxy: RawHandleObject,
                             id: RawHandleId)
                             -> Option<DomRoot<Window<TH>>> {
@@ -451,7 +451,7 @@ unsafe extern "C" fn get_prototype_if_ordinary(_: *mut JSContext,
     return true;
 }
 
-fn PROXY_HANDLER<TH: TypeHolderTrait>() -> ProxyTraps { ProxyTraps {
+fn PROXY_HANDLER<TH: TypeHolderTrait<TH>>() -> ProxyTraps { ProxyTraps {
     enter: None,
     getOwnPropertyDescriptor: Some(getOwnPropertyDescriptor),
     defineProperty: Some(defineProperty),
@@ -484,7 +484,7 @@ fn PROXY_HANDLER<TH: TypeHolderTrait>() -> ProxyTraps { ProxyTraps {
 }}
 
 #[allow(unsafe_code)]
-pub fn new_window_proxy_handler<TH: TypeHolderTrait>() -> WindowProxyHandler {
+pub fn new_window_proxy_handler<TH: TypeHolderTrait<TH>>() -> WindowProxyHandler {
     unsafe {
         WindowProxyHandler(CreateWrapperProxyHandler(&PROXY_HANDLER::<TH>()))
     }
@@ -495,7 +495,7 @@ pub fn new_window_proxy_handler<TH: TypeHolderTrait>() -> WindowProxyHandler {
 // defined in the DissimilarOriginWindow IDL.
 
 #[allow(unsafe_code)]
-unsafe fn throw_security_error<TH: TypeHolderTrait>(cx: *mut JSContext) -> bool {
+unsafe fn throw_security_error<TH: TypeHolderTrait<TH>>(cx: *mut JSContext) -> bool {
     if !JS_IsExceptionPending(cx) {
         let global = GlobalScope::<TH>::from_context(cx);
         throw_dom_exception(cx, &*global, Error::Security);
@@ -588,7 +588,7 @@ unsafe extern "C" fn preventExtensions_xorigin(cx: *mut JSContext,
     throw_security_error(cx)
 }
 
-fn XORIGIN_PROXY_HANDLER<TH: TypeHolderTrait>() -> ProxyTraps { ProxyTraps {
+fn XORIGIN_PROXY_HANDLER<TH: TypeHolderTrait<TH>>() -> ProxyTraps { ProxyTraps {
     enter: None,
     getOwnPropertyDescriptor: Some(getOwnPropertyDescriptor_xorigin),
     defineProperty: Some(defineProperty_xorigin),
@@ -623,7 +623,7 @@ fn XORIGIN_PROXY_HANDLER<TH: TypeHolderTrait>() -> ProxyTraps { ProxyTraps {
 // How WindowProxy objects are garbage collected.
 
 #[allow(unsafe_code)]
-unsafe extern fn finalize<TH: TypeHolderTrait>(_fop: *mut JSFreeOp, obj: *mut JSObject) {
+unsafe extern fn finalize<TH: TypeHolderTrait<TH>>(_fop: *mut JSFreeOp, obj: *mut JSObject) {
     let this = GetProxyExtra(obj, 0).to_private() as *mut WindowProxy::<TH>;
     if this.is_null() {
         // GC during obj creation or after transplanting.
@@ -635,7 +635,7 @@ unsafe extern fn finalize<TH: TypeHolderTrait>(_fop: *mut JSFreeOp, obj: *mut JS
 }
 
 #[allow(unsafe_code)]
-unsafe extern fn trace<TH: TypeHolderTrait>(trc: *mut JSTracer, obj: *mut JSObject) {
+unsafe extern fn trace<TH: TypeHolderTrait<TH>>(trc: *mut JSTracer, obj: *mut JSObject) {
     let this = GetProxyExtra(obj, 0).to_private() as *const WindowProxy::<TH>;
     if this.is_null() {
         // GC during obj creation or after transplanting.

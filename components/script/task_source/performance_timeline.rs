@@ -18,21 +18,21 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[derive(JSTraceable)]
-pub struct PerformanceTimelineTaskSource<TH: TypeHolderTrait + 'static>(pub Box<ScriptChan + Send + 'static>, pub PipelineId, pub PhantomData<TH>);
+pub struct PerformanceTimelineTaskSource<TH: TypeHolderTrait<TH> + 'static>(pub Box<ScriptChan + Send + 'static>, pub PipelineId, pub PhantomData<TH>);
 
-impl<TH: TypeHolderTrait> Clone for PerformanceTimelineTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> Clone for PerformanceTimelineTaskSource<TH> {
     fn clone(&self) -> PerformanceTimelineTaskSource<TH> {
         PerformanceTimelineTaskSource(self.0.clone(), self.1.clone(), Default::default())
     }
 }
 
-impl<TH: TypeHolderTrait> fmt::Debug for PerformanceTimelineTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> fmt::Debug for PerformanceTimelineTaskSource<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "PerformanceTimelineTaskSource(...)")
     }
 }
 
-impl<TH: TypeHolderTrait> TaskSource<TH> for PerformanceTimelineTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskSource<TH> for PerformanceTimelineTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,
@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> TaskSource<TH> for PerformanceTimelineTaskSource<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PerformanceTimelineTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceTimelineTaskSource<TH> {
     pub fn queue_notification(&self, global: &GlobalScope<TH>) {
         let owner = Trusted::new(&*global.performance());
         // FIXME(nox): Why are errors silenced here?

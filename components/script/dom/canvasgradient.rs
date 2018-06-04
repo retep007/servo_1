@@ -20,7 +20,7 @@ use std::marker::PhantomData;
 
 // https://html.spec.whatwg.org/multipage/#canvasgradient
 #[dom_struct]
-pub struct CanvasGradient<TH: TypeHolderTrait + 'static> {
+pub struct CanvasGradient<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     style: CanvasGradientStyle,
     stops: DomRefCell<Vec<CanvasGradientStop>>,
@@ -33,7 +33,7 @@ pub enum CanvasGradientStyle {
     Radial(RadialGradientStyle),
 }
 
-impl<TH: TypeHolderTrait> CanvasGradient<TH> {
+impl<TH: TypeHolderTrait<TH>> CanvasGradient<TH> {
     fn new_inherited(style: CanvasGradientStyle) -> CanvasGradient<TH> {
         CanvasGradient {
             reflector_: Reflector::new(),
@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> CanvasGradient<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CanvasGradientMethods<TH> for CanvasGradient<TH> {
+impl<TH: TypeHolderTrait<TH>> CanvasGradientMethods<TH> for CanvasGradient<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-canvasgradient-addcolorstop
     fn AddColorStop(&self, offset: Finite<f64>, color: DOMString) -> ErrorResult<TH> {
         if *offset < 0f64 || *offset > 1f64 {
@@ -82,7 +82,7 @@ pub trait ToFillOrStrokeStyle {
     fn to_fill_or_stroke_style(self) -> FillOrStrokeStyle;
 }
 
-impl<'a, TH: TypeHolderTrait> ToFillOrStrokeStyle for &'a CanvasGradient<TH> {
+impl<'a, TH: TypeHolderTrait<TH>> ToFillOrStrokeStyle for &'a CanvasGradient<TH> {
     fn to_fill_or_stroke_style(self) -> FillOrStrokeStyle {
         let gradient_stops = self.stops.borrow().clone();
         match self.style {

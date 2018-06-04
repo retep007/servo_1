@@ -18,13 +18,13 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct TestBindingPairIterable<TH: TypeHolderTrait + 'static> {
+pub struct TestBindingPairIterable<TH: TypeHolderTrait<TH> + 'static> {
     reflector: Reflector<TH>,
     map: DomRefCell<Vec<(DOMString, u32)>>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> Iterable for TestBindingPairIterable<TH> {
+impl<TH: TypeHolderTrait<TH>> Iterable for TestBindingPairIterable<TH> {
     type Key = DOMString;
     type Value = u32;
     fn get_iterable_length(&self) -> u32 {
@@ -38,7 +38,7 @@ impl<TH: TypeHolderTrait> Iterable for TestBindingPairIterable<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TestBindingPairIterable<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBindingPairIterable<TH> {
     fn new(global: &GlobalScope<TH>) -> DomRoot<TestBindingPairIterable<TH>> {
         reflect_dom_object(Box::new(TestBindingPairIterable {
             reflector: Reflector::new(),
@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> TestBindingPairIterable<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TestBindingPairIterableMethods for TestBindingPairIterable<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBindingPairIterableMethods for TestBindingPairIterable<TH> {
     fn Add(&self, key: DOMString, value: u32) {
         self.map.borrow_mut().push((key, value));
     }

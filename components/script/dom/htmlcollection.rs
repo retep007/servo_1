@@ -21,7 +21,7 @@ use style::str::split_html_space_chars;
 use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
-pub trait CollectionFilter<TH: TypeHolderTrait> : JSTraceable {
+pub trait CollectionFilter<TH: TypeHolderTrait<TH>> : JSTraceable {
     fn filter<'a>(&self, elem: &'a Element<TH>, root: &'a Node<TH>) -> bool;
 }
 
@@ -53,7 +53,7 @@ impl OptionU32 {
 }
 
 #[dom_struct]
-pub struct HTMLCollection<TH: TypeHolderTrait + 'static> {
+pub struct HTMLCollection<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     root: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Contains a trait object; can't measure due to #6870"]
@@ -67,7 +67,7 @@ pub struct HTMLCollection<TH: TypeHolderTrait + 'static> {
     cached_length: Cell<OptionU32>,
 }
 
-impl<TH: TypeHolderTrait> HTMLCollection<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLCollection<TH> {
     #[allow(unrooted_must_root)]
     pub fn new_inherited(root: &Node<TH>, filter: Box<CollectionFilter<TH> + 'static>) -> HTMLCollection<TH> {
         HTMLCollection {
@@ -85,8 +85,8 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     /// Returns a collection which is always empty.
     pub fn always_empty(window: &Window<TH>, root: &Node<TH>) -> DomRoot<Self> {
         #[derive(JSTraceable)]
-        struct NoFilter<THH: TypeHolderTrait + 'static>(PhantomData<THH>);
-        impl<THH: TypeHolderTrait> CollectionFilter<THH> for NoFilter<THH> {
+        struct NoFilter<THH: TypeHolderTrait<THH> + 'static>(PhantomData<THH>);
+        impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for NoFilter<THH> {
             fn filter<'a>(&self, _: &'a Element<THH>, _: &'a Node<THH>) -> bool {
                 false
             }
@@ -136,7 +136,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         if qualified_name == local_name!("*") {
             #[derive(JSTraceable, MallocSizeOf)]
             struct AllFilter<THH>(PhantomData<THH>);
-            impl<THH: TypeHolderTrait> CollectionFilter<THH> for AllFilter<THH> {
+            impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for AllFilter<THH> {
                 fn filter(&self, _elem: &Element<THH>, _root: &Node<THH>) -> bool {
                     true
                 }
@@ -145,12 +145,12 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
         }
 
         #[derive(JSTraceable, MallocSizeOf)]
-        struct HtmlDocumentFilter<THH: TypeHolderTrait + 'static> {
+        struct HtmlDocumentFilter<THH: TypeHolderTrait<THH> + 'static> {
             qualified_name: LocalName,
             ascii_lower_qualified_name: LocalName,
             _p: PhantomData<THH>,
         }
-        impl<THH: TypeHolderTrait> CollectionFilter<THH> for HtmlDocumentFilter<THH> {
+        impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for HtmlDocumentFilter<THH> {
             fn filter(&self, elem: &Element<THH>, root: &Node<THH>) -> bool {
                 if root.is_in_html_doc() && elem.namespace() == &ns!(html) {    // case 2
                     HTMLCollection::match_element(elem, &self.ascii_lower_qualified_name)
@@ -187,11 +187,11 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
 
     pub fn by_qual_tag_name(window: &Window<TH>, root: &Node<TH>, qname: QualName) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct TagNameNSFilter<THH: TypeHolderTrait + 'static> {
+        struct TagNameNSFilter<THH: TypeHolderTrait<THH> + 'static> {
             qname: QualName,
             _p: PhantomData<THH>,
         }
-        impl<THH: TypeHolderTrait> CollectionFilter<THH> for TagNameNSFilter<THH> {
+        impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for TagNameNSFilter<THH> {
             fn filter(&self, elem: &Element<THH>, _root: &Node<THH>) -> bool {
                     ((self.qname.ns == namespace_url!("*")) || (self.qname.ns == *elem.namespace())) &&
                     ((self.qname.local == local_name!("*")) || (self.qname.local == *elem.local_name()))
@@ -213,11 +213,11 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     pub fn by_atomic_class_name(window: &Window<TH>, root: &Node<TH>, classes: Vec<Atom>)
                          -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ClassNameFilter<THH: TypeHolderTrait + 'static> {
+        struct ClassNameFilter<THH: TypeHolderTrait<THH> + 'static> {
             classes: Vec<Atom>,
             _p: PhantomData<THH>,
         }
-        impl<THH: TypeHolderTrait> CollectionFilter<THH> for ClassNameFilter<THH> {
+        impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for ClassNameFilter<THH> {
             fn filter(&self, elem: &Element<THH>, _root: &Node<THH>) -> bool {
                 let case_sensitivity = document_from_node(elem)
                     .quirks_mode()
@@ -234,8 +234,8 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
 
     pub fn children(window: &Window<TH>, root: &Node<TH>) -> DomRoot<HTMLCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ElementChildFilter<THH: TypeHolderTrait + 'static>(PhantomData<THH>);
-        impl<THH: TypeHolderTrait> CollectionFilter<THH> for ElementChildFilter<THH> {
+        struct ElementChildFilter<THH: TypeHolderTrait<THH> + 'static>(PhantomData<THH>);
+        impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for ElementChildFilter<THH> {
             fn filter(&self, elem: &Element<THH>, root: &Node<THH>) -> bool {
                 root.is_parent_of(elem.upcast())
             }
@@ -267,7 +267,7 @@ impl<TH: TypeHolderTrait> HTMLCollection<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLCollectionMethods<TH> for HTMLCollection<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLCollectionMethods<TH> for HTMLCollection<TH> {
     // https://dom.spec.whatwg.org/#dom-htmlcollection-length
     fn Length(&self) -> u32 {
         self.validate_cache();

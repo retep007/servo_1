@@ -12,11 +12,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTableColElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLTableColElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH: TypeHolderTrait> HTMLTableColElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableColElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLTableColElement<TH> {

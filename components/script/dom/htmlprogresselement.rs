@@ -14,11 +14,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLProgressElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLProgressElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH: TypeHolderTrait> HTMLProgressElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLProgressElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLProgressElement<TH> {
@@ -38,7 +38,7 @@ impl<TH: TypeHolderTrait> HTMLProgressElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLProgressElementMethods<TH> for HTMLProgressElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLProgressElementMethods<TH> for HTMLProgressElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-lfe-labels
     fn Labels(&self) -> DomRoot<NodeList<TH>> {
         self.upcast::<HTMLElement<TH>>().labels()

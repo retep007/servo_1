@@ -18,14 +18,14 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TransitionEvent<TH: TypeHolderTrait + 'static> {
+pub struct TransitionEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     property_name: Atom,
     elapsed_time: Finite<f32>,
     pseudo_element: DOMString,
 }
 
-impl<TH: TypeHolderTrait> TransitionEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> TransitionEvent<TH> {
     fn new_inherited(init: &TransitionEventInit) -> TransitionEvent<TH> {
         TransitionEvent {
             event: Event::new_inherited(),
@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> TransitionEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TransitionEventMethods for TransitionEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> TransitionEventMethods for TransitionEvent<TH> {
     // https://drafts.csswg.org/css-transitions/#Events-TransitionEvent-propertyName
     fn PropertyName(&self) -> DOMString {
         DOMString::from(&*self.property_name)

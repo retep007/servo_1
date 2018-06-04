@@ -12,11 +12,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLSpanElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLSpanElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLSpanElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLSpanElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLSpanElement<TH> {
         HTMLSpanElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)

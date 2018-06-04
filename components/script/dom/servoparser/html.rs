@@ -32,12 +32,12 @@ use std::marker::PhantomData;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer<TH: TypeHolderTrait + 'static> {
+pub struct Tokenizer<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Defined in html5ever"]
     inner: HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> Tokenizer<TH> {
+impl<TH: TypeHolderTrait<TH>> Tokenizer<TH> {
     pub fn new(
             document: &Document<TH>,
             url: ServoUrl,
@@ -100,12 +100,12 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
+unsafe impl<TH: TypeHolderTrait<TH>> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
-        struct Tracer<THH: TypeHolderTrait + 'static>(*mut JSTracer, PhantomData<THH>);
+        struct Tracer<THH: TypeHolderTrait<THH> + 'static>(*mut JSTracer, PhantomData<THH>);
         let tracer = Tracer(trc, Default::default());
 
-        impl<THH: TypeHolderTrait> HtmlTracer for Tracer<THH> {
+        impl<THH: TypeHolderTrait<THH>> HtmlTracer for Tracer<THH> {
             type Handle = Dom<Node<THH>>;
             #[allow(unrooted_must_root)]
             fn trace_handle(&self, node: &Dom<Node<THH>>) {
@@ -119,7 +119,7 @@ unsafe impl<TH: TypeHolderTrait> JSTraceable for HtmlTokenizer<TreeBuilder<Dom<N
     }
 }
 
-fn start_element<S: Serializer, TH: TypeHolderTrait>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
+fn start_element<S: Serializer, TH: TypeHolderTrait<TH>>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
     let name = QualName::new(None, node.namespace().clone(),
                              node.local_name().clone());
     let attrs = node.attrs().iter().map(|attr| {
@@ -136,31 +136,31 @@ fn start_element<S: Serializer, TH: TypeHolderTrait>(node: &Element<TH>, seriali
     Ok(())
 }
 
-fn end_element<S: Serializer, TH: TypeHolderTrait>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
+fn end_element<S: Serializer, TH: TypeHolderTrait<TH>>(node: &Element<TH>, serializer: &mut S) -> io::Result<()> {
     let name = QualName::new(None, node.namespace().clone(),
                              node.local_name().clone());
     serializer.end_elem(name)
 }
 
 
-enum SerializationCommand<TH: TypeHolderTrait + 'static> {
+enum SerializationCommand<TH: TypeHolderTrait<TH> + 'static> {
     OpenElement(DomRoot<Element<TH>>),
     CloseElement(DomRoot<Element<TH>>),
     SerializeNonelement(DomRoot<Node<TH>>),
 }
 
-struct SerializationIterator<TH: TypeHolderTrait + 'static> {
+struct SerializationIterator<TH: TypeHolderTrait<TH> + 'static> {
     stack: Vec<SerializationCommand<TH>>,
 }
 
-fn rev_children_iter<TH: TypeHolderTrait>(n: &Node<TH>) -> impl Iterator<Item=DomRoot<Node<TH>>>{
+fn rev_children_iter<TH: TypeHolderTrait<TH>>(n: &Node<TH>) -> impl Iterator<Item=DomRoot<Node<TH>>>{
     match n.downcast::<HTMLTemplateElement<TH>>() {
         Some(t) => t.Content().upcast::<Node<TH>>().rev_children(),
         None => n.rev_children(),
     }
 }
 
-impl<TH: TypeHolderTrait> SerializationIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> SerializationIterator<TH> {
     fn new(node: &Node<TH>, skip_first: bool) -> SerializationIterator<TH> {
         let mut ret = SerializationIterator {
             stack: vec![],
@@ -183,7 +183,7 @@ impl<TH: TypeHolderTrait> SerializationIterator<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Iterator for SerializationIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> Iterator for SerializationIterator<TH> {
     type Item = SerializationCommand<TH>;
 
     fn next(&mut self) -> Option<SerializationCommand<TH>> {
@@ -200,7 +200,7 @@ impl<TH: TypeHolderTrait> Iterator for SerializationIterator<TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> Serialize for &'a Node<TH> {
+impl<'a, TH: TypeHolderTrait<TH>> Serialize for &'a Node<TH> {
     fn serialize<S: Serializer>(&self, serializer: &mut S,
                                 traversal_scope: TraversalScope) -> io::Result<()> {
         let node = *self;

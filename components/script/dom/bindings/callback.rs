@@ -38,7 +38,7 @@ pub enum ExceptionHandling {
 /// callback interface types.
 #[derive(JSTraceable)]
 #[must_root]
-pub struct CallbackObject<TH: TypeHolderTrait + 'static> {
+pub struct CallbackObject<TH: TypeHolderTrait<TH> + 'static> {
     /// The underlying `JSObject`.
     callback: Heap<*mut JSObject>,
     permanent_js_root: Heap<JSVal>,
@@ -57,14 +57,14 @@ pub struct CallbackObject<TH: TypeHolderTrait + 'static> {
     incumbent: Option<Dom<GlobalScope<TH>>>
 }
 
-impl<TH: TypeHolderTrait> Default for CallbackObject<TH> {
+impl<TH: TypeHolderTrait<TH>> Default for CallbackObject<TH> {
     #[allow(unrooted_must_root)]
     fn default() -> CallbackObject<TH> {
         CallbackObject::new()
     }
 }
 
-impl<TH: TypeHolderTrait> CallbackObject<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackObject<TH> {
     #[allow(unrooted_must_root)]
     fn new() -> CallbackObject<TH> {
         CallbackObject {
@@ -87,7 +87,7 @@ impl<TH: TypeHolderTrait> CallbackObject<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for CallbackObject<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for CallbackObject<TH> {
     #[allow(unsafe_code)]
     fn drop(&mut self) {
         unsafe {
@@ -98,7 +98,7 @@ impl<TH: TypeHolderTrait> Drop for CallbackObject<TH> {
 
 }
 
-impl<TH: TypeHolderTrait> PartialEq for CallbackObject<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for CallbackObject<TH> {
     fn eq(&self, other: &CallbackObject<TH>) -> bool {
         self.callback.get() == other.callback.get()
     }
@@ -107,7 +107,7 @@ impl<TH: TypeHolderTrait> PartialEq for CallbackObject<TH> {
 
 /// A trait to be implemented by concrete IDL callback function and
 /// callback interface types.
-pub trait CallbackContainer<TH: TypeHolderTrait> {
+pub trait CallbackContainer<TH: TypeHolderTrait<TH>> {
     /// Create a new CallbackContainer object for the given `JSObject`.
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<Self>;
     /// Returns the underlying `CallbackObject`.
@@ -129,11 +129,11 @@ pub trait CallbackContainer<TH: TypeHolderTrait> {
 /// A common base class for representing IDL callback function types.
 #[derive(JSTraceable, PartialEq)]
 #[must_root]
-pub struct CallbackFunction<TH: TypeHolderTrait + 'static> {
+pub struct CallbackFunction<TH: TypeHolderTrait<TH> + 'static> {
     object: CallbackObject<TH>,
 }
 
-impl<TH: TypeHolderTrait> CallbackFunction<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackFunction<TH> {
     /// Create a new `CallbackFunction` for this object.
     #[allow(unrooted_must_root)]
     pub fn new() -> CallbackFunction<TH> {
@@ -160,11 +160,11 @@ impl<TH: TypeHolderTrait> CallbackFunction<TH> {
 /// A common base class for representing IDL callback interface types.
 #[derive(JSTraceable, PartialEq)]
 #[must_root]
-pub struct CallbackInterface<TH: TypeHolderTrait + 'static> {
+pub struct CallbackInterface<TH: TypeHolderTrait<TH> + 'static> {
     object: CallbackObject<TH>,
 }
 
-impl<TH: TypeHolderTrait> CallbackInterface<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackInterface<TH> {
     /// Create a new CallbackInterface object for the given `JSObject`.
     pub fn new() -> CallbackInterface<TH> {
         CallbackInterface {
@@ -221,7 +221,7 @@ pub fn wrap_call_this_object<T: DomObject>(cx: *mut JSContext,
 
 /// A class that performs whatever setup we need to safely make a call while
 /// this class is on the stack. After `new` returns, the call is safe to make.
-pub struct CallSetup<TH: TypeHolderTrait + 'static> {
+pub struct CallSetup<TH: TypeHolderTrait<TH> + 'static> {
     /// The global for reporting exceptions. This is the global object of the
     /// (possibly wrapped) callback object.
     exception_global: DomRoot<GlobalScope<TH>>,
@@ -239,7 +239,7 @@ pub struct CallSetup<TH: TypeHolderTrait + 'static> {
     incumbent_script: Option<AutoIncumbentScript<TH>>,
 }
 
-impl<TH: TypeHolderTrait> CallSetup<TH> {
+impl<TH: TypeHolderTrait<TH>> CallSetup<TH> {
     /// Performs the setup needed to make a call.
     #[allow(unrooted_must_root)]
     pub fn new<T: CallbackContainer<TH>>(callback: &T,
@@ -266,7 +266,7 @@ impl<TH: TypeHolderTrait> CallSetup<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for CallSetup<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for CallSetup<TH> {
     fn drop(&mut self) {
         unsafe {
             JS_LeaveCompartment(self.cx, self.old_compartment);

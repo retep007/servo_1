@@ -16,13 +16,13 @@ use typeholder::TypeHolderTrait;
 
 // https://w3c.github.io/permissions/#permissionstatus
 #[dom_struct]
-pub struct PermissionStatus<TH: TypeHolderTrait + 'static> {
+pub struct PermissionStatus<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     state: Cell<PermissionState>,
     query: Cell<PermissionName>,
 }
 
-impl<TH: TypeHolderTrait> PermissionStatus<TH> {
+impl<TH: TypeHolderTrait<TH>> PermissionStatus<TH> {
     pub fn new_inherited(query: PermissionName) -> PermissionStatus<TH> {
         PermissionStatus {
             eventtarget: EventTarget::new_inherited(),
@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> PermissionStatus<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PermissionStatusMethods<TH> for PermissionStatus<TH> {
+impl<TH: TypeHolderTrait<TH>> PermissionStatusMethods<TH> for PermissionStatus<TH> {
     // https://w3c.github.io/permissions/#dom-permissionstatus-state
     fn State(&self) -> PermissionState {
         self.state.get()

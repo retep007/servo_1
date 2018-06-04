@@ -253,11 +253,11 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct PromiseJobCallback<TH: TypeHolderTrait + 'static> {
+pub struct PromiseJobCallback<TH: TypeHolderTrait<TH> + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> PromiseJobCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> PromiseJobCallback<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<PromiseJobCallback<TH>> {
         let mut ret = Rc::new(PromiseJobCallback {
             parent: CallbackFunction::new()
@@ -308,7 +308,7 @@ impl<TH: TypeHolderTrait> PromiseJobCallback<TH> {
 
     }
 }
-impl<TH: TypeHolderTrait> CallbackContainer<TH> for PromiseJobCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackContainer<TH> for PromiseJobCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<PromiseJobCallback<TH>> {
         PromiseJobCallback::new(cx, callback)
     }
@@ -318,7 +318,7 @@ impl<TH: TypeHolderTrait> CallbackContainer<TH> for PromiseJobCallback<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for PromiseJobCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for PromiseJobCallback<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }
@@ -326,11 +326,11 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for PromiseJobCallback<TH> {
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct AnyCallback<TH: TypeHolderTrait + 'static> {
+pub struct AnyCallback<TH: TypeHolderTrait<TH> + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> AnyCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> AnyCallback<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<AnyCallback<TH>> {
         let mut ret = Rc::new(AnyCallback {
             parent: CallbackFunction::new()
@@ -391,7 +391,7 @@ impl<TH: TypeHolderTrait> AnyCallback<TH> {
 
     }
 }
-impl<TH: TypeHolderTrait> CallbackContainer<TH> for AnyCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackContainer<TH> for AnyCallback<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<AnyCallback<TH>> {
         AnyCallback::new(cx, callback)
     }
@@ -401,7 +401,7 @@ impl<TH: TypeHolderTrait> CallbackContainer<TH> for AnyCallback<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for AnyCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for AnyCallback<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }
@@ -661,7 +661,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -689,7 +689,7 @@ static PrototypeClass: JSClass = JSClass {
     reserved: [0 as *mut os::raw::c_void; 3]
 };
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

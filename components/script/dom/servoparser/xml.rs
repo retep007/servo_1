@@ -20,12 +20,12 @@ use std::marker::PhantomData;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct Tokenizer<TH: TypeHolderTrait + 'static> {
+pub struct Tokenizer<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Defined in xml5ever"]
     inner: XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> Tokenizer<TH> {
+impl<TH: TypeHolderTrait<TH>> Tokenizer<TH> {
     pub fn new(document: &Document<TH>, url: ServoUrl) -> Self {
         let sink = Sink {
             base_url: url,
@@ -70,12 +70,12 @@ impl<TH: TypeHolderTrait> Tokenizer<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe impl<TH: TypeHolderTrait> JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
+unsafe impl<TH: TypeHolderTrait<TH>> JSTraceable for XmlTokenizer<XmlTreeBuilder<Dom<Node<TH>>, Sink<TH>>> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
-        struct Tracer<THH: TypeHolderTrait + 'static>(*mut JSTracer, PhantomData<THH>);
+        struct Tracer<THH: TypeHolderTrait<THH> + 'static>(*mut JSTracer, PhantomData<THH>);
         let tracer = Tracer(trc, Default::default());
 
-        impl<THH: TypeHolderTrait> XmlTracer for Tracer<THH> {
+        impl<THH: TypeHolderTrait<THH>> XmlTracer for Tracer<THH> {
             type Handle = Dom<Node<THH>>;
             #[allow(unrooted_must_root)]
             fn trace_handle(&self, node: &Dom<Node<THH>>) {

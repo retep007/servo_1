@@ -24,12 +24,12 @@ use script_traits::DocumentActivity;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMParser<TH: TypeHolderTrait + 'static> {
+pub struct DOMParser<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     window: Dom<Window<TH>>, // XXXjdm Document instead?
 }
 
-impl<TH: TypeHolderTrait> DOMParser<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMParser<TH> {
     fn new_inherited(window: &Window<TH>) -> DOMParser<TH> {
         DOMParser {
             reflector_: Reflector::new(),
@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> DOMParser<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DOMParserMethods<TH> for DOMParser<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMParserMethods<TH> for DOMParser<TH> {
     // https://w3c.github.io/DOM-Parsing/#the-domparser-interface
     fn ParseFromString(&self,
                        s: DOMString,

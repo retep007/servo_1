@@ -26,7 +26,7 @@ use typeholder::TypeHolderTrait;
 
 // http://dev.w3.org/csswg/cssom/#the-cssstyledeclaration-interface
 #[dom_struct]
-pub struct CSSStyleDeclaration<TH: TypeHolderTrait + 'static> {
+pub struct CSSStyleDeclaration<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     owner: CSSStyleOwner<TH>,
     readonly: bool,
@@ -35,14 +35,14 @@ pub struct CSSStyleDeclaration<TH: TypeHolderTrait + 'static> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub enum CSSStyleOwner<TH: TypeHolderTrait + 'static> {
+pub enum CSSStyleOwner<TH: TypeHolderTrait<TH> + 'static> {
     Element(Dom<Element<TH>>),
     CSSRule(Dom<CSSRule<TH>>,
             #[ignore_malloc_size_of = "Arc"]
             Arc<Locked<PropertyDeclarationBlock>>),
 }
 
-impl<TH: TypeHolderTrait> CSSStyleOwner<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSStyleOwner<TH> {
     // Mutate the declaration block associated to this style owner, and
     // optionally indicate if it has changed (assumed to be true).
     fn mutate_associated_block<F, R>(&self, f: F) -> R
@@ -182,7 +182,7 @@ macro_rules! css_properties(
     );
 );
 
-impl<TH: TypeHolderTrait> CSSStyleDeclaration<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSStyleDeclaration<TH> {
     #[allow(unrooted_must_root)]
     pub fn new_inherited(owner: CSSStyleOwner<TH>,
                          pseudo: Option<PseudoElement>,
@@ -298,7 +298,7 @@ impl<TH: TypeHolderTrait> CSSStyleDeclaration<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CSSStyleDeclarationMethods<TH> for CSSStyleDeclaration<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSStyleDeclarationMethods<TH> for CSSStyleDeclaration<TH> {
     // https://dev.w3.org/csswg/cssom/#dom-cssstyledeclaration-length
     fn Length(&self) -> u32 {
         self.owner.with_block(|pdb| {

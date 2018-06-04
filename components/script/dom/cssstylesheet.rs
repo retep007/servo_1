@@ -21,7 +21,7 @@ use style::stylesheets::Stylesheet as StyleStyleSheet;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSStyleSheet<TH: TypeHolderTrait + 'static> {
+pub struct CSSStyleSheet<TH: TypeHolderTrait<TH> + 'static> {
     stylesheet: StyleSheet<TH>,
     owner: Dom<Element<TH>>,
     rulelist: MutNullableDom<CSSRuleList<TH>>,
@@ -30,7 +30,7 @@ pub struct CSSStyleSheet<TH: TypeHolderTrait + 'static> {
     origin_clean: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> CSSStyleSheet<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSStyleSheet<TH> {
     fn new_inherited(owner: &Element<TH>,
                      type_: DOMString,
                      href: Option<DOMString>,
@@ -91,7 +91,7 @@ impl<TH: TypeHolderTrait> CSSStyleSheet<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-cssrules
     fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList<TH>>, TH> {
         if !self.origin_clean.get() {

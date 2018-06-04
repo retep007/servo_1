@@ -35,7 +35,7 @@ pub struct FileBlob {
 /// Different backends of Blob
 #[must_root]
 #[derive(JSTraceable)]
-pub enum BlobImpl<TH: TypeHolderTrait + 'static> {
+pub enum BlobImpl<TH: TypeHolderTrait<TH> + 'static> {
     /// File-based blob, whose content lives in the net process
     File(FileBlob),
     /// Memory-based blob, whose content lives in the script process
@@ -47,7 +47,7 @@ pub enum BlobImpl<TH: TypeHolderTrait + 'static> {
     Sliced(Dom<Blob<TH>>, RelativePos)
 }
 
-impl<TH: TypeHolderTrait> BlobImpl<TH> {
+impl<TH: TypeHolderTrait<TH>> BlobImpl<TH> {
     /// Construct memory-backed BlobImpl
     #[allow(unrooted_must_root)]
     pub fn new_from_bytes(bytes: Vec<u8>) -> BlobImpl<TH> {
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> BlobImpl<TH> {
 
 // https://w3c.github.io/FileAPI/#blob
 #[dom_struct]
-pub struct Blob<TH: TypeHolderTrait + 'static> {
+pub struct Blob<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "No clear owner"]
     blob_impl: DomRefCell<BlobImpl<TH>>,
@@ -75,7 +75,7 @@ pub struct Blob<TH: TypeHolderTrait + 'static> {
     type_string: String,
 }
 
-impl<TH: TypeHolderTrait> Blob<TH> {
+impl<TH: TypeHolderTrait<TH>> Blob<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(
             global: &GlobalScope<TH>, blob_impl: BlobImpl<TH>, typeString: String)
@@ -296,13 +296,13 @@ impl<TH: TypeHolderTrait> Blob<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for Blob<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for Blob<TH> {
     fn drop(&mut self) {
         self.clean_up_file_resource();
     }
 }
 
-fn read_file<TH: TypeHolderTrait>(global: &GlobalScope<TH>, id: Uuid) -> Result<Vec<u8>, ()> {
+fn read_file<TH: TypeHolderTrait<TH>>(global: &GlobalScope<TH>, id: Uuid) -> Result<Vec<u8>, ()> {
     let resource_threads = global.resource_threads();
     let (chan, recv) = ipc::channel(global.time_profiler_chan().clone()).map_err(|_|())?;
     let origin = get_blob_origin(&global.get_url());
@@ -331,7 +331,7 @@ fn read_file<TH: TypeHolderTrait>(global: &GlobalScope<TH>, id: Uuid) -> Result<
 /// Extract bytes from BlobParts, used by Blob and File constructor
 /// <https://w3c.github.io/FileAPI/#constructorBlob>
 #[allow(unsafe_code)]
-pub fn blob_parts_to_bytes<TH: TypeHolderTrait>(mut blobparts: Vec<ArrayBufferOrArrayBufferViewOrBlobOrString<TH>>) -> Result<Vec<u8>, ()> {
+pub fn blob_parts_to_bytes<TH: TypeHolderTrait<TH>>(mut blobparts: Vec<ArrayBufferOrArrayBufferViewOrBlobOrString<TH>>) -> Result<Vec<u8>, ()> {
     let mut ret = vec![];
     for blobpart in &mut blobparts {
         match blobpart {
@@ -356,7 +356,7 @@ pub fn blob_parts_to_bytes<TH: TypeHolderTrait>(mut blobparts: Vec<ArrayBufferOr
     Ok(ret)
 }
 
-impl<TH: TypeHolderTrait> BlobMethods<TH> for Blob<TH> {
+impl<TH: TypeHolderTrait<TH>> BlobMethods<TH> for Blob<TH> {
     // https://w3c.github.io/FileAPI/#dfn-size
     fn Size(&self) -> u64 {
         match *self.blob_impl.borrow() {

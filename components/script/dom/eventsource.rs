@@ -55,7 +55,7 @@ enum ReadyState {
 }
 
 #[dom_struct]
-pub struct EventSource<TH: TypeHolderTrait + 'static> {
+pub struct EventSource<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     url: ServoUrl,
     request: DomRefCell<Option<RequestInit>>,
@@ -74,7 +74,7 @@ enum ParserState {
     Eol
 }
 
-struct EventSourceContext<TH: TypeHolderTrait + 'static> {
+struct EventSourceContext<TH: TypeHolderTrait<TH> + 'static> {
     incomplete_utf8: Option<utf8::Incomplete>,
 
     event_source: Trusted<EventSource<TH>>,
@@ -91,7 +91,7 @@ struct EventSourceContext<TH: TypeHolderTrait + 'static> {
     last_event_id: String,
 }
 
-impl<TH: TypeHolderTrait> EventSourceContext<TH> {
+impl<TH: TypeHolderTrait<TH>> EventSourceContext<TH> {
     /// <https://html.spec.whatwg.org/multipage/#announce-the-connection>
     fn announce_the_connection(&self) {
         let event_source = self.event_source.root();
@@ -320,7 +320,7 @@ impl<TH: TypeHolderTrait> EventSourceContext<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FetchResponseListener for EventSourceContext<TH> {
+impl<TH: TypeHolderTrait<TH>> FetchResponseListener for EventSourceContext<TH> {
     fn process_request_body(&mut self) {
         // TODO
     }
@@ -393,13 +393,13 @@ impl<TH: TypeHolderTrait> FetchResponseListener for EventSourceContext<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PreInvoke for EventSourceContext<TH> {
+impl<TH: TypeHolderTrait<TH>> PreInvoke for EventSourceContext<TH> {
     fn should_invoke(&self) -> bool {
         self.event_source.root().generation_id.get() == self.gen_id
     }
 }
 
-impl<TH: TypeHolderTrait> EventSource<TH> {
+impl<TH: TypeHolderTrait<TH>> EventSource<TH> {
     fn new_inherited(url: ServoUrl, with_credentials: bool) -> EventSource<TH> {
         EventSource {
             eventtarget: EventTarget::new_inherited(),
@@ -498,7 +498,7 @@ impl<TH: TypeHolderTrait> EventSource<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> EventSourceMethods<TH> for EventSource<TH> {
+impl<TH: TypeHolderTrait<TH>> EventSourceMethods<TH> for EventSource<TH> {
     // https://html.spec.whatwg.org/multipage/#handler-eventsource-onopen
     event_handler!(open, GetOnopen, SetOnopen);
 
@@ -532,14 +532,14 @@ impl<TH: TypeHolderTrait> EventSourceMethods<TH> for EventSource<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct EventSourceTimeoutCallback<TH: TypeHolderTrait + 'static> {
+pub struct EventSourceTimeoutCallback<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "Because it is non-owning"]
     event_source: Trusted<EventSource<TH>>,
     #[ignore_malloc_size_of = "Because it is non-owning"]
     action_sender: ipc::IpcSender<FetchResponseMsg>,
 }
 
-impl<TH: TypeHolderTrait> EventSourceTimeoutCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> EventSourceTimeoutCallback<TH> {
     // https://html.spec.whatwg.org/multipage/#reestablish-the-connection
     pub fn invoke(self) {
         let event_source = self.event_source.root();

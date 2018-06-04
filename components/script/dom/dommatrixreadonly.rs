@@ -27,14 +27,14 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct DOMMatrixReadOnly<TH: TypeHolderTrait + 'static> {
+pub struct DOMMatrixReadOnly<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     matrix: DomRefCell<Transform3D<f64>>,
     is2D: Cell<bool>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMMatrixReadOnly<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(global: &GlobalScope<TH>, iss2D: bool, matrix: Transform3D<f64>) -> DomRoot<Self> {
         let dommatrix = Self::new_inherited(iss2D, matrix);
@@ -367,7 +367,7 @@ impl<TH: TypeHolderTrait> DOMMatrixReadOnly<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> DOMMatrixReadOnlyMethods<TH> for DOMMatrixReadOnly<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMMatrixReadOnlyMethods<TH> for DOMMatrixReadOnly<TH> {
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-m11
     fn M11(&self) -> f64 {
         self.matrix.borrow().m11
@@ -625,7 +625,7 @@ fn create_3d_matrix(entries: &[f64]) -> Transform3D<f64> {
 }
 
 // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-dommatrixreadonly-numbersequence
-pub fn entries_to_matrix<TH: TypeHolderTrait>(entries: &[f64]) -> Fallible<(bool, Transform3D<f64>), TH> {
+pub fn entries_to_matrix<TH: TypeHolderTrait<TH>>(entries: &[f64]) -> Fallible<(bool, Transform3D<f64>), TH> {
     if entries.len() == 6 {
         Ok((true, create_2d_matrix(&entries)))
     } else if entries.len() == 16 {
@@ -638,7 +638,7 @@ pub fn entries_to_matrix<TH: TypeHolderTrait>(entries: &[f64]) -> Fallible<(bool
 
 
 // https://drafts.fxtf.org/geometry-1/#validate-and-fixup
-pub fn dommatrixinit_to_matrix<TH: TypeHolderTrait>(dict: &DOMMatrixInit) -> Fallible<(bool, Transform3D<f64>), TH> {
+pub fn dommatrixinit_to_matrix<TH: TypeHolderTrait<TH>>(dict: &DOMMatrixInit) -> Fallible<(bool, Transform3D<f64>), TH> {
     // Step 1.
     if dict.a.is_some() && dict.m11.is_some() && dict.a.unwrap() != dict.m11.unwrap() ||
        dict.b.is_some() && dict.m12.is_some() && dict.b.unwrap() != dict.m12.unwrap() ||

@@ -14,11 +14,11 @@ use typeholder::TypeHolderTrait;
 
 // http://dev.w3.org/fxtf/geometry/Overview.html#dompoint
 #[dom_struct]
-pub struct DOMPoint<TH: TypeHolderTrait + 'static> {
+pub struct DOMPoint<TH: TypeHolderTrait<TH> + 'static> {
     point: DOMPointReadOnly<TH>,
 }
 
-impl<TH: TypeHolderTrait> DOMPoint<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMPoint<TH> {
     fn new_inherited(x: f64, y: f64, z: f64, w: f64) -> DOMPoint<TH> {
         DOMPoint {
             point: DOMPointReadOnly::new_inherited(x, y, z, w),
@@ -43,7 +43,7 @@ impl<TH: TypeHolderTrait> DOMPoint<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DOMPointMethods for DOMPoint<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMPointMethods for DOMPoint<TH> {
     // https://dev.w3.org/fxtf/geometry/Overview.html#dom-dompointreadonly-x
     fn X(&self) -> f64 {
         self.point.X()

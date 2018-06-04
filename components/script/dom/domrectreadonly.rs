@@ -13,7 +13,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct DOMRectReadOnly<TH: TypeHolderTrait + 'static> {
+pub struct DOMRectReadOnly<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     x: Cell<f64>,
     y: Cell<f64>,
@@ -22,7 +22,7 @@ pub struct DOMRectReadOnly<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> DOMRectReadOnly<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMRectReadOnly<TH> {
     pub fn new_inherited(x: f64, y: f64, width: f64, height: f64) -> DOMRectReadOnly<TH> {
         DOMRectReadOnly {
             x: Cell::new(x),
@@ -69,7 +69,7 @@ impl<TH: TypeHolderTrait> DOMRectReadOnly<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DOMRectReadOnlyMethods for DOMRectReadOnly<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMRectReadOnlyMethods for DOMRectReadOnly<TH> {
     // https://drafts.fxtf.org/geometry/#dom-domrectreadonly-x
     fn X(&self) -> f64 {
         self.x.get()

@@ -16,14 +16,14 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct PaintSize<TH: TypeHolderTrait + 'static> {
+pub struct PaintSize<TH: TypeHolderTrait<TH> + 'static> {
     reflector: Reflector<TH>,
     width: Finite<f64>,
     height: Finite<f64>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> PaintSize<TH> {
+impl<TH: TypeHolderTrait<TH>> PaintSize<TH> {
     fn new_inherited(size: TypedSize2D<f32, CSSPixel>) -> PaintSize<TH> {
         PaintSize {
             reflector: Reflector::new(),
@@ -38,7 +38,7 @@ impl<TH: TypeHolderTrait> PaintSize<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PaintSizeMethods for PaintSize<TH> {
+impl<TH: TypeHolderTrait<TH>> PaintSizeMethods for PaintSize<TH> {
     /// <https://drafts.css-houdini.org/css-paint-api/#paintsize>
     fn Width(&self) -> Finite<f64> {
         self.width

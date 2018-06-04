@@ -48,7 +48,7 @@ impl RequestGenerationId {
 }
 
 #[dom_struct]
-pub struct HTMLLinkElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLLinkElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     rel_list: MutNullableDom<DOMTokenList<TH>>,
     #[ignore_malloc_size_of = "Arc"]
@@ -66,7 +66,7 @@ pub struct HTMLLinkElement<TH: TypeHolderTrait + 'static> {
     request_generation_id: Cell<RequestGenerationId>,
 }
 
-impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLinkElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>,
                      creator: ElementCreator) -> HTMLLinkElement<TH> {
         HTMLLinkElement {
@@ -136,7 +136,7 @@ impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
     }
 }
 
-fn get_attr<TH: TypeHolderTrait>(element: &Element<TH>, local_name: &LocalName) -> Option<String> {
+fn get_attr<TH: TypeHolderTrait<TH>>(element: &Element<TH>, local_name: &LocalName) -> Option<String> {
     let elem = element.get_attribute(&ns!(), local_name);
     elem.map(|e| {
         let value = e.value();
@@ -167,7 +167,7 @@ fn is_favicon(value: &Option<String>) -> bool {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLinkElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLLinkElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -242,7 +242,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLinkElement<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLinkElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#concept-link-obtain>
     fn handle_stylesheet_url(&self, href: &str) {
         let document = document_from_node(self);
@@ -315,7 +315,7 @@ impl<TH: TypeHolderTrait> HTMLLinkElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> StylesheetOwner for HTMLLinkElement<TH> {
+impl<TH: TypeHolderTrait<TH>> StylesheetOwner for HTMLLinkElement<TH> {
     fn increment_pending_loads_count(&self) {
         self.pending_loads.set(self.pending_loads.get() + 1)
     }
@@ -355,7 +355,7 @@ impl<TH: TypeHolderTrait> StylesheetOwner for HTMLLinkElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLLinkElementMethods<TH> for HTMLLinkElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLinkElementMethods<TH> for HTMLLinkElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-link-href
     make_url_getter!(Href, "href");
 

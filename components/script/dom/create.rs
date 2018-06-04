@@ -85,7 +85,7 @@ use script_thread::ScriptThread;
 use servo_config::prefs::PREFS;
 use typeholder::TypeHolderTrait;
 
-fn create_svg_element<TH: TypeHolderTrait>(name: QualName,
+fn create_svg_element<TH: TypeHolderTrait<TH>>(name: QualName,
                       prefix: Option<Prefix>,
                       document: &Document<TH>)
                       -> DomRoot<Element<TH>> {
@@ -114,7 +114,7 @@ fn create_svg_element<TH: TypeHolderTrait>(name: QualName,
 
 // https://dom.spec.whatwg.org/#concept-create-element
 #[allow(unsafe_code)]
-fn create_html_element<TH: TypeHolderTrait>(name: QualName,
+fn create_html_element<TH: TypeHolderTrait<TH>>(name: QualName,
                        prefix: Option<Prefix>,
                        is: Option<LocalName>,
                        document: &Document<TH>,
@@ -192,7 +192,7 @@ fn create_html_element<TH: TypeHolderTrait>(name: QualName,
     result
 }
 
-pub fn create_native_html_element<TH: TypeHolderTrait>(
+pub fn create_native_html_element<TH: TypeHolderTrait<TH>>(
     name: QualName,
     prefix: Option<Prefix>,
     document: &Document<TH>,
@@ -361,7 +361,7 @@ pub fn create_native_html_element<TH: TypeHolderTrait>(
     }
 }
 
-pub fn create_element<TH: TypeHolderTrait>(name: QualName,
+pub fn create_element<TH: TypeHolderTrait<TH>>(name: QualName,
                       is: Option<LocalName>,
                       document: &Document<TH>,
                       creator: ElementCreator,

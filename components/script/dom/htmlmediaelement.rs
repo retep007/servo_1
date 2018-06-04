@@ -53,7 +53,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 // FIXME(nox): A lot of tasks queued for this element should probably be in the
 // media element event task source.
-pub struct HTMLMediaElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLMediaElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     /// <https://html.spec.whatwg.org/multipage/#dom-media-networkstate>
     network_state: Cell<NetworkState>,
@@ -106,7 +106,7 @@ enum ReadyState {
     HaveEnoughData = HTMLMediaElementConstants::HAVE_ENOUGH_DATA as u8,
 }
 
-impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLMediaElement<TH> {
     pub fn new_inherited(
         tag_name: LocalName,
         prefix: Option<Prefix>,
@@ -452,12 +452,12 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
         // FIXME(nox): Maybe populate the list of pending text tracks.
 
         // Step 6.
-        enum Mode<THH: TypeHolderTrait + 'static> {
+        enum Mode<THH: TypeHolderTrait<THH> + 'static> {
             Object,
             Attribute(String),
             Children(DomRoot<HTMLSourceElement<THH>>),
         }
-        fn mode<THH: TypeHolderTrait + 'static>(media: &HTMLMediaElement<THH>) -> Option<Mode<THH>> {
+        fn mode<THH: TypeHolderTrait<THH> + 'static>(media: &HTMLMediaElement<THH>) -> Option<Mode<THH>> {
             if media.src_object.get().is_some() {
                 return Some(Mode::Object);
             }
@@ -819,7 +819,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLMediaElementMethods<TH> for HTMLMediaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLMediaElementMethods<TH> for HTMLMediaElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-media-networkstate
     fn NetworkState(&self) -> u16 {
         self.network_state.get() as u16
@@ -909,7 +909,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElementMethods<TH> for HTMLMediaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLMediaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLMediaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -941,7 +941,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLMediaElement<TH> {
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub enum MediaElementMicrotask<TH: TypeHolderTrait + 'static> {
+pub enum MediaElementMicrotask<TH: TypeHolderTrait<TH> + 'static> {
     ResourceSelectionTask {
         elem: DomRoot<HTMLMediaElement<TH>>,
         generation_id: u32,
@@ -952,7 +952,7 @@ pub enum MediaElementMicrotask<TH: TypeHolderTrait + 'static> {
     }
 }
 
-impl<TH: TypeHolderTrait> MicrotaskRunnable for MediaElementMicrotask<TH> {
+impl<TH: TypeHolderTrait<TH>> MicrotaskRunnable for MediaElementMicrotask<TH> {
     fn handler(&self) {
         match self {
             &MediaElementMicrotask::ResourceSelectionTask { ref elem, generation_id, ref base_url } => {
@@ -974,7 +974,7 @@ enum Resource {
     Url(ServoUrl),
 }
 
-struct HTMLMediaElementContext<TH: TypeHolderTrait + 'static> {
+struct HTMLMediaElementContext<TH: TypeHolderTrait<TH> + 'static> {
     /// The element that initiated the request.
     elem: Trusted<HTMLMediaElement<TH>>,
     /// The response body received to date.
@@ -992,7 +992,7 @@ struct HTMLMediaElementContext<TH: TypeHolderTrait + 'static> {
 }
 
 // https://html.spec.whatwg.org/multipage/#media-data-processing-steps-list
-impl<TH: TypeHolderTrait> FetchResponseListener for HTMLMediaElementContext<TH> {
+impl<TH: TypeHolderTrait<TH>> FetchResponseListener for HTMLMediaElementContext<TH> {
     fn process_request_body(&mut self) {}
 
     fn process_request_eof(&mut self) {}
@@ -1093,14 +1093,14 @@ impl<TH: TypeHolderTrait> FetchResponseListener for HTMLMediaElementContext<TH> 
     }
 }
 
-impl<TH: TypeHolderTrait> PreInvoke for HTMLMediaElementContext<TH> {
+impl<TH: TypeHolderTrait<TH>> PreInvoke for HTMLMediaElementContext<TH> {
     fn should_invoke(&self) -> bool {
         //TODO: finish_load needs to run at some point if the generation changes.
         self.elem.root().generation_id.get() == self.generation_id
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLMediaElementContext<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLMediaElementContext<TH> {
     fn new(elem: &HTMLMediaElement<TH>) -> HTMLMediaElementContext<TH> {
         HTMLMediaElementContext {
             elem: Trusted::new(elem),

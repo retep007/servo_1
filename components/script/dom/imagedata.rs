@@ -21,7 +21,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct ImageData<TH: TypeHolderTrait + 'static> {
+pub struct ImageData<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     width: u32,
     height: u32,
@@ -29,7 +29,7 @@ pub struct ImageData<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> ImageData<TH> {
+impl<TH: TypeHolderTrait<TH>> ImageData<TH> {
     #[allow(unsafe_code)]
     pub fn new(global: &GlobalScope<TH>,
                width: u32,
@@ -150,7 +150,7 @@ impl<TH: TypeHolderTrait> ImageData<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ImageDataMethods for ImageData<TH> {
+impl<TH: TypeHolderTrait<TH>> ImageDataMethods for ImageData<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-imagedata-width
     fn Width(&self) -> u32 {
         self.width

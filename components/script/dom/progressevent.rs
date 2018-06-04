@@ -17,14 +17,14 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ProgressEvent<TH: TypeHolderTrait + 'static> {
+pub struct ProgressEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     length_computable: bool,
     loaded: u64,
     total: u64
 }
 
-impl<TH: TypeHolderTrait> ProgressEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> ProgressEvent<TH> {
     fn new_inherited(length_computable: bool, loaded: u64, total: u64) -> ProgressEvent<TH> {
         ProgressEvent {
             event: Event::new_inherited(),
@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> ProgressEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ProgressEventMethods for ProgressEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> ProgressEventMethods for ProgressEvent<TH> {
     // https://xhr.spec.whatwg.org/#dom-progressevent-lengthcomputable
     fn LengthComputable(&self) -> bool {
         self.length_computable

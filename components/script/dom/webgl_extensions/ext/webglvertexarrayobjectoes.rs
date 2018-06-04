@@ -17,7 +17,7 @@ use std::iter::FromIterator;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait + 'static> {
+pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait<TH> + 'static> {
     webgl_object_: WebGLObject<TH>,
     id: WebGLVertexArrayId,
     ever_bound: Cell<bool>,
@@ -26,7 +26,7 @@ pub struct WebGLVertexArrayObjectOES<TH: TypeHolderTrait + 'static> {
     bound_buffer_element_array: MutNullableDom<WebGLBuffer<TH>>,
 }
 
-impl<TH: TypeHolderTrait> WebGLVertexArrayObjectOES<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLVertexArrayObjectOES<TH> {
     fn new_inherited(id: WebGLVertexArrayId) -> WebGLVertexArrayObjectOES<TH> {
         Self {
             webgl_object_: WebGLObject::new_inherited(),

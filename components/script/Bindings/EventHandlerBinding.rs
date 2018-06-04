@@ -260,11 +260,11 @@ pub type OnBeforeUnloadEventHandler<TH> = Option<Rc<dom::bindings::codegen::Bind
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct EventHandlerNonNull<TH: TypeHolderTrait + 'static> {
+pub struct EventHandlerNonNull<TH: TypeHolderTrait<TH> + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> EventHandlerNonNull<TH> {
+impl<TH: TypeHolderTrait<TH>> EventHandlerNonNull<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<EventHandlerNonNull<TH>> {
         let mut ret = Rc::new(EventHandlerNonNull {
             parent: CallbackFunction::new()
@@ -325,7 +325,7 @@ impl<TH: TypeHolderTrait> EventHandlerNonNull<TH> {
 
     }
 }
-impl<TH: TypeHolderTrait> CallbackContainer<TH> for EventHandlerNonNull<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackContainer<TH> for EventHandlerNonNull<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<EventHandlerNonNull<TH>> {
         EventHandlerNonNull::new(cx, callback)
     }
@@ -335,7 +335,7 @@ impl<TH: TypeHolderTrait> CallbackContainer<TH> for EventHandlerNonNull<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for EventHandlerNonNull<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for EventHandlerNonNull<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }
@@ -343,11 +343,11 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for EventHandlerNonNull<TH> {
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct OnErrorEventHandlerNonNull<TH: TypeHolderTrait + 'static> {
+pub struct OnErrorEventHandlerNonNull<TH: TypeHolderTrait<TH> + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> OnErrorEventHandlerNonNull<TH> {
+impl<TH: TypeHolderTrait<TH>> OnErrorEventHandlerNonNull<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<OnErrorEventHandlerNonNull<TH>> {
         let mut ret = Rc::new(OnErrorEventHandlerNonNull {
             parent: CallbackFunction::new()
@@ -468,7 +468,7 @@ impl<TH: TypeHolderTrait> OnErrorEventHandlerNonNull<TH> {
 
     }
 }
-impl<TH: TypeHolderTrait> CallbackContainer<TH> for OnErrorEventHandlerNonNull<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackContainer<TH> for OnErrorEventHandlerNonNull<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<OnErrorEventHandlerNonNull<TH>> {
         OnErrorEventHandlerNonNull::new(cx, callback)
     }
@@ -478,7 +478,7 @@ impl<TH: TypeHolderTrait> CallbackContainer<TH> for OnErrorEventHandlerNonNull<T
     }
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for OnErrorEventHandlerNonNull<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for OnErrorEventHandlerNonNull<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }
@@ -486,11 +486,11 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for OnErrorEventHandlerNonNull<TH> 
 
 #[derive(JSTraceable, PartialEq)]
 #[allow_unrooted_interior]
-pub struct OnBeforeUnloadEventHandlerNonNull<TH: TypeHolderTrait + 'static> {
+pub struct OnBeforeUnloadEventHandlerNonNull<TH: TypeHolderTrait<TH> + 'static> {
     pub parent: CallbackFunction<TH>,
 }
 
-impl<TH: TypeHolderTrait> OnBeforeUnloadEventHandlerNonNull<TH> {
+impl<TH: TypeHolderTrait<TH>> OnBeforeUnloadEventHandlerNonNull<TH> {
     pub unsafe fn new(aCx: *mut JSContext, aCallback: *mut JSObject) -> Rc<OnBeforeUnloadEventHandlerNonNull<TH>> {
         let mut ret = Rc::new(OnBeforeUnloadEventHandlerNonNull {
             parent: CallbackFunction::new()
@@ -558,7 +558,7 @@ impl<TH: TypeHolderTrait> OnBeforeUnloadEventHandlerNonNull<TH> {
 
     }
 }
-impl<TH: TypeHolderTrait> CallbackContainer<TH> for OnBeforeUnloadEventHandlerNonNull<TH> {
+impl<TH: TypeHolderTrait<TH>> CallbackContainer<TH> for OnBeforeUnloadEventHandlerNonNull<TH> {
     unsafe fn new(cx: *mut JSContext, callback: *mut JSObject) -> Rc<OnBeforeUnloadEventHandlerNonNull<TH>> {
         OnBeforeUnloadEventHandlerNonNull::new(cx, callback)
     }
@@ -568,7 +568,7 @@ impl<TH: TypeHolderTrait> CallbackContainer<TH> for OnBeforeUnloadEventHandlerNo
     }
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for OnBeforeUnloadEventHandlerNonNull<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for OnBeforeUnloadEventHandlerNonNull<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         self.callback().to_jsval(cx, rval);
     }

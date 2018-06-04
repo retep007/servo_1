@@ -29,11 +29,11 @@ use typeholder::TypeHolderTrait;
 const INITIAL_REFLOW_DELAY: u64 = 200_000_000;
 
 #[dom_struct]
-pub struct HTMLBodyElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLBodyElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLBodyElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>)
                      -> HTMLBodyElement<TH> {
         HTMLBodyElement {
@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> HTMLBodyElement<TH> {
 
 }
 
-impl<TH: TypeHolderTrait> HTMLBodyElementMethods<TH> for HTMLBodyElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLBodyElementMethods<TH> for HTMLBodyElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-body-bgcolor
     make_getter!(BgColor, "bgcolor");
 
@@ -95,7 +95,7 @@ pub trait HTMLBodyElementLayoutHelpers {
     fn get_background(&self) -> Option<ServoUrl>;
 }
 
-impl<TH: TypeHolderTrait> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyElement<TH>> {
     #[allow(unsafe_code)]
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
@@ -127,7 +127,7 @@ impl<TH: TypeHolderTrait> HTMLBodyElementLayoutHelpers for LayoutDom<HTMLBodyEle
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLBodyElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLBodyElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

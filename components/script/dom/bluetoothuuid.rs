@@ -20,7 +20,7 @@ pub type BluetoothDescriptorUUID = StringOrUnsignedLong;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothuuid
  #[dom_struct]
-pub struct BluetoothUUID<TH: TypeHolderTrait + 'static> {
+pub struct BluetoothUUID<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
@@ -285,7 +285,7 @@ const CHARACTERISTIC_ERROR_MESSAGE: &'static str = "https://developer.bluetooth.
 const DESCRIPTOR_ERROR_MESSAGE: &'static str = "https://developer.bluetooth.org/gatt/descriptors/Pages/\
     DescriptorsHomePage.aspx\ne.g. 'gatt.characteristic_presentation_format'.";
 
-impl<TH: TypeHolderTrait> BluetoothUUID<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothUUID<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothuuid-canonicaluuid
     pub fn CanonicalUUID(_: &Window<TH>, alias: u32) -> UUID {
         canonical_uuid(alias)
@@ -307,7 +307,7 @@ impl<TH: TypeHolderTrait> BluetoothUUID<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BluetoothUUID<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothUUID<TH> {
     pub fn service(name: BluetoothServiceUUID) -> Fallible<UUID, TH> {
         resolve_uuid_name(name, BLUETOOTH_ASSIGNED_SERVICES, SERVICE_PREFIX)
     }
@@ -335,7 +335,7 @@ fn canonical_uuid(alias: u32) -> UUID {
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#resolveuuidname
-fn resolve_uuid_name<TH: TypeHolderTrait>(
+fn resolve_uuid_name<TH: TypeHolderTrait<TH>>(
         name: StringOrUnsignedLong,
         assigned_numbers_table: &'static [(&'static str, u32)],
         prefix: &str)

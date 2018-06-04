@@ -22,11 +22,11 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#documentfragment
 #[dom_struct]
-pub struct DocumentFragment<TH: TypeHolderTrait + 'static> {
+pub struct DocumentFragment<TH: TypeHolderTrait<TH> + 'static> {
     node: Node<TH>,
 }
 
-impl<TH: TypeHolderTrait> DocumentFragment<TH> {
+impl<TH: TypeHolderTrait<TH>> DocumentFragment<TH> {
     /// Creates a new DocumentFragment.
     fn new_inherited(document: &Document<TH>) -> DocumentFragment<TH> {
         DocumentFragment {
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> DocumentFragment<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DocumentFragmentMethods<TH> for DocumentFragment<TH> {
+impl<TH: TypeHolderTrait<TH>> DocumentFragmentMethods<TH> for DocumentFragment<TH> {
     // https://dom.spec.whatwg.org/#dom-parentnode-children
     fn Children(&self) -> DomRoot<HTMLCollection<TH>> {
         let window = window_from_node(self);

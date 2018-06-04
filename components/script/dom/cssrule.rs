@@ -25,7 +25,7 @@ use style::stylesheets::CssRule as StyleCssRule;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSRule<TH: TypeHolderTrait + 'static> {
+pub struct CSSRule<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
 
@@ -35,7 +35,7 @@ pub struct CSSRule<TH: TypeHolderTrait + 'static> {
     parent_stylesheet_removed: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> CSSRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSRule<TH> {
     #[allow(unrooted_must_root)]
     pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>) -> Self {
         CSSRule {
@@ -114,7 +114,7 @@ impl<TH: TypeHolderTrait> CSSRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CSSRuleMethods<TH> for CSSRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSRuleMethods<TH> for CSSRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssrule-type
     fn Type(&self) -> u16 {
         self.as_specific().ty()

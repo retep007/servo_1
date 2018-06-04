@@ -18,12 +18,12 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 // https://html.spec.whatwg.org/multipage/#pagetransitionevent
 #[dom_struct]
-pub struct PageTransitionEvent<TH: TypeHolderTrait + 'static> {
+pub struct PageTransitionEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     persisted: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> PageTransitionEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> PageTransitionEvent<TH> {
     fn new_inherited() -> PageTransitionEvent<TH> {
         PageTransitionEvent {
             event: Event::new_inherited(),
@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> PageTransitionEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PageTransitionEventMethods for PageTransitionEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> PageTransitionEventMethods for PageTransitionEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-pagetransitionevent-persisted
     fn Persisted(&self) -> bool {
         self.persisted.get()

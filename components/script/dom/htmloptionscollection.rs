@@ -24,11 +24,11 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOptionsCollection<TH: TypeHolderTrait + 'static> {
+pub struct HTMLOptionsCollection<TH: TypeHolderTrait<TH> + 'static> {
     collection: HTMLCollection<TH>,
 }
 
-impl<TH: TypeHolderTrait> HTMLOptionsCollection<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLOptionsCollection<TH> {
     fn new_inherited(select: &HTMLSelectElement<TH>, filter: Box<CollectionFilter<TH> + 'static>) -> HTMLOptionsCollection<TH> {
         HTMLOptionsCollection {
             collection: HTMLCollection::new_inherited(select.upcast(), filter),
@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> HTMLOptionsCollection<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLOptionsCollectionMethods<TH> for HTMLOptionsCollection<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLOptionsCollectionMethods<TH> for HTMLOptionsCollection<TH> {
     // FIXME: This shouldn't need to be implemented here since HTMLCollection (the parent of
     // HTMLOptionsCollection) implements NamedGetter.
     // https://github.com/servo/servo/issues/5875

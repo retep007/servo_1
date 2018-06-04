@@ -17,11 +17,11 @@ use js::typedarray::{Float32Array, Float64Array};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMMatrix<TH: TypeHolderTrait + 'static> {
+pub struct DOMMatrix<TH: TypeHolderTrait<TH> + 'static> {
     parent: DOMMatrixReadOnly<TH>
 }
 
-impl<TH: TypeHolderTrait> DOMMatrix<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMMatrix<TH> {
     #[allow(unrooted_must_root)]
     pub fn new(global: &GlobalScope<TH>, is2D: bool, matrix: Transform3D<f64>) -> DomRoot<Self> {
         let dommatrix = Self::new_inherited(is2D, matrix);
@@ -78,7 +78,7 @@ impl<TH: TypeHolderTrait> DOMMatrix<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DOMMatrixMethods<TH> for DOMMatrix<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMMatrixMethods<TH> for DOMMatrix<TH> {
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrixreadonly-m11
     fn M11(&self) -> f64 {
         self.upcast::<DOMMatrixReadOnly<TH>>().M11()

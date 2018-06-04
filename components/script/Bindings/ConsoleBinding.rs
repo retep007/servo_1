@@ -505,7 +505,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn log<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn log<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
@@ -533,7 +533,7 @@ unsafe extern fn log<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint
     }), false);
 }
 
-unsafe extern fn debug<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn debug<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
@@ -561,7 +561,7 @@ unsafe extern fn debug<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_ui
     }), false);
 }
 
-unsafe extern fn info<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn info<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
@@ -589,7 +589,7 @@ unsafe extern fn info<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uin
     }), false);
 }
 
-unsafe extern fn warn<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn warn<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
@@ -617,7 +617,7 @@ unsafe extern fn warn<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uin
     }), false);
 }
 
-unsafe extern fn error<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn error<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
@@ -645,7 +645,7 @@ unsafe extern fn error<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_ui
     }), false);
 }
 
-unsafe extern fn assert<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn assert<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
@@ -685,7 +685,7 @@ unsafe extern fn assert<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_u
     }), false);
 }
 
-unsafe extern fn time<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn time<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
@@ -711,7 +711,7 @@ unsafe extern fn time<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uin
     }), false);
 }
 
-unsafe extern fn timeEnd<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
+unsafe extern fn timeEnd<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
@@ -737,7 +737,7 @@ unsafe extern fn timeEnd<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_
     }), false);
 }
 
-fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sStaticMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"log\0" as *const u8 as *const libc::c_char,
@@ -804,7 +804,7 @@ fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionS
     }]
 
 ]}
-fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sStaticMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0])
 ]}
 
@@ -812,7 +812,7 @@ static NAMESPACE_OBJECT_CLASS: NamespaceObjectClass = unsafe {
     NamespaceObjectClass::new(b"Console\0")
 };
 
-pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>(cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
+pub unsafe fn GetConstructorObject<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface object for this class.  This will create the object as
        needed. */
     assert!(((*get_object_class(global.get())).flags & JSCLASS_DOM_GLOBAL) != 0);
@@ -846,7 +846,7 @@ unsafe fn ConstructorEnabled(aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::DEDICATED_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::PAINT_WORKLET_GLOBAL_SCOPE | InterfaceObjectMap::Globals::SERVICE_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::TEST_WORKLET_GLOBAL_SCOPE | InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>(cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>(cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let proto = JS_GetObjectPrototype(cx, global));
     assert!(!proto.is_null());
     rooted!(in(cx) let mut namespace = ptr::null_mut::<JSObject>());

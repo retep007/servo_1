@@ -75,14 +75,14 @@ const MIN_GC_THRESHOLD: u32 = 1_000_000;
 
 #[dom_struct]
 /// <https://drafts.css-houdini.org/worklets/#worklet>
-pub struct Worklet<TH: TypeHolderTrait + 'static> {
+pub struct Worklet<TH: TypeHolderTrait<TH> + 'static> {
     reflector: Reflector<TH>,
     window: Dom<Window<TH>>,
     worklet_id: WorkletId,
     global_type: WorkletGlobalScopeType<TH>,
 }
 
-impl<TH: TypeHolderTrait> Worklet<TH> {
+impl<TH: TypeHolderTrait<TH>> Worklet<TH> {
     fn new_inherited(window: &Window<TH>, global_type: WorkletGlobalScopeType<TH>) -> Worklet<TH> {
         Worklet {
             reflector: Reflector::new(),
@@ -107,7 +107,7 @@ impl<TH: TypeHolderTrait> Worklet<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WorkletMethods<TH> for Worklet<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkletMethods<TH> for Worklet<TH> {
     #[allow(unrooted_must_root)]
     /// <https://drafts.css-houdini.org/worklets/#dom-worklet-addmodule>
     fn AddModule(&self, module_url: USVString, options: &WorkletOptions) -> Rc<Promise<TH>> {
@@ -227,7 +227,7 @@ impl PendingTasksStruct {
 /// by a backup thread, not by the primary thread.
 
 #[derive(Clone, JSTraceable)]
-pub struct WorkletThreadPool<TH: TypeHolderTrait + 'static> {
+pub struct WorkletThreadPool<TH: TypeHolderTrait<TH> + 'static> {
     // Channels to send data messages to the three roles.
     primary_sender: Sender<WorkletData>,
     hot_backup_sender: Sender<WorkletData>,
@@ -238,7 +238,7 @@ pub struct WorkletThreadPool<TH: TypeHolderTrait + 'static> {
     control_sender_2: Sender<WorkletControl<TH>>,
 }
 
-impl<TH: TypeHolderTrait> Drop for WorkletThreadPool<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for WorkletThreadPool<TH> {
     fn drop(&mut self) {
         let _ = self.cold_backup_sender.send(WorkletData::Quit);
         let _ = self.hot_backup_sender.send(WorkletData::Quit);
@@ -246,7 +246,7 @@ impl<TH: TypeHolderTrait> Drop for WorkletThreadPool<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WorkletThreadPool<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkletThreadPool<TH> {
     /// Create a new thread pool and spawn the threads.
     /// When the thread pool is dropped, the threads will be asked to quit.
     pub fn spawn(global_init: WorkletGlobalScopeInit) -> WorkletThreadPool<TH> {
@@ -326,7 +326,7 @@ enum WorkletData {
 }
 
 /// The control message sent to worklet threads
-enum WorkletControl<TH: TypeHolderTrait + 'static> {
+enum WorkletControl<TH: TypeHolderTrait<TH> + 'static> {
     FetchAndInvokeAWorkletScript {
         pipeline_id: PipelineId,
         worklet_id: WorkletId,
@@ -379,7 +379,7 @@ struct WorkletThreadInit {
 
 /// A thread for executing worklets.
 #[must_root]
-struct WorkletThread<TH: TypeHolderTrait + 'static> {
+struct WorkletThread<TH: TypeHolderTrait<TH> + 'static> {
     /// Which role the thread is currently playing
     role: WorkletThreadRole,
 
@@ -407,14 +407,14 @@ struct WorkletThread<TH: TypeHolderTrait + 'static> {
 }
 
 #[allow(unsafe_code)]
-unsafe impl<TH: TypeHolderTrait> JSTraceable for WorkletThread<TH> {
+unsafe impl<TH: TypeHolderTrait<TH>> JSTraceable for WorkletThread<TH> {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         debug!("Tracing worklet thread.");
         self.global_scopes.trace(trc);
     }
 }
 
-impl<TH: TypeHolderTrait> WorkletThread<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkletThread<TH> {
     /// Spawn a new worklet thread, returning the channel to send it control messages.
     #[allow(unsafe_code)]
     #[allow(unrooted_must_root)]

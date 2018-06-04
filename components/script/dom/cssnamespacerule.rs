@@ -17,13 +17,13 @@ use style::stylesheets::NamespaceRule;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSNamespaceRule<TH: TypeHolderTrait + 'static> {
+pub struct CSSNamespaceRule<TH: TypeHolderTrait<TH> + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     namespacerule: Arc<Locked<NamespaceRule>>,
 }
 
-impl<TH: TypeHolderTrait> CSSNamespaceRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSNamespaceRule<TH> {
     fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, namespacerule: Arc<Locked<NamespaceRule>>)
                      -> Self {
         CSSNamespaceRule {
@@ -41,7 +41,7 @@ impl<TH: TypeHolderTrait> CSSNamespaceRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CSSNamespaceRuleMethods for CSSNamespaceRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSNamespaceRuleMethods for CSSNamespaceRule<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssnamespacerule-prefix
     fn Prefix(&self) -> DOMString {
         let guard = self.cssrule.shared_lock().read();
@@ -57,7 +57,7 @@ impl<TH: TypeHolderTrait> CSSNamespaceRuleMethods for CSSNamespaceRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> SpecificCSSRule for CSSNamespaceRule<TH> {
+impl<TH: TypeHolderTrait<TH>> SpecificCSSRule for CSSNamespaceRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::NAMESPACE_RULE

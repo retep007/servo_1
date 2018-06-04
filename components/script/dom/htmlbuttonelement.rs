@@ -40,13 +40,13 @@ enum ButtonType {
 }
 
 #[dom_struct]
-pub struct HTMLButtonElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLButtonElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     button_type: Cell<ButtonType>,
     form_owner: MutNullableDom<HTMLFormElement<TH>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLButtonElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLButtonElement<TH> {
@@ -69,7 +69,7 @@ impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLButtonElementMethods<TH> for HTMLButtonElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLButtonElementMethods<TH> for HTMLButtonElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-cva-validity
     fn Validity(&self) -> DomRoot<ValidityState<TH>> {
         let window = window_from_node(self);
@@ -144,7 +144,7 @@ impl<TH: TypeHolderTrait> HTMLButtonElementMethods<TH> for HTMLButtonElement<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLButtonElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#constructing-the-form-data-set>
     /// Steps range from 3.1 to 3.7 (specific to HTMLButtonElement)
     pub fn form_datum(&self, submitter: Option<FormSubmitter<TH>>) -> Option<FormDatum<TH>> {
@@ -177,7 +177,7 @@ impl<TH: TypeHolderTrait> HTMLButtonElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLButtonElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLButtonElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -244,7 +244,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLButtonElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl<TH> for HTMLButtonElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControl<TH> for HTMLButtonElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -258,7 +258,7 @@ impl<TH: TypeHolderTrait> FormControl<TH> for HTMLButtonElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Validatable for HTMLButtonElement<TH> {
+impl<TH: TypeHolderTrait<TH>> Validatable for HTMLButtonElement<TH> {
     fn is_instance_validatable(&self) -> bool {
         true
     }
@@ -269,7 +269,7 @@ impl<TH: TypeHolderTrait> Validatable for HTMLButtonElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Activatable<TH> for HTMLButtonElement<TH> {
+impl<TH: TypeHolderTrait<TH>> Activatable<TH> for HTMLButtonElement<TH> {
     fn as_element(&self) -> &Element<TH> {
         self.upcast()
     }

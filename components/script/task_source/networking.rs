@@ -17,7 +17,7 @@ impl Clone for NetworkingTaskSource {
     }
 }
 
-impl<TH: TypeHolderTrait> TaskSource<TH> for NetworkingTaskSource {
+impl<TH: TypeHolderTrait<TH>> TaskSource<TH> for NetworkingTaskSource {
     fn queue_with_canceller<T>(
         &self,
         task: T,

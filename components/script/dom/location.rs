@@ -17,12 +17,12 @@ use servo_url::{MutableOrigin, ServoUrl};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Location<TH: TypeHolderTrait + 'static> {
+pub struct Location<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     window: Dom<Window<TH>>,
 }
 
-impl<TH: TypeHolderTrait> Location<TH> {
+impl<TH: TypeHolderTrait<TH>> Location<TH> {
     fn new_inherited(window: &Window<TH>) -> Location<TH> {
         Location {
             reflector_: Reflector::new(),
@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> Location<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> LocationMethods<TH> for Location<TH> {
+impl<TH: TypeHolderTrait<TH>> LocationMethods<TH> for Location<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-assign
     fn Assign(&self, url: USVString) -> ErrorResult<TH> {
         self.check_same_origin_domain()?;

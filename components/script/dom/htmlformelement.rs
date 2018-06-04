@@ -63,7 +63,7 @@ use std::marker::PhantomData;
 pub struct GenerationId(u32);
 
 #[dom_struct]
-pub struct HTMLFormElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLFormElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     marked_for_reset: Cell<bool>,
     elements: DomOnceCell<HTMLFormControlsCollection<TH>>,
@@ -71,7 +71,7 @@ pub struct HTMLFormElement<TH: TypeHolderTrait + 'static> {
     controls: DomRefCell<Vec<Dom<Element<TH>>>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFormElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLFormElement<TH> {
@@ -94,7 +94,7 @@ impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-form-acceptcharset
     make_getter!(AcceptCharset, "accept-charset");
 
@@ -169,11 +169,11 @@ impl<TH: TypeHolderTrait> HTMLFormElementMethods<TH> for HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-form-elements
     fn Elements(&self) -> DomRoot<HTMLFormControlsCollection<TH>> {
         #[derive(JSTraceable, MallocSizeOf)]
-        struct ElementsFilter<THH: TypeHolderTrait + 'static> {
+        struct ElementsFilter<THH: TypeHolderTrait<THH> + 'static> {
             form: DomRoot<HTMLFormElement<THH>>,
             _p: PhantomData<THH>,
         }
-        impl<THH: TypeHolderTrait> CollectionFilter<THH> for ElementsFilter<THH> {
+        impl<THH: TypeHolderTrait<THH>> CollectionFilter<THH> for ElementsFilter<THH> {
             fn filter<'a>(&self, elem: &'a Element<THH>, _root: &'a Node<THH>) -> bool {
                 let form_owner = match elem.upcast::<Node<THH>>().type_id() {
                     NodeTypeId::Element(ElementTypeId::HTMLElement(t)) => {
@@ -251,7 +251,7 @@ pub enum ResetFrom {
 }
 
 
-impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFormElement<TH> {
     // https://html.spec.whatwg.org/multipage/#picking-an-encoding-for-the-form
     fn pick_encoding(&self) -> &'static Encoding {
         // Step 2
@@ -682,20 +682,20 @@ impl<TH: TypeHolderTrait> HTMLFormElement<TH> {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub enum FormDatumValue<TH: TypeHolderTrait + 'static> {
+pub enum FormDatumValue<TH: TypeHolderTrait<TH> + 'static> {
     #[allow(dead_code)]
     File(DomRoot<File<TH>>),
     String(DOMString)
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf)]
-pub struct FormDatum<TH: TypeHolderTrait + 'static> {
+pub struct FormDatum<TH: TypeHolderTrait<TH> + 'static> {
     pub ty: DOMString,
     pub name: DOMString,
     pub value: FormDatumValue<TH>
 }
 
-impl<TH: TypeHolderTrait> FormDatum<TH> {
+impl<TH: TypeHolderTrait<TH>> FormDatum<TH> {
     pub fn replace_value(&self, charset: &str) -> String {
         if self.name == "_charset_" && self.ty == "hidden" {
             return charset.to_string();
@@ -724,7 +724,7 @@ pub enum FormMethod {
 
 #[derive(MallocSizeOf)]
 #[allow(dead_code)]
-pub enum FormSubmittableElement<TH: TypeHolderTrait + 'static> {
+pub enum FormSubmittableElement<TH: TypeHolderTrait<TH> + 'static> {
     ButtonElement(DomRoot<HTMLButtonElement<TH>>),
     InputElement(DomRoot<HTMLInputElement<TH>>),
     // TODO: HTMLKeygenElement unimplemented
@@ -734,7 +734,7 @@ pub enum FormSubmittableElement<TH: TypeHolderTrait + 'static> {
     TextAreaElement(DomRoot<HTMLTextAreaElement<TH>>),
 }
 
-impl<TH: TypeHolderTrait> FormSubmittableElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormSubmittableElement<TH> {
     fn as_event_target(&self) -> &EventTarget<TH> {
         match *self {
             FormSubmittableElement::ButtonElement(ref button) => button.upcast(),
@@ -767,14 +767,14 @@ impl<TH: TypeHolderTrait> FormSubmittableElement<TH> {
 }
 
 #[derive(Clone, Copy, MallocSizeOf)]
-pub enum FormSubmitter<'a, TH: TypeHolderTrait + 'static> {
+pub enum FormSubmitter<'a, TH: TypeHolderTrait<TH> + 'static> {
     FormElement(&'a HTMLFormElement<TH>),
     InputElement(&'a HTMLInputElement<TH>),
     ButtonElement(&'a HTMLButtonElement<TH>)
     // TODO: image submit, etc etc
 }
 
-impl<'a, TH: TypeHolderTrait> FormSubmitter<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> FormSubmitter<'a, TH> {
     fn action(&self) -> DOMString {
         match *self {
             FormSubmitter::FormElement(form) => form.Action(),
@@ -868,7 +868,7 @@ impl<'a, TH: TypeHolderTrait> FormSubmitter<'a, TH> {
     }
 }
 
-pub trait FormControl<TH: TypeHolderTrait>: DomObject {
+pub trait FormControl<TH: TypeHolderTrait<TH>>: DomObject {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>>;
 
     fn set_form_owner(&self, form: Option<&HTMLFormElement<TH>>);
@@ -1038,7 +1038,7 @@ pub trait FormControl<TH: TypeHolderTrait>: DomObject {
     // fn satisfies_constraints(&self) -> bool;
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLFormElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLFormElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -1068,11 +1068,11 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLFormElement<TH> {
     }
 }
 
-pub trait FormControlElementHelpers<TH: TypeHolderTrait> {
+pub trait FormControlElementHelpers<TH: TypeHolderTrait<TH>> {
     fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH, TypeHolder=TH>>;
 }
 
-impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControlElementHelpers<TH> for Element<TH> {
     fn as_maybe_form_control<'a>(&'a self) -> Option<&'a FormControl<TH, TypeHolder=TH>> {
         let node = self.upcast::<Node<TH>>();
 
@@ -1115,7 +1115,7 @@ impl<TH: TypeHolderTrait> FormControlElementHelpers<TH> for Element<TH> {
 }
 
 // https://html.spec.whatwg.org/multipage/#multipart/form-data-encoding-algorithm
-pub fn encode_multipart_form_data<TH: TypeHolderTrait>(form_data: &mut Vec<FormDatum<TH>>,
+pub fn encode_multipart_form_data<TH: TypeHolderTrait<TH>>(form_data: &mut Vec<FormDatum<TH>>,
                                   boundary: String, encoding: &'static Encoding) -> Vec<u8> {
     // Step 1
     let mut result = vec![];

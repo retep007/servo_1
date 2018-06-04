@@ -41,12 +41,12 @@ use std::ptr::NonNull;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGL2RenderingContext<TH: TypeHolderTrait + 'static> {
+pub struct WebGL2RenderingContext<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     base: Dom<WebGLRenderingContext<TH>>,
 }
 
-impl<TH: TypeHolderTrait> WebGL2RenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGL2RenderingContext<TH> {
     fn new_inherited(
         window: &Window<TH>,
         canvas: &HTMLCanvasElement<TH>,
@@ -73,7 +73,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContext<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebGL2RenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGL2RenderingContext<TH> {
     pub fn recreate(&self, size: Size2D<i32>) {
         self.base.recreate(size)
     }
@@ -83,7 +83,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContext<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods<TH> for WebGL2RenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGL2RenderingContextMethods<TH> for WebGL2RenderingContext<TH> {
     /// https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.1
     fn Canvas(&self) -> DomRoot<HTMLCanvasElement<TH>> {
         self.base.Canvas()
@@ -941,7 +941,7 @@ impl<TH: TypeHolderTrait> WebGL2RenderingContextMethods<TH> for WebGL2RenderingC
 }
 
 
-impl<TH: TypeHolderTrait> LayoutCanvasWebGLRenderingContextHelpers for LayoutDom<WebGL2RenderingContext<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutCanvasWebGLRenderingContextHelpers for LayoutDom<WebGL2RenderingContext<TH>> {
     #[allow(unsafe_code)]
     unsafe fn canvas_data_source(&self) -> HTMLCanvasDataSource {
         let this = &*self.unsafe_get();

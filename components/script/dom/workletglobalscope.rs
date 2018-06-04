@@ -36,7 +36,7 @@ use std::marker::PhantomData;
 
 #[dom_struct]
 /// <https://drafts.css-houdini.org/worklets/#workletglobalscope>
-pub struct WorkletGlobalScope<TH: TypeHolderTrait + 'static> {
+pub struct WorkletGlobalScope<TH: TypeHolderTrait<TH> + 'static> {
     /// The global for this worklet.
     globalscope: GlobalScope<TH>,
     /// The base URL for this worklet.
@@ -48,7 +48,7 @@ pub struct WorkletGlobalScope<TH: TypeHolderTrait + 'static> {
     executor: WorkletExecutor,
 }
 
-impl<TH: TypeHolderTrait> WorkletGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkletGlobalScope<TH> {
     /// Create a new stack-allocated `WorkletGlobalScope`.
     pub fn new_inherited(
         pipeline_id: PipelineId,
@@ -158,7 +158,7 @@ pub struct WorkletGlobalScopeInit {
 
 /// <https://drafts.css-houdini.org/worklets/#worklet-global-scope-type>
 #[derive(Clone, Copy, Debug, JSTraceable, MallocSizeOf)]
-pub enum WorkletGlobalScopeType<TH: TypeHolderTrait + 'static> {
+pub enum WorkletGlobalScopeType<TH: TypeHolderTrait<TH> + 'static> {
     /// A servo-specific testing worklet
     Test,
     /// A paint worklet
@@ -167,7 +167,7 @@ pub enum WorkletGlobalScopeType<TH: TypeHolderTrait + 'static> {
     _p(PhantomData<TH>),
 }
 
-impl<TH: TypeHolderTrait> WorkletGlobalScopeType<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkletGlobalScopeType<TH> {
     /// Create a new heap-allocated `WorkletGlobalScope`.
     pub fn new(&self,
                runtime: &Runtime,

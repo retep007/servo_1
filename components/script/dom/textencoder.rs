@@ -18,12 +18,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct TextEncoder<TH: TypeHolderTrait + 'static> {
+pub struct TextEncoder<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> TextEncoder<TH> {
+impl<TH: TypeHolderTrait<TH>> TextEncoder<TH> {
     fn new_inherited() -> TextEncoder<TH> {
         TextEncoder {
             reflector_: Reflector::new(),
@@ -43,7 +43,7 @@ impl<TH: TypeHolderTrait> TextEncoder<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TextEncoderMethods for TextEncoder<TH> {
+impl<TH: TypeHolderTrait<TH>> TextEncoderMethods for TextEncoder<TH> {
     // https://encoding.spec.whatwg.org/#dom-textencoder-encoding
     fn Encoding(&self) -> DOMString {
         DOMString::from("utf-8")

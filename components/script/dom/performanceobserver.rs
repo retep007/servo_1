@@ -31,14 +31,14 @@ const VALID_ENTRY_TYPES: &'static [&'static str] = &[
 ];
 
 #[dom_struct]
-pub struct PerformanceObserver<TH: TypeHolderTrait + 'static> {
+pub struct PerformanceObserver<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "can't measure Rc values"]
     callback: Rc<PerformanceObserverCallback<TH>>,
     entries: DomRefCell<DOMPerformanceEntryList<TH>>,
 }
 
-impl<TH: TypeHolderTrait> PerformanceObserver<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceObserver<TH> {
     fn new_inherited(callback: Rc<PerformanceObserverCallback<TH>>,
                      entries: DomRefCell<DOMPerformanceEntryList<TH>>)
         -> PerformanceObserver<TH> {
@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> PerformanceObserver<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PerformanceObserverMethods<TH> for PerformanceObserver<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceObserverMethods<TH> for PerformanceObserver<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver-observe()
     fn Observe(&self, options: &PerformanceObserverInit) -> Fallible<(), TH> {
         // step 1

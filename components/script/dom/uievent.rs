@@ -20,13 +20,13 @@ use typeholder::TypeHolderTrait;
 
 // https://w3c.github.io/uievents/#interface-uievent
 #[dom_struct]
-pub struct UIEvent<TH: TypeHolderTrait + 'static> {
+pub struct UIEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     view: MutNullableDom<Window<TH>>,
     detail: Cell<i32>
 }
 
-impl<TH: TypeHolderTrait> UIEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> UIEvent<TH> {
     pub fn new_inherited() -> UIEvent<TH> {
         UIEvent {
             event: Event::new_inherited(),
@@ -65,7 +65,7 @@ impl<TH: TypeHolderTrait> UIEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> UIEventMethods<TH> for UIEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> UIEventMethods<TH> for UIEvent<TH> {
     // https://w3c.github.io/uievents/#widl-UIEvent-view
     fn GetView(&self) -> Option<DomRoot<Window<TH>>> {
         self.view.get()

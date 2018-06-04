@@ -45,14 +45,14 @@ bitflags!{
 
 // https://html.spec.whatwg.org/multipage/#validitystate
 #[dom_struct]
-pub struct ValidityState<TH: TypeHolderTrait + 'static> {
+pub struct ValidityState<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     element: Dom<Element<TH>>,
     state: ValidityStatus
 }
 
 
-impl<TH: TypeHolderTrait> ValidityState<TH> {
+impl<TH: TypeHolderTrait<TH>> ValidityState<TH> {
     fn new_inherited(element: &Element<TH>) -> ValidityState<TH> {
         ValidityState {
             reflector_: Reflector::new(),
@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> ValidityState<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ValidityStateMethods for ValidityState<TH> {
+impl<TH: TypeHolderTrait<TH>> ValidityStateMethods for ValidityState<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-validitystate-valuemissing
     fn ValueMissing(&self) -> bool {
         false

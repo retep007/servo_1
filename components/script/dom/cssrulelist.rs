@@ -23,7 +23,7 @@ unsafe_no_jsmanaged_fields!(RulesSource);
 
 unsafe_no_jsmanaged_fields!(CssRules);
 
-impl<TH: TypeHolderTrait> From<RulesMutateError> for Error<TH> {
+impl<TH: TypeHolderTrait<TH>> From<RulesMutateError> for Error<TH> {
     fn from(other: RulesMutateError) -> Self {
         match other {
             RulesMutateError::Syntax => Error::Syntax,
@@ -35,7 +35,7 @@ impl<TH: TypeHolderTrait> From<RulesMutateError> for Error<TH> {
 }
 
 #[dom_struct]
-pub struct CSSRuleList<TH: TypeHolderTrait + 'static> {
+pub struct CSSRuleList<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
     #[ignore_malloc_size_of = "Arc"]
@@ -48,7 +48,7 @@ pub enum RulesSource {
     Keyframes(Arc<Locked<KeyframesRule>>),
 }
 
-impl<TH: TypeHolderTrait> CSSRuleList<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSRuleList<TH> {
     #[allow(unrooted_must_root)]
     pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, rules: RulesSource) -> CSSRuleList<TH> {
         let guard = parent_stylesheet.shared_lock().read();
@@ -175,7 +175,7 @@ impl<TH: TypeHolderTrait> CSSRuleList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CSSRuleListMethods<TH> for CSSRuleList<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSRuleListMethods<TH> for CSSRuleList<TH> {
     // https://drafts.csswg.org/cssom/#ref-for-dom-cssrulelist-item-1
     fn Item(&self, idx: u32) -> Option<DomRoot<CSSRule<TH>>> {
         self.item(idx)

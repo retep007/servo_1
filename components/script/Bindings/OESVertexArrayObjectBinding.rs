@@ -508,7 +508,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn createVertexArrayOES<TH: TypeHolderTrait>
+unsafe extern fn createVertexArrayOES<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const OESVertexArrayObject<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -522,7 +522,7 @@ unsafe extern fn createVertexArrayOES<TH: TypeHolderTrait>
 }
 
 
-fn createVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn createVertexArrayOES_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: createVertexArrayOES::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::OESVertexArrayObject as u16,
     depth: 0,
@@ -540,7 +540,7 @@ fn createVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn deleteVertexArrayOES<TH: TypeHolderTrait>
+unsafe extern fn deleteVertexArrayOES<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const OESVertexArrayObject<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -576,7 +576,7 @@ unsafe extern fn deleteVertexArrayOES<TH: TypeHolderTrait>
 }
 
 
-fn deleteVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn deleteVertexArrayOES_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: deleteVertexArrayOES::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::OESVertexArrayObject as u16,
     depth: 0,
@@ -594,7 +594,7 @@ fn deleteVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn isVertexArrayOES<TH: TypeHolderTrait>
+unsafe extern fn isVertexArrayOES<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const OESVertexArrayObject<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -630,7 +630,7 @@ unsafe extern fn isVertexArrayOES<TH: TypeHolderTrait>
 }
 
 
-fn isVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isVertexArrayOES_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: isVertexArrayOES::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::OESVertexArrayObject as u16,
     depth: 0,
@@ -648,7 +648,7 @@ fn isVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn bindVertexArrayOES<TH: TypeHolderTrait>
+unsafe extern fn bindVertexArrayOES<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const OESVertexArrayObject<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -684,7 +684,7 @@ unsafe extern fn bindVertexArrayOES<TH: TypeHolderTrait>
 }
 
 
-fn bindVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bindVertexArrayOES_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: bindVertexArrayOES::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::OESVertexArrayObject as u16,
     depth: 0,
@@ -702,7 +702,7 @@ fn bindVertexArrayOES_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -715,7 +715,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -728,7 +728,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 pub mod OESVertexArrayObjectConstants {
     pub const VERTEX_ARRAY_BINDING_OES: u32 = 34229;
 } // mod OESVertexArrayObjectConstants
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -743,7 +743,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"OESVertexArrayObject\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -761,11 +761,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<OESVertexArrayObject<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<OESVertexArrayObject<TH>>) -> DomRoot<OESVertexArrayObject<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -791,26 +791,26 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for OESVertexArrayObject<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for OESVertexArrayObject<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for OESVertexArrayObject<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for OESVertexArrayObject<TH> {
     fn eq(&self, other: &OESVertexArrayObject<TH>) -> bool {
         self as *const OESVertexArrayObject<TH> == &*other
     }
 }
 
-pub trait OESVertexArrayObjectMethods<TH: TypeHolderTrait> {
+pub trait OESVertexArrayObjectMethods<TH: TypeHolderTrait<TH>> {
     fn CreateVertexArrayOES(&self) -> Option<DomRoot<WebGLVertexArrayObjectOES<TH>>>;
     fn DeleteVertexArrayOES(&self, arrayObject: Option<&WebGLVertexArrayObjectOES<TH>>) -> ();
     fn IsVertexArrayOES(&self, arrayObject: Option<&WebGLVertexArrayObjectOES<TH>>) -> bool;
     fn BindVertexArrayOES(&self, arrayObject: Option<&WebGLVertexArrayObjectOES<TH>>) -> ();
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"createVertexArrayOES\0" as *const u8 as *const libc::c_char,
@@ -849,7 +849,7 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
@@ -861,7 +861,7 @@ const sConstants: &'static [Guard<&'static [ConstantSpec]>] = &[
     Guard::new(Condition::Satisfied, sConstants_specs[0])
 ];
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -889,7 +889,7 @@ static PrototypeClass: JSClass = JSClass {
     reserved: [0 as *mut os::raw::c_void; 3]
 };
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

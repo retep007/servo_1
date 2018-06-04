@@ -24,11 +24,11 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#xmldocument
 #[dom_struct]
-pub struct XMLDocument<TH: TypeHolderTrait + 'static> {
+pub struct XMLDocument<TH: TypeHolderTrait<TH> + 'static> {
     document: Document<TH>,
 }
 
-impl<TH: TypeHolderTrait> XMLDocument<TH> {
+impl<TH: TypeHolderTrait<TH>> XMLDocument<TH> {
     fn new_inherited(window: &Window<TH>,
                      has_browsing_context: HasBrowsingContext,
                      url: Option<ServoUrl>,
@@ -91,7 +91,7 @@ impl<TH: TypeHolderTrait> XMLDocument<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> XMLDocumentMethods<TH> for XMLDocument<TH> {
+impl<TH: TypeHolderTrait<TH>> XMLDocumentMethods<TH> for XMLDocument<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-document-location
     fn GetLocation(&self) -> Option<DomRoot<Location<TH>>> {
         self.upcast::<Document<TH>>().GetLocation()

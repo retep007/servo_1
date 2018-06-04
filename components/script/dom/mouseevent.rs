@@ -22,7 +22,7 @@ use std::default::Default;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MouseEvent<TH: TypeHolderTrait + 'static> {
+pub struct MouseEvent<TH: TypeHolderTrait<TH> + 'static> {
     uievent: UIEvent<TH>,
     screen_x: Cell<i32>,
     screen_y: Cell<i32>,
@@ -37,7 +37,7 @@ pub struct MouseEvent<TH: TypeHolderTrait + 'static> {
     point_in_target: Cell<Option<Point2D<f32>>>
 }
 
-impl<TH: TypeHolderTrait> MouseEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> MouseEvent<TH> {
     fn new_inherited() -> MouseEvent<TH> {
         MouseEvent {
             uievent: UIEvent::new_inherited(),
@@ -117,7 +117,7 @@ impl<TH: TypeHolderTrait> MouseEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MouseEventMethods<TH> for MouseEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> MouseEventMethods<TH> for MouseEvent<TH> {
     // https://w3c.github.io/uievents/#widl-MouseEvent-screenX
     fn ScreenX(&self) -> i32 {
         self.screen_x.get()

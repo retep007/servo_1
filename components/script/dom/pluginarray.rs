@@ -14,12 +14,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct PluginArray<TH: TypeHolderTrait + 'static> {
+pub struct PluginArray<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> PluginArray<TH> {
+impl<TH: TypeHolderTrait<TH>> PluginArray<TH> {
     pub fn new_inherited() -> PluginArray<TH> {
         PluginArray {
             reflector_: Reflector::new(),
@@ -34,7 +34,7 @@ impl<TH: TypeHolderTrait> PluginArray<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PluginArrayMethods<TH> for PluginArray<TH> {
+impl<TH: TypeHolderTrait<TH>> PluginArrayMethods<TH> for PluginArray<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-pluginarray-refresh
     fn Refresh(&self, _reload: bool) {
     }

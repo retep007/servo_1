@@ -12,11 +12,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLAudioElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLAudioElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlmediaelement: HTMLMediaElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLAudioElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLAudioElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLAudioElement<TH> {

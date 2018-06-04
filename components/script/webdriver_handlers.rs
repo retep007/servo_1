@@ -39,7 +39,7 @@ use script_traits::webdriver_msg::WebDriverCookieError;
 use servo_url::ServoUrl;
 use typeholder::TypeHolderTrait;
 
-fn find_node_by_unique_id<TH: TypeHolderTrait>(documents: &Documents<TH>,
+fn find_node_by_unique_id<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                           pipeline: PipelineId,
                           node_id: String)
                           -> Option<DomRoot<Node<TH>>> {
@@ -75,7 +75,7 @@ pub unsafe fn jsval_to_webdriver(cx: *mut JSContext, val: HandleValue) -> WebDri
 }
 
 #[allow(unsafe_code)]
-pub fn handle_execute_script<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_execute_script<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                              pipeline: PipelineId,
                              eval: String,
                              reply: IpcSender<WebDriverJSResult>) {
@@ -95,7 +95,7 @@ pub fn handle_execute_script<TH: TypeHolderTrait>(documents: &Documents<TH>,
     reply.send(result).unwrap();
 }
 
-pub fn handle_execute_async_script<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_execute_async_script<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                                    pipeline: PipelineId,
                                    eval: String,
                                    reply: IpcSender<WebDriverJSResult>) {
@@ -110,7 +110,7 @@ pub fn handle_execute_async_script<TH: TypeHolderTrait>(documents: &Documents<TH
     window.upcast::<GlobalScope<TH>>().evaluate_js_on_global_with_result(&eval, rval.handle_mut());
 }
 
-pub fn handle_get_browsing_context_id<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_browsing_context_id<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                                       pipeline: PipelineId,
                                       webdriver_frame_id: WebDriverFrameId,
                                       reply: IpcSender<Result<BrowsingContextId, ()>>) {
@@ -134,7 +134,7 @@ pub fn handle_get_browsing_context_id<TH: TypeHolderTrait>(documents: &Documents
     reply.send(result).unwrap()
 }
 
-pub fn handle_find_element_css<TH: TypeHolderTrait>(documents: &Documents<TH>, pipeline: PipelineId, selector: String,
+pub fn handle_find_element_css<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>, pipeline: PipelineId, selector: String,
                                reply: IpcSender<Result<Option<String>, ()>>) {
     let node_id = documents.find_document(pipeline)
         .ok_or(())
@@ -143,7 +143,7 @@ pub fn handle_find_element_css<TH: TypeHolderTrait>(documents: &Documents<TH>, p
     reply.send(node_id).unwrap();
 }
 
-pub fn handle_find_elements_css<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_find_elements_css<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                                 pipeline: PipelineId,
                                 selector: String,
                                 reply: IpcSender<Result<Vec<String>, ()>>) {
@@ -154,7 +154,7 @@ pub fn handle_find_elements_css<TH: TypeHolderTrait>(documents: &Documents<TH>,
     reply.send(node_ids).unwrap();
 }
 
-pub fn handle_focus_element<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_focus_element<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                             pipeline: PipelineId,
                             element_id: String,
                             reply: IpcSender<Result<(), ()>>) {
@@ -173,7 +173,7 @@ pub fn handle_focus_element<TH: TypeHolderTrait>(documents: &Documents<TH>,
     }).unwrap();
 }
 
-pub fn handle_get_active_element<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_active_element<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                                  pipeline: PipelineId,
                                  reply: IpcSender<Option<String>>) {
     reply.send(documents.find_document(pipeline)
@@ -181,7 +181,7 @@ pub fn handle_get_active_element<TH: TypeHolderTrait>(documents: &Documents<TH>,
                .map(|elem| elem.upcast::<Node<TH>>().unique_id())).unwrap();
 }
 
-pub fn handle_get_cookies<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_cookies<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                           pipeline: PipelineId,
                           reply: IpcSender<Vec<Serde<Cookie<'static>>>>) {
     // TODO: Return an error if the pipeline doesn't exist?
@@ -200,7 +200,7 @@ pub fn handle_get_cookies<TH: TypeHolderTrait>(documents: &Documents<TH>,
 }
 
 // https://w3c.github.io/webdriver/webdriver-spec.html#get-cookie
-pub fn handle_get_cookie<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_cookie<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                          pipeline: PipelineId,
                          name: String,
                          reply: IpcSender<Vec<Serde<Cookie<'static>>>>) {
@@ -220,7 +220,7 @@ pub fn handle_get_cookie<TH: TypeHolderTrait>(documents: &Documents<TH>,
 }
 
 // https://w3c.github.io/webdriver/webdriver-spec.html#add-cookie
-pub fn handle_add_cookie<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_add_cookie<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                          pipeline: PipelineId,
                          cookie: Cookie<'static>,
                          reply: IpcSender<Result<(), WebDriverCookieError>>) {
@@ -257,7 +257,7 @@ pub fn handle_add_cookie<TH: TypeHolderTrait>(documents: &Documents<TH>,
     }).unwrap();
 }
 
-pub fn handle_get_title<TH: TypeHolderTrait>(documents: &Documents<TH>, pipeline: PipelineId, reply: IpcSender<String>) {
+pub fn handle_get_title<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>, pipeline: PipelineId, reply: IpcSender<String>) {
     // TODO: Return an error if the pipeline doesn't exist.
     let title = documents.find_document(pipeline)
         .map(|doc| String::from(doc.Title()))
@@ -265,7 +265,7 @@ pub fn handle_get_title<TH: TypeHolderTrait>(documents: &Documents<TH>, pipeline
     reply.send(title).unwrap();
 }
 
-pub fn handle_get_rect<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_rect<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                        pipeline: PipelineId,
                        element_id: String,
                        reply: IpcSender<Result<Rect<f64>, ()>>) {
@@ -303,7 +303,7 @@ pub fn handle_get_rect<TH: TypeHolderTrait>(documents: &Documents<TH>,
     }).unwrap();
 }
 
-pub fn handle_get_text<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_text<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                        pipeline: PipelineId,
                        node_id: String,
                        reply: IpcSender<Result<String, ()>>) {
@@ -315,7 +315,7 @@ pub fn handle_get_text<TH: TypeHolderTrait>(documents: &Documents<TH>,
     }).unwrap();
 }
 
-pub fn handle_get_name<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_name<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                        pipeline: PipelineId,
                        node_id: String,
                        reply: IpcSender<Result<String, ()>>) {
@@ -327,7 +327,7 @@ pub fn handle_get_name<TH: TypeHolderTrait>(documents: &Documents<TH>,
     }).unwrap();
 }
 
-pub fn handle_get_attribute<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_attribute<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                             pipeline: PipelineId,
                             node_id: String,
                             name: String,
@@ -341,7 +341,7 @@ pub fn handle_get_attribute<TH: TypeHolderTrait>(documents: &Documents<TH>,
     }).unwrap();
 }
 
-pub fn handle_get_css<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_css<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                       pipeline: PipelineId,
                       node_id: String,
                       name: String,
@@ -357,7 +357,7 @@ pub fn handle_get_css<TH: TypeHolderTrait>(documents: &Documents<TH>,
     }).unwrap();
 }
 
-pub fn handle_get_url<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_get_url<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                       pipeline: PipelineId,
                       reply: IpcSender<ServoUrl>) {
     // TODO: Return an error if the pipeline doesn't exist.
@@ -367,7 +367,7 @@ pub fn handle_get_url<TH: TypeHolderTrait>(documents: &Documents<TH>,
     reply.send(url).unwrap();
 }
 
-pub fn handle_is_enabled<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_is_enabled<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                          pipeline: PipelineId,
                          element_id: String,
                          reply: IpcSender<Result<bool, ()>>) {
@@ -382,7 +382,7 @@ pub fn handle_is_enabled<TH: TypeHolderTrait>(documents: &Documents<TH>,
     }).unwrap();
 }
 
-pub fn handle_is_selected<TH: TypeHolderTrait>(documents: &Documents<TH>,
+pub fn handle_is_selected<TH: TypeHolderTrait<TH>>(documents: &Documents<TH>,
                           pipeline: PipelineId,
                           element_id: String,
                           reply: IpcSender<Result<bool, ()>>) {

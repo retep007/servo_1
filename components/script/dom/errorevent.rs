@@ -23,7 +23,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ErrorEvent<TH: TypeHolderTrait + 'static> {
+pub struct ErrorEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     message: DomRefCell<DOMString>,
     filename: DomRefCell<DOMString>,
@@ -33,7 +33,7 @@ pub struct ErrorEvent<TH: TypeHolderTrait + 'static> {
     error: Heap<JSVal>,
 }
 
-impl<TH: TypeHolderTrait> ErrorEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> ErrorEvent<TH> {
     fn new_inherited() -> ErrorEvent<TH> {
         ErrorEvent {
             event: Event::new_inherited(),
@@ -111,7 +111,7 @@ impl<TH: TypeHolderTrait> ErrorEvent<TH> {
 
 }
 
-impl<TH: TypeHolderTrait> ErrorEventMethods for ErrorEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> ErrorEventMethods for ErrorEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-errorevent-lineno
     fn Lineno(&self) -> u32 {
         self.lineno.get()

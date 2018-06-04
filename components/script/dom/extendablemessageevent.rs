@@ -23,14 +23,14 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct ExtendableMessageEvent<TH: TypeHolderTrait + 'static> {
+pub struct ExtendableMessageEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: ExtendableEvent<TH>,
     data: Heap<JSVal>,
     origin: DOMString,
     lastEventId: DOMString,
 }
 
-impl<TH: TypeHolderTrait> ExtendableMessageEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> ExtendableMessageEvent<TH> {
     pub fn new(global: &GlobalScope<TH>, type_: Atom,
                bubbles: bool, cancelable: bool,
                data: HandleValue, origin: DOMString, lastEventId: DOMString)
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> ExtendableMessageEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ExtendableMessageEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> ExtendableMessageEvent<TH> {
     pub fn dispatch_jsval(target: &EventTarget<TH>,
                           scope: &GlobalScope<TH>,
                           message: HandleValue) {
@@ -78,7 +78,7 @@ impl<TH: TypeHolderTrait> ExtendableMessageEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ExtendableMessageEventMethods for ExtendableMessageEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> ExtendableMessageEventMethods for ExtendableMessageEvent<TH> {
     #[allow(unsafe_code)]
     // https://w3c.github.io/ServiceWorker/#extendablemessage-event-data-attribute
     unsafe fn Data(&self, _cx: *mut JSContext) -> JSVal {

@@ -31,7 +31,7 @@ const MAX_FACE_COUNT: usize = 6;
 jsmanaged_array!(MAX_LEVEL_COUNT * MAX_FACE_COUNT);
 
 #[dom_struct]
-pub struct WebGLTexture<TH: TypeHolderTrait + 'static> {
+pub struct WebGLTexture<TH: TypeHolderTrait<TH> + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLTextureId,
     /// The target to which this texture was bound the first time
@@ -53,7 +53,7 @@ pub struct WebGLTexture<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>
 }
 
-impl<TH: TypeHolderTrait> WebGLTexture<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLTexture<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLTextureId)
                      -> WebGLTexture<TH> {
@@ -93,7 +93,7 @@ impl<TH: TypeHolderTrait> WebGLTexture<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> WebGLTexture<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLTexture<TH> {
     pub fn id(&self) -> WebGLTextureId {
         self.id
     }
@@ -392,7 +392,7 @@ impl<TH: TypeHolderTrait> WebGLTexture<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for WebGLTexture<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for WebGLTexture<TH> {
     fn drop(&mut self) {
         self.delete();
     }

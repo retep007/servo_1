@@ -512,7 +512,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn fromMatrix<TH: TypeHolderTrait>
+unsafe extern fn fromMatrix<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -545,7 +545,7 @@ unsafe extern fn fromMatrix<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn fromFloat32Array<TH: TypeHolderTrait>
+unsafe extern fn fromFloat32Array<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -585,7 +585,7 @@ unsafe extern fn fromFloat32Array<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn fromFloat64Array<TH: TypeHolderTrait>
+unsafe extern fn fromFloat64Array<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: libc::c_uint, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -625,7 +625,7 @@ unsafe extern fn fromFloat64Array<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn get_a<TH: TypeHolderTrait>
+unsafe extern fn get_a<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -637,7 +637,7 @@ unsafe extern fn get_a<TH: TypeHolderTrait>
 }
 
 
-fn a_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn a_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_a::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -655,7 +655,7 @@ fn a_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_b<TH: TypeHolderTrait>
+unsafe extern fn get_b<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -667,7 +667,7 @@ unsafe extern fn get_b<TH: TypeHolderTrait>
 }
 
 
-fn b_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn b_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_b::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -685,7 +685,7 @@ fn b_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_c<TH: TypeHolderTrait>
+unsafe extern fn get_c<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -697,7 +697,7 @@ unsafe extern fn get_c<TH: TypeHolderTrait>
 }
 
 
-fn c_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn c_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_c::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -715,7 +715,7 @@ fn c_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_d<TH: TypeHolderTrait>
+unsafe extern fn get_d<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -727,7 +727,7 @@ unsafe extern fn get_d<TH: TypeHolderTrait>
 }
 
 
-fn d_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn d_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_d::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -745,7 +745,7 @@ fn d_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_e<TH: TypeHolderTrait>
+unsafe extern fn get_e<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -757,7 +757,7 @@ unsafe extern fn get_e<TH: TypeHolderTrait>
 }
 
 
-fn e_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn e_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_e::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -775,7 +775,7 @@ fn e_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_f<TH: TypeHolderTrait>
+unsafe extern fn get_f<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -787,7 +787,7 @@ unsafe extern fn get_f<TH: TypeHolderTrait>
 }
 
 
-fn f_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn f_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_f::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -805,7 +805,7 @@ fn f_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m11<TH: TypeHolderTrait>
+unsafe extern fn get_m11<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -817,7 +817,7 @@ unsafe extern fn get_m11<TH: TypeHolderTrait>
 }
 
 
-fn m11_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m11_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m11::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -835,7 +835,7 @@ fn m11_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m12<TH: TypeHolderTrait>
+unsafe extern fn get_m12<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -847,7 +847,7 @@ unsafe extern fn get_m12<TH: TypeHolderTrait>
 }
 
 
-fn m12_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m12_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m12::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -865,7 +865,7 @@ fn m12_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m13<TH: TypeHolderTrait>
+unsafe extern fn get_m13<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -877,7 +877,7 @@ unsafe extern fn get_m13<TH: TypeHolderTrait>
 }
 
 
-fn m13_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m13_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m13::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -895,7 +895,7 @@ fn m13_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m14<TH: TypeHolderTrait>
+unsafe extern fn get_m14<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -907,7 +907,7 @@ unsafe extern fn get_m14<TH: TypeHolderTrait>
 }
 
 
-fn m14_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m14_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m14::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -925,7 +925,7 @@ fn m14_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m21<TH: TypeHolderTrait>
+unsafe extern fn get_m21<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -937,7 +937,7 @@ unsafe extern fn get_m21<TH: TypeHolderTrait>
 }
 
 
-fn m21_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m21_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m21::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -955,7 +955,7 @@ fn m21_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m22<TH: TypeHolderTrait>
+unsafe extern fn get_m22<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -967,7 +967,7 @@ unsafe extern fn get_m22<TH: TypeHolderTrait>
 }
 
 
-fn m22_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m22_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m22::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -985,7 +985,7 @@ fn m22_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m23<TH: TypeHolderTrait>
+unsafe extern fn get_m23<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -997,7 +997,7 @@ unsafe extern fn get_m23<TH: TypeHolderTrait>
 }
 
 
-fn m23_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m23_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m23::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1015,7 +1015,7 @@ fn m23_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m24<TH: TypeHolderTrait>
+unsafe extern fn get_m24<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1027,7 +1027,7 @@ unsafe extern fn get_m24<TH: TypeHolderTrait>
 }
 
 
-fn m24_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m24_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m24::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1045,7 +1045,7 @@ fn m24_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m31<TH: TypeHolderTrait>
+unsafe extern fn get_m31<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1057,7 +1057,7 @@ unsafe extern fn get_m31<TH: TypeHolderTrait>
 }
 
 
-fn m31_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m31_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m31::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1075,7 +1075,7 @@ fn m31_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m32<TH: TypeHolderTrait>
+unsafe extern fn get_m32<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1087,7 +1087,7 @@ unsafe extern fn get_m32<TH: TypeHolderTrait>
 }
 
 
-fn m32_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m32_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m32::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1105,7 +1105,7 @@ fn m32_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m33<TH: TypeHolderTrait>
+unsafe extern fn get_m33<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1117,7 +1117,7 @@ unsafe extern fn get_m33<TH: TypeHolderTrait>
 }
 
 
-fn m33_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m33_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m33::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1135,7 +1135,7 @@ fn m33_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m34<TH: TypeHolderTrait>
+unsafe extern fn get_m34<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1147,7 +1147,7 @@ unsafe extern fn get_m34<TH: TypeHolderTrait>
 }
 
 
-fn m34_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m34_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m34::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1165,7 +1165,7 @@ fn m34_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m41<TH: TypeHolderTrait>
+unsafe extern fn get_m41<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1177,7 +1177,7 @@ unsafe extern fn get_m41<TH: TypeHolderTrait>
 }
 
 
-fn m41_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m41_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m41::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1195,7 +1195,7 @@ fn m41_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m42<TH: TypeHolderTrait>
+unsafe extern fn get_m42<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1207,7 +1207,7 @@ unsafe extern fn get_m42<TH: TypeHolderTrait>
 }
 
 
-fn m42_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m42_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m42::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1225,7 +1225,7 @@ fn m42_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m43<TH: TypeHolderTrait>
+unsafe extern fn get_m43<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1237,7 +1237,7 @@ unsafe extern fn get_m43<TH: TypeHolderTrait>
 }
 
 
-fn m43_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m43_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m43::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1255,7 +1255,7 @@ fn m43_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_m44<TH: TypeHolderTrait>
+unsafe extern fn get_m44<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1267,7 +1267,7 @@ unsafe extern fn get_m44<TH: TypeHolderTrait>
 }
 
 
-fn m44_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn m44_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_m44::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1285,7 +1285,7 @@ fn m44_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_is2D<TH: TypeHolderTrait>
+unsafe extern fn get_is2D<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1297,7 +1297,7 @@ unsafe extern fn get_is2D<TH: TypeHolderTrait>
 }
 
 
-fn is2D_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn is2D_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_is2D::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1315,7 +1315,7 @@ fn is2D_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_isIdentity<TH: TypeHolderTrait>
+unsafe extern fn get_isIdentity<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1327,7 +1327,7 @@ unsafe extern fn get_isIdentity<TH: TypeHolderTrait>
 }
 
 
-fn isIdentity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn isIdentity_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_isIdentity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1345,7 +1345,7 @@ fn isIdentity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn translate<TH: TypeHolderTrait>
+unsafe extern fn translate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1401,7 +1401,7 @@ unsafe extern fn translate<TH: TypeHolderTrait>
 }
 
 
-fn translate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn translate_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: translate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1419,7 +1419,7 @@ fn translate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn scale<TH: TypeHolderTrait>
+unsafe extern fn scale<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1517,7 +1517,7 @@ unsafe extern fn scale<TH: TypeHolderTrait>
 }
 
 
-fn scale_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn scale_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: scale::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1535,7 +1535,7 @@ fn scale_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn scale3d<TH: TypeHolderTrait>
+unsafe extern fn scale3d<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1605,7 +1605,7 @@ unsafe extern fn scale3d<TH: TypeHolderTrait>
 }
 
 
-fn scale3d_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn scale3d_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: scale3d::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1623,7 +1623,7 @@ fn scale3d_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn rotate<TH: TypeHolderTrait>
+unsafe extern fn rotate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1679,7 +1679,7 @@ unsafe extern fn rotate<TH: TypeHolderTrait>
 }
 
 
-fn rotate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn rotate_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: rotate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1697,7 +1697,7 @@ fn rotate_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn rotateFromVector<TH: TypeHolderTrait>
+unsafe extern fn rotateFromVector<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1739,7 +1739,7 @@ unsafe extern fn rotateFromVector<TH: TypeHolderTrait>
 }
 
 
-fn rotateFromVector_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn rotateFromVector_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: rotateFromVector::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1757,7 +1757,7 @@ fn rotateFromVector_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn rotateAxisAngle<TH: TypeHolderTrait>
+unsafe extern fn rotateAxisAngle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1827,7 +1827,7 @@ unsafe extern fn rotateAxisAngle<TH: TypeHolderTrait>
 }
 
 
-fn rotateAxisAngle_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn rotateAxisAngle_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: rotateAxisAngle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1845,7 +1845,7 @@ fn rotateAxisAngle_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn skewX<TH: TypeHolderTrait>
+unsafe extern fn skewX<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1873,7 +1873,7 @@ unsafe extern fn skewX<TH: TypeHolderTrait>
 }
 
 
-fn skewX_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn skewX_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: skewX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1891,7 +1891,7 @@ fn skewX_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn skewY<TH: TypeHolderTrait>
+unsafe extern fn skewY<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1919,7 +1919,7 @@ unsafe extern fn skewY<TH: TypeHolderTrait>
 }
 
 
-fn skewY_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn skewY_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: skewY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1937,7 +1937,7 @@ fn skewY_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn multiply<TH: TypeHolderTrait>
+unsafe extern fn multiply<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1972,7 +1972,7 @@ unsafe extern fn multiply<TH: TypeHolderTrait>
 }
 
 
-fn multiply_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn multiply_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: multiply::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -1990,7 +1990,7 @@ fn multiply_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn flipX<TH: TypeHolderTrait>
+unsafe extern fn flipX<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2004,7 +2004,7 @@ unsafe extern fn flipX<TH: TypeHolderTrait>
 }
 
 
-fn flipX_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flipX_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: flipX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -2022,7 +2022,7 @@ fn flipX_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn flipY<TH: TypeHolderTrait>
+unsafe extern fn flipY<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2036,7 +2036,7 @@ unsafe extern fn flipY<TH: TypeHolderTrait>
 }
 
 
-fn flipY_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flipY_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: flipY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -2054,7 +2054,7 @@ fn flipY_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn inverse<TH: TypeHolderTrait>
+unsafe extern fn inverse<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2068,7 +2068,7 @@ unsafe extern fn inverse<TH: TypeHolderTrait>
 }
 
 
-fn inverse_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn inverse_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: inverse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -2086,7 +2086,7 @@ fn inverse_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn transformPoint<TH: TypeHolderTrait>
+unsafe extern fn transformPoint<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2114,7 +2114,7 @@ unsafe extern fn transformPoint<TH: TypeHolderTrait>
 }
 
 
-fn transformPoint_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transformPoint_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: transformPoint::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -2132,7 +2132,7 @@ fn transformPoint_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn toFloat32Array<TH: TypeHolderTrait>
+unsafe extern fn toFloat32Array<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2146,7 +2146,7 @@ unsafe extern fn toFloat32Array<TH: TypeHolderTrait>
 }
 
 
-fn toFloat32Array_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn toFloat32Array_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: toFloat32Array::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -2164,7 +2164,7 @@ fn toFloat32Array_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn toFloat64Array<TH: TypeHolderTrait>
+unsafe extern fn toFloat64Array<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DOMMatrixReadOnly<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2178,7 +2178,7 @@ unsafe extern fn toFloat64Array<TH: TypeHolderTrait>
 }
 
 
-fn toFloat64Array_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn toFloat64Array_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: toFloat64Array::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::DOMMatrixReadOnly as u16,
     depth: 0,
@@ -2196,7 +2196,7 @@ fn toFloat64Array_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -2209,7 +2209,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -2219,7 +2219,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -2234,7 +2234,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"DOMMatrixReadOnly\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -2252,11 +2252,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<DOMMatrixReadOnly<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<DOMMatrixReadOnly<TH>>) -> DomRoot<DOMMatrixReadOnly<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -2282,20 +2282,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for DOMMatrixReadOnly<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for DOMMatrixReadOnly<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class.interface_chain[0] == PrototypeList::ID::DOMMatrixReadOnly
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for DOMMatrixReadOnly<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for DOMMatrixReadOnly<TH> {
     fn eq(&self, other: &DOMMatrixReadOnly<TH>) -> bool {
         self as *const DOMMatrixReadOnly<TH> == &*other
     }
 }
 
-pub trait DOMMatrixReadOnlyMethods<TH: TypeHolderTrait> {
+pub trait DOMMatrixReadOnlyMethods<TH: TypeHolderTrait<TH>> {
     fn A(&self) -> f64;
     fn B(&self) -> f64;
     fn C(&self) -> f64;
@@ -2336,7 +2336,7 @@ pub trait DOMMatrixReadOnlyMethods<TH: TypeHolderTrait> {
     unsafe fn ToFloat32Array(&self, cx: *mut JSContext) -> NonNull<JSObject>;
     unsafe fn ToFloat64Array(&self, cx: *mut JSContext) -> NonNull<JSObject>;
 }
-fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sStaticMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"fromMatrix\0" as *const u8 as *const libc::c_char,
@@ -2368,10 +2368,10 @@ fn sStaticMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionS
     }]
 
 ]}
-fn sStaticMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sStaticMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sStaticMethods_specs::<TH>()[0])
 ]}
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"translate\0" as *const u8 as *const libc::c_char,
@@ -2487,10 +2487,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"a\0" as *const u8 as *const libc::c_char,
@@ -2644,11 +2644,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -2676,7 +2676,7 @@ static PrototypeClass: JSClass = JSClass {
     reserved: [0 as *mut os::raw::c_void; 3]
 };
 
-unsafe extern fn _constructor<TH: TypeHolderTrait>
+unsafe extern fn _constructor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -2728,7 +2728,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait<TH>>() -> NonCallbackInterfaceObjectClass {
  
     NonCallbackInterfaceObjectClass::new(
         &InterfaceConstructorBehavior::call(_constructor::<TH>),
@@ -2737,7 +2737,7 @@ fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectCl
         0) 
 }
 
-pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
+pub unsafe fn GetConstructorObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface object for this class.  This will create the object as
        needed. */
@@ -2756,7 +2756,7 @@ pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
 
 }
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -2769,12 +2769,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::DEDICATED_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::SERVICE_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

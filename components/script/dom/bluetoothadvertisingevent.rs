@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothadvertisingevent
 #[dom_struct]
-pub struct BluetoothAdvertisingEvent<TH: TypeHolderTrait + 'static> {
+pub struct BluetoothAdvertisingEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     device: Dom<BluetoothDevice<TH>>,
     name: Option<DOMString>,
@@ -29,7 +29,7 @@ pub struct BluetoothAdvertisingEvent<TH: TypeHolderTrait + 'static> {
     rssi: Option<i8>,
 }
 
-impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothAdvertisingEvent<TH> {
     pub fn new_inherited(device: &BluetoothDevice<TH>,
                          name: Option<DOMString>,
                          appearance: Option<u16>,
@@ -98,7 +98,7 @@ impl<TH: TypeHolderTrait> BluetoothAdvertisingEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BluetoothAdvertisingEventMethods<TH> for BluetoothAdvertisingEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothAdvertisingEventMethods<TH> for BluetoothAdvertisingEvent<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothadvertisingevent-device
     fn Device(&self) -> DomRoot<BluetoothDevice<TH>> {
         DomRoot::from_ref(&*self.device)

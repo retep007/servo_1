@@ -12,12 +12,12 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TouchList<TH: TypeHolderTrait + 'static> {
+pub struct TouchList<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     touches: Vec<Dom<Touch<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> TouchList<TH> {
+impl<TH: TypeHolderTrait<TH>> TouchList<TH> {
     fn new_inherited(touches: &[&Touch<TH>]) -> TouchList<TH> {
         TouchList {
             reflector_: Reflector::new(),
@@ -31,7 +31,7 @@ impl<TH: TypeHolderTrait> TouchList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TouchListMethods<TH> for TouchList<TH> {
+impl<TH: TypeHolderTrait<TH>> TouchListMethods<TH> for TouchList<TH> {
     /// <https://w3c.github.io/touch-events/#widl-TouchList-length>
     fn Length(&self) -> u32 {
         self.touches.len() as u32

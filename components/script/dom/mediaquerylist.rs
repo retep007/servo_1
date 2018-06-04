@@ -32,14 +32,14 @@ pub enum MediaQueryListMatchState {
 }
 
 #[dom_struct]
-pub struct MediaQueryList<TH: TypeHolderTrait + 'static> {
+pub struct MediaQueryList<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     document: Dom<Document<TH>>,
     media_query_list: MediaList,
     last_match_state: Cell<Option<bool>>
 }
 
-impl<TH: TypeHolderTrait> MediaQueryList<TH> {
+impl<TH: TypeHolderTrait<TH>> MediaQueryList<TH> {
     fn new_inherited(document: &Document<TH>, media_query_list: MediaList) -> MediaQueryList<TH> {
         MediaQueryList {
             eventtarget: EventTarget::new_inherited(),
@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> MediaQueryList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MediaQueryList<TH> {
+impl<TH: TypeHolderTrait<TH>> MediaQueryList<TH> {
     fn evaluate_changes(&self) -> MediaQueryListMatchState {
         let matches = self.evaluate();
 
@@ -81,7 +81,7 @@ impl<TH: TypeHolderTrait> MediaQueryList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MediaQueryListMethods<TH> for MediaQueryList<TH> {
+impl<TH: TypeHolderTrait<TH>> MediaQueryListMethods<TH> for MediaQueryList<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-mediaquerylist-media
     fn Media(&self) -> DOMString {
         self.media_query_list.to_css_string().into()
@@ -118,11 +118,11 @@ impl<TH: TypeHolderTrait> MediaQueryListMethods<TH> for MediaQueryList<TH> {
 }
 
 #[derive(MallocSizeOf)]
-pub struct WeakMediaQueryListVec<TH: TypeHolderTrait + 'static> {
+pub struct WeakMediaQueryListVec<TH: TypeHolderTrait<TH> + 'static> {
     cell: DomRefCell<WeakRefVec<MediaQueryList<TH>, TH>>,
 }
 
-impl<TH: TypeHolderTrait> WeakMediaQueryListVec<TH> {
+impl<TH: TypeHolderTrait<TH>> WeakMediaQueryListVec<TH> {
     /// Create a new vector of weak references to MediaQueryList
     pub fn new() -> Self {
         WeakMediaQueryListVec { cell: DomRefCell::new(WeakRefVec::new()) }
@@ -156,7 +156,7 @@ impl<TH: TypeHolderTrait> WeakMediaQueryListVec<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe impl<TH: TypeHolderTrait> JSTraceable for WeakMediaQueryListVec<TH> {
+unsafe impl<TH: TypeHolderTrait<TH>> JSTraceable for WeakMediaQueryListVec<TH> {
     unsafe fn trace(&self, _: *mut JSTracer) {
         self.cell.borrow_mut().retain_alive()
     }

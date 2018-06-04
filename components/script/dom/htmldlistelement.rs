@@ -12,11 +12,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLDListElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLDListElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLDListElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLDListElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLDListElement<TH> {
         HTMLDListElement {
             htmlelement:

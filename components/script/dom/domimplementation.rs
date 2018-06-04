@@ -30,12 +30,12 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#domimplementation
 #[dom_struct]
-pub struct DOMImplementation<TH: TypeHolderTrait + 'static> {
+pub struct DOMImplementation<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     document: Dom<Document<TH>>,
 }
 
-impl<TH: TypeHolderTrait> DOMImplementation<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMImplementation<TH> {
     fn new_inherited(document: &Document<TH>) -> DOMImplementation<TH> {
         DOMImplementation {
             reflector_: Reflector::new(),
@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> DOMImplementation<TH> {
 }
 
 // https://dom.spec.whatwg.org/#domimplementation
-impl<TH: TypeHolderTrait> DOMImplementationMethods<TH> for DOMImplementation<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMImplementationMethods<TH> for DOMImplementation<TH> {
     // https://dom.spec.whatwg.org/#dom-domimplementation-createdocumenttype
     fn CreateDocumentType(&self,
                           qualified_name: DOMString,

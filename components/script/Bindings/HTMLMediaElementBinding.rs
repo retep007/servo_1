@@ -553,7 +553,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_error<TH: TypeHolderTrait>
+unsafe extern fn get_error<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -565,7 +565,7 @@ unsafe extern fn get_error<TH: TypeHolderTrait>
 }
 
 
-fn error_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn error_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_error::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -583,7 +583,7 @@ fn error_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_src<TH: TypeHolderTrait>
+unsafe extern fn get_src<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -598,7 +598,7 @@ unsafe extern fn get_src<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_src<TH: TypeHolderTrait>
+unsafe extern fn set_src<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -623,7 +623,7 @@ unsafe extern fn set_src<TH: TypeHolderTrait>
 }
 
 
-fn src_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn src_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_src::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -641,7 +641,7 @@ fn src_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn src_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn src_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_src::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -659,7 +659,7 @@ fn src_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_srcObject<TH: TypeHolderTrait>
+unsafe extern fn get_srcObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -670,7 +670,7 @@ unsafe extern fn get_srcObject<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_srcObject<TH: TypeHolderTrait>
+unsafe extern fn set_srcObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -698,7 +698,7 @@ unsafe extern fn set_srcObject<TH: TypeHolderTrait>
 }
 
 
-fn srcObject_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn srcObject_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_srcObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -716,7 +716,7 @@ fn srcObject_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn srcObject_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn srcObject_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_srcObject::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -734,7 +734,7 @@ fn srcObject_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_currentSrc<TH: TypeHolderTrait>
+unsafe extern fn get_currentSrc<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -746,7 +746,7 @@ unsafe extern fn get_currentSrc<TH: TypeHolderTrait>
 }
 
 
-fn currentSrc_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn currentSrc_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_currentSrc::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -764,7 +764,7 @@ fn currentSrc_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_networkState<TH: TypeHolderTrait>
+unsafe extern fn get_networkState<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -776,7 +776,7 @@ unsafe extern fn get_networkState<TH: TypeHolderTrait>
 }
 
 
-fn networkState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn networkState_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_networkState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -794,7 +794,7 @@ fn networkState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_preload<TH: TypeHolderTrait>
+unsafe extern fn get_preload<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -809,7 +809,7 @@ unsafe extern fn get_preload<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_preload<TH: TypeHolderTrait>
+unsafe extern fn set_preload<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -834,7 +834,7 @@ unsafe extern fn set_preload<TH: TypeHolderTrait>
 }
 
 
-fn preload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn preload_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_preload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -852,7 +852,7 @@ fn preload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn preload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn preload_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_preload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -870,7 +870,7 @@ fn preload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn load<TH: TypeHolderTrait>
+unsafe extern fn load<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -884,7 +884,7 @@ unsafe extern fn load<TH: TypeHolderTrait>
 }
 
 
-fn load_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn load_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: load::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -902,7 +902,7 @@ fn load_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn canPlayType<TH: TypeHolderTrait>
+unsafe extern fn canPlayType<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -931,7 +931,7 @@ unsafe extern fn canPlayType<TH: TypeHolderTrait>
 }
 
 
-fn canPlayType_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn canPlayType_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: canPlayType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -949,7 +949,7 @@ fn canPlayType_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_readyState<TH: TypeHolderTrait>
+unsafe extern fn get_readyState<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -961,7 +961,7 @@ unsafe extern fn get_readyState<TH: TypeHolderTrait>
 }
 
 
-fn readyState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn readyState_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_readyState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -979,7 +979,7 @@ fn readyState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_paused<TH: TypeHolderTrait>
+unsafe extern fn get_paused<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -991,7 +991,7 @@ unsafe extern fn get_paused<TH: TypeHolderTrait>
 }
 
 
-fn paused_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paused_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_paused::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -1009,7 +1009,7 @@ fn paused_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_autoplay<TH: TypeHolderTrait>
+unsafe extern fn get_autoplay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1024,7 +1024,7 @@ unsafe extern fn get_autoplay<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_autoplay<TH: TypeHolderTrait>
+unsafe extern fn set_autoplay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLMediaElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1049,7 +1049,7 @@ unsafe extern fn set_autoplay<TH: TypeHolderTrait>
 }
 
 
-fn autoplay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn autoplay_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_autoplay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -1067,7 +1067,7 @@ fn autoplay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn autoplay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn autoplay_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_autoplay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -1085,7 +1085,7 @@ fn autoplay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn play<TH: TypeHolderTrait>
+unsafe extern fn play<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1099,7 +1099,7 @@ unsafe extern fn play<TH: TypeHolderTrait>
 }
 
 
-fn play_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn play_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: play::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -1117,7 +1117,7 @@ fn play_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn pause<TH: TypeHolderTrait>
+unsafe extern fn pause<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLMediaElement<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1131,7 +1131,7 @@ unsafe extern fn pause<TH: TypeHolderTrait>
 }
 
 
-fn pause_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn pause_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: pause::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLMediaElement as u16,
     depth: 4,
@@ -1160,20 +1160,20 @@ pub mod HTMLMediaElementConstants {
     pub const HAVE_FUTURE_DATA: u16 = 3;
     pub const HAVE_ENOUGH_DATA: u16 = 4;
 } // mod HTMLMediaElementConstants
-impl<TH: TypeHolderTrait> IDLInterface for HTMLMediaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for HTMLMediaElement<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class.interface_chain[4] == PrototypeList::ID::HTMLMediaElement
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for HTMLMediaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for HTMLMediaElement<TH> {
     fn eq(&self, other: &HTMLMediaElement<TH>) -> bool {
         self as *const HTMLMediaElement<TH> == &*other
     }
 }
 
-pub trait HTMLMediaElementMethods<TH: TypeHolderTrait> {
+pub trait HTMLMediaElementMethods<TH: TypeHolderTrait<TH>> {
     fn GetError(&self) -> Option<DomRoot<MediaError<TH>>>;
     fn Src(&self) -> DOMString;
     fn SetSrc(&self, value: DOMString) -> ();
@@ -1192,7 +1192,7 @@ pub trait HTMLMediaElementMethods<TH: TypeHolderTrait> {
     fn Play(&self) -> Rc<Promise<TH>>;
     fn Pause(&self) -> ();
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"load\0" as *const u8 as *const libc::c_char,
@@ -1231,10 +1231,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"error\0" as *const u8 as *const libc::c_char,
@@ -1298,7 +1298,7 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
@@ -1318,7 +1318,7 @@ const sConstants: &'static [Guard<&'static [ConstantSpec]>] = &[
     Guard::new(Condition::Satisfied, sConstants_specs[0])
 ];
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1353,7 +1353,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::HTMLMediaElement,
         4);
 
-pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
+pub unsafe fn GetConstructorObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface object for this class.  This will create the object as
        needed. */
@@ -1372,7 +1372,7 @@ pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
 
 }
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -1385,12 +1385,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     HTMLElementBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

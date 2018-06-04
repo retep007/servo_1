@@ -94,7 +94,7 @@ use typeholder::TypeHolderTrait;
 
 /// An HTML node.
 #[dom_struct]
-pub struct Node<TH: TypeHolderTrait + 'static> {
+pub struct Node<TH: TypeHolderTrait<TH> + 'static> {
     /// The JavaScript reflector for this node.
     eventtarget: EventTarget<TH>,
 
@@ -188,7 +188,7 @@ impl NodeFlags {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for Node<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for Node<TH> {
     #[allow(unsafe_code)]
     fn drop(&mut self) {
         self.style_and_layout_data.get().map(|d| self.dispose(d));
@@ -204,7 +204,7 @@ enum SuppressObserver {
     Unsuppressed
 }
 
-impl<TH: TypeHolderTrait> Node<TH> {
+impl<TH: TypeHolderTrait<TH>> Node<TH> {
     /// Sends the style and layout data, if any, back to the layout thread to be destroyed.
     pub fn dispose(&self, data: OpaqueStyleAndLayoutData) {
         debug_assert!(thread_state::get().is_script());
@@ -330,12 +330,12 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 }
 
-pub struct QuerySelectorIterator<TH: TypeHolderTrait + 'static> {
+pub struct QuerySelectorIterator<TH: TypeHolderTrait<TH> + 'static> {
     selectors: SelectorList<SelectorImpl>,
     iterator: TreeIterator<TH>,
 }
 
-impl<'a, TH: TypeHolderTrait> QuerySelectorIterator<TH> {
+impl<'a, TH: TypeHolderTrait<TH>> QuerySelectorIterator<TH> {
      fn new(iter: TreeIterator<TH>, selectors: SelectorList<SelectorImpl>)
                   -> QuerySelectorIterator<TH> {
         QuerySelectorIterator {
@@ -345,7 +345,7 @@ impl<'a, TH: TypeHolderTrait> QuerySelectorIterator<TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> Iterator for QuerySelectorIterator<TH> {
+impl<'a, TH: TypeHolderTrait<TH>> Iterator for QuerySelectorIterator<TH> {
     type Item = DomRoot<Node<TH>>;
 
     fn next(&mut self) -> Option<DomRoot<Node<TH>>> {
@@ -369,7 +369,7 @@ impl<'a, TH: TypeHolderTrait> Iterator for QuerySelectorIterator<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> Node<TH> {
+impl<TH: TypeHolderTrait<TH>> Node<TH> {
     pub fn teardown(&self) {
         self.style_and_layout_data.get().map(|d| self.dispose(d));
         for kid in self.children() {
@@ -971,7 +971,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
 
 
 /// Iterate through `nodes` until we find a `Node` that is not in `not_in`
-fn first_node_not_in<I, TH: TypeHolderTrait>(mut nodes: I, not_in: &[NodeOrString<TH>]) -> Option<DomRoot<Node<TH>>>
+fn first_node_not_in<I, TH: TypeHolderTrait<TH>>(mut nodes: I, not_in: &[NodeOrString<TH>]) -> Option<DomRoot<Node<TH>>>
         where I: Iterator<Item=DomRoot<Node<TH>>>
 {
     nodes.find(|node| {
@@ -987,7 +987,7 @@ fn first_node_not_in<I, TH: TypeHolderTrait>(mut nodes: I, not_in: &[NodeOrStrin
 /// If the given untrusted node address represents a valid DOM node in the given runtime,
 /// returns it.
 #[allow(unsafe_code)]
-pub unsafe fn from_untrusted_node_address<TH: TypeHolderTrait>(_runtime: *mut JSRuntime, candidate: UntrustedNodeAddress)
+pub unsafe fn from_untrusted_node_address<TH: TypeHolderTrait<TH>>(_runtime: *mut JSRuntime, candidate: UntrustedNodeAddress)
     -> DomRoot<Node<TH>> {
     // https://github.com/servo/servo/issues/6383
     let candidate: uintptr_t = mem::transmute(candidate.0);
@@ -1002,7 +1002,7 @@ pub unsafe fn from_untrusted_node_address<TH: TypeHolderTrait>(_runtime: *mut JS
 }
 
 #[allow(unsafe_code)]
-pub trait LayoutNodeHelpers<TH: TypeHolderTrait> {
+pub trait LayoutNodeHelpers<TH: TypeHolderTrait<TH>> {
     unsafe fn type_id_for_layout(&self) -> NodeTypeId;
 
     unsafe fn parent_node_ref(&self) -> Option<LayoutDom<Node<TH>>>;
@@ -1033,7 +1033,7 @@ pub trait LayoutNodeHelpers<TH: TypeHolderTrait> {
     fn opaque(&self) -> OpaqueNode;
 }
 
-impl<TH: TypeHolderTrait> LayoutNodeHelpers<TH> for LayoutDom<Node<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutNodeHelpers<TH> for LayoutDom<Node<TH>> {
     #[inline]
     #[allow(unsafe_code)]
     unsafe fn type_id_for_layout(&self) -> NodeTypeId {
@@ -1204,12 +1204,12 @@ impl<TH: TypeHolderTrait> LayoutNodeHelpers<TH> for LayoutDom<Node<TH>> {
 // Iteration and traversal
 //
 
-pub struct FollowingNodeIterator<TH: TypeHolderTrait + 'static> {
+pub struct FollowingNodeIterator<TH: TypeHolderTrait<TH> + 'static> {
     current: Option<DomRoot<Node<TH>>>,
     root: DomRoot<Node<TH>>,
 }
 
-impl<TH: TypeHolderTrait> FollowingNodeIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> FollowingNodeIterator<TH> {
     /// Skips iterating the children of the current node
     pub fn next_skipping_children(&mut self) -> Option<DomRoot<Node<TH>>> {
         let current = self.current.take()?;
@@ -1241,7 +1241,7 @@ impl<TH: TypeHolderTrait> FollowingNodeIterator<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Iterator for FollowingNodeIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> Iterator for FollowingNodeIterator<TH> {
     type Item = DomRoot<Node<TH>>;
 
     // https://dom.spec.whatwg.org/#concept-tree-following
@@ -1257,12 +1257,12 @@ impl<TH: TypeHolderTrait> Iterator for FollowingNodeIterator<TH> {
     }
 }
 
-pub struct PrecedingNodeIterator<TH: TypeHolderTrait + 'static> {
+pub struct PrecedingNodeIterator<TH: TypeHolderTrait<TH> + 'static> {
     current: Option<DomRoot<Node<TH>>>,
     root: DomRoot<Node<TH>>,
 }
 
-impl<TH: TypeHolderTrait> Iterator for PrecedingNodeIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> Iterator for PrecedingNodeIterator<TH> {
     type Item = DomRoot<Node<TH>>;
 
     // https://dom.spec.whatwg.org/#concept-tree-preceding
@@ -1286,14 +1286,14 @@ impl<TH: TypeHolderTrait> Iterator for PrecedingNodeIterator<TH> {
     }
 }
 
-struct SimpleNodeIterator<I, TH: TypeHolderTrait + 'static>
+struct SimpleNodeIterator<I, TH: TypeHolderTrait<TH> + 'static>
     where I: Fn(&Node<TH>) -> Option<DomRoot<Node<TH>>>
 {
     current: Option<DomRoot<Node<TH>>>,
     next_node: I,
 }
 
-impl<I, TH: TypeHolderTrait> Iterator for SimpleNodeIterator<I, TH>
+impl<I, TH: TypeHolderTrait<TH>> Iterator for SimpleNodeIterator<I, TH>
     where I: Fn(&Node<TH>) -> Option<DomRoot<Node<TH>>>
 {
     type Item = DomRoot<Node<TH>>;
@@ -1305,12 +1305,12 @@ impl<I, TH: TypeHolderTrait> Iterator for SimpleNodeIterator<I, TH>
     }
 }
 
-pub struct TreeIterator<TH: TypeHolderTrait + 'static> {
+pub struct TreeIterator<TH: TypeHolderTrait<TH> + 'static> {
     current: Option<DomRoot<Node<TH>>>,
     depth: usize,
 }
 
-impl<TH: TypeHolderTrait> TreeIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> TreeIterator<TH> {
     fn new(root: &Node<TH>) -> TreeIterator<TH> {
         TreeIterator {
             current: Some(DomRoot::from_ref(root)),
@@ -1341,7 +1341,7 @@ impl<TH: TypeHolderTrait> TreeIterator<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Iterator for TreeIterator<TH> {
+impl<TH: TypeHolderTrait<TH>> Iterator for TreeIterator<TH> {
     type Item = DomRoot<Node<TH>>;
 
     // https://dom.spec.whatwg.org/#concept-tree-order
@@ -1366,7 +1366,7 @@ pub enum CloneChildrenFlag {
 
 fn as_uintptr<T>(t: &T) -> uintptr_t { t as *const T as uintptr_t }
 
-impl<TH: TypeHolderTrait> Node<TH> {
+impl<TH: TypeHolderTrait<TH>> Node<TH> {
     pub fn reflect_node<N>(
             node: Box<N>,
             document: &Document<TH>,
@@ -1920,7 +1920,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
+impl<TH: TypeHolderTrait<TH>> NodeMethods<TH> for Node<TH> {
     // https://dom.spec.whatwg.org/#dom-node-nodetype
     fn NodeType(&self) -> u16 {
         match self.type_id() {
@@ -2276,14 +2276,14 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
 
     // https://dom.spec.whatwg.org/#dom-node-isequalnode
     fn IsEqualNode(&self, maybe_node: Option<&Node<TH>>) -> bool {
-        fn is_equal_doctype<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+        fn is_equal_doctype<THH: TypeHolderTrait<THH>>(node: &Node<THH>, other: &Node<THH>) -> bool {
             let doctype = node.downcast::<DocumentType<THH>>().unwrap();
             let other_doctype = other.downcast::<DocumentType<THH>>().unwrap();
             (*doctype.name() == *other_doctype.name()) &&
             (*doctype.public_id() == *other_doctype.public_id()) &&
             (*doctype.system_id() == *other_doctype.system_id())
         }
-        fn is_equal_element<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+        fn is_equal_element<THH: TypeHolderTrait<THH>>(node: &Node<THH>, other: &Node<THH>) -> bool {
             let element = node.downcast::<Element<THH>>().unwrap();
             let other_element = other.downcast::<Element<THH>>().unwrap();
             (*element.namespace() == *other_element.namespace()) &&
@@ -2291,18 +2291,18 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
             (*element.local_name() == *other_element.local_name()) &&
             (element.attrs().len() == other_element.attrs().len())
         }
-        fn is_equal_processinginstruction<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+        fn is_equal_processinginstruction<THH: TypeHolderTrait<THH>>(node: &Node<THH>, other: &Node<THH>) -> bool {
             let pi = node.downcast::<ProcessingInstruction<THH>>().unwrap();
             let other_pi = other.downcast::<ProcessingInstruction<THH>>().unwrap();
             (*pi.target() == *other_pi.target()) &&
             (*pi.upcast::<CharacterData<THH>>().data() == *other_pi.upcast::<CharacterData<THH>>().data())
         }
-        fn is_equal_characterdata<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+        fn is_equal_characterdata<THH: TypeHolderTrait<THH>>(node: &Node<THH>, other: &Node<THH>) -> bool {
             let characterdata = node.downcast::<CharacterData<THH>>().unwrap();
             let other_characterdata = other.downcast::<CharacterData<THH>>().unwrap();
             *characterdata.data() == *other_characterdata.data()
         }
-        fn is_equal_element_attrs<THH: TypeHolderTrait>(node: &Node<THH>, other: &Node<THH>) -> bool {
+        fn is_equal_element_attrs<THH: TypeHolderTrait<THH>>(node: &Node<THH>, other: &Node<THH>) -> bool {
             let element = node.downcast::<Element<THH>>().unwrap();
             let other_element = other.downcast::<Element<THH>>().unwrap();
             assert!(element.attrs().len() == other_element.attrs().len());
@@ -2314,7 +2314,7 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
                 })
             })
         }
-        fn is_equal_node<THH: TypeHolderTrait>(this: &Node<THH>, node: &Node<THH>) -> bool {
+        fn is_equal_node<THH: TypeHolderTrait<THH>>(this: &Node<THH>, node: &Node<THH>) -> bool {
             // Step 2.
             if this.NodeType() != node.NodeType() {
                 return false;
@@ -2489,16 +2489,16 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
     }
 }
 
-pub fn document_from_node<T: DerivedFrom<Node<TH>> + DomObject, TH: TypeHolderTrait + Castable>(derived: &T) -> DomRoot<Document<TH>> {
+pub fn document_from_node<T: DerivedFrom<Node<TH>> + DomObject, TH: TypeHolderTrait<TH> + Castable>(derived: &T) -> DomRoot<Document<TH>> {
     derived.upcast().owner_doc()
 }
 
-pub fn window_from_node<TH: TypeHolderTrait, T: DerivedFrom<Node<TH>> + DomObject>(derived: &T) -> DomRoot<Window<TH>> {
+pub fn window_from_node<TH: TypeHolderTrait<TH>, T: DerivedFrom<Node<TH>> + DomObject>(derived: &T) -> DomRoot<Window<TH>> {
     let document = document_from_node(derived);
     DomRoot::from_ref(document.window())
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for Node<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for Node<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<EventTarget<TH>>() as &VirtualMethods<TH>)
     }
@@ -2530,7 +2530,7 @@ pub enum NodeDamage {
     OtherNodeDamage,
 }
 
-pub enum ChildrenMutation<'a, TH: TypeHolderTrait + 'static> {
+pub enum ChildrenMutation<'a, TH: TypeHolderTrait<TH> + 'static> {
     Append { prev: &'a Node<TH>, added: &'a [&'a Node<TH>] },
     Insert { prev: &'a Node<TH>, added: &'a [&'a Node<TH>], next: &'a Node<TH> },
     Prepend { added: &'a [&'a Node<TH>], next: &'a Node<TH> },
@@ -2548,7 +2548,7 @@ pub enum ChildrenMutation<'a, TH: TypeHolderTrait + 'static> {
     ChangeText,
 }
 
-impl<'a, TH: TypeHolderTrait> ChildrenMutation<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> ChildrenMutation<'a, TH> {
     fn insert(prev: Option<&'a Node<TH>>, added: &'a [&'a Node<TH>], next: Option<&'a Node<TH>>)
               -> ChildrenMutation<'a, TH> {
         match (prev, next) {
@@ -2652,7 +2652,7 @@ impl<'a, TH: TypeHolderTrait> ChildrenMutation<'a, TH> {
 
 /// The context of the unbinding from a tree of a node when one of its
 /// inclusive ancestors is removed.
-pub struct UnbindContext<'a, TH: TypeHolderTrait + 'static> {
+pub struct UnbindContext<'a, TH: TypeHolderTrait<TH> + 'static> {
     /// The index of the inclusive ancestor that was removed.
     index: Cell<Option<u32>>,
     /// The parent of the inclusive ancestor that was removed.
@@ -2663,7 +2663,7 @@ pub struct UnbindContext<'a, TH: TypeHolderTrait + 'static> {
     pub tree_in_doc: bool,
 }
 
-impl<'a, TH: TypeHolderTrait> UnbindContext<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> UnbindContext<'a, TH> {
     /// Create a new `UnbindContext` value.
     fn new(parent: &'a Node<TH>,
            prev_sibling: Option<&'a Node<TH>>,
@@ -2777,11 +2777,11 @@ impl Into<LayoutElementType> for ElementTypeId {
 
 /// Helper trait to insert an element into vector whose elements
 /// are maintained in tree order
-pub trait VecPreOrderInsertionHelper<T, TH: TypeHolderTrait> {
+pub trait VecPreOrderInsertionHelper<T, TH: TypeHolderTrait<TH>> {
     fn insert_pre_order(&mut self, elem: &T, tree_root: &Node<TH>);
 }
 
-impl<T, TH: TypeHolderTrait> VecPreOrderInsertionHelper<T, TH> for Vec<Dom<T>>
+impl<T, TH: TypeHolderTrait<TH>> VecPreOrderInsertionHelper<T, TH> for Vec<Dom<T>>
     where T: DerivedFrom<Node<TH>> + DomObject
 {
     /// This algorithm relies on the following assumptions:

@@ -23,13 +23,13 @@ use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#the-popstateevent-interface
 #[dom_struct]
-pub struct PopStateEvent<TH: TypeHolderTrait + 'static> {
+pub struct PopStateEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     state: Heap<JSVal>,
 }
 
-impl<TH: TypeHolderTrait> PopStateEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> PopStateEvent<TH> {
     fn new_inherited() -> PopStateEvent<TH> {
         PopStateEvent {
             event: Event::new_inherited(),
@@ -77,7 +77,7 @@ impl<TH: TypeHolderTrait> PopStateEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PopStateEventMethods for PopStateEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> PopStateEventMethods for PopStateEvent<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-popstateevent-state
     unsafe fn State(&self, _cx: *mut JSContext) -> JSVal {

@@ -509,7 +509,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_text<TH: TypeHolderTrait>
+unsafe extern fn get_text<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -524,7 +524,7 @@ unsafe extern fn get_text<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text<TH: TypeHolderTrait>
+unsafe extern fn set_text<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -549,7 +549,7 @@ unsafe extern fn set_text<TH: TypeHolderTrait>
 }
 
 
-fn text_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -567,7 +567,7 @@ fn text_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn text_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -585,7 +585,7 @@ fn text_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_bgColor<TH: TypeHolderTrait>
+unsafe extern fn get_bgColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -600,7 +600,7 @@ unsafe extern fn get_bgColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_bgColor<TH: TypeHolderTrait>
+unsafe extern fn set_bgColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -625,7 +625,7 @@ unsafe extern fn set_bgColor<TH: TypeHolderTrait>
 }
 
 
-fn bgColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bgColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_bgColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -643,7 +643,7 @@ fn bgColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn bgColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bgColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_bgColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -661,7 +661,7 @@ fn bgColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_background<TH: TypeHolderTrait>
+unsafe extern fn get_background<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -676,7 +676,7 @@ unsafe extern fn get_background<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background<TH: TypeHolderTrait>
+unsafe extern fn set_background<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -701,7 +701,7 @@ unsafe extern fn set_background<TH: TypeHolderTrait>
 }
 
 
-fn background_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -719,7 +719,7 @@ fn background_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn background_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -737,7 +737,7 @@ fn background_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onafterprint<TH: TypeHolderTrait>
+unsafe extern fn get_onafterprint<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -748,7 +748,7 @@ unsafe extern fn get_onafterprint<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onafterprint<TH: TypeHolderTrait>
+unsafe extern fn set_onafterprint<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -764,7 +764,7 @@ unsafe extern fn set_onafterprint<TH: TypeHolderTrait>
 }
 
 
-fn onafterprint_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onafterprint_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onafterprint::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -782,7 +782,7 @@ fn onafterprint_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onafterprint_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onafterprint_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onafterprint::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -800,7 +800,7 @@ fn onafterprint_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onbeforeprint<TH: TypeHolderTrait>
+unsafe extern fn get_onbeforeprint<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -811,7 +811,7 @@ unsafe extern fn get_onbeforeprint<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onbeforeprint<TH: TypeHolderTrait>
+unsafe extern fn set_onbeforeprint<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -827,7 +827,7 @@ unsafe extern fn set_onbeforeprint<TH: TypeHolderTrait>
 }
 
 
-fn onbeforeprint_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onbeforeprint_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onbeforeprint::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -845,7 +845,7 @@ fn onbeforeprint_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onbeforeprint_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onbeforeprint_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onbeforeprint::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -863,7 +863,7 @@ fn onbeforeprint_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onbeforeunload<TH: TypeHolderTrait>
+unsafe extern fn get_onbeforeunload<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -874,7 +874,7 @@ unsafe extern fn get_onbeforeunload<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onbeforeunload<TH: TypeHolderTrait>
+unsafe extern fn set_onbeforeunload<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -890,7 +890,7 @@ unsafe extern fn set_onbeforeunload<TH: TypeHolderTrait>
 }
 
 
-fn onbeforeunload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onbeforeunload_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onbeforeunload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -908,7 +908,7 @@ fn onbeforeunload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onbeforeunload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onbeforeunload_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onbeforeunload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -926,7 +926,7 @@ fn onbeforeunload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onhashchange<TH: TypeHolderTrait>
+unsafe extern fn get_onhashchange<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -937,7 +937,7 @@ unsafe extern fn get_onhashchange<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onhashchange<TH: TypeHolderTrait>
+unsafe extern fn set_onhashchange<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -953,7 +953,7 @@ unsafe extern fn set_onhashchange<TH: TypeHolderTrait>
 }
 
 
-fn onhashchange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onhashchange_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onhashchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -971,7 +971,7 @@ fn onhashchange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onhashchange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onhashchange_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onhashchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -989,7 +989,7 @@ fn onhashchange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onlanguagechange<TH: TypeHolderTrait>
+unsafe extern fn get_onlanguagechange<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1000,7 +1000,7 @@ unsafe extern fn get_onlanguagechange<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onlanguagechange<TH: TypeHolderTrait>
+unsafe extern fn set_onlanguagechange<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1016,7 +1016,7 @@ unsafe extern fn set_onlanguagechange<TH: TypeHolderTrait>
 }
 
 
-fn onlanguagechange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onlanguagechange_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onlanguagechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1034,7 +1034,7 @@ fn onlanguagechange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onlanguagechange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onlanguagechange_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onlanguagechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1052,7 +1052,7 @@ fn onlanguagechange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onmessage<TH: TypeHolderTrait>
+unsafe extern fn get_onmessage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1063,7 +1063,7 @@ unsafe extern fn get_onmessage<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onmessage<TH: TypeHolderTrait>
+unsafe extern fn set_onmessage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1079,7 +1079,7 @@ unsafe extern fn set_onmessage<TH: TypeHolderTrait>
 }
 
 
-fn onmessage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onmessage_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onmessage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1097,7 +1097,7 @@ fn onmessage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onmessage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onmessage_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onmessage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1115,7 +1115,7 @@ fn onmessage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onoffline<TH: TypeHolderTrait>
+unsafe extern fn get_onoffline<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1126,7 +1126,7 @@ unsafe extern fn get_onoffline<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onoffline<TH: TypeHolderTrait>
+unsafe extern fn set_onoffline<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1142,7 +1142,7 @@ unsafe extern fn set_onoffline<TH: TypeHolderTrait>
 }
 
 
-fn onoffline_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onoffline_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onoffline::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1160,7 +1160,7 @@ fn onoffline_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onoffline_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onoffline_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onoffline::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1178,7 +1178,7 @@ fn onoffline_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_ononline<TH: TypeHolderTrait>
+unsafe extern fn get_ononline<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1189,7 +1189,7 @@ unsafe extern fn get_ononline<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_ononline<TH: TypeHolderTrait>
+unsafe extern fn set_ononline<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1205,7 +1205,7 @@ unsafe extern fn set_ononline<TH: TypeHolderTrait>
 }
 
 
-fn ononline_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn ononline_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_ononline::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1223,7 +1223,7 @@ fn ononline_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn ononline_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn ononline_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_ononline::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1241,7 +1241,7 @@ fn ononline_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onpagehide<TH: TypeHolderTrait>
+unsafe extern fn get_onpagehide<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1252,7 +1252,7 @@ unsafe extern fn get_onpagehide<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onpagehide<TH: TypeHolderTrait>
+unsafe extern fn set_onpagehide<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1268,7 +1268,7 @@ unsafe extern fn set_onpagehide<TH: TypeHolderTrait>
 }
 
 
-fn onpagehide_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onpagehide_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onpagehide::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1286,7 +1286,7 @@ fn onpagehide_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onpagehide_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onpagehide_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onpagehide::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1304,7 +1304,7 @@ fn onpagehide_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onpageshow<TH: TypeHolderTrait>
+unsafe extern fn get_onpageshow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1315,7 +1315,7 @@ unsafe extern fn get_onpageshow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onpageshow<TH: TypeHolderTrait>
+unsafe extern fn set_onpageshow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1331,7 +1331,7 @@ unsafe extern fn set_onpageshow<TH: TypeHolderTrait>
 }
 
 
-fn onpageshow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onpageshow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onpageshow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1349,7 +1349,7 @@ fn onpageshow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onpageshow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onpageshow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onpageshow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1367,7 +1367,7 @@ fn onpageshow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onpopstate<TH: TypeHolderTrait>
+unsafe extern fn get_onpopstate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1378,7 +1378,7 @@ unsafe extern fn get_onpopstate<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onpopstate<TH: TypeHolderTrait>
+unsafe extern fn set_onpopstate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1394,7 +1394,7 @@ unsafe extern fn set_onpopstate<TH: TypeHolderTrait>
 }
 
 
-fn onpopstate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onpopstate_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onpopstate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1412,7 +1412,7 @@ fn onpopstate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onpopstate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onpopstate_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onpopstate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1430,7 +1430,7 @@ fn onpopstate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onrejectionhandled<TH: TypeHolderTrait>
+unsafe extern fn get_onrejectionhandled<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1441,7 +1441,7 @@ unsafe extern fn get_onrejectionhandled<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onrejectionhandled<TH: TypeHolderTrait>
+unsafe extern fn set_onrejectionhandled<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1457,7 +1457,7 @@ unsafe extern fn set_onrejectionhandled<TH: TypeHolderTrait>
 }
 
 
-fn onrejectionhandled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onrejectionhandled_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onrejectionhandled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1475,7 +1475,7 @@ fn onrejectionhandled_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn onrejectionhandled_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onrejectionhandled_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onrejectionhandled::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1493,7 +1493,7 @@ fn onrejectionhandled_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_onstorage<TH: TypeHolderTrait>
+unsafe extern fn get_onstorage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1504,7 +1504,7 @@ unsafe extern fn get_onstorage<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onstorage<TH: TypeHolderTrait>
+unsafe extern fn set_onstorage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1520,7 +1520,7 @@ unsafe extern fn set_onstorage<TH: TypeHolderTrait>
 }
 
 
-fn onstorage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onstorage_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onstorage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1538,7 +1538,7 @@ fn onstorage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onstorage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onstorage_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onstorage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1556,7 +1556,7 @@ fn onstorage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onunhandledrejection<TH: TypeHolderTrait>
+unsafe extern fn get_onunhandledrejection<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1567,7 +1567,7 @@ unsafe extern fn get_onunhandledrejection<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onunhandledrejection<TH: TypeHolderTrait>
+unsafe extern fn set_onunhandledrejection<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1583,7 +1583,7 @@ unsafe extern fn set_onunhandledrejection<TH: TypeHolderTrait>
 }
 
 
-fn onunhandledrejection_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onunhandledrejection_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onunhandledrejection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1601,7 +1601,7 @@ fn onunhandledrejection_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-fn onunhandledrejection_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onunhandledrejection_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onunhandledrejection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1619,7 +1619,7 @@ fn onunhandledrejection_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn get_onunload<TH: TypeHolderTrait>
+unsafe extern fn get_onunload<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1630,7 +1630,7 @@ unsafe extern fn get_onunload<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onunload<TH: TypeHolderTrait>
+unsafe extern fn set_onunload<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1646,7 +1646,7 @@ unsafe extern fn set_onunload<TH: TypeHolderTrait>
 }
 
 
-fn onunload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onunload_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onunload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1664,7 +1664,7 @@ fn onunload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onunload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onunload_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onunload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1682,7 +1682,7 @@ fn onunload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onvrdisplayconnect<TH: TypeHolderTrait>
+unsafe extern fn get_onvrdisplayconnect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1693,7 +1693,7 @@ unsafe extern fn get_onvrdisplayconnect<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onvrdisplayconnect<TH: TypeHolderTrait>
+unsafe extern fn set_onvrdisplayconnect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1709,7 +1709,7 @@ unsafe extern fn set_onvrdisplayconnect<TH: TypeHolderTrait>
 }
 
 
-fn onvrdisplayconnect_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplayconnect_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onvrdisplayconnect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1727,7 +1727,7 @@ fn onvrdisplayconnect_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn onvrdisplayconnect_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplayconnect_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onvrdisplayconnect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1745,7 +1745,7 @@ fn onvrdisplayconnect_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_onvrdisplaydisconnect<TH: TypeHolderTrait>
+unsafe extern fn get_onvrdisplaydisconnect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1756,7 +1756,7 @@ unsafe extern fn get_onvrdisplaydisconnect<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onvrdisplaydisconnect<TH: TypeHolderTrait>
+unsafe extern fn set_onvrdisplaydisconnect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1772,7 +1772,7 @@ unsafe extern fn set_onvrdisplaydisconnect<TH: TypeHolderTrait>
 }
 
 
-fn onvrdisplaydisconnect_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplaydisconnect_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onvrdisplaydisconnect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1790,7 +1790,7 @@ fn onvrdisplaydisconnect_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-fn onvrdisplaydisconnect_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplaydisconnect_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onvrdisplaydisconnect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1808,7 +1808,7 @@ fn onvrdisplaydisconnect_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn get_onvrdisplayactivate<TH: TypeHolderTrait>
+unsafe extern fn get_onvrdisplayactivate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1819,7 +1819,7 @@ unsafe extern fn get_onvrdisplayactivate<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onvrdisplayactivate<TH: TypeHolderTrait>
+unsafe extern fn set_onvrdisplayactivate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1835,7 +1835,7 @@ unsafe extern fn set_onvrdisplayactivate<TH: TypeHolderTrait>
 }
 
 
-fn onvrdisplayactivate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplayactivate_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onvrdisplayactivate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1853,7 +1853,7 @@ fn onvrdisplayactivate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn onvrdisplayactivate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplayactivate_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onvrdisplayactivate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1871,7 +1871,7 @@ fn onvrdisplayactivate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_onvrdisplaydeactivate<TH: TypeHolderTrait>
+unsafe extern fn get_onvrdisplaydeactivate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1882,7 +1882,7 @@ unsafe extern fn get_onvrdisplaydeactivate<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onvrdisplaydeactivate<TH: TypeHolderTrait>
+unsafe extern fn set_onvrdisplaydeactivate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1898,7 +1898,7 @@ unsafe extern fn set_onvrdisplaydeactivate<TH: TypeHolderTrait>
 }
 
 
-fn onvrdisplaydeactivate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplaydeactivate_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onvrdisplaydeactivate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1916,7 +1916,7 @@ fn onvrdisplaydeactivate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-fn onvrdisplaydeactivate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplaydeactivate_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onvrdisplaydeactivate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1934,7 +1934,7 @@ fn onvrdisplaydeactivate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn get_onvrdisplayblur<TH: TypeHolderTrait>
+unsafe extern fn get_onvrdisplayblur<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1945,7 +1945,7 @@ unsafe extern fn get_onvrdisplayblur<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onvrdisplayblur<TH: TypeHolderTrait>
+unsafe extern fn set_onvrdisplayblur<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1961,7 +1961,7 @@ unsafe extern fn set_onvrdisplayblur<TH: TypeHolderTrait>
 }
 
 
-fn onvrdisplayblur_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplayblur_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onvrdisplayblur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1979,7 +1979,7 @@ fn onvrdisplayblur_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onvrdisplayblur_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplayblur_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onvrdisplayblur::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -1997,7 +1997,7 @@ fn onvrdisplayblur_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onvrdisplayfocus<TH: TypeHolderTrait>
+unsafe extern fn get_onvrdisplayfocus<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2008,7 +2008,7 @@ unsafe extern fn get_onvrdisplayfocus<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onvrdisplayfocus<TH: TypeHolderTrait>
+unsafe extern fn set_onvrdisplayfocus<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2024,7 +2024,7 @@ unsafe extern fn set_onvrdisplayfocus<TH: TypeHolderTrait>
 }
 
 
-fn onvrdisplayfocus_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplayfocus_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onvrdisplayfocus::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -2042,7 +2042,7 @@ fn onvrdisplayfocus_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onvrdisplayfocus_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplayfocus_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onvrdisplayfocus::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -2060,7 +2060,7 @@ fn onvrdisplayfocus_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onvrdisplaypresentchange<TH: TypeHolderTrait>
+unsafe extern fn get_onvrdisplaypresentchange<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2071,7 +2071,7 @@ unsafe extern fn get_onvrdisplaypresentchange<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onvrdisplaypresentchange<TH: TypeHolderTrait>
+unsafe extern fn set_onvrdisplaypresentchange<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const HTMLBodyElement<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2087,7 +2087,7 @@ unsafe extern fn set_onvrdisplaypresentchange<TH: TypeHolderTrait>
 }
 
 
-fn onvrdisplaypresentchange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplaypresentchange_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onvrdisplaypresentchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -2105,7 +2105,7 @@ fn onvrdisplaypresentchange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-fn onvrdisplaypresentchange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onvrdisplaypresentchange_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onvrdisplaypresentchange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::HTMLBodyElement as u16,
     depth: 4,
@@ -2123,7 +2123,7 @@ fn onvrdisplaypresentchange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -2136,7 +2136,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -2146,7 +2146,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -2161,7 +2161,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"HTMLBodyElement\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -2179,11 +2179,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<HTMLBodyElement<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<HTMLBodyElement<TH>>) -> DomRoot<HTMLBodyElement<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -2209,20 +2209,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for HTMLBodyElement<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for HTMLBodyElement<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for HTMLBodyElement<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for HTMLBodyElement<TH> {
     fn eq(&self, other: &HTMLBodyElement<TH>) -> bool {
         self as *const HTMLBodyElement<TH> == &*other
     }
 }
 
-pub trait HTMLBodyElementMethods<TH: TypeHolderTrait> {
+pub trait HTMLBodyElementMethods<TH: TypeHolderTrait<TH>> {
     fn Text(&self) -> DOMString;
     fn SetText(&self, value: DOMString) -> ();
     fn BgColor(&self) -> DOMString;
@@ -2274,7 +2274,7 @@ pub trait HTMLBodyElementMethods<TH: TypeHolderTrait> {
     fn GetOnvrdisplaypresentchange(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnvrdisplaypresentchange(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"text\0" as *const u8 as *const libc::c_char,
@@ -2434,11 +2434,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -2466,7 +2466,7 @@ static PrototypeClass: JSClass = JSClass {
     reserved: [0 as *mut os::raw::c_void; 3]
 };
 
-unsafe extern fn _constructor<TH: TypeHolderTrait>
+unsafe extern fn _constructor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -2543,7 +2543,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait<TH>>() -> NonCallbackInterfaceObjectClass {
  
     NonCallbackInterfaceObjectClass::new(
         &InterfaceConstructorBehavior::call(_constructor::<TH>),
@@ -2552,7 +2552,7 @@ fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectCl
         4) 
 }
 
-pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
+pub unsafe fn GetConstructorObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface object for this class.  This will create the object as
        needed. */
@@ -2571,7 +2571,7 @@ pub unsafe fn GetConstructorObject<TH: TypeHolderTrait>
 
 }
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -2584,12 +2584,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     HTMLElementBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

@@ -23,11 +23,11 @@ use style::attr::AttrValue;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLLabelElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLLabelElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLabelElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLLabelElement<TH> {
@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Activatable<TH> for HTMLLabelElement<TH> {
+impl<TH: TypeHolderTrait<TH>> Activatable<TH> for HTMLLabelElement<TH> {
     fn as_element(&self) -> &Element<TH> {
         self.upcast::<Element<TH>>()
     }
@@ -87,7 +87,7 @@ impl<TH: TypeHolderTrait> Activatable<TH> for HTMLLabelElement<TH> {
 
 }
 
-impl<TH: TypeHolderTrait> HTMLLabelElementMethods<TH> for HTMLLabelElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLabelElementMethods<TH> for HTMLLabelElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-fae-form
     fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner()
@@ -119,7 +119,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElementMethods<TH> for HTMLLabelElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLabelElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLLabelElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -142,7 +142,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLabelElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLabelElement<TH> {
     pub fn first_labelable_descendant(&self) -> Option<DomRoot<HTMLElement<TH>>> {
         self.upcast::<Node<TH>>()
             .traverse_preorder()
@@ -152,7 +152,7 @@ impl<TH: TypeHolderTrait> HTMLLabelElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl<TH> for HTMLLabelElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControl<TH> for HTMLLabelElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.GetControl().map(DomRoot::upcast::<Element<TH>>).and_then(|elem| {
             elem.as_maybe_form_control().and_then(|control| control.form_owner())

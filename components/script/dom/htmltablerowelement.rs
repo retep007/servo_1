@@ -28,8 +28,8 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[derive(JSTraceable)]
-struct CellsFilter<TH: TypeHolderTrait + 'static>(PhantomData<TH>);
-impl<TH: TypeHolderTrait> CollectionFilter<TH> for CellsFilter<TH> {
+struct CellsFilter<TH: TypeHolderTrait<TH> + 'static>(PhantomData<TH>);
+impl<TH: TypeHolderTrait<TH>> CollectionFilter<TH> for CellsFilter<TH> {
     fn filter(&self, elem: &Element<TH>, root: &Node<TH>) -> bool {
         (elem.is::<HTMLTableHeaderCellElement<TH>>() || elem.is::<HTMLTableDataCellElement<TH>>()) &&
             elem.upcast::<Node<TH>>().GetParentNode().r() == Some(root)
@@ -37,12 +37,12 @@ impl<TH: TypeHolderTrait> CollectionFilter<TH> for CellsFilter<TH> {
 }
 
 #[dom_struct]
-pub struct HTMLTableRowElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLTableRowElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     cells: MutNullableDom<HTMLCollection<TH>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLTableRowElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableRowElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>)
                      -> HTMLTableRowElement<TH> {
         HTMLTableRowElement {
@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> HTMLTableRowElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLTableRowElementMethods<TH> for HTMLTableRowElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableRowElementMethods<TH> for HTMLTableRowElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-tr-bgcolor
     make_getter!(BgColor, "bgcolor");
 
@@ -144,7 +144,7 @@ pub trait HTMLTableRowElementLayoutHelpers {
 }
 
 #[allow(unsafe_code)]
-impl<TH: TypeHolderTrait> HTMLTableRowElementLayoutHelpers for LayoutDom<HTMLTableRowElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> HTMLTableRowElementLayoutHelpers for LayoutDom<HTMLTableRowElement<TH>> {
     fn get_background_color(&self) -> Option<RGBA> {
         unsafe {
             (&*self.upcast::<Element<TH>>().unsafe_get())
@@ -155,7 +155,7 @@ impl<TH: TypeHolderTrait> HTMLTableRowElementLayoutHelpers for LayoutDom<HTMLTab
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTableRowElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLTableRowElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

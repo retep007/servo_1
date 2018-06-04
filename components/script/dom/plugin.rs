@@ -12,12 +12,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct Plugin<TH: TypeHolderTrait + 'static> {
+pub struct Plugin<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> PluginMethods<TH> for Plugin<TH> {
+impl<TH: TypeHolderTrait<TH>> PluginMethods<TH> for Plugin<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-plugin-name
     fn Name(&self) -> DOMString {
         unreachable!()

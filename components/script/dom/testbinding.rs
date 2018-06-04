@@ -50,12 +50,12 @@ use timers::OneshotTimerCallback;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TestBinding<TH: TypeHolderTrait + 'static> {
+pub struct TestBinding<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     url: MutableWeakRef<URL<TH>, TH>,
 }
 
-impl<TH: TypeHolderTrait> TestBinding<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBinding<TH> {
     fn new_inherited() -> TestBinding<TH> {
         TestBinding {
             reflector_: Reflector::new(),
@@ -83,7 +83,7 @@ impl<TH: TypeHolderTrait> TestBinding<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TestBindingMethods<TH> for TestBinding<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBindingMethods<TH> for TestBinding<TH> {
     fn BooleanAttribute(&self) -> bool { false }
     fn SetBooleanAttribute(&self, _: bool) {}
     fn ByteAttribute(&self) -> i8 { 0 }
@@ -753,16 +753,16 @@ impl<TH: TypeHolderTrait> TestBindingMethods<TH> for TestBinding<TH> {
         return p;
 
         #[derive(JSTraceable, MallocSizeOf)]
-        struct SimpleHandler<TH: TypeHolderTrait + 'static> {
+        struct SimpleHandler<TH: TypeHolderTrait<TH> + 'static> {
             #[ignore_malloc_size_of = "Rc has unclear ownership semantics"]
             handler: Rc<SimpleCallback<TH>>,
         }
-        impl<TH: TypeHolderTrait> SimpleHandler<TH> {
+        impl<TH: TypeHolderTrait<TH>> SimpleHandler<TH> {
             fn new(callback: Rc<SimpleCallback<TH>>) -> Box<Callback> {
                 Box::new(SimpleHandler { handler: callback })
             }
         }
-        impl<TH: TypeHolderTrait> Callback for SimpleHandler<TH> {
+        impl<TH: TypeHolderTrait<TH>> Callback for SimpleHandler<TH> {
             #[allow(unsafe_code)]
             fn callback(&self, cx: *mut JSContext, v: HandleValue) {
                 let global = unsafe { GlobalScope::<TH>::from_context(cx) };
@@ -813,7 +813,7 @@ impl<TH: TypeHolderTrait> TestBindingMethods<TH> for TestBinding<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TestBinding<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBinding<TH> {
     pub fn BooleanAttributeStatic(_: &GlobalScope<TH>) -> bool { false }
     pub fn SetBooleanAttributeStatic(_: &GlobalScope<TH>, _: bool) {}
     pub fn ReceiveVoidStatic(_: &GlobalScope<TH>) {}
@@ -828,19 +828,19 @@ impl<TH: TypeHolderTrait> TestBinding<TH> {
 }
 
 #[allow(unsafe_code)]
-impl<TH: TypeHolderTrait> TestBinding<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBinding<TH> {
     pub unsafe fn condition_satisfied(_: *mut JSContext, _: HandleObject) -> bool { true }
     pub unsafe fn condition_unsatisfied(_: *mut JSContext, _: HandleObject) -> bool { false }
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct TestBindingCallback<TH: TypeHolderTrait + 'static> {
+pub struct TestBindingCallback<TH: TypeHolderTrait<TH> + 'static> {
     #[ignore_malloc_size_of = "unclear ownership semantics"]
     promise: TrustedPromise<TH>,
     value: DOMString,
 }
 
-impl<TH: TypeHolderTrait> TestBindingCallback<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBindingCallback<TH> {
     #[allow(unrooted_must_root)]
     pub fn invoke(self) {
         self.promise.root().resolve_native(&self.value);

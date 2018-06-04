@@ -30,7 +30,7 @@ use style::str::{split_html_space_chars, str_join};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLOptionElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLOptionElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#attr-option-selected>
@@ -40,7 +40,7 @@ pub struct HTMLOptionElement<TH: TypeHolderTrait + 'static> {
     dirtiness: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> HTMLOptionElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLOptionElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLOptionElement<TH> {
@@ -83,7 +83,7 @@ impl<TH: TypeHolderTrait> HTMLOptionElement<TH> {
 }
 
 // FIXME(ajeffrey): Provide a way of buffering DOMStrings other than using Strings
-fn collect_text<TH: TypeHolderTrait>(element: &Element<TH>, value: &mut String) {
+fn collect_text<TH: TypeHolderTrait<TH>>(element: &Element<TH>, value: &mut String) {
     let svg_script = *element.namespace() == ns!(svg) && element.local_name() == &local_name!("script");
     let html_script = element.is::<HTMLScriptElement<TH>>();
     if svg_script || html_script {
@@ -100,7 +100,7 @@ fn collect_text<TH: TypeHolderTrait>(element: &Element<TH>, value: &mut String) 
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLOptionElementMethods<TH> for HTMLOptionElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLOptionElementMethods<TH> for HTMLOptionElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-option-disabled
     make_bool_getter!(Disabled, "disabled");
 
@@ -179,7 +179,7 @@ impl<TH: TypeHolderTrait> HTMLOptionElementMethods<TH> for HTMLOptionElement<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLOptionElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLOptionElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

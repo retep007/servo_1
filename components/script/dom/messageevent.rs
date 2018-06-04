@@ -22,14 +22,14 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MessageEvent<TH: TypeHolderTrait + 'static> {
+pub struct MessageEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     data: Heap<JSVal>,
     origin: DOMString,
     lastEventId: DOMString,
 }
 
-impl<TH: TypeHolderTrait> MessageEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> MessageEvent<TH> {
     pub fn new_uninitialized(global: &GlobalScope<TH>) -> DomRoot<MessageEvent<TH>> {
         MessageEvent::new_initialized(global,
                                       HandleValue::undefined(),
@@ -80,7 +80,7 @@ impl<TH: TypeHolderTrait> MessageEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MessageEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> MessageEvent<TH> {
     pub fn dispatch_jsval(target: &EventTarget<TH>,
                           scope: &GlobalScope<TH>,
                           message: HandleValue) {
@@ -96,7 +96,7 @@ impl<TH: TypeHolderTrait> MessageEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MessageEventMethods for MessageEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> MessageEventMethods for MessageEvent<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-messageevent-data
     unsafe fn Data(&self, _cx: *mut JSContext) -> JSVal {

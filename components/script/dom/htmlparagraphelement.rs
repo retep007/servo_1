@@ -12,11 +12,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLParagraphElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLParagraphElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLParagraphElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLParagraphElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLParagraphElement<TH> {

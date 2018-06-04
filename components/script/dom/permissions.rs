@@ -33,7 +33,7 @@ const NONSECURE_DIALOG_MESSAGE: &'static str = "feature is only safe to use in s
 const REQUEST_DIALOG_MESSAGE: &'static str = "Do you want to grant permission for";
 const ROOT_DESC_CONVERSION_ERROR: &'static str = "Can't convert to an IDL value of type PermissionDescriptor";
 
-pub trait PermissionAlgorithm<TH: TypeHolderTrait + 'static> {
+pub trait PermissionAlgorithm<TH: TypeHolderTrait<TH> + 'static> {
     type Descriptor;
     type Status;
     fn create_descriptor(cx: *mut JSContext,
@@ -54,12 +54,12 @@ enum Operation {
 
 // https://w3c.github.io/permissions/#permissions
 #[dom_struct]
-pub struct Permissions<TH: TypeHolderTrait + 'static> {
+pub struct Permissions<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> Permissions<TH> {
+impl<TH: TypeHolderTrait<TH>> Permissions<TH> {
     pub fn new_inherited() -> Permissions<TH> {
         Permissions {
             reflector_: Reflector::new(),
@@ -178,7 +178,7 @@ impl<TH: TypeHolderTrait> Permissions<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PermissionsMethods<TH> for Permissions<TH> {
+impl<TH: TypeHolderTrait<TH>> PermissionsMethods<TH> for Permissions<TH> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     // https://w3c.github.io/permissions/#dom-permissions-query
@@ -201,7 +201,7 @@ impl<TH: TypeHolderTrait> PermissionsMethods<TH> for Permissions<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Permissions<TH> {
+impl<TH: TypeHolderTrait<TH>> PermissionAlgorithm<TH> for Permissions<TH> {
     type Descriptor = PermissionDescriptor;
     type Status = PermissionStatus<TH>;
 
@@ -264,7 +264,7 @@ impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Permissions<TH> {
 }
 
 // https://w3c.github.io/permissions/#permission-state
-pub fn get_descriptor_permission_state<TH: TypeHolderTrait>(permission_name: PermissionName,
+pub fn get_descriptor_permission_state<TH: TypeHolderTrait<TH>>(permission_name: PermissionName,
                                        env_settings_obj: Option<&GlobalScope<TH>>)
                                        -> PermissionState {
     // Step 1.

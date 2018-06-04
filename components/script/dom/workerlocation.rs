@@ -16,13 +16,13 @@ use std::marker::PhantomData;
 
 // https://html.spec.whatwg.org/multipage/#worker-locations
 #[dom_struct]
-pub struct WorkerLocation<TH: TypeHolderTrait + 'static> {
+pub struct WorkerLocation<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     url: ServoUrl,
     _p: PhantomData<TH>
 }
 
-impl<TH: TypeHolderTrait> WorkerLocation<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkerLocation<TH> {
     fn new_inherited(url: ServoUrl) -> WorkerLocation<TH> {
         WorkerLocation {
             reflector_: Reflector::new(),
@@ -38,7 +38,7 @@ impl<TH: TypeHolderTrait> WorkerLocation<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WorkerLocationMethods for WorkerLocation<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkerLocationMethods for WorkerLocation<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-workerlocation-hash
     fn Hash(&self) -> USVString {
         UrlHelper::Hash(&self.url)

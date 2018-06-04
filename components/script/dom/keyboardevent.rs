@@ -23,7 +23,7 @@ use typeholder::TypeHolderTrait;
 unsafe_no_jsmanaged_fields!(Key);
 
 #[dom_struct]
-pub struct KeyboardEvent<TH: TypeHolderTrait + 'static> {
+pub struct KeyboardEvent<TH: TypeHolderTrait<TH> + 'static> {
     uievent: UIEvent<TH>,
     key: Cell<Option<Key>>,
     key_string: DomRefCell<DOMString>,
@@ -40,7 +40,7 @@ pub struct KeyboardEvent<TH: TypeHolderTrait + 'static> {
     printable: Cell<Option<char>>,
 }
 
-impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> KeyboardEvent<TH> {
     fn new_inherited() -> KeyboardEvent<TH> {
         KeyboardEvent {
             uievent: UIEvent::new_inherited(),
@@ -132,7 +132,7 @@ impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> KeyboardEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> KeyboardEvent<TH> {
     pub fn printable(&self) -> Option<char> {
         self.printable.get()
     }
@@ -757,7 +757,7 @@ impl KeyEventProperties {
     }
 }
 
-impl<TH: TypeHolderTrait> KeyboardEventMethods<TH> for KeyboardEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> KeyboardEventMethods<TH> for KeyboardEvent<TH> {
     // https://w3c.github.io/uievents/#widl-KeyboardEvent-initKeyboardEvent
     fn InitKeyboardEvent(&self,
                          type_arg: DOMString,

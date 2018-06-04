@@ -33,7 +33,7 @@ use typeholder::TypeHolderTrait;
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothdevice
 #[dom_struct]
-pub struct BluetoothDevice<TH: TypeHolderTrait + 'static> {
+pub struct BluetoothDevice<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     id: DOMString,
     name: Option<DOMString>,
@@ -45,7 +45,7 @@ pub struct BluetoothDevice<TH: TypeHolderTrait + 'static> {
     watching_advertisements: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> BluetoothDevice<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothDevice<TH> {
     pub fn new_inherited(id: DOMString,
                          name: Option<DOMString>,
                          context: &Bluetooth<TH>)
@@ -213,7 +213,7 @@ impl<TH: TypeHolderTrait> BluetoothDevice<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BluetoothDeviceMethods<TH> for BluetoothDevice<TH> {
+impl<TH: TypeHolderTrait<TH>> BluetoothDeviceMethods<TH> for BluetoothDevice<TH> {
      // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothdevice-id
     fn Id(&self) -> DOMString {
         self.id.clone()
@@ -264,7 +264,7 @@ impl<TH: TypeHolderTrait> BluetoothDeviceMethods<TH> for BluetoothDevice<TH> {
     event_handler!(gattserverdisconnected, GetOngattserverdisconnected, SetOngattserverdisconnected);
 }
 
-impl<TH: TypeHolderTrait> AsyncBluetoothListener<TH> for BluetoothDevice<TH> {
+impl<TH: TypeHolderTrait<TH>> AsyncBluetoothListener<TH> for BluetoothDevice<TH> {
     fn handle_response(&self, response: BluetoothResponse, promise: &Rc<Promise<TH>>) {
         match response {
             // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothdevice-unwatchadvertisements

@@ -18,12 +18,12 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLContextEvent<TH: TypeHolderTrait + 'static> {
+pub struct WebGLContextEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     status_message: DOMString,
 }
 
-impl<TH: TypeHolderTrait> WebGLContextEventMethods for WebGLContextEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLContextEventMethods for WebGLContextEvent<TH> {
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15
     fn StatusMessage(&self) -> DOMString {
         self.status_message.clone()
@@ -35,7 +35,7 @@ impl<TH: TypeHolderTrait> WebGLContextEventMethods for WebGLContextEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebGLContextEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLContextEvent<TH> {
     pub fn new_inherited(status_message: DOMString) -> WebGLContextEvent<TH> {
         WebGLContextEvent {
             event: Event::new_inherited(),

@@ -12,11 +12,11 @@ use style::element_state::ElementState;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct SVGElement<TH: TypeHolderTrait + 'static> {
+pub struct SVGElement<TH: TypeHolderTrait<TH> + 'static> {
     element: Element<TH>,
 }
 
-impl<TH: TypeHolderTrait> SVGElement<TH> {
+impl<TH: TypeHolderTrait<TH>> SVGElement<TH> {
     pub fn new_inherited_with_state(state: ElementState, tag_name: LocalName,
                                     prefix: Option<Prefix>, document: &Document<TH>)
                                     -> SVGElement<TH> {
@@ -27,7 +27,7 @@ impl<TH: TypeHolderTrait> SVGElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for SVGElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for SVGElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<Element<TH>>() as &VirtualMethods<TH>)
     }

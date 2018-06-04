@@ -36,7 +36,7 @@ pub type TrustedWorkerAddress<TH> = Trusted<Worker<TH>>;
 
 // https://html.spec.whatwg.org/multipage/#worker
 #[dom_struct]
-pub struct Worker<TH: TypeHolderTrait + 'static> {
+pub struct Worker<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
     /// Sender to the Receiver associated with the DedicatedWorkerGlobalScope
@@ -49,7 +49,7 @@ pub struct Worker<TH: TypeHolderTrait + 'static> {
     terminated: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> Worker<TH> {
+impl<TH: TypeHolderTrait<TH>> Worker<TH> {
     fn new_inherited(sender: Sender<(TrustedWorkerAddress<TH>, WorkerScriptMsg<TH>)>,
                      closing: Arc<AtomicBool>) -> Worker<TH> {
         Worker {
@@ -143,7 +143,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WorkerMethods<TH> for Worker<TH> {
+impl<TH: TypeHolderTrait<TH>> WorkerMethods<TH> for Worker<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-worker-postmessage
     unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {
@@ -179,7 +179,7 @@ impl<TH: TypeHolderTrait> WorkerMethods<TH> for Worker<TH> {
     event_handler!(error, GetOnerror, SetOnerror);
 }
 
-impl<TH: TypeHolderTrait> TaskOnce for SimpleWorkerErrorHandler<Worker<TH>> {
+impl<TH: TypeHolderTrait<TH>> TaskOnce for SimpleWorkerErrorHandler<Worker<TH>> {
     #[allow(unrooted_must_root)]
     fn run_once(self) {
         Worker::dispatch_simple_error(self.addr);

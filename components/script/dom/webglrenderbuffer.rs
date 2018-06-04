@@ -15,7 +15,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLRenderbuffer<TH: TypeHolderTrait + 'static> {
+pub struct WebGLRenderbuffer<TH: TypeHolderTrait<TH> + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLRenderbufferId,
     ever_bound: Cell<bool>,
@@ -26,7 +26,7 @@ pub struct WebGLRenderbuffer<TH: TypeHolderTrait + 'static> {
     renderer: WebGLMsgSender,
 }
 
-impl<TH: TypeHolderTrait> WebGLRenderbuffer<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLRenderbuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLRenderbufferId)
                      -> WebGLRenderbuffer<TH> {
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> WebGLRenderbuffer<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> WebGLRenderbuffer<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLRenderbuffer<TH> {
     pub fn id(&self) -> WebGLRenderbufferId {
         self.id
     }

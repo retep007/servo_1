@@ -53,7 +53,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
-pub enum CommonEventHandler<TH: TypeHolderTrait + 'static> {
+pub enum CommonEventHandler<TH: TypeHolderTrait<TH> + 'static> {
     EventHandler(
         #[ignore_malloc_size_of = "Rc"]
         Rc<EventHandlerNonNull<TH>>),
@@ -67,7 +67,7 @@ pub enum CommonEventHandler<TH: TypeHolderTrait + 'static> {
         Rc<OnBeforeUnloadEventHandlerNonNull<TH>>),
 }
 
-impl<TH: TypeHolderTrait> CommonEventHandler<TH> {
+impl<TH: TypeHolderTrait<TH>> CommonEventHandler<TH> {
     fn parent(&self) -> &CallbackFunction<TH> {
         match *self {
             CommonEventHandler::EventHandler(ref handler) => &handler.parent,
@@ -93,13 +93,13 @@ struct InternalRawUncompiledHandler {
 
 /// A representation of an event handler, either compiled or uncompiled raw source, or null.
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
-enum InlineEventListener<TH: TypeHolderTrait + 'static> {
+enum InlineEventListener<TH: TypeHolderTrait<TH> + 'static> {
     Uncompiled(InternalRawUncompiledHandler),
     Compiled(CommonEventHandler<TH>),
     Null,
 }
 
-impl<TH: TypeHolderTrait> InlineEventListener<TH> {
+impl<TH: TypeHolderTrait<TH>> InlineEventListener<TH> {
     /// Get a compiled representation of this event handler, compiling it from its
     /// raw source if necessary.
     /// <https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler>
@@ -123,12 +123,12 @@ impl<TH: TypeHolderTrait> InlineEventListener<TH> {
 }
 
 #[derive(Clone, JSTraceable, MallocSizeOf, PartialEq)]
-enum EventListenerType<TH: TypeHolderTrait + 'static> {
+enum EventListenerType<TH: TypeHolderTrait<TH> + 'static> {
     Additive(#[ignore_malloc_size_of = "Rc"] Rc<EventListener<TH>>),
     Inline(InlineEventListener<TH>),
 }
 
-impl<TH: TypeHolderTrait> EventListenerType<TH> {
+impl<TH: TypeHolderTrait<TH>> EventListenerType<TH> {
     fn get_compiled_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom)
                              -> Option<CompiledEventListener<TH>> {
         match self {
@@ -143,12 +143,12 @@ impl<TH: TypeHolderTrait> EventListenerType<TH> {
 
 /// A representation of an EventListener/EventHandler object that has previously
 /// been compiled successfully, if applicable.
-pub enum CompiledEventListener<TH: TypeHolderTrait + 'static> {
+pub enum CompiledEventListener<TH: TypeHolderTrait<TH> + 'static> {
     Listener(Rc<EventListener<TH>>),
     Handler(CommonEventHandler<TH>),
 }
 
-impl<TH: TypeHolderTrait> CompiledEventListener<TH> {
+impl<TH: TypeHolderTrait<TH>> CompiledEventListener<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#the-event-handler-processing-algorithm
     pub fn call_or_handle_event<T: DomObject>(&self,
@@ -232,29 +232,29 @@ impl<TH: TypeHolderTrait> CompiledEventListener<TH> {
 
 #[derive(Clone, DenyPublicFields, JSTraceable, MallocSizeOf, PartialEq)]
 /// A listener in a collection of event listeners.
-struct EventListenerEntry<TH: TypeHolderTrait + 'static> {
+struct EventListenerEntry<TH: TypeHolderTrait<TH> + 'static> {
     phase: ListenerPhase,
     listener: EventListenerType<TH>
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
 /// A mix of potentially uncompiled and compiled event listeners of the same type.
-struct EventListeners<TH: TypeHolderTrait + 'static>(Vec<EventListenerEntry<TH>>);
+struct EventListeners<TH: TypeHolderTrait<TH> + 'static>(Vec<EventListenerEntry<TH>>);
 
-impl<TH: TypeHolderTrait> Deref for EventListeners<TH> {
+impl<TH: TypeHolderTrait<TH>> Deref for EventListeners<TH> {
     type Target = Vec<EventListenerEntry<TH>>;
     fn deref(&self) -> &Vec<EventListenerEntry<TH>> {
         &self.0
     }
 }
 
-impl<TH: TypeHolderTrait> DerefMut for EventListeners<TH> {
+impl<TH: TypeHolderTrait<TH>> DerefMut for EventListeners<TH> {
     fn deref_mut(&mut self) -> &mut Vec<EventListenerEntry<TH>> {
         &mut self.0
     }
 }
 
-impl<TH: TypeHolderTrait> EventListeners<TH> {
+impl<TH: TypeHolderTrait<TH>> EventListeners<TH> {
     // https://html.spec.whatwg.org/multipage/#getting-the-current-value-of-the-event-handler
     fn get_inline_listener(&mut self, owner: &EventTarget<TH>, ty: &Atom) -> Option<CommonEventHandler<TH>> {
         for entry in &mut self.0 {
@@ -283,13 +283,13 @@ impl<TH: TypeHolderTrait> EventListeners<TH> {
 }
 
 #[dom_struct]
-pub struct EventTarget<TH: TypeHolderTrait + 'static> {
+pub struct EventTarget<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     handlers: DomRefCell<HashMap<Atom, EventListeners<TH>, BuildHasherDefault<FnvHasher>>>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> EventTarget<TH> {
+impl<TH: TypeHolderTrait<TH>> EventTarget<TH> {
     pub fn new_inherited() -> EventTarget<TH> {
         EventTarget {
             reflector_: Reflector::new(),
@@ -662,7 +662,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> EventTargetMethods<TH> for EventTarget<TH> {
+impl<TH: TypeHolderTrait<TH>> EventTargetMethods<TH> for EventTarget<TH> {
     // https://dom.spec.whatwg.org/#dom-eventtarget-addeventlistener
     fn AddEventListener(
         &self,
@@ -696,7 +696,7 @@ impl<TH: TypeHolderTrait> EventTargetMethods<TH> for EventTarget<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for EventTarget<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for EventTarget<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         None
     }

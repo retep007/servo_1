@@ -512,7 +512,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn readAsArrayBuffer<TH: TypeHolderTrait>
+unsafe extern fn readAsArrayBuffer<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -553,7 +553,7 @@ unsafe extern fn readAsArrayBuffer<TH: TypeHolderTrait>
 }
 
 
-fn readAsArrayBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn readAsArrayBuffer_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: readAsArrayBuffer::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -571,7 +571,7 @@ fn readAsArrayBuffer_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn readAsText<TH: TypeHolderTrait>
+unsafe extern fn readAsText<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -626,7 +626,7 @@ unsafe extern fn readAsText<TH: TypeHolderTrait>
 }
 
 
-fn readAsText_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn readAsText_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: readAsText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -644,7 +644,7 @@ fn readAsText_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn readAsDataURL<TH: TypeHolderTrait>
+unsafe extern fn readAsDataURL<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -685,7 +685,7 @@ unsafe extern fn readAsDataURL<TH: TypeHolderTrait>
 }
 
 
-fn readAsDataURL_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn readAsDataURL_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: readAsDataURL::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -703,7 +703,7 @@ fn readAsDataURL_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn abort<TH: TypeHolderTrait>
+unsafe extern fn abort<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -717,7 +717,7 @@ unsafe extern fn abort<TH: TypeHolderTrait>
 }
 
 
-fn abort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn abort_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: abort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -735,7 +735,7 @@ fn abort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_readyState<TH: TypeHolderTrait>
+unsafe extern fn get_readyState<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -747,7 +747,7 @@ unsafe extern fn get_readyState<TH: TypeHolderTrait>
 }
 
 
-fn readyState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn readyState_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_readyState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -765,7 +765,7 @@ fn readyState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_result<TH: TypeHolderTrait>
+unsafe extern fn get_result<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -777,7 +777,7 @@ unsafe extern fn get_result<TH: TypeHolderTrait>
 }
 
 
-fn result_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn result_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_result::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -795,7 +795,7 @@ fn result_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_error<TH: TypeHolderTrait>
+unsafe extern fn get_error<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -807,7 +807,7 @@ unsafe extern fn get_error<TH: TypeHolderTrait>
 }
 
 
-fn error_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn error_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_error::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -825,7 +825,7 @@ fn error_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onloadstart<TH: TypeHolderTrait>
+unsafe extern fn get_onloadstart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -836,7 +836,7 @@ unsafe extern fn get_onloadstart<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onloadstart<TH: TypeHolderTrait>
+unsafe extern fn set_onloadstart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -852,7 +852,7 @@ unsafe extern fn set_onloadstart<TH: TypeHolderTrait>
 }
 
 
-fn onloadstart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onloadstart_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onloadstart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -870,7 +870,7 @@ fn onloadstart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onloadstart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onloadstart_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onloadstart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -888,7 +888,7 @@ fn onloadstart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onprogress<TH: TypeHolderTrait>
+unsafe extern fn get_onprogress<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -899,7 +899,7 @@ unsafe extern fn get_onprogress<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onprogress<TH: TypeHolderTrait>
+unsafe extern fn set_onprogress<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -915,7 +915,7 @@ unsafe extern fn set_onprogress<TH: TypeHolderTrait>
 }
 
 
-fn onprogress_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onprogress_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onprogress::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -933,7 +933,7 @@ fn onprogress_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onprogress_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onprogress_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onprogress::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -951,7 +951,7 @@ fn onprogress_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onload<TH: TypeHolderTrait>
+unsafe extern fn get_onload<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -962,7 +962,7 @@ unsafe extern fn get_onload<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onload<TH: TypeHolderTrait>
+unsafe extern fn set_onload<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -978,7 +978,7 @@ unsafe extern fn set_onload<TH: TypeHolderTrait>
 }
 
 
-fn onload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onload_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -996,7 +996,7 @@ fn onload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onload_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -1014,7 +1014,7 @@ fn onload_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onabort<TH: TypeHolderTrait>
+unsafe extern fn get_onabort<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1025,7 +1025,7 @@ unsafe extern fn get_onabort<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onabort<TH: TypeHolderTrait>
+unsafe extern fn set_onabort<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1041,7 +1041,7 @@ unsafe extern fn set_onabort<TH: TypeHolderTrait>
 }
 
 
-fn onabort_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onabort_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onabort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -1059,7 +1059,7 @@ fn onabort_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onabort_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onabort_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onabort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -1077,7 +1077,7 @@ fn onabort_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onerror<TH: TypeHolderTrait>
+unsafe extern fn get_onerror<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1088,7 +1088,7 @@ unsafe extern fn get_onerror<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onerror<TH: TypeHolderTrait>
+unsafe extern fn set_onerror<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1104,7 +1104,7 @@ unsafe extern fn set_onerror<TH: TypeHolderTrait>
 }
 
 
-fn onerror_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onerror_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -1122,7 +1122,7 @@ fn onerror_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onerror_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onerror_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onerror::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -1140,7 +1140,7 @@ fn onerror_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_onloadend<TH: TypeHolderTrait>
+unsafe extern fn get_onloadend<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const FileReader<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1151,7 +1151,7 @@ unsafe extern fn get_onloadend<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onloadend<TH: TypeHolderTrait>
+unsafe extern fn set_onloadend<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const FileReader<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1167,7 +1167,7 @@ unsafe extern fn set_onloadend<TH: TypeHolderTrait>
 }
 
 
-fn onloadend_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onloadend_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onloadend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -1185,7 +1185,7 @@ fn onloadend_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn onloadend_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onloadend_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onloadend::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::FileReader as u16,
     depth: 1,
@@ -1203,7 +1203,7 @@ fn onloadend_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1216,7 +1216,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1231,7 +1231,7 @@ pub mod FileReaderConstants {
     pub const LOADING: u16 = 1;
     pub const DONE: u16 = 2;
 } // mod FileReaderConstants
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -1246,7 +1246,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"FileReader\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -1264,11 +1264,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<FileReader<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<FileReader<TH>>) -> DomRoot<FileReader<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -1294,20 +1294,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for FileReader<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for FileReader<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for FileReader<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for FileReader<TH> {
     fn eq(&self, other: &FileReader<TH>) -> bool {
         self as *const FileReader<TH> == &*other
     }
 }
 
-pub trait FileReaderMethods<TH: TypeHolderTrait> {
+pub trait FileReaderMethods<TH: TypeHolderTrait<TH>> {
     fn ReadAsArrayBuffer(&self, blob: &Blob<TH>) -> Fallible<(), TH>;
     fn ReadAsText(&self, blob: &Blob<TH>, label: Option<DOMString>) -> Fallible<(), TH>;
     fn ReadAsDataURL(&self, blob: &Blob<TH>) -> Fallible<(), TH>;
@@ -1328,7 +1328,7 @@ pub trait FileReaderMethods<TH: TypeHolderTrait> {
     fn GetOnloadend(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnloadend(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"readAsArrayBuffer\0" as *const u8 as *const libc::c_char,
@@ -1367,10 +1367,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"readyState\0" as *const u8 as *const libc::c_char,
@@ -1434,7 +1434,7 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
@@ -1448,7 +1448,7 @@ const sConstants: &'static [Guard<&'static [ConstantSpec]>] = &[
     Guard::new(Condition::Satisfied, sConstants_specs[0])
 ];
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1476,7 +1476,7 @@ static PrototypeClass: JSClass = JSClass {
     reserved: [0 as *mut os::raw::c_void; 3]
 };
 
-unsafe extern fn _constructor<TH: TypeHolderTrait>
+unsafe extern fn _constructor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -1495,7 +1495,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait<TH>>() -> NonCallbackInterfaceObjectClass {
  
     NonCallbackInterfaceObjectClass::new(
         &InterfaceConstructorBehavior::call(_constructor::<TH>),
@@ -1504,7 +1504,7 @@ fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectCl
         1) 
 }
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -1517,12 +1517,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::DEDICATED_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::SERVICE_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     EventTargetBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

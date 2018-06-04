@@ -505,7 +505,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_cssText<TH: TypeHolderTrait>
+unsafe extern fn get_cssText<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -520,7 +520,7 @@ unsafe extern fn get_cssText<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_cssText<TH: TypeHolderTrait>
+unsafe extern fn set_cssText<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -552,7 +552,7 @@ unsafe extern fn set_cssText<TH: TypeHolderTrait>
 }
 
 
-fn cssText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn cssText_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_cssText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -570,7 +570,7 @@ fn cssText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn cssText_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn cssText_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_cssText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -588,7 +588,7 @@ fn cssText_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_length<TH: TypeHolderTrait>
+unsafe extern fn get_length<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -600,7 +600,7 @@ unsafe extern fn get_length<TH: TypeHolderTrait>
 }
 
 
-fn length_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn length_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_length::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -618,7 +618,7 @@ fn length_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn item<TH: TypeHolderTrait>
+unsafe extern fn item<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -647,7 +647,7 @@ unsafe extern fn item<TH: TypeHolderTrait>
 }
 
 
-fn item_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn item_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: item::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -665,7 +665,7 @@ fn item_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getPropertyValue<TH: TypeHolderTrait>
+unsafe extern fn getPropertyValue<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -694,7 +694,7 @@ unsafe extern fn getPropertyValue<TH: TypeHolderTrait>
 }
 
 
-fn getPropertyValue_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getPropertyValue_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getPropertyValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -712,7 +712,7 @@ fn getPropertyValue_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getPropertyPriority<TH: TypeHolderTrait>
+unsafe extern fn getPropertyPriority<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -741,7 +741,7 @@ unsafe extern fn getPropertyPriority<TH: TypeHolderTrait>
 }
 
 
-fn getPropertyPriority_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getPropertyPriority_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getPropertyPriority::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -759,7 +759,7 @@ fn getPropertyPriority_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn setProperty<TH: TypeHolderTrait>
+unsafe extern fn setProperty<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -823,7 +823,7 @@ unsafe extern fn setProperty<TH: TypeHolderTrait>
 }
 
 
-fn setProperty_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn setProperty_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: setProperty::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -841,7 +841,7 @@ fn setProperty_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn setPropertyValue<TH: TypeHolderTrait>
+unsafe extern fn setPropertyValue<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -891,7 +891,7 @@ unsafe extern fn setPropertyValue<TH: TypeHolderTrait>
 }
 
 
-fn setPropertyValue_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn setPropertyValue_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: setPropertyValue::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -909,7 +909,7 @@ fn setPropertyValue_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn setPropertyPriority<TH: TypeHolderTrait>
+unsafe extern fn setPropertyPriority<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -959,7 +959,7 @@ unsafe extern fn setPropertyPriority<TH: TypeHolderTrait>
 }
 
 
-fn setPropertyPriority_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn setPropertyPriority_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: setPropertyPriority::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -977,7 +977,7 @@ fn setPropertyPriority_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn removeProperty<TH: TypeHolderTrait>
+unsafe extern fn removeProperty<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1017,7 +1017,7 @@ unsafe extern fn removeProperty<TH: TypeHolderTrait>
 }
 
 
-fn removeProperty_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn removeProperty_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: removeProperty::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1035,7 +1035,7 @@ fn removeProperty_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_cssFloat<TH: TypeHolderTrait>
+unsafe extern fn get_cssFloat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1050,7 +1050,7 @@ unsafe extern fn get_cssFloat<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_cssFloat<TH: TypeHolderTrait>
+unsafe extern fn set_cssFloat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1082,7 +1082,7 @@ unsafe extern fn set_cssFloat<TH: TypeHolderTrait>
 }
 
 
-fn cssFloat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn cssFloat_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_cssFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1100,7 +1100,7 @@ fn cssFloat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn cssFloat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn cssFloat_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_cssFloat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1118,7 +1118,7 @@ fn cssFloat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_all<TH: TypeHolderTrait>
+unsafe extern fn get_all<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1133,7 +1133,7 @@ unsafe extern fn get_all<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_all<TH: TypeHolderTrait>
+unsafe extern fn set_all<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1165,7 +1165,7 @@ unsafe extern fn set_all<TH: TypeHolderTrait>
 }
 
 
-fn all_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn all_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_all::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1183,7 +1183,7 @@ fn all_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn all_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn all_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_all::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1201,7 +1201,7 @@ fn all_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_background<TH: TypeHolderTrait>
+unsafe extern fn get_background<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1216,7 +1216,7 @@ unsafe extern fn get_background<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background<TH: TypeHolderTrait>
+unsafe extern fn set_background<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1248,7 +1248,7 @@ unsafe extern fn set_background<TH: TypeHolderTrait>
 }
 
 
-fn background_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1266,7 +1266,7 @@ fn background_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn background_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1284,7 +1284,7 @@ fn background_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_backgroundColor<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1299,7 +1299,7 @@ unsafe extern fn get_backgroundColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundColor<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1331,7 +1331,7 @@ unsafe extern fn set_backgroundColor<TH: TypeHolderTrait>
 }
 
 
-fn backgroundColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1349,7 +1349,7 @@ fn backgroundColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn backgroundColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1367,7 +1367,7 @@ fn backgroundColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_background_color<TH: TypeHolderTrait>
+unsafe extern fn get_background_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1382,7 +1382,7 @@ unsafe extern fn get_background_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_color<TH: TypeHolderTrait>
+unsafe extern fn set_background_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1414,7 +1414,7 @@ unsafe extern fn set_background_color<TH: TypeHolderTrait>
 }
 
 
-fn background_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1432,7 +1432,7 @@ fn background_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn background_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1450,7 +1450,7 @@ fn background_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_backgroundPosition<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundPosition<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1465,7 +1465,7 @@ unsafe extern fn get_backgroundPosition<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundPosition<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundPosition<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1497,7 +1497,7 @@ unsafe extern fn set_backgroundPosition<TH: TypeHolderTrait>
 }
 
 
-fn backgroundPosition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundPosition_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundPosition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1515,7 +1515,7 @@ fn backgroundPosition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn backgroundPosition_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundPosition_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundPosition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1533,7 +1533,7 @@ fn backgroundPosition_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_background_position<TH: TypeHolderTrait>
+unsafe extern fn get_background_position<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1548,7 +1548,7 @@ unsafe extern fn get_background_position<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_position<TH: TypeHolderTrait>
+unsafe extern fn set_background_position<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1580,7 +1580,7 @@ unsafe extern fn set_background_position<TH: TypeHolderTrait>
 }
 
 
-fn background_position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_position_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1598,7 +1598,7 @@ fn background_position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn background_position_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_position_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1616,7 +1616,7 @@ fn background_position_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_backgroundPositionX<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundPositionX<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1631,7 +1631,7 @@ unsafe extern fn get_backgroundPositionX<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundPositionX<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundPositionX<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1663,7 +1663,7 @@ unsafe extern fn set_backgroundPositionX<TH: TypeHolderTrait>
 }
 
 
-fn backgroundPositionX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundPositionX_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundPositionX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1681,7 +1681,7 @@ fn backgroundPositionX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn backgroundPositionX_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundPositionX_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundPositionX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1699,7 +1699,7 @@ fn backgroundPositionX_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_background_position_x<TH: TypeHolderTrait>
+unsafe extern fn get_background_position_x<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1714,7 +1714,7 @@ unsafe extern fn get_background_position_x<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_position_x<TH: TypeHolderTrait>
+unsafe extern fn set_background_position_x<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1746,7 +1746,7 @@ unsafe extern fn set_background_position_x<TH: TypeHolderTrait>
 }
 
 
-fn background_position_x_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_position_x_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_position_x::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1764,7 +1764,7 @@ fn background_position_x_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-fn background_position_x_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_position_x_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_position_x::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1782,7 +1782,7 @@ fn background_position_x_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn get_backgroundPositionY<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundPositionY<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1797,7 +1797,7 @@ unsafe extern fn get_backgroundPositionY<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundPositionY<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundPositionY<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1829,7 +1829,7 @@ unsafe extern fn set_backgroundPositionY<TH: TypeHolderTrait>
 }
 
 
-fn backgroundPositionY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundPositionY_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundPositionY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1847,7 +1847,7 @@ fn backgroundPositionY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn backgroundPositionY_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundPositionY_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundPositionY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1865,7 +1865,7 @@ fn backgroundPositionY_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_background_position_y<TH: TypeHolderTrait>
+unsafe extern fn get_background_position_y<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1880,7 +1880,7 @@ unsafe extern fn get_background_position_y<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_position_y<TH: TypeHolderTrait>
+unsafe extern fn set_background_position_y<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1912,7 +1912,7 @@ unsafe extern fn set_background_position_y<TH: TypeHolderTrait>
 }
 
 
-fn background_position_y_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_position_y_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_position_y::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1930,7 +1930,7 @@ fn background_position_y_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-fn background_position_y_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_position_y_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_position_y::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -1948,7 +1948,7 @@ fn background_position_y_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn get_backgroundRepeat<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundRepeat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1963,7 +1963,7 @@ unsafe extern fn get_backgroundRepeat<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundRepeat<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundRepeat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1995,7 +1995,7 @@ unsafe extern fn set_backgroundRepeat<TH: TypeHolderTrait>
 }
 
 
-fn backgroundRepeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundRepeat_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundRepeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2013,7 +2013,7 @@ fn backgroundRepeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn backgroundRepeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundRepeat_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundRepeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2031,7 +2031,7 @@ fn backgroundRepeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_background_repeat<TH: TypeHolderTrait>
+unsafe extern fn get_background_repeat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2046,7 +2046,7 @@ unsafe extern fn get_background_repeat<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_repeat<TH: TypeHolderTrait>
+unsafe extern fn set_background_repeat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2078,7 +2078,7 @@ unsafe extern fn set_background_repeat<TH: TypeHolderTrait>
 }
 
 
-fn background_repeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_repeat_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_repeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2096,7 +2096,7 @@ fn background_repeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn background_repeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_repeat_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_repeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2114,7 +2114,7 @@ fn background_repeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_backgroundImage<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundImage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2129,7 +2129,7 @@ unsafe extern fn get_backgroundImage<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundImage<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundImage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2161,7 +2161,7 @@ unsafe extern fn set_backgroundImage<TH: TypeHolderTrait>
 }
 
 
-fn backgroundImage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundImage_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2179,7 +2179,7 @@ fn backgroundImage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn backgroundImage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundImage_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2197,7 +2197,7 @@ fn backgroundImage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_background_image<TH: TypeHolderTrait>
+unsafe extern fn get_background_image<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2212,7 +2212,7 @@ unsafe extern fn get_background_image<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_image<TH: TypeHolderTrait>
+unsafe extern fn set_background_image<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2244,7 +2244,7 @@ unsafe extern fn set_background_image<TH: TypeHolderTrait>
 }
 
 
-fn background_image_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_image_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2262,7 +2262,7 @@ fn background_image_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn background_image_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_image_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2280,7 +2280,7 @@ fn background_image_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_backgroundAttachment<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundAttachment<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2295,7 +2295,7 @@ unsafe extern fn get_backgroundAttachment<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundAttachment<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundAttachment<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2327,7 +2327,7 @@ unsafe extern fn set_backgroundAttachment<TH: TypeHolderTrait>
 }
 
 
-fn backgroundAttachment_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundAttachment_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundAttachment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2345,7 +2345,7 @@ fn backgroundAttachment_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-fn backgroundAttachment_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundAttachment_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundAttachment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2363,7 +2363,7 @@ fn backgroundAttachment_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn get_background_attachment<TH: TypeHolderTrait>
+unsafe extern fn get_background_attachment<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2378,7 +2378,7 @@ unsafe extern fn get_background_attachment<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_attachment<TH: TypeHolderTrait>
+unsafe extern fn set_background_attachment<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2410,7 +2410,7 @@ unsafe extern fn set_background_attachment<TH: TypeHolderTrait>
 }
 
 
-fn background_attachment_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_attachment_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_attachment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2428,7 +2428,7 @@ fn background_attachment_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-fn background_attachment_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_attachment_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_attachment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2446,7 +2446,7 @@ fn background_attachment_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn get_backgroundSize<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2461,7 +2461,7 @@ unsafe extern fn get_backgroundSize<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundSize<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2493,7 +2493,7 @@ unsafe extern fn set_backgroundSize<TH: TypeHolderTrait>
 }
 
 
-fn backgroundSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundSize_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2511,7 +2511,7 @@ fn backgroundSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn backgroundSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundSize_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2529,7 +2529,7 @@ fn backgroundSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_background_size<TH: TypeHolderTrait>
+unsafe extern fn get_background_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2544,7 +2544,7 @@ unsafe extern fn get_background_size<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_size<TH: TypeHolderTrait>
+unsafe extern fn set_background_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2576,7 +2576,7 @@ unsafe extern fn set_background_size<TH: TypeHolderTrait>
 }
 
 
-fn background_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_size_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2594,7 +2594,7 @@ fn background_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn background_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_size_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2612,7 +2612,7 @@ fn background_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_backgroundOrigin<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundOrigin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2627,7 +2627,7 @@ unsafe extern fn get_backgroundOrigin<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundOrigin<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundOrigin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2659,7 +2659,7 @@ unsafe extern fn set_backgroundOrigin<TH: TypeHolderTrait>
 }
 
 
-fn backgroundOrigin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundOrigin_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2677,7 +2677,7 @@ fn backgroundOrigin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn backgroundOrigin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundOrigin_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2695,7 +2695,7 @@ fn backgroundOrigin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_background_origin<TH: TypeHolderTrait>
+unsafe extern fn get_background_origin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2710,7 +2710,7 @@ unsafe extern fn get_background_origin<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_origin<TH: TypeHolderTrait>
+unsafe extern fn set_background_origin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2742,7 +2742,7 @@ unsafe extern fn set_background_origin<TH: TypeHolderTrait>
 }
 
 
-fn background_origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_origin_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2760,7 +2760,7 @@ fn background_origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn background_origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_origin_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2778,7 +2778,7 @@ fn background_origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_backgroundClip<TH: TypeHolderTrait>
+unsafe extern fn get_backgroundClip<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2793,7 +2793,7 @@ unsafe extern fn get_backgroundClip<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backgroundClip<TH: TypeHolderTrait>
+unsafe extern fn set_backgroundClip<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2825,7 +2825,7 @@ unsafe extern fn set_backgroundClip<TH: TypeHolderTrait>
 }
 
 
-fn backgroundClip_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundClip_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backgroundClip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2843,7 +2843,7 @@ fn backgroundClip_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn backgroundClip_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backgroundClip_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backgroundClip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2861,7 +2861,7 @@ fn backgroundClip_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_background_clip<TH: TypeHolderTrait>
+unsafe extern fn get_background_clip<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2876,7 +2876,7 @@ unsafe extern fn get_background_clip<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_background_clip<TH: TypeHolderTrait>
+unsafe extern fn set_background_clip<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2908,7 +2908,7 @@ unsafe extern fn set_background_clip<TH: TypeHolderTrait>
 }
 
 
-fn background_clip_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_clip_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_background_clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2926,7 +2926,7 @@ fn background_clip_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn background_clip_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn background_clip_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_background_clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -2944,7 +2944,7 @@ fn background_clip_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border<TH: TypeHolderTrait>
+unsafe extern fn get_border<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2959,7 +2959,7 @@ unsafe extern fn get_border<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border<TH: TypeHolderTrait>
+unsafe extern fn set_border<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -2991,7 +2991,7 @@ unsafe extern fn set_border<TH: TypeHolderTrait>
 }
 
 
-fn border_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3009,7 +3009,7 @@ fn border_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3027,7 +3027,7 @@ fn border_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderColor<TH: TypeHolderTrait>
+unsafe extern fn get_borderColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3042,7 +3042,7 @@ unsafe extern fn get_borderColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderColor<TH: TypeHolderTrait>
+unsafe extern fn set_borderColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3074,7 +3074,7 @@ unsafe extern fn set_borderColor<TH: TypeHolderTrait>
 }
 
 
-fn borderColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3092,7 +3092,7 @@ fn borderColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3110,7 +3110,7 @@ fn borderColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_color<TH: TypeHolderTrait>
+unsafe extern fn get_border_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3125,7 +3125,7 @@ unsafe extern fn get_border_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_color<TH: TypeHolderTrait>
+unsafe extern fn set_border_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3157,7 +3157,7 @@ unsafe extern fn set_border_color<TH: TypeHolderTrait>
 }
 
 
-fn border_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3175,7 +3175,7 @@ fn border_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3193,7 +3193,7 @@ fn border_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderRadius<TH: TypeHolderTrait>
+unsafe extern fn get_borderRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3208,7 +3208,7 @@ unsafe extern fn get_borderRadius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderRadius<TH: TypeHolderTrait>
+unsafe extern fn set_borderRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3240,7 +3240,7 @@ unsafe extern fn set_borderRadius<TH: TypeHolderTrait>
 }
 
 
-fn borderRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRadius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3258,7 +3258,7 @@ fn borderRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRadius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3276,7 +3276,7 @@ fn borderRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_radius<TH: TypeHolderTrait>
+unsafe extern fn get_border_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3291,7 +3291,7 @@ unsafe extern fn get_border_radius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_radius<TH: TypeHolderTrait>
+unsafe extern fn set_border_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3323,7 +3323,7 @@ unsafe extern fn set_border_radius<TH: TypeHolderTrait>
 }
 
 
-fn border_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_radius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3341,7 +3341,7 @@ fn border_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_radius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3359,7 +3359,7 @@ fn border_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderSpacing<TH: TypeHolderTrait>
+unsafe extern fn get_borderSpacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3374,7 +3374,7 @@ unsafe extern fn get_borderSpacing<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderSpacing<TH: TypeHolderTrait>
+unsafe extern fn set_borderSpacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3406,7 +3406,7 @@ unsafe extern fn set_borderSpacing<TH: TypeHolderTrait>
 }
 
 
-fn borderSpacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderSpacing_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3424,7 +3424,7 @@ fn borderSpacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderSpacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderSpacing_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3442,7 +3442,7 @@ fn borderSpacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_spacing<TH: TypeHolderTrait>
+unsafe extern fn get_border_spacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3457,7 +3457,7 @@ unsafe extern fn get_border_spacing<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_spacing<TH: TypeHolderTrait>
+unsafe extern fn set_border_spacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3489,7 +3489,7 @@ unsafe extern fn set_border_spacing<TH: TypeHolderTrait>
 }
 
 
-fn border_spacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_spacing_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3507,7 +3507,7 @@ fn border_spacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_spacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_spacing_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3525,7 +3525,7 @@ fn border_spacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderStyle<TH: TypeHolderTrait>
+unsafe extern fn get_borderStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3540,7 +3540,7 @@ unsafe extern fn get_borderStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderStyle<TH: TypeHolderTrait>
+unsafe extern fn set_borderStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3572,7 +3572,7 @@ unsafe extern fn set_borderStyle<TH: TypeHolderTrait>
 }
 
 
-fn borderStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3590,7 +3590,7 @@ fn borderStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3608,7 +3608,7 @@ fn borderStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_style<TH: TypeHolderTrait>
+unsafe extern fn get_border_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3623,7 +3623,7 @@ unsafe extern fn get_border_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_style<TH: TypeHolderTrait>
+unsafe extern fn set_border_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3655,7 +3655,7 @@ unsafe extern fn set_border_style<TH: TypeHolderTrait>
 }
 
 
-fn border_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3673,7 +3673,7 @@ fn border_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3691,7 +3691,7 @@ fn border_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3706,7 +3706,7 @@ unsafe extern fn get_borderWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3738,7 +3738,7 @@ unsafe extern fn set_borderWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3756,7 +3756,7 @@ fn borderWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3774,7 +3774,7 @@ fn borderWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3789,7 +3789,7 @@ unsafe extern fn get_border_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3821,7 +3821,7 @@ unsafe extern fn set_border_width<TH: TypeHolderTrait>
 }
 
 
-fn border_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3839,7 +3839,7 @@ fn border_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3857,7 +3857,7 @@ fn border_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderBottom<TH: TypeHolderTrait>
+unsafe extern fn get_borderBottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3872,7 +3872,7 @@ unsafe extern fn get_borderBottom<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBottom<TH: TypeHolderTrait>
+unsafe extern fn set_borderBottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3904,7 +3904,7 @@ unsafe extern fn set_borderBottom<TH: TypeHolderTrait>
 }
 
 
-fn borderBottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottom_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3922,7 +3922,7 @@ fn borderBottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderBottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottom_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -3940,7 +3940,7 @@ fn borderBottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_bottom<TH: TypeHolderTrait>
+unsafe extern fn get_border_bottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3955,7 +3955,7 @@ unsafe extern fn get_border_bottom<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_bottom<TH: TypeHolderTrait>
+unsafe extern fn set_border_bottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -3987,7 +3987,7 @@ unsafe extern fn set_border_bottom<TH: TypeHolderTrait>
 }
 
 
-fn border_bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4005,7 +4005,7 @@ fn border_bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4023,7 +4023,7 @@ fn border_bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderBottomColor<TH: TypeHolderTrait>
+unsafe extern fn get_borderBottomColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4038,7 +4038,7 @@ unsafe extern fn get_borderBottomColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBottomColor<TH: TypeHolderTrait>
+unsafe extern fn set_borderBottomColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4070,7 +4070,7 @@ unsafe extern fn set_borderBottomColor<TH: TypeHolderTrait>
 }
 
 
-fn borderBottomColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBottomColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4088,7 +4088,7 @@ fn borderBottomColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn borderBottomColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBottomColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4106,7 +4106,7 @@ fn borderBottomColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_border_bottom_color<TH: TypeHolderTrait>
+unsafe extern fn get_border_bottom_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4121,7 +4121,7 @@ unsafe extern fn get_border_bottom_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_bottom_color<TH: TypeHolderTrait>
+unsafe extern fn set_border_bottom_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4153,7 +4153,7 @@ unsafe extern fn set_border_bottom_color<TH: TypeHolderTrait>
 }
 
 
-fn border_bottom_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_bottom_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4171,7 +4171,7 @@ fn border_bottom_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn border_bottom_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_bottom_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4189,7 +4189,7 @@ fn border_bottom_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_borderBottomLeftRadius<TH: TypeHolderTrait>
+unsafe extern fn get_borderBottomLeftRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4204,7 +4204,7 @@ unsafe extern fn get_borderBottomLeftRadius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBottomLeftRadius<TH: TypeHolderTrait>
+unsafe extern fn set_borderBottomLeftRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4236,7 +4236,7 @@ unsafe extern fn set_borderBottomLeftRadius<TH: TypeHolderTrait>
 }
 
 
-fn borderBottomLeftRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomLeftRadius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBottomLeftRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4254,7 +4254,7 @@ fn borderBottomLeftRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-fn borderBottomLeftRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomLeftRadius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBottomLeftRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4272,7 +4272,7 @@ fn borderBottomLeftRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn get_border_bottom_left_radius<TH: TypeHolderTrait>
+unsafe extern fn get_border_bottom_left_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4287,7 +4287,7 @@ unsafe extern fn get_border_bottom_left_radius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_bottom_left_radius<TH: TypeHolderTrait>
+unsafe extern fn set_border_bottom_left_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4319,7 +4319,7 @@ unsafe extern fn set_border_bottom_left_radius<TH: TypeHolderTrait>
 }
 
 
-fn border_bottom_left_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_left_radius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_bottom_left_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4337,7 +4337,7 @@ fn border_bottom_left_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-fn border_bottom_left_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_left_radius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_bottom_left_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4355,7 +4355,7 @@ fn border_bottom_left_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-unsafe extern fn get_borderBottomRightRadius<TH: TypeHolderTrait>
+unsafe extern fn get_borderBottomRightRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4370,7 +4370,7 @@ unsafe extern fn get_borderBottomRightRadius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBottomRightRadius<TH: TypeHolderTrait>
+unsafe extern fn set_borderBottomRightRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4402,7 +4402,7 @@ unsafe extern fn set_borderBottomRightRadius<TH: TypeHolderTrait>
 }
 
 
-fn borderBottomRightRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomRightRadius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBottomRightRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4420,7 +4420,7 @@ fn borderBottomRightRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-fn borderBottomRightRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomRightRadius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBottomRightRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4438,7 +4438,7 @@ fn borderBottomRightRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn get_border_bottom_right_radius<TH: TypeHolderTrait>
+unsafe extern fn get_border_bottom_right_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4453,7 +4453,7 @@ unsafe extern fn get_border_bottom_right_radius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_bottom_right_radius<TH: TypeHolderTrait>
+unsafe extern fn set_border_bottom_right_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4485,7 +4485,7 @@ unsafe extern fn set_border_bottom_right_radius<TH: TypeHolderTrait>
 }
 
 
-fn border_bottom_right_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_right_radius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_bottom_right_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4503,7 +4503,7 @@ fn border_bottom_right_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { J
     ),
 }}
 
-fn border_bottom_right_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_right_radius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_bottom_right_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4521,7 +4521,7 @@ fn border_bottom_right_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { J
     ),
 }}
 
-unsafe extern fn get_borderBottomStyle<TH: TypeHolderTrait>
+unsafe extern fn get_borderBottomStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4536,7 +4536,7 @@ unsafe extern fn get_borderBottomStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBottomStyle<TH: TypeHolderTrait>
+unsafe extern fn set_borderBottomStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4568,7 +4568,7 @@ unsafe extern fn set_borderBottomStyle<TH: TypeHolderTrait>
 }
 
 
-fn borderBottomStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBottomStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4586,7 +4586,7 @@ fn borderBottomStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn borderBottomStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBottomStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4604,7 +4604,7 @@ fn borderBottomStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_border_bottom_style<TH: TypeHolderTrait>
+unsafe extern fn get_border_bottom_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4619,7 +4619,7 @@ unsafe extern fn get_border_bottom_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_bottom_style<TH: TypeHolderTrait>
+unsafe extern fn set_border_bottom_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4651,7 +4651,7 @@ unsafe extern fn set_border_bottom_style<TH: TypeHolderTrait>
 }
 
 
-fn border_bottom_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_bottom_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4669,7 +4669,7 @@ fn border_bottom_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn border_bottom_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_bottom_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4687,7 +4687,7 @@ fn border_bottom_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_borderBottomWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderBottomWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4702,7 +4702,7 @@ unsafe extern fn get_borderBottomWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBottomWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderBottomWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4734,7 +4734,7 @@ unsafe extern fn set_borderBottomWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderBottomWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBottomWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4752,7 +4752,7 @@ fn borderBottomWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn borderBottomWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBottomWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBottomWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4770,7 +4770,7 @@ fn borderBottomWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_border_bottom_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_bottom_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4785,7 +4785,7 @@ unsafe extern fn get_border_bottom_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_bottom_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_bottom_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4817,7 +4817,7 @@ unsafe extern fn set_border_bottom_width<TH: TypeHolderTrait>
 }
 
 
-fn border_bottom_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_bottom_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4835,7 +4835,7 @@ fn border_bottom_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn border_bottom_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_bottom_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_bottom_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4853,7 +4853,7 @@ fn border_bottom_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_borderLeft<TH: TypeHolderTrait>
+unsafe extern fn get_borderLeft<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4868,7 +4868,7 @@ unsafe extern fn get_borderLeft<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderLeft<TH: TypeHolderTrait>
+unsafe extern fn set_borderLeft<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4900,7 +4900,7 @@ unsafe extern fn set_borderLeft<TH: TypeHolderTrait>
 }
 
 
-fn borderLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderLeft_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4918,7 +4918,7 @@ fn borderLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderLeft_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderLeft_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -4936,7 +4936,7 @@ fn borderLeft_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_left<TH: TypeHolderTrait>
+unsafe extern fn get_border_left<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4951,7 +4951,7 @@ unsafe extern fn get_border_left<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_left<TH: TypeHolderTrait>
+unsafe extern fn set_border_left<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -4983,7 +4983,7 @@ unsafe extern fn set_border_left<TH: TypeHolderTrait>
 }
 
 
-fn border_left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_left_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5001,7 +5001,7 @@ fn border_left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_left_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5019,7 +5019,7 @@ fn border_left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderLeftColor<TH: TypeHolderTrait>
+unsafe extern fn get_borderLeftColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5034,7 +5034,7 @@ unsafe extern fn get_borderLeftColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderLeftColor<TH: TypeHolderTrait>
+unsafe extern fn set_borderLeftColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5066,7 +5066,7 @@ unsafe extern fn set_borderLeftColor<TH: TypeHolderTrait>
 }
 
 
-fn borderLeftColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderLeftColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderLeftColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5084,7 +5084,7 @@ fn borderLeftColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderLeftColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderLeftColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderLeftColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5102,7 +5102,7 @@ fn borderLeftColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_left_color<TH: TypeHolderTrait>
+unsafe extern fn get_border_left_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5117,7 +5117,7 @@ unsafe extern fn get_border_left_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_left_color<TH: TypeHolderTrait>
+unsafe extern fn set_border_left_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5149,7 +5149,7 @@ unsafe extern fn set_border_left_color<TH: TypeHolderTrait>
 }
 
 
-fn border_left_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_left_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_left_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5167,7 +5167,7 @@ fn border_left_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn border_left_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_left_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_left_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5185,7 +5185,7 @@ fn border_left_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_borderLeftStyle<TH: TypeHolderTrait>
+unsafe extern fn get_borderLeftStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5200,7 +5200,7 @@ unsafe extern fn get_borderLeftStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderLeftStyle<TH: TypeHolderTrait>
+unsafe extern fn set_borderLeftStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5232,7 +5232,7 @@ unsafe extern fn set_borderLeftStyle<TH: TypeHolderTrait>
 }
 
 
-fn borderLeftStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderLeftStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderLeftStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5250,7 +5250,7 @@ fn borderLeftStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderLeftStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderLeftStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderLeftStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5268,7 +5268,7 @@ fn borderLeftStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_left_style<TH: TypeHolderTrait>
+unsafe extern fn get_border_left_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5283,7 +5283,7 @@ unsafe extern fn get_border_left_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_left_style<TH: TypeHolderTrait>
+unsafe extern fn set_border_left_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5315,7 +5315,7 @@ unsafe extern fn set_border_left_style<TH: TypeHolderTrait>
 }
 
 
-fn border_left_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_left_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_left_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5333,7 +5333,7 @@ fn border_left_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn border_left_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_left_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_left_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5351,7 +5351,7 @@ fn border_left_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_borderLeftWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderLeftWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5366,7 +5366,7 @@ unsafe extern fn get_borderLeftWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderLeftWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderLeftWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5398,7 +5398,7 @@ unsafe extern fn set_borderLeftWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderLeftWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderLeftWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderLeftWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5416,7 +5416,7 @@ fn borderLeftWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderLeftWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderLeftWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderLeftWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5434,7 +5434,7 @@ fn borderLeftWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_left_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_left_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5449,7 +5449,7 @@ unsafe extern fn get_border_left_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_left_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_left_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5481,7 +5481,7 @@ unsafe extern fn set_border_left_width<TH: TypeHolderTrait>
 }
 
 
-fn border_left_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_left_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_left_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5499,7 +5499,7 @@ fn border_left_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn border_left_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_left_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_left_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5517,7 +5517,7 @@ fn border_left_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_borderRight<TH: TypeHolderTrait>
+unsafe extern fn get_borderRight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5532,7 +5532,7 @@ unsafe extern fn get_borderRight<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderRight<TH: TypeHolderTrait>
+unsafe extern fn set_borderRight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5564,7 +5564,7 @@ unsafe extern fn set_borderRight<TH: TypeHolderTrait>
 }
 
 
-fn borderRight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRight_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5582,7 +5582,7 @@ fn borderRight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderRight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRight_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5600,7 +5600,7 @@ fn borderRight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_right<TH: TypeHolderTrait>
+unsafe extern fn get_border_right<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5615,7 +5615,7 @@ unsafe extern fn get_border_right<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_right<TH: TypeHolderTrait>
+unsafe extern fn set_border_right<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5647,7 +5647,7 @@ unsafe extern fn set_border_right<TH: TypeHolderTrait>
 }
 
 
-fn border_right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_right_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5665,7 +5665,7 @@ fn border_right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_right_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5683,7 +5683,7 @@ fn border_right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderRightColor<TH: TypeHolderTrait>
+unsafe extern fn get_borderRightColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5698,7 +5698,7 @@ unsafe extern fn get_borderRightColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderRightColor<TH: TypeHolderTrait>
+unsafe extern fn set_borderRightColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5730,7 +5730,7 @@ unsafe extern fn set_borderRightColor<TH: TypeHolderTrait>
 }
 
 
-fn borderRightColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRightColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderRightColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5748,7 +5748,7 @@ fn borderRightColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderRightColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRightColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderRightColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5766,7 +5766,7 @@ fn borderRightColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_right_color<TH: TypeHolderTrait>
+unsafe extern fn get_border_right_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5781,7 +5781,7 @@ unsafe extern fn get_border_right_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_right_color<TH: TypeHolderTrait>
+unsafe extern fn set_border_right_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5813,7 +5813,7 @@ unsafe extern fn set_border_right_color<TH: TypeHolderTrait>
 }
 
 
-fn border_right_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_right_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_right_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5831,7 +5831,7 @@ fn border_right_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn border_right_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_right_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_right_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5849,7 +5849,7 @@ fn border_right_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_borderRightStyle<TH: TypeHolderTrait>
+unsafe extern fn get_borderRightStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5864,7 +5864,7 @@ unsafe extern fn get_borderRightStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderRightStyle<TH: TypeHolderTrait>
+unsafe extern fn set_borderRightStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5896,7 +5896,7 @@ unsafe extern fn set_borderRightStyle<TH: TypeHolderTrait>
 }
 
 
-fn borderRightStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRightStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderRightStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5914,7 +5914,7 @@ fn borderRightStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderRightStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRightStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderRightStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5932,7 +5932,7 @@ fn borderRightStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_right_style<TH: TypeHolderTrait>
+unsafe extern fn get_border_right_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5947,7 +5947,7 @@ unsafe extern fn get_border_right_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_right_style<TH: TypeHolderTrait>
+unsafe extern fn set_border_right_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -5979,7 +5979,7 @@ unsafe extern fn set_border_right_style<TH: TypeHolderTrait>
 }
 
 
-fn border_right_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_right_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_right_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -5997,7 +5997,7 @@ fn border_right_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn border_right_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_right_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_right_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6015,7 +6015,7 @@ fn border_right_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_borderRightWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderRightWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6030,7 +6030,7 @@ unsafe extern fn get_borderRightWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderRightWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderRightWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6062,7 +6062,7 @@ unsafe extern fn set_borderRightWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderRightWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRightWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderRightWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6080,7 +6080,7 @@ fn borderRightWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderRightWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderRightWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderRightWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6098,7 +6098,7 @@ fn borderRightWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_right_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_right_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6113,7 +6113,7 @@ unsafe extern fn get_border_right_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_right_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_right_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6145,7 +6145,7 @@ unsafe extern fn set_border_right_width<TH: TypeHolderTrait>
 }
 
 
-fn border_right_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_right_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_right_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6163,7 +6163,7 @@ fn border_right_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn border_right_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_right_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_right_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6181,7 +6181,7 @@ fn border_right_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_borderTop<TH: TypeHolderTrait>
+unsafe extern fn get_borderTop<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6196,7 +6196,7 @@ unsafe extern fn get_borderTop<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderTop<TH: TypeHolderTrait>
+unsafe extern fn set_borderTop<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6228,7 +6228,7 @@ unsafe extern fn set_borderTop<TH: TypeHolderTrait>
 }
 
 
-fn borderTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTop_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6246,7 +6246,7 @@ fn borderTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderTop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTop_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6264,7 +6264,7 @@ fn borderTop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_top<TH: TypeHolderTrait>
+unsafe extern fn get_border_top<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6279,7 +6279,7 @@ unsafe extern fn get_border_top<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_top<TH: TypeHolderTrait>
+unsafe extern fn set_border_top<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6311,7 +6311,7 @@ unsafe extern fn set_border_top<TH: TypeHolderTrait>
 }
 
 
-fn border_top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6329,7 +6329,7 @@ fn border_top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6347,7 +6347,7 @@ fn border_top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderTopColor<TH: TypeHolderTrait>
+unsafe extern fn get_borderTopColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6362,7 +6362,7 @@ unsafe extern fn get_borderTopColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderTopColor<TH: TypeHolderTrait>
+unsafe extern fn set_borderTopColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6394,7 +6394,7 @@ unsafe extern fn set_borderTopColor<TH: TypeHolderTrait>
 }
 
 
-fn borderTopColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderTopColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6412,7 +6412,7 @@ fn borderTopColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderTopColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderTopColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6430,7 +6430,7 @@ fn borderTopColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_top_color<TH: TypeHolderTrait>
+unsafe extern fn get_border_top_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6445,7 +6445,7 @@ unsafe extern fn get_border_top_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_top_color<TH: TypeHolderTrait>
+unsafe extern fn set_border_top_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6477,7 +6477,7 @@ unsafe extern fn set_border_top_color<TH: TypeHolderTrait>
 }
 
 
-fn border_top_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_top_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6495,7 +6495,7 @@ fn border_top_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_top_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_top_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6513,7 +6513,7 @@ fn border_top_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderTopLeftRadius<TH: TypeHolderTrait>
+unsafe extern fn get_borderTopLeftRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6528,7 +6528,7 @@ unsafe extern fn get_borderTopLeftRadius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderTopLeftRadius<TH: TypeHolderTrait>
+unsafe extern fn set_borderTopLeftRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6560,7 +6560,7 @@ unsafe extern fn set_borderTopLeftRadius<TH: TypeHolderTrait>
 }
 
 
-fn borderTopLeftRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopLeftRadius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderTopLeftRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6578,7 +6578,7 @@ fn borderTopLeftRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn borderTopLeftRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopLeftRadius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderTopLeftRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6596,7 +6596,7 @@ fn borderTopLeftRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_border_top_left_radius<TH: TypeHolderTrait>
+unsafe extern fn get_border_top_left_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6611,7 +6611,7 @@ unsafe extern fn get_border_top_left_radius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_top_left_radius<TH: TypeHolderTrait>
+unsafe extern fn set_border_top_left_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6643,7 +6643,7 @@ unsafe extern fn set_border_top_left_radius<TH: TypeHolderTrait>
 }
 
 
-fn border_top_left_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_left_radius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_top_left_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6661,7 +6661,7 @@ fn border_top_left_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-fn border_top_left_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_left_radius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_top_left_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6679,7 +6679,7 @@ fn border_top_left_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn get_borderTopRightRadius<TH: TypeHolderTrait>
+unsafe extern fn get_borderTopRightRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6694,7 +6694,7 @@ unsafe extern fn get_borderTopRightRadius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderTopRightRadius<TH: TypeHolderTrait>
+unsafe extern fn set_borderTopRightRadius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6726,7 +6726,7 @@ unsafe extern fn set_borderTopRightRadius<TH: TypeHolderTrait>
 }
 
 
-fn borderTopRightRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopRightRadius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderTopRightRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6744,7 +6744,7 @@ fn borderTopRightRadius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-fn borderTopRightRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopRightRadius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderTopRightRadius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6762,7 +6762,7 @@ fn borderTopRightRadius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn get_border_top_right_radius<TH: TypeHolderTrait>
+unsafe extern fn get_border_top_right_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6777,7 +6777,7 @@ unsafe extern fn get_border_top_right_radius<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_top_right_radius<TH: TypeHolderTrait>
+unsafe extern fn set_border_top_right_radius<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6809,7 +6809,7 @@ unsafe extern fn set_border_top_right_radius<TH: TypeHolderTrait>
 }
 
 
-fn border_top_right_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_right_radius_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_top_right_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6827,7 +6827,7 @@ fn border_top_right_radius_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-fn border_top_right_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_right_radius_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_top_right_radius::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6845,7 +6845,7 @@ fn border_top_right_radius_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn get_borderTopStyle<TH: TypeHolderTrait>
+unsafe extern fn get_borderTopStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6860,7 +6860,7 @@ unsafe extern fn get_borderTopStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderTopStyle<TH: TypeHolderTrait>
+unsafe extern fn set_borderTopStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6892,7 +6892,7 @@ unsafe extern fn set_borderTopStyle<TH: TypeHolderTrait>
 }
 
 
-fn borderTopStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderTopStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6910,7 +6910,7 @@ fn borderTopStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderTopStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderTopStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6928,7 +6928,7 @@ fn borderTopStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_top_style<TH: TypeHolderTrait>
+unsafe extern fn get_border_top_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6943,7 +6943,7 @@ unsafe extern fn get_border_top_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_top_style<TH: TypeHolderTrait>
+unsafe extern fn set_border_top_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -6975,7 +6975,7 @@ unsafe extern fn set_border_top_style<TH: TypeHolderTrait>
 }
 
 
-fn border_top_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_top_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -6993,7 +6993,7 @@ fn border_top_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_top_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_top_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7011,7 +7011,7 @@ fn border_top_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderTopWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderTopWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7026,7 +7026,7 @@ unsafe extern fn get_borderTopWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderTopWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderTopWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7058,7 +7058,7 @@ unsafe extern fn set_borderTopWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderTopWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderTopWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7076,7 +7076,7 @@ fn borderTopWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderTopWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderTopWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderTopWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7094,7 +7094,7 @@ fn borderTopWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_top_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_top_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7109,7 +7109,7 @@ unsafe extern fn get_border_top_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_top_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_top_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7141,7 +7141,7 @@ unsafe extern fn set_border_top_width<TH: TypeHolderTrait>
 }
 
 
-fn border_top_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_top_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7159,7 +7159,7 @@ fn border_top_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_top_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_top_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_top_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7177,7 +7177,7 @@ fn border_top_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_image_source<TH: TypeHolderTrait>
+unsafe extern fn get_border_image_source<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7192,7 +7192,7 @@ unsafe extern fn get_border_image_source<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_image_source<TH: TypeHolderTrait>
+unsafe extern fn set_border_image_source<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7224,7 +7224,7 @@ unsafe extern fn set_border_image_source<TH: TypeHolderTrait>
 }
 
 
-fn border_image_source_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_source_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_image_source::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7242,7 +7242,7 @@ fn border_image_source_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn border_image_source_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_source_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_image_source::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7260,7 +7260,7 @@ fn border_image_source_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_borderImageSource<TH: TypeHolderTrait>
+unsafe extern fn get_borderImageSource<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7275,7 +7275,7 @@ unsafe extern fn get_borderImageSource<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderImageSource<TH: TypeHolderTrait>
+unsafe extern fn set_borderImageSource<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7307,7 +7307,7 @@ unsafe extern fn set_borderImageSource<TH: TypeHolderTrait>
 }
 
 
-fn borderImageSource_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageSource_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderImageSource::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7325,7 +7325,7 @@ fn borderImageSource_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn borderImageSource_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageSource_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderImageSource::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7343,7 +7343,7 @@ fn borderImageSource_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_border_image_slice<TH: TypeHolderTrait>
+unsafe extern fn get_border_image_slice<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7358,7 +7358,7 @@ unsafe extern fn get_border_image_slice<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_image_slice<TH: TypeHolderTrait>
+unsafe extern fn set_border_image_slice<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7390,7 +7390,7 @@ unsafe extern fn set_border_image_slice<TH: TypeHolderTrait>
 }
 
 
-fn border_image_slice_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_slice_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_image_slice::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7408,7 +7408,7 @@ fn border_image_slice_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn border_image_slice_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_slice_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_image_slice::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7426,7 +7426,7 @@ fn border_image_slice_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_borderImageSlice<TH: TypeHolderTrait>
+unsafe extern fn get_borderImageSlice<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7441,7 +7441,7 @@ unsafe extern fn get_borderImageSlice<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderImageSlice<TH: TypeHolderTrait>
+unsafe extern fn set_borderImageSlice<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7473,7 +7473,7 @@ unsafe extern fn set_borderImageSlice<TH: TypeHolderTrait>
 }
 
 
-fn borderImageSlice_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageSlice_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderImageSlice::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7491,7 +7491,7 @@ fn borderImageSlice_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderImageSlice_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageSlice_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderImageSlice::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7509,7 +7509,7 @@ fn borderImageSlice_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_image_repeat<TH: TypeHolderTrait>
+unsafe extern fn get_border_image_repeat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7524,7 +7524,7 @@ unsafe extern fn get_border_image_repeat<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_image_repeat<TH: TypeHolderTrait>
+unsafe extern fn set_border_image_repeat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7556,7 +7556,7 @@ unsafe extern fn set_border_image_repeat<TH: TypeHolderTrait>
 }
 
 
-fn border_image_repeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_repeat_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_image_repeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7574,7 +7574,7 @@ fn border_image_repeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn border_image_repeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_repeat_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_image_repeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7592,7 +7592,7 @@ fn border_image_repeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_borderImageRepeat<TH: TypeHolderTrait>
+unsafe extern fn get_borderImageRepeat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7607,7 +7607,7 @@ unsafe extern fn get_borderImageRepeat<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderImageRepeat<TH: TypeHolderTrait>
+unsafe extern fn set_borderImageRepeat<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7639,7 +7639,7 @@ unsafe extern fn set_borderImageRepeat<TH: TypeHolderTrait>
 }
 
 
-fn borderImageRepeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageRepeat_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderImageRepeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7657,7 +7657,7 @@ fn borderImageRepeat_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn borderImageRepeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageRepeat_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderImageRepeat::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7675,7 +7675,7 @@ fn borderImageRepeat_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_border_image_outset<TH: TypeHolderTrait>
+unsafe extern fn get_border_image_outset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7690,7 +7690,7 @@ unsafe extern fn get_border_image_outset<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_image_outset<TH: TypeHolderTrait>
+unsafe extern fn set_border_image_outset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7722,7 +7722,7 @@ unsafe extern fn set_border_image_outset<TH: TypeHolderTrait>
 }
 
 
-fn border_image_outset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_outset_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_image_outset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7740,7 +7740,7 @@ fn border_image_outset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn border_image_outset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_outset_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_image_outset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7758,7 +7758,7 @@ fn border_image_outset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_borderImageOutset<TH: TypeHolderTrait>
+unsafe extern fn get_borderImageOutset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7773,7 +7773,7 @@ unsafe extern fn get_borderImageOutset<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderImageOutset<TH: TypeHolderTrait>
+unsafe extern fn set_borderImageOutset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7805,7 +7805,7 @@ unsafe extern fn set_borderImageOutset<TH: TypeHolderTrait>
 }
 
 
-fn borderImageOutset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageOutset_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderImageOutset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7823,7 +7823,7 @@ fn borderImageOutset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn borderImageOutset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageOutset_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderImageOutset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7841,7 +7841,7 @@ fn borderImageOutset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_border_image_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_image_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7856,7 +7856,7 @@ unsafe extern fn get_border_image_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_image_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_image_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7888,7 +7888,7 @@ unsafe extern fn set_border_image_width<TH: TypeHolderTrait>
 }
 
 
-fn border_image_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_image_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7906,7 +7906,7 @@ fn border_image_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn border_image_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_image_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7924,7 +7924,7 @@ fn border_image_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_borderImageWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderImageWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7939,7 +7939,7 @@ unsafe extern fn get_borderImageWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderImageWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderImageWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -7971,7 +7971,7 @@ unsafe extern fn set_borderImageWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderImageWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderImageWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -7989,7 +7989,7 @@ fn borderImageWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderImageWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImageWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderImageWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8007,7 +8007,7 @@ fn borderImageWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_image<TH: TypeHolderTrait>
+unsafe extern fn get_border_image<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8022,7 +8022,7 @@ unsafe extern fn get_border_image<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_image<TH: TypeHolderTrait>
+unsafe extern fn set_border_image<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8054,7 +8054,7 @@ unsafe extern fn set_border_image<TH: TypeHolderTrait>
 }
 
 
-fn border_image_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8072,7 +8072,7 @@ fn border_image_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_image_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_image_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8090,7 +8090,7 @@ fn border_image_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderImage<TH: TypeHolderTrait>
+unsafe extern fn get_borderImage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8105,7 +8105,7 @@ unsafe extern fn get_borderImage<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderImage<TH: TypeHolderTrait>
+unsafe extern fn set_borderImage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8137,7 +8137,7 @@ unsafe extern fn set_borderImage<TH: TypeHolderTrait>
 }
 
 
-fn borderImage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImage_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8155,7 +8155,7 @@ fn borderImage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderImage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderImage_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8173,7 +8173,7 @@ fn borderImage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_block_start_color<TH: TypeHolderTrait>
+unsafe extern fn get_border_block_start_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8188,7 +8188,7 @@ unsafe extern fn get_border_block_start_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_block_start_color<TH: TypeHolderTrait>
+unsafe extern fn set_border_block_start_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8220,7 +8220,7 @@ unsafe extern fn set_border_block_start_color<TH: TypeHolderTrait>
 }
 
 
-fn border_block_start_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_start_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_block_start_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8238,7 +8238,7 @@ fn border_block_start_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-fn border_block_start_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_start_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_block_start_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8256,7 +8256,7 @@ fn border_block_start_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-unsafe extern fn get_borderBlockStartColor<TH: TypeHolderTrait>
+unsafe extern fn get_borderBlockStartColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8271,7 +8271,7 @@ unsafe extern fn get_borderBlockStartColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBlockStartColor<TH: TypeHolderTrait>
+unsafe extern fn set_borderBlockStartColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8303,7 +8303,7 @@ unsafe extern fn set_borderBlockStartColor<TH: TypeHolderTrait>
 }
 
 
-fn borderBlockStartColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockStartColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBlockStartColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8321,7 +8321,7 @@ fn borderBlockStartColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-fn borderBlockStartColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockStartColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBlockStartColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8339,7 +8339,7 @@ fn borderBlockStartColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn get_border_block_start_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_block_start_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8354,7 +8354,7 @@ unsafe extern fn get_border_block_start_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_block_start_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_block_start_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8386,7 +8386,7 @@ unsafe extern fn set_border_block_start_width<TH: TypeHolderTrait>
 }
 
 
-fn border_block_start_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_start_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_block_start_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8404,7 +8404,7 @@ fn border_block_start_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-fn border_block_start_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_start_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_block_start_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8422,7 +8422,7 @@ fn border_block_start_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-unsafe extern fn get_borderBlockStartWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderBlockStartWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8437,7 +8437,7 @@ unsafe extern fn get_borderBlockStartWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBlockStartWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderBlockStartWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8469,7 +8469,7 @@ unsafe extern fn set_borderBlockStartWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderBlockStartWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockStartWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBlockStartWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8487,7 +8487,7 @@ fn borderBlockStartWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-fn borderBlockStartWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockStartWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBlockStartWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8505,7 +8505,7 @@ fn borderBlockStartWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn get_border_block_start_style<TH: TypeHolderTrait>
+unsafe extern fn get_border_block_start_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8520,7 +8520,7 @@ unsafe extern fn get_border_block_start_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_block_start_style<TH: TypeHolderTrait>
+unsafe extern fn set_border_block_start_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8552,7 +8552,7 @@ unsafe extern fn set_border_block_start_style<TH: TypeHolderTrait>
 }
 
 
-fn border_block_start_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_start_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_block_start_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8570,7 +8570,7 @@ fn border_block_start_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-fn border_block_start_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_start_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_block_start_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8588,7 +8588,7 @@ fn border_block_start_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-unsafe extern fn get_borderBlockStartStyle<TH: TypeHolderTrait>
+unsafe extern fn get_borderBlockStartStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8603,7 +8603,7 @@ unsafe extern fn get_borderBlockStartStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBlockStartStyle<TH: TypeHolderTrait>
+unsafe extern fn set_borderBlockStartStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8635,7 +8635,7 @@ unsafe extern fn set_borderBlockStartStyle<TH: TypeHolderTrait>
 }
 
 
-fn borderBlockStartStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockStartStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBlockStartStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8653,7 +8653,7 @@ fn borderBlockStartStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-fn borderBlockStartStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockStartStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBlockStartStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8671,7 +8671,7 @@ fn borderBlockStartStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn get_border_block_end_color<TH: TypeHolderTrait>
+unsafe extern fn get_border_block_end_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8686,7 +8686,7 @@ unsafe extern fn get_border_block_end_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_block_end_color<TH: TypeHolderTrait>
+unsafe extern fn set_border_block_end_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8718,7 +8718,7 @@ unsafe extern fn set_border_block_end_color<TH: TypeHolderTrait>
 }
 
 
-fn border_block_end_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_end_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_block_end_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8736,7 +8736,7 @@ fn border_block_end_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-fn border_block_end_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_end_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_block_end_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8754,7 +8754,7 @@ fn border_block_end_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn get_borderBlockEndColor<TH: TypeHolderTrait>
+unsafe extern fn get_borderBlockEndColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8769,7 +8769,7 @@ unsafe extern fn get_borderBlockEndColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBlockEndColor<TH: TypeHolderTrait>
+unsafe extern fn set_borderBlockEndColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8801,7 +8801,7 @@ unsafe extern fn set_borderBlockEndColor<TH: TypeHolderTrait>
 }
 
 
-fn borderBlockEndColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockEndColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBlockEndColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8819,7 +8819,7 @@ fn borderBlockEndColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn borderBlockEndColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockEndColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBlockEndColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8837,7 +8837,7 @@ fn borderBlockEndColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_border_block_end_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_block_end_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8852,7 +8852,7 @@ unsafe extern fn get_border_block_end_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_block_end_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_block_end_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8884,7 +8884,7 @@ unsafe extern fn set_border_block_end_width<TH: TypeHolderTrait>
 }
 
 
-fn border_block_end_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_end_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_block_end_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8902,7 +8902,7 @@ fn border_block_end_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-fn border_block_end_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_end_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_block_end_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8920,7 +8920,7 @@ fn border_block_end_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn get_borderBlockEndWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderBlockEndWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8935,7 +8935,7 @@ unsafe extern fn get_borderBlockEndWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBlockEndWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderBlockEndWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -8967,7 +8967,7 @@ unsafe extern fn set_borderBlockEndWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderBlockEndWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockEndWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBlockEndWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -8985,7 +8985,7 @@ fn borderBlockEndWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn borderBlockEndWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockEndWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBlockEndWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9003,7 +9003,7 @@ fn borderBlockEndWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_border_block_end_style<TH: TypeHolderTrait>
+unsafe extern fn get_border_block_end_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9018,7 +9018,7 @@ unsafe extern fn get_border_block_end_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_block_end_style<TH: TypeHolderTrait>
+unsafe extern fn set_border_block_end_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9050,7 +9050,7 @@ unsafe extern fn set_border_block_end_style<TH: TypeHolderTrait>
 }
 
 
-fn border_block_end_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_end_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_block_end_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9068,7 +9068,7 @@ fn border_block_end_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-fn border_block_end_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_end_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_block_end_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9086,7 +9086,7 @@ fn border_block_end_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn get_borderBlockEndStyle<TH: TypeHolderTrait>
+unsafe extern fn get_borderBlockEndStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9101,7 +9101,7 @@ unsafe extern fn get_borderBlockEndStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBlockEndStyle<TH: TypeHolderTrait>
+unsafe extern fn set_borderBlockEndStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9133,7 +9133,7 @@ unsafe extern fn set_borderBlockEndStyle<TH: TypeHolderTrait>
 }
 
 
-fn borderBlockEndStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockEndStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBlockEndStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9151,7 +9151,7 @@ fn borderBlockEndStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn borderBlockEndStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockEndStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBlockEndStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9169,7 +9169,7 @@ fn borderBlockEndStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_border_inline_start_color<TH: TypeHolderTrait>
+unsafe extern fn get_border_inline_start_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9184,7 +9184,7 @@ unsafe extern fn get_border_inline_start_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_inline_start_color<TH: TypeHolderTrait>
+unsafe extern fn set_border_inline_start_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9216,7 +9216,7 @@ unsafe extern fn set_border_inline_start_color<TH: TypeHolderTrait>
 }
 
 
-fn border_inline_start_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_start_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_inline_start_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9234,7 +9234,7 @@ fn border_inline_start_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-fn border_inline_start_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_start_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_inline_start_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9252,7 +9252,7 @@ fn border_inline_start_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-unsafe extern fn get_borderInlineStartColor<TH: TypeHolderTrait>
+unsafe extern fn get_borderInlineStartColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9267,7 +9267,7 @@ unsafe extern fn get_borderInlineStartColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderInlineStartColor<TH: TypeHolderTrait>
+unsafe extern fn set_borderInlineStartColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9299,7 +9299,7 @@ unsafe extern fn set_borderInlineStartColor<TH: TypeHolderTrait>
 }
 
 
-fn borderInlineStartColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineStartColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderInlineStartColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9317,7 +9317,7 @@ fn borderInlineStartColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-fn borderInlineStartColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineStartColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderInlineStartColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9335,7 +9335,7 @@ fn borderInlineStartColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn get_border_inline_start_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_inline_start_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9350,7 +9350,7 @@ unsafe extern fn get_border_inline_start_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_inline_start_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_inline_start_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9382,7 +9382,7 @@ unsafe extern fn set_border_inline_start_width<TH: TypeHolderTrait>
 }
 
 
-fn border_inline_start_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_start_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_inline_start_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9400,7 +9400,7 @@ fn border_inline_start_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-fn border_inline_start_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_start_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_inline_start_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9418,7 +9418,7 @@ fn border_inline_start_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-unsafe extern fn get_borderInlineStartWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderInlineStartWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9433,7 +9433,7 @@ unsafe extern fn get_borderInlineStartWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderInlineStartWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderInlineStartWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9465,7 +9465,7 @@ unsafe extern fn set_borderInlineStartWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderInlineStartWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineStartWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderInlineStartWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9483,7 +9483,7 @@ fn borderInlineStartWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-fn borderInlineStartWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineStartWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderInlineStartWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9501,7 +9501,7 @@ fn borderInlineStartWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn get_border_inline_start_style<TH: TypeHolderTrait>
+unsafe extern fn get_border_inline_start_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9516,7 +9516,7 @@ unsafe extern fn get_border_inline_start_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_inline_start_style<TH: TypeHolderTrait>
+unsafe extern fn set_border_inline_start_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9548,7 +9548,7 @@ unsafe extern fn set_border_inline_start_style<TH: TypeHolderTrait>
 }
 
 
-fn border_inline_start_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_start_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_inline_start_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9566,7 +9566,7 @@ fn border_inline_start_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-fn border_inline_start_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_start_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_inline_start_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9584,7 +9584,7 @@ fn border_inline_start_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-unsafe extern fn get_borderInlineStartStyle<TH: TypeHolderTrait>
+unsafe extern fn get_borderInlineStartStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9599,7 +9599,7 @@ unsafe extern fn get_borderInlineStartStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderInlineStartStyle<TH: TypeHolderTrait>
+unsafe extern fn set_borderInlineStartStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9631,7 +9631,7 @@ unsafe extern fn set_borderInlineStartStyle<TH: TypeHolderTrait>
 }
 
 
-fn borderInlineStartStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineStartStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderInlineStartStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9649,7 +9649,7 @@ fn borderInlineStartStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-fn borderInlineStartStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineStartStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderInlineStartStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9667,7 +9667,7 @@ fn borderInlineStartStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJit
     ),
 }}
 
-unsafe extern fn get_border_inline_end_color<TH: TypeHolderTrait>
+unsafe extern fn get_border_inline_end_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9682,7 +9682,7 @@ unsafe extern fn get_border_inline_end_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_inline_end_color<TH: TypeHolderTrait>
+unsafe extern fn set_border_inline_end_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9714,7 +9714,7 @@ unsafe extern fn set_border_inline_end_color<TH: TypeHolderTrait>
 }
 
 
-fn border_inline_end_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_end_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_inline_end_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9732,7 +9732,7 @@ fn border_inline_end_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-fn border_inline_end_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_end_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_inline_end_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9750,7 +9750,7 @@ fn border_inline_end_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn get_borderInlineEndColor<TH: TypeHolderTrait>
+unsafe extern fn get_borderInlineEndColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9765,7 +9765,7 @@ unsafe extern fn get_borderInlineEndColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderInlineEndColor<TH: TypeHolderTrait>
+unsafe extern fn set_borderInlineEndColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9797,7 +9797,7 @@ unsafe extern fn set_borderInlineEndColor<TH: TypeHolderTrait>
 }
 
 
-fn borderInlineEndColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineEndColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderInlineEndColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9815,7 +9815,7 @@ fn borderInlineEndColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-fn borderInlineEndColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineEndColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderInlineEndColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9833,7 +9833,7 @@ fn borderInlineEndColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn get_border_inline_end_width<TH: TypeHolderTrait>
+unsafe extern fn get_border_inline_end_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9848,7 +9848,7 @@ unsafe extern fn get_border_inline_end_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_inline_end_width<TH: TypeHolderTrait>
+unsafe extern fn set_border_inline_end_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9880,7 +9880,7 @@ unsafe extern fn set_border_inline_end_width<TH: TypeHolderTrait>
 }
 
 
-fn border_inline_end_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_end_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_inline_end_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9898,7 +9898,7 @@ fn border_inline_end_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-fn border_inline_end_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_end_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_inline_end_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9916,7 +9916,7 @@ fn border_inline_end_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn get_borderInlineEndWidth<TH: TypeHolderTrait>
+unsafe extern fn get_borderInlineEndWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9931,7 +9931,7 @@ unsafe extern fn get_borderInlineEndWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderInlineEndWidth<TH: TypeHolderTrait>
+unsafe extern fn set_borderInlineEndWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -9963,7 +9963,7 @@ unsafe extern fn set_borderInlineEndWidth<TH: TypeHolderTrait>
 }
 
 
-fn borderInlineEndWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineEndWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderInlineEndWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9981,7 +9981,7 @@ fn borderInlineEndWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-fn borderInlineEndWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineEndWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderInlineEndWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -9999,7 +9999,7 @@ fn borderInlineEndWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn get_border_inline_end_style<TH: TypeHolderTrait>
+unsafe extern fn get_border_inline_end_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10014,7 +10014,7 @@ unsafe extern fn get_border_inline_end_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_inline_end_style<TH: TypeHolderTrait>
+unsafe extern fn set_border_inline_end_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10046,7 +10046,7 @@ unsafe extern fn set_border_inline_end_style<TH: TypeHolderTrait>
 }
 
 
-fn border_inline_end_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_end_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_inline_end_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10064,7 +10064,7 @@ fn border_inline_end_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-fn border_inline_end_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_end_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_inline_end_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10082,7 +10082,7 @@ fn border_inline_end_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn get_borderInlineEndStyle<TH: TypeHolderTrait>
+unsafe extern fn get_borderInlineEndStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10097,7 +10097,7 @@ unsafe extern fn get_borderInlineEndStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderInlineEndStyle<TH: TypeHolderTrait>
+unsafe extern fn set_borderInlineEndStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10129,7 +10129,7 @@ unsafe extern fn set_borderInlineEndStyle<TH: TypeHolderTrait>
 }
 
 
-fn borderInlineEndStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineEndStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderInlineEndStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10147,7 +10147,7 @@ fn borderInlineEndStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-fn borderInlineEndStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineEndStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderInlineEndStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10165,7 +10165,7 @@ fn borderInlineEndStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn get_border_block_start<TH: TypeHolderTrait>
+unsafe extern fn get_border_block_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10180,7 +10180,7 @@ unsafe extern fn get_border_block_start<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_block_start<TH: TypeHolderTrait>
+unsafe extern fn set_border_block_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10212,7 +10212,7 @@ unsafe extern fn set_border_block_start<TH: TypeHolderTrait>
 }
 
 
-fn border_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_start_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10230,7 +10230,7 @@ fn border_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn border_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_start_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10248,7 +10248,7 @@ fn border_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_borderBlockStart<TH: TypeHolderTrait>
+unsafe extern fn get_borderBlockStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10263,7 +10263,7 @@ unsafe extern fn get_borderBlockStart<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBlockStart<TH: TypeHolderTrait>
+unsafe extern fn set_borderBlockStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10295,7 +10295,7 @@ unsafe extern fn set_borderBlockStart<TH: TypeHolderTrait>
 }
 
 
-fn borderBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockStart_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10313,7 +10313,7 @@ fn borderBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockStart_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10331,7 +10331,7 @@ fn borderBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_block_end<TH: TypeHolderTrait>
+unsafe extern fn get_border_block_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10346,7 +10346,7 @@ unsafe extern fn get_border_block_end<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_block_end<TH: TypeHolderTrait>
+unsafe extern fn set_border_block_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10378,7 +10378,7 @@ unsafe extern fn set_border_block_end<TH: TypeHolderTrait>
 }
 
 
-fn border_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_end_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10396,7 +10396,7 @@ fn border_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_block_end_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10414,7 +10414,7 @@ fn border_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderBlockEnd<TH: TypeHolderTrait>
+unsafe extern fn get_borderBlockEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10429,7 +10429,7 @@ unsafe extern fn get_borderBlockEnd<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderBlockEnd<TH: TypeHolderTrait>
+unsafe extern fn set_borderBlockEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10461,7 +10461,7 @@ unsafe extern fn set_borderBlockEnd<TH: TypeHolderTrait>
 }
 
 
-fn borderBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockEnd_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10479,7 +10479,7 @@ fn borderBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderBlockEnd_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10497,7 +10497,7 @@ fn borderBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_inline_start<TH: TypeHolderTrait>
+unsafe extern fn get_border_inline_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10512,7 +10512,7 @@ unsafe extern fn get_border_inline_start<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_inline_start<TH: TypeHolderTrait>
+unsafe extern fn set_border_inline_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10544,7 +10544,7 @@ unsafe extern fn set_border_inline_start<TH: TypeHolderTrait>
 }
 
 
-fn border_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_start_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10562,7 +10562,7 @@ fn border_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn border_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_start_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10580,7 +10580,7 @@ fn border_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_borderInlineStart<TH: TypeHolderTrait>
+unsafe extern fn get_borderInlineStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10595,7 +10595,7 @@ unsafe extern fn get_borderInlineStart<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderInlineStart<TH: TypeHolderTrait>
+unsafe extern fn set_borderInlineStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10627,7 +10627,7 @@ unsafe extern fn set_borderInlineStart<TH: TypeHolderTrait>
 }
 
 
-fn borderInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineStart_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10645,7 +10645,7 @@ fn borderInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn borderInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineStart_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10663,7 +10663,7 @@ fn borderInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_border_inline_end<TH: TypeHolderTrait>
+unsafe extern fn get_border_inline_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10678,7 +10678,7 @@ unsafe extern fn get_border_inline_end<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_inline_end<TH: TypeHolderTrait>
+unsafe extern fn set_border_inline_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10710,7 +10710,7 @@ unsafe extern fn set_border_inline_end<TH: TypeHolderTrait>
 }
 
 
-fn border_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_end_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10728,7 +10728,7 @@ fn border_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn border_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_inline_end_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10746,7 +10746,7 @@ fn border_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_borderInlineEnd<TH: TypeHolderTrait>
+unsafe extern fn get_borderInlineEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10761,7 +10761,7 @@ unsafe extern fn get_borderInlineEnd<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderInlineEnd<TH: TypeHolderTrait>
+unsafe extern fn set_borderInlineEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10793,7 +10793,7 @@ unsafe extern fn set_borderInlineEnd<TH: TypeHolderTrait>
 }
 
 
-fn borderInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineEnd_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10811,7 +10811,7 @@ fn borderInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderInlineEnd_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10829,7 +10829,7 @@ fn borderInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_content<TH: TypeHolderTrait>
+unsafe extern fn get_content<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10844,7 +10844,7 @@ unsafe extern fn get_content<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_content<TH: TypeHolderTrait>
+unsafe extern fn set_content<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10876,7 +10876,7 @@ unsafe extern fn set_content<TH: TypeHolderTrait>
 }
 
 
-fn content_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn content_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10894,7 +10894,7 @@ fn content_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn content_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn content_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10912,7 +10912,7 @@ fn content_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_color<TH: TypeHolderTrait>
+unsafe extern fn get_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10927,7 +10927,7 @@ unsafe extern fn get_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_color<TH: TypeHolderTrait>
+unsafe extern fn set_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -10959,7 +10959,7 @@ unsafe extern fn set_color<TH: TypeHolderTrait>
 }
 
 
-fn color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10977,7 +10977,7 @@ fn color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -10995,7 +10995,7 @@ fn color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_display<TH: TypeHolderTrait>
+unsafe extern fn get_display<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11010,7 +11010,7 @@ unsafe extern fn get_display<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_display<TH: TypeHolderTrait>
+unsafe extern fn set_display<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11042,7 +11042,7 @@ unsafe extern fn set_display<TH: TypeHolderTrait>
 }
 
 
-fn display_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn display_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_display::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11060,7 +11060,7 @@ fn display_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn display_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn display_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_display::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11078,7 +11078,7 @@ fn display_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_opacity<TH: TypeHolderTrait>
+unsafe extern fn get_opacity<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11093,7 +11093,7 @@ unsafe extern fn get_opacity<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_opacity<TH: TypeHolderTrait>
+unsafe extern fn set_opacity<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11125,7 +11125,7 @@ unsafe extern fn set_opacity<TH: TypeHolderTrait>
 }
 
 
-fn opacity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn opacity_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_opacity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11143,7 +11143,7 @@ fn opacity_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn opacity_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn opacity_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_opacity::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11161,7 +11161,7 @@ fn opacity_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_visibility<TH: TypeHolderTrait>
+unsafe extern fn get_visibility<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11176,7 +11176,7 @@ unsafe extern fn get_visibility<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_visibility<TH: TypeHolderTrait>
+unsafe extern fn set_visibility<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11208,7 +11208,7 @@ unsafe extern fn set_visibility<TH: TypeHolderTrait>
 }
 
 
-fn visibility_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn visibility_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_visibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11226,7 +11226,7 @@ fn visibility_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn visibility_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn visibility_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_visibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11244,7 +11244,7 @@ fn visibility_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_cursor<TH: TypeHolderTrait>
+unsafe extern fn get_cursor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11259,7 +11259,7 @@ unsafe extern fn get_cursor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_cursor<TH: TypeHolderTrait>
+unsafe extern fn set_cursor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11291,7 +11291,7 @@ unsafe extern fn set_cursor<TH: TypeHolderTrait>
 }
 
 
-fn cursor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn cursor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_cursor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11309,7 +11309,7 @@ fn cursor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn cursor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn cursor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_cursor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11327,7 +11327,7 @@ fn cursor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_boxSizing<TH: TypeHolderTrait>
+unsafe extern fn get_boxSizing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11342,7 +11342,7 @@ unsafe extern fn get_boxSizing<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_boxSizing<TH: TypeHolderTrait>
+unsafe extern fn set_boxSizing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11374,7 +11374,7 @@ unsafe extern fn set_boxSizing<TH: TypeHolderTrait>
 }
 
 
-fn boxSizing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn boxSizing_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_boxSizing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11392,7 +11392,7 @@ fn boxSizing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn boxSizing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn boxSizing_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_boxSizing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11410,7 +11410,7 @@ fn boxSizing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_box_sizing<TH: TypeHolderTrait>
+unsafe extern fn get_box_sizing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11425,7 +11425,7 @@ unsafe extern fn get_box_sizing<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_box_sizing<TH: TypeHolderTrait>
+unsafe extern fn set_box_sizing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11457,7 +11457,7 @@ unsafe extern fn set_box_sizing<TH: TypeHolderTrait>
 }
 
 
-fn box_sizing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn box_sizing_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_box_sizing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11475,7 +11475,7 @@ fn box_sizing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn box_sizing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn box_sizing_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_box_sizing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11493,7 +11493,7 @@ fn box_sizing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_boxShadow<TH: TypeHolderTrait>
+unsafe extern fn get_boxShadow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11508,7 +11508,7 @@ unsafe extern fn get_boxShadow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_boxShadow<TH: TypeHolderTrait>
+unsafe extern fn set_boxShadow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11540,7 +11540,7 @@ unsafe extern fn set_boxShadow<TH: TypeHolderTrait>
 }
 
 
-fn boxShadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn boxShadow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_boxShadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11558,7 +11558,7 @@ fn boxShadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn boxShadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn boxShadow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_boxShadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11576,7 +11576,7 @@ fn boxShadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_box_shadow<TH: TypeHolderTrait>
+unsafe extern fn get_box_shadow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11591,7 +11591,7 @@ unsafe extern fn get_box_shadow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_box_shadow<TH: TypeHolderTrait>
+unsafe extern fn set_box_shadow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11623,7 +11623,7 @@ unsafe extern fn set_box_shadow<TH: TypeHolderTrait>
 }
 
 
-fn box_shadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn box_shadow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_box_shadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11641,7 +11641,7 @@ fn box_shadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn box_shadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn box_shadow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_box_shadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11659,7 +11659,7 @@ fn box_shadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_textShadow<TH: TypeHolderTrait>
+unsafe extern fn get_textShadow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11674,7 +11674,7 @@ unsafe extern fn get_textShadow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_textShadow<TH: TypeHolderTrait>
+unsafe extern fn set_textShadow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11706,7 +11706,7 @@ unsafe extern fn set_textShadow<TH: TypeHolderTrait>
 }
 
 
-fn textShadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textShadow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_textShadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11724,7 +11724,7 @@ fn textShadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn textShadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textShadow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_textShadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11742,7 +11742,7 @@ fn textShadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_text_shadow<TH: TypeHolderTrait>
+unsafe extern fn get_text_shadow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11757,7 +11757,7 @@ unsafe extern fn get_text_shadow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text_shadow<TH: TypeHolderTrait>
+unsafe extern fn set_text_shadow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11789,7 +11789,7 @@ unsafe extern fn set_text_shadow<TH: TypeHolderTrait>
 }
 
 
-fn text_shadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_shadow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text_shadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11807,7 +11807,7 @@ fn text_shadow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn text_shadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_shadow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text_shadow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11825,7 +11825,7 @@ fn text_shadow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_float<TH: TypeHolderTrait>
+unsafe extern fn get_float<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11840,7 +11840,7 @@ unsafe extern fn get_float<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_float<TH: TypeHolderTrait>
+unsafe extern fn set_float<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11872,7 +11872,7 @@ unsafe extern fn set_float<TH: TypeHolderTrait>
 }
 
 
-fn float_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn float_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_float::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11890,7 +11890,7 @@ fn float_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn float_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn float_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_float::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11908,7 +11908,7 @@ fn float_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_clear<TH: TypeHolderTrait>
+unsafe extern fn get_clear<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11923,7 +11923,7 @@ unsafe extern fn get_clear<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_clear<TH: TypeHolderTrait>
+unsafe extern fn set_clear<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -11955,7 +11955,7 @@ unsafe extern fn set_clear<TH: TypeHolderTrait>
 }
 
 
-fn clear_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clear_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_clear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11973,7 +11973,7 @@ fn clear_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn clear_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clear_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_clear::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -11991,7 +11991,7 @@ fn clear_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_clip<TH: TypeHolderTrait>
+unsafe extern fn get_clip<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12006,7 +12006,7 @@ unsafe extern fn get_clip<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_clip<TH: TypeHolderTrait>
+unsafe extern fn set_clip<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12038,7 +12038,7 @@ unsafe extern fn set_clip<TH: TypeHolderTrait>
 }
 
 
-fn clip_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clip_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12056,7 +12056,7 @@ fn clip_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn clip_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn clip_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_clip::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12074,7 +12074,7 @@ fn clip_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_transform<TH: TypeHolderTrait>
+unsafe extern fn get_transform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12089,7 +12089,7 @@ unsafe extern fn get_transform<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transform<TH: TypeHolderTrait>
+unsafe extern fn set_transform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12121,7 +12121,7 @@ unsafe extern fn set_transform<TH: TypeHolderTrait>
 }
 
 
-fn transform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transform_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12139,7 +12139,7 @@ fn transform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn transform_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transform_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12157,7 +12157,7 @@ fn transform_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_transformOrigin<TH: TypeHolderTrait>
+unsafe extern fn get_transformOrigin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12172,7 +12172,7 @@ unsafe extern fn get_transformOrigin<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transformOrigin<TH: TypeHolderTrait>
+unsafe extern fn set_transformOrigin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12204,7 +12204,7 @@ unsafe extern fn set_transformOrigin<TH: TypeHolderTrait>
 }
 
 
-fn transformOrigin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transformOrigin_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transformOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12222,7 +12222,7 @@ fn transformOrigin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn transformOrigin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transformOrigin_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transformOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12240,7 +12240,7 @@ fn transformOrigin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_transform_origin<TH: TypeHolderTrait>
+unsafe extern fn get_transform_origin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12255,7 +12255,7 @@ unsafe extern fn get_transform_origin<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transform_origin<TH: TypeHolderTrait>
+unsafe extern fn set_transform_origin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12287,7 +12287,7 @@ unsafe extern fn set_transform_origin<TH: TypeHolderTrait>
 }
 
 
-fn transform_origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transform_origin_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transform_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12305,7 +12305,7 @@ fn transform_origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn transform_origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transform_origin_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transform_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12323,7 +12323,7 @@ fn transform_origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_perspective<TH: TypeHolderTrait>
+unsafe extern fn get_perspective<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12338,7 +12338,7 @@ unsafe extern fn get_perspective<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_perspective<TH: TypeHolderTrait>
+unsafe extern fn set_perspective<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12370,7 +12370,7 @@ unsafe extern fn set_perspective<TH: TypeHolderTrait>
 }
 
 
-fn perspective_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn perspective_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_perspective::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12388,7 +12388,7 @@ fn perspective_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn perspective_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn perspective_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_perspective::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12406,7 +12406,7 @@ fn perspective_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_perspectiveOrigin<TH: TypeHolderTrait>
+unsafe extern fn get_perspectiveOrigin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12421,7 +12421,7 @@ unsafe extern fn get_perspectiveOrigin<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_perspectiveOrigin<TH: TypeHolderTrait>
+unsafe extern fn set_perspectiveOrigin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12453,7 +12453,7 @@ unsafe extern fn set_perspectiveOrigin<TH: TypeHolderTrait>
 }
 
 
-fn perspectiveOrigin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn perspectiveOrigin_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_perspectiveOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12471,7 +12471,7 @@ fn perspectiveOrigin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn perspectiveOrigin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn perspectiveOrigin_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_perspectiveOrigin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12489,7 +12489,7 @@ fn perspectiveOrigin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_perspective_origin<TH: TypeHolderTrait>
+unsafe extern fn get_perspective_origin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12504,7 +12504,7 @@ unsafe extern fn get_perspective_origin<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_perspective_origin<TH: TypeHolderTrait>
+unsafe extern fn set_perspective_origin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12536,7 +12536,7 @@ unsafe extern fn set_perspective_origin<TH: TypeHolderTrait>
 }
 
 
-fn perspective_origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn perspective_origin_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_perspective_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12554,7 +12554,7 @@ fn perspective_origin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn perspective_origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn perspective_origin_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_perspective_origin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12572,7 +12572,7 @@ fn perspective_origin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_transformStyle<TH: TypeHolderTrait>
+unsafe extern fn get_transformStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12587,7 +12587,7 @@ unsafe extern fn get_transformStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transformStyle<TH: TypeHolderTrait>
+unsafe extern fn set_transformStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12619,7 +12619,7 @@ unsafe extern fn set_transformStyle<TH: TypeHolderTrait>
 }
 
 
-fn transformStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transformStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transformStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12637,7 +12637,7 @@ fn transformStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn transformStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transformStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transformStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12655,7 +12655,7 @@ fn transformStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_transform_style<TH: TypeHolderTrait>
+unsafe extern fn get_transform_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12670,7 +12670,7 @@ unsafe extern fn get_transform_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transform_style<TH: TypeHolderTrait>
+unsafe extern fn set_transform_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12702,7 +12702,7 @@ unsafe extern fn set_transform_style<TH: TypeHolderTrait>
 }
 
 
-fn transform_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transform_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transform_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12720,7 +12720,7 @@ fn transform_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn transform_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transform_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transform_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12738,7 +12738,7 @@ fn transform_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_backfaceVisibility<TH: TypeHolderTrait>
+unsafe extern fn get_backfaceVisibility<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12753,7 +12753,7 @@ unsafe extern fn get_backfaceVisibility<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backfaceVisibility<TH: TypeHolderTrait>
+unsafe extern fn set_backfaceVisibility<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12785,7 +12785,7 @@ unsafe extern fn set_backfaceVisibility<TH: TypeHolderTrait>
 }
 
 
-fn backfaceVisibility_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backfaceVisibility_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backfaceVisibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12803,7 +12803,7 @@ fn backfaceVisibility_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn backfaceVisibility_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backfaceVisibility_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backfaceVisibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12821,7 +12821,7 @@ fn backfaceVisibility_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_backface_visibility<TH: TypeHolderTrait>
+unsafe extern fn get_backface_visibility<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12836,7 +12836,7 @@ unsafe extern fn get_backface_visibility<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_backface_visibility<TH: TypeHolderTrait>
+unsafe extern fn set_backface_visibility<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12868,7 +12868,7 @@ unsafe extern fn set_backface_visibility<TH: TypeHolderTrait>
 }
 
 
-fn backface_visibility_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backface_visibility_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_backface_visibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12886,7 +12886,7 @@ fn backface_visibility_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn backface_visibility_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn backface_visibility_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_backface_visibility::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12904,7 +12904,7 @@ fn backface_visibility_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_rotate<TH: TypeHolderTrait>
+unsafe extern fn get_rotate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12919,7 +12919,7 @@ unsafe extern fn get_rotate<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_rotate<TH: TypeHolderTrait>
+unsafe extern fn set_rotate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -12951,7 +12951,7 @@ unsafe extern fn set_rotate<TH: TypeHolderTrait>
 }
 
 
-fn rotate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn rotate_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_rotate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12969,7 +12969,7 @@ fn rotate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn rotate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn rotate_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_rotate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -12987,7 +12987,7 @@ fn rotate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_scale<TH: TypeHolderTrait>
+unsafe extern fn get_scale<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13002,7 +13002,7 @@ unsafe extern fn get_scale<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_scale<TH: TypeHolderTrait>
+unsafe extern fn set_scale<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13034,7 +13034,7 @@ unsafe extern fn set_scale<TH: TypeHolderTrait>
 }
 
 
-fn scale_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn scale_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_scale::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13052,7 +13052,7 @@ fn scale_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn scale_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn scale_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_scale::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13070,7 +13070,7 @@ fn scale_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_translate<TH: TypeHolderTrait>
+unsafe extern fn get_translate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13085,7 +13085,7 @@ unsafe extern fn get_translate<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_translate<TH: TypeHolderTrait>
+unsafe extern fn set_translate<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13117,7 +13117,7 @@ unsafe extern fn set_translate<TH: TypeHolderTrait>
 }
 
 
-fn translate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn translate_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_translate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13135,7 +13135,7 @@ fn translate_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn translate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn translate_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_translate::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13153,7 +13153,7 @@ fn translate_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_direction<TH: TypeHolderTrait>
+unsafe extern fn get_direction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13168,7 +13168,7 @@ unsafe extern fn get_direction<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_direction<TH: TypeHolderTrait>
+unsafe extern fn set_direction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13200,7 +13200,7 @@ unsafe extern fn set_direction<TH: TypeHolderTrait>
 }
 
 
-fn direction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn direction_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13218,7 +13218,7 @@ fn direction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn direction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn direction_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13236,7 +13236,7 @@ fn direction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_unicodeBidi<TH: TypeHolderTrait>
+unsafe extern fn get_unicodeBidi<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13251,7 +13251,7 @@ unsafe extern fn get_unicodeBidi<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_unicodeBidi<TH: TypeHolderTrait>
+unsafe extern fn set_unicodeBidi<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13283,7 +13283,7 @@ unsafe extern fn set_unicodeBidi<TH: TypeHolderTrait>
 }
 
 
-fn unicodeBidi_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn unicodeBidi_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_unicodeBidi::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13301,7 +13301,7 @@ fn unicodeBidi_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn unicodeBidi_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn unicodeBidi_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_unicodeBidi::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13319,7 +13319,7 @@ fn unicodeBidi_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_unicode_bidi<TH: TypeHolderTrait>
+unsafe extern fn get_unicode_bidi<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13334,7 +13334,7 @@ unsafe extern fn get_unicode_bidi<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_unicode_bidi<TH: TypeHolderTrait>
+unsafe extern fn set_unicode_bidi<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13366,7 +13366,7 @@ unsafe extern fn set_unicode_bidi<TH: TypeHolderTrait>
 }
 
 
-fn unicode_bidi_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn unicode_bidi_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_unicode_bidi::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13384,7 +13384,7 @@ fn unicode_bidi_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn unicode_bidi_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn unicode_bidi_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_unicode_bidi::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13402,7 +13402,7 @@ fn unicode_bidi_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_filter<TH: TypeHolderTrait>
+unsafe extern fn get_filter<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13417,7 +13417,7 @@ unsafe extern fn get_filter<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_filter<TH: TypeHolderTrait>
+unsafe extern fn set_filter<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13449,7 +13449,7 @@ unsafe extern fn set_filter<TH: TypeHolderTrait>
 }
 
 
-fn filter_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn filter_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_filter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13467,7 +13467,7 @@ fn filter_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn filter_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn filter_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_filter::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13485,7 +13485,7 @@ fn filter_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_lineHeight<TH: TypeHolderTrait>
+unsafe extern fn get_lineHeight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13500,7 +13500,7 @@ unsafe extern fn get_lineHeight<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_lineHeight<TH: TypeHolderTrait>
+unsafe extern fn set_lineHeight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13532,7 +13532,7 @@ unsafe extern fn set_lineHeight<TH: TypeHolderTrait>
 }
 
 
-fn lineHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineHeight_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_lineHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13550,7 +13550,7 @@ fn lineHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn lineHeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn lineHeight_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_lineHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13568,7 +13568,7 @@ fn lineHeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_line_height<TH: TypeHolderTrait>
+unsafe extern fn get_line_height<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13583,7 +13583,7 @@ unsafe extern fn get_line_height<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_line_height<TH: TypeHolderTrait>
+unsafe extern fn set_line_height<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13615,7 +13615,7 @@ unsafe extern fn set_line_height<TH: TypeHolderTrait>
 }
 
 
-fn line_height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn line_height_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_line_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13633,7 +13633,7 @@ fn line_height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn line_height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn line_height_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_line_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13651,7 +13651,7 @@ fn line_height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_mixBlendMode<TH: TypeHolderTrait>
+unsafe extern fn get_mixBlendMode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13666,7 +13666,7 @@ unsafe extern fn get_mixBlendMode<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_mixBlendMode<TH: TypeHolderTrait>
+unsafe extern fn set_mixBlendMode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13698,7 +13698,7 @@ unsafe extern fn set_mixBlendMode<TH: TypeHolderTrait>
 }
 
 
-fn mixBlendMode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn mixBlendMode_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_mixBlendMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13716,7 +13716,7 @@ fn mixBlendMode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn mixBlendMode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn mixBlendMode_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_mixBlendMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13734,7 +13734,7 @@ fn mixBlendMode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_mix_blend_mode<TH: TypeHolderTrait>
+unsafe extern fn get_mix_blend_mode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13749,7 +13749,7 @@ unsafe extern fn get_mix_blend_mode<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_mix_blend_mode<TH: TypeHolderTrait>
+unsafe extern fn set_mix_blend_mode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13781,7 +13781,7 @@ unsafe extern fn set_mix_blend_mode<TH: TypeHolderTrait>
 }
 
 
-fn mix_blend_mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn mix_blend_mode_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_mix_blend_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13799,7 +13799,7 @@ fn mix_blend_mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn mix_blend_mode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn mix_blend_mode_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_mix_blend_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13817,7 +13817,7 @@ fn mix_blend_mode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_verticalAlign<TH: TypeHolderTrait>
+unsafe extern fn get_verticalAlign<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13832,7 +13832,7 @@ unsafe extern fn get_verticalAlign<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_verticalAlign<TH: TypeHolderTrait>
+unsafe extern fn set_verticalAlign<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13864,7 +13864,7 @@ unsafe extern fn set_verticalAlign<TH: TypeHolderTrait>
 }
 
 
-fn verticalAlign_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn verticalAlign_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_verticalAlign::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13882,7 +13882,7 @@ fn verticalAlign_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn verticalAlign_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn verticalAlign_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_verticalAlign::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13900,7 +13900,7 @@ fn verticalAlign_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_vertical_align<TH: TypeHolderTrait>
+unsafe extern fn get_vertical_align<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13915,7 +13915,7 @@ unsafe extern fn get_vertical_align<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_vertical_align<TH: TypeHolderTrait>
+unsafe extern fn set_vertical_align<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13947,7 +13947,7 @@ unsafe extern fn set_vertical_align<TH: TypeHolderTrait>
 }
 
 
-fn vertical_align_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertical_align_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_vertical_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13965,7 +13965,7 @@ fn vertical_align_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn vertical_align_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn vertical_align_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_vertical_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -13983,7 +13983,7 @@ fn vertical_align_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_listStyle<TH: TypeHolderTrait>
+unsafe extern fn get_listStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -13998,7 +13998,7 @@ unsafe extern fn get_listStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_listStyle<TH: TypeHolderTrait>
+unsafe extern fn set_listStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14030,7 +14030,7 @@ unsafe extern fn set_listStyle<TH: TypeHolderTrait>
 }
 
 
-fn listStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn listStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_listStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14048,7 +14048,7 @@ fn listStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn listStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn listStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_listStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14066,7 +14066,7 @@ fn listStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_list_style<TH: TypeHolderTrait>
+unsafe extern fn get_list_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14081,7 +14081,7 @@ unsafe extern fn get_list_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_list_style<TH: TypeHolderTrait>
+unsafe extern fn set_list_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14113,7 +14113,7 @@ unsafe extern fn set_list_style<TH: TypeHolderTrait>
 }
 
 
-fn list_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn list_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_list_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14131,7 +14131,7 @@ fn list_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn list_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn list_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_list_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14149,7 +14149,7 @@ fn list_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_listStylePosition<TH: TypeHolderTrait>
+unsafe extern fn get_listStylePosition<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14164,7 +14164,7 @@ unsafe extern fn get_listStylePosition<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_listStylePosition<TH: TypeHolderTrait>
+unsafe extern fn set_listStylePosition<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14196,7 +14196,7 @@ unsafe extern fn set_listStylePosition<TH: TypeHolderTrait>
 }
 
 
-fn listStylePosition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn listStylePosition_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_listStylePosition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14214,7 +14214,7 @@ fn listStylePosition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn listStylePosition_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn listStylePosition_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_listStylePosition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14232,7 +14232,7 @@ fn listStylePosition_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_list_style_position<TH: TypeHolderTrait>
+unsafe extern fn get_list_style_position<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14247,7 +14247,7 @@ unsafe extern fn get_list_style_position<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_list_style_position<TH: TypeHolderTrait>
+unsafe extern fn set_list_style_position<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14279,7 +14279,7 @@ unsafe extern fn set_list_style_position<TH: TypeHolderTrait>
 }
 
 
-fn list_style_position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn list_style_position_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_list_style_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14297,7 +14297,7 @@ fn list_style_position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn list_style_position_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn list_style_position_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_list_style_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14315,7 +14315,7 @@ fn list_style_position_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_listStyleType<TH: TypeHolderTrait>
+unsafe extern fn get_listStyleType<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14330,7 +14330,7 @@ unsafe extern fn get_listStyleType<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_listStyleType<TH: TypeHolderTrait>
+unsafe extern fn set_listStyleType<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14362,7 +14362,7 @@ unsafe extern fn set_listStyleType<TH: TypeHolderTrait>
 }
 
 
-fn listStyleType_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn listStyleType_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_listStyleType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14380,7 +14380,7 @@ fn listStyleType_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn listStyleType_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn listStyleType_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_listStyleType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14398,7 +14398,7 @@ fn listStyleType_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_list_style_type<TH: TypeHolderTrait>
+unsafe extern fn get_list_style_type<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14413,7 +14413,7 @@ unsafe extern fn get_list_style_type<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_list_style_type<TH: TypeHolderTrait>
+unsafe extern fn set_list_style_type<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14445,7 +14445,7 @@ unsafe extern fn set_list_style_type<TH: TypeHolderTrait>
 }
 
 
-fn list_style_type_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn list_style_type_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_list_style_type::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14463,7 +14463,7 @@ fn list_style_type_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn list_style_type_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn list_style_type_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_list_style_type::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14481,7 +14481,7 @@ fn list_style_type_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_listStyleImage<TH: TypeHolderTrait>
+unsafe extern fn get_listStyleImage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14496,7 +14496,7 @@ unsafe extern fn get_listStyleImage<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_listStyleImage<TH: TypeHolderTrait>
+unsafe extern fn set_listStyleImage<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14528,7 +14528,7 @@ unsafe extern fn set_listStyleImage<TH: TypeHolderTrait>
 }
 
 
-fn listStyleImage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn listStyleImage_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_listStyleImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14546,7 +14546,7 @@ fn listStyleImage_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn listStyleImage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn listStyleImage_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_listStyleImage::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14564,7 +14564,7 @@ fn listStyleImage_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_list_style_image<TH: TypeHolderTrait>
+unsafe extern fn get_list_style_image<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14579,7 +14579,7 @@ unsafe extern fn get_list_style_image<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_list_style_image<TH: TypeHolderTrait>
+unsafe extern fn set_list_style_image<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14611,7 +14611,7 @@ unsafe extern fn set_list_style_image<TH: TypeHolderTrait>
 }
 
 
-fn list_style_image_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn list_style_image_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_list_style_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14629,7 +14629,7 @@ fn list_style_image_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn list_style_image_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn list_style_image_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_list_style_image::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14647,7 +14647,7 @@ fn list_style_image_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_quotes<TH: TypeHolderTrait>
+unsafe extern fn get_quotes<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14662,7 +14662,7 @@ unsafe extern fn get_quotes<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_quotes<TH: TypeHolderTrait>
+unsafe extern fn set_quotes<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14694,7 +14694,7 @@ unsafe extern fn set_quotes<TH: TypeHolderTrait>
 }
 
 
-fn quotes_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn quotes_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_quotes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14712,7 +14712,7 @@ fn quotes_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn quotes_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn quotes_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_quotes::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14730,7 +14730,7 @@ fn quotes_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_counterIncrement<TH: TypeHolderTrait>
+unsafe extern fn get_counterIncrement<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14745,7 +14745,7 @@ unsafe extern fn get_counterIncrement<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_counterIncrement<TH: TypeHolderTrait>
+unsafe extern fn set_counterIncrement<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14777,7 +14777,7 @@ unsafe extern fn set_counterIncrement<TH: TypeHolderTrait>
 }
 
 
-fn counterIncrement_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn counterIncrement_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_counterIncrement::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14795,7 +14795,7 @@ fn counterIncrement_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn counterIncrement_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn counterIncrement_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_counterIncrement::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14813,7 +14813,7 @@ fn counterIncrement_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_counter_increment<TH: TypeHolderTrait>
+unsafe extern fn get_counter_increment<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14828,7 +14828,7 @@ unsafe extern fn get_counter_increment<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_counter_increment<TH: TypeHolderTrait>
+unsafe extern fn set_counter_increment<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14860,7 +14860,7 @@ unsafe extern fn set_counter_increment<TH: TypeHolderTrait>
 }
 
 
-fn counter_increment_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn counter_increment_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_counter_increment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14878,7 +14878,7 @@ fn counter_increment_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn counter_increment_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn counter_increment_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_counter_increment::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14896,7 +14896,7 @@ fn counter_increment_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_counterReset<TH: TypeHolderTrait>
+unsafe extern fn get_counterReset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14911,7 +14911,7 @@ unsafe extern fn get_counterReset<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_counterReset<TH: TypeHolderTrait>
+unsafe extern fn set_counterReset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14943,7 +14943,7 @@ unsafe extern fn set_counterReset<TH: TypeHolderTrait>
 }
 
 
-fn counterReset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn counterReset_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_counterReset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14961,7 +14961,7 @@ fn counterReset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn counterReset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn counterReset_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_counterReset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -14979,7 +14979,7 @@ fn counterReset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_counter_reset<TH: TypeHolderTrait>
+unsafe extern fn get_counter_reset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -14994,7 +14994,7 @@ unsafe extern fn get_counter_reset<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_counter_reset<TH: TypeHolderTrait>
+unsafe extern fn set_counter_reset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15026,7 +15026,7 @@ unsafe extern fn set_counter_reset<TH: TypeHolderTrait>
 }
 
 
-fn counter_reset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn counter_reset_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_counter_reset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15044,7 +15044,7 @@ fn counter_reset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn counter_reset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn counter_reset_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_counter_reset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15062,7 +15062,7 @@ fn counter_reset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_overflow<TH: TypeHolderTrait>
+unsafe extern fn get_overflow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15077,7 +15077,7 @@ unsafe extern fn get_overflow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_overflow<TH: TypeHolderTrait>
+unsafe extern fn set_overflow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15109,7 +15109,7 @@ unsafe extern fn set_overflow<TH: TypeHolderTrait>
 }
 
 
-fn overflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_overflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15127,7 +15127,7 @@ fn overflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn overflow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_overflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15145,7 +15145,7 @@ fn overflow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_overflowX<TH: TypeHolderTrait>
+unsafe extern fn get_overflowX<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15160,7 +15160,7 @@ unsafe extern fn get_overflowX<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_overflowX<TH: TypeHolderTrait>
+unsafe extern fn set_overflowX<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15192,7 +15192,7 @@ unsafe extern fn set_overflowX<TH: TypeHolderTrait>
 }
 
 
-fn overflowX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflowX_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_overflowX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15210,7 +15210,7 @@ fn overflowX_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn overflowX_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflowX_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_overflowX::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15228,7 +15228,7 @@ fn overflowX_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_overflow_x<TH: TypeHolderTrait>
+unsafe extern fn get_overflow_x<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15243,7 +15243,7 @@ unsafe extern fn get_overflow_x<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_overflow_x<TH: TypeHolderTrait>
+unsafe extern fn set_overflow_x<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15275,7 +15275,7 @@ unsafe extern fn set_overflow_x<TH: TypeHolderTrait>
 }
 
 
-fn overflow_x_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflow_x_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_overflow_x::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15293,7 +15293,7 @@ fn overflow_x_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn overflow_x_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflow_x_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_overflow_x::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15311,7 +15311,7 @@ fn overflow_x_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_overflowY<TH: TypeHolderTrait>
+unsafe extern fn get_overflowY<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15326,7 +15326,7 @@ unsafe extern fn get_overflowY<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_overflowY<TH: TypeHolderTrait>
+unsafe extern fn set_overflowY<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15358,7 +15358,7 @@ unsafe extern fn set_overflowY<TH: TypeHolderTrait>
 }
 
 
-fn overflowY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflowY_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_overflowY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15376,7 +15376,7 @@ fn overflowY_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn overflowY_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflowY_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_overflowY::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15394,7 +15394,7 @@ fn overflowY_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_overflow_y<TH: TypeHolderTrait>
+unsafe extern fn get_overflow_y<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15409,7 +15409,7 @@ unsafe extern fn get_overflow_y<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_overflow_y<TH: TypeHolderTrait>
+unsafe extern fn set_overflow_y<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15441,7 +15441,7 @@ unsafe extern fn set_overflow_y<TH: TypeHolderTrait>
 }
 
 
-fn overflow_y_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflow_y_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_overflow_y::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15459,7 +15459,7 @@ fn overflow_y_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn overflow_y_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflow_y_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_overflow_y::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15477,7 +15477,7 @@ fn overflow_y_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_overflowWrap<TH: TypeHolderTrait>
+unsafe extern fn get_overflowWrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15492,7 +15492,7 @@ unsafe extern fn get_overflowWrap<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_overflowWrap<TH: TypeHolderTrait>
+unsafe extern fn set_overflowWrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15524,7 +15524,7 @@ unsafe extern fn set_overflowWrap<TH: TypeHolderTrait>
 }
 
 
-fn overflowWrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflowWrap_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_overflowWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15542,7 +15542,7 @@ fn overflowWrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn overflowWrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflowWrap_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_overflowWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15560,7 +15560,7 @@ fn overflowWrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_overflow_wrap<TH: TypeHolderTrait>
+unsafe extern fn get_overflow_wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15575,7 +15575,7 @@ unsafe extern fn get_overflow_wrap<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_overflow_wrap<TH: TypeHolderTrait>
+unsafe extern fn set_overflow_wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15607,7 +15607,7 @@ unsafe extern fn set_overflow_wrap<TH: TypeHolderTrait>
 }
 
 
-fn overflow_wrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflow_wrap_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_overflow_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15625,7 +15625,7 @@ fn overflow_wrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn overflow_wrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overflow_wrap_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_overflow_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15643,7 +15643,7 @@ fn overflow_wrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_tableLayout<TH: TypeHolderTrait>
+unsafe extern fn get_tableLayout<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15658,7 +15658,7 @@ unsafe extern fn get_tableLayout<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_tableLayout<TH: TypeHolderTrait>
+unsafe extern fn set_tableLayout<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15690,7 +15690,7 @@ unsafe extern fn set_tableLayout<TH: TypeHolderTrait>
 }
 
 
-fn tableLayout_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn tableLayout_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_tableLayout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15708,7 +15708,7 @@ fn tableLayout_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn tableLayout_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn tableLayout_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_tableLayout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15726,7 +15726,7 @@ fn tableLayout_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_table_layout<TH: TypeHolderTrait>
+unsafe extern fn get_table_layout<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15741,7 +15741,7 @@ unsafe extern fn get_table_layout<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_table_layout<TH: TypeHolderTrait>
+unsafe extern fn set_table_layout<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15773,7 +15773,7 @@ unsafe extern fn set_table_layout<TH: TypeHolderTrait>
 }
 
 
-fn table_layout_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn table_layout_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_table_layout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15791,7 +15791,7 @@ fn table_layout_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn table_layout_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn table_layout_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_table_layout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15809,7 +15809,7 @@ fn table_layout_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_borderCollapse<TH: TypeHolderTrait>
+unsafe extern fn get_borderCollapse<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15824,7 +15824,7 @@ unsafe extern fn get_borderCollapse<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_borderCollapse<TH: TypeHolderTrait>
+unsafe extern fn set_borderCollapse<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15856,7 +15856,7 @@ unsafe extern fn set_borderCollapse<TH: TypeHolderTrait>
 }
 
 
-fn borderCollapse_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderCollapse_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_borderCollapse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15874,7 +15874,7 @@ fn borderCollapse_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn borderCollapse_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn borderCollapse_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_borderCollapse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15892,7 +15892,7 @@ fn borderCollapse_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_border_collapse<TH: TypeHolderTrait>
+unsafe extern fn get_border_collapse<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15907,7 +15907,7 @@ unsafe extern fn get_border_collapse<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_border_collapse<TH: TypeHolderTrait>
+unsafe extern fn set_border_collapse<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15939,7 +15939,7 @@ unsafe extern fn set_border_collapse<TH: TypeHolderTrait>
 }
 
 
-fn border_collapse_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_collapse_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_border_collapse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15957,7 +15957,7 @@ fn border_collapse_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn border_collapse_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn border_collapse_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_border_collapse::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -15975,7 +15975,7 @@ fn border_collapse_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_emptyCells<TH: TypeHolderTrait>
+unsafe extern fn get_emptyCells<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -15990,7 +15990,7 @@ unsafe extern fn get_emptyCells<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_emptyCells<TH: TypeHolderTrait>
+unsafe extern fn set_emptyCells<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16022,7 +16022,7 @@ unsafe extern fn set_emptyCells<TH: TypeHolderTrait>
 }
 
 
-fn emptyCells_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn emptyCells_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_emptyCells::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16040,7 +16040,7 @@ fn emptyCells_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn emptyCells_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn emptyCells_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_emptyCells::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16058,7 +16058,7 @@ fn emptyCells_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_empty_cells<TH: TypeHolderTrait>
+unsafe extern fn get_empty_cells<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16073,7 +16073,7 @@ unsafe extern fn get_empty_cells<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_empty_cells<TH: TypeHolderTrait>
+unsafe extern fn set_empty_cells<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16105,7 +16105,7 @@ unsafe extern fn set_empty_cells<TH: TypeHolderTrait>
 }
 
 
-fn empty_cells_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn empty_cells_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_empty_cells::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16123,7 +16123,7 @@ fn empty_cells_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn empty_cells_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn empty_cells_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_empty_cells::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16141,7 +16141,7 @@ fn empty_cells_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_captionSide<TH: TypeHolderTrait>
+unsafe extern fn get_captionSide<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16156,7 +16156,7 @@ unsafe extern fn get_captionSide<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_captionSide<TH: TypeHolderTrait>
+unsafe extern fn set_captionSide<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16188,7 +16188,7 @@ unsafe extern fn set_captionSide<TH: TypeHolderTrait>
 }
 
 
-fn captionSide_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn captionSide_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_captionSide::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16206,7 +16206,7 @@ fn captionSide_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn captionSide_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn captionSide_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_captionSide::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16224,7 +16224,7 @@ fn captionSide_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_caption_side<TH: TypeHolderTrait>
+unsafe extern fn get_caption_side<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16239,7 +16239,7 @@ unsafe extern fn get_caption_side<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_caption_side<TH: TypeHolderTrait>
+unsafe extern fn set_caption_side<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16271,7 +16271,7 @@ unsafe extern fn set_caption_side<TH: TypeHolderTrait>
 }
 
 
-fn caption_side_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn caption_side_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_caption_side::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16289,7 +16289,7 @@ fn caption_side_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn caption_side_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn caption_side_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_caption_side::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16307,7 +16307,7 @@ fn caption_side_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_whiteSpace<TH: TypeHolderTrait>
+unsafe extern fn get_whiteSpace<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16322,7 +16322,7 @@ unsafe extern fn get_whiteSpace<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_whiteSpace<TH: TypeHolderTrait>
+unsafe extern fn set_whiteSpace<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16354,7 +16354,7 @@ unsafe extern fn set_whiteSpace<TH: TypeHolderTrait>
 }
 
 
-fn whiteSpace_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn whiteSpace_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_whiteSpace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16372,7 +16372,7 @@ fn whiteSpace_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn whiteSpace_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn whiteSpace_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_whiteSpace::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16390,7 +16390,7 @@ fn whiteSpace_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_white_space<TH: TypeHolderTrait>
+unsafe extern fn get_white_space<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16405,7 +16405,7 @@ unsafe extern fn get_white_space<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_white_space<TH: TypeHolderTrait>
+unsafe extern fn set_white_space<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16437,7 +16437,7 @@ unsafe extern fn set_white_space<TH: TypeHolderTrait>
 }
 
 
-fn white_space_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn white_space_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_white_space::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16455,7 +16455,7 @@ fn white_space_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn white_space_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn white_space_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_white_space::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16473,7 +16473,7 @@ fn white_space_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_writingMode<TH: TypeHolderTrait>
+unsafe extern fn get_writingMode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16488,7 +16488,7 @@ unsafe extern fn get_writingMode<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_writingMode<TH: TypeHolderTrait>
+unsafe extern fn set_writingMode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16520,7 +16520,7 @@ unsafe extern fn set_writingMode<TH: TypeHolderTrait>
 }
 
 
-fn writingMode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn writingMode_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_writingMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16538,7 +16538,7 @@ fn writingMode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn writingMode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn writingMode_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_writingMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16556,7 +16556,7 @@ fn writingMode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_writing_mode<TH: TypeHolderTrait>
+unsafe extern fn get_writing_mode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16571,7 +16571,7 @@ unsafe extern fn get_writing_mode<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_writing_mode<TH: TypeHolderTrait>
+unsafe extern fn set_writing_mode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16603,7 +16603,7 @@ unsafe extern fn set_writing_mode<TH: TypeHolderTrait>
 }
 
 
-fn writing_mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn writing_mode_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_writing_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16621,7 +16621,7 @@ fn writing_mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn writing_mode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn writing_mode_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_writing_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16639,7 +16639,7 @@ fn writing_mode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_letterSpacing<TH: TypeHolderTrait>
+unsafe extern fn get_letterSpacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16654,7 +16654,7 @@ unsafe extern fn get_letterSpacing<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_letterSpacing<TH: TypeHolderTrait>
+unsafe extern fn set_letterSpacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16686,7 +16686,7 @@ unsafe extern fn set_letterSpacing<TH: TypeHolderTrait>
 }
 
 
-fn letterSpacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn letterSpacing_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_letterSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16704,7 +16704,7 @@ fn letterSpacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn letterSpacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn letterSpacing_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_letterSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16722,7 +16722,7 @@ fn letterSpacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_letter_spacing<TH: TypeHolderTrait>
+unsafe extern fn get_letter_spacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16737,7 +16737,7 @@ unsafe extern fn get_letter_spacing<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_letter_spacing<TH: TypeHolderTrait>
+unsafe extern fn set_letter_spacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16769,7 +16769,7 @@ unsafe extern fn set_letter_spacing<TH: TypeHolderTrait>
 }
 
 
-fn letter_spacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn letter_spacing_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_letter_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16787,7 +16787,7 @@ fn letter_spacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn letter_spacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn letter_spacing_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_letter_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16805,7 +16805,7 @@ fn letter_spacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_wordBreak<TH: TypeHolderTrait>
+unsafe extern fn get_wordBreak<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16820,7 +16820,7 @@ unsafe extern fn get_wordBreak<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_wordBreak<TH: TypeHolderTrait>
+unsafe extern fn set_wordBreak<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16852,7 +16852,7 @@ unsafe extern fn set_wordBreak<TH: TypeHolderTrait>
 }
 
 
-fn wordBreak_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn wordBreak_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_wordBreak::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16870,7 +16870,7 @@ fn wordBreak_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn wordBreak_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn wordBreak_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_wordBreak::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16888,7 +16888,7 @@ fn wordBreak_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_word_break<TH: TypeHolderTrait>
+unsafe extern fn get_word_break<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16903,7 +16903,7 @@ unsafe extern fn get_word_break<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_word_break<TH: TypeHolderTrait>
+unsafe extern fn set_word_break<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16935,7 +16935,7 @@ unsafe extern fn set_word_break<TH: TypeHolderTrait>
 }
 
 
-fn word_break_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn word_break_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_word_break::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16953,7 +16953,7 @@ fn word_break_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn word_break_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn word_break_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_word_break::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -16971,7 +16971,7 @@ fn word_break_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_wordSpacing<TH: TypeHolderTrait>
+unsafe extern fn get_wordSpacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -16986,7 +16986,7 @@ unsafe extern fn get_wordSpacing<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_wordSpacing<TH: TypeHolderTrait>
+unsafe extern fn set_wordSpacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17018,7 +17018,7 @@ unsafe extern fn set_wordSpacing<TH: TypeHolderTrait>
 }
 
 
-fn wordSpacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn wordSpacing_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_wordSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17036,7 +17036,7 @@ fn wordSpacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn wordSpacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn wordSpacing_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_wordSpacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17054,7 +17054,7 @@ fn wordSpacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_word_spacing<TH: TypeHolderTrait>
+unsafe extern fn get_word_spacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17069,7 +17069,7 @@ unsafe extern fn get_word_spacing<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_word_spacing<TH: TypeHolderTrait>
+unsafe extern fn set_word_spacing<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17101,7 +17101,7 @@ unsafe extern fn set_word_spacing<TH: TypeHolderTrait>
 }
 
 
-fn word_spacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn word_spacing_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_word_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17119,7 +17119,7 @@ fn word_spacing_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn word_spacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn word_spacing_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_word_spacing::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17137,7 +17137,7 @@ fn word_spacing_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_wordWrap<TH: TypeHolderTrait>
+unsafe extern fn get_wordWrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17152,7 +17152,7 @@ unsafe extern fn get_wordWrap<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_wordWrap<TH: TypeHolderTrait>
+unsafe extern fn set_wordWrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17184,7 +17184,7 @@ unsafe extern fn set_wordWrap<TH: TypeHolderTrait>
 }
 
 
-fn wordWrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn wordWrap_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_wordWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17202,7 +17202,7 @@ fn wordWrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn wordWrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn wordWrap_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_wordWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17220,7 +17220,7 @@ fn wordWrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_word_wrap<TH: TypeHolderTrait>
+unsafe extern fn get_word_wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17235,7 +17235,7 @@ unsafe extern fn get_word_wrap<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_word_wrap<TH: TypeHolderTrait>
+unsafe extern fn set_word_wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17267,7 +17267,7 @@ unsafe extern fn set_word_wrap<TH: TypeHolderTrait>
 }
 
 
-fn word_wrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn word_wrap_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_word_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17285,7 +17285,7 @@ fn word_wrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn word_wrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn word_wrap_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_word_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17303,7 +17303,7 @@ fn word_wrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_textOverflow<TH: TypeHolderTrait>
+unsafe extern fn get_textOverflow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17318,7 +17318,7 @@ unsafe extern fn get_textOverflow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_textOverflow<TH: TypeHolderTrait>
+unsafe extern fn set_textOverflow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17350,7 +17350,7 @@ unsafe extern fn set_textOverflow<TH: TypeHolderTrait>
 }
 
 
-fn textOverflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textOverflow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_textOverflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17368,7 +17368,7 @@ fn textOverflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn textOverflow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textOverflow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_textOverflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17386,7 +17386,7 @@ fn textOverflow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_text_overflow<TH: TypeHolderTrait>
+unsafe extern fn get_text_overflow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17401,7 +17401,7 @@ unsafe extern fn get_text_overflow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text_overflow<TH: TypeHolderTrait>
+unsafe extern fn set_text_overflow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17433,7 +17433,7 @@ unsafe extern fn set_text_overflow<TH: TypeHolderTrait>
 }
 
 
-fn text_overflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_overflow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text_overflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17451,7 +17451,7 @@ fn text_overflow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn text_overflow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_overflow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text_overflow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17469,7 +17469,7 @@ fn text_overflow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_textAlign<TH: TypeHolderTrait>
+unsafe extern fn get_textAlign<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17484,7 +17484,7 @@ unsafe extern fn get_textAlign<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_textAlign<TH: TypeHolderTrait>
+unsafe extern fn set_textAlign<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17516,7 +17516,7 @@ unsafe extern fn set_textAlign<TH: TypeHolderTrait>
 }
 
 
-fn textAlign_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textAlign_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_textAlign::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17534,7 +17534,7 @@ fn textAlign_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn textAlign_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textAlign_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_textAlign::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17552,7 +17552,7 @@ fn textAlign_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_text_align<TH: TypeHolderTrait>
+unsafe extern fn get_text_align<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17567,7 +17567,7 @@ unsafe extern fn get_text_align<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text_align<TH: TypeHolderTrait>
+unsafe extern fn set_text_align<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17599,7 +17599,7 @@ unsafe extern fn set_text_align<TH: TypeHolderTrait>
 }
 
 
-fn text_align_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_align_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17617,7 +17617,7 @@ fn text_align_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn text_align_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_align_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text_align::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17635,7 +17635,7 @@ fn text_align_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_textDecoration<TH: TypeHolderTrait>
+unsafe extern fn get_textDecoration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17650,7 +17650,7 @@ unsafe extern fn get_textDecoration<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_textDecoration<TH: TypeHolderTrait>
+unsafe extern fn set_textDecoration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17682,7 +17682,7 @@ unsafe extern fn set_textDecoration<TH: TypeHolderTrait>
 }
 
 
-fn textDecoration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textDecoration_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_textDecoration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17700,7 +17700,7 @@ fn textDecoration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn textDecoration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textDecoration_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_textDecoration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17718,7 +17718,7 @@ fn textDecoration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_text_decoration<TH: TypeHolderTrait>
+unsafe extern fn get_text_decoration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17733,7 +17733,7 @@ unsafe extern fn get_text_decoration<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text_decoration<TH: TypeHolderTrait>
+unsafe extern fn set_text_decoration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17765,7 +17765,7 @@ unsafe extern fn set_text_decoration<TH: TypeHolderTrait>
 }
 
 
-fn text_decoration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_decoration_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text_decoration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17783,7 +17783,7 @@ fn text_decoration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn text_decoration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_decoration_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text_decoration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17801,7 +17801,7 @@ fn text_decoration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_textDecorationLine<TH: TypeHolderTrait>
+unsafe extern fn get_textDecorationLine<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17816,7 +17816,7 @@ unsafe extern fn get_textDecorationLine<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_textDecorationLine<TH: TypeHolderTrait>
+unsafe extern fn set_textDecorationLine<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17848,7 +17848,7 @@ unsafe extern fn set_textDecorationLine<TH: TypeHolderTrait>
 }
 
 
-fn textDecorationLine_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textDecorationLine_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_textDecorationLine::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17866,7 +17866,7 @@ fn textDecorationLine_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn textDecorationLine_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textDecorationLine_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_textDecorationLine::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17884,7 +17884,7 @@ fn textDecorationLine_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_text_decoration_line<TH: TypeHolderTrait>
+unsafe extern fn get_text_decoration_line<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17899,7 +17899,7 @@ unsafe extern fn get_text_decoration_line<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text_decoration_line<TH: TypeHolderTrait>
+unsafe extern fn set_text_decoration_line<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17931,7 +17931,7 @@ unsafe extern fn set_text_decoration_line<TH: TypeHolderTrait>
 }
 
 
-fn text_decoration_line_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_decoration_line_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text_decoration_line::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17949,7 +17949,7 @@ fn text_decoration_line_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-fn text_decoration_line_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_decoration_line_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text_decoration_line::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -17967,7 +17967,7 @@ fn text_decoration_line_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn get_textIndent<TH: TypeHolderTrait>
+unsafe extern fn get_textIndent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -17982,7 +17982,7 @@ unsafe extern fn get_textIndent<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_textIndent<TH: TypeHolderTrait>
+unsafe extern fn set_textIndent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18014,7 +18014,7 @@ unsafe extern fn set_textIndent<TH: TypeHolderTrait>
 }
 
 
-fn textIndent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textIndent_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_textIndent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18032,7 +18032,7 @@ fn textIndent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn textIndent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textIndent_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_textIndent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18050,7 +18050,7 @@ fn textIndent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_text_indent<TH: TypeHolderTrait>
+unsafe extern fn get_text_indent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18065,7 +18065,7 @@ unsafe extern fn get_text_indent<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text_indent<TH: TypeHolderTrait>
+unsafe extern fn set_text_indent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18097,7 +18097,7 @@ unsafe extern fn set_text_indent<TH: TypeHolderTrait>
 }
 
 
-fn text_indent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_indent_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text_indent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18115,7 +18115,7 @@ fn text_indent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn text_indent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_indent_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text_indent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18133,7 +18133,7 @@ fn text_indent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_textJustify<TH: TypeHolderTrait>
+unsafe extern fn get_textJustify<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18148,7 +18148,7 @@ unsafe extern fn get_textJustify<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_textJustify<TH: TypeHolderTrait>
+unsafe extern fn set_textJustify<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18180,7 +18180,7 @@ unsafe extern fn set_textJustify<TH: TypeHolderTrait>
 }
 
 
-fn textJustify_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textJustify_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_textJustify::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18198,7 +18198,7 @@ fn textJustify_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn textJustify_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textJustify_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_textJustify::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18216,7 +18216,7 @@ fn textJustify_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_text_justify<TH: TypeHolderTrait>
+unsafe extern fn get_text_justify<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18231,7 +18231,7 @@ unsafe extern fn get_text_justify<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text_justify<TH: TypeHolderTrait>
+unsafe extern fn set_text_justify<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18263,7 +18263,7 @@ unsafe extern fn set_text_justify<TH: TypeHolderTrait>
 }
 
 
-fn text_justify_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_justify_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text_justify::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18281,7 +18281,7 @@ fn text_justify_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn text_justify_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_justify_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text_justify::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18299,7 +18299,7 @@ fn text_justify_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_textRendering<TH: TypeHolderTrait>
+unsafe extern fn get_textRendering<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18314,7 +18314,7 @@ unsafe extern fn get_textRendering<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_textRendering<TH: TypeHolderTrait>
+unsafe extern fn set_textRendering<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18346,7 +18346,7 @@ unsafe extern fn set_textRendering<TH: TypeHolderTrait>
 }
 
 
-fn textRendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textRendering_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_textRendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18364,7 +18364,7 @@ fn textRendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn textRendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textRendering_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_textRendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18382,7 +18382,7 @@ fn textRendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_text_rendering<TH: TypeHolderTrait>
+unsafe extern fn get_text_rendering<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18397,7 +18397,7 @@ unsafe extern fn get_text_rendering<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text_rendering<TH: TypeHolderTrait>
+unsafe extern fn set_text_rendering<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18429,7 +18429,7 @@ unsafe extern fn set_text_rendering<TH: TypeHolderTrait>
 }
 
 
-fn text_rendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_rendering_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text_rendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18447,7 +18447,7 @@ fn text_rendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn text_rendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_rendering_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text_rendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18465,7 +18465,7 @@ fn text_rendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_textTransform<TH: TypeHolderTrait>
+unsafe extern fn get_textTransform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18480,7 +18480,7 @@ unsafe extern fn get_textTransform<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_textTransform<TH: TypeHolderTrait>
+unsafe extern fn set_textTransform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18512,7 +18512,7 @@ unsafe extern fn set_textTransform<TH: TypeHolderTrait>
 }
 
 
-fn textTransform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textTransform_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_textTransform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18530,7 +18530,7 @@ fn textTransform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn textTransform_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn textTransform_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_textTransform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18548,7 +18548,7 @@ fn textTransform_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_text_transform<TH: TypeHolderTrait>
+unsafe extern fn get_text_transform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18563,7 +18563,7 @@ unsafe extern fn get_text_transform<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_text_transform<TH: TypeHolderTrait>
+unsafe extern fn set_text_transform<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18595,7 +18595,7 @@ unsafe extern fn set_text_transform<TH: TypeHolderTrait>
 }
 
 
-fn text_transform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_transform_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_text_transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18613,7 +18613,7 @@ fn text_transform_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn text_transform_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn text_transform_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_text_transform::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18631,7 +18631,7 @@ fn text_transform_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_font<TH: TypeHolderTrait>
+unsafe extern fn get_font<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18646,7 +18646,7 @@ unsafe extern fn get_font<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_font<TH: TypeHolderTrait>
+unsafe extern fn set_font<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18678,7 +18678,7 @@ unsafe extern fn set_font<TH: TypeHolderTrait>
 }
 
 
-fn font_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_font::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18696,7 +18696,7 @@ fn font_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn font_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_font::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18714,7 +18714,7 @@ fn font_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_fontFamily<TH: TypeHolderTrait>
+unsafe extern fn get_fontFamily<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18729,7 +18729,7 @@ unsafe extern fn get_fontFamily<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_fontFamily<TH: TypeHolderTrait>
+unsafe extern fn set_fontFamily<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18761,7 +18761,7 @@ unsafe extern fn set_fontFamily<TH: TypeHolderTrait>
 }
 
 
-fn fontFamily_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontFamily_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_fontFamily::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18779,7 +18779,7 @@ fn fontFamily_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn fontFamily_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontFamily_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_fontFamily::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18797,7 +18797,7 @@ fn fontFamily_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_font_family<TH: TypeHolderTrait>
+unsafe extern fn get_font_family<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18812,7 +18812,7 @@ unsafe extern fn get_font_family<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_font_family<TH: TypeHolderTrait>
+unsafe extern fn set_font_family<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18844,7 +18844,7 @@ unsafe extern fn set_font_family<TH: TypeHolderTrait>
 }
 
 
-fn font_family_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_family_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_font_family::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18862,7 +18862,7 @@ fn font_family_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn font_family_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_family_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_font_family::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18880,7 +18880,7 @@ fn font_family_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_fontSize<TH: TypeHolderTrait>
+unsafe extern fn get_fontSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18895,7 +18895,7 @@ unsafe extern fn get_fontSize<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_fontSize<TH: TypeHolderTrait>
+unsafe extern fn set_fontSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18927,7 +18927,7 @@ unsafe extern fn set_fontSize<TH: TypeHolderTrait>
 }
 
 
-fn fontSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontSize_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_fontSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18945,7 +18945,7 @@ fn fontSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn fontSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontSize_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_fontSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -18963,7 +18963,7 @@ fn fontSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_font_size<TH: TypeHolderTrait>
+unsafe extern fn get_font_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -18978,7 +18978,7 @@ unsafe extern fn get_font_size<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_font_size<TH: TypeHolderTrait>
+unsafe extern fn set_font_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19010,7 +19010,7 @@ unsafe extern fn set_font_size<TH: TypeHolderTrait>
 }
 
 
-fn font_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_size_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_font_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19028,7 +19028,7 @@ fn font_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn font_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_size_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_font_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19046,7 +19046,7 @@ fn font_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_fontStretch<TH: TypeHolderTrait>
+unsafe extern fn get_fontStretch<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19061,7 +19061,7 @@ unsafe extern fn get_fontStretch<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_fontStretch<TH: TypeHolderTrait>
+unsafe extern fn set_fontStretch<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19093,7 +19093,7 @@ unsafe extern fn set_fontStretch<TH: TypeHolderTrait>
 }
 
 
-fn fontStretch_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontStretch_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_fontStretch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19111,7 +19111,7 @@ fn fontStretch_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn fontStretch_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontStretch_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_fontStretch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19129,7 +19129,7 @@ fn fontStretch_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_font_stretch<TH: TypeHolderTrait>
+unsafe extern fn get_font_stretch<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19144,7 +19144,7 @@ unsafe extern fn get_font_stretch<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_font_stretch<TH: TypeHolderTrait>
+unsafe extern fn set_font_stretch<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19176,7 +19176,7 @@ unsafe extern fn set_font_stretch<TH: TypeHolderTrait>
 }
 
 
-fn font_stretch_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_stretch_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_font_stretch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19194,7 +19194,7 @@ fn font_stretch_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn font_stretch_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_stretch_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_font_stretch::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19212,7 +19212,7 @@ fn font_stretch_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_fontStyle<TH: TypeHolderTrait>
+unsafe extern fn get_fontStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19227,7 +19227,7 @@ unsafe extern fn get_fontStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_fontStyle<TH: TypeHolderTrait>
+unsafe extern fn set_fontStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19259,7 +19259,7 @@ unsafe extern fn set_fontStyle<TH: TypeHolderTrait>
 }
 
 
-fn fontStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_fontStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19277,7 +19277,7 @@ fn fontStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn fontStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_fontStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19295,7 +19295,7 @@ fn fontStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_font_style<TH: TypeHolderTrait>
+unsafe extern fn get_font_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19310,7 +19310,7 @@ unsafe extern fn get_font_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_font_style<TH: TypeHolderTrait>
+unsafe extern fn set_font_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19342,7 +19342,7 @@ unsafe extern fn set_font_style<TH: TypeHolderTrait>
 }
 
 
-fn font_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_font_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19360,7 +19360,7 @@ fn font_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn font_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_font_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19378,7 +19378,7 @@ fn font_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_fontVariant<TH: TypeHolderTrait>
+unsafe extern fn get_fontVariant<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19393,7 +19393,7 @@ unsafe extern fn get_fontVariant<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_fontVariant<TH: TypeHolderTrait>
+unsafe extern fn set_fontVariant<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19425,7 +19425,7 @@ unsafe extern fn set_fontVariant<TH: TypeHolderTrait>
 }
 
 
-fn fontVariant_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontVariant_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_fontVariant::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19443,7 +19443,7 @@ fn fontVariant_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn fontVariant_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontVariant_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_fontVariant::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19461,7 +19461,7 @@ fn fontVariant_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_font_variant<TH: TypeHolderTrait>
+unsafe extern fn get_font_variant<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19476,7 +19476,7 @@ unsafe extern fn get_font_variant<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_font_variant<TH: TypeHolderTrait>
+unsafe extern fn set_font_variant<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19508,7 +19508,7 @@ unsafe extern fn set_font_variant<TH: TypeHolderTrait>
 }
 
 
-fn font_variant_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_variant_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_font_variant::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19526,7 +19526,7 @@ fn font_variant_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn font_variant_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_variant_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_font_variant::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19544,7 +19544,7 @@ fn font_variant_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_fontVariantCaps<TH: TypeHolderTrait>
+unsafe extern fn get_fontVariantCaps<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19559,7 +19559,7 @@ unsafe extern fn get_fontVariantCaps<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_fontVariantCaps<TH: TypeHolderTrait>
+unsafe extern fn set_fontVariantCaps<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19591,7 +19591,7 @@ unsafe extern fn set_fontVariantCaps<TH: TypeHolderTrait>
 }
 
 
-fn fontVariantCaps_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontVariantCaps_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_fontVariantCaps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19609,7 +19609,7 @@ fn fontVariantCaps_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn fontVariantCaps_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontVariantCaps_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_fontVariantCaps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19627,7 +19627,7 @@ fn fontVariantCaps_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_font_variant_caps<TH: TypeHolderTrait>
+unsafe extern fn get_font_variant_caps<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19642,7 +19642,7 @@ unsafe extern fn get_font_variant_caps<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_font_variant_caps<TH: TypeHolderTrait>
+unsafe extern fn set_font_variant_caps<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19674,7 +19674,7 @@ unsafe extern fn set_font_variant_caps<TH: TypeHolderTrait>
 }
 
 
-fn font_variant_caps_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_variant_caps_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_font_variant_caps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19692,7 +19692,7 @@ fn font_variant_caps_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn font_variant_caps_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_variant_caps_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_font_variant_caps::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19710,7 +19710,7 @@ fn font_variant_caps_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_fontWeight<TH: TypeHolderTrait>
+unsafe extern fn get_fontWeight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19725,7 +19725,7 @@ unsafe extern fn get_fontWeight<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_fontWeight<TH: TypeHolderTrait>
+unsafe extern fn set_fontWeight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19757,7 +19757,7 @@ unsafe extern fn set_fontWeight<TH: TypeHolderTrait>
 }
 
 
-fn fontWeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontWeight_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_fontWeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19775,7 +19775,7 @@ fn fontWeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn fontWeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn fontWeight_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_fontWeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19793,7 +19793,7 @@ fn fontWeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_font_weight<TH: TypeHolderTrait>
+unsafe extern fn get_font_weight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19808,7 +19808,7 @@ unsafe extern fn get_font_weight<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_font_weight<TH: TypeHolderTrait>
+unsafe extern fn set_font_weight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19840,7 +19840,7 @@ unsafe extern fn set_font_weight<TH: TypeHolderTrait>
 }
 
 
-fn font_weight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_weight_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_font_weight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19858,7 +19858,7 @@ fn font_weight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn font_weight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn font_weight_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_font_weight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19876,7 +19876,7 @@ fn font_weight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_margin<TH: TypeHolderTrait>
+unsafe extern fn get_margin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19891,7 +19891,7 @@ unsafe extern fn get_margin<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_margin<TH: TypeHolderTrait>
+unsafe extern fn set_margin<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19923,7 +19923,7 @@ unsafe extern fn set_margin<TH: TypeHolderTrait>
 }
 
 
-fn margin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_margin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19941,7 +19941,7 @@ fn margin_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn margin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_margin::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -19959,7 +19959,7 @@ fn margin_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_marginBottom<TH: TypeHolderTrait>
+unsafe extern fn get_marginBottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -19974,7 +19974,7 @@ unsafe extern fn get_marginBottom<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_marginBottom<TH: TypeHolderTrait>
+unsafe extern fn set_marginBottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20006,7 +20006,7 @@ unsafe extern fn set_marginBottom<TH: TypeHolderTrait>
 }
 
 
-fn marginBottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginBottom_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_marginBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20024,7 +20024,7 @@ fn marginBottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn marginBottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginBottom_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_marginBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20042,7 +20042,7 @@ fn marginBottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_margin_bottom<TH: TypeHolderTrait>
+unsafe extern fn get_margin_bottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20057,7 +20057,7 @@ unsafe extern fn get_margin_bottom<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_margin_bottom<TH: TypeHolderTrait>
+unsafe extern fn set_margin_bottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20089,7 +20089,7 @@ unsafe extern fn set_margin_bottom<TH: TypeHolderTrait>
 }
 
 
-fn margin_bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_bottom_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_margin_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20107,7 +20107,7 @@ fn margin_bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn margin_bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_bottom_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_margin_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20125,7 +20125,7 @@ fn margin_bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_marginLeft<TH: TypeHolderTrait>
+unsafe extern fn get_marginLeft<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20140,7 +20140,7 @@ unsafe extern fn get_marginLeft<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_marginLeft<TH: TypeHolderTrait>
+unsafe extern fn set_marginLeft<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20172,7 +20172,7 @@ unsafe extern fn set_marginLeft<TH: TypeHolderTrait>
 }
 
 
-fn marginLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginLeft_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_marginLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20190,7 +20190,7 @@ fn marginLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn marginLeft_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginLeft_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_marginLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20208,7 +20208,7 @@ fn marginLeft_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_margin_left<TH: TypeHolderTrait>
+unsafe extern fn get_margin_left<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20223,7 +20223,7 @@ unsafe extern fn get_margin_left<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_margin_left<TH: TypeHolderTrait>
+unsafe extern fn set_margin_left<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20255,7 +20255,7 @@ unsafe extern fn set_margin_left<TH: TypeHolderTrait>
 }
 
 
-fn margin_left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_left_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_margin_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20273,7 +20273,7 @@ fn margin_left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn margin_left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_left_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_margin_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20291,7 +20291,7 @@ fn margin_left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_marginRight<TH: TypeHolderTrait>
+unsafe extern fn get_marginRight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20306,7 +20306,7 @@ unsafe extern fn get_marginRight<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_marginRight<TH: TypeHolderTrait>
+unsafe extern fn set_marginRight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20338,7 +20338,7 @@ unsafe extern fn set_marginRight<TH: TypeHolderTrait>
 }
 
 
-fn marginRight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginRight_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_marginRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20356,7 +20356,7 @@ fn marginRight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn marginRight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginRight_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_marginRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20374,7 +20374,7 @@ fn marginRight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_margin_right<TH: TypeHolderTrait>
+unsafe extern fn get_margin_right<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20389,7 +20389,7 @@ unsafe extern fn get_margin_right<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_margin_right<TH: TypeHolderTrait>
+unsafe extern fn set_margin_right<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20421,7 +20421,7 @@ unsafe extern fn set_margin_right<TH: TypeHolderTrait>
 }
 
 
-fn margin_right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_right_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_margin_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20439,7 +20439,7 @@ fn margin_right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn margin_right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_right_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_margin_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20457,7 +20457,7 @@ fn margin_right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_marginTop<TH: TypeHolderTrait>
+unsafe extern fn get_marginTop<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20472,7 +20472,7 @@ unsafe extern fn get_marginTop<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_marginTop<TH: TypeHolderTrait>
+unsafe extern fn set_marginTop<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20504,7 +20504,7 @@ unsafe extern fn set_marginTop<TH: TypeHolderTrait>
 }
 
 
-fn marginTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginTop_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_marginTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20522,7 +20522,7 @@ fn marginTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn marginTop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginTop_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_marginTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20540,7 +20540,7 @@ fn marginTop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_margin_top<TH: TypeHolderTrait>
+unsafe extern fn get_margin_top<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20555,7 +20555,7 @@ unsafe extern fn get_margin_top<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_margin_top<TH: TypeHolderTrait>
+unsafe extern fn set_margin_top<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20587,7 +20587,7 @@ unsafe extern fn set_margin_top<TH: TypeHolderTrait>
 }
 
 
-fn margin_top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_top_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_margin_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20605,7 +20605,7 @@ fn margin_top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn margin_top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_top_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_margin_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20623,7 +20623,7 @@ fn margin_top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_margin_block_start<TH: TypeHolderTrait>
+unsafe extern fn get_margin_block_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20638,7 +20638,7 @@ unsafe extern fn get_margin_block_start<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_margin_block_start<TH: TypeHolderTrait>
+unsafe extern fn set_margin_block_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20670,7 +20670,7 @@ unsafe extern fn set_margin_block_start<TH: TypeHolderTrait>
 }
 
 
-fn margin_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_block_start_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_margin_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20688,7 +20688,7 @@ fn margin_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn margin_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_block_start_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_margin_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20706,7 +20706,7 @@ fn margin_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_marginBlockStart<TH: TypeHolderTrait>
+unsafe extern fn get_marginBlockStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20721,7 +20721,7 @@ unsafe extern fn get_marginBlockStart<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_marginBlockStart<TH: TypeHolderTrait>
+unsafe extern fn set_marginBlockStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20753,7 +20753,7 @@ unsafe extern fn set_marginBlockStart<TH: TypeHolderTrait>
 }
 
 
-fn marginBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginBlockStart_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_marginBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20771,7 +20771,7 @@ fn marginBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn marginBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginBlockStart_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_marginBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20789,7 +20789,7 @@ fn marginBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_margin_block_end<TH: TypeHolderTrait>
+unsafe extern fn get_margin_block_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20804,7 +20804,7 @@ unsafe extern fn get_margin_block_end<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_margin_block_end<TH: TypeHolderTrait>
+unsafe extern fn set_margin_block_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20836,7 +20836,7 @@ unsafe extern fn set_margin_block_end<TH: TypeHolderTrait>
 }
 
 
-fn margin_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_block_end_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_margin_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20854,7 +20854,7 @@ fn margin_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn margin_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_block_end_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_margin_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20872,7 +20872,7 @@ fn margin_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_marginBlockEnd<TH: TypeHolderTrait>
+unsafe extern fn get_marginBlockEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20887,7 +20887,7 @@ unsafe extern fn get_marginBlockEnd<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_marginBlockEnd<TH: TypeHolderTrait>
+unsafe extern fn set_marginBlockEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20919,7 +20919,7 @@ unsafe extern fn set_marginBlockEnd<TH: TypeHolderTrait>
 }
 
 
-fn marginBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginBlockEnd_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_marginBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20937,7 +20937,7 @@ fn marginBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn marginBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginBlockEnd_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_marginBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -20955,7 +20955,7 @@ fn marginBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_margin_inline_start<TH: TypeHolderTrait>
+unsafe extern fn get_margin_inline_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -20970,7 +20970,7 @@ unsafe extern fn get_margin_inline_start<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_margin_inline_start<TH: TypeHolderTrait>
+unsafe extern fn set_margin_inline_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21002,7 +21002,7 @@ unsafe extern fn set_margin_inline_start<TH: TypeHolderTrait>
 }
 
 
-fn margin_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_inline_start_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_margin_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21020,7 +21020,7 @@ fn margin_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn margin_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_inline_start_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_margin_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21038,7 +21038,7 @@ fn margin_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_marginInlineStart<TH: TypeHolderTrait>
+unsafe extern fn get_marginInlineStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21053,7 +21053,7 @@ unsafe extern fn get_marginInlineStart<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_marginInlineStart<TH: TypeHolderTrait>
+unsafe extern fn set_marginInlineStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21085,7 +21085,7 @@ unsafe extern fn set_marginInlineStart<TH: TypeHolderTrait>
 }
 
 
-fn marginInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginInlineStart_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_marginInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21103,7 +21103,7 @@ fn marginInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn marginInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginInlineStart_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_marginInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21121,7 +21121,7 @@ fn marginInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_margin_inline_end<TH: TypeHolderTrait>
+unsafe extern fn get_margin_inline_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21136,7 +21136,7 @@ unsafe extern fn get_margin_inline_end<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_margin_inline_end<TH: TypeHolderTrait>
+unsafe extern fn set_margin_inline_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21168,7 +21168,7 @@ unsafe extern fn set_margin_inline_end<TH: TypeHolderTrait>
 }
 
 
-fn margin_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_inline_end_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_margin_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21186,7 +21186,7 @@ fn margin_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn margin_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn margin_inline_end_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_margin_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21204,7 +21204,7 @@ fn margin_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_marginInlineEnd<TH: TypeHolderTrait>
+unsafe extern fn get_marginInlineEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21219,7 +21219,7 @@ unsafe extern fn get_marginInlineEnd<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_marginInlineEnd<TH: TypeHolderTrait>
+unsafe extern fn set_marginInlineEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21251,7 +21251,7 @@ unsafe extern fn set_marginInlineEnd<TH: TypeHolderTrait>
 }
 
 
-fn marginInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginInlineEnd_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_marginInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21269,7 +21269,7 @@ fn marginInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn marginInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn marginInlineEnd_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_marginInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21287,7 +21287,7 @@ fn marginInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_padding<TH: TypeHolderTrait>
+unsafe extern fn get_padding<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21302,7 +21302,7 @@ unsafe extern fn get_padding<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_padding<TH: TypeHolderTrait>
+unsafe extern fn set_padding<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21334,7 +21334,7 @@ unsafe extern fn set_padding<TH: TypeHolderTrait>
 }
 
 
-fn padding_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_padding::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21352,7 +21352,7 @@ fn padding_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn padding_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_padding::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21370,7 +21370,7 @@ fn padding_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_paddingBottom<TH: TypeHolderTrait>
+unsafe extern fn get_paddingBottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21385,7 +21385,7 @@ unsafe extern fn get_paddingBottom<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_paddingBottom<TH: TypeHolderTrait>
+unsafe extern fn set_paddingBottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21417,7 +21417,7 @@ unsafe extern fn set_paddingBottom<TH: TypeHolderTrait>
 }
 
 
-fn paddingBottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingBottom_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_paddingBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21435,7 +21435,7 @@ fn paddingBottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn paddingBottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingBottom_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_paddingBottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21453,7 +21453,7 @@ fn paddingBottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_padding_bottom<TH: TypeHolderTrait>
+unsafe extern fn get_padding_bottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21468,7 +21468,7 @@ unsafe extern fn get_padding_bottom<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_padding_bottom<TH: TypeHolderTrait>
+unsafe extern fn set_padding_bottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21500,7 +21500,7 @@ unsafe extern fn set_padding_bottom<TH: TypeHolderTrait>
 }
 
 
-fn padding_bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_bottom_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_padding_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21518,7 +21518,7 @@ fn padding_bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn padding_bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_bottom_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_padding_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21536,7 +21536,7 @@ fn padding_bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_paddingLeft<TH: TypeHolderTrait>
+unsafe extern fn get_paddingLeft<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21551,7 +21551,7 @@ unsafe extern fn get_paddingLeft<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_paddingLeft<TH: TypeHolderTrait>
+unsafe extern fn set_paddingLeft<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21583,7 +21583,7 @@ unsafe extern fn set_paddingLeft<TH: TypeHolderTrait>
 }
 
 
-fn paddingLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingLeft_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_paddingLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21601,7 +21601,7 @@ fn paddingLeft_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn paddingLeft_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingLeft_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_paddingLeft::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21619,7 +21619,7 @@ fn paddingLeft_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_padding_left<TH: TypeHolderTrait>
+unsafe extern fn get_padding_left<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21634,7 +21634,7 @@ unsafe extern fn get_padding_left<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_padding_left<TH: TypeHolderTrait>
+unsafe extern fn set_padding_left<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21666,7 +21666,7 @@ unsafe extern fn set_padding_left<TH: TypeHolderTrait>
 }
 
 
-fn padding_left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_left_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_padding_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21684,7 +21684,7 @@ fn padding_left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn padding_left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_left_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_padding_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21702,7 +21702,7 @@ fn padding_left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_paddingRight<TH: TypeHolderTrait>
+unsafe extern fn get_paddingRight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21717,7 +21717,7 @@ unsafe extern fn get_paddingRight<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_paddingRight<TH: TypeHolderTrait>
+unsafe extern fn set_paddingRight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21749,7 +21749,7 @@ unsafe extern fn set_paddingRight<TH: TypeHolderTrait>
 }
 
 
-fn paddingRight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingRight_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_paddingRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21767,7 +21767,7 @@ fn paddingRight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn paddingRight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingRight_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_paddingRight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21785,7 +21785,7 @@ fn paddingRight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_padding_right<TH: TypeHolderTrait>
+unsafe extern fn get_padding_right<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21800,7 +21800,7 @@ unsafe extern fn get_padding_right<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_padding_right<TH: TypeHolderTrait>
+unsafe extern fn set_padding_right<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21832,7 +21832,7 @@ unsafe extern fn set_padding_right<TH: TypeHolderTrait>
 }
 
 
-fn padding_right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_right_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_padding_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21850,7 +21850,7 @@ fn padding_right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn padding_right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_right_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_padding_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21868,7 +21868,7 @@ fn padding_right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_paddingTop<TH: TypeHolderTrait>
+unsafe extern fn get_paddingTop<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21883,7 +21883,7 @@ unsafe extern fn get_paddingTop<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_paddingTop<TH: TypeHolderTrait>
+unsafe extern fn set_paddingTop<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21915,7 +21915,7 @@ unsafe extern fn set_paddingTop<TH: TypeHolderTrait>
 }
 
 
-fn paddingTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingTop_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_paddingTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21933,7 +21933,7 @@ fn paddingTop_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn paddingTop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingTop_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_paddingTop::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -21951,7 +21951,7 @@ fn paddingTop_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_padding_top<TH: TypeHolderTrait>
+unsafe extern fn get_padding_top<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21966,7 +21966,7 @@ unsafe extern fn get_padding_top<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_padding_top<TH: TypeHolderTrait>
+unsafe extern fn set_padding_top<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -21998,7 +21998,7 @@ unsafe extern fn set_padding_top<TH: TypeHolderTrait>
 }
 
 
-fn padding_top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_top_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_padding_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22016,7 +22016,7 @@ fn padding_top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn padding_top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_top_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_padding_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22034,7 +22034,7 @@ fn padding_top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_padding_block_start<TH: TypeHolderTrait>
+unsafe extern fn get_padding_block_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22049,7 +22049,7 @@ unsafe extern fn get_padding_block_start<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_padding_block_start<TH: TypeHolderTrait>
+unsafe extern fn set_padding_block_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22081,7 +22081,7 @@ unsafe extern fn set_padding_block_start<TH: TypeHolderTrait>
 }
 
 
-fn padding_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_block_start_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_padding_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22099,7 +22099,7 @@ fn padding_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn padding_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_block_start_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_padding_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22117,7 +22117,7 @@ fn padding_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_paddingBlockStart<TH: TypeHolderTrait>
+unsafe extern fn get_paddingBlockStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22132,7 +22132,7 @@ unsafe extern fn get_paddingBlockStart<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_paddingBlockStart<TH: TypeHolderTrait>
+unsafe extern fn set_paddingBlockStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22164,7 +22164,7 @@ unsafe extern fn set_paddingBlockStart<TH: TypeHolderTrait>
 }
 
 
-fn paddingBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingBlockStart_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_paddingBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22182,7 +22182,7 @@ fn paddingBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn paddingBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingBlockStart_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_paddingBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22200,7 +22200,7 @@ fn paddingBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_padding_block_end<TH: TypeHolderTrait>
+unsafe extern fn get_padding_block_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22215,7 +22215,7 @@ unsafe extern fn get_padding_block_end<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_padding_block_end<TH: TypeHolderTrait>
+unsafe extern fn set_padding_block_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22247,7 +22247,7 @@ unsafe extern fn set_padding_block_end<TH: TypeHolderTrait>
 }
 
 
-fn padding_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_block_end_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_padding_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22265,7 +22265,7 @@ fn padding_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn padding_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_block_end_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_padding_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22283,7 +22283,7 @@ fn padding_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_paddingBlockEnd<TH: TypeHolderTrait>
+unsafe extern fn get_paddingBlockEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22298,7 +22298,7 @@ unsafe extern fn get_paddingBlockEnd<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_paddingBlockEnd<TH: TypeHolderTrait>
+unsafe extern fn set_paddingBlockEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22330,7 +22330,7 @@ unsafe extern fn set_paddingBlockEnd<TH: TypeHolderTrait>
 }
 
 
-fn paddingBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingBlockEnd_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_paddingBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22348,7 +22348,7 @@ fn paddingBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn paddingBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingBlockEnd_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_paddingBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22366,7 +22366,7 @@ fn paddingBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_padding_inline_start<TH: TypeHolderTrait>
+unsafe extern fn get_padding_inline_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22381,7 +22381,7 @@ unsafe extern fn get_padding_inline_start<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_padding_inline_start<TH: TypeHolderTrait>
+unsafe extern fn set_padding_inline_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22413,7 +22413,7 @@ unsafe extern fn set_padding_inline_start<TH: TypeHolderTrait>
 }
 
 
-fn padding_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_inline_start_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_padding_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22431,7 +22431,7 @@ fn padding_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-fn padding_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_inline_start_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_padding_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22449,7 +22449,7 @@ fn padding_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn get_paddingInlineStart<TH: TypeHolderTrait>
+unsafe extern fn get_paddingInlineStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22464,7 +22464,7 @@ unsafe extern fn get_paddingInlineStart<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_paddingInlineStart<TH: TypeHolderTrait>
+unsafe extern fn set_paddingInlineStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22496,7 +22496,7 @@ unsafe extern fn set_paddingInlineStart<TH: TypeHolderTrait>
 }
 
 
-fn paddingInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingInlineStart_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_paddingInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22514,7 +22514,7 @@ fn paddingInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn paddingInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingInlineStart_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_paddingInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22532,7 +22532,7 @@ fn paddingInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_padding_inline_end<TH: TypeHolderTrait>
+unsafe extern fn get_padding_inline_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22547,7 +22547,7 @@ unsafe extern fn get_padding_inline_end<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_padding_inline_end<TH: TypeHolderTrait>
+unsafe extern fn set_padding_inline_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22579,7 +22579,7 @@ unsafe extern fn set_padding_inline_end<TH: TypeHolderTrait>
 }
 
 
-fn padding_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_inline_end_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_padding_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22597,7 +22597,7 @@ fn padding_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn padding_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn padding_inline_end_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_padding_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22615,7 +22615,7 @@ fn padding_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_paddingInlineEnd<TH: TypeHolderTrait>
+unsafe extern fn get_paddingInlineEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22630,7 +22630,7 @@ unsafe extern fn get_paddingInlineEnd<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_paddingInlineEnd<TH: TypeHolderTrait>
+unsafe extern fn set_paddingInlineEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22662,7 +22662,7 @@ unsafe extern fn set_paddingInlineEnd<TH: TypeHolderTrait>
 }
 
 
-fn paddingInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingInlineEnd_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_paddingInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22680,7 +22680,7 @@ fn paddingInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn paddingInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn paddingInlineEnd_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_paddingInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22698,7 +22698,7 @@ fn paddingInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_outline<TH: TypeHolderTrait>
+unsafe extern fn get_outline<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22713,7 +22713,7 @@ unsafe extern fn get_outline<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_outline<TH: TypeHolderTrait>
+unsafe extern fn set_outline<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22745,7 +22745,7 @@ unsafe extern fn set_outline<TH: TypeHolderTrait>
 }
 
 
-fn outline_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_outline::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22763,7 +22763,7 @@ fn outline_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn outline_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_outline::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22781,7 +22781,7 @@ fn outline_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_outlineColor<TH: TypeHolderTrait>
+unsafe extern fn get_outlineColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22796,7 +22796,7 @@ unsafe extern fn get_outlineColor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_outlineColor<TH: TypeHolderTrait>
+unsafe extern fn set_outlineColor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22828,7 +22828,7 @@ unsafe extern fn set_outlineColor<TH: TypeHolderTrait>
 }
 
 
-fn outlineColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outlineColor_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_outlineColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22846,7 +22846,7 @@ fn outlineColor_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn outlineColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outlineColor_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_outlineColor::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22864,7 +22864,7 @@ fn outlineColor_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_outline_color<TH: TypeHolderTrait>
+unsafe extern fn get_outline_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22879,7 +22879,7 @@ unsafe extern fn get_outline_color<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_outline_color<TH: TypeHolderTrait>
+unsafe extern fn set_outline_color<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22911,7 +22911,7 @@ unsafe extern fn set_outline_color<TH: TypeHolderTrait>
 }
 
 
-fn outline_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_color_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_outline_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22929,7 +22929,7 @@ fn outline_color_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn outline_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_color_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_outline_color::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -22947,7 +22947,7 @@ fn outline_color_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_outlineStyle<TH: TypeHolderTrait>
+unsafe extern fn get_outlineStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22962,7 +22962,7 @@ unsafe extern fn get_outlineStyle<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_outlineStyle<TH: TypeHolderTrait>
+unsafe extern fn set_outlineStyle<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -22994,7 +22994,7 @@ unsafe extern fn set_outlineStyle<TH: TypeHolderTrait>
 }
 
 
-fn outlineStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outlineStyle_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_outlineStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23012,7 +23012,7 @@ fn outlineStyle_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn outlineStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outlineStyle_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_outlineStyle::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23030,7 +23030,7 @@ fn outlineStyle_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_outline_style<TH: TypeHolderTrait>
+unsafe extern fn get_outline_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23045,7 +23045,7 @@ unsafe extern fn get_outline_style<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_outline_style<TH: TypeHolderTrait>
+unsafe extern fn set_outline_style<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23077,7 +23077,7 @@ unsafe extern fn set_outline_style<TH: TypeHolderTrait>
 }
 
 
-fn outline_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_style_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_outline_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23095,7 +23095,7 @@ fn outline_style_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn outline_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_style_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_outline_style::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23113,7 +23113,7 @@ fn outline_style_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_outlineWidth<TH: TypeHolderTrait>
+unsafe extern fn get_outlineWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23128,7 +23128,7 @@ unsafe extern fn get_outlineWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_outlineWidth<TH: TypeHolderTrait>
+unsafe extern fn set_outlineWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23160,7 +23160,7 @@ unsafe extern fn set_outlineWidth<TH: TypeHolderTrait>
 }
 
 
-fn outlineWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outlineWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_outlineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23178,7 +23178,7 @@ fn outlineWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn outlineWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outlineWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_outlineWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23196,7 +23196,7 @@ fn outlineWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_outline_width<TH: TypeHolderTrait>
+unsafe extern fn get_outline_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23211,7 +23211,7 @@ unsafe extern fn get_outline_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_outline_width<TH: TypeHolderTrait>
+unsafe extern fn set_outline_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23243,7 +23243,7 @@ unsafe extern fn set_outline_width<TH: TypeHolderTrait>
 }
 
 
-fn outline_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_outline_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23261,7 +23261,7 @@ fn outline_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn outline_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_outline_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23279,7 +23279,7 @@ fn outline_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_outlineOffset<TH: TypeHolderTrait>
+unsafe extern fn get_outlineOffset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23294,7 +23294,7 @@ unsafe extern fn get_outlineOffset<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_outlineOffset<TH: TypeHolderTrait>
+unsafe extern fn set_outlineOffset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23326,7 +23326,7 @@ unsafe extern fn set_outlineOffset<TH: TypeHolderTrait>
 }
 
 
-fn outlineOffset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outlineOffset_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_outlineOffset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23344,7 +23344,7 @@ fn outlineOffset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn outlineOffset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outlineOffset_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_outlineOffset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23362,7 +23362,7 @@ fn outlineOffset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_outline_offset<TH: TypeHolderTrait>
+unsafe extern fn get_outline_offset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23377,7 +23377,7 @@ unsafe extern fn get_outline_offset<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_outline_offset<TH: TypeHolderTrait>
+unsafe extern fn set_outline_offset<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23409,7 +23409,7 @@ unsafe extern fn set_outline_offset<TH: TypeHolderTrait>
 }
 
 
-fn outline_offset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_offset_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_outline_offset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23427,7 +23427,7 @@ fn outline_offset_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn outline_offset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn outline_offset_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_outline_offset::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23445,7 +23445,7 @@ fn outline_offset_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_position<TH: TypeHolderTrait>
+unsafe extern fn get_position<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23460,7 +23460,7 @@ unsafe extern fn get_position<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_position<TH: TypeHolderTrait>
+unsafe extern fn set_position<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23492,7 +23492,7 @@ unsafe extern fn set_position<TH: TypeHolderTrait>
 }
 
 
-fn position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn position_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23510,7 +23510,7 @@ fn position_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn position_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn position_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_position::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23528,7 +23528,7 @@ fn position_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_pointerEvents<TH: TypeHolderTrait>
+unsafe extern fn get_pointerEvents<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23543,7 +23543,7 @@ unsafe extern fn get_pointerEvents<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_pointerEvents<TH: TypeHolderTrait>
+unsafe extern fn set_pointerEvents<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23575,7 +23575,7 @@ unsafe extern fn set_pointerEvents<TH: TypeHolderTrait>
 }
 
 
-fn pointerEvents_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn pointerEvents_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_pointerEvents::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23593,7 +23593,7 @@ fn pointerEvents_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn pointerEvents_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn pointerEvents_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_pointerEvents::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23611,7 +23611,7 @@ fn pointerEvents_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_pointer_events<TH: TypeHolderTrait>
+unsafe extern fn get_pointer_events<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23626,7 +23626,7 @@ unsafe extern fn get_pointer_events<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_pointer_events<TH: TypeHolderTrait>
+unsafe extern fn set_pointer_events<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23658,7 +23658,7 @@ unsafe extern fn set_pointer_events<TH: TypeHolderTrait>
 }
 
 
-fn pointer_events_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn pointer_events_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_pointer_events::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23676,7 +23676,7 @@ fn pointer_events_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn pointer_events_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn pointer_events_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_pointer_events::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23694,7 +23694,7 @@ fn pointer_events_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_top<TH: TypeHolderTrait>
+unsafe extern fn get_top<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23709,7 +23709,7 @@ unsafe extern fn get_top<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_top<TH: TypeHolderTrait>
+unsafe extern fn set_top<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23741,7 +23741,7 @@ unsafe extern fn set_top<TH: TypeHolderTrait>
 }
 
 
-fn top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn top_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23759,7 +23759,7 @@ fn top_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn top_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_top::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23777,7 +23777,7 @@ fn top_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_right<TH: TypeHolderTrait>
+unsafe extern fn get_right<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23792,7 +23792,7 @@ unsafe extern fn get_right<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_right<TH: TypeHolderTrait>
+unsafe extern fn set_right<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23824,7 +23824,7 @@ unsafe extern fn set_right<TH: TypeHolderTrait>
 }
 
 
-fn right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn right_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23842,7 +23842,7 @@ fn right_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn right_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_right::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23860,7 +23860,7 @@ fn right_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_left<TH: TypeHolderTrait>
+unsafe extern fn get_left<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23875,7 +23875,7 @@ unsafe extern fn get_left<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_left<TH: TypeHolderTrait>
+unsafe extern fn set_left<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23907,7 +23907,7 @@ unsafe extern fn set_left<TH: TypeHolderTrait>
 }
 
 
-fn left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn left_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23925,7 +23925,7 @@ fn left_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn left_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_left::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -23943,7 +23943,7 @@ fn left_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_bottom<TH: TypeHolderTrait>
+unsafe extern fn get_bottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23958,7 +23958,7 @@ unsafe extern fn get_bottom<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_bottom<TH: TypeHolderTrait>
+unsafe extern fn set_bottom<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -23990,7 +23990,7 @@ unsafe extern fn set_bottom<TH: TypeHolderTrait>
 }
 
 
-fn bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bottom_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24008,7 +24008,7 @@ fn bottom_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn bottom_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_bottom::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24026,7 +24026,7 @@ fn bottom_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_offset_block_start<TH: TypeHolderTrait>
+unsafe extern fn get_offset_block_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24041,7 +24041,7 @@ unsafe extern fn get_offset_block_start<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_offset_block_start<TH: TypeHolderTrait>
+unsafe extern fn set_offset_block_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24073,7 +24073,7 @@ unsafe extern fn set_offset_block_start<TH: TypeHolderTrait>
 }
 
 
-fn offset_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offset_block_start_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_offset_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24091,7 +24091,7 @@ fn offset_block_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn offset_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offset_block_start_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_offset_block_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24109,7 +24109,7 @@ fn offset_block_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_offsetBlockStart<TH: TypeHolderTrait>
+unsafe extern fn get_offsetBlockStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24124,7 +24124,7 @@ unsafe extern fn get_offsetBlockStart<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_offsetBlockStart<TH: TypeHolderTrait>
+unsafe extern fn set_offsetBlockStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24156,7 +24156,7 @@ unsafe extern fn set_offsetBlockStart<TH: TypeHolderTrait>
 }
 
 
-fn offsetBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offsetBlockStart_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_offsetBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24174,7 +24174,7 @@ fn offsetBlockStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn offsetBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offsetBlockStart_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_offsetBlockStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24192,7 +24192,7 @@ fn offsetBlockStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_offset_block_end<TH: TypeHolderTrait>
+unsafe extern fn get_offset_block_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24207,7 +24207,7 @@ unsafe extern fn get_offset_block_end<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_offset_block_end<TH: TypeHolderTrait>
+unsafe extern fn set_offset_block_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24239,7 +24239,7 @@ unsafe extern fn set_offset_block_end<TH: TypeHolderTrait>
 }
 
 
-fn offset_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offset_block_end_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_offset_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24257,7 +24257,7 @@ fn offset_block_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn offset_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offset_block_end_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_offset_block_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24275,7 +24275,7 @@ fn offset_block_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_offsetBlockEnd<TH: TypeHolderTrait>
+unsafe extern fn get_offsetBlockEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24290,7 +24290,7 @@ unsafe extern fn get_offsetBlockEnd<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_offsetBlockEnd<TH: TypeHolderTrait>
+unsafe extern fn set_offsetBlockEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24322,7 +24322,7 @@ unsafe extern fn set_offsetBlockEnd<TH: TypeHolderTrait>
 }
 
 
-fn offsetBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offsetBlockEnd_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_offsetBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24340,7 +24340,7 @@ fn offsetBlockEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn offsetBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offsetBlockEnd_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_offsetBlockEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24358,7 +24358,7 @@ fn offsetBlockEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_offset_inline_start<TH: TypeHolderTrait>
+unsafe extern fn get_offset_inline_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24373,7 +24373,7 @@ unsafe extern fn get_offset_inline_start<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_offset_inline_start<TH: TypeHolderTrait>
+unsafe extern fn set_offset_inline_start<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24405,7 +24405,7 @@ unsafe extern fn set_offset_inline_start<TH: TypeHolderTrait>
 }
 
 
-fn offset_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offset_inline_start_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_offset_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24423,7 +24423,7 @@ fn offset_inline_start_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn offset_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offset_inline_start_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_offset_inline_start::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24441,7 +24441,7 @@ fn offset_inline_start_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_offsetInlineStart<TH: TypeHolderTrait>
+unsafe extern fn get_offsetInlineStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24456,7 +24456,7 @@ unsafe extern fn get_offsetInlineStart<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_offsetInlineStart<TH: TypeHolderTrait>
+unsafe extern fn set_offsetInlineStart<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24488,7 +24488,7 @@ unsafe extern fn set_offsetInlineStart<TH: TypeHolderTrait>
 }
 
 
-fn offsetInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offsetInlineStart_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_offsetInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24506,7 +24506,7 @@ fn offsetInlineStart_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn offsetInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offsetInlineStart_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_offsetInlineStart::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24524,7 +24524,7 @@ fn offsetInlineStart_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_offset_inline_end<TH: TypeHolderTrait>
+unsafe extern fn get_offset_inline_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24539,7 +24539,7 @@ unsafe extern fn get_offset_inline_end<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_offset_inline_end<TH: TypeHolderTrait>
+unsafe extern fn set_offset_inline_end<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24571,7 +24571,7 @@ unsafe extern fn set_offset_inline_end<TH: TypeHolderTrait>
 }
 
 
-fn offset_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offset_inline_end_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_offset_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24589,7 +24589,7 @@ fn offset_inline_end_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn offset_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offset_inline_end_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_offset_inline_end::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24607,7 +24607,7 @@ fn offset_inline_end_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_offsetInlineEnd<TH: TypeHolderTrait>
+unsafe extern fn get_offsetInlineEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24622,7 +24622,7 @@ unsafe extern fn get_offsetInlineEnd<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_offsetInlineEnd<TH: TypeHolderTrait>
+unsafe extern fn set_offsetInlineEnd<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24654,7 +24654,7 @@ unsafe extern fn set_offsetInlineEnd<TH: TypeHolderTrait>
 }
 
 
-fn offsetInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offsetInlineEnd_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_offsetInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24672,7 +24672,7 @@ fn offsetInlineEnd_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn offsetInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn offsetInlineEnd_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_offsetInlineEnd::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24690,7 +24690,7 @@ fn offsetInlineEnd_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_height<TH: TypeHolderTrait>
+unsafe extern fn get_height<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24705,7 +24705,7 @@ unsafe extern fn get_height<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_height<TH: TypeHolderTrait>
+unsafe extern fn set_height<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24737,7 +24737,7 @@ unsafe extern fn set_height<TH: TypeHolderTrait>
 }
 
 
-fn height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn height_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24755,7 +24755,7 @@ fn height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn height_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24773,7 +24773,7 @@ fn height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_minHeight<TH: TypeHolderTrait>
+unsafe extern fn get_minHeight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24788,7 +24788,7 @@ unsafe extern fn get_minHeight<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_minHeight<TH: TypeHolderTrait>
+unsafe extern fn set_minHeight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24820,7 +24820,7 @@ unsafe extern fn set_minHeight<TH: TypeHolderTrait>
 }
 
 
-fn minHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn minHeight_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_minHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24838,7 +24838,7 @@ fn minHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn minHeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn minHeight_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_minHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24856,7 +24856,7 @@ fn minHeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_min_height<TH: TypeHolderTrait>
+unsafe extern fn get_min_height<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24871,7 +24871,7 @@ unsafe extern fn get_min_height<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_min_height<TH: TypeHolderTrait>
+unsafe extern fn set_min_height<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24903,7 +24903,7 @@ unsafe extern fn set_min_height<TH: TypeHolderTrait>
 }
 
 
-fn min_height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn min_height_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_min_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24921,7 +24921,7 @@ fn min_height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn min_height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn min_height_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_min_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -24939,7 +24939,7 @@ fn min_height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_maxHeight<TH: TypeHolderTrait>
+unsafe extern fn get_maxHeight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24954,7 +24954,7 @@ unsafe extern fn get_maxHeight<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_maxHeight<TH: TypeHolderTrait>
+unsafe extern fn set_maxHeight<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -24986,7 +24986,7 @@ unsafe extern fn set_maxHeight<TH: TypeHolderTrait>
 }
 
 
-fn maxHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn maxHeight_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_maxHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25004,7 +25004,7 @@ fn maxHeight_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn maxHeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn maxHeight_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_maxHeight::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25022,7 +25022,7 @@ fn maxHeight_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_max_height<TH: TypeHolderTrait>
+unsafe extern fn get_max_height<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25037,7 +25037,7 @@ unsafe extern fn get_max_height<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_max_height<TH: TypeHolderTrait>
+unsafe extern fn set_max_height<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25069,7 +25069,7 @@ unsafe extern fn set_max_height<TH: TypeHolderTrait>
 }
 
 
-fn max_height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn max_height_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_max_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25087,7 +25087,7 @@ fn max_height_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn max_height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn max_height_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_max_height::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25105,7 +25105,7 @@ fn max_height_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_width<TH: TypeHolderTrait>
+unsafe extern fn get_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25120,7 +25120,7 @@ unsafe extern fn get_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_width<TH: TypeHolderTrait>
+unsafe extern fn set_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25152,7 +25152,7 @@ unsafe extern fn set_width<TH: TypeHolderTrait>
 }
 
 
-fn width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25170,7 +25170,7 @@ fn width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25188,7 +25188,7 @@ fn width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_minWidth<TH: TypeHolderTrait>
+unsafe extern fn get_minWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25203,7 +25203,7 @@ unsafe extern fn get_minWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_minWidth<TH: TypeHolderTrait>
+unsafe extern fn set_minWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25235,7 +25235,7 @@ unsafe extern fn set_minWidth<TH: TypeHolderTrait>
 }
 
 
-fn minWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn minWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_minWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25253,7 +25253,7 @@ fn minWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn minWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn minWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_minWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25271,7 +25271,7 @@ fn minWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_min_width<TH: TypeHolderTrait>
+unsafe extern fn get_min_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25286,7 +25286,7 @@ unsafe extern fn get_min_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_min_width<TH: TypeHolderTrait>
+unsafe extern fn set_min_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25318,7 +25318,7 @@ unsafe extern fn set_min_width<TH: TypeHolderTrait>
 }
 
 
-fn min_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn min_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_min_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25336,7 +25336,7 @@ fn min_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn min_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn min_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_min_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25354,7 +25354,7 @@ fn min_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_maxWidth<TH: TypeHolderTrait>
+unsafe extern fn get_maxWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25369,7 +25369,7 @@ unsafe extern fn get_maxWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_maxWidth<TH: TypeHolderTrait>
+unsafe extern fn set_maxWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25401,7 +25401,7 @@ unsafe extern fn set_maxWidth<TH: TypeHolderTrait>
 }
 
 
-fn maxWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn maxWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_maxWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25419,7 +25419,7 @@ fn maxWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn maxWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn maxWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_maxWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25437,7 +25437,7 @@ fn maxWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_max_width<TH: TypeHolderTrait>
+unsafe extern fn get_max_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25452,7 +25452,7 @@ unsafe extern fn get_max_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_max_width<TH: TypeHolderTrait>
+unsafe extern fn set_max_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25484,7 +25484,7 @@ unsafe extern fn set_max_width<TH: TypeHolderTrait>
 }
 
 
-fn max_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn max_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_max_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25502,7 +25502,7 @@ fn max_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn max_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn max_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_max_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25520,7 +25520,7 @@ fn max_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_block_size<TH: TypeHolderTrait>
+unsafe extern fn get_block_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25535,7 +25535,7 @@ unsafe extern fn get_block_size<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_block_size<TH: TypeHolderTrait>
+unsafe extern fn set_block_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25567,7 +25567,7 @@ unsafe extern fn set_block_size<TH: TypeHolderTrait>
 }
 
 
-fn block_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn block_size_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25585,7 +25585,7 @@ fn block_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn block_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn block_size_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25603,7 +25603,7 @@ fn block_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_blockSize<TH: TypeHolderTrait>
+unsafe extern fn get_blockSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25618,7 +25618,7 @@ unsafe extern fn get_blockSize<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_blockSize<TH: TypeHolderTrait>
+unsafe extern fn set_blockSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25650,7 +25650,7 @@ unsafe extern fn set_blockSize<TH: TypeHolderTrait>
 }
 
 
-fn blockSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn blockSize_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_blockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25668,7 +25668,7 @@ fn blockSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn blockSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn blockSize_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_blockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25686,7 +25686,7 @@ fn blockSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_inline_size<TH: TypeHolderTrait>
+unsafe extern fn get_inline_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25701,7 +25701,7 @@ unsafe extern fn get_inline_size<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_inline_size<TH: TypeHolderTrait>
+unsafe extern fn set_inline_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25733,7 +25733,7 @@ unsafe extern fn set_inline_size<TH: TypeHolderTrait>
 }
 
 
-fn inline_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn inline_size_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25751,7 +25751,7 @@ fn inline_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn inline_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn inline_size_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25769,7 +25769,7 @@ fn inline_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_inlineSize<TH: TypeHolderTrait>
+unsafe extern fn get_inlineSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25784,7 +25784,7 @@ unsafe extern fn get_inlineSize<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_inlineSize<TH: TypeHolderTrait>
+unsafe extern fn set_inlineSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25816,7 +25816,7 @@ unsafe extern fn set_inlineSize<TH: TypeHolderTrait>
 }
 
 
-fn inlineSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn inlineSize_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_inlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25834,7 +25834,7 @@ fn inlineSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn inlineSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn inlineSize_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_inlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25852,7 +25852,7 @@ fn inlineSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_max_block_size<TH: TypeHolderTrait>
+unsafe extern fn get_max_block_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25867,7 +25867,7 @@ unsafe extern fn get_max_block_size<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_max_block_size<TH: TypeHolderTrait>
+unsafe extern fn set_max_block_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25899,7 +25899,7 @@ unsafe extern fn set_max_block_size<TH: TypeHolderTrait>
 }
 
 
-fn max_block_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn max_block_size_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_max_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25917,7 +25917,7 @@ fn max_block_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn max_block_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn max_block_size_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_max_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -25935,7 +25935,7 @@ fn max_block_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_maxBlockSize<TH: TypeHolderTrait>
+unsafe extern fn get_maxBlockSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25950,7 +25950,7 @@ unsafe extern fn get_maxBlockSize<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_maxBlockSize<TH: TypeHolderTrait>
+unsafe extern fn set_maxBlockSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -25982,7 +25982,7 @@ unsafe extern fn set_maxBlockSize<TH: TypeHolderTrait>
 }
 
 
-fn maxBlockSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn maxBlockSize_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_maxBlockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26000,7 +26000,7 @@ fn maxBlockSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn maxBlockSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn maxBlockSize_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_maxBlockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26018,7 +26018,7 @@ fn maxBlockSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_max_inline_size<TH: TypeHolderTrait>
+unsafe extern fn get_max_inline_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26033,7 +26033,7 @@ unsafe extern fn get_max_inline_size<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_max_inline_size<TH: TypeHolderTrait>
+unsafe extern fn set_max_inline_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26065,7 +26065,7 @@ unsafe extern fn set_max_inline_size<TH: TypeHolderTrait>
 }
 
 
-fn max_inline_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn max_inline_size_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_max_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26083,7 +26083,7 @@ fn max_inline_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn max_inline_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn max_inline_size_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_max_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26101,7 +26101,7 @@ fn max_inline_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_maxInlineSize<TH: TypeHolderTrait>
+unsafe extern fn get_maxInlineSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26116,7 +26116,7 @@ unsafe extern fn get_maxInlineSize<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_maxInlineSize<TH: TypeHolderTrait>
+unsafe extern fn set_maxInlineSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26148,7 +26148,7 @@ unsafe extern fn set_maxInlineSize<TH: TypeHolderTrait>
 }
 
 
-fn maxInlineSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn maxInlineSize_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_maxInlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26166,7 +26166,7 @@ fn maxInlineSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn maxInlineSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn maxInlineSize_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_maxInlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26184,7 +26184,7 @@ fn maxInlineSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_min_block_size<TH: TypeHolderTrait>
+unsafe extern fn get_min_block_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26199,7 +26199,7 @@ unsafe extern fn get_min_block_size<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_min_block_size<TH: TypeHolderTrait>
+unsafe extern fn set_min_block_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26231,7 +26231,7 @@ unsafe extern fn set_min_block_size<TH: TypeHolderTrait>
 }
 
 
-fn min_block_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn min_block_size_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_min_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26249,7 +26249,7 @@ fn min_block_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn min_block_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn min_block_size_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_min_block_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26267,7 +26267,7 @@ fn min_block_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_minBlockSize<TH: TypeHolderTrait>
+unsafe extern fn get_minBlockSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26282,7 +26282,7 @@ unsafe extern fn get_minBlockSize<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_minBlockSize<TH: TypeHolderTrait>
+unsafe extern fn set_minBlockSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26314,7 +26314,7 @@ unsafe extern fn set_minBlockSize<TH: TypeHolderTrait>
 }
 
 
-fn minBlockSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn minBlockSize_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_minBlockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26332,7 +26332,7 @@ fn minBlockSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn minBlockSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn minBlockSize_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_minBlockSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26350,7 +26350,7 @@ fn minBlockSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_min_inline_size<TH: TypeHolderTrait>
+unsafe extern fn get_min_inline_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26365,7 +26365,7 @@ unsafe extern fn get_min_inline_size<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_min_inline_size<TH: TypeHolderTrait>
+unsafe extern fn set_min_inline_size<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26397,7 +26397,7 @@ unsafe extern fn set_min_inline_size<TH: TypeHolderTrait>
 }
 
 
-fn min_inline_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn min_inline_size_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_min_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26415,7 +26415,7 @@ fn min_inline_size_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn min_inline_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn min_inline_size_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_min_inline_size::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26433,7 +26433,7 @@ fn min_inline_size_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_minInlineSize<TH: TypeHolderTrait>
+unsafe extern fn get_minInlineSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26448,7 +26448,7 @@ unsafe extern fn get_minInlineSize<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_minInlineSize<TH: TypeHolderTrait>
+unsafe extern fn set_minInlineSize<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26480,7 +26480,7 @@ unsafe extern fn set_minInlineSize<TH: TypeHolderTrait>
 }
 
 
-fn minInlineSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn minInlineSize_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_minInlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26498,7 +26498,7 @@ fn minInlineSize_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn minInlineSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn minInlineSize_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_minInlineSize::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26516,7 +26516,7 @@ fn minInlineSize_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_zIndex<TH: TypeHolderTrait>
+unsafe extern fn get_zIndex<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26531,7 +26531,7 @@ unsafe extern fn get_zIndex<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_zIndex<TH: TypeHolderTrait>
+unsafe extern fn set_zIndex<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26563,7 +26563,7 @@ unsafe extern fn set_zIndex<TH: TypeHolderTrait>
 }
 
 
-fn zIndex_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn zIndex_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_zIndex::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26581,7 +26581,7 @@ fn zIndex_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn zIndex_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn zIndex_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_zIndex::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26599,7 +26599,7 @@ fn zIndex_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_z_index<TH: TypeHolderTrait>
+unsafe extern fn get_z_index<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26614,7 +26614,7 @@ unsafe extern fn get_z_index<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_z_index<TH: TypeHolderTrait>
+unsafe extern fn set_z_index<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26646,7 +26646,7 @@ unsafe extern fn set_z_index<TH: TypeHolderTrait>
 }
 
 
-fn z_index_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn z_index_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_z_index::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26664,7 +26664,7 @@ fn z_index_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn z_index_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn z_index_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_z_index::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26682,7 +26682,7 @@ fn z_index_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_imageRendering<TH: TypeHolderTrait>
+unsafe extern fn get_imageRendering<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26697,7 +26697,7 @@ unsafe extern fn get_imageRendering<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_imageRendering<TH: TypeHolderTrait>
+unsafe extern fn set_imageRendering<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26729,7 +26729,7 @@ unsafe extern fn set_imageRendering<TH: TypeHolderTrait>
 }
 
 
-fn imageRendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn imageRendering_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_imageRendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26747,7 +26747,7 @@ fn imageRendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn imageRendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn imageRendering_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_imageRendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26765,7 +26765,7 @@ fn imageRendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_image_rendering<TH: TypeHolderTrait>
+unsafe extern fn get_image_rendering<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26780,7 +26780,7 @@ unsafe extern fn get_image_rendering<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_image_rendering<TH: TypeHolderTrait>
+unsafe extern fn set_image_rendering<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26812,7 +26812,7 @@ unsafe extern fn set_image_rendering<TH: TypeHolderTrait>
 }
 
 
-fn image_rendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn image_rendering_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_image_rendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26830,7 +26830,7 @@ fn image_rendering_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn image_rendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn image_rendering_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_image_rendering::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26848,7 +26848,7 @@ fn image_rendering_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_columnCount<TH: TypeHolderTrait>
+unsafe extern fn get_columnCount<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26863,7 +26863,7 @@ unsafe extern fn get_columnCount<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_columnCount<TH: TypeHolderTrait>
+unsafe extern fn set_columnCount<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26895,7 +26895,7 @@ unsafe extern fn set_columnCount<TH: TypeHolderTrait>
 }
 
 
-fn columnCount_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn columnCount_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_columnCount::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26913,7 +26913,7 @@ fn columnCount_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn columnCount_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn columnCount_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_columnCount::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26931,7 +26931,7 @@ fn columnCount_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_column_count<TH: TypeHolderTrait>
+unsafe extern fn get_column_count<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26946,7 +26946,7 @@ unsafe extern fn get_column_count<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_column_count<TH: TypeHolderTrait>
+unsafe extern fn set_column_count<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -26978,7 +26978,7 @@ unsafe extern fn set_column_count<TH: TypeHolderTrait>
 }
 
 
-fn column_count_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn column_count_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_column_count::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -26996,7 +26996,7 @@ fn column_count_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn column_count_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn column_count_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_column_count::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27014,7 +27014,7 @@ fn column_count_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_columnWidth<TH: TypeHolderTrait>
+unsafe extern fn get_columnWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27029,7 +27029,7 @@ unsafe extern fn get_columnWidth<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_columnWidth<TH: TypeHolderTrait>
+unsafe extern fn set_columnWidth<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27061,7 +27061,7 @@ unsafe extern fn set_columnWidth<TH: TypeHolderTrait>
 }
 
 
-fn columnWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn columnWidth_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_columnWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27079,7 +27079,7 @@ fn columnWidth_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn columnWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn columnWidth_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_columnWidth::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27097,7 +27097,7 @@ fn columnWidth_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_column_width<TH: TypeHolderTrait>
+unsafe extern fn get_column_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27112,7 +27112,7 @@ unsafe extern fn get_column_width<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_column_width<TH: TypeHolderTrait>
+unsafe extern fn set_column_width<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27144,7 +27144,7 @@ unsafe extern fn set_column_width<TH: TypeHolderTrait>
 }
 
 
-fn column_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn column_width_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_column_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27162,7 +27162,7 @@ fn column_width_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn column_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn column_width_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_column_width::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27180,7 +27180,7 @@ fn column_width_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_columns<TH: TypeHolderTrait>
+unsafe extern fn get_columns<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27195,7 +27195,7 @@ unsafe extern fn get_columns<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_columns<TH: TypeHolderTrait>
+unsafe extern fn set_columns<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27227,7 +27227,7 @@ unsafe extern fn set_columns<TH: TypeHolderTrait>
 }
 
 
-fn columns_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn columns_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_columns::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27245,7 +27245,7 @@ fn columns_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn columns_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn columns_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_columns::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27263,7 +27263,7 @@ fn columns_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_columnGap<TH: TypeHolderTrait>
+unsafe extern fn get_columnGap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27278,7 +27278,7 @@ unsafe extern fn get_columnGap<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_columnGap<TH: TypeHolderTrait>
+unsafe extern fn set_columnGap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27310,7 +27310,7 @@ unsafe extern fn set_columnGap<TH: TypeHolderTrait>
 }
 
 
-fn columnGap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn columnGap_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_columnGap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27328,7 +27328,7 @@ fn columnGap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn columnGap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn columnGap_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_columnGap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27346,7 +27346,7 @@ fn columnGap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_column_gap<TH: TypeHolderTrait>
+unsafe extern fn get_column_gap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27361,7 +27361,7 @@ unsafe extern fn get_column_gap<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_column_gap<TH: TypeHolderTrait>
+unsafe extern fn set_column_gap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27393,7 +27393,7 @@ unsafe extern fn set_column_gap<TH: TypeHolderTrait>
 }
 
 
-fn column_gap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn column_gap_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_column_gap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27411,7 +27411,7 @@ fn column_gap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn column_gap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn column_gap_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_column_gap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27429,7 +27429,7 @@ fn column_gap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_transition<TH: TypeHolderTrait>
+unsafe extern fn get_transition<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27444,7 +27444,7 @@ unsafe extern fn get_transition<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transition<TH: TypeHolderTrait>
+unsafe extern fn set_transition<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27476,7 +27476,7 @@ unsafe extern fn set_transition<TH: TypeHolderTrait>
 }
 
 
-fn transition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27494,7 +27494,7 @@ fn transition_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn transition_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transition::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27512,7 +27512,7 @@ fn transition_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_transitionDuration<TH: TypeHolderTrait>
+unsafe extern fn get_transitionDuration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27527,7 +27527,7 @@ unsafe extern fn get_transitionDuration<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transitionDuration<TH: TypeHolderTrait>
+unsafe extern fn set_transitionDuration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27559,7 +27559,7 @@ unsafe extern fn set_transitionDuration<TH: TypeHolderTrait>
 }
 
 
-fn transitionDuration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transitionDuration_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transitionDuration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27577,7 +27577,7 @@ fn transitionDuration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn transitionDuration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transitionDuration_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transitionDuration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27595,7 +27595,7 @@ fn transitionDuration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_transition_duration<TH: TypeHolderTrait>
+unsafe extern fn get_transition_duration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27610,7 +27610,7 @@ unsafe extern fn get_transition_duration<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transition_duration<TH: TypeHolderTrait>
+unsafe extern fn set_transition_duration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27642,7 +27642,7 @@ unsafe extern fn set_transition_duration<TH: TypeHolderTrait>
 }
 
 
-fn transition_duration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_duration_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transition_duration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27660,7 +27660,7 @@ fn transition_duration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn transition_duration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_duration_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transition_duration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27678,7 +27678,7 @@ fn transition_duration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_transitionTimingFunction<TH: TypeHolderTrait>
+unsafe extern fn get_transitionTimingFunction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27693,7 +27693,7 @@ unsafe extern fn get_transitionTimingFunction<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transitionTimingFunction<TH: TypeHolderTrait>
+unsafe extern fn set_transitionTimingFunction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27725,7 +27725,7 @@ unsafe extern fn set_transitionTimingFunction<TH: TypeHolderTrait>
 }
 
 
-fn transitionTimingFunction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transitionTimingFunction_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transitionTimingFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27743,7 +27743,7 @@ fn transitionTimingFunction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-fn transitionTimingFunction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transitionTimingFunction_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transitionTimingFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27761,7 +27761,7 @@ fn transitionTimingFunction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJ
     ),
 }}
 
-unsafe extern fn get_transition_timing_function<TH: TypeHolderTrait>
+unsafe extern fn get_transition_timing_function<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27776,7 +27776,7 @@ unsafe extern fn get_transition_timing_function<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transition_timing_function<TH: TypeHolderTrait>
+unsafe extern fn set_transition_timing_function<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27808,7 +27808,7 @@ unsafe extern fn set_transition_timing_function<TH: TypeHolderTrait>
 }
 
 
-fn transition_timing_function_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_timing_function_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transition_timing_function::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27826,7 +27826,7 @@ fn transition_timing_function_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { J
     ),
 }}
 
-fn transition_timing_function_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_timing_function_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transition_timing_function::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27844,7 +27844,7 @@ fn transition_timing_function_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { J
     ),
 }}
 
-unsafe extern fn get_transitionProperty<TH: TypeHolderTrait>
+unsafe extern fn get_transitionProperty<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27859,7 +27859,7 @@ unsafe extern fn get_transitionProperty<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transitionProperty<TH: TypeHolderTrait>
+unsafe extern fn set_transitionProperty<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27891,7 +27891,7 @@ unsafe extern fn set_transitionProperty<TH: TypeHolderTrait>
 }
 
 
-fn transitionProperty_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transitionProperty_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transitionProperty::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27909,7 +27909,7 @@ fn transitionProperty_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn transitionProperty_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transitionProperty_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transitionProperty::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27927,7 +27927,7 @@ fn transitionProperty_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_transition_property<TH: TypeHolderTrait>
+unsafe extern fn get_transition_property<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27942,7 +27942,7 @@ unsafe extern fn get_transition_property<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transition_property<TH: TypeHolderTrait>
+unsafe extern fn set_transition_property<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -27974,7 +27974,7 @@ unsafe extern fn set_transition_property<TH: TypeHolderTrait>
 }
 
 
-fn transition_property_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_property_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transition_property::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -27992,7 +27992,7 @@ fn transition_property_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn transition_property_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_property_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transition_property::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28010,7 +28010,7 @@ fn transition_property_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_transitionDelay<TH: TypeHolderTrait>
+unsafe extern fn get_transitionDelay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28025,7 +28025,7 @@ unsafe extern fn get_transitionDelay<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transitionDelay<TH: TypeHolderTrait>
+unsafe extern fn set_transitionDelay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28057,7 +28057,7 @@ unsafe extern fn set_transitionDelay<TH: TypeHolderTrait>
 }
 
 
-fn transitionDelay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transitionDelay_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transitionDelay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28075,7 +28075,7 @@ fn transitionDelay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn transitionDelay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transitionDelay_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transitionDelay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28093,7 +28093,7 @@ fn transitionDelay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_transition_delay<TH: TypeHolderTrait>
+unsafe extern fn get_transition_delay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28108,7 +28108,7 @@ unsafe extern fn get_transition_delay<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_transition_delay<TH: TypeHolderTrait>
+unsafe extern fn set_transition_delay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28140,7 +28140,7 @@ unsafe extern fn set_transition_delay<TH: TypeHolderTrait>
 }
 
 
-fn transition_delay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_delay_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_transition_delay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28158,7 +28158,7 @@ fn transition_delay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn transition_delay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn transition_delay_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_transition_delay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28176,7 +28176,7 @@ fn transition_delay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flex<TH: TypeHolderTrait>
+unsafe extern fn get_flex<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28191,7 +28191,7 @@ unsafe extern fn get_flex<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flex<TH: TypeHolderTrait>
+unsafe extern fn set_flex<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28223,7 +28223,7 @@ unsafe extern fn set_flex<TH: TypeHolderTrait>
 }
 
 
-fn flex_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flex::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28241,7 +28241,7 @@ fn flex_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flex_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flex::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28259,7 +28259,7 @@ fn flex_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flexFlow<TH: TypeHolderTrait>
+unsafe extern fn get_flexFlow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28274,7 +28274,7 @@ unsafe extern fn get_flexFlow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flexFlow<TH: TypeHolderTrait>
+unsafe extern fn set_flexFlow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28306,7 +28306,7 @@ unsafe extern fn set_flexFlow<TH: TypeHolderTrait>
 }
 
 
-fn flexFlow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexFlow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flexFlow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28324,7 +28324,7 @@ fn flexFlow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flexFlow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexFlow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flexFlow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28342,7 +28342,7 @@ fn flexFlow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flex_flow<TH: TypeHolderTrait>
+unsafe extern fn get_flex_flow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28357,7 +28357,7 @@ unsafe extern fn get_flex_flow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flex_flow<TH: TypeHolderTrait>
+unsafe extern fn set_flex_flow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28389,7 +28389,7 @@ unsafe extern fn set_flex_flow<TH: TypeHolderTrait>
 }
 
 
-fn flex_flow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_flow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flex_flow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28407,7 +28407,7 @@ fn flex_flow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flex_flow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_flow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flex_flow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28425,7 +28425,7 @@ fn flex_flow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flexDirection<TH: TypeHolderTrait>
+unsafe extern fn get_flexDirection<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28440,7 +28440,7 @@ unsafe extern fn get_flexDirection<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flexDirection<TH: TypeHolderTrait>
+unsafe extern fn set_flexDirection<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28472,7 +28472,7 @@ unsafe extern fn set_flexDirection<TH: TypeHolderTrait>
 }
 
 
-fn flexDirection_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexDirection_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flexDirection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28490,7 +28490,7 @@ fn flexDirection_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flexDirection_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexDirection_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flexDirection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28508,7 +28508,7 @@ fn flexDirection_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flex_direction<TH: TypeHolderTrait>
+unsafe extern fn get_flex_direction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28523,7 +28523,7 @@ unsafe extern fn get_flex_direction<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flex_direction<TH: TypeHolderTrait>
+unsafe extern fn set_flex_direction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28555,7 +28555,7 @@ unsafe extern fn set_flex_direction<TH: TypeHolderTrait>
 }
 
 
-fn flex_direction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_direction_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flex_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28573,7 +28573,7 @@ fn flex_direction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flex_direction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_direction_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flex_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28591,7 +28591,7 @@ fn flex_direction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flexWrap<TH: TypeHolderTrait>
+unsafe extern fn get_flexWrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28606,7 +28606,7 @@ unsafe extern fn get_flexWrap<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flexWrap<TH: TypeHolderTrait>
+unsafe extern fn set_flexWrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28638,7 +28638,7 @@ unsafe extern fn set_flexWrap<TH: TypeHolderTrait>
 }
 
 
-fn flexWrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexWrap_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flexWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28656,7 +28656,7 @@ fn flexWrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flexWrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexWrap_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flexWrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28674,7 +28674,7 @@ fn flexWrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flex_wrap<TH: TypeHolderTrait>
+unsafe extern fn get_flex_wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28689,7 +28689,7 @@ unsafe extern fn get_flex_wrap<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flex_wrap<TH: TypeHolderTrait>
+unsafe extern fn set_flex_wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28721,7 +28721,7 @@ unsafe extern fn set_flex_wrap<TH: TypeHolderTrait>
 }
 
 
-fn flex_wrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_wrap_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flex_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28739,7 +28739,7 @@ fn flex_wrap_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flex_wrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_wrap_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flex_wrap::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28757,7 +28757,7 @@ fn flex_wrap_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_justifyContent<TH: TypeHolderTrait>
+unsafe extern fn get_justifyContent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28772,7 +28772,7 @@ unsafe extern fn get_justifyContent<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_justifyContent<TH: TypeHolderTrait>
+unsafe extern fn set_justifyContent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28804,7 +28804,7 @@ unsafe extern fn set_justifyContent<TH: TypeHolderTrait>
 }
 
 
-fn justifyContent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn justifyContent_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_justifyContent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28822,7 +28822,7 @@ fn justifyContent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn justifyContent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn justifyContent_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_justifyContent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28840,7 +28840,7 @@ fn justifyContent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_justify_content<TH: TypeHolderTrait>
+unsafe extern fn get_justify_content<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28855,7 +28855,7 @@ unsafe extern fn get_justify_content<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_justify_content<TH: TypeHolderTrait>
+unsafe extern fn set_justify_content<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28887,7 +28887,7 @@ unsafe extern fn set_justify_content<TH: TypeHolderTrait>
 }
 
 
-fn justify_content_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn justify_content_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_justify_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28905,7 +28905,7 @@ fn justify_content_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn justify_content_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn justify_content_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_justify_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28923,7 +28923,7 @@ fn justify_content_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_alignItems<TH: TypeHolderTrait>
+unsafe extern fn get_alignItems<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28938,7 +28938,7 @@ unsafe extern fn get_alignItems<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_alignItems<TH: TypeHolderTrait>
+unsafe extern fn set_alignItems<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -28970,7 +28970,7 @@ unsafe extern fn set_alignItems<TH: TypeHolderTrait>
 }
 
 
-fn alignItems_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn alignItems_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_alignItems::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -28988,7 +28988,7 @@ fn alignItems_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn alignItems_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn alignItems_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_alignItems::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29006,7 +29006,7 @@ fn alignItems_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_align_items<TH: TypeHolderTrait>
+unsafe extern fn get_align_items<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29021,7 +29021,7 @@ unsafe extern fn get_align_items<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_align_items<TH: TypeHolderTrait>
+unsafe extern fn set_align_items<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29053,7 +29053,7 @@ unsafe extern fn set_align_items<TH: TypeHolderTrait>
 }
 
 
-fn align_items_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn align_items_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_align_items::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29071,7 +29071,7 @@ fn align_items_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn align_items_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn align_items_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_align_items::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29089,7 +29089,7 @@ fn align_items_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_alignContent<TH: TypeHolderTrait>
+unsafe extern fn get_alignContent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29104,7 +29104,7 @@ unsafe extern fn get_alignContent<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_alignContent<TH: TypeHolderTrait>
+unsafe extern fn set_alignContent<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29136,7 +29136,7 @@ unsafe extern fn set_alignContent<TH: TypeHolderTrait>
 }
 
 
-fn alignContent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn alignContent_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_alignContent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29154,7 +29154,7 @@ fn alignContent_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn alignContent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn alignContent_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_alignContent::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29172,7 +29172,7 @@ fn alignContent_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_align_content<TH: TypeHolderTrait>
+unsafe extern fn get_align_content<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29187,7 +29187,7 @@ unsafe extern fn get_align_content<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_align_content<TH: TypeHolderTrait>
+unsafe extern fn set_align_content<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29219,7 +29219,7 @@ unsafe extern fn set_align_content<TH: TypeHolderTrait>
 }
 
 
-fn align_content_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn align_content_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_align_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29237,7 +29237,7 @@ fn align_content_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn align_content_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn align_content_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_align_content::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29255,7 +29255,7 @@ fn align_content_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_order<TH: TypeHolderTrait>
+unsafe extern fn get_order<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29270,7 +29270,7 @@ unsafe extern fn get_order<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_order<TH: TypeHolderTrait>
+unsafe extern fn set_order<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29302,7 +29302,7 @@ unsafe extern fn set_order<TH: TypeHolderTrait>
 }
 
 
-fn order_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn order_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_order::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29320,7 +29320,7 @@ fn order_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn order_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn order_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_order::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29338,7 +29338,7 @@ fn order_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flexBasis<TH: TypeHolderTrait>
+unsafe extern fn get_flexBasis<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29353,7 +29353,7 @@ unsafe extern fn get_flexBasis<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flexBasis<TH: TypeHolderTrait>
+unsafe extern fn set_flexBasis<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29385,7 +29385,7 @@ unsafe extern fn set_flexBasis<TH: TypeHolderTrait>
 }
 
 
-fn flexBasis_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexBasis_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flexBasis::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29403,7 +29403,7 @@ fn flexBasis_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flexBasis_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexBasis_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flexBasis::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29421,7 +29421,7 @@ fn flexBasis_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flex_basis<TH: TypeHolderTrait>
+unsafe extern fn get_flex_basis<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29436,7 +29436,7 @@ unsafe extern fn get_flex_basis<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flex_basis<TH: TypeHolderTrait>
+unsafe extern fn set_flex_basis<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29468,7 +29468,7 @@ unsafe extern fn set_flex_basis<TH: TypeHolderTrait>
 }
 
 
-fn flex_basis_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_basis_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flex_basis::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29486,7 +29486,7 @@ fn flex_basis_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flex_basis_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_basis_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flex_basis::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29504,7 +29504,7 @@ fn flex_basis_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flexGrow<TH: TypeHolderTrait>
+unsafe extern fn get_flexGrow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29519,7 +29519,7 @@ unsafe extern fn get_flexGrow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flexGrow<TH: TypeHolderTrait>
+unsafe extern fn set_flexGrow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29551,7 +29551,7 @@ unsafe extern fn set_flexGrow<TH: TypeHolderTrait>
 }
 
 
-fn flexGrow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexGrow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flexGrow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29569,7 +29569,7 @@ fn flexGrow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flexGrow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexGrow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flexGrow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29587,7 +29587,7 @@ fn flexGrow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flex_grow<TH: TypeHolderTrait>
+unsafe extern fn get_flex_grow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29602,7 +29602,7 @@ unsafe extern fn get_flex_grow<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flex_grow<TH: TypeHolderTrait>
+unsafe extern fn set_flex_grow<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29634,7 +29634,7 @@ unsafe extern fn set_flex_grow<TH: TypeHolderTrait>
 }
 
 
-fn flex_grow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_grow_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flex_grow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29652,7 +29652,7 @@ fn flex_grow_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flex_grow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_grow_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flex_grow::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29670,7 +29670,7 @@ fn flex_grow_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flexShrink<TH: TypeHolderTrait>
+unsafe extern fn get_flexShrink<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29685,7 +29685,7 @@ unsafe extern fn get_flexShrink<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flexShrink<TH: TypeHolderTrait>
+unsafe extern fn set_flexShrink<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29717,7 +29717,7 @@ unsafe extern fn set_flexShrink<TH: TypeHolderTrait>
 }
 
 
-fn flexShrink_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexShrink_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flexShrink::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29735,7 +29735,7 @@ fn flexShrink_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flexShrink_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flexShrink_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flexShrink::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29753,7 +29753,7 @@ fn flexShrink_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_flex_shrink<TH: TypeHolderTrait>
+unsafe extern fn get_flex_shrink<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29768,7 +29768,7 @@ unsafe extern fn get_flex_shrink<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_flex_shrink<TH: TypeHolderTrait>
+unsafe extern fn set_flex_shrink<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29800,7 +29800,7 @@ unsafe extern fn set_flex_shrink<TH: TypeHolderTrait>
 }
 
 
-fn flex_shrink_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_shrink_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_flex_shrink::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29818,7 +29818,7 @@ fn flex_shrink_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn flex_shrink_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn flex_shrink_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_flex_shrink::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29836,7 +29836,7 @@ fn flex_shrink_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_alignSelf<TH: TypeHolderTrait>
+unsafe extern fn get_alignSelf<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29851,7 +29851,7 @@ unsafe extern fn get_alignSelf<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_alignSelf<TH: TypeHolderTrait>
+unsafe extern fn set_alignSelf<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29883,7 +29883,7 @@ unsafe extern fn set_alignSelf<TH: TypeHolderTrait>
 }
 
 
-fn alignSelf_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn alignSelf_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_alignSelf::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29901,7 +29901,7 @@ fn alignSelf_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn alignSelf_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn alignSelf_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_alignSelf::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29919,7 +29919,7 @@ fn alignSelf_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_align_self<TH: TypeHolderTrait>
+unsafe extern fn get_align_self<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29934,7 +29934,7 @@ unsafe extern fn get_align_self<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_align_self<TH: TypeHolderTrait>
+unsafe extern fn set_align_self<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -29966,7 +29966,7 @@ unsafe extern fn set_align_self<TH: TypeHolderTrait>
 }
 
 
-fn align_self_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn align_self_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_align_self::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -29984,7 +29984,7 @@ fn align_self_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn align_self_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn align_self_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_align_self::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30002,7 +30002,7 @@ fn align_self_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_animation<TH: TypeHolderTrait>
+unsafe extern fn get_animation<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30017,7 +30017,7 @@ unsafe extern fn get_animation<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animation<TH: TypeHolderTrait>
+unsafe extern fn set_animation<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30049,7 +30049,7 @@ unsafe extern fn set_animation<TH: TypeHolderTrait>
 }
 
 
-fn animation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30067,7 +30067,7 @@ fn animation_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn animation_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animation::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30085,7 +30085,7 @@ fn animation_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_animation_name<TH: TypeHolderTrait>
+unsafe extern fn get_animation_name<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30100,7 +30100,7 @@ unsafe extern fn get_animation_name<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animation_name<TH: TypeHolderTrait>
+unsafe extern fn set_animation_name<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30132,7 +30132,7 @@ unsafe extern fn set_animation_name<TH: TypeHolderTrait>
 }
 
 
-fn animation_name_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_name_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animation_name::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30150,7 +30150,7 @@ fn animation_name_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn animation_name_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_name_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animation_name::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30168,7 +30168,7 @@ fn animation_name_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_animationName<TH: TypeHolderTrait>
+unsafe extern fn get_animationName<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30183,7 +30183,7 @@ unsafe extern fn get_animationName<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animationName<TH: TypeHolderTrait>
+unsafe extern fn set_animationName<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30215,7 +30215,7 @@ unsafe extern fn set_animationName<TH: TypeHolderTrait>
 }
 
 
-fn animationName_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationName_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animationName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30233,7 +30233,7 @@ fn animationName_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn animationName_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationName_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animationName::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30251,7 +30251,7 @@ fn animationName_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_animation_duration<TH: TypeHolderTrait>
+unsafe extern fn get_animation_duration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30266,7 +30266,7 @@ unsafe extern fn get_animation_duration<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animation_duration<TH: TypeHolderTrait>
+unsafe extern fn set_animation_duration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30298,7 +30298,7 @@ unsafe extern fn set_animation_duration<TH: TypeHolderTrait>
 }
 
 
-fn animation_duration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_duration_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animation_duration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30316,7 +30316,7 @@ fn animation_duration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn animation_duration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_duration_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animation_duration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30334,7 +30334,7 @@ fn animation_duration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_animationDuration<TH: TypeHolderTrait>
+unsafe extern fn get_animationDuration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30349,7 +30349,7 @@ unsafe extern fn get_animationDuration<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animationDuration<TH: TypeHolderTrait>
+unsafe extern fn set_animationDuration<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30381,7 +30381,7 @@ unsafe extern fn set_animationDuration<TH: TypeHolderTrait>
 }
 
 
-fn animationDuration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationDuration_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animationDuration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30399,7 +30399,7 @@ fn animationDuration_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn animationDuration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationDuration_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animationDuration::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30417,7 +30417,7 @@ fn animationDuration_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_animation_timing_function<TH: TypeHolderTrait>
+unsafe extern fn get_animation_timing_function<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30432,7 +30432,7 @@ unsafe extern fn get_animation_timing_function<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animation_timing_function<TH: TypeHolderTrait>
+unsafe extern fn set_animation_timing_function<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30464,7 +30464,7 @@ unsafe extern fn set_animation_timing_function<TH: TypeHolderTrait>
 }
 
 
-fn animation_timing_function_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_timing_function_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animation_timing_function::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30482,7 +30482,7 @@ fn animation_timing_function_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-fn animation_timing_function_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_timing_function_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animation_timing_function::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30500,7 +30500,7 @@ fn animation_timing_function_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-unsafe extern fn get_animationTimingFunction<TH: TypeHolderTrait>
+unsafe extern fn get_animationTimingFunction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30515,7 +30515,7 @@ unsafe extern fn get_animationTimingFunction<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animationTimingFunction<TH: TypeHolderTrait>
+unsafe extern fn set_animationTimingFunction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30547,7 +30547,7 @@ unsafe extern fn set_animationTimingFunction<TH: TypeHolderTrait>
 }
 
 
-fn animationTimingFunction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationTimingFunction_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animationTimingFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30565,7 +30565,7 @@ fn animationTimingFunction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-fn animationTimingFunction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationTimingFunction_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animationTimingFunction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30583,7 +30583,7 @@ fn animationTimingFunction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn get_animation_iteration_count<TH: TypeHolderTrait>
+unsafe extern fn get_animation_iteration_count<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30598,7 +30598,7 @@ unsafe extern fn get_animation_iteration_count<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animation_iteration_count<TH: TypeHolderTrait>
+unsafe extern fn set_animation_iteration_count<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30630,7 +30630,7 @@ unsafe extern fn set_animation_iteration_count<TH: TypeHolderTrait>
 }
 
 
-fn animation_iteration_count_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_iteration_count_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animation_iteration_count::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30648,7 +30648,7 @@ fn animation_iteration_count_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-fn animation_iteration_count_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_iteration_count_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animation_iteration_count::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30666,7 +30666,7 @@ fn animation_iteration_count_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JS
     ),
 }}
 
-unsafe extern fn get_animationIterationCount<TH: TypeHolderTrait>
+unsafe extern fn get_animationIterationCount<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30681,7 +30681,7 @@ unsafe extern fn get_animationIterationCount<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animationIterationCount<TH: TypeHolderTrait>
+unsafe extern fn set_animationIterationCount<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30713,7 +30713,7 @@ unsafe extern fn set_animationIterationCount<TH: TypeHolderTrait>
 }
 
 
-fn animationIterationCount_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationIterationCount_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animationIterationCount::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30731,7 +30731,7 @@ fn animationIterationCount_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-fn animationIterationCount_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationIterationCount_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animationIterationCount::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30749,7 +30749,7 @@ fn animationIterationCount_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJi
     ),
 }}
 
-unsafe extern fn get_animation_direction<TH: TypeHolderTrait>
+unsafe extern fn get_animation_direction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30764,7 +30764,7 @@ unsafe extern fn get_animation_direction<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animation_direction<TH: TypeHolderTrait>
+unsafe extern fn set_animation_direction<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30796,7 +30796,7 @@ unsafe extern fn set_animation_direction<TH: TypeHolderTrait>
 }
 
 
-fn animation_direction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_direction_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animation_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30814,7 +30814,7 @@ fn animation_direction_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn animation_direction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_direction_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animation_direction::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30832,7 +30832,7 @@ fn animation_direction_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_animationDirection<TH: TypeHolderTrait>
+unsafe extern fn get_animationDirection<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30847,7 +30847,7 @@ unsafe extern fn get_animationDirection<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animationDirection<TH: TypeHolderTrait>
+unsafe extern fn set_animationDirection<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30879,7 +30879,7 @@ unsafe extern fn set_animationDirection<TH: TypeHolderTrait>
 }
 
 
-fn animationDirection_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationDirection_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animationDirection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30897,7 +30897,7 @@ fn animationDirection_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn animationDirection_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationDirection_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animationDirection::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30915,7 +30915,7 @@ fn animationDirection_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_animation_play_state<TH: TypeHolderTrait>
+unsafe extern fn get_animation_play_state<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30930,7 +30930,7 @@ unsafe extern fn get_animation_play_state<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animation_play_state<TH: TypeHolderTrait>
+unsafe extern fn set_animation_play_state<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -30962,7 +30962,7 @@ unsafe extern fn set_animation_play_state<TH: TypeHolderTrait>
 }
 
 
-fn animation_play_state_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_play_state_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animation_play_state::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30980,7 +30980,7 @@ fn animation_play_state_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-fn animation_play_state_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_play_state_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animation_play_state::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -30998,7 +30998,7 @@ fn animation_play_state_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitIn
     ),
 }}
 
-unsafe extern fn get_animationPlayState<TH: TypeHolderTrait>
+unsafe extern fn get_animationPlayState<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31013,7 +31013,7 @@ unsafe extern fn get_animationPlayState<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animationPlayState<TH: TypeHolderTrait>
+unsafe extern fn set_animationPlayState<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31045,7 +31045,7 @@ unsafe extern fn set_animationPlayState<TH: TypeHolderTrait>
 }
 
 
-fn animationPlayState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationPlayState_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animationPlayState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31063,7 +31063,7 @@ fn animationPlayState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn animationPlayState_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationPlayState_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animationPlayState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31081,7 +31081,7 @@ fn animationPlayState_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_animation_fill_mode<TH: TypeHolderTrait>
+unsafe extern fn get_animation_fill_mode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31096,7 +31096,7 @@ unsafe extern fn get_animation_fill_mode<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animation_fill_mode<TH: TypeHolderTrait>
+unsafe extern fn set_animation_fill_mode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31128,7 +31128,7 @@ unsafe extern fn set_animation_fill_mode<TH: TypeHolderTrait>
 }
 
 
-fn animation_fill_mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_fill_mode_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animation_fill_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31146,7 +31146,7 @@ fn animation_fill_mode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-fn animation_fill_mode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_fill_mode_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animation_fill_mode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31164,7 +31164,7 @@ fn animation_fill_mode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInf
     ),
 }}
 
-unsafe extern fn get_animationFillMode<TH: TypeHolderTrait>
+unsafe extern fn get_animationFillMode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31179,7 +31179,7 @@ unsafe extern fn get_animationFillMode<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animationFillMode<TH: TypeHolderTrait>
+unsafe extern fn set_animationFillMode<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31211,7 +31211,7 @@ unsafe extern fn set_animationFillMode<TH: TypeHolderTrait>
 }
 
 
-fn animationFillMode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationFillMode_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animationFillMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31229,7 +31229,7 @@ fn animationFillMode_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-fn animationFillMode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationFillMode_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animationFillMode::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31247,7 +31247,7 @@ fn animationFillMode_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn get_animation_delay<TH: TypeHolderTrait>
+unsafe extern fn get_animation_delay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31262,7 +31262,7 @@ unsafe extern fn get_animation_delay<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animation_delay<TH: TypeHolderTrait>
+unsafe extern fn set_animation_delay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31294,7 +31294,7 @@ unsafe extern fn set_animation_delay<TH: TypeHolderTrait>
 }
 
 
-fn animation_delay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_delay_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animation_delay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31312,7 +31312,7 @@ fn animation_delay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn animation_delay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animation_delay_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animation_delay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31330,7 +31330,7 @@ fn animation_delay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_animationDelay<TH: TypeHolderTrait>
+unsafe extern fn get_animationDelay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31345,7 +31345,7 @@ unsafe extern fn get_animationDelay<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_animationDelay<TH: TypeHolderTrait>
+unsafe extern fn set_animationDelay<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const CSSStyleDeclaration<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -31377,7 +31377,7 @@ unsafe extern fn set_animationDelay<TH: TypeHolderTrait>
 }
 
 
-fn animationDelay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationDelay_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_animationDelay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31395,7 +31395,7 @@ fn animationDelay_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn animationDelay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn animationDelay_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_animationDelay::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::CSSStyleDeclaration as u16,
     depth: 0,
@@ -31413,7 +31413,7 @@ fn animationDelay_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -31426,7 +31426,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -31436,7 +31436,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait>
+pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait<TH>>
 () -> *const libc::c_void {
     let traps = ProxyTraps {
         enter: None,
@@ -31473,7 +31473,7 @@ pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait>
     CreateProxyHandler(&traps, Class::<TH>().as_void_ptr())
 }
 
-#[inline] unsafe fn UnwrapProxy<TH: TypeHolderTrait>
+#[inline] unsafe fn UnwrapProxy<TH: TypeHolderTrait<TH>>
 (obj: RawHandleObject) -> *const CSSStyleDeclaration<TH> {
     /*if (xpc::WrapperFactory::IsXrayWrapper(obj)) {
         obj = js::UnwrapObject(obj);
@@ -31483,14 +31483,14 @@ pub unsafe fn DefineProxyHandler<TH: TypeHolderTrait>
     return box_;
 }
 
-fn Class<TH: TypeHolderTrait>() -> DOMClass { DOMClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMClass { DOMClass {
     interface_chain: [ PrototypeList::ID::CSSStyleDeclaration, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last, PrototypeList::ID::Last ],
     type_id: ::dom::bindings::codegen::InheritTypes::TopTypeId { alone: () },
     global: InterfaceObjectMap::Globals::EMPTY,
    	malloc_size_of: malloc_size_of_including_raw_self::<CSSStyleDeclaration<TH>> as unsafe fn(&mut _, _) -> _,
 }}
 
-unsafe extern fn own_property_keys<TH: TypeHolderTrait>
+unsafe extern fn own_property_keys<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, proxy: RawHandleObject, props: *mut AutoIdVector) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let unwrapped_proxy = UnwrapProxy(proxy);
@@ -31509,7 +31509,7 @@ unsafe extern fn own_property_keys<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn getOwnPropertyDescriptor<TH: TypeHolderTrait>
+unsafe extern fn getOwnPropertyDescriptor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, proxy: RawHandleObject, id: RawHandleId, desc: RawMutableHandle<PropertyDescriptor>) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let index = get_array_index_from_id(cx, Handle::from_raw(id));
@@ -31546,12 +31546,12 @@ unsafe extern fn getOwnPropertyDescriptor<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn className<TH: TypeHolderTrait>
+unsafe extern fn className<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _proxy: RawHandleObject) -> *const i8 {
     b"CSSStyleDeclaration\0" as *const u8 as *const i8
 }
 
-unsafe extern fn get<TH: TypeHolderTrait>
+unsafe extern fn get<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, proxy: RawHandleObject, receiver: RawHandleValue, id: RawHandleId, vp: RawMutableHandleValue) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         //MOZ_ASSERT(!xpc::WrapperFactory::IsXrayWrapper(proxy),
@@ -31602,7 +31602,7 @@ unsafe extern fn get<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn hasOwn<TH: TypeHolderTrait>
+unsafe extern fn hasOwn<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, proxy: RawHandleObject, id: RawHandleId, bp: *mut bool) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let index = get_array_index_from_id(cx, Handle::from_raw(id));
@@ -31630,7 +31630,7 @@ unsafe extern fn hasOwn<TH: TypeHolderTrait>
     }), false);
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<CSSStyleDeclaration<TH>>) -> DomRoot<CSSStyleDeclaration<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -31659,20 +31659,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for CSSStyleDeclaration<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for CSSStyleDeclaration<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>() as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for CSSStyleDeclaration<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for CSSStyleDeclaration<TH> {
     fn eq(&self, other: &CSSStyleDeclaration<TH>) -> bool {
         self as *const CSSStyleDeclaration<TH> == &*other
     }
 }
 
-pub trait CSSStyleDeclarationMethods<TH: TypeHolderTrait> {
+pub trait CSSStyleDeclarationMethods<TH: TypeHolderTrait<TH>> {
     fn CssText(&self) -> DOMString;
     fn SetCssText(&self, value: DOMString) -> ErrorResult<TH>;
     fn Length(&self) -> u32;
@@ -32417,7 +32417,7 @@ pub trait CSSStyleDeclarationMethods<TH: TypeHolderTrait> {
     fn SetAnimationDelay(&self, value: DOMString) -> ErrorResult<TH>;
     fn IndexedGetter(&self, index: u32) -> Option<DOMString>;
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"item\0" as *const u8 as *const libc::c_char,
@@ -32484,10 +32484,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"cssText\0" as *const u8 as *const libc::c_char,
@@ -34737,7 +34737,7 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0]),
     Guard::new(Condition::Pref("layout.writing-mode.enabled"), sAttributes_specs::<TH>()[1]),
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[2]),
@@ -34745,7 +34745,7 @@ fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpe
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[4])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -34780,7 +34780,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::CSSStyleDeclaration,
         0);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -34793,12 +34793,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

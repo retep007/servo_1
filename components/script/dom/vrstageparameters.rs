@@ -19,7 +19,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct VRStageParameters<TH: TypeHolderTrait + 'static> {
+pub struct VRStageParameters<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rust-webvr"]
     parameters: DomRefCell<WebVRStageParameters>,
@@ -29,7 +29,7 @@ pub struct VRStageParameters<TH: TypeHolderTrait + 'static> {
 
 unsafe_no_jsmanaged_fields!(WebVRStageParameters);
 
-impl<TH: TypeHolderTrait> VRStageParameters<TH> {
+impl<TH: TypeHolderTrait<TH>> VRStageParameters<TH> {
     fn new_inherited(parameters: WebVRStageParameters) -> VRStageParameters<TH> {
         VRStageParameters {
             reflector_: Reflector::new(),
@@ -70,7 +70,7 @@ impl<TH: TypeHolderTrait> VRStageParameters<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VRStageParametersMethods for VRStageParameters<TH> {
+impl<TH: TypeHolderTrait<TH>> VRStageParametersMethods for VRStageParameters<TH> {
     #[allow(unsafe_code)]
     // https://w3c.github.io/webvr/#dom-vrstageparameters-sittingtostandingtransform
     unsafe fn SittingToStandingTransform(&self, _cx: *mut JSContext) -> NonNull<JSObject> {

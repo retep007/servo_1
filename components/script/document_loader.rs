@@ -44,14 +44,14 @@ impl LoadType {
 /// that the owner is destroyed.
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct LoadBlocker<TH: TypeHolderTrait + 'static> {
+pub struct LoadBlocker<TH: TypeHolderTrait<TH> + 'static> {
     /// The document whose load event is blocked by this object existing.
     doc: Dom<Document<TH>>,
     /// The load that is blocking the document's load event.
     load: Option<LoadType>,
 }
 
-impl<TH: TypeHolderTrait> LoadBlocker<TH> {
+impl<TH: TypeHolderTrait<TH>> LoadBlocker<TH> {
     /// Mark the document's load event as blocked on this new load.
     pub fn new(doc: &Document<TH>, load: LoadType) -> Self {
         doc.loader_mut().add_blocking_load(load.clone());
@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> LoadBlocker<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for LoadBlocker<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for LoadBlocker<TH> {
     fn drop(&mut self) {
         if !thread::panicking() {
             debug_assert!(self.load.is_none());

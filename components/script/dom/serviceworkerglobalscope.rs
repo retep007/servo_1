@@ -36,25 +36,25 @@ use style::thread_state::{self, ThreadState};
 use typeholder::TypeHolderTrait;
 
 /// Messages used to control service worker event loop
-pub enum ServiceWorkerScriptMsg<TH: TypeHolderTrait + 'static> {
+pub enum ServiceWorkerScriptMsg<TH: TypeHolderTrait<TH> + 'static> {
     /// Message common to all workers
     CommonWorker(WorkerScriptMsg<TH>),
     // Message to request a custom response by the service worker
     Response(CustomResponseMediator)
 }
 
-pub enum MixedMessage<TH: TypeHolderTrait + 'static> {
+pub enum MixedMessage<TH: TypeHolderTrait<TH> + 'static> {
     FromServiceWorker(ServiceWorkerScriptMsg<TH>),
     FromDevtools(DevtoolScriptControlMsg),
     FromTimeoutThread(())
 }
 
 #[derive(Clone, JSTraceable)]
-pub struct ServiceWorkerChan<TH: TypeHolderTrait + 'static> {
+pub struct ServiceWorkerChan<TH: TypeHolderTrait<TH> + 'static> {
     pub sender: Sender<ServiceWorkerScriptMsg<TH>>
 }
 
-impl<TH: TypeHolderTrait> ScriptChan for ServiceWorkerChan<TH> {
+impl<TH: TypeHolderTrait<TH>> ScriptChan for ServiceWorkerChan<TH> {
     fn send(&self, msg: CommonScriptMsg) -> Result<(), ()> {
         self.sender
             .send(ServiceWorkerScriptMsg::CommonWorker(WorkerScriptMsg::Common(msg)))
@@ -69,7 +69,7 @@ impl<TH: TypeHolderTrait> ScriptChan for ServiceWorkerChan<TH> {
 }
 
 #[dom_struct]
-pub struct ServiceWorkerGlobalScope<TH: TypeHolderTrait + 'static> {
+pub struct ServiceWorkerGlobalScope<TH: TypeHolderTrait<TH> + 'static> {
     workerglobalscope: WorkerGlobalScope<TH>,
     #[ignore_malloc_size_of = "Defined in std"]
     receiver: Receiver<ServiceWorkerScriptMsg<TH>>,
@@ -82,7 +82,7 @@ pub struct ServiceWorkerGlobalScope<TH: TypeHolderTrait + 'static> {
     scope_url: ServoUrl,
 }
 
-impl<TH: TypeHolderTrait> ServiceWorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> ServiceWorkerGlobalScope<TH> {
     fn new_inherited(init: WorkerGlobalScopeInit,
                      worker_url: ServoUrl,
                      from_devtools_receiver: Receiver<DevtoolScriptControlMsg>,
@@ -321,7 +321,7 @@ impl<TH: TypeHolderTrait> ServiceWorkerGlobalScope<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext) -> bool {
+unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait<TH>>(cx: *mut JSContext) -> bool {
     let worker =
         DomRoot::downcast::<WorkerGlobalScope<TH>>(GlobalScope::<TH>::from_context(cx))
             .expect("global is not a worker scope");
@@ -331,7 +331,7 @@ unsafe extern "C" fn interrupt_callback<TH: TypeHolderTrait>(cx: *mut JSContext)
     !worker.is_closing()
 }
 
-impl<TH: TypeHolderTrait> ServiceWorkerGlobalScopeMethods<TH> for ServiceWorkerGlobalScope<TH> {
+impl<TH: TypeHolderTrait<TH>> ServiceWorkerGlobalScopeMethods<TH> for ServiceWorkerGlobalScope<TH> {
     // https://w3c.github.io/ServiceWorker/#service-worker-global-scope-onmessage-attribute
     event_handler!(message, GetOnmessage, SetOnmessage);
 }

@@ -20,12 +20,12 @@ use webrender_api::DeviceUintSize;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Screen<TH: TypeHolderTrait + 'static> {
+pub struct Screen<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     window: Dom<Window<TH>>,
 }
 
-impl<TH: TypeHolderTrait> Screen<TH> {
+impl<TH: TypeHolderTrait<TH>> Screen<TH> {
     fn new_inherited(window: &Window<TH>) -> Screen<TH> {
         Screen {
             reflector_: Reflector::new(),
@@ -58,7 +58,7 @@ impl<TH: TypeHolderTrait> Screen<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ScreenMethods for Screen<TH> {
+impl<TH: TypeHolderTrait<TH>> ScreenMethods for Screen<TH> {
     // https://drafts.csswg.org/cssom-view/#dom-screen-availwidth
     fn AvailWidth(&self) -> Finite<f64> {
         Finite::wrap(self.screen_avail_size().width as f64)

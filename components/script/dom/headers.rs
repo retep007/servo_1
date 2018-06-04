@@ -20,7 +20,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct Headers<TH: TypeHolderTrait + 'static> {
+pub struct Headers<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     guard: Cell<Guard>,
     #[ignore_malloc_size_of = "Defined in hyper"]
@@ -38,7 +38,7 @@ pub enum Guard {
     None,
 }
 
-impl<TH: TypeHolderTrait> Headers<TH> {
+impl<TH: TypeHolderTrait<TH>> Headers<TH> {
     pub fn new_inherited() -> Headers<TH> {
         Headers {
             reflector_: Reflector::new(),
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> Headers<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
+impl<TH: TypeHolderTrait<TH>> HeadersMethods<TH> for Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-append
     fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult<TH> {
         // Step 1
@@ -169,7 +169,7 @@ impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Headers<TH> {
+impl<TH: TypeHolderTrait<TH>> Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-fill
     pub fn fill(&self, filler: Option<HeadersInit<TH>>) -> ErrorResult<TH> {
         match filler {
@@ -264,7 +264,7 @@ impl<TH: TypeHolderTrait> Headers<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Iterable for Headers<TH> {
+impl<TH: TypeHolderTrait<TH>> Iterable for Headers<TH> {
     type Key = ByteString;
     type Value = ByteString;
 
@@ -368,7 +368,7 @@ pub fn is_forbidden_header_name(name: &str) -> bool {
 // [2] https://tools.ietf.org/html/rfc7230#section-3.2
 // [3] https://tools.ietf.org/html/rfc7230#section-3.2.6
 // [4] https://www.rfc-editor.org/errata_search.php?rfc=7230
-fn validate_name_and_value<TH: TypeHolderTrait>(name: ByteString, value: ByteString)
+fn validate_name_and_value<TH: TypeHolderTrait<TH>>(name: ByteString, value: ByteString)
                            -> Fallible<(String, Vec<u8>), TH> {
     let valid_name = validate_name(name)?;
     if !is_field_content(&value) {
@@ -377,7 +377,7 @@ fn validate_name_and_value<TH: TypeHolderTrait>(name: ByteString, value: ByteStr
     Ok((valid_name, value.into()))
 }
 
-fn validate_name<TH: TypeHolderTrait>(name: ByteString) -> Fallible<String, TH> {
+fn validate_name<TH: TypeHolderTrait<TH>>(name: ByteString) -> Fallible<String, TH> {
     if !is_field_name(&name) {
         return Err(Error::Type("Name is not valid".to_string()));
     }

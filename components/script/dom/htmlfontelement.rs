@@ -22,12 +22,12 @@ use style::str::{HTML_SPACE_CHARACTERS, read_numbers};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLFontElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLFontElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 
 
-impl<TH: TypeHolderTrait> HTMLFontElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFontElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLFontElement<TH> {
         HTMLFontElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document),
@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> HTMLFontElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLFontElementMethods for HTMLFontElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLFontElementMethods for HTMLFontElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-font-color
     make_getter!(Color, "color");
 
@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> HTMLFontElementMethods for HTMLFontElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLFontElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLFontElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -97,7 +97,7 @@ pub trait HTMLFontElementLayoutHelpers {
     fn get_size(&self) -> Option<u32>;
 }
 
-impl<TH: TypeHolderTrait> HTMLFontElementLayoutHelpers for LayoutDom<HTMLFontElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> HTMLFontElementLayoutHelpers for LayoutDom<HTMLFontElement<TH>> {
     #[allow(unsafe_code)]
     fn get_color(&self) -> Option<RGBA> {
         unsafe {

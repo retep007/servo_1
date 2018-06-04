@@ -22,14 +22,14 @@ use style_traits::{ParsingMode, ToCss};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MediaList<TH: TypeHolderTrait + 'static> {
+pub struct MediaList<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     parent_stylesheet: Dom<CSSStyleSheet<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     media_queries: Arc<Locked<StyleMediaList>>,
 }
 
-impl<TH: TypeHolderTrait> MediaList<TH> {
+impl<TH: TypeHolderTrait<TH>> MediaList<TH> {
     #[allow(unrooted_must_root)]
     pub fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>,
                          media_queries: Arc<Locked<StyleMediaList>>) -> MediaList<TH> {
@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> MediaList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MediaListMethods for MediaList<TH> {
+impl<TH: TypeHolderTrait<TH>> MediaListMethods for MediaList<TH> {
     // https://drafts.csswg.org/cssom/#dom-medialist-mediatext
     fn MediaText(&self) -> DOMString {
         let guard = self.shared_lock().read();

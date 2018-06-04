@@ -106,7 +106,7 @@ impl StructuredCloneReader {
     }
 }
 
-unsafe fn read_blob<TH: TypeHolderTrait>(cx: *mut JSContext,
+unsafe fn read_blob<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                     r: *mut JSStructuredCloneReader)
                     -> *mut JSObject {
     let structured_reader = StructuredCloneReader { r: r };
@@ -117,7 +117,7 @@ unsafe fn read_blob<TH: TypeHolderTrait>(cx: *mut JSContext,
     return blob.reflector().get_jsobject().get()
 }
 
-unsafe fn write_blob<TH: TypeHolderTrait>(blob: DomRoot<Blob<TH>>,
+unsafe fn write_blob<TH: TypeHolderTrait<TH>>(blob: DomRoot<Blob<TH>>,
                      w: *mut JSStructuredCloneWriter)
                      -> Result<(), ()> {
     let structured_writer = StructuredCloneWriter { w: w };
@@ -128,7 +128,7 @@ unsafe fn write_blob<TH: TypeHolderTrait>(blob: DomRoot<Blob<TH>>,
     return Ok(())
 }
 
-unsafe extern "C" fn read_callback<TH: TypeHolderTrait>(cx: *mut JSContext,
+unsafe extern "C" fn read_callback<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                                    r: *mut JSStructuredCloneReader,
                                    tag: u32,
                                    _data: u32,
@@ -142,7 +142,7 @@ unsafe extern "C" fn read_callback<TH: TypeHolderTrait>(cx: *mut JSContext,
     return ptr::null_mut()
 }
 
-unsafe extern "C" fn write_callback<TH: TypeHolderTrait>(_cx: *mut JSContext,
+unsafe extern "C" fn write_callback<TH: TypeHolderTrait<TH>>(_cx: *mut JSContext,
                                     w: *mut JSStructuredCloneWriter,
                                     obj: RawHandleObject,
                                     _closure: *mut raw::c_void)
@@ -185,7 +185,7 @@ unsafe extern "C" fn free_transfer_callback(_tag: u32,
 unsafe extern "C" fn report_error_callback(_cx: *mut JSContext, _errorid: u32) {
 }
 
-fn STRUCTURED_CLONE_CALLBACKS<TH: TypeHolderTrait>() -> JSStructuredCloneCallbacks {
+fn STRUCTURED_CLONE_CALLBACKS<TH: TypeHolderTrait<TH>>() -> JSStructuredCloneCallbacks {
   JSStructuredCloneCallbacks {
       read: Some(read_callback::<TH>),
       write: Some(write_callback::<TH>),
@@ -197,7 +197,7 @@ fn STRUCTURED_CLONE_CALLBACKS<TH: TypeHolderTrait>() -> JSStructuredCloneCallbac
 } 
 
 /// A buffer for a structured clone.
-pub enum StructuredCloneData<TH: TypeHolderTrait + 'static> {
+pub enum StructuredCloneData<TH: TypeHolderTrait<TH> + 'static> {
     /// A non-serializable (default) variant
     Struct(*mut u64, size_t),
     /// A variant that can be serialized
@@ -205,7 +205,7 @@ pub enum StructuredCloneData<TH: TypeHolderTrait + 'static> {
     _p(PhantomData<TH>),
 }
 
-impl<TH: TypeHolderTrait> StructuredCloneData<TH> {
+impl<TH: TypeHolderTrait<TH>> StructuredCloneData<TH> {
     /// Writes a structured clone. Returns a `DataClone` error if that fails.
     pub fn write(cx: *mut JSContext, message: HandleValue) -> Fallible<StructuredCloneData<TH>, TH> {
         let mut data = ptr::null_mut();
@@ -274,4 +274,4 @@ impl<TH: TypeHolderTrait> StructuredCloneData<TH> {
     }
 }
 
-unsafe impl<TH: TypeHolderTrait> Send for StructuredCloneData<TH> {}
+unsafe impl<TH: TypeHolderTrait<TH>> Send for StructuredCloneData<TH> {}

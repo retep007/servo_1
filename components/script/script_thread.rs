@@ -220,7 +220,7 @@ pub trait ScriptThreadTrait {
 
     // /// <https://html.spec.whatwg.org/multipage/#microtask-queue>
     // microtask_queue: Rc<MicrotaskQueue<TH>>,
-    fn get_microtask_queue<TH: TypeHolderTrait>(&self) -> &mut Rc<MicrotaskQueue<TH>>;
+    fn get_microtask_queue<TH: TypeHolderTrait<TH>>(&self) -> &mut Rc<MicrotaskQueue<TH>>;
     // /// Microtask Queue for adding support for mutation observer microtasks
     // mutation_observer_compound_microtask_queued: Cell<bool>,
 
@@ -246,7 +246,7 @@ pub trait ScriptThreadTrait {
 
     // /// <https://html.spec.whatwg.org/multipage/#custom-element-reactions-stack>
     // custom_element_reaction_stack: CustomElementReactionStack<TH>,
-    fn get_custom_element_reaction_stack<TH: TypeHolderTrait>(&self) -> &mut CustomElementReactionStack<TH>;
+    fn get_custom_element_reaction_stack<TH: TypeHolderTrait<TH>>(&self) -> &mut CustomElementReactionStack<TH>;
     // /// The Webrender Document ID associated with this thread.
     // webrender_document: DocumentId,
 }
@@ -387,13 +387,13 @@ impl ScriptPort for Receiver<MainThreadScriptMsg> {
     }
 }
 
-impl<TH: TypeHolderTrait> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, CommonScriptMsg)> {
+impl<TH: TypeHolderTrait<TH>> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, CommonScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         self.recv().map(|(_, msg)| msg).map_err(|_| ())
     }
 }
 
-impl<TH: TypeHolderTrait> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, MainThreadScriptMsg)> {
+impl<TH: TypeHolderTrait<TH>> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, MainThreadScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         match self.recv().map(|(_, msg)| msg) {
             Ok(MainThreadScriptMsg::Common(script_msg)) => Ok(script_msg),
@@ -403,7 +403,7 @@ impl<TH: TypeHolderTrait> ScriptPort for Receiver<(TrustedWorkerAddress<TH>, Mai
     }
 }
 
-impl<TH: TypeHolderTrait> ScriptPort for Receiver<(TrustedServiceWorkerAddress<TH>, CommonScriptMsg)> {
+impl<TH: TypeHolderTrait<TH>> ScriptPort for Receiver<(TrustedServiceWorkerAddress<TH>, CommonScriptMsg)> {
     fn recv(&self) -> Result<CommonScriptMsg, ()> {
         self.recv().map(|(_, msg)| msg).map_err(|_| ())
     }
@@ -446,11 +446,11 @@ impl OpaqueSender<CommonScriptMsg> for Sender<MainThreadScriptMsg> {
 /// The set of all documents managed by this script thread.
 #[derive(JSTraceable)]
 #[must_root]
-pub struct Documents<TH: TypeHolderTrait + 'static> {
+pub struct Documents<TH: TypeHolderTrait<TH> + 'static> {
     map: HashMap<PipelineId, Dom<Document<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> Documents<TH> {
+impl<TH: TypeHolderTrait<TH>> Documents<TH> {
     pub fn new() -> Documents<TH> {
         Documents {
             map: HashMap::new(),
@@ -499,11 +499,11 @@ impl<TH: TypeHolderTrait> Documents<TH> {
 }
 
 #[allow(unrooted_must_root)]
-pub struct DocumentsIter<'a, TH: TypeHolderTrait + 'static> {
+pub struct DocumentsIter<'a, TH: TypeHolderTrait<TH> + 'static> {
     iter: hash_map::Iter<'a, PipelineId, Dom<Document<TH>>>,
 }
 
-impl<'a, TH: TypeHolderTrait + 'static> Iterator for DocumentsIter<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH> + 'static> Iterator for DocumentsIter<'a, TH> {
     type Item = (PipelineId, DomRoot<Document<TH>>);
 
     fn next(&mut self) -> Option<(PipelineId, DomRoot<Document<TH>>)> {
@@ -514,7 +514,7 @@ impl<'a, TH: TypeHolderTrait + 'static> Iterator for DocumentsIter<'a, TH> {
 #[derive(JSTraceable)]
 // ScriptThread instances are rooted on creation, so this is okay
 #[allow(unrooted_must_root)]
-pub struct ScriptThread<TH: TypeHolderTrait + 'static> {
+pub struct ScriptThread<TH: TypeHolderTrait<TH> + 'static> {
     /// The documents for pipelines managed by this thread
     documents: DomRefCell<Documents<TH>>,
     /// The window proxies known by this thread
@@ -637,11 +637,11 @@ pub struct ScriptThread<TH: TypeHolderTrait + 'static> {
 /// are no reachable, owning pointers to the DOM memory, so it never gets freed by default
 /// when the script thread fails. The ScriptMemoryFailsafe uses the destructor bomb pattern
 /// to forcibly tear down the JS compartments for pages associated with the failing ScriptThread.
-struct ScriptMemoryFailsafe<'a, TH: TypeHolderTrait + 'static> {
+struct ScriptMemoryFailsafe<'a, TH: TypeHolderTrait<TH> + 'static> {
     owner: Option<&'a ScriptThread<TH>>,
 }
 
-impl<'a, TH: TypeHolderTrait> ScriptMemoryFailsafe<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> ScriptMemoryFailsafe<'a, TH> {
     fn neuter(&mut self) {
         self.owner = None;
     }
@@ -653,7 +653,7 @@ impl<'a, TH: TypeHolderTrait> ScriptMemoryFailsafe<'a, TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> Drop for ScriptMemoryFailsafe<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> Drop for ScriptMemoryFailsafe<'a, TH> {
     #[allow(unrooted_must_root)]
     fn drop(&mut self) {
         if let Some(owner) = self.owner {
@@ -664,7 +664,7 @@ impl<'a, TH: TypeHolderTrait> Drop for ScriptMemoryFailsafe<'a, TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ScriptThreadFactory for ScriptThread<TH> {
+impl<TH: TypeHolderTrait<TH>> ScriptThreadFactory for ScriptThread<TH> {
     type Message = message::Msg;
 
     fn create(state: InitialScriptState,
@@ -715,7 +715,7 @@ impl<TH: TypeHolderTrait> ScriptThreadFactory for ScriptThread<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ScriptThread<TH> {
+impl<TH: TypeHolderTrait<TH>> ScriptThread<TH> {
     pub unsafe fn note_newly_transitioning_nodes(nodes: Vec<UntrustedNodeAddress>) {
         // SCRIPT_THREAD_ROOT.with(|root| {
         //     let script_thread = &*root.get_mut().unwrap();
@@ -2774,7 +2774,7 @@ impl<TH: TypeHolderTrait> ScriptThread<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for ScriptThread<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for ScriptThread<TH> {
     fn drop(&mut self) {
         // SCRIPT_THREAD_ROOT.with(|root| {
         //     root.replace (None);

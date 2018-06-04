@@ -255,12 +255,12 @@ use std::str;
 use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable)]
-pub struct VRLayer<TH: TypeHolderTrait + 'static> {
+pub struct VRLayer<TH: TypeHolderTrait<TH> + 'static> {
     pub leftBounds: Option<Vec<Finite<f32>>>,
     pub rightBounds: Option<Vec<Finite<f32>>>,
     pub source: Option<DomRoot<HTMLCanvasElement<TH>>>,
 }
-impl<TH: TypeHolderTrait> VRLayer<TH> {
+impl<TH: TypeHolderTrait<TH>> VRLayer<TH> {
     pub unsafe fn empty(cx: *mut JSContext) -> VRLayer<TH> {
         match VRLayer::new(cx, HandleValue::null()) {
             Ok(ConversionResult::Success(v)) => v,
@@ -342,7 +342,7 @@ impl<TH: TypeHolderTrait> VRLayer<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for VRLayer<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for VRLayer<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext, value: HandleValue, _option: ())
                          -> Result<ConversionResult<VRLayer<TH>>, ()> {
@@ -350,7 +350,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for VRLayer<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for VRLayer<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for VRLayer<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         rooted!(in(cx) let obj = JS_NewObject(cx, ptr::null()));
         if let Some(ref leftBounds) = self.leftBounds {

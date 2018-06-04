@@ -12,11 +12,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLBRElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLBRElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH: TypeHolderTrait> HTMLBRElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLBRElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLBRElement<TH> {
         HTMLBRElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)

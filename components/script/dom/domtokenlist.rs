@@ -18,13 +18,13 @@ use style::str::HTML_SPACE_CHARACTERS;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMTokenList<TH: TypeHolderTrait + 'static> {
+pub struct DOMTokenList<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     element: Dom<Element<TH>>,
     local_name: LocalName,
 }
 
-impl<TH: TypeHolderTrait> DOMTokenList<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMTokenList<TH> {
     pub fn new_inherited(element: &Element<TH>, local_name: LocalName) -> DOMTokenList<TH> {
         DOMTokenList {
             reflector_: Reflector::new(),
@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> DOMTokenList<TH> {
 }
 
 // https://dom.spec.whatwg.org/#domtokenlist
-impl<TH: TypeHolderTrait> DOMTokenListMethods<TH> for DOMTokenList<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMTokenListMethods<TH> for DOMTokenList<TH> {
     // https://dom.spec.whatwg.org/#dom-domtokenlist-length
     fn Length(&self) -> u32 {
         self.attribute().map_or(0, |attr| {

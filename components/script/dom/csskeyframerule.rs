@@ -18,14 +18,14 @@ use style::stylesheets::keyframes_rule::Keyframe;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSKeyframeRule<TH: TypeHolderTrait + 'static> {
+pub struct CSSKeyframeRule<TH: TypeHolderTrait<TH> + 'static> {
     cssrule: CSSRule<TH>,
     #[ignore_malloc_size_of = "Arc"]
     keyframerule: Arc<Locked<Keyframe>>,
     style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
 }
 
-impl<TH: TypeHolderTrait> CSSKeyframeRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSKeyframeRule<TH> {
     fn new_inherited(parent_stylesheet: &CSSStyleSheet<TH>, keyframerule: Arc<Locked<Keyframe>>)
                      -> Self {
         CSSKeyframeRule {
@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> CSSKeyframeRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CSSKeyframeRuleMethods<TH> for CSSKeyframeRule<TH> {
+impl<TH: TypeHolderTrait<TH>> CSSKeyframeRuleMethods<TH> for CSSKeyframeRule<TH> {
     // https://drafts.csswg.org/css-animations/#dom-csskeyframerule-style
     fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {
@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> CSSKeyframeRuleMethods<TH> for CSSKeyframeRule<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> SpecificCSSRule for CSSKeyframeRule<TH> {
+impl<TH: TypeHolderTrait<TH>> SpecificCSSRule for CSSKeyframeRule<TH> {
     fn ty(&self) -> u16 {
         use dom::bindings::codegen::Bindings::CSSRuleBinding::CSSRuleConstants;
         CSSRuleConstants::KEYFRAME_RULE

@@ -21,13 +21,13 @@ use webvr_traits::{WebVRDisplayEvent, WebVRDisplayEventReason};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct VRDisplayEvent<TH: TypeHolderTrait + 'static> {
+pub struct VRDisplayEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     display: Dom<VRDisplay<TH>>,
     reason: Option<VRDisplayEventReason>
 }
 
-impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> VRDisplayEvent<TH> {
     fn new_inherited(display: &VRDisplay<TH>,
                      reason: Option<VRDisplayEventReason>)
                      -> VRDisplayEvent<TH> {
@@ -107,7 +107,7 @@ impl<TH: TypeHolderTrait> VRDisplayEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VRDisplayEventMethods<TH> for VRDisplayEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> VRDisplayEventMethods<TH> for VRDisplayEvent<TH> {
     // https://w3c.github.io/webvr/#dom-vrdisplayevent-display
     fn Display(&self) -> DomRoot<VRDisplay<TH>> {
         DomRoot::from_ref(&*self.display)

@@ -17,14 +17,14 @@ use typeholder::TypeHolderTrait;
 // https://dom.spec.whatwg.org/#documenttype
 /// The `DOCTYPE` tag.
 #[dom_struct]
-pub struct DocumentType<TH: TypeHolderTrait + 'static> {
+pub struct DocumentType<TH: TypeHolderTrait<TH> + 'static> {
     node: Node<TH>,
     name: DOMString,
     public_id: DOMString,
     system_id: DOMString,
 }
 
-impl<TH: TypeHolderTrait> DocumentType<TH> {
+impl<TH: TypeHolderTrait<TH>> DocumentType<TH> {
     fn new_inherited(name: DOMString,
                      public_id: Option<DOMString>,
                      system_id: Option<DOMString>,
@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> DocumentType<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DocumentTypeMethods<TH> for DocumentType<TH> {
+impl<TH: TypeHolderTrait<TH>> DocumentTypeMethods<TH> for DocumentType<TH> {
     // https://dom.spec.whatwg.org/#dom-documenttype-name
     fn Name(&self) -> DOMString {
         self.name.clone()

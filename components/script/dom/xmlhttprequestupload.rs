@@ -11,11 +11,11 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct XMLHttpRequestUpload<TH: TypeHolderTrait + 'static> {
+pub struct XMLHttpRequestUpload<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: XMLHttpRequestEventTarget<TH>
 }
 
-impl<TH: TypeHolderTrait> XMLHttpRequestUpload<TH> {
+impl<TH: TypeHolderTrait<TH>> XMLHttpRequestUpload<TH> {
     fn new_inherited() -> XMLHttpRequestUpload<TH> {
         XMLHttpRequestUpload {
             eventtarget: XMLHttpRequestEventTarget::new_inherited(),

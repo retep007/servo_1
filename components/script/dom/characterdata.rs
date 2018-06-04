@@ -28,12 +28,12 @@ use typeholder::TypeHolderTrait;
 
 // https://dom.spec.whatwg.org/#characterdata
 #[dom_struct]
-pub struct CharacterData<TH: TypeHolderTrait + 'static> {
+pub struct CharacterData<TH: TypeHolderTrait<TH> + 'static> {
     node: Node<TH>,
     data: DomRefCell<DOMString>,
 }
 
-impl<TH: TypeHolderTrait> CharacterData<TH> {
+impl<TH: TypeHolderTrait<TH>> CharacterData<TH> {
     pub fn new_inherited(data: DOMString, document: &Document<TH>) -> Self {
         CharacterData {
             node: Node::new_inherited(document),
@@ -84,7 +84,7 @@ impl<TH: TypeHolderTrait> CharacterData<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CharacterDataMethods<TH> for CharacterData<TH> {
+impl<TH: TypeHolderTrait<TH>> CharacterDataMethods<TH> for CharacterData<TH> {
     // https://dom.spec.whatwg.org/#dom-characterdata-data
     fn Data(&self) -> DOMString {
         self.data.borrow().clone()
@@ -254,7 +254,7 @@ pub trait LayoutCharacterDataHelpers {
 }
 
 #[allow(unsafe_code)]
-impl<TH: TypeHolderTrait> LayoutCharacterDataHelpers for LayoutDom<CharacterData<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutCharacterDataHelpers for LayoutDom<CharacterData<TH>> {
     #[inline]
     unsafe fn data_for_layout(&self) -> &str {
         &(*self.unsafe_get()).data.borrow_for_layout()

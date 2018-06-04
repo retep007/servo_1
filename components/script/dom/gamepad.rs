@@ -25,7 +25,7 @@ use webvr_traits::{WebVRGamepadData, WebVRGamepadHand, WebVRGamepadState};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Gamepad<TH: TypeHolderTrait + 'static> {
+pub struct Gamepad<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     gamepad_id: u32,
     id: String,
@@ -41,7 +41,7 @@ pub struct Gamepad<TH: TypeHolderTrait + 'static> {
     display_id: u32
 }
 
-impl<TH: TypeHolderTrait> Gamepad<TH> {
+impl<TH: TypeHolderTrait<TH>> Gamepad<TH> {
     fn new_inherited(gamepad_id: u32,
                      id: String,
                      index: i32,
@@ -104,7 +104,7 @@ impl<TH: TypeHolderTrait> Gamepad<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> GamepadMethods<TH> for Gamepad<TH> {
+impl<TH: TypeHolderTrait<TH>> GamepadMethods<TH> for Gamepad<TH> {
     // https://w3c.github.io/gamepad/#dom-gamepad-id
     fn Id(&self) -> DOMString {
         DOMString::from(self.id.clone())
@@ -162,7 +162,7 @@ impl<TH: TypeHolderTrait> GamepadMethods<TH> for Gamepad<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Gamepad<TH> {
+impl<TH: TypeHolderTrait<TH>> Gamepad<TH> {
     #[allow(unsafe_code)]
     pub fn update_from_vr(&self, state: &WebVRGamepadState) {
         self.timestamp.set(state.timestamp);

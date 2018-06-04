@@ -34,7 +34,7 @@ use typeholder::TypeHolderTrait;
 /// that throws security exceptions for most accessors. This is not a replacement
 /// for XOWs, but provides belt-and-braces security.
 #[dom_struct]
-pub struct DissimilarOriginWindow<TH: TypeHolderTrait + 'static> {
+pub struct DissimilarOriginWindow<TH: TypeHolderTrait<TH> + 'static> {
     /// The global for this window.
     globalscope: GlobalScope<TH>,
 
@@ -45,7 +45,7 @@ pub struct DissimilarOriginWindow<TH: TypeHolderTrait + 'static> {
     location: MutNullableDom<DissimilarOriginLocation<TH>>,
 }
 
-impl<TH: TypeHolderTrait> DissimilarOriginWindow<TH> {
+impl<TH: TypeHolderTrait<TH>> DissimilarOriginWindow<TH> {
     #[allow(unsafe_code)]
     pub fn new(
         global_to_clone_from: &GlobalScope<TH>,
@@ -80,7 +80,7 @@ impl<TH: TypeHolderTrait> DissimilarOriginWindow<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DissimilarOriginWindowMethods<TH> for DissimilarOriginWindow<TH> {
+impl<TH: TypeHolderTrait<TH>> DissimilarOriginWindowMethods<TH> for DissimilarOriginWindow<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-window
     fn Window(&self) -> DomRoot<WindowProxy<TH>> {
         DomRoot::from_ref(&*self.window_proxy)
@@ -191,7 +191,7 @@ impl<TH: TypeHolderTrait> DissimilarOriginWindowMethods<TH> for DissimilarOrigin
     }
 }
 
-impl<TH: TypeHolderTrait> DissimilarOriginWindow<TH> {
+impl<TH: TypeHolderTrait<TH>> DissimilarOriginWindow<TH> {
     pub fn post_message(&self, origin: Option<ImmutableOrigin>, data: StructuredCloneData<TH>) {
         let incumbent = match GlobalScope::<TH>::incumbent() {
             None => return warn!("postMessage called with no incumbent global"),

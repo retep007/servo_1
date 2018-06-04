@@ -322,7 +322,7 @@ impl FromJSValConvertible for ByteString {
 }
 
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for Reflector<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for Reflector<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, mut rval: MutableHandleValue) {
         let obj = self.get_jsobject().get();
         assert!(!obj.is_null());
@@ -486,7 +486,7 @@ pub unsafe fn is_array_like(cx: *mut JSContext, value: HandleValue) -> bool {
 }
 
 /// Get a property from a JS object.
-pub unsafe fn get_property_jsval<TH: TypeHolderTrait>(cx: *mut JSContext,
+pub unsafe fn get_property_jsval<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                                  object: HandleObject,
                                  name: &str,
                                  mut rval: MutableHandleValue)
@@ -511,7 +511,7 @@ pub unsafe fn get_property<T, TH>(cx: *mut JSContext,
                               option: T::Config)
                               -> Fallible<Option<T>, TH> where
     T: FromJSValConvertible,
-    TH: TypeHolderTrait
+    TH: TypeHolderTrait<TH>
 {
     debug!("Getting property {}.", name);
     rooted!(in(cx) let mut result = UndefinedValue());

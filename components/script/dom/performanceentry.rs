@@ -14,7 +14,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct PerformanceEntry<TH: TypeHolderTrait + 'static> {
+pub struct PerformanceEntry<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     name: DOMString,
     entry_type: DOMString,
@@ -23,7 +23,7 @@ pub struct PerformanceEntry<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> PerformanceEntry<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceEntry<TH> {
     pub fn new_inherited(name: DOMString,
                          entry_type: DOMString,
                          start_time: f64,
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> PerformanceEntry<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PerformanceEntryMethods for PerformanceEntry<TH> {
+impl<TH: TypeHolderTrait<TH>> PerformanceEntryMethods for PerformanceEntry<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceentry-name
     fn Name(&self) -> DOMString {
         DOMString::from(self.name.clone())

@@ -17,11 +17,11 @@ use style::attr::AttrValue;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLLIElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLLIElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 }
 
-impl<TH: TypeHolderTrait> HTMLLIElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLIElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLLIElement<TH> {
         HTMLLIElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
@@ -38,7 +38,7 @@ impl<TH: TypeHolderTrait> HTMLLIElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLLIElementMethods for HTMLLIElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLLIElementMethods for HTMLLIElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-li-value
     make_int_getter!(Value, "value");
 
@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> HTMLLIElementMethods for HTMLLIElement<TH> {
     make_int_setter!(SetValue, "value");
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLLIElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLLIElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

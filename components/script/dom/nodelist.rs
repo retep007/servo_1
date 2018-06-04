@@ -15,19 +15,19 @@ use typeholder::TypeHolderTrait;
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub enum NodeListType<TH: TypeHolderTrait + 'static> {
+pub enum NodeListType<TH: TypeHolderTrait<TH> + 'static> {
     Simple(Vec<Dom<Node<TH>>>),
     Children(ChildrenList<TH>),
 }
 
 // https://dom.spec.whatwg.org/#interface-nodelist
 #[dom_struct]
-pub struct NodeList<TH: TypeHolderTrait + 'static> {
+pub struct NodeList<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     list_type: NodeListType<TH>,
 }
 
-impl<TH: TypeHolderTrait> NodeList<TH> {
+impl<TH: TypeHolderTrait<TH>> NodeList<TH> {
     #[allow(unrooted_must_root)]
     pub fn new_inherited(list_type: NodeListType<TH>) -> NodeList<TH> {
         NodeList {
@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> NodeList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> NodeListMethods<TH> for NodeList<TH> {
+impl<TH: TypeHolderTrait<TH>> NodeListMethods<TH> for NodeList<TH> {
     // https://dom.spec.whatwg.org/#dom-nodelist-length
     fn Length(&self) -> u32 {
         match self.list_type {
@@ -87,7 +87,7 @@ impl<TH: TypeHolderTrait> NodeListMethods<TH> for NodeList<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> NodeList<TH> {
+impl<TH: TypeHolderTrait<TH>> NodeList<TH> {
     pub fn as_children_list(&self) -> &ChildrenList<TH> {
         if let NodeListType::Children(ref list) = self.list_type {
             list
@@ -112,14 +112,14 @@ impl<TH: TypeHolderTrait> NodeList<TH> {
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct ChildrenList<TH: TypeHolderTrait + 'static> {
+pub struct ChildrenList<TH: TypeHolderTrait<TH> + 'static> {
     node: Dom<Node<TH>>,
     #[ignore_malloc_size_of = "Defined in rust-mozjs"]
     last_visited: MutNullableDom<Node<TH>>,
     last_index: Cell<u32>,
 }
 
-impl<TH: TypeHolderTrait> ChildrenList<TH> {
+impl<TH: TypeHolderTrait<TH>> ChildrenList<TH> {
     pub fn new(node: &Node<TH>) -> ChildrenList<TH> {
         let last_visited = node.GetFirstChild();
         ChildrenList {
@@ -191,7 +191,7 @@ impl<TH: TypeHolderTrait> ChildrenList<TH> {
     }
 
     pub fn children_changed(&self, mutation: &ChildrenMutation<TH>) {
-        fn prepend<THH: TypeHolderTrait>(list: &ChildrenList<THH>, added: &[&Node<THH>], next: &Node<THH>) {
+        fn prepend<THH: TypeHolderTrait<THH>>(list: &ChildrenList<THH>, added: &[&Node<THH>], next: &Node<THH>) {
             let len = added.len() as u32;
             if len == 0u32 {
                 return;
@@ -212,7 +212,7 @@ impl<TH: TypeHolderTrait> ChildrenList<TH> {
             }
         }
 
-        fn replace<THH: TypeHolderTrait>(list: &ChildrenList<THH>,
+        fn replace<THH: TypeHolderTrait<THH>>(list: &ChildrenList<THH>,
                    prev: Option<&Node<THH>>,
                    removed: &Node<THH>,
                    added: &[&Node<THH>],

@@ -87,7 +87,7 @@ fn log2(n: u32) -> u32 {
     31 - n.leading_zeros()
 }
 
-pub struct CommonTexImage2DValidator<'a, TH: TypeHolderTrait> {
+pub struct CommonTexImage2DValidator<'a, TH: TypeHolderTrait<TH>> {
     context: &'a WebGLRenderingContext<TH>,
     target: u32,
     level: i32,
@@ -97,7 +97,7 @@ pub struct CommonTexImage2DValidator<'a, TH: TypeHolderTrait> {
     border: i32,
 }
 
-pub struct CommonTexImage2DValidatorResult<TH: TypeHolderTrait> {
+pub struct CommonTexImage2DValidatorResult<TH: TypeHolderTrait<TH>> {
     pub texture: DomRoot<WebGLTexture<TH>>,
     pub target: TexImageTarget,
     pub level: u32,
@@ -107,7 +107,7 @@ pub struct CommonTexImage2DValidatorResult<TH: TypeHolderTrait> {
     pub border: u32,
 }
 
-impl<'a, TH: TypeHolderTrait> WebGLValidator for CommonTexImage2DValidator<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> WebGLValidator for CommonTexImage2DValidator<'a, TH> {
     type Error = TexImageValidationError;
     type ValidatedOutput = CommonTexImage2DValidatorResult<TH>;
     fn validate(self) -> Result<Self::ValidatedOutput, TexImageValidationError> {
@@ -217,7 +217,7 @@ impl<'a, TH: TypeHolderTrait> WebGLValidator for CommonTexImage2DValidator<'a, T
     }
 }
 
-impl<'a, TH: TypeHolderTrait> CommonTexImage2DValidator<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> CommonTexImage2DValidator<'a, TH> {
     pub fn new(context: &'a WebGLRenderingContext<TH>,
                target: u32, level: i32,
                internal_format: u32,
@@ -235,13 +235,13 @@ impl<'a, TH: TypeHolderTrait> CommonTexImage2DValidator<'a, TH> {
     }
 }
 
-pub struct TexImage2DValidator<'a, TH: TypeHolderTrait> {
+pub struct TexImage2DValidator<'a, TH: TypeHolderTrait<TH>> {
     common_validator: CommonTexImage2DValidator<'a, TH>,
     format: u32,
     data_type: u32,
 }
 
-impl<'a, TH: TypeHolderTrait> TexImage2DValidator<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> TexImage2DValidator<'a, TH> {
     // TODO: Move data validation logic here.
     pub fn new(context: &'a WebGLRenderingContext<TH>,
                target: u32,
@@ -265,7 +265,7 @@ impl<'a, TH: TypeHolderTrait> TexImage2DValidator<'a, TH> {
 }
 
 /// The validated result of a TexImage2DValidator-validated call.
-pub struct TexImage2DValidatorResult<TH: TypeHolderTrait> {
+pub struct TexImage2DValidatorResult<TH: TypeHolderTrait<TH>> {
     /// NB: width, height and level are already unsigned after validation.
     pub width: u32,
     pub height: u32,
@@ -279,7 +279,7 @@ pub struct TexImage2DValidatorResult<TH: TypeHolderTrait> {
 
 /// TexImage2d validator as per
 /// <https://www.khronos.org/opengles/sdk/docs/man/xhtml/glTexImage2D.xml>
-impl<'a, TH: TypeHolderTrait> WebGLValidator for TexImage2DValidator<'a, TH> {
+impl<'a, TH: TypeHolderTrait<TH>> WebGLValidator for TexImage2DValidator<'a, TH> {
     type ValidatedOutput = TexImage2DValidatorResult<TH>;
     type Error = TexImageValidationError;
 

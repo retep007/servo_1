@@ -14,12 +14,12 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct DOMStringMap<TH: TypeHolderTrait + 'static> {
+pub struct DOMStringMap<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     element: Dom<HTMLElement<TH>>,
 }
 
-impl<TH: TypeHolderTrait> DOMStringMap<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMStringMap<TH> {
     fn new_inherited(element: &HTMLElement<TH>) -> DOMStringMap<TH> {
         DOMStringMap {
             reflector_: Reflector::new(),
@@ -36,7 +36,7 @@ impl<TH: TypeHolderTrait> DOMStringMap<TH> {
 }
 
 // https://html.spec.whatwg.org/multipage/#domstringmap
-impl<TH: TypeHolderTrait> DOMStringMapMethods<TH> for DOMStringMap<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMStringMapMethods<TH> for DOMStringMap<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-domstringmap-removeitem
     fn NamedDeleter(&self, name: DOMString) {
         self.element.delete_custom_attr(name)

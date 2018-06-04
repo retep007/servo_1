@@ -40,13 +40,13 @@ pub enum DOMErrorName {
 }
 
 #[dom_struct]
-pub struct DOMException<TH: TypeHolderTrait + 'static> {
+pub struct DOMException<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     code: DOMErrorName,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> DOMException<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMException<TH> {
     fn new_inherited(code: DOMErrorName) -> DOMException<TH> {
         DOMException {
             reflector_: Reflector::new(),
@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> DOMException<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DOMExceptionMethods for DOMException<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMExceptionMethods for DOMException<TH> {
     // https://heycam.github.io/webidl/#dfn-DOMException
     fn Code(&self) -> u16 {
         self.code as u16

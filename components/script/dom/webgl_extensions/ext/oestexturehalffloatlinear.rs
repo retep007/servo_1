@@ -13,12 +13,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct OESTextureHalfFloatLinear<TH: TypeHolderTrait + 'static> {
+pub struct OESTextureHalfFloatLinear<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> OESTextureHalfFloatLinear<TH> {
+impl<TH: TypeHolderTrait<TH>> OESTextureHalfFloatLinear<TH> {
     fn new_inherited() -> OESTextureHalfFloatLinear<TH> {
         Self {
             reflector_: Reflector::new(),
@@ -27,7 +27,7 @@ impl<TH: TypeHolderTrait> OESTextureHalfFloatLinear<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> WebGLExtension<TH> for OESTextureHalfFloatLinear<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLExtension<TH> for OESTextureHalfFloatLinear<TH> {
     type Extension = OESTextureHalfFloatLinear<TH>;
     fn new(ctx: &WebGLRenderingContext<TH>) -> DomRoot<OESTextureHalfFloatLinear<TH>> {
         reflect_dom_object(Box::new(OESTextureHalfFloatLinear::new_inherited()),

@@ -23,14 +23,14 @@ unsafe_no_jsmanaged_fields!(ServoRng);
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Crypto
 #[dom_struct]
-pub struct Crypto<TH: TypeHolderTrait + 'static> {
+pub struct Crypto<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Defined in rand"]
     rng: DomRefCell<ServoRng>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> Crypto<TH> {
+impl<TH: TypeHolderTrait<TH>> Crypto<TH> {
     fn new_inherited() -> Crypto<TH> {
         Crypto {
             reflector_: Reflector::new(),
@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> Crypto<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CryptoMethods<TH> for Crypto<TH> {
+impl<TH: TypeHolderTrait<TH>> CryptoMethods<TH> for Crypto<TH> {
     #[allow(unsafe_code)]
     // https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#Crypto-method-getRandomValues
     unsafe fn GetRandomValues(&self,

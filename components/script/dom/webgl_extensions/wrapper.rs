@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 
 /// Trait used internally by WebGLExtensions to store and
 /// handle the different WebGL extensions in a common list.
-pub trait WebGLExtensionWrapper<TH: TypeHolderTrait>: JSTraceable + MallocSizeOf {
+pub trait WebGLExtensionWrapper<TH: TypeHolderTrait<TH>>: JSTraceable + MallocSizeOf {
     fn instance_or_init(&self,
                         ctx: &WebGLRenderingContext<TH>,
                         ext: &WebGLExtensions<TH>)
@@ -30,13 +30,13 @@ pub trait WebGLExtensionWrapper<TH: TypeHolderTrait>: JSTraceable + MallocSizeOf
 
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
-pub struct TypedWebGLExtensionWrapper<T: WebGLExtension<TH>, TH: TypeHolderTrait> {
+pub struct TypedWebGLExtensionWrapper<T: WebGLExtension<TH>, TH: TypeHolderTrait<TH>> {
     extension: MutNullableDom<T::Extension>
 }
 
 /// Typed WebGL Extension implementation.
 /// Exposes the exact MutNullableDom<DOMObject> type defined by the extension.
-impl<T: WebGLExtension<TH>, TH: TypeHolderTrait> TypedWebGLExtensionWrapper<T, TH> {
+impl<T: WebGLExtension<TH>, TH: TypeHolderTrait<TH>> TypedWebGLExtensionWrapper<T, TH> {
     pub fn new() -> TypedWebGLExtensionWrapper<T, TH> {
         TypedWebGLExtensionWrapper {
             extension: MutNullableDom::new(None)
@@ -44,7 +44,7 @@ impl<T: WebGLExtension<TH>, TH: TypeHolderTrait> TypedWebGLExtensionWrapper<T, T
     }
 }
 
-impl<T, TH: TypeHolderTrait> WebGLExtensionWrapper<TH> for TypedWebGLExtensionWrapper<T, TH>
+impl<T, TH: TypeHolderTrait<TH>> WebGLExtensionWrapper<TH> for TypedWebGLExtensionWrapper<T, TH>
                               where T: WebGLExtension<TH> + JSTraceable + MallocSizeOf + 'static {
     #[allow(unsafe_code)]
     fn instance_or_init(&self,
@@ -89,7 +89,7 @@ impl<T, TH: TypeHolderTrait> WebGLExtensionWrapper<TH> for TypedWebGLExtensionWr
     }
 }
 
-impl<T, TH: TypeHolderTrait> TypedWebGLExtensionWrapper<T, TH>
+impl<T, TH: TypeHolderTrait<TH>> TypedWebGLExtensionWrapper<T, TH>
     where T: WebGLExtension<TH> + JSTraceable + MallocSizeOf + 'static
 {
     pub fn dom_object(&self) -> Option<DomRoot<T::Extension>> {

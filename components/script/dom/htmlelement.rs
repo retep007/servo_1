@@ -43,13 +43,13 @@ use style::element_state::*;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLElement<TH: TypeHolderTrait<TH> + 'static> {
     element: Element<TH>,
     style_decl: MutNullableDom<CSSStyleDeclaration<TH>>,
     dataset: MutNullableDom<DOMStringMap<TH>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLElement<TH> {
     pub fn new_inherited(tag_name: LocalName, prefix: Option<Prefix>,
                          document: &Document<TH>) -> HTMLElement<TH> {
         HTMLElement::new_inherited_with_state(ElementState::empty(), tag_name, prefix, document)
@@ -115,7 +115,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLElementMethods<TH> for HTMLElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLElementMethods<TH> for HTMLElement<TH> {
     // https://html.spec.whatwg.org/multipage/#the-style-attribute
     fn Style(&self) -> DomRoot<CSSStyleDeclaration<TH>> {
         self.style_decl.or_init(|| {
@@ -472,7 +472,7 @@ impl<TH: TypeHolderTrait> HTMLElementMethods<TH> for HTMLElement<TH> {
     }
 }
 
-fn append_text_node_to_fragment<TH: TypeHolderTrait>(
+fn append_text_node_to_fragment<TH: TypeHolderTrait<TH>>(
     document: &Document<TH>,
     fragment: &DocumentFragment<TH>,
     text: String
@@ -545,7 +545,7 @@ fn to_camel_case(name: &str) -> Option<DOMString> {
     Some(DOMString::from(result))
 }
 
-impl<TH: TypeHolderTrait> HTMLElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLElement<TH> {
     pub fn set_custom_attr(&self, name: DOMString, value: DOMString) -> ErrorResult<TH> {
         if name.chars()
                .skip_while(|&ch| ch != '\u{2d}')
@@ -661,7 +661,7 @@ impl<TH: TypeHolderTrait> HTMLElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<Element<TH>>() as &VirtualMethods<TH>)
     }

@@ -137,12 +137,12 @@ bitflags! {
 /// Information about the bound textures of a WebGL texture unit.
 #[must_root]
 #[derive(JSTraceable, MallocSizeOf)]
-struct TextureUnitBindings<TH: TypeHolderTrait + 'static> {
+struct TextureUnitBindings<TH: TypeHolderTrait<TH> + 'static> {
     bound_texture_2d: MutNullableDom<WebGLTexture<TH>>,
     bound_texture_cube_map: MutNullableDom<WebGLTexture<TH>>,
 }
 
-impl<TH: TypeHolderTrait> TextureUnitBindings<TH> {
+impl<TH: TypeHolderTrait<TH>> TextureUnitBindings<TH> {
     fn new() -> Self {
         Self {
             bound_texture_2d: MutNullableDom::new(None),
@@ -170,7 +170,7 @@ impl<TH: TypeHolderTrait> TextureUnitBindings<TH> {
 
 
 #[dom_struct]
-pub struct WebGLRenderingContext<TH: TypeHolderTrait + 'static> {
+pub struct WebGLRenderingContext<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     #[ignore_malloc_size_of = "Channels are hard"]
     webgl_sender: WebGLMsgSender,
@@ -203,7 +203,7 @@ pub struct WebGLRenderingContext<TH: TypeHolderTrait + 'static> {
     extension_manager: WebGLExtensions<TH>,
 }
 
-impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLRenderingContext<TH> {
     pub fn new_inherited(
         window: &Window<TH>,
         canvas: &HTMLCanvasElement<TH>,
@@ -1191,14 +1191,14 @@ impl<TH: TypeHolderTrait> WebGLRenderingContext<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for WebGLRenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for WebGLRenderingContext<TH> {
     fn drop(&mut self) {
         self.webgl_sender.send_remove().unwrap();
     }
 }
 
 #[allow(unsafe_code)]
-unsafe fn fallible_array_buffer_view_to_vec<TH: TypeHolderTrait>(
+unsafe fn fallible_array_buffer_view_to_vec<TH: TypeHolderTrait<TH>>(
     cx: *mut JSContext,
     abv: *mut JSObject,
 ) -> Result<Vec<u8>, Error<TH>> {
@@ -1210,7 +1210,7 @@ unsafe fn fallible_array_buffer_view_to_vec<TH: TypeHolderTrait>(
     }
 }
 
-impl<TH: TypeHolderTrait> WebGLRenderingContextMethods<TH> for WebGLRenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLRenderingContextMethods<TH> for WebGLRenderingContext<TH> {
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.1
     fn Canvas(&self) -> DomRoot<HTMLCanvasElement<TH>> {
         DomRoot::from_ref(&*self.canvas)
@@ -3642,7 +3642,7 @@ pub trait LayoutCanvasWebGLRenderingContextHelpers {
     unsafe fn canvas_data_source(&self) -> HTMLCanvasDataSource;
 }
 
-impl<TH: TypeHolderTrait> LayoutCanvasWebGLRenderingContextHelpers for LayoutDom<WebGLRenderingContext<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutCanvasWebGLRenderingContextHelpers for LayoutDom<WebGLRenderingContext<TH>> {
     #[allow(unsafe_code)]
     unsafe fn canvas_data_source(&self) -> HTMLCanvasDataSource {
         HTMLCanvasDataSource::WebGL((*self.unsafe_get()).layout_handle())

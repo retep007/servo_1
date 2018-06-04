@@ -18,7 +18,7 @@ use std::cell::Cell;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct TouchEvent<TH: TypeHolderTrait + 'static> {
+pub struct TouchEvent<TH: TypeHolderTrait<TH> + 'static> {
     uievent: UIEvent<TH>,
     touches: MutDom<TouchList<TH>>,
     target_touches: MutDom<TouchList<TH>>,
@@ -29,7 +29,7 @@ pub struct TouchEvent<TH: TypeHolderTrait + 'static> {
     shift_key: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> TouchEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> TouchEvent<TH> {
     fn new_inherited(touches: &TouchList<TH>,
                      changed_touches: &TouchList<TH>,
                      target_touches: &TouchList<TH>) -> TouchEvent<TH> {
@@ -80,7 +80,7 @@ impl<TH: TypeHolderTrait> TouchEvent<TH> {
     }
 }
 
-impl<'a, TH: TypeHolderTrait> TouchEventMethods<TH> for &'a TouchEvent<TH> {
+impl<'a, TH: TypeHolderTrait<TH>> TouchEventMethods<TH> for &'a TouchEvent<TH> {
     /// <https://w3c.github.io/touch-events/#widl-TouchEvent-ctrlKey>
     fn CtrlKey(&self) -> bool {
         self.ctrl_key.get()

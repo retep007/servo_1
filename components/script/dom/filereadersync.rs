@@ -12,11 +12,11 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct FileReaderSync<TH: TypeHolderTrait + 'static> {
+pub struct FileReaderSync<TH: TypeHolderTrait<TH> + 'static> {
     eventtarget: EventTarget<TH>
 }
 
-impl<TH: TypeHolderTrait> FileReaderSync<TH> {
+impl<TH: TypeHolderTrait<TH>> FileReaderSync<TH> {
     pub fn new_inherited() -> FileReaderSync<TH> {
         FileReaderSync {
             eventtarget: EventTarget::new_inherited(),

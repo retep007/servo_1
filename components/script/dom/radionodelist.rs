@@ -18,11 +18,11 @@ use dom_struct::dom_struct;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct RadioNodeList<TH: TypeHolderTrait + 'static> {
+pub struct RadioNodeList<TH: TypeHolderTrait<TH> + 'static> {
     node_list: NodeList<TH>,
 }
 
-impl<TH: TypeHolderTrait> RadioNodeList<TH> {
+impl<TH: TypeHolderTrait<TH>> RadioNodeList<TH> {
     #[allow(unrooted_must_root)]
     fn new_inherited(list_type: NodeListType<TH>) -> RadioNodeList<TH> {
         RadioNodeList {
@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> RadioNodeList<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> RadioNodeListMethods<TH> for RadioNodeList<TH> {
+impl<TH: TypeHolderTrait<TH>> RadioNodeListMethods<TH> for RadioNodeList<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-radionodelist-value
     fn Value(&self) -> DOMString {
         self.upcast::<NodeList<TH>>().as_simple_list().iter().filter_map(|node| {

@@ -566,7 +566,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_onreadystatechange<TH: TypeHolderTrait>
+unsafe extern fn get_onreadystatechange<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -577,7 +577,7 @@ unsafe extern fn get_onreadystatechange<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_onreadystatechange<TH: TypeHolderTrait>
+unsafe extern fn set_onreadystatechange<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -593,7 +593,7 @@ unsafe extern fn set_onreadystatechange<TH: TypeHolderTrait>
 }
 
 
-fn onreadystatechange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onreadystatechange_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_onreadystatechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -611,7 +611,7 @@ fn onreadystatechange_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-fn onreadystatechange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn onreadystatechange_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_onreadystatechange::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -629,7 +629,7 @@ fn onreadystatechange_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn get_readyState<TH: TypeHolderTrait>
+unsafe extern fn get_readyState<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -641,7 +641,7 @@ unsafe extern fn get_readyState<TH: TypeHolderTrait>
 }
 
 
-fn readyState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn readyState_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_readyState::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -659,7 +659,7 @@ fn readyState_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn open<TH: TypeHolderTrait>
+unsafe extern fn open<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -923,7 +923,7 @@ unsafe extern fn open<TH: TypeHolderTrait>
 }
 
 
-fn open_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn open_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: open::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -941,7 +941,7 @@ fn open_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn setRequestHeader<TH: TypeHolderTrait>
+unsafe extern fn setRequestHeader<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -987,7 +987,7 @@ unsafe extern fn setRequestHeader<TH: TypeHolderTrait>
 }
 
 
-fn setRequestHeader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn setRequestHeader_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: setRequestHeader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1005,7 +1005,7 @@ fn setRequestHeader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_timeout<TH: TypeHolderTrait>
+unsafe extern fn get_timeout<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1016,7 +1016,7 @@ unsafe extern fn get_timeout<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_timeout<TH: TypeHolderTrait>
+unsafe extern fn set_timeout<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1044,7 +1044,7 @@ unsafe extern fn set_timeout<TH: TypeHolderTrait>
 }
 
 
-fn timeout_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn timeout_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_timeout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1062,7 +1062,7 @@ fn timeout_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn timeout_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn timeout_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_timeout::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1080,7 +1080,7 @@ fn timeout_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_withCredentials<TH: TypeHolderTrait>
+unsafe extern fn get_withCredentials<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1091,7 +1091,7 @@ unsafe extern fn get_withCredentials<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_withCredentials<TH: TypeHolderTrait>
+unsafe extern fn set_withCredentials<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1119,7 +1119,7 @@ unsafe extern fn set_withCredentials<TH: TypeHolderTrait>
 }
 
 
-fn withCredentials_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn withCredentials_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_withCredentials::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1137,7 +1137,7 @@ fn withCredentials_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn withCredentials_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn withCredentials_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_withCredentials::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1155,7 +1155,7 @@ fn withCredentials_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_upload<TH: TypeHolderTrait>
+unsafe extern fn get_upload<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1167,7 +1167,7 @@ unsafe extern fn get_upload<TH: TypeHolderTrait>
 }
 
 
-fn upload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn upload_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_upload::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1185,7 +1185,7 @@ fn upload_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn send<TH: TypeHolderTrait>
+unsafe extern fn send<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1220,7 +1220,7 @@ unsafe extern fn send<TH: TypeHolderTrait>
 }
 
 
-fn send_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn send_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: send::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1238,7 +1238,7 @@ fn send_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn abort<TH: TypeHolderTrait>
+unsafe extern fn abort<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1252,7 +1252,7 @@ unsafe extern fn abort<TH: TypeHolderTrait>
 }
 
 
-fn abort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn abort_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: abort::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1270,7 +1270,7 @@ fn abort_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_responseURL<TH: TypeHolderTrait>
+unsafe extern fn get_responseURL<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1282,7 +1282,7 @@ unsafe extern fn get_responseURL<TH: TypeHolderTrait>
 }
 
 
-fn responseURL_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn responseURL_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_responseURL::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1300,7 +1300,7 @@ fn responseURL_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_status<TH: TypeHolderTrait>
+unsafe extern fn get_status<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1312,7 +1312,7 @@ unsafe extern fn get_status<TH: TypeHolderTrait>
 }
 
 
-fn status_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn status_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_status::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1330,7 +1330,7 @@ fn status_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_statusText<TH: TypeHolderTrait>
+unsafe extern fn get_statusText<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1342,7 +1342,7 @@ unsafe extern fn get_statusText<TH: TypeHolderTrait>
 }
 
 
-fn statusText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn statusText_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_statusText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1360,7 +1360,7 @@ fn statusText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getResponseHeader<TH: TypeHolderTrait>
+unsafe extern fn getResponseHeader<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1389,7 +1389,7 @@ unsafe extern fn getResponseHeader<TH: TypeHolderTrait>
 }
 
 
-fn getResponseHeader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getResponseHeader_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getResponseHeader::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1407,7 +1407,7 @@ fn getResponseHeader_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn getAllResponseHeaders<TH: TypeHolderTrait>
+unsafe extern fn getAllResponseHeaders<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1421,7 +1421,7 @@ unsafe extern fn getAllResponseHeaders<TH: TypeHolderTrait>
 }
 
 
-fn getAllResponseHeaders_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getAllResponseHeaders_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getAllResponseHeaders::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1439,7 +1439,7 @@ fn getAllResponseHeaders_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitI
     ),
 }}
 
-unsafe extern fn overrideMimeType<TH: TypeHolderTrait>
+unsafe extern fn overrideMimeType<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1475,7 +1475,7 @@ unsafe extern fn overrideMimeType<TH: TypeHolderTrait>
 }
 
 
-fn overrideMimeType_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn overrideMimeType_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: overrideMimeType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1493,7 +1493,7 @@ fn overrideMimeType_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_responseType<TH: TypeHolderTrait>
+unsafe extern fn get_responseType<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1504,7 +1504,7 @@ unsafe extern fn get_responseType<TH: TypeHolderTrait>
     }), false);
 }
 
-unsafe extern fn set_responseType<TH: TypeHolderTrait>
+unsafe extern fn set_responseType<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitSetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1528,7 +1528,7 @@ unsafe extern fn set_responseType<TH: TypeHolderTrait>
 }
 
 
-fn responseType_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn responseType_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_responseType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1546,7 +1546,7 @@ fn responseType_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-fn responseType_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn responseType_setterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: set_responseType::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1564,7 +1564,7 @@ fn responseType_setterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_response<TH: TypeHolderTrait>
+unsafe extern fn get_response<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1576,7 +1576,7 @@ unsafe extern fn get_response<TH: TypeHolderTrait>
 }
 
 
-fn response_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn response_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_response::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1594,7 +1594,7 @@ fn response_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_responseText<TH: TypeHolderTrait>
+unsafe extern fn get_responseText<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1613,7 +1613,7 @@ unsafe extern fn get_responseText<TH: TypeHolderTrait>
 }
 
 
-fn responseText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn responseText_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_responseText::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1631,7 +1631,7 @@ fn responseText_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_responseXML<TH: TypeHolderTrait>
+unsafe extern fn get_responseXML<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const XMLHttpRequest<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -1650,7 +1650,7 @@ unsafe extern fn get_responseXML<TH: TypeHolderTrait>
 }
 
 
-fn responseXML_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn responseXML_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_responseXML::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::XMLHttpRequest as u16,
     depth: 2,
@@ -1668,7 +1668,7 @@ fn responseXML_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1681,7 +1681,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -1698,7 +1698,7 @@ pub mod XMLHttpRequestConstants {
     pub const LOADING: u16 = 3;
     pub const DONE: u16 = 4;
 } // mod XMLHttpRequestConstants
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -1713,7 +1713,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"XMLHttpRequest\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -1731,11 +1731,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<XMLHttpRequest<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<XMLHttpRequest<TH>>) -> DomRoot<XMLHttpRequest<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -1761,20 +1761,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for XMLHttpRequest<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for XMLHttpRequest<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for XMLHttpRequest<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for XMLHttpRequest<TH> {
     fn eq(&self, other: &XMLHttpRequest<TH>) -> bool {
         self as *const XMLHttpRequest<TH> == &*other
     }
 }
 
-pub trait XMLHttpRequestMethods<TH: TypeHolderTrait> {
+pub trait XMLHttpRequestMethods<TH: TypeHolderTrait<TH>> {
     fn GetOnreadystatechange(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnreadystatechange(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
     fn ReadyState(&self) -> u16;
@@ -1800,7 +1800,7 @@ pub trait XMLHttpRequestMethods<TH: TypeHolderTrait> {
     fn GetResponseText(&self) -> Fallible<USVString, TH>;
     fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document<TH>>>, TH>;
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"open\0" as *const u8 as *const libc::c_char,
@@ -1860,10 +1860,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"onreadystatechange\0" as *const u8 as *const libc::c_char,
@@ -1945,7 +1945,7 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 const sConstants_specs: &'static [&'static[ConstantSpec]] = &[
@@ -1961,7 +1961,7 @@ const sConstants: &'static [Guard<&'static [ConstantSpec]>] = &[
     Guard::new(Condition::Satisfied, sConstants_specs[0])
 ];
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -1989,7 +1989,7 @@ static PrototypeClass: JSClass = JSClass {
     reserved: [0 as *mut os::raw::c_void; 3]
 };
 
-unsafe extern fn _constructor<TH: TypeHolderTrait>
+unsafe extern fn _constructor<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, argc: u32, vp: *mut JSVal) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
@@ -2008,7 +2008,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     }), false);
 }
 
-fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectClass {
+fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait<TH>>() -> NonCallbackInterfaceObjectClass {
  
     NonCallbackInterfaceObjectClass::new(
         &InterfaceConstructorBehavior::call(_constructor::<TH>),
@@ -2017,7 +2017,7 @@ fn INTERFACE_OBJECT_CLASS<TH: TypeHolderTrait>() -> NonCallbackInterfaceObjectCl
         2) 
 }
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -2030,12 +2030,12 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::DEDICATED_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::SERVICE_WORKER_GLOBAL_SCOPE | InterfaceObjectMap::Globals::WINDOW)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     XMLHttpRequestEventTargetBinding::GetProtoObject(cx, global, prototype_proto.handle_mut());

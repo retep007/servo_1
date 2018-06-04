@@ -18,7 +18,7 @@ use servo_atoms::Atom;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct StorageEvent<TH: TypeHolderTrait + 'static> {
+pub struct StorageEvent<TH: TypeHolderTrait<TH> + 'static> {
     event: Event<TH>,
     key: Option<DOMString>,
     old_value: Option<DOMString>,
@@ -28,7 +28,7 @@ pub struct StorageEvent<TH: TypeHolderTrait + 'static> {
 }
 
 
-impl<TH: TypeHolderTrait> StorageEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> StorageEvent<TH> {
     pub fn new_inherited(key: Option<DOMString>,
                          old_value: Option<DOMString>,
                          new_value: Option<DOMString>,
@@ -90,7 +90,7 @@ impl<TH: TypeHolderTrait> StorageEvent<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> StorageEventMethods<TH> for StorageEvent<TH> {
+impl<TH: TypeHolderTrait<TH>> StorageEventMethods<TH> for StorageEvent<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-storageevent-key
     fn GetKey(&self) -> Option<DOMString> {
         self.key.clone()

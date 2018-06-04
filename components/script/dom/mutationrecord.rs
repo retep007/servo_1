@@ -14,7 +14,7 @@ use html5ever::{LocalName, Namespace};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct MutationRecord<TH: TypeHolderTrait + 'static> {
+pub struct MutationRecord<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     record_type: DOMString,
     target: Dom<Node<TH>>,
@@ -27,7 +27,7 @@ pub struct MutationRecord<TH: TypeHolderTrait + 'static> {
     prev_sibling: Option<Dom<Node<TH>>>,
 }
 
-impl<TH: TypeHolderTrait> MutationRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> MutationRecord<TH> {
     #[allow(unrooted_must_root)]
     pub fn attribute_mutated(target: &Node<TH>,
                              attribute_name: &LocalName,
@@ -92,7 +92,7 @@ impl<TH: TypeHolderTrait> MutationRecord<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> MutationRecordMethods<TH> for MutationRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> MutationRecordMethods<TH> for MutationRecord<TH> {
     // https://dom.spec.whatwg.org/#dom-mutationrecord-type
     fn Type(&self) -> DOMString {
         self.record_type.clone()

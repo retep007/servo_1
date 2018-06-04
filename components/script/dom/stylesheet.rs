@@ -15,7 +15,7 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct StyleSheet<TH: TypeHolderTrait + 'static> {
+pub struct StyleSheet<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     type_: DOMString,
     href: Option<DOMString>,
@@ -23,7 +23,7 @@ pub struct StyleSheet<TH: TypeHolderTrait + 'static> {
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> StyleSheet<TH> {
+impl<TH: TypeHolderTrait<TH>> StyleSheet<TH> {
     #[allow(unrooted_must_root)]
     pub fn new_inherited(type_: DOMString,
                          href: Option<DOMString>,
@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> StyleSheet<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> StyleSheetMethods for StyleSheet<TH> {
+impl<TH: TypeHolderTrait<TH>> StyleSheetMethods for StyleSheet<TH> {
     // https://drafts.csswg.org/cssom/#dom-stylesheet-type
     fn Type_(&self) -> DOMString {
         self.type_.clone()

@@ -40,7 +40,7 @@ use textinput::{Direction, KeyReaction, Lines, SelectionDirection, TextInput};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTextAreaElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLTextAreaElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     #[ignore_malloc_size_of = "#7193"]
     textinput: DomRefCell<TextInput<ScriptToConstellationChan, TH>>,
@@ -61,7 +61,7 @@ pub trait LayoutHTMLTextAreaElementHelpers {
     fn get_rows(self) -> u32;
 }
 
-impl<TH: TypeHolderTrait> LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> LayoutHTMLTextAreaElementHelpers for LayoutDom<HTMLTextAreaElement<TH>> {
     #[allow(unrooted_must_root)]
     #[allow(unsafe_code)]
     unsafe fn value_for_layout(self) -> String {
@@ -111,7 +111,7 @@ static DEFAULT_COLS: u32 = 20;
 // https://html.spec.whatwg.org/multipage/#attr-textarea-rows-value
 static DEFAULT_ROWS: u32 = 2;
 
-impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTextAreaElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLTextAreaElement<TH> {
@@ -146,7 +146,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TextControlElement<TH> for HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> TextControlElement<TH> for HTMLTextAreaElement<TH> {
     fn selection_api_applies(&self) -> bool {
         true
     }
@@ -160,7 +160,7 @@ impl<TH: TypeHolderTrait> TextControlElement<TH> for HTMLTextAreaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLTextAreaElementMethods<TH> for HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTextAreaElementMethods<TH> for HTMLTextAreaElement<TH> {
     // TODO A few of these attributes have default values and additional
     // constraints
 
@@ -322,7 +322,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElementMethods<TH> for HTMLTextAreaElement
 }
 
 
-impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTextAreaElement<TH> {
     pub fn reset(&self) {
         // https://html.spec.whatwg.org/multipage/#the-textarea-element:concept-form-reset-control
         let mut textinput = self.textinput.borrow_mut();
@@ -337,7 +337,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElement<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLTextAreaElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
@@ -481,7 +481,7 @@ impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTextAreaElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FormControl<TH> for HTMLTextAreaElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FormControl<TH> for HTMLTextAreaElement<TH> {
     fn form_owner(&self) -> Option<DomRoot<HTMLFormElement<TH>>> {
         self.form_owner.get()
     }
@@ -496,4 +496,4 @@ impl<TH: TypeHolderTrait> FormControl<TH> for HTMLTextAreaElement<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> Validatable for HTMLTextAreaElement<TH> {}
+impl<TH: TypeHolderTrait<TH>> Validatable for HTMLTextAreaElement<TH> {}

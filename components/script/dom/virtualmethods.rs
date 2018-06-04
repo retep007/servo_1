@@ -57,7 +57,7 @@ use typeholder::TypeHolderTrait;
 
 /// Trait to allow DOM nodes to opt-in to overriding (or adding to) common
 /// behaviours. Replicates the effect of C++ virtual methods.
-pub trait VirtualMethods<TH: TypeHolderTrait> {
+pub trait VirtualMethods<TH: TypeHolderTrait<TH>> {
     /// Returns self as the superclass of the implementation for this trait,
     /// if any.
     fn super_type(&self) -> Option<&VirtualMethods<TH>>;
@@ -149,7 +149,7 @@ pub trait VirtualMethods<TH: TypeHolderTrait> {
 /// method call on the trait object will invoke the corresponding method on the
 /// concrete type, propagating up the parent hierarchy unless otherwise
 /// interrupted.
-pub fn vtable_for<TH: TypeHolderTrait>(node: &Node<TH>) -> &VirtualMethods<TH> {
+pub fn vtable_for<TH: TypeHolderTrait<TH>>(node: &Node<TH>) -> &VirtualMethods<TH> {
     match node.type_id() {
         NodeTypeId::Element(ElementTypeId::HTMLElement(HTMLElementTypeId::HTMLAnchorElement)) => {
             node.downcast::<HTMLAnchorElement<TH>>().unwrap() as &VirtualMethods<TH>

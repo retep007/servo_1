@@ -214,14 +214,14 @@ impl ArrayBufferOrArrayBufferView {
 
 
 #[derive(JSTraceable)]
-pub enum ArrayBufferOrArrayBufferViewOrBlobOrString<TH: TypeHolderTrait> {
+pub enum ArrayBufferOrArrayBufferViewOrBlobOrString<TH: TypeHolderTrait<TH>> {
     ArrayBuffer(RootedTraceableBox<typedarray::HeapArrayBuffer>),
     ArrayBufferView(RootedTraceableBox<typedarray::HeapArrayBufferView>),
     Blob(DomRoot<Blob<TH>>),
     String(DOMString),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for ArrayBufferOrArrayBufferViewOrBlobOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for ArrayBufferOrArrayBufferViewOrBlobOrString<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             ArrayBufferOrArrayBufferViewOrBlobOrString::ArrayBuffer(ref inner) => inner.to_jsval(cx, rval),
@@ -232,7 +232,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for ArrayBufferOrArrayBufferViewOrB
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for ArrayBufferOrArrayBufferViewOrBlobOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for ArrayBufferOrArrayBufferViewOrBlobOrString<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -269,7 +269,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for ArrayBufferOrArrayBufferViewO
     }
 }
 
-impl<TH: TypeHolderTrait> ArrayBufferOrArrayBufferViewOrBlobOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> ArrayBufferOrArrayBufferViewOrBlobOrString<TH> {
     unsafe fn TryConvertToArrayBuffer(cx: *mut JSContext, value: HandleValue) -> Result<Option<RootedTraceableBox<typedarray::HeapArrayBuffer>>, ()> {
         Ok(Some(RootedTraceableBox::new(match typedarray::HeapArrayBuffer::from(value.get().to_object()) {
             Ok(val) => val,
@@ -376,12 +376,12 @@ impl ArrayBufferViewOrArrayBuffer {
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrBlobSequence<TH: TypeHolderTrait + 'static> {
+pub enum BlobOrBlobSequence<TH: TypeHolderTrait<TH> + 'static> {
     Blob(DomRoot<Blob<TH>>),
     BlobSequence(Vec<DomRoot<Blob<TH>>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrBlobSequence<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for BlobOrBlobSequence<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             BlobOrBlobSequence::Blob(ref inner) => inner.to_jsval(cx, rval),
@@ -390,7 +390,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrBlobSequence<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrBlobSequence<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for BlobOrBlobSequence<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -416,7 +416,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrBlobSequence<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BlobOrBlobSequence<TH> {
+impl<TH: TypeHolderTrait<TH>> BlobOrBlobSequence<TH> {
     unsafe fn TryConvertToBlob(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Blob<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -440,12 +440,12 @@ impl<TH: TypeHolderTrait> BlobOrBlobSequence<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrBoolean<TH: TypeHolderTrait + 'static> {
+pub enum BlobOrBoolean<TH: TypeHolderTrait<TH> + 'static> {
     Blob(DomRoot<Blob<TH>>),
     Boolean(bool),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrBoolean<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for BlobOrBoolean<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             BlobOrBoolean::Blob(ref inner) => inner.to_jsval(cx, rval),
@@ -454,7 +454,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrBoolean<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrBoolean<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for BlobOrBoolean<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -481,7 +481,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrBoolean<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BlobOrBoolean<TH> {
+impl<TH: TypeHolderTrait<TH>> BlobOrBoolean<TH> {
     unsafe fn TryConvertToBlob(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Blob<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -505,7 +505,7 @@ impl<TH: TypeHolderTrait> BlobOrBoolean<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH: TypeHolderTrait> {
+pub enum BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH: TypeHolderTrait<TH>> {
     Blob(DomRoot<Blob<TH>>),
     ArrayBufferView(RootedTraceableBox<typedarray::HeapArrayBufferView>),
     ArrayBuffer(RootedTraceableBox<typedarray::HeapArrayBuffer>),
@@ -514,7 +514,7 @@ pub enum BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH: TypeHolderTra
     URLSearchParams(DomRoot<URLSearchParams<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams::Blob(ref inner) => inner.to_jsval(cx, rval),
@@ -527,7 +527,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrBufferSourceOrFormDataOrS
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -574,7 +574,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrBufferSourceOrFormDataO
     }
 }
 
-impl<TH: TypeHolderTrait> BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH> {
+impl<TH: TypeHolderTrait<TH>> BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<TH> {
     unsafe fn TryConvertToBlob(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Blob<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -638,12 +638,12 @@ impl<TH: TypeHolderTrait> BlobOrBufferSourceOrFormDataOrStringOrURLSearchParams<
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrString<TH: TypeHolderTrait + 'static> {
+pub enum BlobOrString<TH: TypeHolderTrait<TH> + 'static> {
     Blob(DomRoot<Blob<TH>>),
     String(DOMString),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for BlobOrString<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             BlobOrString::Blob(ref inner) => inner.to_jsval(cx, rval),
@@ -652,7 +652,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for BlobOrString<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -679,7 +679,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BlobOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> BlobOrString<TH> {
     unsafe fn TryConvertToBlob(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Blob<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -703,12 +703,12 @@ impl<TH: TypeHolderTrait> BlobOrString<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum BlobOrUnsignedLong<TH: TypeHolderTrait + 'static> {
+pub enum BlobOrUnsignedLong<TH: TypeHolderTrait<TH> + 'static> {
     Blob(DomRoot<Blob<TH>>),
     UnsignedLong(u32),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrUnsignedLong<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for BlobOrUnsignedLong<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             BlobOrUnsignedLong::Blob(ref inner) => inner.to_jsval(cx, rval),
@@ -717,7 +717,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for BlobOrUnsignedLong<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrUnsignedLong<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for BlobOrUnsignedLong<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -744,7 +744,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for BlobOrUnsignedLong<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> BlobOrUnsignedLong<TH> {
+impl<TH: TypeHolderTrait<TH>> BlobOrUnsignedLong<TH> {
     unsafe fn TryConvertToBlob(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Blob<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -984,13 +984,13 @@ impl ByteStringSequenceOrLongOrString {
 
 
 #[derive(JSTraceable)]
-pub enum CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH: TypeHolderTrait + 'static> {
+pub enum CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH: TypeHolderTrait<TH> + 'static> {
     CanvasRenderingContext2D(DomRoot<CanvasRenderingContext2D<TH>>),
     WebGLRenderingContext(DomRoot<WebGLRenderingContext<TH>>),
     WebGL2RenderingContext(DomRoot<WebGL2RenderingContext<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext::CanvasRenderingContext2D(ref inner) => inner.to_jsval(cx, rval),
@@ -1000,7 +1000,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for CanvasRenderingContext2DOrWebGL
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1030,7 +1030,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for CanvasRenderingContext2DOrWeb
     }
 }
 
-impl<TH: TypeHolderTrait> CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH> {
+impl<TH: TypeHolderTrait<TH>> CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH> {
     unsafe fn TryConvertToCanvasRenderingContext2D(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<CanvasRenderingContext2D<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1064,7 +1064,7 @@ impl<TH: TypeHolderTrait> CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL
 
 
 #[derive(JSTraceable)]
-pub enum DocumentOrBodyInit<TH: TypeHolderTrait> {
+pub enum DocumentOrBodyInit<TH: TypeHolderTrait<TH>> {
     Document(DomRoot<Document<TH>>),
     Blob(DomRoot<Blob<TH>>),
     ArrayBufferView(RootedTraceableBox<typedarray::HeapArrayBufferView>),
@@ -1074,7 +1074,7 @@ pub enum DocumentOrBodyInit<TH: TypeHolderTrait> {
     URLSearchParams(DomRoot<URLSearchParams<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for DocumentOrBodyInit<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for DocumentOrBodyInit<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             DocumentOrBodyInit::Document(ref inner) => inner.to_jsval(cx, rval),
@@ -1088,7 +1088,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for DocumentOrBodyInit<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for DocumentOrBodyInit<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for DocumentOrBodyInit<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1140,7 +1140,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for DocumentOrBodyInit<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DocumentOrBodyInit<TH> {
+impl<TH: TypeHolderTrait<TH>> DocumentOrBodyInit<TH> {
     unsafe fn TryConvertToDocument(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Document<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1214,14 +1214,14 @@ impl<TH: TypeHolderTrait> DocumentOrBodyInit<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum DocumentOrTestTypedef<TH: TypeHolderTrait + 'static> {
+pub enum DocumentOrTestTypedef<TH: TypeHolderTrait<TH> + 'static> {
     Document(DomRoot<Document<TH>>),
     String(DOMString),
     URL(DomRoot<URL<TH>>),
     Blob(DomRoot<Blob<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for DocumentOrTestTypedef<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for DocumentOrTestTypedef<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             DocumentOrTestTypedef::Document(ref inner) => inner.to_jsval(cx, rval),
@@ -1232,7 +1232,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for DocumentOrTestTypedef<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for DocumentOrTestTypedef<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for DocumentOrTestTypedef<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1269,7 +1269,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for DocumentOrTestTypedef<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DocumentOrTestTypedef<TH> {
+impl<TH: TypeHolderTrait<TH>> DocumentOrTestTypedef<TH> {
     unsafe fn TryConvertToDocument(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Document<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1376,12 +1376,12 @@ impl EventListenerOptionsOrBoolean {
 
 
 #[derive(JSTraceable)]
-pub enum EventOrString<TH: TypeHolderTrait + 'static> {
+pub enum EventOrString<TH: TypeHolderTrait<TH> + 'static> {
     Event(DomRoot<Event<TH>>),
     String(DOMString),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for EventOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for EventOrString<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             EventOrString::Event(ref inner) => inner.to_jsval(cx, rval),
@@ -1390,7 +1390,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for EventOrString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for EventOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for EventOrString<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1417,7 +1417,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for EventOrString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> EventOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> EventOrString<TH> {
     unsafe fn TryConvertToEvent(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Event<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1441,12 +1441,12 @@ impl<TH: TypeHolderTrait> EventOrString<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum EventOrUSVString<TH: TypeHolderTrait + 'static> {
+pub enum EventOrUSVString<TH: TypeHolderTrait<TH> + 'static> {
     Event(DomRoot<Event<TH>>),
     USVString(USVString),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for EventOrUSVString<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for EventOrUSVString<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             EventOrUSVString::Event(ref inner) => inner.to_jsval(cx, rval),
@@ -1455,7 +1455,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for EventOrUSVString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for EventOrUSVString<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for EventOrUSVString<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1482,7 +1482,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for EventOrUSVString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> EventOrUSVString<TH> {
+impl<TH: TypeHolderTrait<TH>> EventOrUSVString<TH> {
     unsafe fn TryConvertToEvent(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Event<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1506,12 +1506,12 @@ impl<TH: TypeHolderTrait> EventOrUSVString<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum FileOrUSVString<TH: TypeHolderTrait + 'static> {
+pub enum FileOrUSVString<TH: TypeHolderTrait<TH> + 'static> {
     File(DomRoot<File<TH>>),
     USVString(USVString),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for FileOrUSVString<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for FileOrUSVString<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             FileOrUSVString::File(ref inner) => inner.to_jsval(cx, rval),
@@ -1520,7 +1520,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for FileOrUSVString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for FileOrUSVString<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for FileOrUSVString<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1547,7 +1547,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for FileOrUSVString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FileOrUSVString<TH> {
+impl<TH: TypeHolderTrait<TH>> FileOrUSVString<TH> {
     unsafe fn TryConvertToFile(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<File<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1635,12 +1635,12 @@ impl Float32ArrayOrUnrestrictedFloatSequence {
 
 
 #[derive(JSTraceable)]
-pub enum HTMLElementOrLong<TH: TypeHolderTrait + 'static> {
+pub enum HTMLElementOrLong<TH: TypeHolderTrait<TH> + 'static> {
     HTMLElement(DomRoot<HTMLElement<TH>>),
     Long(i32),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLElementOrLong<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for HTMLElementOrLong<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             HTMLElementOrLong::HTMLElement(ref inner) => inner.to_jsval(cx, rval),
@@ -1649,7 +1649,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLElementOrLong<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for HTMLElementOrLong<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for HTMLElementOrLong<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1676,7 +1676,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for HTMLElementOrLong<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLElementOrLong<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLElementOrLong<TH> {
     unsafe fn TryConvertToHTMLElement(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<HTMLElement<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1700,14 +1700,14 @@ impl<TH: TypeHolderTrait> HTMLElementOrLong<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum HTMLElementOrUnsignedLongOrStringOrBoolean<TH: TypeHolderTrait + 'static> {
+pub enum HTMLElementOrUnsignedLongOrStringOrBoolean<TH: TypeHolderTrait<TH> + 'static> {
     HTMLElement(DomRoot<HTMLElement<TH>>),
     UnsignedLong(u32),
     String(DOMString),
     Boolean(bool),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             HTMLElementOrUnsignedLongOrStringOrBoolean::HTMLElement(ref inner) => inner.to_jsval(cx, rval),
@@ -1718,7 +1718,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLElementOrUnsignedLongOrStri
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1763,7 +1763,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for HTMLElementOrUnsignedLongOrSt
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
     unsafe fn TryConvertToHTMLElement(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<HTMLElement<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1807,14 +1807,14 @@ impl<TH: TypeHolderTrait> HTMLElementOrUnsignedLongOrStringOrBoolean<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH: TypeHolderTrait + 'static> {
+pub enum HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH: TypeHolderTrait<TH> + 'static> {
     HTMLImageElement(DomRoot<HTMLImageElement<TH>>),
     HTMLCanvasElement(DomRoot<HTMLCanvasElement<TH>>),
     CanvasRenderingContext2D(DomRoot<CanvasRenderingContext2D<TH>>),
     CSSStyleValue(DomRoot<CSSStyleValue<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue::HTMLImageElement(ref inner) => inner.to_jsval(cx, rval),
@@ -1825,7 +1825,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLImageElementOrHTMLCanvasEle
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1860,7 +1860,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for HTMLImageElementOrHTMLCanvasE
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH> {
     unsafe fn TryConvertToHTMLImageElement(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<HTMLImageElement<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1904,12 +1904,12 @@ impl<TH: TypeHolderTrait> HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingCo
 
 
 #[derive(JSTraceable)]
-pub enum HTMLOptionElementOrHTMLOptGroupElement<TH: TypeHolderTrait + 'static> {
+pub enum HTMLOptionElementOrHTMLOptGroupElement<TH: TypeHolderTrait<TH> + 'static> {
     HTMLOptionElement(DomRoot<HTMLOptionElement<TH>>),
     HTMLOptGroupElement(DomRoot<HTMLOptGroupElement<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLOptionElementOrHTMLOptGroupElement<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for HTMLOptionElementOrHTMLOptGroupElement<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             HTMLOptionElementOrHTMLOptGroupElement::HTMLOptionElement(ref inner) => inner.to_jsval(cx, rval),
@@ -1918,7 +1918,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for HTMLOptionElementOrHTMLOptGroup
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for HTMLOptionElementOrHTMLOptGroupElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for HTMLOptionElementOrHTMLOptGroupElement<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -1943,7 +1943,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for HTMLOptionElementOrHTMLOptGro
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLOptionElementOrHTMLOptGroupElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLOptionElementOrHTMLOptGroupElement<TH> {
     unsafe fn TryConvertToHTMLOptionElement(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<HTMLOptionElement<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -1967,13 +1967,13 @@ impl<TH: TypeHolderTrait> HTMLOptionElementOrHTMLOptGroupElement<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait + 'static> {
+pub enum HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait<TH> + 'static> {
     Headers(DomRoot<Headers<TH>>),
     ByteStringSequenceSequence(Vec<Vec<ByteString>>),
     StringByteStringRecord(MozMap<ByteString>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             HeadersOrByteStringSequenceSequenceOrStringByteStringRecord::Headers(ref inner) => inner.to_jsval(cx, rval),
@@ -1983,7 +1983,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for HeadersOrByteStringSequenceSequ
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -2015,7 +2015,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for HeadersOrByteStringSequenceSe
     }
 }
 
-impl<TH: TypeHolderTrait> HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> HeadersOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
     unsafe fn TryConvertToHeaders(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Headers<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -2049,14 +2049,14 @@ impl<TH: TypeHolderTrait> HeadersOrByteStringSequenceSequenceOrStringByteStringR
 
 
 #[derive(JSTraceable)]
-pub enum ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH: TypeHolderTrait + 'static> {
+pub enum ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH: TypeHolderTrait<TH> + 'static> {
     ImageData(DomRoot<ImageData<TH>>),
     HTMLImageElement(DomRoot<HTMLImageElement<TH>>),
     HTMLCanvasElement(DomRoot<HTMLCanvasElement<TH>>),
     HTMLVideoElement(DomRoot<HTMLVideoElement<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement::ImageData(ref inner) => inner.to_jsval(cx, rval),
@@ -2067,7 +2067,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for ImageDataOrHTMLImageElementOrHT
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -2102,7 +2102,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for ImageDataOrHTMLImageElementOr
     }
 }
 
-impl<TH: TypeHolderTrait> ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH> {
+impl<TH: TypeHolderTrait<TH>> ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH> {
     unsafe fn TryConvertToImageData(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<ImageData<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -2405,14 +2405,14 @@ impl LongSequenceOrBoolean {
 
 
 #[derive(JSTraceable)]
-pub enum LongSequenceOrTestTypedef<TH: TypeHolderTrait + 'static> {
+pub enum LongSequenceOrTestTypedef<TH: TypeHolderTrait<TH> + 'static> {
     LongSequence(Vec<i32>),
     String(DOMString),
     URL(DomRoot<URL<TH>>),
     Blob(DomRoot<Blob<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for LongSequenceOrTestTypedef<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for LongSequenceOrTestTypedef<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             LongSequenceOrTestTypedef::LongSequence(ref inner) => inner.to_jsval(cx, rval),
@@ -2423,7 +2423,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for LongSequenceOrTestTypedef<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for LongSequenceOrTestTypedef<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for LongSequenceOrTestTypedef<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -2461,7 +2461,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for LongSequenceOrTestTypedef<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> LongSequenceOrTestTypedef<TH> {
+impl<TH: TypeHolderTrait<TH>> LongSequenceOrTestTypedef<TH> {
     unsafe fn TryConvertToLongSequence(cx: *mut JSContext, value: HandleValue) -> Result<Option<Vec<i32>>, ()> {
         Ok(Some(match FromJSValConvertible::from_jsval(cx, value, ConversionBehavior::Default) {
             Ok(ConversionResult::Success(value)) => value,
@@ -2505,12 +2505,12 @@ impl<TH: TypeHolderTrait> LongSequenceOrTestTypedef<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum NodeOrString<TH: TypeHolderTrait + 'static> {
+pub enum NodeOrString<TH: TypeHolderTrait<TH> + 'static> {
     Node(DomRoot<Node<TH>>),
     String(DOMString),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for NodeOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for NodeOrString<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             NodeOrString::Node(ref inner) => inner.to_jsval(cx, rval),
@@ -2519,7 +2519,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for NodeOrString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for NodeOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for NodeOrString<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -2546,7 +2546,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for NodeOrString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> NodeOrString<TH> {
+impl<TH: TypeHolderTrait<TH>> NodeOrString<TH> {
     unsafe fn TryConvertToNode(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Node<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -2570,12 +2570,12 @@ impl<TH: TypeHolderTrait> NodeOrString<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum RadioNodeListOrElement<TH: TypeHolderTrait + 'static> {
+pub enum RadioNodeListOrElement<TH: TypeHolderTrait<TH> + 'static> {
     RadioNodeList(DomRoot<RadioNodeList<TH>>),
     Element(DomRoot<Element<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for RadioNodeListOrElement<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for RadioNodeListOrElement<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             RadioNodeListOrElement::RadioNodeList(ref inner) => inner.to_jsval(cx, rval),
@@ -2584,7 +2584,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for RadioNodeListOrElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for RadioNodeListOrElement<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for RadioNodeListOrElement<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -2609,7 +2609,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for RadioNodeListOrElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> RadioNodeListOrElement<TH> {
+impl<TH: TypeHolderTrait<TH>> RadioNodeListOrElement<TH> {
     unsafe fn TryConvertToRadioNodeList(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<RadioNodeList<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -2633,12 +2633,12 @@ impl<TH: TypeHolderTrait> RadioNodeListOrElement<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum RequestOrUSVString<TH: TypeHolderTrait + 'static> {
+pub enum RequestOrUSVString<TH: TypeHolderTrait<TH> + 'static> {
     Request(DomRoot<Request<TH>>),
     USVString(USVString),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for RequestOrUSVString<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for RequestOrUSVString<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             RequestOrUSVString::Request(ref inner) => inner.to_jsval(cx, rval),
@@ -2647,7 +2647,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for RequestOrUSVString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for RequestOrUSVString<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for RequestOrUSVString<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -2674,7 +2674,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for RequestOrUSVString<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> RequestOrUSVString<TH> {
+impl<TH: TypeHolderTrait<TH>> RequestOrUSVString<TH> {
     unsafe fn TryConvertToRequest(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<Request<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -2763,13 +2763,13 @@ impl StringOrBoolean {
 
 
 #[derive(JSTraceable)]
-pub enum StringOrCanvasGradientOrCanvasPattern<TH: TypeHolderTrait + 'static> {
+pub enum StringOrCanvasGradientOrCanvasPattern<TH: TypeHolderTrait<TH> + 'static> {
     String(DOMString),
     CanvasGradient(DomRoot<CanvasGradient<TH>>),
     CanvasPattern(DomRoot<CanvasPattern<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for StringOrCanvasGradientOrCanvasPattern<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for StringOrCanvasGradientOrCanvasPattern<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             StringOrCanvasGradientOrCanvasPattern::String(ref inner) => inner.to_jsval(cx, rval),
@@ -2779,7 +2779,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for StringOrCanvasGradientOrCanvasP
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for StringOrCanvasGradientOrCanvasPattern<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for StringOrCanvasGradientOrCanvasPattern<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -2811,7 +2811,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for StringOrCanvasGradientOrCanva
     }
 }
 
-impl<TH: TypeHolderTrait> StringOrCanvasGradientOrCanvasPattern<TH> {
+impl<TH: TypeHolderTrait<TH>> StringOrCanvasGradientOrCanvasPattern<TH> {
     unsafe fn TryConvertToString(cx: *mut JSContext, value: HandleValue) -> Result<Option<DOMString>, ()> {
         Ok(Some(match FromJSValConvertible::from_jsval(cx, value, StringificationBehavior::Default) {
             Ok(ConversionResult::Success(strval)) => strval,
@@ -3034,13 +3034,13 @@ impl StringOrStringSequence {
 
 
 #[derive(JSTraceable)]
-pub enum StringOrURLOrBlob<TH: TypeHolderTrait + 'static> {
+pub enum StringOrURLOrBlob<TH: TypeHolderTrait<TH> + 'static> {
     String(DOMString),
     URL(DomRoot<URL<TH>>),
     Blob(DomRoot<Blob<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for StringOrURLOrBlob<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for StringOrURLOrBlob<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             StringOrURLOrBlob::String(ref inner) => inner.to_jsval(cx, rval),
@@ -3050,7 +3050,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for StringOrURLOrBlob<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for StringOrURLOrBlob<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for StringOrURLOrBlob<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -3082,7 +3082,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for StringOrURLOrBlob<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> StringOrURLOrBlob<TH> {
+impl<TH: TypeHolderTrait<TH>> StringOrURLOrBlob<TH> {
     unsafe fn TryConvertToString(cx: *mut JSContext, value: HandleValue) -> Result<Option<DOMString>, ()> {
         Ok(Some(match FromJSValConvertible::from_jsval(cx, value, StringificationBehavior::Default) {
             Ok(ConversionResult::Success(strval)) => strval,
@@ -3246,13 +3246,13 @@ impl StringSequenceOrUnsignedLong {
 
 
 #[derive(JSTraceable)]
-pub enum TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait + 'static> {
+pub enum TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH: TypeHolderTrait<TH> + 'static> {
     TestBinding(DomRoot<TestBinding<TH>>),
     ByteStringSequenceSequence(Vec<Vec<ByteString>>),
     StringByteStringRecord(MozMap<ByteString>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord::TestBinding(ref inner) => inner.to_jsval(cx, rval),
@@ -3262,7 +3262,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for TestBindingOrByteStringSequence
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -3294,7 +3294,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for TestBindingOrByteStringSequen
     }
 }
 
-impl<TH: TypeHolderTrait> TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBindingOrByteStringSequenceSequenceOrStringByteStringRecord<TH> {
     unsafe fn TryConvertToTestBinding(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<TestBinding<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -3328,12 +3328,12 @@ impl<TH: TypeHolderTrait> TestBindingOrByteStringSequenceSequenceOrStringByteStr
 
 
 #[derive(JSTraceable)]
-pub enum TestBindingOrStringByteStringRecord<TH: TypeHolderTrait + 'static> {
+pub enum TestBindingOrStringByteStringRecord<TH: TypeHolderTrait<TH> + 'static> {
     TestBinding(DomRoot<TestBinding<TH>>),
     StringByteStringRecord(MozMap<ByteString>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for TestBindingOrStringByteStringRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for TestBindingOrStringByteStringRecord<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             TestBindingOrStringByteStringRecord::TestBinding(ref inner) => inner.to_jsval(cx, rval),
@@ -3342,7 +3342,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for TestBindingOrStringByteStringRe
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for TestBindingOrStringByteStringRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for TestBindingOrStringByteStringRecord<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -3368,7 +3368,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for TestBindingOrStringByteString
     }
 }
 
-impl<TH: TypeHolderTrait> TestBindingOrStringByteStringRecord<TH> {
+impl<TH: TypeHolderTrait<TH>> TestBindingOrStringByteStringRecord<TH> {
     unsafe fn TryConvertToTestBinding(cx: *mut JSContext, value: HandleValue) -> Result<Option<DomRoot<TestBinding<TH>>>, ()> {
         Ok(Some(match root_from_handlevalue(value) {
             Ok(val) => val,
@@ -3392,12 +3392,12 @@ impl<TH: TypeHolderTrait> TestBindingOrStringByteStringRecord<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum TestDictionaryOrLong<TH: TypeHolderTrait + 'static> {
+pub enum TestDictionaryOrLong<TH: TypeHolderTrait<TH> + 'static> {
     TestDictionary(RootedTraceableBox<TestDictionary<TH>>),
     Long(i32),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for TestDictionaryOrLong<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for TestDictionaryOrLong<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             TestDictionaryOrLong::TestDictionary(ref inner) => inner.to_jsval(cx, rval),
@@ -3406,7 +3406,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for TestDictionaryOrLong<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for TestDictionaryOrLong<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for TestDictionaryOrLong<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -3431,7 +3431,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for TestDictionaryOrLong<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TestDictionaryOrLong<TH> {
+impl<TH: TypeHolderTrait<TH>> TestDictionaryOrLong<TH> {
     unsafe fn TryConvertToTestDictionary(cx: *mut JSContext, value: HandleValue) -> Result<Option<RootedTraceableBox<TestDictionary<TH>>>, ()> {
         Ok(Some(match FromJSValConvertible::from_jsval(cx, value, ()) {
             Ok(ConversionResult::Success(dictionary)) => dictionary,
@@ -3455,12 +3455,12 @@ impl<TH: TypeHolderTrait> TestDictionaryOrLong<TH> {
 
 
 #[derive(JSTraceable)]
-pub enum USVStringOrURLSearchParams<TH: TypeHolderTrait + 'static> {
+pub enum USVStringOrURLSearchParams<TH: TypeHolderTrait<TH> + 'static> {
     USVString(USVString),
     URLSearchParams(DomRoot<URLSearchParams<TH>>),
 }
 
-impl<TH: TypeHolderTrait> ToJSValConvertible for USVStringOrURLSearchParams<TH> {
+impl<TH: TypeHolderTrait<TH>> ToJSValConvertible for USVStringOrURLSearchParams<TH> {
     unsafe fn to_jsval(&self, cx: *mut JSContext, rval: MutableHandleValue) {
         match *self {
             USVStringOrURLSearchParams::USVString(ref inner) => inner.to_jsval(cx, rval),
@@ -3469,7 +3469,7 @@ impl<TH: TypeHolderTrait> ToJSValConvertible for USVStringOrURLSearchParams<TH> 
     }
 }
 
-impl<TH: TypeHolderTrait> FromJSValConvertible for USVStringOrURLSearchParams<TH> {
+impl<TH: TypeHolderTrait<TH>> FromJSValConvertible for USVStringOrURLSearchParams<TH> {
     type Config = ();
     unsafe fn from_jsval(cx: *mut JSContext,
                          value: HandleValue,
@@ -3496,7 +3496,7 @@ impl<TH: TypeHolderTrait> FromJSValConvertible for USVStringOrURLSearchParams<TH
     }
 }
 
-impl<TH: TypeHolderTrait> USVStringOrURLSearchParams<TH> {
+impl<TH: TypeHolderTrait<TH>> USVStringOrURLSearchParams<TH> {
     unsafe fn TryConvertToUSVString(cx: *mut JSContext, value: HandleValue) -> Result<Option<USVString>, ()> {
         Ok(Some(match FromJSValConvertible::from_jsval(cx, value, ()) {
             Ok(ConversionResult::Success(strval)) => strval,

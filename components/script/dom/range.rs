@@ -34,13 +34,13 @@ use std::cmp::{Ord, Ordering, PartialEq, PartialOrd};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct Range<TH: TypeHolderTrait + 'static> {
+pub struct Range<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     start: BoundaryPoint<TH>,
     end: BoundaryPoint<TH>,
 }
 
-impl<TH: TypeHolderTrait> Range<TH> {
+impl<TH: TypeHolderTrait<TH>> Range<TH> {
     fn new_inherited(start_container: &Node<TH>, start_offset: u32,
                      end_container: &Node<TH>, end_offset: u32) -> Range<TH> {
         Range {
@@ -193,7 +193,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
+impl<TH: TypeHolderTrait<TH>> RangeMethods<TH> for Range<TH> {
     // https://dom.spec.whatwg.org/#dom-range-startcontainer
     fn StartContainer(&self) -> DomRoot<Node<TH>> {
         self.start.node.get()
@@ -786,7 +786,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
             (DomRoot::from_ref(&*start_node), start_offset)
         } else {
             // Step 6.
-            fn compute_reference<THH: TypeHolderTrait>(start_node: &Node<THH>, end_node: &Node<THH>) -> (DomRoot<Node<THH>>, u32) {
+            fn compute_reference<THH: TypeHolderTrait<THH>>(start_node: &Node<THH>, end_node: &Node<THH>) -> (DomRoot<Node<THH>>, u32) {
                 let mut reference_node = DomRoot::from_ref(start_node);
                 while let Some(parent) = reference_node.GetParentNode() {
                     if parent.is_inclusive_ancestor_of(end_node) {
@@ -936,12 +936,12 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
 
 #[derive(DenyPublicFields, JSTraceable, MallocSizeOf)]
 #[must_root]
-pub struct BoundaryPoint<TH: TypeHolderTrait + 'static> {
+pub struct BoundaryPoint<TH: TypeHolderTrait<TH> + 'static> {
     node: MutDom<Node<TH>>,
     offset: Cell<u32>,
 }
 
-impl<TH: TypeHolderTrait> BoundaryPoint<TH> {
+impl<TH: TypeHolderTrait<TH>> BoundaryPoint<TH> {
     fn new(node: &Node<TH>, offset: u32) -> BoundaryPoint<TH> {
         debug_assert!(!node.is_doctype());
         debug_assert!(offset <= node.len());
@@ -962,7 +962,7 @@ impl<TH: TypeHolderTrait> BoundaryPoint<TH> {
 }
 
 #[allow(unrooted_must_root)]
-impl<TH: TypeHolderTrait> PartialOrd for BoundaryPoint<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialOrd for BoundaryPoint<TH> {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         bp_position(&self.node.get(), self.offset.get(),
                     &other.node.get(), other.offset.get())
@@ -970,7 +970,7 @@ impl<TH: TypeHolderTrait> PartialOrd for BoundaryPoint<TH> {
 }
 
 #[allow(unrooted_must_root)]
-impl<TH: TypeHolderTrait> PartialEq for BoundaryPoint<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for BoundaryPoint<TH> {
     fn eq(&self, other: &Self) -> bool {
         self.node.get() == other.node.get() &&
         self.offset.get() == other.offset.get()
@@ -978,7 +978,7 @@ impl<TH: TypeHolderTrait> PartialEq for BoundaryPoint<TH> {
 }
 
 // https://dom.spec.whatwg.org/#concept-range-bp-position
-fn bp_position<TH: TypeHolderTrait>(a_node: &Node<TH>, a_offset: u32,
+fn bp_position<TH: TypeHolderTrait<TH>>(a_node: &Node<TH>, a_offset: u32,
                b_node: &Node<TH>, b_offset: u32)
                -> Option<Ordering> {
     if a_node as *const Node<TH> == b_node as *const Node<TH> {
@@ -1015,12 +1015,12 @@ fn bp_position<TH: TypeHolderTrait>(a_node: &Node<TH>, a_offset: u32,
     }
 }
 
-pub struct WeakRangeVec<TH: TypeHolderTrait + 'static> {
+pub struct WeakRangeVec<TH: TypeHolderTrait<TH> + 'static> {
     cell: UnsafeCell<WeakRefVec<Range<TH>, TH>>,
 }
 
 #[allow(unsafe_code)]
-impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
+impl<TH: TypeHolderTrait<TH>> WeakRangeVec<TH> {
     /// Create a new vector of weak references.
     pub fn new() -> Self {
         WeakRangeVec { cell: UnsafeCell::new(WeakRefVec::new()) }
@@ -1252,14 +1252,14 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
 }
 
 #[allow(unsafe_code)]
-impl<TH: TypeHolderTrait> MallocSizeOf for WeakRangeVec<TH> {
+impl<TH: TypeHolderTrait<TH>> MallocSizeOf for WeakRangeVec<TH> {
     fn size_of(&self, ops: &mut MallocSizeOfOps) -> usize {
         unsafe { (*self.cell.get()).size_of(ops) }
     }
 }
 
 #[allow(unsafe_code)]
-unsafe impl<TH: TypeHolderTrait> JSTraceable for WeakRangeVec<TH> {
+unsafe impl<TH: TypeHolderTrait<TH>> JSTraceable for WeakRangeVec<TH> {
     unsafe fn trace(&self, _: *mut JSTracer) {
         (*self.cell.get()).retain_alive()
     }

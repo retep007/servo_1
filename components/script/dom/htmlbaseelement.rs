@@ -19,11 +19,11 @@ use servo_url::ServoUrl;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLBaseElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLBaseElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLBaseElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLBaseElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLBaseElement<TH> {
         HTMLBaseElement {
             htmlelement: HTMLElement::new_inherited(local_name, prefix, document)
@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> HTMLBaseElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLBaseElementMethods for HTMLBaseElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLBaseElementMethods for HTMLBaseElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-base-href
     fn Href(&self) -> DOMString {
         // Step 1.
@@ -94,7 +94,7 @@ impl<TH: TypeHolderTrait> HTMLBaseElementMethods for HTMLBaseElement<TH> {
     make_setter!(SetHref, "href");
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLBaseElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLBaseElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

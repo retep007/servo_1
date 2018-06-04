@@ -20,15 +20,15 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[derive(Clone, JSTraceable)]
-pub struct DOMManipulationTaskSource<TH: TypeHolderTrait + 'static>(pub Sender<MainThreadScriptMsg>, pub PipelineId, pub PhantomData<TH>);
+pub struct DOMManipulationTaskSource<TH: TypeHolderTrait<TH> + 'static>(pub Sender<MainThreadScriptMsg>, pub PipelineId, pub PhantomData<TH>);
 
-impl<TH: TypeHolderTrait> fmt::Debug for DOMManipulationTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> fmt::Debug for DOMManipulationTaskSource<TH> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "DOMManipulationTaskSource(...)")
     }
 }
 
-impl<TH: TypeHolderTrait> TaskSource<TH> for DOMManipulationTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> TaskSource<TH> for DOMManipulationTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,
@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> TaskSource<TH> for DOMManipulationTaskSource<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DOMManipulationTaskSource<TH> {
+impl<TH: TypeHolderTrait<TH>> DOMManipulationTaskSource<TH> {
     pub fn queue_event(&self,
                        target: &EventTarget<TH>,
                        name: Atom,

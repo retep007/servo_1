@@ -509,7 +509,7 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 
-unsafe extern fn get_device<TH: TypeHolderTrait>
+unsafe extern fn get_device<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTServer<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -521,7 +521,7 @@ unsafe extern fn get_device<TH: TypeHolderTrait>
 }
 
 
-fn device_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn device_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_device::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTServer as u16,
     depth: 0,
@@ -539,7 +539,7 @@ fn device_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn get_connected<TH: TypeHolderTrait>
+unsafe extern fn get_connected<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTServer<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -551,7 +551,7 @@ unsafe extern fn get_connected<TH: TypeHolderTrait>
 }
 
 
-fn connected_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn connected_getterinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: get_connected::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTServer as u16,
     depth: 0,
@@ -569,7 +569,7 @@ fn connected_getterinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn connect<TH: TypeHolderTrait>
+unsafe extern fn connect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTServer<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -583,7 +583,7 @@ unsafe extern fn connect<TH: TypeHolderTrait>
 }
 
 
-fn connect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn connect_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: connect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTServer as u16,
     depth: 0,
@@ -601,7 +601,7 @@ fn connect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn disconnect<TH: TypeHolderTrait>
+unsafe extern fn disconnect<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTServer<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -622,7 +622,7 @@ unsafe extern fn disconnect<TH: TypeHolderTrait>
 }
 
 
-fn disconnect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn disconnect_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: disconnect::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTServer as u16,
     depth: 0,
@@ -640,7 +640,7 @@ fn disconnect_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
     ),
 }}
 
-unsafe extern fn getPrimaryService<TH: TypeHolderTrait>
+unsafe extern fn getPrimaryService<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTServer<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -669,7 +669,7 @@ unsafe extern fn getPrimaryService<TH: TypeHolderTrait>
 }
 
 
-fn getPrimaryService_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getPrimaryService_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getPrimaryService::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTServer as u16,
     depth: 0,
@@ -687,7 +687,7 @@ fn getPrimaryService_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo 
     ),
 }}
 
-unsafe extern fn getPrimaryServices<TH: TypeHolderTrait>
+unsafe extern fn getPrimaryServices<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, _obj: HandleObject, this: *const BluetoothRemoteGATTServer<TH>, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
@@ -715,7 +715,7 @@ unsafe extern fn getPrimaryServices<TH: TypeHolderTrait>
 }
 
 
-fn getPrimaryServices_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo {
+fn getPrimaryServices_methodinfo<TH: TypeHolderTrait<TH>>() -> JSJitInfo { JSJitInfo {
     call: getPrimaryServices::<TH> as *const os::raw::c_void,
     protoID: PrototypeList::ID::BluetoothRemoteGATTServer as u16,
     depth: 0,
@@ -733,7 +733,7 @@ fn getPrimaryServices_methodinfo<TH: TypeHolderTrait>() -> JSJitInfo { JSJitInfo
     ),
 }}
 
-unsafe extern fn _finalize<TH: TypeHolderTrait>
+unsafe extern fn _finalize<TH: TypeHolderTrait<TH>>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -746,7 +746,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     }), ());
 }
 
-unsafe extern fn _trace<TH: TypeHolderTrait>
+unsafe extern fn _trace<TH: TypeHolderTrait<TH>>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
@@ -756,7 +756,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
     }), ());
 }
 
-fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
+fn CLASS_OPS<TH: TypeHolderTrait<TH>>() -> js::jsapi::JSClassOps { js::jsapi::JSClassOps {
     addProperty: None,
     delProperty: None,
     getProperty: None,
@@ -771,7 +771,7 @@ fn CLASS_OPS<TH: TypeHolderTrait>() -> js::jsapi::JSClassOps { js::jsapi::JSClas
     trace: Some(_trace::<TH>),
 }}
 
-fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
+fn Class<TH: TypeHolderTrait<TH>>() -> DOMJSClass { DOMJSClass {
     base: js::jsapi::JSClass {
         name: b"BluetoothRemoteGATTServer\0" as *const u8 as *const libc::c_char,
         flags: JSCLASS_IS_DOMJSCLASS | 0 |
@@ -789,11 +789,11 @@ fn Class<TH: TypeHolderTrait>() -> DOMJSClass { DOMJSClass {
 }}
 
 #[inline]
-fn malloc_size<TH: TypeHolderTrait>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
+fn malloc_size<TH: TypeHolderTrait<TH>>(ops: &mut MallocSizeOfOps, obj: *const c_void) -> usize {
     malloc_size_of_including_raw_self::<BluetoothRemoteGATTServer<TH>>(ops, obj)
 }
 
-pub unsafe fn Wrap<TH: TypeHolderTrait>
+pub unsafe fn Wrap<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<BluetoothRemoteGATTServer<TH>>) -> DomRoot<BluetoothRemoteGATTServer<TH>> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
@@ -819,20 +819,20 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for BluetoothRemoteGATTServer<TH> {
+impl<TH: TypeHolderTrait<TH>> IDLInterface for BluetoothRemoteGATTServer<TH> {
     #[inline]
     fn derives(class: &'static DOMClass) -> bool {
         class as *const _ == &Class::<TH>().dom_class as *const _
     }
 }
 
-impl<TH: TypeHolderTrait> PartialEq for BluetoothRemoteGATTServer<TH> {
+impl<TH: TypeHolderTrait<TH>> PartialEq for BluetoothRemoteGATTServer<TH> {
     fn eq(&self, other: &BluetoothRemoteGATTServer<TH>) -> bool {
         self as *const BluetoothRemoteGATTServer<TH> == &*other
     }
 }
 
-pub trait BluetoothRemoteGATTServerMethods<TH: TypeHolderTrait> {
+pub trait BluetoothRemoteGATTServerMethods<TH: TypeHolderTrait<TH>> {
     fn Device(&self) -> DomRoot<BluetoothDevice<TH>>;
     fn Connected(&self) -> bool;
     fn Connect(&self) -> Rc<Promise<TH>>;
@@ -840,7 +840,7 @@ pub trait BluetoothRemoteGATTServerMethods<TH: TypeHolderTrait> {
     fn GetPrimaryService(&self, service: UnionTypes::StringOrUnsignedLong) -> Rc<Promise<TH>>;
     fn GetPrimaryServices(&self, service: Option<UnionTypes::StringOrUnsignedLong>) -> Rc<Promise<TH>>;
 }
-fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] { &[
+fn sMethods_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSFunctionSpec]] { &[
 &[
     JSFunctionSpec {
         name: b"connect\0" as *const u8 as *const libc::c_char,
@@ -879,10 +879,10 @@ fn sMethods_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSFunctionSpec]] 
     }]
 
 ]}
-fn sMethods<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
+fn sMethods<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSFunctionSpec]>] { &[
     Guard::new(Condition::Satisfied, sMethods_specs::<TH>()[0])
 ]}
-fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec]] { &[
+fn sAttributes_specs<TH: TypeHolderTrait<TH>>() -> &'static [&'static[JSPropertySpec]] { &[
 &[
     JSPropertySpec {
         name: b"device\0" as *const u8 as *const libc::c_char,
@@ -904,11 +904,11 @@ fn sAttributes_specs<TH: TypeHolderTrait>() -> &'static [&'static[JSPropertySpec
     }]
 
 ]}
-fn sAttributes<TH: TypeHolderTrait>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
+fn sAttributes<TH: TypeHolderTrait<TH>>() -> &'static [Guard<&'static [JSPropertySpec]>] { &[
     Guard::new(Condition::Satisfied, sAttributes_specs::<TH>()[0])
 ]}
 
-pub unsafe fn GetProtoObject<TH: TypeHolderTrait>
+pub unsafe fn GetProtoObject<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, mut rval: MutableHandleObject) {
     /* Get the interface prototype object for this class.  This will create the
        object as needed. */
@@ -943,7 +943,7 @@ static INTERFACE_OBJECT_CLASS: NonCallbackInterfaceObjectClass =
         PrototypeList::ID::BluetoothRemoteGATTServer,
         0);
 
-pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
+pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject) {
     assert!(!global.get().is_null());
 
@@ -956,13 +956,13 @@ pub unsafe fn DefineDOMInterface<TH: TypeHolderTrait>
     assert!(!proto.is_null());
 }
 
-unsafe fn ConstructorEnabled<TH: TypeHolderTrait>
+unsafe fn ConstructorEnabled<TH: TypeHolderTrait<TH>>
 (aCx: *mut JSContext, aObj: HandleObject) -> bool {
     is_exposed_in(aObj, InterfaceObjectMap::Globals::WINDOW) &&
     PREFS.get("dom.bluetooth.enabled").as_boolean().unwrap_or(false)
 }
 
-unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait>
+unsafe fn CreateInterfaceObjects<TH: TypeHolderTrait<TH>>
 (cx: *mut JSContext, global: HandleObject, cache: *mut ProtoOrIfaceArray) {
     rooted!(in(cx) let mut prototype_proto = ptr::null_mut::<JSObject>());
     prototype_proto.set(JS_GetObjectPrototype(cx, global));

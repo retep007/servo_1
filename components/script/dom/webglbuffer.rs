@@ -18,7 +18,7 @@ use std::collections::HashSet;
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct WebGLBuffer<TH: TypeHolderTrait + 'static> {
+pub struct WebGLBuffer<TH: TypeHolderTrait<TH> + 'static> {
     webgl_object: WebGLObject<TH>,
     id: WebGLBufferId,
     /// The target to which this buffer was bound the first time
@@ -34,7 +34,7 @@ pub struct WebGLBuffer<TH: TypeHolderTrait + 'static> {
     usage: Cell<u32>,
 }
 
-impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLBuffer<TH> {
     fn new_inherited(renderer: WebGLMsgSender,
                      id: WebGLBufferId)
                      -> WebGLBuffer<TH> {
@@ -70,7 +70,7 @@ impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
+impl<TH: TypeHolderTrait<TH>> WebGLBuffer<TH> {
     pub fn id(&self) -> WebGLBufferId {
         self.id
     }
@@ -168,7 +168,7 @@ impl<TH: TypeHolderTrait> WebGLBuffer<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> Drop for WebGLBuffer<TH> {
+impl<TH: TypeHolderTrait<TH>> Drop for WebGLBuffer<TH> {
     fn drop(&mut self) {
         self.delete();
     }

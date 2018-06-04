@@ -12,11 +12,11 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLVideoElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLVideoElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlmediaelement: HTMLMediaElement<TH>
 }
 
-impl<TH: TypeHolderTrait> HTMLVideoElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLVideoElement<TH> {
     fn new_inherited(local_name: LocalName, prefix: Option<Prefix>, document: &Document<TH>) -> HTMLVideoElement<TH> {
         HTMLVideoElement {
             htmlmediaelement:

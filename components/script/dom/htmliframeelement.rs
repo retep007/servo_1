@@ -66,7 +66,7 @@ enum ProcessingMode {
 }
 
 #[dom_struct]
-pub struct HTMLIFrameElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLIFrameElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
     top_level_browsing_context_id: Cell<Option<TopLevelBrowsingContextId>>,
     browsing_context_id: Cell<Option<BrowsingContextId>>,
@@ -79,7 +79,7 @@ pub struct HTMLIFrameElement<TH: TypeHolderTrait + 'static> {
     visibility: Cell<bool>,
 }
 
-impl<TH: TypeHolderTrait> HTMLIFrameElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLIFrameElement<TH> {
     pub fn is_sandboxed(&self) -> bool {
         self.sandbox_allowance.get().is_some()
     }
@@ -370,7 +370,7 @@ pub trait HTMLIFrameElementLayoutMethods {
     fn get_height(&self) -> LengthOrPercentageOrAuto;
 }
 
-impl<TH: TypeHolderTrait> HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement<TH>> {
+impl<TH: TypeHolderTrait<TH>> HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFrameElement<TH>> {
     #[inline]
     #[allow(unsafe_code)]
     fn pipeline_id(&self) -> Option<PipelineId> {
@@ -411,7 +411,7 @@ impl<TH: TypeHolderTrait> HTMLIFrameElementLayoutMethods for LayoutDom<HTMLIFram
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLIFrameElementMethods<TH> for HTMLIFrameElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLIFrameElementMethods<TH> for HTMLIFrameElement<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-iframe-src
     make_url_getter!(Src, "src");
 
@@ -486,7 +486,7 @@ impl<TH: TypeHolderTrait> HTMLIFrameElementMethods<TH> for HTMLIFrameElement<TH>
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLIFrameElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLIFrameElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }

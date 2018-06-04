@@ -110,7 +110,7 @@ pub trait ScriptPort {
 /// SM callback for promise job resolution. Adds a promise callback to the current
 /// global's microtask queue.
 #[allow(unsafe_code)]
-unsafe extern "C" fn enqueue_job<TH: TypeHolderTrait>(cx: *mut JSContext,
+unsafe extern "C" fn enqueue_job<TH: TypeHolderTrait<TH>>(cx: *mut JSContext,
                                  job: HandleObject,
                                  _allocation_site: HandleObject,
                                  _data: *mut c_void) -> bool {

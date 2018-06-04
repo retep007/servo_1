@@ -12,12 +12,12 @@ use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct MimeType<TH: TypeHolderTrait + 'static> {
+pub struct MimeType<TH: TypeHolderTrait<TH> + 'static> {
     reflector_: Reflector<TH>,
     _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> MimeTypeMethods<TH> for MimeType<TH> {
+impl<TH: TypeHolderTrait<TH>> MimeTypeMethods<TH> for MimeType<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-mimetype-type
     fn Type(&self) -> DOMString {
         unreachable!()

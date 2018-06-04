@@ -300,7 +300,7 @@ macro_rules! unsafe_no_jsmanaged_fields_generic(
     ($($ty:ty),+) => (
         $(
             #[allow(unsafe_code)]
-            unsafe impl<TH: TypeHolderTrait> $crate::dom::bindings::trace::JSTraceable for $ty {
+            unsafe impl<TH: TypeHolderTrait<TH>> $crate::dom::bindings::trace::JSTraceable for $ty {
                 #[inline]
                 unsafe fn trace(&self, _: *mut ::js::jsapi::JSTracer) {
                     // Do nothing
@@ -603,11 +603,11 @@ macro_rules! impl_performance_entry_struct(
         use typeholder::TypeHolderTrait;
 
         #[dom_struct]
-        pub struct $struct<TH: TypeHolderTrait + 'static> {
+        pub struct $struct<TH: TypeHolderTrait<TH> + 'static> {
             entry: PerformanceEntry<TH>,
         }
 
-        impl<TH: TypeHolderTrait> $struct<TH> {
+        impl<TH: TypeHolderTrait<TH>> $struct<TH> {
             fn new_inherited(name: DOMString, start_time: f64, duration: f64)
                 -> Self {
                 $struct {

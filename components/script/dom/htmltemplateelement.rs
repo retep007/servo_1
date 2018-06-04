@@ -18,14 +18,14 @@ use html5ever::{LocalName, Prefix};
 use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct HTMLTemplateElement<TH: TypeHolderTrait + 'static> {
+pub struct HTMLTemplateElement<TH: TypeHolderTrait<TH> + 'static> {
     htmlelement: HTMLElement<TH>,
 
     /// <https://html.spec.whatwg.org/multipage/#template-contents>
     contents: MutNullableDom<DocumentFragment<TH>>,
 }
 
-impl<TH: TypeHolderTrait> HTMLTemplateElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTemplateElement<TH> {
     fn new_inherited(local_name: LocalName,
                      prefix: Option<Prefix>,
                      document: &Document<TH>) -> HTMLTemplateElement<TH> {
@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> HTMLTemplateElement<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HTMLTemplateElementMethods<TH> for HTMLTemplateElement<TH> {
+impl<TH: TypeHolderTrait<TH>> HTMLTemplateElementMethods<TH> for HTMLTemplateElement<TH> {
     /// <https://html.spec.whatwg.org/multipage/#dom-template-content>
     fn Content(&self) -> DomRoot<DocumentFragment<TH>> {
         self.contents.or_init(|| {
@@ -56,7 +56,7 @@ impl<TH: TypeHolderTrait> HTMLTemplateElementMethods<TH> for HTMLTemplateElement
     }
 }
 
-impl<TH: TypeHolderTrait> VirtualMethods<TH> for HTMLTemplateElement<TH> {
+impl<TH: TypeHolderTrait<TH>> VirtualMethods<TH> for HTMLTemplateElement<TH> {
     fn super_type(&self) -> Option<&VirtualMethods<TH>> {
         Some(self.upcast::<HTMLElement<TH>>() as &VirtualMethods<TH>)
     }
