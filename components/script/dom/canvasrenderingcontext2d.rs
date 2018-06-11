@@ -49,6 +49,7 @@ use std::cell::Cell;
 use std::str::FromStr;
 use std::sync::Arc;
 use unpremultiplytable::UNPREMULTIPLY_TABLE;
+use std::rc::Rc;
 
 #[must_root]
 #[derive(Clone, JSTraceable, MallocSizeOf)]
@@ -250,7 +251,7 @@ impl CanvasRenderingContext2D {
                 image.origin_is_clean(),
             CanvasImageSource::HTMLImageElement(image) => {
                 let image_origin = image.get_origin().expect("Image's origin is missing");
-                image_origin.same_origin(GlobalScope::entry().origin())
+                image_origin.same_origin(self.global().entry().origin())
             }
             CanvasImageSource::CSSStyleValue(_) => true,
         }

@@ -14,6 +14,7 @@ use dom::urlhelper::UrlHelper;
 use dom::window::Window;
 use dom_struct::dom_struct;
 use servo_url::{MutableOrigin, ServoUrl};
+use dom::bindings::reflector::DomObject;
 
 #[dom_struct]
 pub struct Location {
@@ -25,7 +26,7 @@ impl Location {
     fn new_inherited(window: &Window) -> Location {
         Location {
             reflector_: Reflector::new(),
-            window: Dom::from_ref(window)
+            window: Dom::from_ref(window),
         }
     }
 
@@ -47,7 +48,7 @@ impl Location {
     }
 
     fn check_same_origin_domain(&self) -> ErrorResult {
-        let entry_document = GlobalScope::entry().as_window().Document();
+        let entry_document = self.global().entry().as_window().Document();
         let this_document = self.window.Document();
         if entry_document.origin().same_origin_domain(this_document.origin()) {
             Ok(())

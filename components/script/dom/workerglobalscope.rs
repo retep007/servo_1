@@ -77,7 +77,7 @@ pub struct WorkerGlobalScope {
     #[ignore_malloc_size_of = "Arc"]
     closing: Option<Arc<AtomicBool>>,
     #[ignore_malloc_size_of = "Defined in js"]
-    runtime: Runtime,
+    runtime: Rc<Runtime>,
     location: MutNullableDom<WorkerLocation>,
     navigator: MutNullableDom<WorkerNavigator>,
 
@@ -104,6 +104,7 @@ impl WorkerGlobalScope {
         timer_event_chan: IpcSender<TimerEvent>,
         closing: Option<Arc<AtomicBool>>,
     ) -> Self {
+    	let runtime = Rc::new(runtime);
         Self {
             globalscope: GlobalScope::new_inherited(
                 init.pipeline_id,
@@ -116,11 +117,12 @@ impl WorkerGlobalScope {
                 timer_event_chan,
                 MutableOrigin::new(init.origin),
                 Default::default(),
+                runtime.clone(),
             ),
             worker_id: init.worker_id,
             worker_url,
             closing,
-            runtime,
+            runtime: runtime.clone(),
             location: Default::default(),
             navigator: Default::default(),
             from_devtools_sender: init.from_devtools_sender,

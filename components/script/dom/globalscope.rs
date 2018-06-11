@@ -11,7 +11,7 @@ use dom::bindings::error::{ErrorInfo, report_pending_exception};
 use dom::bindings::inheritance::Castable;
 use dom::bindings::reflector::DomObject;
 use dom::bindings::root::{DomRoot, MutNullableDom};
-use dom::bindings::settings_stack::{AutoEntryScript, entry_global, incumbent_global};
+use dom::bindings::settings_stack::{AutoEntryScript, incumbent_global};
 use dom::bindings::str::DOMString;
 use dom::crypto::Crypto;
 use dom::dedicatedworkerglobalscope::DedicatedWorkerGlobalScope;
@@ -32,6 +32,7 @@ use js::jsapi::{JSObject, JS_GetContext};
 use js::jsapi::JS_GetObjectRuntime;
 use js::panic::maybe_resume_unwind;
 use js::rust::{CompileOptionsWrapper, Runtime, get_object_class};
+use script_runtime::Runtime as ScriptRuntime;
 use js::rust::{HandleValue, MutableHandleValue};
 use js::rust::wrappers::Evaluate2;
 use libc;
@@ -129,6 +130,8 @@ pub struct GlobalScope {
     /// Vector storing closing references of all workers
     #[ignore_malloc_size_of = "Arc"]
     list_auto_close_worker: DomRefCell<Vec<AutoCloseWorker>>,
+    #[ignore_malloc_size_of = "Rc<T> is hard"]
+    runtime: Rc<ScriptRuntime>,
 }
 
 impl GlobalScope {
@@ -143,6 +146,7 @@ impl GlobalScope {
         timer_event_chan: IpcSender<TimerEvent>,
         origin: MutableOrigin,
         microtask_queue: Rc<MicrotaskQueue>,
+        runtime: Rc<ScriptRuntime>,
     ) -> Self {
         Self {
             eventtarget: EventTarget::new_inherited(),
@@ -162,6 +166,7 @@ impl GlobalScope {
             origin,
             microtask_queue,
             list_auto_close_worker: Default::default(),
+            runtime,
         }
     }
 
@@ -287,6 +292,10 @@ impl GlobalScope {
     /// Get the origin for this global scope
     pub fn origin(&self) -> &MutableOrigin {
         &self.origin
+    }
+
+    pub fn runtime(&self) -> &Rc<ScriptRuntime> {
+    	&self.runtime
     }
 
     /// Get the [base url](https://html.spec.whatwg.org/multipage/#api-base-url)
@@ -590,8 +599,8 @@ impl GlobalScope {
     /// Returns the ["entry"] global object.
     ///
     /// ["entry"]: https://html.spec.whatwg.org/multipage/#entry
-    pub fn entry() -> DomRoot<Self> {
-        entry_global()
+    pub fn entry(&self) -> DomRoot<Self> {
+        self.runtime.entry_global()
     }
 
     /// Returns the ["incumbent"] global object.

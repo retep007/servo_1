@@ -41,6 +41,10 @@ use std::ptr;
 use style::thread_state::{self, ThreadState};
 use task::TaskBox;
 use time::{Tm, now};
+use dom::bindings::root::DomRoot;
+use dom::bindings::settings_stack::StackEntry;
+use dom::bindings::settings_stack::StackEntryKind;
+use std::cell::RefCell;
 
 /// Common messages used to control the event loops in both the script and the worker
 pub enum CommonScriptMsg {
@@ -125,8 +129,27 @@ unsafe extern "C" fn enqueue_job(cx: *mut JSContext,
     }), false)
 }
 
-#[derive(JSTraceable)]
-pub struct Runtime(RustRuntime);
+// #[derive(JSTraceable)]
+pub struct Runtime {
+	rust: RustRuntime,
+	settings_stack: RefCell<Vec<StackEntry>>,
+}
+unsafe_no_jsmanaged_fields!(Runtime);
+
+impl Runtime {
+	/// Returns the ["entry"] global object.
+	///
+	/// ["entry"]: https://html.spec.whatwg.org/multipage/#entry
+	pub fn entry_global(&self) -> DomRoot<GlobalScope> {
+	   self.settings_stack
+	   			 .borrow()
+	             .iter()
+	             .rev()
+	             .find(|entry| entry.kind == StackEntryKind::Entry)
+	             .map(|entry| DomRoot::from_ref(&*entry.global))
+	             .unwrap()
+	}
+}
 
 impl Drop for Runtime {
     fn drop(&mut self) {
@@ -137,7 +160,7 @@ impl Drop for Runtime {
 impl Deref for Runtime {
     type Target = RustRuntime;
     fn deref(&self) -> &RustRuntime {
-        &self.0
+        &self.rust
     }
 }
 
@@ -312,7 +335,10 @@ pub unsafe fn new_rt_and_cx() -> Runtime {
         }
     }
 
-    Runtime(runtime)
+    Runtime {
+    	rust: runtime,
+    	settings_stack: RefCell::new(Vec::new()),
+    }
 }
 
 #[allow(unsafe_code)]

@@ -67,7 +67,7 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
     // pair of all the type parameters of the DomObject and and the field type.
     // This allows us to support parameterized DOM objects
     // such as IteratorIterable<T>.
-    items.append_all(field_types.iter().map(|ty| {
+    items.append_all(field_types.iter().filter(|ty| quote!(#ty).to_string() != "GlobalScope").map(|ty| {
         quote! {
             impl #impl_generics ShouldNotImplDomObject for ((#params), #ty) #where_clause {}
         }

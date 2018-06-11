@@ -400,7 +400,7 @@ struct WorkletThread {
     control_buffer: Option<WorkletControl>,
 
     /// The JS runtime
-    runtime: Runtime,
+    runtime: Rc<Runtime>,
     should_gc: bool,
     gc_threshold: u32,
 }
@@ -437,7 +437,7 @@ impl WorkletThread {
                 global_init: init.global_init,
                 global_scopes: HashMap::new(),
                 control_buffer: None,
-                runtime: unsafe { new_rt_and_cx() },
+                runtime: Rc::new(unsafe { new_rt_and_cx() }),
                 should_gc: false,
                 gc_threshold: MIN_GC_THRESHOLD,
             });
@@ -543,7 +543,7 @@ impl WorkletThread {
             hash_map::Entry::Vacant(entry) => {
                 debug!("Creating new worklet global scope.");
                 let executor = WorkletExecutor::new(worklet_id, self.primary_sender.clone());
-                let result = global_type.new(&self.runtime, pipeline_id, base_url, executor, &self.global_init);
+                let result = global_type.new(&self.runtime, pipeline_id, base_url, executor, &self.global_init, self.runtime.clone());
                 entry.insert(Dom::from_ref(&*result));
                 result
             },

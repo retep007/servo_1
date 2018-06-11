@@ -16,6 +16,8 @@ use msg::constellation_msg::PipelineId;
 use servo_url::ServoUrl;
 use std::collections::HashMap;
 use std::sync::mpsc::Sender;
+use script_runtime::Runtime as ScriptRuntime;
+use std::rc::Rc;
 
 // check-tidy: no specs after this line
 
@@ -33,12 +35,13 @@ impl TestWorkletGlobalScope {
                pipeline_id: PipelineId,
                base_url: ServoUrl,
                executor: WorkletExecutor,
-               init: &WorkletGlobalScopeInit)
+               init: &WorkletGlobalScopeInit,
+               script_runtime: Rc<ScriptRuntime>)
                -> DomRoot<TestWorkletGlobalScope>
     {
         debug!("Creating test worklet global scope for pipeline {}.", pipeline_id);
         let global = Box::new(TestWorkletGlobalScope {
-            worklet_global: WorkletGlobalScope::new_inherited(pipeline_id, base_url, executor, init),
+            worklet_global: WorkletGlobalScope::new_inherited(pipeline_id, base_url, executor, init, script_runtime),
             lookup_table: Default::default(),
         });
         unsafe { TestWorkletGlobalScopeBinding::Wrap(runtime.cx(), global) }
