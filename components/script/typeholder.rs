@@ -9,6 +9,6 @@ use std::marker::Copy;
 use std::fmt::Debug;
 use std::cmp::PartialEq;
 
-pub trait TypeHolderTrait: MallocSizeOf + JSTraceable + 'static + Sized + Default + Send + Castable + Clone + Copy + Debug + PartialEq {
+pub trait TypeHolderTrait: MallocSizeOf + JSTraceable  + 'static + Sized + Default + Send  + Clone + Copy + Debug + PartialEq {
     type ServoParser: ServoParser<Self>;
 }

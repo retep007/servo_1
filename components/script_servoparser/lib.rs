@@ -1,8 +1,27 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+extern crate script;
+#[macro_use]
+extern crate dom_struct;
+extern crate embedder_traits;
+extern crate html5ever;
+extern crate hyper;
+extern crate hyper_serde;
+extern crate msg;
+extern crate net_traits;
+extern crate profile_traits;
+extern crate style;
+extern crate servo_url;
+extern crate script_traits;
+extern crate servo_config;
+#[macro_use] extern crate malloc_size_of;
+#[macro_use] extern crate malloc_size_of_derive;
+#[macro_use]
+extern crate domobject_derive;
+extern crate mozjs as js;
 
-use document_loader::{DocumentLoader, LoadType};
+use script::document_loader::{DocumentLoader, LoadType};
 use script::dom::bindings::cell::DomRefCell;
 use script::dom::bindings::codegen::Bindings::DocumentBinding::{DocumentMethods, DocumentReadyState};
 use script::dom::bindings::codegen::Bindings::HTMLImageElementBinding::HTMLImageElementMethods;
@@ -30,7 +49,17 @@ use script::dom::processinginstruction::ProcessingInstruction;
 use script::dom::text::Text;
 use script::dom::virtualmethods::vtable_for;
 use script::dom::servoparser::ServoParser as ServoParserTrait;
-use dom_struct::dom_struct;
+use script::dom::servoparser::Tokenizer;
+use script::dom::servoparser::FragmentContext;
+use script::dom::servoparser::ParserKind;
+use script::dom::servoparser::LastChunkState;
+use script::dom::servoparser::FragmentParsingResult;
+use script::dom::servoparser::ParsingAlgorithm;
+use script::typeholder::TypeHolderTrait;
+use script::dom::bindings::trace::JSTraceable;
+use script::dom::bindings::conversions::IDLInterface;
+use script::dom::bindings::utils::DOMClass;
+// use dom_struct::dom_struct;
 use embedder_traits::resources::{self, Resource};
 use html5ever::{Attribute, ExpandedName, LocalName, QualName};
 use html5ever::buffer_queue::BufferQueue;
@@ -41,10 +70,10 @@ use hyper::mime::{Mime, SubLevel, TopLevel};
 use hyper_serde::Serde;
 use msg::constellation_msg::PipelineId;
 use net_traits::{FetchMetadata, FetchResponseListener, Metadata, NetworkError};
-use network_listener::PreInvoke;
+use script::network_listener::PreInvoke;
 use profile_traits::time::{TimerMetadata, TimerMetadataFrameType};
 use profile_traits::time::{TimerMetadataReflowType, ProfilerCategory, profile};
-use script_thread::ScriptThread;
+use script::script_thread::ScriptThread;
 use script_traits::DocumentActivity;
 use servo_config::prefs::PREFS;
 use servo_url::ServoUrl;
@@ -52,12 +81,84 @@ use std::borrow::Cow;
 use std::cell::Cell;
 use std::mem;
 use style::context::QuirksMode as ServoQuirksMode;
+use js::jsapi::JSTracer;
 
-mod async_html;
-mod html;
-mod xml;
+#[derive(Debug, Copy, Clone, MallocSizeOf)]
+pub struct TypeHolder {
+}
 
-#[dom_struct]
+impl Default for TypeHolder {
+    fn default() -> Self {
+        TypeHolder {}
+    }
+}
+
+impl PartialEq for TypeHolder {
+    fn eq(&self, _: &TypeHolder) -> bool {
+        true
+    }
+}
+
+unsafe impl JSTraceable for TypeHolder {
+    unsafe fn trace(&self, trc: *mut JSTracer) {
+    }
+}
+
+unsafe impl JSTraceable for ServoParser {
+    unsafe fn trace(&self, trc: *mut JSTracer) {
+    }
+}
+
+impl TypeHolderTrait for TypeHolder {
+    type ServoParser = ServoParser;
+}
+
+impl IDLInterface for ServoParser {
+    fn derives(_: &'static DOMClass) -> bool {
+        false
+    }
+}
+
+#[allow(non_upper_case_globals)]
+const _IMPL_DOMOBJECT_FOR_ServoParser: () = {
+    impl ::js::conversions::ToJSValConvertible for ServoParser {
+        #[allow(unsafe_code)]
+        unsafe fn to_jsval(
+            &self,
+            cx: *mut ::js::jsapi::JSContext,
+            rval: ::js::rust::MutableHandleValue,
+        ) {
+            let object =
+                script::dom::bindings::reflector::DomObject::reflector(self).get_jsobject();
+            object.to_jsval(cx, rval)
+        }
+    }
+    impl script::dom::bindings::reflector::DomObject for ServoParser {
+        type TypeHolder = TypeHolder;
+        #[inline]
+        fn reflector(&self) -> &script::dom::bindings::reflector::Reflector<Self::TypeHolder> {
+            self.reflector.reflector()
+        }
+    }
+    impl script::dom::bindings::reflector::MutDomObject for ServoParser {
+        fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
+            self.reflector.init_reflector(obj);
+        }
+    }
+    impl ShouldNotImplDomObject for ((), Dom<Document<TypeHolder>>) {}
+    impl ShouldNotImplDomObject for ((), DomRefCell<BufferQueue>) {}
+    impl ShouldNotImplDomObject for ((), DomRefCell<Option<IncompleteUtf8>>) {}
+    impl ShouldNotImplDomObject for ((), DomRefCell<Tokenizer<TypeHolder>>) {}
+    impl ShouldNotImplDomObject for ((), Cell<bool>) {}
+    impl ShouldNotImplDomObject for ((), Cell<usize>) {}
+    impl ShouldNotImplDomObject for ((), bool) {}
+    trait ShouldNotImplDomObject {}
+    // impl<__T: script::dom::bindings::reflector::DomObject> ShouldNotImplDomObject for ((), __T) {}
+};
+
+
+#[derive(MallocSizeOf)]
+        #[repr(C)]
 /// The parser maintains two input streams: one for input from script through
 /// document.write(), and one for input from network.
 ///
@@ -71,9 +172,9 @@ mod xml;
 ///                 insertion point
 /// ```
 pub struct ServoParser {
-    reflector: Reflector,
+    reflector: Reflector<TypeHolder>,
     /// The document associated with this parser.
-    document: Dom<Document<TH>>,
+    document: Dom<Document<TypeHolder>>,
     /// Input received from network.
     #[ignore_malloc_size_of = "Defined in html5ever"]
     network_input: DomRefCell<BufferQueue>,
@@ -84,7 +185,7 @@ pub struct ServoParser {
     #[ignore_malloc_size_of = "Defined in html5ever"]
     script_input: DomRefCell<BufferQueue>,
     /// The tokenizer of this parser.
-    tokenizer: DomRefCell<Tokenizer>,
+    tokenizer: DomRefCell<Tokenizer<TypeHolder>>,
     /// Whether to expect any further input from the associated network request.
     last_chunk_received: Cell<bool>,
     /// Whether this parser should avoid passing any further data to the tokenizer.
@@ -97,16 +198,36 @@ pub struct ServoParser {
     script_created_parser: bool,
 }
 
-impl ServoParserTrait for ServoParser {
-    pub fn parse_html_document(document: &Document, input: DOMString, url: ServoUrl) {
+impl ServoParserTrait<TypeHolder> for ServoParser {
+    fn get_aborted(&self) -> Cell<bool> {
+        self.aborted.clone()
+    }
+
+    fn get_document(&self) -> &Dom<Document<TypeHolder>> {
+        &self.document
+    }
+
+    fn get_tokenizer(&self) -> &DomRefCell<Tokenizer<TypeHolder>> {
+        &self.tokenizer
+    }
+
+    fn get_last_chunk_received(&self) -> Cell<bool> {
+        self.last_chunk_received.clone()
+    }
+
+    fn get_suspended(&self) -> Cell<bool> {
+        self.suspended.clone()
+    }
+
+    fn parse_html_document(document: &Document<TypeHolder>, input: DOMString, url: ServoUrl) {
         let parser = if PREFS.get("dom.servoparser.async_html_tokenizer.enabled").as_boolean().unwrap() {
             ServoParser::new(document,
-                                Tokenizer::AsyncHtml(self::async_html::Tokenizer::new(document, url, None)),
+                                Tokenizer::AsyncHtml(script::dom::servoparser::async_html::Tokenizer::new(document, url, None)),
                                 LastChunkState::NotReceived,
                                 ParserKind::Normal)
         } else {
             ServoParser::new(document,
-                                Tokenizer::Html(self::html::Tokenizer::new(document, url, None, ParsingAlgorithm::Normal)),
+                                Tokenizer::Html(script::dom::servoparser::html::Tokenizer::new(document, url, None, ParsingAlgorithm::Normal)),
                                 LastChunkState::NotReceived,
                                 ParserKind::Normal)
         };
@@ -114,8 +235,8 @@ impl ServoParserTrait for ServoParser {
     }
 
     // https://html.spec.whatwg.org/multipage/#parsing-html-fragments
-    pub fn parse_html_fragment(context: &Element, input: DOMString) -> impl Iterator<Item=DomRoot<Node<TH>>> {
-        let context_node = context.upcast::<Node<TH>>();
+    fn parse_html_fragment(context: &Element<TypeHolder>, input: DOMString) -> Box<Iterator<Item=DomRoot<Node<TypeHolder>>>> {
+        let context_node = context.upcast::<Node<TypeHolder>>();
         let context_document = context_node.owner_doc();
         let window = context_document.window();
         let url = context_document.url();
@@ -142,7 +263,7 @@ impl ServoParserTrait for ServoParser {
 
         // Step 11.
         let form = context_node.inclusive_ancestors()
-            .find(|element| element.is::<HTMLFormElement>());
+            .find(|element| element.is::<HTMLFormElement<TypeHolder>>());
 
         let fragment_context = FragmentContext {
             context_elem: context_node,
@@ -150,7 +271,7 @@ impl ServoParserTrait for ServoParser {
         };
 
         let parser = ServoParser::new(&document,
-                                        Tokenizer::Html(self::html::Tokenizer::new(&document,
+                                        Tokenizer::Html(script::dom::servoparser::html::Tokenizer::new(&document,
                                                                                     url,
                                                                                     Some(fragment_context),
                                                                                     ParsingAlgorithm::Fragment)),
@@ -160,15 +281,15 @@ impl ServoParserTrait for ServoParser {
 
         // Step 14.
         let root_element = document.GetDocumentElement().expect("no document element");
-        FragmentParsingResult {
-            inner: root_element.upcast::<Node<TH>>().children(),
-        }
+        Box::new(FragmentParsingResult {
+            inner: root_element.upcast::<Node<TypeHolder>>().children(),
+        })
     }
 
-    pub fn parse_html_script_input(document: &Document, url: ServoUrl, type_: &str) {
+    fn parse_html_script_input(document: &Document<TypeHolder>, url: ServoUrl, type_: &str) {
         let parser = ServoParser::new(
             document,
-            Tokenizer::Html(self::html::Tokenizer::new(
+            Tokenizer::Html(script::dom::servoparser::html::Tokenizer::new(
                 document,
                 url,
                 None,
@@ -184,23 +305,23 @@ impl ServoParserTrait for ServoParser {
         }
     }
 
-    pub fn parse_xml_document(document: &Document, input: DOMString, url: ServoUrl) {
+    fn parse_xml_document(document: &Document<TypeHolder>, input: DOMString, url: ServoUrl) {
         let parser = ServoParser::new(document,
-                                        Tokenizer::Xml(self::xml::Tokenizer::new(document, url)),
+                                        Tokenizer::Xml(script::dom::servoparser::xml::Tokenizer::new(document, url)),
                                         LastChunkState::NotReceived,
                                         ParserKind::Normal);
         parser.parse_string_chunk(String::from(input));
     }
 
-    pub fn parser_is_not_active(&self) -> bool {
+    fn parser_is_not_active(&self) -> bool {
         self.can_write() || self.tokenizer.try_borrow_mut().is_ok()
     }
 
-    pub fn script_nesting_level(&self) -> usize {
+    fn script_nesting_level(&self) -> usize {
         self.script_nesting_level.get()
     }
 
-    pub fn is_script_created(&self) -> bool {
+    fn is_script_created(&self) -> bool {
         self.script_created_parser
     }
 
@@ -218,7 +339,7 @@ impl ServoParserTrait for ServoParser {
     ///     ^
     ///     insertion point
     /// ```
-    pub fn resume_with_pending_parsing_blocking_script(&self, script: &HTMLScriptElement, result: ScriptResult) {
+    fn resume_with_pending_parsing_blocking_script(&self, script: &HTMLScriptElement<TypeHolder>, result: ScriptResult) {
         assert!(self.suspended.get());
         self.suspended.set(false);
 
@@ -240,12 +361,12 @@ impl ServoParserTrait for ServoParser {
         }
     }
 
-    pub fn can_write(&self) -> bool {
+    fn can_write(&self) -> bool {
         self.script_created_parser || self.script_nesting_level.get() > 0
     }
 
     /// Steps 6-8 of https://html.spec.whatwg.org/multipage/#document.write()
-    pub fn write(&self, text: Vec<DOMString>) {
+    fn write(&self, text: Vec<DOMString>) {
         assert!(self.can_write());
 
         if self.document.has_pending_parsing_blocking_script() {
@@ -284,7 +405,7 @@ impl ServoParserTrait for ServoParser {
     }
 
     // Steps 4-6 of https://html.spec.whatwg.org/multipage/#dom-document-close
-    pub fn close(&self) {
+    fn close(&self) {
         assert!(self.script_created_parser);
 
         // Step 4.
@@ -300,7 +421,7 @@ impl ServoParserTrait for ServoParser {
     }
 
     // https://html.spec.whatwg.org/multipage/#abort-a-parser
-    pub fn abort(&self) {
+    fn abort(&self) {
         assert!(!self.aborted.get());
         self.aborted.set(true);
 
@@ -320,8 +441,8 @@ impl ServoParserTrait for ServoParser {
     }
 
     #[allow(unrooted_must_root)]
-    fn new_inherited(document: &Document,
-                     tokenizer: Tokenizer,
+    fn new_inherited(document: &Document<TypeHolder>,
+                     tokenizer: Tokenizer<TypeHolder>,
                      last_chunk_state: LastChunkState,
                      kind: ParserKind)
                      -> Self {
@@ -341,8 +462,8 @@ impl ServoParserTrait for ServoParser {
     }
 
     #[allow(unrooted_must_root)]
-    fn new(document: &Document,
-           tokenizer: Tokenizer,
+    fn new(document: &Document<TypeHolder>,
+           tokenizer: Tokenizer<TypeHolder>,
            last_chunk_state: LastChunkState,
            kind: ParserKind)
            -> DomRoot<Self> {
@@ -385,7 +506,7 @@ impl ServoParserTrait for ServoParser {
         let profiler_category = self.tokenizer.borrow().profiler_category();
         profile(profiler_category,
                 Some(metadata),
-                self.document.window().upcast::<GlobalScope>().time_profiler_chan().clone(),
+                self.document.window().upcast::<GlobalScope<TypeHolder>>().time_profiler_chan().clone(),
                 || self.do_parse_sync())
     }
 
@@ -430,7 +551,7 @@ impl ServoParserTrait for ServoParser {
     }
 
     fn tokenize<F>(&self, mut feed: F)
-        where F: FnMut(&mut Tokenizer) -> Result<(), DomRoot<HTMLScriptElement>>,
+        where F: FnMut(&mut Tokenizer<TypeHolder>) -> Result<(), DomRoot<HTMLScriptElement<TypeHolder>>>,
     {
         loop {
             assert!(!self.suspended.get());

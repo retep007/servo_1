@@ -771,7 +771,6 @@ impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for HTMLElement<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<Element<TH>> for HTMLElement<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<HTMLElement<TH>> for HTMLElement<TH> {}
 //TODO: Maybe not needed??
-impl<TH: TypeHolderTrait> DerivedFrom<TH> for HTMLElement<TH> {}
 
 impl<TH: TypeHolderTrait> Castable for HTMLEmbedElement<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for HTMLEmbedElement<TH> {}
@@ -1136,7 +1135,6 @@ impl<TH: TypeHolderTrait> Castable for Node<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for Node<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for Node<TH> {}
 //TODO: Maybe not needed??
-impl<TH: TypeHolderTrait> DerivedFrom<TH> for Node<TH> {}
 
 impl<TH: TypeHolderTrait> Castable for NodeList<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<NodeList<TH>> for NodeList<TH> {}

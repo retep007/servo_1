@@ -33,7 +33,7 @@ pub struct Browser {
     status: Option<String>,
     favicon: Option<ServoUrl>,
     loading_state: Option<LoadingState>,
-    window: Rc<Window<TH>>,
+    window: Rc<Window>,
     event_queue: Vec<WindowEvent>,
     shutdown_requested: bool,
 }
@@ -45,7 +45,7 @@ enum LoadingState {
 }
 
 impl Browser {
-    pub fn new(window: Rc<Window<TH>>) -> Browser {
+    pub fn new(window: Rc<Window>) -> Browser {
         Browser {
             title: None,
             current_url: None,

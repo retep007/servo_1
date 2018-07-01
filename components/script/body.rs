@@ -30,6 +30,7 @@ use std::str;
 use url::form_urlencoded;
 use typeholder::TypeHolderTrait;
 
+
 #[derive(Clone, Copy, JSTraceable, MallocSizeOf)]
 pub enum BodyType {
     Blob,

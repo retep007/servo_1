@@ -2489,7 +2489,7 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
     }
 }
 
-pub fn document_from_node<T: DerivedFrom<Node<TH>> + DomObject, TH: TypeHolderTrait + Castable>(derived: &T) -> DomRoot<Document<TH>> {
+pub fn document_from_node<T: DerivedFrom<Node<TH>> + DomObject, TH: TypeHolderTrait>(derived: &T) -> DomRoot<Document<TH>> {
     derived.upcast().owner_doc()
 }
 

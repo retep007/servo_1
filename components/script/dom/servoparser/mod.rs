@@ -60,11 +60,29 @@ use typeholder::TypeHolderTrait;
 use std::marker::Sized;
 use dom::bindings::conversions::IDLInterface;
 
-mod async_html;
-mod html;
-mod xml;
+pub mod async_html;
+pub mod html;
+pub mod xml;
 
 pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TypeHolder=TH> + MutDomObject + MallocSizeOf + JSTraceable + IDLInterface + 'static {
+
+    fn new_inherited(document: &Document<TH>, tokenizer: Tokenizer<TH>, last_chunk_state: LastChunkState, kind: ParserKind) -> Self where Self: Sized;
+
+    fn tokenize<F>(&self, mut feed: F)
+        where F: FnMut(&mut Tokenizer<TH>) -> Result<(), DomRoot<HTMLScriptElement<TH>>>;
+
+    fn new(document: &Document<TH>,
+            tokenizer: Tokenizer<TH>,
+            last_chunk_state: LastChunkState,
+            kind: ParserKind) -> DomRoot<Self> where Self: Sized;
+
+    fn push_bytes_input_chunk(&self, chunk: Vec<u8>);
+
+    fn do_parse_sync(&self);
+
+    fn parse_string_chunk(&self, input: String);
+
+    fn finish(&self);
 
     fn parser_is_not_active(&self) -> bool;
 
@@ -113,9 +131,9 @@ pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TypeHolder=TH> + MutDomObj
 
     fn get_aborted(&self) -> Cell<bool>;
 
-    fn get_document(&self) -> Dom<Document<TH>>;
+    fn get_document(&self) -> &Dom<Document<TH>>;
 
-    fn get_tokenizer(&self) -> DomRefCell<Tokenizer<TH>>;
+    fn get_tokenizer(&self) -> &DomRefCell<Tokenizer<TH>>;
 
     fn get_last_chunk_received(&self) -> Cell<bool>;
 
@@ -125,7 +143,7 @@ pub trait ServoParser<TH: TypeHolderTrait>: DomObject<TypeHolder=TH> + MutDomObj
 }
 
 #[derive(PartialEq)]
-enum LastChunkState {
+pub enum LastChunkState {
     Received,
     NotReceived,
 }
@@ -150,10 +168,10 @@ impl ElementAttribute {
     }
 }
 
-struct FragmentParsingResult<I, TH: TypeHolderTrait + 'static>
+pub struct FragmentParsingResult<I, TH: TypeHolderTrait + 'static>
     where I: Iterator<Item=DomRoot<Node<TH>>>
 {
-    inner: I,
+    pub inner: I,
 }
 
 impl<I, TH: TypeHolderTrait + 'static> Iterator for FragmentParsingResult<I, TH>
@@ -173,21 +191,21 @@ impl<I, TH: TypeHolderTrait + 'static> Iterator for FragmentParsingResult<I, TH>
 }
 
 #[derive(JSTraceable, MallocSizeOf, PartialEq)]
-enum ParserKind {
+pub enum ParserKind {
     Normal,
     ScriptCreated,
 }
 
 #[derive(JSTraceable, MallocSizeOf)]
 #[must_root]
-enum Tokenizer<TH: TypeHolderTrait + 'static> {
+pub enum Tokenizer<TH: TypeHolderTrait + 'static> {
     Html(self::html::Tokenizer<TH>),
     AsyncHtml(self::async_html::Tokenizer<TH>),
     Xml(self::xml::Tokenizer<TH>),
 }
 
 impl<TH: TypeHolderTrait + 'static> Tokenizer<TH> {
-    fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
+    pub fn feed(&mut self, input: &mut BufferQueue) -> Result<(), DomRoot<HTMLScriptElement<TH>>> {
         match *self {
             Tokenizer::Html(ref mut tokenizer) => tokenizer.feed(input),
             Tokenizer::AsyncHtml(ref mut tokenizer) => tokenizer.feed(input),
@@ -195,7 +213,7 @@ impl<TH: TypeHolderTrait + 'static> Tokenizer<TH> {
         }
     }
 
-    fn end(&mut self) {
+    pub fn end(&mut self) {
         match *self {
             Tokenizer::Html(ref mut tokenizer) => tokenizer.end(),
             Tokenizer::AsyncHtml(ref mut tokenizer) => tokenizer.end(),
@@ -203,7 +221,7 @@ impl<TH: TypeHolderTrait + 'static> Tokenizer<TH> {
         }
     }
 
-    fn url(&self) -> &ServoUrl {
+    pub fn url(&self) -> &ServoUrl {
         match *self {
             Tokenizer::Html(ref tokenizer) => tokenizer.url(),
             Tokenizer::AsyncHtml(ref tokenizer) => tokenizer.url(),
@@ -211,7 +229,7 @@ impl<TH: TypeHolderTrait + 'static> Tokenizer<TH> {
         }
     }
 
-    fn set_plaintext_state(&mut self) {
+    pub fn set_plaintext_state(&mut self) {
         match *self {
             Tokenizer::Html(ref mut tokenizer) => tokenizer.set_plaintext_state(),
             Tokenizer::AsyncHtml(ref mut tokenizer) => tokenizer.set_plaintext_state(),
@@ -219,7 +237,7 @@ impl<TH: TypeHolderTrait + 'static> Tokenizer<TH> {
         }
     }
 
-    fn profiler_category(&self) -> ProfilerCategory {
+    pub fn profiler_category(&self) -> ProfilerCategory {
         match *self {
             Tokenizer::Html(_) => ProfilerCategory::ScriptParseHTML,
             Tokenizer::AsyncHtml(_) => ProfilerCategory::ScriptParseHTML,
@@ -302,7 +320,7 @@ impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
                 parser.push_string_input_chunk(page);
                 parser.parse_sync();
 
-                let doc = &parser.get_document();
+                let doc = parser.get_document();
                 let doc_body = DomRoot::upcast::<Node<TH>>(doc.GetBody().unwrap());
                 let img = HTMLImageElement::new(local_name!("img"), None, doc);
                 img.SetSrc(DOMString::from(self.url.to_string()));
@@ -314,7 +332,7 @@ impl<TH: TypeHolderTrait> FetchResponseListener for ParserContext<TH> {
                 let page = "<pre>\n".into();
                 parser.push_string_input_chunk(page);
                 parser.parse_sync();
-                let token = &mut parser.get_tokenizer();
+                let token = parser.get_tokenizer();
                 token.borrow_mut().set_plaintext_state();
             },
             Some(ContentType(Mime(TopLevel::Text, SubLevel::Html, _))) => {

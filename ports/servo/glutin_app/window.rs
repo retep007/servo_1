@@ -174,7 +174,7 @@ fn window_creation_scale_factor() -> TypedScale<f32, DeviceIndependentPixel, Dev
 
 impl Window {
     pub fn new(is_foreground: bool,
-               window_size: TypedSize2D<u32, DeviceIndependentPixel>) -> Rc<Window<TH>> {
+               window_size: TypedSize2D<u32, DeviceIndependentPixel>) -> Rc<Window> {
         let win_size: DeviceUintSize = (window_size.to_f32() * window_creation_scale_factor()).to_u32();
         let width = win_size.to_untyped().width;
         let height = win_size.to_untyped().height;
