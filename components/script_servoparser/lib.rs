@@ -1,16 +1,22 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+#![feature(plugin)]
+#![plugin(script_plugins)]
+#![cfg_attr(not(feature = "unrooted_must_root_lint"), allow(unknown_lints))]
+
 extern crate script;
 #[macro_use]
 extern crate dom_struct;
 extern crate embedder_traits;
-extern crate html5ever;
+#[macro_use] extern crate html5ever;
+extern crate xml5ever;
 extern crate hyper;
 extern crate hyper_serde;
 extern crate msg;
 extern crate net_traits;
 extern crate profile_traits;
+#[macro_use]
 extern crate style;
 extern crate servo_url;
 extern crate script_traits;
@@ -20,6 +26,11 @@ extern crate servo_config;
 #[macro_use]
 extern crate domobject_derive;
 extern crate mozjs as js;
+#[macro_use] extern crate jstraceable_derive;
+
+mod async_html;
+mod html;
+mod xml;
 
 use script::document_loader::{DocumentLoader, LoadType};
 use script::dom::bindings::cell::DomRefCell;
@@ -82,6 +93,7 @@ use std::cell::Cell;
 use std::mem;
 use style::context::QuirksMode as ServoQuirksMode;
 use js::jsapi::JSTracer;
+use script::dom::servoparser::TokenizerTrait;
 
 #[derive(Debug, Copy, Clone, MallocSizeOf)]
 pub struct TypeHolder {
@@ -111,6 +123,9 @@ unsafe impl JSTraceable for ServoParser {
 
 impl TypeHolderTrait for TypeHolder {
     type ServoParser = ServoParser;
+    type XmlTokenizer = xml::Tokenizer;
+    type HtmlTokenizer = html::Tokenizer;
+    type AsyncHtmlTokenizer = async_html::Tokenizer;
 }
 
 impl IDLInterface for ServoParser {
@@ -158,6 +173,7 @@ const _IMPL_DOMOBJECT_FOR_ServoParser: () = {
 
 
 #[derive(MallocSizeOf)]
+#[must_root]
         #[repr(C)]
 /// The parser maintains two input streams: one for input from script through
 /// document.write(), and one for input from network.
@@ -222,12 +238,12 @@ impl ServoParserTrait<TypeHolder> for ServoParser {
     fn parse_html_document(document: &Document<TypeHolder>, input: DOMString, url: ServoUrl) {
         let parser = if PREFS.get("dom.servoparser.async_html_tokenizer.enabled").as_boolean().unwrap() {
             ServoParser::new(document,
-                                Tokenizer::AsyncHtml(script::dom::servoparser::async_html::Tokenizer::new(document, url, None)),
+                                Tokenizer::AsyncHtml(async_html::Tokenizer::new(document, url, None, ParsingAlgorithm::Normal)),
                                 LastChunkState::NotReceived,
                                 ParserKind::Normal)
         } else {
             ServoParser::new(document,
-                                Tokenizer::Html(script::dom::servoparser::html::Tokenizer::new(document, url, None, ParsingAlgorithm::Normal)),
+                                Tokenizer::Html(html::Tokenizer::new(document, url, None, ParsingAlgorithm::Normal)),
                                 LastChunkState::NotReceived,
                                 ParserKind::Normal)
         };
@@ -271,7 +287,7 @@ impl ServoParserTrait<TypeHolder> for ServoParser {
         };
 
         let parser = ServoParser::new(&document,
-                                        Tokenizer::Html(script::dom::servoparser::html::Tokenizer::new(&document,
+                                        Tokenizer::Html(html::Tokenizer::new(&document,
                                                                                     url,
                                                                                     Some(fragment_context),
                                                                                     ParsingAlgorithm::Fragment)),
@@ -289,7 +305,7 @@ impl ServoParserTrait<TypeHolder> for ServoParser {
     fn parse_html_script_input(document: &Document<TypeHolder>, url: ServoUrl, type_: &str) {
         let parser = ServoParser::new(
             document,
-            Tokenizer::Html(script::dom::servoparser::html::Tokenizer::new(
+            Tokenizer::Html(html::Tokenizer::new(
                 document,
                 url,
                 None,
@@ -307,7 +323,7 @@ impl ServoParserTrait<TypeHolder> for ServoParser {
 
     fn parse_xml_document(document: &Document<TypeHolder>, input: DOMString, url: ServoUrl) {
         let parser = ServoParser::new(document,
-                                        Tokenizer::Xml(script::dom::servoparser::xml::Tokenizer::new(document, url)),
+                                        Tokenizer::Xml(xml::Tokenizer::new(document, url, None, ParsingAlgorithm::Normal)),
                                         LastChunkState::NotReceived,
                                         ParserKind::Normal);
         parser.parse_string_chunk(String::from(input));

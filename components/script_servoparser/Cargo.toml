@@ -10,6 +10,10 @@ publish = false
 name = "script_servoparser"
 path = "lib.rs"
 
+[features]
+unrooted_must_root_lint = ["script_plugins/unrooted_must_root_lint"]
+default = ["unrooted_must_root_lint"]
+
 [dependencies]
 script = {path = "../script"}
 html5ever = "0.22"
@@ -28,3 +32,6 @@ hyper_serde = "0.8"
 malloc_size_of = { path = "../malloc_size_of" }
 malloc_size_of_derive = { path = "../malloc_size_of_derive" }
 domobject_derive = {path = "../domobject_derive"}
+xml5ever = {version = "0.12"}
+jstraceable_derive = {path = "../jstraceable_derive" }
+script_plugins = {path = "../script_plugins"}
