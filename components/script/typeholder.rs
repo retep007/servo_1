@@ -8,10 +8,12 @@ use std::clone::Clone;
 use std::marker::Copy;
 use std::fmt::Debug;
 use std::cmp::PartialEq;
+use dom::domparser::DOMParserTrait;
 
 pub trait TypeHolderTrait: MallocSizeOf + JSTraceable  + 'static + Sized + Default + Send  + Clone + Copy + Debug + PartialEq {
     type ServoParser: ServoParser<Self>;
     type HtmlTokenizer: TokenizerTrait<Self>;
     type AsyncHtmlTokenizer: TokenizerTrait<Self>;
     type XmlTokenizer: TokenizerTrait<Self>;
+    type DOMParser: DOMParserTrait<Self>;
 }

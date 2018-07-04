@@ -400,7 +400,6 @@ use dom::bindings::weakref::DOM_WEAK_SLOT;
 use dom::bindings::weakref::WeakBox;
 use dom::bindings::weakref::WeakReferenceable;
 use dom::globalscope::GlobalScope;
-use dom::types::DOMParser;
 use dom::types::Document;
 use dom::types::Node;
 use dom::windowproxy::WindowProxy;
@@ -549,9 +548,10 @@ use std::rc;
 use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
+use dom::domparser::DOMParserTrait;
 
 unsafe extern fn parseFromString<TH: TypeHolderTrait>
-(cx: *mut JSContext, _obj: HandleObject, this: *const DOMParser<TH>, args: *const JSJitMethodCallArgs) -> bool {
+(cx: *mut JSContext, _obj: HandleObject, this: *const TH::DOMParser, args: *const JSJitMethodCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
         let args = &*args;
@@ -579,10 +579,11 @@ unsafe extern fn parseFromString<TH: TypeHolderTrait>
             Ok((Some(&value), _)) => value,
         };
         let result: Result<DomRoot<Document<TH>>, Error<TH>> = this.ParseFromString(arg0, arg1);
+
         let result = match result {
             Ok(result) => result,
             Err(e) => {
-                throw_dom_exception(cx, &this.global(), e);
+                //TODO(retep007): throw_dom_exception(cx, &this.global(), e);
                 return false;
             },
         };
@@ -619,10 +620,10 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
 (_fop: *mut JSFreeOp, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<DOMParser<TH>>(obj).unwrap();
+        let this = native_from_object::<TH::DOMParser>(obj).unwrap();
             if !this.is_null() {
                 // The pointer can be null if the object is the unforgeable holder of that interface.
-                let _ = Box::from_raw(this as *mut DOMParser<TH>);
+                let _ = Box::from_raw(this as *mut TH::DOMParser);
             }
             debug!("DOMParser<TH> finalize: {:p}", this);
     }), ());
@@ -636,7 +637,7 @@ unsafe extern fn _trace<TH: TypeHolderTrait>
 (trc: *mut JSTracer, obj: *mut JSObject) {
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
-        let this = native_from_object::<DOMParser<TH>>(obj).unwrap();
+        let this = native_from_object::<TH::DOMParser>(obj).unwrap();
         if this.is_null() { return; } // GC during obj creation
         (*this).trace(trc);
     }), ());
@@ -682,7 +683,7 @@ static Class: DOMJSClass = DOMJSClass {
 
 
 pub unsafe fn Wrap<TH: TypeHolderTrait>
-(cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<DOMParser<TH>>) -> DomRoot<DOMParser<TH>> {
+(cx: *mut JSContext, scope: &GlobalScope<TH>, object: Box<TH::DOMParser>) -> DomRoot<TH::DOMParser> {
     let scope = scope.reflector().get_jsobject();
     assert!(!scope.get().is_null());
     assert!(((*get_object_class(scope.get())).flags & JSCLASS_IS_GLOBAL) != 0);
@@ -707,18 +708,18 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
     DomRoot::from_ref(&*raw)
 }
 
-impl<TH: TypeHolderTrait> IDLInterface for DOMParser<TH> {
-    #[inline]
-    fn derives(class: &'static DOMClass) -> bool {
-        class as *const _ == &Class.dom_class as *const _
-    }
-}
+// impl<TH: TypeHolderTrait> IDLInterface for TH::DOMParser {
+//     #[inline]
+//     fn derives(class: &'static DOMClass) -> bool {
+//         class as *const _ == &Class.dom_class as *const _
+//     }
+// }
 
-impl<TH: TypeHolderTrait> PartialEq for DOMParser<TH> {
-    fn eq(&self, other: &DOMParser<TH>) -> bool {
-        self as *const DOMParser<TH> == &*other
-    }
-}
+// impl<TH: TypeHolderTrait> PartialEq for TH::DOMParser {
+//     fn eq(&self, other: &TH::DOMParser) -> bool {
+//         self as *const TH::DOMParser == &*other
+//     }
+// }
 
 pub trait DOMParserMethods<TH: TypeHolderTrait> {
     fn ParseFromString(&self, str: DOMString, type_: SupportedType) -> Fallible<DomRoot<Document<TH>>, TH>;
@@ -779,7 +780,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<DOMParser<TH>>, Error<TH>> = DOMParser::Constructor(&global);
+        let result: Result<DomRoot<TH::DOMParser>, Error<TH>> = TH::DOMParser::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

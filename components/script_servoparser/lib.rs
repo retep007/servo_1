@@ -31,6 +31,7 @@ extern crate mozjs as js;
 mod async_html;
 mod html;
 mod xml;
+mod domparser;
 
 use script::document_loader::{DocumentLoader, LoadType};
 use script::dom::bindings::cell::DomRefCell;
@@ -126,6 +127,7 @@ impl TypeHolderTrait for TypeHolder {
     type XmlTokenizer = xml::Tokenizer;
     type HtmlTokenizer = html::Tokenizer;
     type AsyncHtmlTokenizer = async_html::Tokenizer;
+    type DOMParser = domparser::DOMParser;
 }
 
 impl IDLInterface for ServoParser {

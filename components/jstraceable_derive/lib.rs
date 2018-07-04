@@ -32,7 +32,7 @@ fn js_traceable_derive(s: synstructure::Structure) -> quote::Tokens {
     let mut where_clause = where_clause.unwrap_or(&parse_quote!(where)).clone();
     for param in ast.generics.type_params() {
         let ident = param.ident;
-        where_clause.predicates.push(parse_quote!(#ident: ::dom::bindings::trace::JSTraceable))
+        where_clause.predicates.push(parse_quote!(#ident: #base::dom::bindings::trace::JSTraceable))
     }
 
     let tokens = quote! {

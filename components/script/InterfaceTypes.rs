@@ -46,7 +46,6 @@ pub use dom::domexception::DOMException;
 pub use dom::domimplementation::DOMImplementation;
 pub use dom::dommatrix::DOMMatrix;
 pub use dom::dommatrixreadonly::DOMMatrixReadOnly;
-pub use dom::domparser::DOMParser;
 pub use dom::dompoint::DOMPoint;
 pub use dom::dompointreadonly::DOMPointReadOnly;
 pub use dom::domquad::DOMQuad;
