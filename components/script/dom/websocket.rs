@@ -69,7 +69,7 @@ mod close_code {
     pub const TLS_FAILED: u16 = 1015;
 }
 
-pub fn close_the_websocket_connection<TH: TypeHolderTrait>(
+fn close_the_websocket_connection<TH: TypeHolderTrait>(
     address: Trusted<WebSocket<TH>>,
     task_source: &NetworkingTaskSource<TH>,
     canceller: &TaskCanceller,
@@ -85,7 +85,7 @@ pub fn close_the_websocket_connection<TH: TypeHolderTrait>(
     task_source.queue_with_canceller(close_task, &canceller).unwrap();
 }
 
-pub fn fail_the_websocket_connection<TH: TypeHolderTrait>(
+fn fail_the_websocket_connection<TH: TypeHolderTrait>(
     address: Trusted<WebSocket<TH>>,
     task_source: &NetworkingTaskSource<TH>,
     canceller: &TaskCanceller,
