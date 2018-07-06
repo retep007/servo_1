@@ -138,6 +138,53 @@ pub unsafe fn throw_dom_exception<TH: TypeHolderTrait>(cx: *mut JSContext, globa
     JS_SetPendingException(cx, thrown.handle());
 }
 
+pub unsafe fn throw_dom_exception_THH<TH: TypeHolderTrait, THH: TypeHolderTrait>(cx: *mut JSContext, global: &GlobalScope<TH>, result: Error<THH>) {
+    let code = match result {
+        Error::IndexSize => DOMErrorName::IndexSizeError,
+        Error::NotFound => DOMErrorName::NotFoundError,
+        Error::HierarchyRequest => DOMErrorName::HierarchyRequestError,
+        Error::WrongDocument => DOMErrorName::WrongDocumentError,
+        Error::InvalidCharacter => DOMErrorName::InvalidCharacterError,
+        Error::NotSupported => DOMErrorName::NotSupportedError,
+        Error::InUseAttribute => DOMErrorName::InUseAttributeError,
+        Error::InvalidState => DOMErrorName::InvalidStateError,
+        Error::Syntax => DOMErrorName::SyntaxError,
+        Error::Namespace => DOMErrorName::NamespaceError,
+        Error::InvalidAccess => DOMErrorName::InvalidAccessError,
+        Error::Security => DOMErrorName::SecurityError,
+        Error::Network => DOMErrorName::NetworkError,
+        Error::Abort => DOMErrorName::AbortError,
+        Error::Timeout => DOMErrorName::TimeoutError,
+        Error::InvalidNodeType => DOMErrorName::InvalidNodeTypeError,
+        Error::DataClone => DOMErrorName::DataCloneError,
+        Error::NoModificationAllowed => DOMErrorName::NoModificationAllowedError,
+        Error::QuotaExceeded => DOMErrorName::QuotaExceededError,
+        Error::TypeMismatch => DOMErrorName::TypeMismatchError,
+        Error::InvalidModification => DOMErrorName::InvalidModificationError,
+        Error::Type(message) => {
+            assert!(!JS_IsExceptionPending(cx));
+            throw_type_error(cx, &message);
+            return;
+        },
+        Error::Range(message) => {
+            assert!(!JS_IsExceptionPending(cx));
+            throw_range_error(cx, &message);
+            return;
+        },
+        Error::JSFailed => {
+            assert!(JS_IsExceptionPending(cx));
+            return;
+        }
+        Error::_p(_) => return,
+    };
+
+    assert!(!JS_IsExceptionPending(cx));
+    let exception = DOMException::new(global, code);
+    rooted!(in(cx) let mut thrown = UndefinedValue());
+    exception.to_jsval(cx, thrown.handle_mut());
+    JS_SetPendingException(cx, thrown.handle());
+}
+
 /// A struct encapsulating information about a runtime script error.
 pub struct ErrorInfo<TH: TypeHolderTrait + 'static> {
     /// The error message.

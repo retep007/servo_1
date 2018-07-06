@@ -1302,10 +1302,6 @@ impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for XMLDocument<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<Node<TH>> for XMLDocument<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<Document<TH>> for XMLDocument<TH> {}
 
-impl<TH: TypeHolderTrait> Castable for XMLHttpRequest<TH> {}
-impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for XMLHttpRequest<TH> {}
-impl<TH: TypeHolderTrait> DerivedFrom<XMLHttpRequestEventTarget<TH>> for XMLHttpRequest<TH> {}
-
 impl<TH: TypeHolderTrait> Castable for XMLHttpRequestEventTarget<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<EventTarget<TH>> for XMLHttpRequestEventTarget<TH> {}
 impl<TH: TypeHolderTrait> DerivedFrom<XMLHttpRequestEventTarget<TH>> for XMLHttpRequestEventTarget<TH> {}

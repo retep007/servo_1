@@ -270,6 +270,5 @@ pub use dom::workernavigator::WorkerNavigator;
 pub use dom::worklet::Worklet;
 pub use dom::workletglobalscope::WorkletGlobalScope;
 pub use dom::xmldocument::XMLDocument;
-pub use dom::xmlhttprequest::XMLHttpRequest;
 pub use dom::xmlhttprequesteventtarget::XMLHttpRequestEventTarget;
 pub use dom::xmlhttprequestupload::XMLHttpRequestUpload;

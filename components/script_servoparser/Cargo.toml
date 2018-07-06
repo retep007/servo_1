@@ -35,3 +35,10 @@ domobject_derive = {path = "../domobject_derive"}
 xml5ever = {version = "0.12"}
 jstraceable_derive = {path = "../jstraceable_derive" }
 script_plugins = {path = "../script_plugins"}
+url = "1.6"
+time = "0.1.12"
+ipc-channel = "0.10"
+servo_atoms = {path = "../atoms"}
+encoding_rs = "0.7"
+euclid = "0.17"
+log = "0.4"

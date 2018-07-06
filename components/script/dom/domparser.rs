@@ -9,6 +9,6 @@ use dom::window::Window;
 use dom::bindings::error::Fallible;
 use dom::bindings::root::DomRoot;
 
-pub trait DOMParserTrait<TH: TypeHolderTrait>: DomObject + MutDomObject + IDLInterface + MallocSizeOf + JSTraceable + DOMParserMethods<TH> + 'static {
+pub trait DOMParserTrait<TH: TypeHolderTrait>: DomObject + MutDomObject + IDLInterface + MallocSizeOf + JSTraceable + DOMParserMethods<TH> {
     fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<TH::DOMParser>, TH>;
 }

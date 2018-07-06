@@ -9,6 +9,9 @@ use std::marker::Copy;
 use std::fmt::Debug;
 use std::cmp::PartialEq;
 use dom::domparser::DOMParserTrait;
+use dom::xmlhttprequest::XMLHttpRequestTrait;
+use dom::xmlhttprequest::XHRTimeoutCallbackTrait;
+
 
 pub trait TypeHolderTrait: MallocSizeOf + JSTraceable  + 'static + Sized + Default + Send  + Clone + Copy + Debug + PartialEq {
     type ServoParser: ServoParser<Self>;
@@ -16,4 +19,6 @@ pub trait TypeHolderTrait: MallocSizeOf + JSTraceable  + 'static + Sized + Defau
     type AsyncHtmlTokenizer: TokenizerTrait<Self>;
     type XmlTokenizer: TokenizerTrait<Self>;
     type DOMParser: DOMParserTrait<Self>;
+    type XMLHttpRequest: XMLHttpRequestTrait<Self>;
+    type XHRTimeoutCallback: XHRTimeoutCallbackTrait<Self>;
 }

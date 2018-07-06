@@ -11,7 +11,7 @@ use dom::document::FakeRequestAnimationFrameCallback;
 use dom::eventsource::EventSourceTimeoutCallback;
 use dom::globalscope::GlobalScope;
 use dom::testbinding::TestBindingCallback;
-use dom::xmlhttprequest::XHRTimeoutCallback;
+use dom::xmlhttprequest::XHRTimeoutCallbackTrait;
 use euclid::Length;
 use ipc_channel::ipc::IpcSender;
 use js::jsapi::Heap;
@@ -69,7 +69,7 @@ struct OneshotTimer<TH: TypeHolderTrait + 'static> {
 //     `invoke<T: DomObject>(self: Box<Self>, this: &T, js_timers: &JsTimers);`.
 #[derive(JSTraceable, MallocSizeOf)]
 pub enum OneshotTimerCallback<TH: TypeHolderTrait + 'static> {
-    XhrTimeout(XHRTimeoutCallback<TH>),
+    XhrTimeout(TH::XHRTimeoutCallback),
     EventSourceTimeout(EventSourceTimeoutCallback<TH>),
     JsTimer(JsTimerTask<TH>),
     TestBindingCallback(TestBindingCallback<TH>),

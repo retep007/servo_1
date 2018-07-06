@@ -122,11 +122,11 @@ pub mod script_thread;
 mod serviceworker_manager;
 mod serviceworkerjob;
 mod stylesheet_loader;
-mod task_source;
+pub mod task_source;
 pub mod test;
 pub mod textinput;
 pub mod typeholder;
-mod timers;
+pub mod timers;
 mod unpremultiplytable;
 mod webdriver_handlers;
 

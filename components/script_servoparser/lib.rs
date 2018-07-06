@@ -25,13 +25,26 @@ extern crate servo_config;
 #[macro_use] extern crate malloc_size_of_derive;
 #[macro_use]
 extern crate domobject_derive;
+#[macro_use]
 extern crate mozjs as js;
 #[macro_use] extern crate jstraceable_derive;
+extern crate url;
+extern crate time;
+extern crate ipc_channel;
+#[macro_use] extern crate servo_atoms;
+extern crate encoding_rs;
+extern crate euclid;
+#[macro_use]
+extern crate log;
 
+#[macro_use]
+mod macros;
 mod async_html;
 mod html;
 mod xml;
 mod domparser;
+mod xmlhttprequest;
+
 
 use script::document_loader::{DocumentLoader, LoadType};
 use script::dom::bindings::cell::DomRefCell;
@@ -128,6 +141,8 @@ impl TypeHolderTrait for TypeHolder {
     type HtmlTokenizer = html::Tokenizer;
     type AsyncHtmlTokenizer = async_html::Tokenizer;
     type DOMParser = domparser::DOMParser;
+    type XMLHttpRequest = xmlhttprequest::XMLHttpRequest;
+    type XHRTimeoutCallback = xmlhttprequest::XHRTimeoutCallback;
 }
 
 impl IDLInterface for ServoParser {
