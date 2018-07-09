@@ -5,16 +5,20 @@
 // https://www.khronos.org/registry/webgl/specs/latest/1.0/webgl.idl
 use dom::bindings::reflector::Reflector;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 #[dom_struct]
-pub struct WebGLObject {
-    reflector_: Reflector,
+pub struct WebGLObject<TH: TypeHolderTrait + 'static> {
+    reflector_: Reflector<TH>,
+    _p: PhantomData<TH>,
 }
 
-impl WebGLObject {
-    pub fn new_inherited() -> WebGLObject {
+impl<TH: TypeHolderTrait> WebGLObject<TH> {
+    pub fn new_inherited() -> WebGLObject<TH> {
         WebGLObject {
             reflector_: Reflector::new(),
+            _p: Default::default(),
         }
     }
 }

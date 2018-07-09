@@ -7,9 +7,10 @@
 use dom::bindings::error::{Error, ErrorResult, Fallible};
 use dom::bindings::str::DOMString;
 use html5ever::{Prefix, LocalName, Namespace};
+use typeholder::TypeHolderTrait;
 
 /// Validate a qualified name. See https://dom.spec.whatwg.org/#validate for details.
-pub fn validate_qualified_name(qualified_name: &str) -> ErrorResult {
+pub fn validate_qualified_name<TH: TypeHolderTrait>(qualified_name: &str) -> ErrorResult<TH> {
     match xml_name_type(qualified_name) {
         XMLName::InvalidXMLName => {
             // Step 1.
@@ -25,9 +26,9 @@ pub fn validate_qualified_name(qualified_name: &str) -> ErrorResult {
 
 /// Validate a namespace and qualified name and extract their parts.
 /// See https://dom.spec.whatwg.org/#validate-and-extract for details.
-pub fn validate_and_extract(namespace: Option<DOMString>,
+pub fn validate_and_extract<TH: TypeHolderTrait>(namespace: Option<DOMString>,
                             qualified_name: &str)
-                            -> Fallible<(Namespace, Option<Prefix>, LocalName)> {
+                            -> Fallible<(Namespace, Option<Prefix>, LocalName), TH> {
     // Step 1.
     let namespace = namespace_from_domstring(namespace);
 

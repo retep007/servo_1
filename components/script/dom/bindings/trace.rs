@@ -116,6 +116,8 @@ use time::Duration;
 use uuid::Uuid;
 use webrender_api::{DocumentId, ImageKey};
 use webvr_traits::WebVRGamepadHand;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// A trait to allow tracing (only) DOM objects.
 pub unsafe trait JSTraceable {
@@ -130,7 +132,7 @@ unsafe_no_jsmanaged_fields!(&'static Encoding);
 unsafe_no_jsmanaged_fields!(RefCell<Decoder>);
 unsafe_no_jsmanaged_fields!(RefCell<Vec<u8>>);
 
-unsafe_no_jsmanaged_fields!(Reflector);
+unsafe_no_jsmanaged_fields_generic!(Reflector<TH>);
 
 unsafe_no_jsmanaged_fields!(Duration);
 
@@ -150,7 +152,7 @@ pub fn trace_jsval(tracer: *mut JSTracer, description: &str, val: &Heap<JSVal>) 
 
 /// Trace the `JSObject` held by `reflector`.
 #[allow(unrooted_must_root)]
-pub fn trace_reflector(tracer: *mut JSTracer, description: &str, reflector: &Reflector) {
+pub fn trace_reflector<TH: TypeHolderTrait>(tracer: *mut JSTracer, description: &str, reflector: &Reflector<TH>) {
     trace!("tracing reflector {}", description);
     trace_object(tracer, description, reflector.rootable())
 }
@@ -184,6 +186,12 @@ unsafe impl<T: JSTraceable> JSTraceable for ServoArc<T> {
 }
 
 unsafe impl<T: JSTraceable + ?Sized> JSTraceable for Box<T> {
+    unsafe fn trace(&self, trc: *mut JSTracer) {
+        (**self).trace(trc)
+    }
+}
+
+unsafe impl<'a, T: JSTraceable + ?Sized> JSTraceable for &'a T {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         (**self).trace(trc)
     }
@@ -345,13 +353,13 @@ unsafe impl<A: JSTraceable, B: JSTraceable, C: JSTraceable> JSTraceable for (A, 
 unsafe_no_jsmanaged_fields!(bool, f32, f64, String, AtomicBool, AtomicUsize, Uuid, char);
 unsafe_no_jsmanaged_fields!(usize, u8, u16, u32, u64);
 unsafe_no_jsmanaged_fields!(isize, i8, i16, i32, i64);
-unsafe_no_jsmanaged_fields!(Error);
+unsafe_no_jsmanaged_fields_generic!(Error<TH>);
 unsafe_no_jsmanaged_fields!(ServoUrl, ImmutableOrigin, MutableOrigin);
 unsafe_no_jsmanaged_fields!(Image, ImageMetadata, ImageCache, PendingImageId);
 unsafe_no_jsmanaged_fields!(Metadata);
 unsafe_no_jsmanaged_fields!(NetworkError);
 unsafe_no_jsmanaged_fields!(Atom, Prefix, LocalName, Namespace, QualName);
-unsafe_no_jsmanaged_fields!(TrustedPromise);
+unsafe_no_jsmanaged_fields_generic!(TrustedPromise<TH>);
 unsafe_no_jsmanaged_fields!(PropertyDeclarationBlock);
 // These three are interdependent, if you plan to put jsmanaged data
 // in one of these make sure it is propagated properly to containing structs
@@ -664,6 +672,12 @@ unsafe impl JSTraceable for StyleLocked<MediaList> {
     }
 }
 
+unsafe impl<TH> JSTraceable for PhantomData<TH> {
+    unsafe fn trace(&self, _trc: *mut JSTracer) {
+        // Do nothing.
+    }
+}
+
 unsafe impl<T> JSTraceable for TypedArray<T, Box<Heap<*mut JSObject>>> where T: TypedArrayElement {
     unsafe fn trace(&self, trc: *mut JSTracer) {
         self.underlying_object().trace(trc);
@@ -856,11 +870,12 @@ impl<T: JSTraceable> RootableVec<T> {
 
 /// A vector of items that are rooted for the lifetime 'a.
 #[allow_unrooted_interior]
-pub struct RootedVec<'a, T: 'static + JSTraceable> {
+pub struct RootedVec<'a, T: 'static + JSTraceable, TH: TypeHolderTrait + 'static> {
     root: &'a mut RootableVec<T>,
+    _p: PhantomData<TH>,
 }
 
-impl<'a, T: 'static + JSTraceable> RootedVec<'a, T> {
+impl<'a, T: 'static + JSTraceable, TH: TypeHolderTrait> RootedVec<'a, T, TH> {
     /// Create a vector of items of type T that is rooted for
     /// the lifetime of this struct
     pub fn new(root: &'a mut RootableVec<T>) -> Self {
@@ -869,11 +884,12 @@ impl<'a, T: 'static + JSTraceable> RootedVec<'a, T> {
         }
         RootedVec {
             root: root,
+            _p: Default::default(),
         }
     }
 }
 
-impl<'a, T: 'static + JSTraceable + DomObject> RootedVec<'a, Dom<T>> {
+impl<'a, T: 'static + JSTraceable + DomObject, TH: TypeHolderTrait> RootedVec<'a, Dom<T>, TH> {
     /// Create a vector of items of type Dom<T> that is rooted for
     /// the lifetime of this struct
     pub fn from_iter<I>(root: &'a mut RootableVec<Dom<T>>, iter: I) -> Self
@@ -885,11 +901,12 @@ impl<'a, T: 'static + JSTraceable + DomObject> RootedVec<'a, Dom<T>> {
         root.v.extend(iter.map(|item| Dom::from_ref(&*item)));
         RootedVec {
             root: root,
+            _p: Default::default(),
         }
     }
 }
 
-impl<'a, T: JSTraceable + 'static> Drop for RootedVec<'a, T> {
+impl<'a, T: JSTraceable + 'static, TH: TypeHolderTrait> Drop for RootedVec<'a, T, TH> {
     fn drop(&mut self) {
         self.clear();
         unsafe {
@@ -898,14 +915,14 @@ impl<'a, T: JSTraceable + 'static> Drop for RootedVec<'a, T> {
     }
 }
 
-impl<'a, T: JSTraceable> Deref for RootedVec<'a, T> {
+impl<'a, T: JSTraceable, TH: TypeHolderTrait> Deref for RootedVec<'a, T, TH> {
     type Target = Vec<T>;
     fn deref(&self) -> &Vec<T> {
         &self.root.v
     }
 }
 
-impl<'a, T: JSTraceable> DerefMut for RootedVec<'a, T> {
+impl<'a, T: JSTraceable, TH: TypeHolderTrait> DerefMut for RootedVec<'a, T, TH> {
     fn deref_mut(&mut self) -> &mut Vec<T> {
         &mut self.root.v
     }

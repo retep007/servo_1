@@ -18,23 +18,24 @@ use servo_arc::Arc;
 use std::cell::Cell;
 use style::shared_lock::SharedRwLock;
 use style::stylesheets::Stylesheet as StyleStyleSheet;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct CSSStyleSheet {
-    stylesheet: StyleSheet,
-    owner: Dom<Element>,
-    rulelist: MutNullableDom<CSSRuleList>,
+pub struct CSSStyleSheet<TH: TypeHolderTrait + 'static> {
+    stylesheet: StyleSheet<TH>,
+    owner: Dom<Element<TH>>,
+    rulelist: MutNullableDom<CSSRuleList<TH>>,
     #[ignore_malloc_size_of = "Arc"]
     style_stylesheet: Arc<StyleStyleSheet>,
     origin_clean: Cell<bool>,
 }
 
-impl CSSStyleSheet {
-    fn new_inherited(owner: &Element,
+impl<TH: TypeHolderTrait> CSSStyleSheet<TH> {
+    fn new_inherited(owner: &Element<TH>,
                      type_: DOMString,
                      href: Option<DOMString>,
                      title: Option<DOMString>,
-                     stylesheet: Arc<StyleStyleSheet>) -> CSSStyleSheet {
+                     stylesheet: Arc<StyleStyleSheet>) -> Self {
         CSSStyleSheet {
             stylesheet: StyleSheet::new_inherited(type_, href, title),
             owner: Dom::from_ref(owner),
@@ -45,18 +46,18 @@ impl CSSStyleSheet {
     }
 
     #[allow(unrooted_must_root)]
-    pub fn new(window: &Window,
-               owner: &Element,
+    pub fn new(window: &Window<TH>,
+               owner: &Element<TH>,
                type_: DOMString,
                href: Option<DOMString>,
                title: Option<DOMString>,
-               stylesheet: Arc<StyleStyleSheet>) -> DomRoot<CSSStyleSheet> {
+               stylesheet: Arc<StyleStyleSheet>) -> DomRoot<CSSStyleSheet<TH>> {
         reflect_dom_object(Box::new(CSSStyleSheet::new_inherited(owner, type_, href, title, stylesheet)),
                            window,
                            CSSStyleSheetBinding::Wrap)
     }
 
-    fn rulelist(&self) -> DomRoot<CSSRuleList> {
+    fn rulelist(&self) -> DomRoot<CSSRuleList<TH>> {
         self.rulelist.or_init(|| {
             let rules = self.style_stylesheet.contents.rules.clone();
             CSSRuleList::new(
@@ -90,9 +91,9 @@ impl CSSStyleSheet {
     }
 }
 
-impl CSSStyleSheetMethods for CSSStyleSheet {
+impl<TH: TypeHolderTrait> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-cssrules
-    fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList>> {
+    fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList<TH>>, TH> {
         if !self.origin_clean.get() {
             return Err(Error::Security);
         }
@@ -100,7 +101,7 @@ impl CSSStyleSheetMethods for CSSStyleSheet {
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-insertrule
-    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32> {
+    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32, TH> {
         if !self.origin_clean.get() {
             return Err(Error::Security);
         }
@@ -108,7 +109,7 @@ impl CSSStyleSheetMethods for CSSStyleSheet {
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-deleterule
-    fn DeleteRule(&self, index: u32) -> ErrorResult {
+    fn DeleteRule(&self, index: u32) -> ErrorResult<TH> {
         if !self.origin_clean.get() {
             return Err(Error::Security);
         }

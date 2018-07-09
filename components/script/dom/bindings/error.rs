@@ -23,10 +23,12 @@ use js::rust::wrappers::JS_GetPendingException;
 use js::rust::wrappers::JS_SetPendingException;
 use libc::c_uint;
 use std::slice::from_raw_parts;
+use typeholder::TypeHolderTrait;
+use std::marker::PhantomData;
 
 /// DOM exceptions that can be thrown by a native DOM method.
 #[derive(Clone, Debug, MallocSizeOf)]
-pub enum Error {
+pub enum Error<TH: TypeHolderTrait + 'static> {
     /// IndexSizeError DOMException
     IndexSize,
     /// NotFoundError DOMException
@@ -77,17 +79,19 @@ pub enum Error {
 
     /// A JavaScript exception is already pending.
     JSFailed,
+
+    _p(PhantomData<TH>),
 }
 
 /// The return type for IDL operations that can throw DOM exceptions.
-pub type Fallible<T> = Result<T, Error>;
+pub type Fallible<T, TH> = Result<T, Error<TH>>;
 
 /// The return type for IDL operations that can throw DOM exceptions and
 /// return `()`.
-pub type ErrorResult = Fallible<()>;
+pub type ErrorResult<TH> = Fallible<(), TH>;
 
 /// Set a pending exception for the given `result` on `cx`.
-pub unsafe fn throw_dom_exception(cx: *mut JSContext, global: &GlobalScope, result: Error) {
+pub unsafe fn throw_dom_exception<TH: TypeHolderTrait>(cx: *mut JSContext, global: &GlobalScope<TH>, result: Error<TH>) {
     let code = match result {
         Error::IndexSize => DOMErrorName::IndexSizeError,
         Error::NotFound => DOMErrorName::NotFoundError,
@@ -124,6 +128,54 @@ pub unsafe fn throw_dom_exception(cx: *mut JSContext, global: &GlobalScope, resu
             assert!(JS_IsExceptionPending(cx));
             return;
         }
+        Error::_p(_) => return,
+    };
+
+    assert!(!JS_IsExceptionPending(cx));
+    let exception = DOMException::new(global, code);
+    rooted!(in(cx) let mut thrown = UndefinedValue());
+    exception.to_jsval(cx, thrown.handle_mut());
+    JS_SetPendingException(cx, thrown.handle());
+}
+
+pub unsafe fn throw_dom_exception_THH<TH: TypeHolderTrait, THH: TypeHolderTrait>(cx: *mut JSContext, global: &GlobalScope<TH>, result: Error<THH>) {
+    let code = match result {
+        Error::IndexSize => DOMErrorName::IndexSizeError,
+        Error::NotFound => DOMErrorName::NotFoundError,
+        Error::HierarchyRequest => DOMErrorName::HierarchyRequestError,
+        Error::WrongDocument => DOMErrorName::WrongDocumentError,
+        Error::InvalidCharacter => DOMErrorName::InvalidCharacterError,
+        Error::NotSupported => DOMErrorName::NotSupportedError,
+        Error::InUseAttribute => DOMErrorName::InUseAttributeError,
+        Error::InvalidState => DOMErrorName::InvalidStateError,
+        Error::Syntax => DOMErrorName::SyntaxError,
+        Error::Namespace => DOMErrorName::NamespaceError,
+        Error::InvalidAccess => DOMErrorName::InvalidAccessError,
+        Error::Security => DOMErrorName::SecurityError,
+        Error::Network => DOMErrorName::NetworkError,
+        Error::Abort => DOMErrorName::AbortError,
+        Error::Timeout => DOMErrorName::TimeoutError,
+        Error::InvalidNodeType => DOMErrorName::InvalidNodeTypeError,
+        Error::DataClone => DOMErrorName::DataCloneError,
+        Error::NoModificationAllowed => DOMErrorName::NoModificationAllowedError,
+        Error::QuotaExceeded => DOMErrorName::QuotaExceededError,
+        Error::TypeMismatch => DOMErrorName::TypeMismatchError,
+        Error::InvalidModification => DOMErrorName::InvalidModificationError,
+        Error::Type(message) => {
+            assert!(!JS_IsExceptionPending(cx));
+            throw_type_error(cx, &message);
+            return;
+        },
+        Error::Range(message) => {
+            assert!(!JS_IsExceptionPending(cx));
+            throw_range_error(cx, &message);
+            return;
+        },
+        Error::JSFailed => {
+            assert!(JS_IsExceptionPending(cx));
+            return;
+        }
+        Error::_p(_) => return,
     };
 
     assert!(!JS_IsExceptionPending(cx));
@@ -134,7 +186,7 @@ pub unsafe fn throw_dom_exception(cx: *mut JSContext, global: &GlobalScope, resu
 }
 
 /// A struct encapsulating information about a runtime script error.
-pub struct ErrorInfo {
+pub struct ErrorInfo<TH: TypeHolderTrait + 'static> {
     /// The error message.
     pub message: String,
     /// The file name.
@@ -143,11 +195,12 @@ pub struct ErrorInfo {
     pub lineno: c_uint,
     /// The column number.
     pub column: c_uint,
+    _p: PhantomData<TH>,
 }
 
-impl ErrorInfo {
+impl<TH: TypeHolderTrait> ErrorInfo<TH> {
     unsafe fn from_native_error(cx: *mut JSContext, object: HandleObject)
-                                -> Option<ErrorInfo> {
+                                -> Option<ErrorInfo<TH>> {
         let report = JS_ErrorFromException(cx, object);
         if report.is_null() {
             return None;
@@ -179,11 +232,12 @@ impl ErrorInfo {
             message: message,
             lineno: lineno,
             column: column,
+            _p: Default::default(),
         })
     }
 
-    fn from_dom_exception(object: HandleObject) -> Option<ErrorInfo> {
-        let exception = match root_from_object::<DOMException>(object.get()) {
+    fn from_dom_exception(object: HandleObject) -> Option<ErrorInfo<TH>> {
+        let exception = match root_from_object::<DOMException<TH>>(object.get()) {
             Ok(exception) => exception,
             Err(_) => return None,
         };
@@ -193,6 +247,7 @@ impl ErrorInfo {
             message: exception.Stringifier().into(),
             lineno: 0,
             column: 0,
+            _p: Default::default(),
         })
     }
 }
@@ -201,7 +256,7 @@ impl ErrorInfo {
 ///
 /// The `dispatch_event` argument is temporary and non-standard; passing false
 /// prevents dispatching the `error` event.
-pub unsafe fn report_pending_exception(cx: *mut JSContext, dispatch_event: bool) {
+pub unsafe fn report_pending_exception<TH: TypeHolderTrait>(cx: *mut JSContext, dispatch_event: bool) {
     if !JS_IsExceptionPending(cx) { return; }
 
     rooted!(in(cx) let mut value = UndefinedValue());
@@ -214,7 +269,7 @@ pub unsafe fn report_pending_exception(cx: *mut JSContext, dispatch_event: bool)
     JS_ClearPendingException(cx);
     let error_info = if value.is_object() {
         rooted!(in(cx) let object = value.to_object());
-        ErrorInfo::from_native_error(cx, object.handle())
+        ErrorInfo::<TH>::from_native_error(cx, object.handle())
             .or_else(|| ErrorInfo::from_dom_exception(object.handle()))
             .unwrap_or_else(|| {
                 ErrorInfo {
@@ -222,6 +277,7 @@ pub unsafe fn report_pending_exception(cx: *mut JSContext, dispatch_event: bool)
                     filename: String::new(),
                     lineno: 0,
                     column: 0,
+                    _p: Default::default(),
                 }
             })
     } else {
@@ -232,6 +288,7 @@ pub unsafe fn report_pending_exception(cx: *mut JSContext, dispatch_event: bool)
                     filename: String::new(),
                     lineno: 0,
                     column: 0,
+                    _p: Default::default(),
                 }
             },
             _ => {
@@ -247,7 +304,7 @@ pub unsafe fn report_pending_exception(cx: *mut JSContext, dispatch_event: bool)
            error_info.message);
 
     if dispatch_event {
-        GlobalScope::from_context(cx)
+        GlobalScope::<TH>::from_context(cx)
             .report_an_error(error_info, value.handle());
     }
 }
@@ -269,9 +326,9 @@ pub unsafe fn throw_invalid_this(cx: *mut JSContext, proto_id: u16) {
     throw_type_error(cx, &error);
 }
 
-impl Error {
+impl<TH: TypeHolderTrait> Error<TH> {
     /// Convert this error value to a JS value, consuming it in the process.
-    pub unsafe fn to_jsval(self, cx: *mut JSContext, global: &GlobalScope, rval: MutableHandleValue) {
+    pub unsafe fn to_jsval(self, cx: *mut JSContext, global: &GlobalScope<TH>, rval: MutableHandleValue) {
         assert!(!JS_IsExceptionPending(cx));
         throw_dom_exception(cx, global, self);
         assert!(JS_IsExceptionPending(cx));

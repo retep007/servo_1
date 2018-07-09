@@ -9,25 +9,26 @@ use dom::bindings::root::DomRoot;
 use dom::eventtarget::EventTarget;
 use dom::globalscope::GlobalScope;
 use dom_struct::dom_struct;
+use typeholder::TypeHolderTrait;
 
 #[dom_struct]
-pub struct FileReaderSync {
-    eventtarget: EventTarget
+pub struct FileReaderSync<TH: TypeHolderTrait + 'static> {
+    eventtarget: EventTarget<TH>
 }
 
-impl FileReaderSync {
-    pub fn new_inherited() -> FileReaderSync {
+impl<TH: TypeHolderTrait> FileReaderSync<TH> {
+    pub fn new_inherited() -> FileReaderSync<TH> {
         FileReaderSync {
             eventtarget: EventTarget::new_inherited(),
         }
     }
 
-    pub fn new(global: &GlobalScope) -> DomRoot<FileReaderSync> {
+    pub fn new(global: &GlobalScope<TH>) -> DomRoot<FileReaderSync<TH>> {
         reflect_dom_object(Box::new(FileReaderSync::new_inherited()),
                            global, FileReaderSyncBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope) -> Fallible<DomRoot<FileReaderSync>> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<FileReaderSync<TH>>, TH> {
         Ok(FileReaderSync::new(global))
     }
 }

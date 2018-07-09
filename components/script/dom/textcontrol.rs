@@ -17,20 +17,21 @@ use dom::eventtarget::EventTarget;
 use dom::node::{Node, NodeDamage, window_from_node};
 use script_traits::ScriptToConstellationChan;
 use textinput::{SelectionDirection, SelectionState, TextInput};
+use typeholder::TypeHolderTrait;
 
-pub trait TextControlElement: DerivedFrom<EventTarget> + DerivedFrom<Node> {
+pub trait TextControlElement<TH: TypeHolderTrait + 'static>: DerivedFrom<EventTarget<TH>> + DerivedFrom<Node<TH>> {
     fn selection_api_applies(&self) -> bool;
     fn has_selectable_text(&self) -> bool;
     fn set_dirty_value_flag(&self, value: bool);
 }
 
-pub struct TextControlSelection<'a, E: TextControlElement> {
+pub struct TextControlSelection<'a, E: TextControlElement<TH>, TH: TypeHolderTrait + 'static> {
     element: &'a E,
-    textinput: &'a DomRefCell<TextInput<ScriptToConstellationChan>>,
+    textinput: &'a DomRefCell<TextInput<ScriptToConstellationChan, TH>>,
 }
 
-impl<'a, E: TextControlElement> TextControlSelection<'a, E> {
-    pub fn new(element: &'a E, textinput: &'a DomRefCell<TextInput<ScriptToConstellationChan>>) -> Self {
+impl<'a, E: TextControlElement<TH>, TH: TypeHolderTrait> TextControlSelection<'a, E, TH> {
+    pub fn new(element: &'a E, textinput: &'a DomRefCell<TextInput<ScriptToConstellationChan, TH>>) -> Self {
         TextControlSelection { element, textinput }
     }
 
@@ -57,7 +58,7 @@ impl<'a, E: TextControlElement> TextControlSelection<'a, E> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-selectionstart
-    pub fn set_dom_start(&self, start: Option<u32>) -> ErrorResult {
+    pub fn set_dom_start(&self, start: Option<u32>) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);
@@ -90,7 +91,7 @@ impl<'a, E: TextControlElement> TextControlSelection<'a, E> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-selectionend
-    pub fn set_dom_end(&self, end: Option<u32>) -> ErrorResult {
+    pub fn set_dom_end(&self, end: Option<u32>) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);
@@ -112,7 +113,7 @@ impl<'a, E: TextControlElement> TextControlSelection<'a, E> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-selectiondirection
-    pub fn set_dom_direction(&self, direction: Option<DOMString>) -> ErrorResult {
+    pub fn set_dom_direction(&self, direction: Option<DOMString>) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);
@@ -129,7 +130,7 @@ impl<'a, E: TextControlElement> TextControlSelection<'a, E> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-setselectionrange
-    pub fn set_dom_range(&self, start: u32, end: u32, direction: Option<DOMString>) -> ErrorResult {
+    pub fn set_dom_range(&self, start: u32, end: u32, direction: Option<DOMString>) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);
@@ -147,7 +148,7 @@ impl<'a, E: TextControlElement> TextControlSelection<'a, E> {
         start: Option<u32>,
         end: Option<u32>,
         selection_mode: SelectionMode
-    ) -> ErrorResult {
+    ) -> ErrorResult<TH> {
         // Step 1
         if !self.element.selection_api_applies() {
             return Err(Error::InvalidState);
@@ -284,13 +285,13 @@ impl<'a, E: TextControlElement> TextControlSelection<'a, E> {
         if textinput.selection_state() != original_selection_state {
             let window = window_from_node(self.element);
             window.user_interaction_task_source().queue_event(
-                &self.element.upcast::<EventTarget>(),
+                &self.element.upcast::<EventTarget<TH>>(),
                 atom!("select"),
                 EventBubbles::Bubbles,
                 EventCancelable::NotCancelable,
                 &window);
         }
 
-        self.element.upcast::<Node>().dirty(NodeDamage::OtherNodeDamage);
+        self.element.upcast::<Node<TH>>().dirty(NodeDamage::OtherNodeDamage);
     }
 }

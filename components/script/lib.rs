@@ -110,22 +110,23 @@ pub mod clipboard_provider;
 mod devtools;
 pub mod document_loader;
 #[macro_use]
-mod dom;
+pub mod dom;
 pub mod fetch;
 mod layout_image;
 mod mem;
 mod microtask;
-mod network_listener;
+pub mod network_listener;
 pub mod script_runtime;
 #[allow(unsafe_code)]
 pub mod script_thread;
 mod serviceworker_manager;
 mod serviceworkerjob;
 mod stylesheet_loader;
-mod task_source;
+pub mod task_source;
 pub mod test;
 pub mod textinput;
-mod timers;
+pub mod typeholder;
+pub mod timers;
 mod unpremultiplytable;
 mod webdriver_handlers;
 
@@ -153,6 +154,7 @@ use dom::bindings::utils::is_platform_object;
 use js::jsapi::JSObject;
 use script_traits::SWManagerSenders;
 use serviceworker_manager::ServiceWorkerManager;
+use typeholder::TypeHolderTrait;
 
 #[cfg(target_os = "linux")]
 #[allow(unsafe_code)]
@@ -195,9 +197,9 @@ fn perform_platform_specific_initialization() {
 #[cfg(not(target_os = "linux"))]
 fn perform_platform_specific_initialization() {}
 
-pub fn init_service_workers(sw_senders: SWManagerSenders) {
+pub fn init_service_workers<TH: TypeHolderTrait>(sw_senders: SWManagerSenders) {
     // Spawn the service worker manager passing the constellation sender
-    ServiceWorkerManager::spawn_manager(sw_senders);
+    ServiceWorkerManager::<TH>::spawn_manager(sw_senders);
 }
 
 #[allow(unsafe_code)]
@@ -206,15 +208,15 @@ unsafe extern "C" fn is_dom_object(obj: *mut JSObject) -> bool {
 }
 
 #[allow(unsafe_code)]
-pub fn init() {
+pub fn init<TH: TypeHolderTrait>() {
     unsafe {
         proxyhandler::init();
 
         // Create the global vtables used by the (generated) DOM
         // bindings to implement JS proxies.
-        RegisterBindings::RegisterProxyHandlers();
+        RegisterBindings::RegisterProxyHandlers::<TH>();
 
-        js::glue::InitializeMemoryReporter(Some(is_dom_object));
+    js::glue::InitializeMemoryReporter(Some(is_dom_object));
     }
 
     perform_platform_specific_initialization();
