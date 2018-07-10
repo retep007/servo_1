@@ -870,12 +870,11 @@ impl<T: JSTraceable> RootableVec<T> {
 
 /// A vector of items that are rooted for the lifetime 'a.
 #[allow_unrooted_interior]
-pub struct RootedVec<'a, T: 'static + JSTraceable, TH: TypeHolderTrait + 'static> {
+pub struct RootedVec<'a, T: 'static + JSTraceable> {
     root: &'a mut RootableVec<T>,
-    _p: PhantomData<TH>,
 }
 
-impl<'a, T: 'static + JSTraceable, TH: TypeHolderTrait> RootedVec<'a, T, TH> {
+impl<'a, T: 'static + JSTraceable> RootedVec<'a, T> {
     /// Create a vector of items of type T that is rooted for
     /// the lifetime of this struct
     pub fn new(root: &'a mut RootableVec<T>) -> Self {
@@ -884,12 +883,11 @@ impl<'a, T: 'static + JSTraceable, TH: TypeHolderTrait> RootedVec<'a, T, TH> {
         }
         RootedVec {
             root: root,
-            _p: Default::default(),
         }
     }
 }
 
-impl<'a, T: 'static + JSTraceable + DomObject, TH: TypeHolderTrait> RootedVec<'a, Dom<T>, TH> {
+impl<'a, T: 'static + JSTraceable + DomObject> RootedVec<'a, Dom<T>> {
     /// Create a vector of items of type Dom<T> that is rooted for
     /// the lifetime of this struct
     pub fn from_iter<I>(root: &'a mut RootableVec<Dom<T>>, iter: I) -> Self
@@ -901,12 +899,11 @@ impl<'a, T: 'static + JSTraceable + DomObject, TH: TypeHolderTrait> RootedVec<'a
         root.v.extend(iter.map(|item| Dom::from_ref(&*item)));
         RootedVec {
             root: root,
-            _p: Default::default(),
         }
     }
 }
 
-impl<'a, T: JSTraceable + 'static, TH: TypeHolderTrait> Drop for RootedVec<'a, T, TH> {
+impl<'a, T: JSTraceable + 'static> Drop for RootedVec<'a, T> {
     fn drop(&mut self) {
         self.clear();
         unsafe {
@@ -915,14 +912,14 @@ impl<'a, T: JSTraceable + 'static, TH: TypeHolderTrait> Drop for RootedVec<'a, T
     }
 }
 
-impl<'a, T: JSTraceable, TH: TypeHolderTrait> Deref for RootedVec<'a, T, TH> {
+impl<'a, T: JSTraceable> Deref for RootedVec<'a, T> {
     type Target = Vec<T>;
     fn deref(&self) -> &Vec<T> {
         &self.root.v
     }
 }
 
-impl<'a, T: JSTraceable, TH: TypeHolderTrait> DerefMut for RootedVec<'a, T, TH> {
+impl<'a, T: JSTraceable> DerefMut for RootedVec<'a, T> {
     fn deref_mut(&mut self) -> &mut Vec<T> {
         &mut self.root.v
     }
