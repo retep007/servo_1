@@ -89,5 +89,9 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
         const #dummy_const: () = { #items };
     };
 
+    if name == "Test" {
+        println!("{}", tokens);
+    }
+
     tokens
 }
