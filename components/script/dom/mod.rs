@@ -212,6 +212,7 @@ pub mod types {
     include!(concat!(env!("OUT_DIR"), "/build/InterfaceTypes.rs"));
 }
 
+pub mod test;
 pub mod abstractworker;
 pub mod abstractworkerglobalscope;
 pub mod activation;
