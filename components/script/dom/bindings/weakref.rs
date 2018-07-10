@@ -34,35 +34,33 @@ pub const DOM_WEAK_SLOT: u32 = 1;
 /// A weak reference to a JS-managed DOM object.
 #[allow(unrooted_must_root)]
 #[allow_unrooted_interior]
-pub struct WeakRef<T: WeakReferenceable<TH>, TH: TypeHolderTrait> {
-    ptr: ptr::NonNull<WeakBox<T, TH>>,
+pub struct WeakRef<T: WeakReferenceable> {
+    ptr: ptr::NonNull<WeakBox<T>>,
 }
 
 /// The inner box of weak references, public for the finalization in codegen.
 #[must_root]
-pub struct WeakBox<T: WeakReferenceable<TH>, TH: TypeHolderTrait> {
+pub struct WeakBox<T: WeakReferenceable> {
     /// The reference count. When it reaches zero, the `value` field should
     /// have already been set to `None`. The pointee contributes one to the count.
     pub count: Cell<usize>,
     /// The pointer to the JS-managed object, set to None when it is collected.
     pub value: Cell<Option<ptr::NonNull<T>>>,
-    _p: PhantomData<TH>,
 }
 
 /// Trait implemented by weak-referenceable interfaces.
-pub trait WeakReferenceable<TH: TypeHolderTrait>: DomObject + Sized {
+pub trait WeakReferenceable: DomObject + Sized {
     /// Downgrade a DOM object reference to a weak one.
-    fn downgrade(&self) -> WeakRef<Self, TH> {
+    fn downgrade(&self) -> WeakRef<Self> {
         unsafe {
             let object = self.reflector().get_jsobject().get();
             let mut ptr = JS_GetReservedSlot(object,
                                              DOM_WEAK_SLOT)
-                              .to_private() as *mut WeakBox<Self, TH>;
+                              .to_private() as *mut WeakBox<Self>;
             if ptr.is_null() {
                 trace!("Creating new WeakBox holder for {:p}.", self);
                 ptr = Box::into_raw(Box::new(WeakBox {
                     count: Cell::new(1),
-                    _p: Default::default(),
                     value: Cell::new(Some(ptr::NonNull::from(self))),
                 }));
                 JS_SetReservedSlot(object, DOM_WEAK_SLOT, PrivateValue(ptr as *const c_void));
@@ -81,7 +79,7 @@ pub trait WeakReferenceable<TH: TypeHolderTrait>: DomObject + Sized {
     }
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> WeakRef<T, TH> {
+impl<T: WeakReferenceable> WeakRef<T> {
     /// Create a new weak reference from a `WeakReferenceable` interface instance.
     /// This is just a convenience wrapper around `<T as WeakReferenceable>::downgrade`
     /// to not have to import `WeakReferenceable`.
@@ -102,8 +100,8 @@ impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> WeakRef<T, TH> {
     }
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> Clone for WeakRef<T, TH> {
-    fn clone(&self) -> WeakRef<T, TH> {
+impl<T: WeakReferenceable> Clone for WeakRef<T> {
+    fn clone(&self) -> WeakRef<T> {
         unsafe {
             let box_ = &*self.ptr.as_ptr();
             let new_count = box_.count.get() + 1;
@@ -115,13 +113,13 @@ impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> Clone for WeakRef<T, TH> {
     }
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> MallocSizeOf for WeakRef<T, TH> {
+impl<T: WeakReferenceable> MallocSizeOf for WeakRef<T> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         0
     }
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> PartialEq for WeakRef<T, TH> {
+impl<T: WeakReferenceable> PartialEq for WeakRef<T> {
    fn eq(&self, other: &Self) -> bool {
         unsafe {
             (*self.ptr.as_ptr()).value.get().map(ptr::NonNull::as_ptr) ==
@@ -130,7 +128,7 @@ impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> PartialEq for WeakRef<T, TH>
     }
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> PartialEq<T> for WeakRef<T, TH> {
+impl<T: WeakReferenceable> PartialEq<T> for WeakRef<T> {
     fn eq(&self, other: &T) -> bool {
         unsafe {
             match self.ptr.as_ref().value.get() {
@@ -141,13 +139,13 @@ impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> PartialEq<T> for WeakRef<T, 
     }
 }
 
-unsafe impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> JSTraceable for WeakRef<T, TH> {
+unsafe impl<T: WeakReferenceable> JSTraceable for WeakRef<T> {
     unsafe fn trace(&self, _: *mut JSTracer) {
         // Do nothing.
     }
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> Drop for WeakRef<T, TH> {
+impl<T: WeakReferenceable> Drop for WeakRef<T> {
     fn drop(&mut self) {
         unsafe {
             let (count, value) = {
@@ -168,13 +166,13 @@ impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> Drop for WeakRef<T, TH> {
 /// A mutable weak reference to a JS-managed DOM object. On tracing,
 /// the contained weak reference is dropped if the pointee was already
 /// collected.
-pub struct MutableWeakRef<T: WeakReferenceable<TH>, TH: TypeHolderTrait> {
-    cell: UnsafeCell<Option<WeakRef<T, TH>>>,
+pub struct MutableWeakRef<T: WeakReferenceable> {
+    cell: UnsafeCell<Option<WeakRef<T>>>,
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> MutableWeakRef<T, TH> {
+impl<T: WeakReferenceable> MutableWeakRef<T> {
     /// Create a new mutable weak reference.
-    pub fn new(value: Option<&T>) -> MutableWeakRef<T, TH> {
+    pub fn new(value: Option<&T>) -> MutableWeakRef<T> {
         MutableWeakRef {
             cell: UnsafeCell::new(value.map(WeakRef::new)),
         }
@@ -194,13 +192,13 @@ impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> MutableWeakRef<T, TH> {
     }
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> MallocSizeOf for MutableWeakRef<T, TH> {
+impl<T: WeakReferenceable> MallocSizeOf for MutableWeakRef<T> {
     fn size_of(&self, _ops: &mut MallocSizeOfOps) -> usize {
         0
     }
 }
 
-unsafe impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> JSTraceable for MutableWeakRef<T, TH> {
+unsafe impl<T: WeakReferenceable> JSTraceable for MutableWeakRef<T> {
     unsafe fn trace(&self, _: *mut JSTracer) {
         let ptr = self.cell.get();
         let should_drop = match *ptr {
@@ -217,11 +215,11 @@ unsafe impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> JSTraceable for Mutab
 /// only references which still point to live objects.
 #[allow_unrooted_interior]
 #[derive(MallocSizeOf)]
-pub struct WeakRefVec<T: WeakReferenceable<TH>, TH: TypeHolderTrait> {
-    vec: Vec<WeakRef<T, TH>>,
+pub struct WeakRefVec<T: WeakReferenceable> {
+    vec: Vec<WeakRef<T>>,
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> WeakRefVec<T, TH> {
+impl<T: WeakReferenceable> WeakRefVec<T> {
     /// Create a new vector of weak references.
     pub fn new() -> Self {
         WeakRefVec { vec: vec![] }
@@ -229,7 +227,7 @@ impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> WeakRefVec<T, TH> {
 
     /// Calls a function on each reference which still points to a
     /// live object. The order of the references isn't preserved.
-    pub fn update<F: FnMut(WeakRefEntry<T, TH>)>(&mut self, mut f: F) {
+    pub fn update<F: FnMut(WeakRefEntry<T>)>(&mut self, mut f: F) {
         let mut i = 0;
         while i < self.vec.len() {
             if self.vec[i].is_alive() {
@@ -246,16 +244,16 @@ impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> WeakRefVec<T, TH> {
     }
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> Deref for WeakRefVec<T, TH> {
-    type Target = Vec<WeakRef<T, TH>>;
+impl<T: WeakReferenceable> Deref for WeakRefVec<T> {
+    type Target = Vec<WeakRef<T>>;
 
-    fn deref(&self) -> &Vec<WeakRef<T, TH>> {
+    fn deref(&self) -> &Vec<WeakRef<T>> {
         &self.vec
     }
 }
 
-impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> DerefMut for WeakRefVec<T, TH> {
-    fn deref_mut(&mut self) -> &mut Vec<WeakRef<T, TH>> {
+impl<T: WeakReferenceable> DerefMut for WeakRefVec<T> {
+    fn deref_mut(&mut self) -> &mut Vec<WeakRef<T>> {
         &mut self.vec
     }
 }
@@ -263,29 +261,29 @@ impl<T: WeakReferenceable<TH>, TH: TypeHolderTrait> DerefMut for WeakRefVec<T, T
 /// An entry of a vector of weak references. Passed to the closure
 /// given to `WeakRefVec::update`.
 #[allow_unrooted_interior]
-pub struct WeakRefEntry<'a, T: WeakReferenceable<TH> + 'a, TH: TypeHolderTrait> {
-    vec: &'a mut WeakRefVec<T, TH>,
+pub struct WeakRefEntry<'a, T: WeakReferenceable + 'a> {
+    vec: &'a mut WeakRefVec<T>,
     index: &'a mut usize,
 }
 
-impl<'a, T: WeakReferenceable<TH> + 'a, TH: TypeHolderTrait> WeakRefEntry<'a, T, TH> {
+impl<'a, T: WeakReferenceable + 'a> WeakRefEntry<'a, T> {
     /// Remove the entry from the underlying vector of weak references.
-    pub fn remove(self) -> WeakRef<T, TH> {
+    pub fn remove(self) -> WeakRef<T> {
         let ref_ = self.vec.swap_remove(*self.index);
         mem::forget(self);
         ref_
     }
 }
 
-impl<'a, T: WeakReferenceable<TH> + 'a, TH: TypeHolderTrait> Deref for WeakRefEntry<'a, T, TH> {
-    type Target = WeakRef<T, TH>;
+impl<'a, T: WeakReferenceable + 'a> Deref for WeakRefEntry<'a, T> {
+    type Target = WeakRef<T>;
 
-    fn deref(&self) -> &WeakRef<T, TH> {
+    fn deref(&self) -> &WeakRef<T> {
         &self.vec[*self.index]
     }
 }
 
-impl<'a, T: WeakReferenceable<TH> + 'a, TH: TypeHolderTrait> Drop for WeakRefEntry<'a, T, TH> {
+impl<'a, T: WeakReferenceable + 'a> Drop for WeakRefEntry<'a, T> {
     fn drop(&mut self) {
         *self.index += 1;
     }

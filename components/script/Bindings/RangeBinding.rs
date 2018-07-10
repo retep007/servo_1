@@ -1920,7 +1920,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
         let this = native_from_object::<Range<TH>>(obj).unwrap();
-        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<Range<TH>, TH>;
+        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<Range<TH>>;
         if !weak_box_ptr.is_null() {
             let count = {
                 let weak_box = &*weak_box_ptr;
@@ -2072,7 +2072,7 @@ pub trait RangeMethods<TH: TypeHolderTrait> {
     fn Stringifier(&self) -> DOMString;
     fn CreateContextualFragment(&self, fragment: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>, TH>;
 }
-impl<TH: TypeHolderTrait> WeakReferenceable<TH> for Range<TH> {}
+impl<TH: TypeHolderTrait> WeakReferenceable for Range<TH> {}
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {

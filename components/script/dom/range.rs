@@ -1016,7 +1016,7 @@ fn bp_position<TH: TypeHolderTrait>(a_node: &Node<TH>, a_offset: u32,
 }
 
 pub struct WeakRangeVec<TH: TypeHolderTrait + 'static> {
-    cell: UnsafeCell<WeakRefVec<Range<TH>, TH>>,
+    cell: UnsafeCell<WeakRefVec<Range<TH>>>,
 }
 
 #[allow(unsafe_code)]
@@ -1234,13 +1234,13 @@ impl<TH: TypeHolderTrait> WeakRangeVec<TH> {
         }
     }
 
-    fn push(&self, ref_: WeakRef<Range<TH>, TH>) {
+    fn push(&self, ref_: WeakRef<Range<TH>>) {
         unsafe {
             (*self.cell.get()).push(ref_);
         }
     }
 
-    fn remove(&self, range: &Range<TH>) -> WeakRef<Range<TH>, TH> {
+    fn remove(&self, range: &Range<TH>) -> WeakRef<Range<TH>> {
         unsafe {
             let ranges = &mut *self.cell.get();
             let position = ranges.iter().position(|ref_| {

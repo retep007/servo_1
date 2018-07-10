@@ -733,7 +733,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
         let this = native_from_object::<MediaQueryList<TH>>(obj).unwrap();
-        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<MediaQueryList<TH>, TH>;
+        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<MediaQueryList<TH>>;
         if !weak_box_ptr.is_null() {
             let count = {
                 let weak_box = &*weak_box_ptr;
@@ -857,7 +857,7 @@ pub trait MediaQueryListMethods<TH: TypeHolderTrait> {
     fn GetOnchange(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnchange(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
 }
-impl<TH: TypeHolderTrait> WeakReferenceable<TH> for MediaQueryList<TH> {}
+impl<TH: TypeHolderTrait> WeakReferenceable for MediaQueryList<TH> {}
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {

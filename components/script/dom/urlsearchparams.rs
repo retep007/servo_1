@@ -25,7 +25,7 @@ pub struct URLSearchParams<TH: TypeHolderTrait + 'static> {
     // https://url.spec.whatwg.org/#concept-urlsearchparams-list
     list: DomRefCell<Vec<(String, String)>>,
     // https://url.spec.whatwg.org/#concept-urlsearchparams-url-object
-    url: MutableWeakRef<URL<TH>, TH>,
+    url: MutableWeakRef<URL<TH>>,
 }
 
 impl<TH: TypeHolderTrait> URLSearchParams<TH> {

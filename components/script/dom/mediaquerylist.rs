@@ -119,7 +119,7 @@ impl<TH: TypeHolderTrait> MediaQueryListMethods<TH> for MediaQueryList<TH> {
 
 #[derive(MallocSizeOf)]
 pub struct WeakMediaQueryListVec<TH: TypeHolderTrait + 'static> {
-    cell: DomRefCell<WeakRefVec<MediaQueryList<TH>, TH>>,
+    cell: DomRefCell<WeakRefVec<MediaQueryList<TH>>>,
 }
 
 impl<TH: TypeHolderTrait> WeakMediaQueryListVec<TH> {

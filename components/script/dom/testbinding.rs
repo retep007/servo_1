@@ -52,7 +52,7 @@ use typeholder::TypeHolderTrait;
 #[dom_struct]
 pub struct TestBinding<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector<TH>,
-    url: MutableWeakRef<URL<TH>, TH>,
+    url: MutableWeakRef<URL<TH>>,
 }
 
 impl<TH: TypeHolderTrait> TestBinding<TH> {

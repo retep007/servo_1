@@ -1354,7 +1354,7 @@ unsafe extern fn _finalize<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
 
         let this = native_from_object::<URL<TH>>(obj).unwrap();
-        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<URL<TH>, TH>;
+        let weak_box_ptr = JS_GetReservedSlot(obj, DOM_WEAK_SLOT).to_private() as *mut WeakBox<URL<TH>>;
         if !weak_box_ptr.is_null() {
             let count = {
                 let weak_box = &*weak_box_ptr;
@@ -1495,7 +1495,7 @@ pub trait URLMethods<TH: TypeHolderTrait> {
     fn SetHash(&self, value: USVString) -> ();
     fn Stringifier(&self) -> DOMString;
 }
-impl<TH: TypeHolderTrait> WeakReferenceable<TH> for URL<TH> {}
+impl<TH: TypeHolderTrait> WeakReferenceable for URL<TH> {}
 const sStaticMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
     JSFunctionSpec {
