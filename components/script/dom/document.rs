@@ -3709,7 +3709,7 @@ impl<SP> DocumentMethods for Document<SP> {
             return Ok(DomRoot::from_ref(self));
         }
 
-        let entry_responsible_document = GlobalScope::entry().as_window().Document();
+        let entry_responsible_document = self.global().entry().as_window().Document();
 
         // This check is same-origin not same-origin-domain.
         // https://github.com/whatwg/html/issues/2282

@@ -65,6 +65,7 @@ use std::time::Duration;
 use style_traits::CSSPixel;
 use style_traits::DevicePixel;
 use style_traits::SpeculativePainter;
+use script_runtime::Runtime as ScriptRuntime;
 
 /// <https://drafts.css-houdini.org/css-paint-api/#paintworkletglobalscope>
 #[dom_struct]
@@ -98,11 +99,12 @@ impl PaintWorkletGlobalScope {
                pipeline_id: PipelineId,
                base_url: ServoUrl,
                executor: WorkletExecutor,
-               init: &WorkletGlobalScopeInit)
+               init: &WorkletGlobalScopeInit,
+               script_runtime: Rc<ScriptRuntime>)
                -> DomRoot<PaintWorkletGlobalScope> {
         debug!("Creating paint worklet global scope for pipeline {}.", pipeline_id);
         let global = Box::new(PaintWorkletGlobalScope {
-            worklet_global: WorkletGlobalScope::new_inherited(pipeline_id, base_url, executor, init),
+            worklet_global: WorkletGlobalScope::new_inherited(pipeline_id, base_url, executor, init, script_runtime),
             image_cache: init.image_cache.clone(),
             paint_definitions: Default::default(),
             paint_class_instances: Default::default(),

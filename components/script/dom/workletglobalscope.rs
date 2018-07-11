@@ -17,6 +17,7 @@ use ipc_channel::ipc::IpcSender;
 use js::jsapi::JSContext;
 use js::jsval::UndefinedValue;
 use js::rust::Runtime;
+use script_runtime::Runtime as ScriptRuntime;
 use msg::constellation_msg::PipelineId;
 use net_traits::ResourceThreads;
 use net_traits::image_cache::ImageCache;
@@ -31,6 +32,7 @@ use servo_url::MutableOrigin;
 use servo_url::ServoUrl;
 use std::sync::Arc;
 use std::sync::mpsc::Sender;
+use std::rc::Rc;
 
 #[dom_struct]
 /// <https://drafts.css-houdini.org/worklets/#workletglobalscope>
@@ -53,6 +55,7 @@ impl WorkletGlobalScope {
         base_url: ServoUrl,
         executor: WorkletExecutor,
         init: &WorkletGlobalScopeInit,
+        runtime: Rc<ScriptRuntime>
     ) -> Self {
         // Any timer events fired on this global are ignored.
         let (timer_event_chan, _) = ipc::channel().unwrap();
@@ -72,6 +75,7 @@ impl WorkletGlobalScope {
                 timer_event_chan,
                 MutableOrigin::new(ImmutableOrigin::new_opaque()),
                 Default::default(),
+                runtime,
             ),
             base_url,
             to_script_thread_sender: init.to_script_thread_sender.clone(),
@@ -170,14 +174,15 @@ impl WorkletGlobalScopeType {
                pipeline_id: PipelineId,
                base_url: ServoUrl,
                executor: WorkletExecutor,
-               init: &WorkletGlobalScopeInit)
+               init: &WorkletGlobalScopeInit,
+               script_runtime: Rc<ScriptRuntime>)
                -> DomRoot<WorkletGlobalScope>
     {
         match *self {
             WorkletGlobalScopeType::Test =>
-                DomRoot::upcast(TestWorkletGlobalScope::new(runtime, pipeline_id, base_url, executor, init)),
+                DomRoot::upcast(TestWorkletGlobalScope::new(runtime, pipeline_id, base_url, executor, init, script_runtime.clone())),
             WorkletGlobalScopeType::Paint =>
-                DomRoot::upcast(PaintWorkletGlobalScope::new(runtime, pipeline_id, base_url, executor, init)),
+                DomRoot::upcast(PaintWorkletGlobalScope::new(runtime, pipeline_id, base_url, executor, init, script_runtime.clone())),
         }
     }
 }

@@ -582,6 +582,7 @@ impl WindowMethods for Window {
 
     // https://html.spec.whatwg.org/multipage/#dom-location
     fn Location(&self) -> DomRoot<Location> {
+    	// TODO: might not work
         self.location.or_init(|| Location::new(self))
     }
 
@@ -1799,6 +1800,7 @@ impl Window {
                 timer_event_chan,
                 origin,
                 microtask_queue,
+                runtime.clone(),
             ),
             script_chan,
             dom_manipulation_task_source,

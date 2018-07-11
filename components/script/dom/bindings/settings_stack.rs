@@ -16,16 +16,16 @@ use std::thread;
 thread_local!(static STACK: RefCell<Vec<StackEntry>> = RefCell::new(Vec::new()));
 
 #[derive(Debug, Eq, JSTraceable, PartialEq)]
-enum StackEntryKind {
+pub enum StackEntryKind {
     Incumbent,
     Entry,
 }
 
 #[allow(unrooted_must_root)]
 #[derive(JSTraceable)]
-struct StackEntry {
-    global: Dom<GlobalScope>,
-    kind: StackEntryKind,
+pub struct StackEntry {
+    pub global: Dom<GlobalScope>,
+    pub kind: StackEntryKind,
 }
 
 /// Traces the script settings stack.
@@ -81,19 +81,6 @@ impl Drop for AutoEntryScript {
             self.global.perform_a_microtask_checkpoint();
         }
     }
-}
-
-/// Returns the ["entry"] global object.
-///
-/// ["entry"]: https://html.spec.whatwg.org/multipage/#entry
-pub fn entry_global() -> DomRoot<GlobalScope> {
-    STACK.with(|stack| {
-        stack.borrow()
-             .iter()
-             .rev()
-             .find(|entry| entry.kind == StackEntryKind::Entry)
-             .map(|entry| DomRoot::from_ref(&*entry.global))
-    }).unwrap()
 }
 
 /// RAII struct that pushes and pops entries from the script settings stack.

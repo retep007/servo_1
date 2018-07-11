@@ -805,7 +805,7 @@ impl TestBindingMethods for TestBinding {
     fn Panic(&self) { panic!("explicit panic from script") }
 
     fn EntryGlobal(&self) -> DomRoot<GlobalScope> {
-        GlobalScope::entry()
+    	self.global().entry()
     }
     fn IncumbentGlobal(&self) -> DomRoot<GlobalScope> {
         GlobalScope::incumbent().unwrap()
