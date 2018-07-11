@@ -185,16 +185,17 @@ unsafe extern "C" fn free_transfer_callback(_tag: u32,
 unsafe extern "C" fn report_error_callback(_cx: *mut JSContext, _errorid: u32) {
 }
 
-fn STRUCTURED_CLONE_CALLBACKS<TH: TypeHolderTrait>() -> JSStructuredCloneCallbacks {
+
+
+static mut STRUCTURED_CLONE_CALLBACKS: JSStructuredCloneCallbacks =
   JSStructuredCloneCallbacks {
-      read: Some(read_callback::<TH>),
-      write: Some(write_callback::<TH>),
+      read: None,
+      write: None,
       reportError: Some(report_error_callback),
       readTransfer: Some(read_transfer_callback),
       writeTransfer: Some(write_transfer_callback),
       freeTransfer: Some(free_transfer_callback),
-  }
-} 
+  };
 
 /// A buffer for a structured clone.
 pub enum StructuredCloneData<TH: TypeHolderTrait + 'static> {
@@ -205,17 +206,25 @@ pub enum StructuredCloneData<TH: TypeHolderTrait + 'static> {
     _p(PhantomData<TH>),
 }
 
+unsafe fn init_structured_clone<TH: TypeHolderTrait>() {
+  STRUCTURED_CLONE_CALLBACKS.read = Some(read_callback::<TH>);
+  STRUCTURED_CLONE_CALLBACKS.write = Some(write_callback::<TH>);
+}
+
 impl<TH: TypeHolderTrait> StructuredCloneData<TH> {
     /// Writes a structured clone. Returns a `DataClone` error if that fails.
     pub fn write(cx: *mut JSContext, message: HandleValue) -> Fallible<StructuredCloneData<TH>, TH> {
         let mut data = ptr::null_mut();
         let mut nbytes = 0;
+        unsafe {
+          init_structured_clone::<TH>();
+        }
         let result = unsafe {
             JS_WriteStructuredClone(cx,
                                     message,
                                     &mut data,
                                     &mut nbytes,
-                                    &STRUCTURED_CLONE_CALLBACKS::<TH>(),
+                                    &STRUCTURED_CLONE_CALLBACKS,
                                     ptr::null_mut(),
                                     HandleValue::undefined())
         };
@@ -251,15 +260,18 @@ impl<TH: TypeHolderTrait> StructuredCloneData<TH> {
         let cx = global.get_cx();
         let globalhandle = global.reflector().get_jsobject();
         let _ac = JSAutoCompartment::new(cx, globalhandle.get());
-        // unsafe {
-        //     assert!(JS_ReadStructuredClone(cx,
-        //                                    data,
-        //                                    nbytes,
-        //                                    JS_STRUCTURED_CLONE_VERSION,
-        //                                    rval,
-        //                                    &STRUCTURED_CLONE_CALLBACKS,
-        //                                    ptr::null_mut()));
-        // }
+        unsafe {
+          init_structured_clone::<TH>();
+        }
+        unsafe {
+            assert!(JS_ReadStructuredClone(cx,
+                                           data,
+                                           nbytes,
+                                           JS_STRUCTURED_CLONE_VERSION,
+                                           rval,
+                                           &STRUCTURED_CLONE_CALLBACKS,
+                                           ptr::null_mut()));
+        }
     }
 
     /// Thunk for the actual `read_clone` method. Resolves proper variant for read_clone.
