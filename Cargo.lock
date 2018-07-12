@@ -742,6 +742,10 @@ dependencies = [
 [[package]]
 name = "dom_struct"
 version = "0.0.1"
+dependencies = [
+ "quote 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "syn 0.13.1 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "domobject_derive"
@@ -2633,6 +2637,7 @@ dependencies = [
 name = "script_servoparser"
 version = "0.0.1"
 dependencies = [
+ "deny_public_fields 0.0.1",
  "dom_struct 0.0.1",
  "domobject_derive 0.0.1",
  "embedder_traits 0.0.1",

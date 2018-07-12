@@ -5,16 +5,23 @@
 #![feature(proc_macro)]
 
 extern crate proc_macro;
+extern crate syn;
+#[macro_use] extern crate quote;
 
-use proc_macro::{TokenStream, quote};
+use proc_macro::{TokenStream};
+use syn::DeriveInput;
 
 #[proc_macro_attribute]
 pub fn dom_struct(args: TokenStream, input: TokenStream) -> TokenStream {
+    let mut base = quote! {};
     if !args.is_empty() {
-        panic!("#[dom_struct] takes no arguments");
+        let args = args.to_string();
+        let crater = args.trim_matches(&['(', ')', ' '][..]);
+        base = quote! {#[base = #crater]};
     }
     let attributes = quote! {
-        #[derive(DenyPublicFields, DomObject, JSTraceable, MallocSizeOf)]
+        #[derive(DomObject, DenyPublicFields, JSTraceable, MallocSizeOf)]
+        #base
         #[must_root]
         #[repr(C)]
     };

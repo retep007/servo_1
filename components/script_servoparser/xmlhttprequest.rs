@@ -82,7 +82,7 @@ use script::dom::bindings::conversions::DerivedFrom;
 use script::dom::xmlhttprequest::Extractable;
 use script::dom::xmlhttprequest::XHRTimeoutCallbackTrait;
 use script::typeholder::TypeHolderTrait;
-
+use dom_struct::dom_struct;
 #[macro_use]
 use macros;
 
@@ -132,9 +132,7 @@ impl XHRProgress {
     }
 }
 
-#[derive(JSTraceable, MallocSizeOf)]
-#[base = "script"]
-#[must_root]
+#[dom_struct(script)]
 pub struct XMLHttpRequest {
     eventtarget: XMLHttpRequestEventTarget<TypeHolder>,
     ready_state: Cell<XMLHttpRequestState>,
@@ -176,61 +174,6 @@ pub struct XMLHttpRequest {
     referrer_policy: Option<ReferrerPolicy>,
     canceller: DomRefCell<FetchCanceller>,
 }
-
-#[allow(non_upper_case_globals)]
-const _IMPL_DOMOBJECT_FOR_XMLHttpRequest: () = {
-    impl ::js::conversions::ToJSValConvertible for XMLHttpRequest {
-        #[allow(unsafe_code)]
-        unsafe fn to_jsval(
-            &self,
-            cx: *mut ::js::jsapi::JSContext,
-            rval: ::js::rust::MutableHandleValue,
-        ) {
-            let object =
-                script::dom::bindings::reflector::DomObject::reflector(self).get_jsobject();
-            object.to_jsval(cx, rval)
-        }
-    }
-    impl script::dom::bindings::reflector::DomObject for XMLHttpRequest {
-        type TypeHolder = TypeHolder;
-        #[inline]
-        fn reflector(&self) -> &script::dom::bindings::reflector::Reflector<Self::TypeHolder> {
-            self.eventtarget.reflector()
-        }
-    }
-    impl script::dom::bindings::reflector::MutDomObject for XMLHttpRequest {
-        fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
-            self.eventtarget.init_reflector(obj);
-        }
-    }
-    impl ShouldNotImplDomObject for ((), Cell<XMLHttpRequestState>) {}
-    impl ShouldNotImplDomObject for ((), Cell<u32>) {}
-    impl ShouldNotImplDomObject for ((), Cell<bool>) {}
-    impl ShouldNotImplDomObject for ((), Dom<XMLHttpRequestUpload<TypeHolder>>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<String>) {}
-    impl ShouldNotImplDomObject for ((), Cell<u16>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<ByteString>) {}
-    impl ShouldNotImplDomObject for ((), Cell<XMLHttpRequestResponseType>) {}
-    impl ShouldNotImplDomObject for ((), MutNullableDom<Document<TypeHolder>>) {}
-    impl ShouldNotImplDomObject for ((), MutNullableDom<Blob<TypeHolder>>) {}
-    impl ShouldNotImplDomObject for ((), Heap<*mut JSObject>) {}
-    impl ShouldNotImplDomObject for ((), Heap<JSVal>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<Headers>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<Option<Mime>>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<Option<&'static Encoding>>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<Method>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<Option<ServoUrl>>) {}
-    impl ShouldNotImplDomObject for ((), Cell<usize>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<Option<OneshotTimerHandle>>) {}
-    impl ShouldNotImplDomObject for ((), Cell<i64>) {}
-    impl ShouldNotImplDomObject for ((), Cell<GenerationId>) {}
-    impl ShouldNotImplDomObject for ((), Cell<Result<(), ()>>) {}
-    impl ShouldNotImplDomObject for ((), Option<ServoUrl>) {}
-    impl ShouldNotImplDomObject for ((), Option<ReferrerPolicy>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<FetchCanceller>) {}
-    trait ShouldNotImplDomObject {}
-};
-
 
 impl Castable for XMLHttpRequest {} 
 impl DerivedFrom<EventTarget<TypeHolder>> for XMLHttpRequest {} 

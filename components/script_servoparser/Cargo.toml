@@ -42,3 +42,4 @@ servo_atoms = {path = "../atoms"}
 encoding_rs = "0.7"
 euclid = "0.17"
 log = "0.4"
+deny_public_fields = {path = "../deny_public_fields"}

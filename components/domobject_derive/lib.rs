@@ -77,34 +77,6 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
             }
         }
     };
-    if name == "IterableIterator" {
-        items = quote! {
-            impl #impl_generics ::js::conversions::ToJSValConvertible for #name #ty_generics #where_clause {
-                #[allow(unsafe_code)]
-                unsafe fn to_jsval(&self,
-                                    cx: *mut ::js::jsapi::JSContext,
-                                    rval: ::js::rust::MutableHandleValue) {
-                    let object = #base::dom::bindings::reflector::DomObject::reflector(self).get_jsobject();
-                    object.to_jsval(cx, rval)
-                }
-            }
-
-            impl #impl_generics #base::dom::bindings::reflector::DomObject for #name #ty_generics #where_clause {
-                type TypeHolder = T::TypeHolder;
-
-                #[inline]
-                fn reflector(&self) -> &#base::dom::bindings::reflector::Reflector<Self::TypeHolder> {
-                    self.#first_field_name.reflector()
-                }
-            }
-
-            impl #impl_generics #base::dom::bindings::reflector::MutDomObject for #name #ty_generics #where_clause {
-                fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
-                    self.#first_field_name.init_reflector(obj);
-                }
-            }
-        };
-    }
     let mut params = quote::Tokens::new();
     params.append_separated(input.generics.type_params().map(|param| param.ident), quote!(,));
 
@@ -113,29 +85,26 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
     // pair of all the type parameters of the DomObject and and the field type.
     // This allows us to support parameterized DOM objects
     // such as IteratorIterable<T>.
-    items.append_all(field_types.iter().map(|ty| {
-        quote! {
-            impl #impl_generics ShouldNotImplDomObject for ((#params), #ty) #where_clause {}
-        }
-    }));
+    // items.append_all(field_types.iter().map(|ty| {
+    //     quote! {
+    //         impl #impl_generics ShouldNotImplDomObject for ((#params), #ty) #where_clause {}
+    //     }
+    // }));
 
     let mut generics = input.generics.clone();
     generics.params.push(parse_quote!(__T: #base::dom::bindings::reflector::DomObject));
 
     let (impl_generics, _, where_clause) = generics.split_for_impl();
 
-    items.append_all(quote! {
-        trait ShouldNotImplDomObject {}
-        impl #impl_generics ShouldNotImplDomObject for ((#params), __T) #where_clause {}
-    });
+    // items.append_all(quote! {
+    //     trait ShouldNotImplDomObject {}
+    //     impl #impl_generics ShouldNotImplDomObject for ((#params), __T) #where_clause {}
+    // });
 
     let dummy_const = syn::Ident::from(format!("_IMPL_DOMOBJECT_FOR_{}", name));
     let tokens = quote! {
         #[allow(non_upper_case_globals)]
         const #dummy_const: () = { #items };
     };
-    if name == "DOMParser" {
-        println!("{}", tokens);
-    }
     tokens
 }

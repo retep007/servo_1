@@ -26,10 +26,9 @@ use script::dom::domparser::DOMParserTrait;
 use script::dom::bindings::utils::DOMClass;
 use script::dom::bindings::conversions::IDLInterface;
 use TypeHolder;
+use dom_struct::dom_struct;
 
-#[derive(JSTraceable, MallocSizeOf)]
-#[base = "script"]
-#[must_root]
+#[dom_struct(script)]
 pub struct DOMParser {
     reflector_: Reflector<TypeHolder>,
     window: Dom<Window<TypeHolder>>, // XXXjdm Document instead?
@@ -47,38 +46,6 @@ impl IDLInterface for DOMParser {
     }
 }
 
-#[allow(non_upper_case_globals)]
-const _IMPL_DOMOBJECT_FOR_DOMParser: () = {
-    impl ::js::conversions::ToJSValConvertible for DOMParser {
-        #[allow(unsafe_code)]
-        unsafe fn to_jsval(
-            &self,
-            cx: *mut ::js::jsapi::JSContext,
-            rval: ::js::rust::MutableHandleValue,
-        ) {
-            let object =
-                script::dom::bindings::reflector::DomObject::reflector(self).get_jsobject();
-            object.to_jsval(cx, rval)
-        }
-    }
-    impl script::dom::bindings::reflector::DomObject for DOMParser {
-        type TypeHolder = TypeHolder;
-
-        #[inline]
-        fn reflector(&self) -> &script::dom::bindings::reflector::Reflector<TypeHolder> {
-            self.reflector_.reflector()
-        }
-    }
-    impl script::dom::bindings::reflector::MutDomObject
-        for DOMParser
-    {
-        fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
-            self.reflector_.init_reflector(obj);
-        }
-    }
-    impl ShouldNotImplDomObject for ((TypeHolder), Dom<Window<TypeHolder>>) {}
-    trait ShouldNotImplDomObject {}
-};
 
 impl DOMParser {
     fn new_inherited(window: &Window<TypeHolder>) -> DOMParser {

@@ -4,6 +4,7 @@
 #![feature(plugin)]
 #![plugin(script_plugins)]
 #![cfg_attr(not(feature = "unrooted_must_root_lint"), allow(unknown_lints))]
+#![feature(proc_macro)]
 
 extern crate script;
 #[macro_use]
@@ -36,6 +37,7 @@ extern crate encoding_rs;
 extern crate euclid;
 #[macro_use]
 extern crate log;
+#[macro_use] extern crate deny_public_fields;
 
 #[macro_use]
 mod macros;
@@ -108,6 +110,7 @@ use std::mem;
 use style::context::QuirksMode as ServoQuirksMode;
 use js::jsapi::JSTracer;
 use script::dom::servoparser::TokenizerTrait;
+use dom_struct::dom_struct;
 
 #[derive(Debug, Copy, Clone, MallocSizeOf)]
 pub struct TypeHolder {
@@ -130,11 +133,6 @@ unsafe impl JSTraceable for TypeHolder {
     }
 }
 
-unsafe impl JSTraceable for ServoParser {
-    unsafe fn trace(&self, trc: *mut JSTracer) {
-    }
-}
-
 impl TypeHolderTrait for TypeHolder {
     type ServoParser = ServoParser;
     type XmlTokenizer = xml::Tokenizer;
@@ -151,47 +149,7 @@ impl IDLInterface for ServoParser {
     }
 }
 
-#[allow(non_upper_case_globals)]
-const _IMPL_DOMOBJECT_FOR_ServoParser: () = {
-    impl ::js::conversions::ToJSValConvertible for ServoParser {
-        #[allow(unsafe_code)]
-        unsafe fn to_jsval(
-            &self,
-            cx: *mut ::js::jsapi::JSContext,
-            rval: ::js::rust::MutableHandleValue,
-        ) {
-            let object =
-                script::dom::bindings::reflector::DomObject::reflector(self).get_jsobject();
-            object.to_jsval(cx, rval)
-        }
-    }
-    impl script::dom::bindings::reflector::DomObject for ServoParser {
-        type TypeHolder = TypeHolder;
-        #[inline]
-        fn reflector(&self) -> &script::dom::bindings::reflector::Reflector<Self::TypeHolder> {
-            self.reflector.reflector()
-        }
-    }
-    impl script::dom::bindings::reflector::MutDomObject for ServoParser {
-        fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
-            self.reflector.init_reflector(obj);
-        }
-    }
-    impl ShouldNotImplDomObject for ((), Dom<Document<TypeHolder>>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<BufferQueue>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<Option<IncompleteUtf8>>) {}
-    impl ShouldNotImplDomObject for ((), DomRefCell<Tokenizer<TypeHolder>>) {}
-    impl ShouldNotImplDomObject for ((), Cell<bool>) {}
-    impl ShouldNotImplDomObject for ((), Cell<usize>) {}
-    impl ShouldNotImplDomObject for ((), bool) {}
-    trait ShouldNotImplDomObject {}
-    // impl<__T: script::dom::bindings::reflector::DomObject> ShouldNotImplDomObject for ((), __T) {}
-};
-
-
-#[derive(MallocSizeOf)]
-#[must_root]
-        #[repr(C)]
+#[dom_struct(script)]
 /// The parser maintains two input streams: one for input from script through
 /// document.write(), and one for input from network.
 ///
