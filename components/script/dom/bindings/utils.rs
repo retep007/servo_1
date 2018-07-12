@@ -59,18 +59,16 @@ impl MallocSizeOf for WindowProxyHandler {
 
 #[derive(JSTraceable, MallocSizeOf)]
 /// Static data associated with a global object.
-pub struct GlobalStaticData<TH: TypeHolderTrait> {
+pub struct GlobalStaticData {
     /// The WindowProxy proxy handler for this global.
     pub windowproxy_handler: WindowProxyHandler,
-    _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> GlobalStaticData<TH> {
+impl GlobalStaticData {
     /// Creates a new GlobalStaticData.
-    pub fn new() -> GlobalStaticData<TH> {
+    pub fn new<TH: TypeHolderTrait>() -> GlobalStaticData {
         GlobalStaticData {
             windowproxy_handler: windowproxy::new_window_proxy_handler::<TH>(),
-            _p: Default::default(),
         }
     }
 }

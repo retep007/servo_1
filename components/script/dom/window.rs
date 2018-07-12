@@ -202,7 +202,7 @@ pub struct Window<TH: TypeHolderTrait + 'static> {
     parent_info: Option<PipelineId>,
 
     /// Global static data related to the DOM.
-    dom_static: GlobalStaticData<TH>,
+    dom_static: GlobalStaticData,
 
     /// The JavaScript runtime.
     #[ignore_malloc_size_of = "Rc<T> is hard"]
@@ -1824,7 +1824,7 @@ impl<TH: TypeHolderTrait> Window<TH> {
             local_storage: Default::default(),
             status: DomRefCell::new(DOMString::new()),
             parent_info,
-            dom_static: GlobalStaticData::new(),
+            dom_static: GlobalStaticData::new::<TH>(),
             js_runtime: DomRefCell::new(Some(runtime.clone())),
             bluetooth_thread,
             bluetooth_extra_permission_data: BluetoothExtraPermissionData::new(),
