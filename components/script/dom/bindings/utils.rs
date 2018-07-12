@@ -335,7 +335,7 @@ pub unsafe extern "C" fn enumerate_global<TH: TypeHolderTrait>(cx: *mut JSContex
     if !JS_EnumerateStandardClasses(cx, obj) {
         return false;
     }
-    for init_fun in InterfaceObjectMap::MAP::<TH>().values() {
+    for init_fun in InterfaceObjectMap::MAP.values() {
         init_fun(cx, Handle::from_raw(obj));
     }
     true
@@ -370,7 +370,7 @@ pub unsafe extern "C" fn resolve_global<TH: TypeHolderTrait>(
     assert!(!ptr.is_null());
     let bytes = slice::from_raw_parts(ptr, length as usize);
 
-    if let Some(init_fun) = InterfaceObjectMap::MAP::<TH>().get(bytes) {
+    if let Some(init_fun) = InterfaceObjectMap::MAP.get(bytes) {
         init_fun(cx, Handle::from_raw(obj));
         *rval = true;
     } else {

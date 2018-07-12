@@ -155,6 +155,7 @@ use js::jsapi::JSObject;
 use script_traits::SWManagerSenders;
 use serviceworker_manager::ServiceWorkerManager;
 use typeholder::TypeHolderTrait;
+use dom::bindings::codegen::InterfaceObjectMap::init_MAP;
 
 #[cfg(target_os = "linux")]
 #[allow(unsafe_code)]
@@ -216,7 +217,8 @@ pub fn init<TH: TypeHolderTrait>() {
         // bindings to implement JS proxies.
         RegisterBindings::RegisterProxyHandlers::<TH>();
 
-    js::glue::InitializeMemoryReporter(Some(is_dom_object));
+        js::glue::InitializeMemoryReporter(Some(is_dom_object));
+        init_MAP::<TH>();
     }
 
     perform_platform_specific_initialization();
