@@ -700,7 +700,7 @@ unsafe extern fn set_tHead<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTHead(arg0.r());
+        let result: Result<(), Error> = this.SetTHead(arg0.r());
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -858,7 +858,7 @@ unsafe extern fn set_tFoot<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTFoot(arg0.r());
+        let result: Result<(), Error> = this.SetTFoot(arg0.r());
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1090,7 +1090,7 @@ unsafe extern fn insertRow<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<DomRoot<HTMLTableRowElement<TH>>, Error<TH>> = this.InsertRow(arg0);
+        let result: Result<DomRoot<HTMLTableRowElement<TH>>, Error> = this.InsertRow(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1146,7 +1146,7 @@ unsafe extern fn deleteRow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.DeleteRow(arg0);
+        let result: Result<(), Error> = this.DeleteRow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1448,18 +1448,18 @@ pub trait HTMLTableElementMethods<TH: TypeHolderTrait> {
     fn CreateCaption(&self) -> DomRoot<HTMLTableCaptionElement<TH>>;
     fn DeleteCaption(&self) -> ();
     fn GetTHead(&self) -> Option<DomRoot<HTMLTableSectionElement<TH>>>;
-    fn SetTHead(&self, value: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult<TH>;
+    fn SetTHead(&self, value: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult;
     fn CreateTHead(&self) -> DomRoot<HTMLTableSectionElement<TH>>;
     fn DeleteTHead(&self) -> ();
     fn GetTFoot(&self) -> Option<DomRoot<HTMLTableSectionElement<TH>>>;
-    fn SetTFoot(&self, value: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult<TH>;
+    fn SetTFoot(&self, value: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult;
     fn CreateTFoot(&self) -> DomRoot<HTMLTableSectionElement<TH>>;
     fn DeleteTFoot(&self) -> ();
     fn TBodies(&self) -> DomRoot<HTMLCollection<TH>>;
     fn CreateTBody(&self) -> DomRoot<HTMLTableSectionElement<TH>>;
     fn Rows(&self) -> DomRoot<HTMLCollection<TH>>;
-    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLTableRowElement<TH>>, TH>;
-    fn DeleteRow(&self, index: i32) -> Fallible<(), TH>;
+    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLTableRowElement<TH>>>;
+    fn DeleteRow(&self, index: i32) -> Fallible<()>;
     fn Width(&self) -> DOMString;
     fn SetWidth(&self, value: DOMString) -> ();
     fn BgColor(&self) -> DOMString;
@@ -1681,7 +1681,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLTableElement<TH>>, Error<TH>> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLTableElement<TH>>, Error> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

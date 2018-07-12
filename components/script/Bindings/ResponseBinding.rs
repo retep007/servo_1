@@ -715,7 +715,7 @@ unsafe extern fn redirect<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<DomRoot<Response<TH>>, Error<TH>> = Response::Redirect(&global, arg0, arg1);
+        let result: Result<DomRoot<Response<TH>>, Error> = Response::Redirect(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -945,7 +945,7 @@ unsafe extern fn clone<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<DomRoot<Response<TH>>, Error<TH>> = this.Clone();
+        let result: Result<DomRoot<Response<TH>>, Error> = this.Clone();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1285,7 +1285,7 @@ pub trait ResponseMethods<TH: TypeHolderTrait> {
     fn Ok(&self) -> bool;
     fn StatusText(&self) -> ByteString;
     fn Headers(&self) -> DomRoot<Headers<TH>>;
-    fn Clone(&self) -> Fallible<DomRoot<Response<TH>>, TH>;
+    fn Clone(&self) -> Fallible<DomRoot<Response<TH>>>;
     fn BodyUsed(&self) -> bool;
     fn ArrayBuffer(&self) -> Rc<Promise<TH>>;
     fn Blob(&self) -> Rc<Promise<TH>>;
@@ -1500,7 +1500,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<Response<TH>>, Error<TH>> = Response::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<Response<TH>>, Error> = Response::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

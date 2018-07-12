@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> DOMQuad<TH> {
                        p2: &DOMPointInit,
                        p3: &DOMPointInit,
                        p4: &DOMPointInit)
-                       -> Fallible<DomRoot<DOMQuad<TH>>, TH> {
+                       -> Fallible<DomRoot<DOMQuad<TH>>> {
         Ok(DOMQuad::new(global,
                         &*DOMPoint::new_from_init(global, p1),
                         &*DOMPoint::new_from_init(global, p2),

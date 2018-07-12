@@ -277,7 +277,7 @@ impl<TH: TypeHolderTrait> EventHandlerNonNull<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject>(&self, thisObj: &T, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal, TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -287,13 +287,13 @@ impl<TH: TypeHolderTrait> EventHandlerNonNull<TH> {
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), event) }
     }
 
-    pub fn Call__(&self, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal, TH> {
+    pub fn Call__(&self, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), event) }
     }
 
-    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, event: &Event<TH>) -> Fallible<JSVal, TH> {
+    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, event: &Event<TH>) -> Fallible<JSVal> {
         rooted!(in(cx) let mut rval = UndefinedValue());
         rooted_vec!(let mut argv);
         argv.extend((0..1).map(|_| Heap::default()));
@@ -360,7 +360,7 @@ impl<TH: TypeHolderTrait> OnErrorEventHandlerNonNull<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject>(&self, thisObj: &T, event: UnionTypes::EventOrString<TH>, source: Option<DOMString>, lineno: Option<u32>, column: Option<u32>, error: Option<HandleValue>, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal, TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, event: UnionTypes::EventOrString<TH>, source: Option<DOMString>, lineno: Option<u32>, column: Option<u32>, error: Option<HandleValue>, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -370,13 +370,13 @@ impl<TH: TypeHolderTrait> OnErrorEventHandlerNonNull<TH> {
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), event, source, lineno, column, error) }
     }
 
-    pub fn Call__(&self, event: UnionTypes::EventOrString<TH>, source: Option<DOMString>, lineno: Option<u32>, column: Option<u32>, error: Option<HandleValue>, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal, TH> {
+    pub fn Call__(&self, event: UnionTypes::EventOrString<TH>, source: Option<DOMString>, lineno: Option<u32>, column: Option<u32>, error: Option<HandleValue>, aExceptionHandling: ExceptionHandling) -> Fallible<JSVal> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), event, source, lineno, column, error) }
     }
 
-    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, event: UnionTypes::EventOrString<TH>, source: Option<DOMString>, lineno: Option<u32>, column: Option<u32>, error: Option<HandleValue>) -> Fallible<JSVal, TH> {
+    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, event: UnionTypes::EventOrString<TH>, source: Option<DOMString>, lineno: Option<u32>, column: Option<u32>, error: Option<HandleValue>) -> Fallible<JSVal> {
         rooted!(in(cx) let mut rval = UndefinedValue());
         rooted_vec!(let mut argv);
         argv.extend((0..5).map(|_| Heap::default()));
@@ -503,7 +503,7 @@ impl<TH: TypeHolderTrait> OnBeforeUnloadEventHandlerNonNull<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject>(&self, thisObj: &T, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<Option<DOMString>, TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<Option<DOMString>> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -513,13 +513,13 @@ impl<TH: TypeHolderTrait> OnBeforeUnloadEventHandlerNonNull<TH> {
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), event) }
     }
 
-    pub fn Call__(&self, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<Option<DOMString>, TH> {
+    pub fn Call__(&self, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<Option<DOMString>> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), event) }
     }
 
-    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, event: &Event<TH>) -> Fallible<Option<DOMString>, TH> {
+    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, event: &Event<TH>) -> Fallible<Option<DOMString>> {
         rooted!(in(cx) let mut rval = UndefinedValue());
         rooted_vec!(let mut argv);
         argv.extend((0..1).map(|_| Heap::default()));

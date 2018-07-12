@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> URL<TH> {
     // https://url.spec.whatwg.org/#constructors
     pub fn Constructor(global: &GlobalScope<TH>, url: USVString,
                        base: Option<USVString>)
-                       -> Fallible<DomRoot<URL<TH>>, TH> {
+                       -> Fallible<DomRoot<URL<TH>>> {
         let parsed_base = match base {
             None => {
                 // Step 1.
@@ -183,7 +183,7 @@ impl<TH: TypeHolderTrait> URLMethods<TH> for URL<TH> {
     }
 
     // https://url.spec.whatwg.org/#dom-url-href
-    fn SetHref(&self, value: USVString) -> ErrorResult<TH> {
+    fn SetHref(&self, value: USVString) -> ErrorResult {
         match ServoUrl::parse(&value.0) {
             Ok(url) => {
                 *self.url.borrow_mut() = url;

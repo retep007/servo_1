@@ -93,7 +93,7 @@ impl<TH: TypeHolderTrait> CSSStyleSheet<TH> {
 
 impl<TH: TypeHolderTrait> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-cssrules
-    fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList<TH>>, TH> {
+    fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList<TH>>> {
         if !self.origin_clean.get() {
             return Err(Error::Security);
         }
@@ -101,7 +101,7 @@ impl<TH: TypeHolderTrait> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-insertrule
-    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32, TH> {
+    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32> {
         if !self.origin_clean.get() {
             return Err(Error::Security);
         }
@@ -109,7 +109,7 @@ impl<TH: TypeHolderTrait> CSSStyleSheetMethods<TH> for CSSStyleSheet<TH> {
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssstylesheet-deleterule
-    fn DeleteRule(&self, index: u32) -> ErrorResult<TH> {
+    fn DeleteRule(&self, index: u32) -> ErrorResult {
         if !self.origin_clean.get() {
             return Err(Error::Security);
         }

@@ -361,7 +361,7 @@ impl<TH: TypeHolderTrait> PerformanceObserverCallback<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject>(&self, thisObj: &T, entries: &PerformanceObserverEntryList<TH>, observer: &PerformanceObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, entries: &PerformanceObserverEntryList<TH>, observer: &PerformanceObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -371,13 +371,13 @@ impl<TH: TypeHolderTrait> PerformanceObserverCallback<TH> {
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), entries, observer) }
     }
 
-    pub fn Call__(&self, entries: &PerformanceObserverEntryList<TH>, observer: &PerformanceObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call__(&self, entries: &PerformanceObserverEntryList<TH>, observer: &PerformanceObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), entries, observer) }
     }
 
-    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, entries: &PerformanceObserverEntryList<TH>, observer: &PerformanceObserver<TH>) -> Fallible<(), TH> {
+    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, entries: &PerformanceObserverEntryList<TH>, observer: &PerformanceObserver<TH>) -> Fallible<()> {
         rooted!(in(cx) let mut rval = UndefinedValue());
         rooted_vec!(let mut argv);
         argv.extend((0..2).map(|_| Heap::default()));
@@ -710,7 +710,7 @@ unsafe extern fn observe<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.Observe(&arg0);
+        let result: Result<(), Error> = this.Observe(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -885,7 +885,7 @@ impl<TH: TypeHolderTrait> PartialEq for PerformanceObserver<TH> {
 }
 
 pub trait PerformanceObserverMethods<TH: TypeHolderTrait> {
-    fn Observe(&self, options: &dom::bindings::codegen::Bindings::PerformanceObserverBinding::PerformanceObserverInit) -> Fallible<(), TH>;
+    fn Observe(&self, options: &dom::bindings::codegen::Bindings::PerformanceObserverBinding::PerformanceObserverInit) -> Fallible<()>;
     fn Disconnect(&self) -> ();
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
@@ -968,7 +968,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<DomRoot<PerformanceObserver<TH>>, Error<TH>> = PerformanceObserver::Constructor(&global, arg0);
+        let result: Result<DomRoot<PerformanceObserver<TH>>, Error> = PerformanceObserver::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

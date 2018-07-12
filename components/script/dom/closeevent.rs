@@ -62,7 +62,7 @@ impl<TH: TypeHolderTrait> CloseEvent<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
                        init: &CloseEventBinding::CloseEventInit)
-                       -> Fallible<DomRoot<CloseEvent<TH>>, TH> {
+                       -> Fallible<DomRoot<CloseEvent<TH>>> {
         let bubbles = EventBubbles::from(init.parent.bubbles);
         let cancelable = EventCancelable::from(init.parent.cancelable);
         Ok(CloseEvent::new(global,

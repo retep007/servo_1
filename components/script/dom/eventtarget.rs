@@ -304,7 +304,7 @@ impl<TH: TypeHolderTrait> EventTarget<TH> {
                            Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<EventTarget<TH>>, TH> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<EventTarget<TH>>> {
         Ok(EventTarget::new(global))
     }
 
@@ -684,7 +684,7 @@ impl<TH: TypeHolderTrait> EventTargetMethods<TH> for EventTarget<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-eventtarget-dispatchevent
-    fn DispatchEvent(&self, event: &Event<TH>) -> Fallible<bool, TH> {
+    fn DispatchEvent(&self, event: &Event<TH>) -> Fallible<bool> {
         if event.dispatching() || !event.initialized() {
             return Err(Error::InvalidState);
         }

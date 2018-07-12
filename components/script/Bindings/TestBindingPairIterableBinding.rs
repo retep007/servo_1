@@ -943,7 +943,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<TestBindingPairIterable<TH>>, Error<TH>> = TestBindingPairIterable::Constructor(&global);
+        let result: Result<DomRoot<TestBindingPairIterable<TH>>, Error> = TestBindingPairIterable::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1303,7 +1303,7 @@ unsafe extern fn next<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<NonNull<JSObject>, Error<TH>> = this.Next(cx);
+        let result: Result<NonNull<JSObject>, Error> = this.Next(cx);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1446,7 +1446,7 @@ impl<TH: TypeHolderTrait> PartialEq for IterableIterator<TestBindingPairIterable
 }
 
 pub trait TestBindingPairIterableIteratorMethods<TH: TypeHolderTrait> {
-    unsafe fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>, TH>;
+    unsafe fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

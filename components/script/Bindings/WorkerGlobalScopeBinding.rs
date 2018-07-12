@@ -672,7 +672,7 @@ unsafe extern fn importScripts<TH: TypeHolderTrait>
                 arg0.push(slot);
             }
         }
-        let result: Result<(), Error<TH>> = this.ImportScripts(arg0);
+        let result: Result<(), Error> = this.ImportScripts(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -842,7 +842,7 @@ unsafe extern fn btoa<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error<TH>> = this.Btoa(arg0);
+        let result: Result<DOMString, Error> = this.Btoa(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -896,7 +896,7 @@ unsafe extern fn atob<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error<TH>> = this.Atob(arg0);
+        let result: Result<DOMString, Error> = this.Atob(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1702,12 +1702,12 @@ pub trait WorkerGlobalScopeMethods<TH: TypeHolderTrait> {
     fn Location(&self) -> DomRoot<WorkerLocation<TH>>;
     fn GetOnerror(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::OnErrorEventHandlerNonNull<TH>>>;
     fn SetOnerror(&self, value: Option<Rc<OnErrorEventHandlerNonNull<TH>>>) -> ();
-    fn ImportScripts(&self, urls: Vec<DOMString>) -> Fallible<(), TH>;
+    fn ImportScripts(&self, urls: Vec<DOMString>) -> Fallible<()>;
     fn Navigator(&self) -> DomRoot<WorkerNavigator<TH>>;
     fn Crypto(&self) -> DomRoot<Crypto<TH>>;
     fn Origin(&self) -> USVString;
-    fn Btoa(&self, data: DOMString) -> Fallible<DOMString, TH>;
-    fn Atob(&self, data: DOMString) -> Fallible<DOMString, TH>;
+    fn Btoa(&self, data: DOMString) -> Fallible<DOMString>;
+    fn Atob(&self, data: DOMString) -> Fallible<DOMString>;
     unsafe fn SetTimeout(&self, cx: *mut JSContext, handler: Rc<Function<TH>>, timeout: i32, arguments: Vec<HandleValue>) -> i32;
     unsafe fn SetTimeout_(&self, cx: *mut JSContext, handler: DOMString, timeout: i32, arguments: Vec<HandleValue>) -> i32;
     fn ClearTimeout(&self, handle: i32) -> ();

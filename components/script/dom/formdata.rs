@@ -53,7 +53,7 @@ impl<TH: TypeHolderTrait> FormData<TH> {
                            global, FormDataWrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>, form: Option<&HTMLFormElement<TH>>) -> Fallible<DomRoot<FormData<TH>>, TH> {
+    pub fn Constructor(global: &GlobalScope<TH>, form: Option<&HTMLFormElement<TH>>) -> Fallible<DomRoot<FormData<TH>>> {
         // TODO: Construct form data set for form if it is supplied
         Ok(FormData::new(form, global))
     }

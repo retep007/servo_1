@@ -36,7 +36,7 @@ impl<TH: TypeHolderTrait> Text<TH> {
                            document, TextBinding::Wrap)
     }
 
-    pub fn Constructor(window: &Window<TH>, text: DOMString) -> Fallible<DomRoot<Text<TH>>, TH> {
+    pub fn Constructor(window: &Window<TH>, text: DOMString) -> Fallible<DomRoot<Text<TH>>> {
         let document = window.Document();
         Ok(Text::new(text, &document))
     }
@@ -45,7 +45,7 @@ impl<TH: TypeHolderTrait> Text<TH> {
 impl<TH: TypeHolderTrait> TextMethods<TH> for Text<TH> {
     // https://dom.spec.whatwg.org/#dom-text-splittext
     // https://dom.spec.whatwg.org/#concept-text-split
-    fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text<TH>>, TH> {
+    fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text<TH>>> {
         let cdata = self.upcast::<CharacterData<TH>>();
         // Step 1.
         let length = cdata.Length();

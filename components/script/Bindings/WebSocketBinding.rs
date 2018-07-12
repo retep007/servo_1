@@ -890,7 +890,7 @@ unsafe extern fn close<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<(), Error<TH>> = this.Close(arg0, arg1);
+        let result: Result<(), Error> = this.Close(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1069,7 +1069,7 @@ unsafe extern fn send<TH: TypeHolderTrait>
                         }
                     }
                     ;
-                    let result: Result<(), Error<TH>> = this.Send_(&arg0);
+                    let result: Result<(), Error> = this.Send_(&arg0);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -1090,7 +1090,7 @@ unsafe extern fn send<TH: TypeHolderTrait>
                     }
                     ;
                     auto_root!(in(cx) let arg0 = arg0);
-                    let result: Result<(), Error<TH>> = this.Send__(arg0);
+                    let result: Result<(), Error> = this.Send__(arg0);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -1111,7 +1111,7 @@ unsafe extern fn send<TH: TypeHolderTrait>
                     }
                     ;
                     auto_root!(in(cx) let arg0 = arg0);
-                    let result: Result<(), Error<TH>> = this.Send___(arg0);
+                    let result: Result<(), Error> = this.Send___(arg0);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -1134,7 +1134,7 @@ unsafe extern fn send<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error<TH>> = this.Send(arg0);
+                let result: Result<(), Error> = this.Send(arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1299,15 +1299,15 @@ pub trait WebSocketMethods<TH: TypeHolderTrait> {
     fn GetOnclose(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnclose(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
     fn Protocol(&self) -> DOMString;
-    fn Close(&self, code: Option<u16>, reason: Option<USVString>) -> Fallible<(), TH>;
+    fn Close(&self, code: Option<u16>, reason: Option<USVString>) -> Fallible<()>;
     fn GetOnmessage(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnmessage(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
     fn BinaryType(&self) -> BinaryType;
     fn SetBinaryType(&self, value: BinaryType) -> ();
-    fn Send(&self, data: USVString) -> Fallible<(), TH>;
-    fn Send_(&self, data: &Blob<TH>) -> Fallible<(), TH>;
-    fn Send__(&self, data: CustomAutoRooterGuard<typedarray::ArrayBuffer>) -> Fallible<(), TH>;
-    fn Send___(&self, data: CustomAutoRooterGuard<typedarray::ArrayBufferView>) -> Fallible<(), TH>;
+    fn Send(&self, data: USVString) -> Fallible<()>;
+    fn Send_(&self, data: &Blob<TH>) -> Fallible<()>;
+    fn Send__(&self, data: CustomAutoRooterGuard<typedarray::ArrayBuffer>) -> Fallible<()>;
+    fn Send___(&self, data: CustomAutoRooterGuard<typedarray::ArrayBufferView>) -> Fallible<()>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
@@ -1478,7 +1478,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<DomRoot<WebSocket<TH>>, Error<TH>> = WebSocket::Constructor(&global, arg0, arg1);
+        let result: Result<DomRoot<WebSocket<TH>>, Error> = WebSocket::Constructor(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

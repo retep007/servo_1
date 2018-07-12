@@ -380,7 +380,7 @@ impl ServoParserTrait<TypeHolder> for ServoParser {
             input.push_back(String::from(chunk).into());
         }
 
-        self.tokenize(|tokenizer| tokenizer.feed(&mut input));
+        self.tokenize(|tokenizer: &mut Tokenizer<TypeHolder>| tokenizer.feed(&mut input));
 
         if self.suspended.get() {
             // Parser got suspended, insert remaining input at end of
@@ -512,7 +512,7 @@ impl ServoParserTrait<TypeHolder> for ServoParser {
                 self.network_input.borrow_mut().push_back(StrTendril::from("\u{FFFD}"))
             }
         }
-        self.tokenize(|tokenizer| tokenizer.feed(&mut *self.network_input.borrow_mut()));
+        self.tokenize(|tokenizer: &mut Tokenizer<TypeHolder>| tokenizer.feed(&mut *self.network_input.borrow_mut()));
 
         if self.suspended.get() {
             return;

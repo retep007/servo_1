@@ -664,7 +664,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<Comment<TH>>, Error<TH>> = Comment::Constructor(&global, arg0);
+        let result: Result<DomRoot<Comment<TH>>, Error> = Comment::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

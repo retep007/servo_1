@@ -42,7 +42,7 @@ impl<TH: TypeHolderTrait> TestWorklet<TH> {
         reflect_dom_object(Box::new(TestWorklet::new_inherited(&*worklet)), window, Wrap)
     }
 
-    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<TestWorklet<TH>>, TH> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<TestWorklet<TH>>> {
         Ok(TestWorklet::new(window))
     }
 }

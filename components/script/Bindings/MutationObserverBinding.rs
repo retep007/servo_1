@@ -480,7 +480,7 @@ impl<TH: TypeHolderTrait> MutationCallback<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject>(&self, thisObj: &T, mutations: Vec<DomRoot<MutationRecord<TH>>>, observer: &MutationObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, mutations: Vec<DomRoot<MutationRecord<TH>>>, observer: &MutationObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -490,13 +490,13 @@ impl<TH: TypeHolderTrait> MutationCallback<TH> {
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), mutations, observer) }
     }
 
-    pub fn Call__(&self, mutations: Vec<DomRoot<MutationRecord<TH>>>, observer: &MutationObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call__(&self, mutations: Vec<DomRoot<MutationRecord<TH>>>, observer: &MutationObserver<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), mutations, observer) }
     }
 
-    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, mutations: Vec<DomRoot<MutationRecord<TH>>>, observer: &MutationObserver<TH>) -> Fallible<(), TH> {
+    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, mutations: Vec<DomRoot<MutationRecord<TH>>>, observer: &MutationObserver<TH>) -> Fallible<()> {
         rooted!(in(cx) let mut rval = UndefinedValue());
         rooted_vec!(let mut argv);
         argv.extend((0..2).map(|_| Heap::default()));
@@ -851,7 +851,7 @@ unsafe extern fn observe<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<(), Error<TH>> = this.Observe(&arg0, &arg1);
+        let result: Result<(), Error> = this.Observe(&arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -994,7 +994,7 @@ impl<TH: TypeHolderTrait> PartialEq for MutationObserver<TH> {
 }
 
 pub trait MutationObserverMethods<TH: TypeHolderTrait> {
-    fn Observe(&self, target: &Node<TH>, options: &dom::bindings::codegen::Bindings::MutationObserverBinding::MutationObserverInit) -> Fallible<(), TH>;
+    fn Observe(&self, target: &Node<TH>, options: &dom::bindings::codegen::Bindings::MutationObserverBinding::MutationObserverInit) -> Fallible<()>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
@@ -1070,7 +1070,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<DomRoot<MutationObserver<TH>>, Error<TH>> = MutationObserver::Constructor(&global, arg0);
+        let result: Result<DomRoot<MutationObserver<TH>>, Error> = MutationObserver::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

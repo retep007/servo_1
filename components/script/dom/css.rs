@@ -27,7 +27,7 @@ pub struct CSS<TH: TypeHolderTrait + 'static> {
 
 impl<TH: TypeHolderTrait> CSS<TH> {
     /// <http://dev.w3.org/csswg/cssom/#serialize-an-identifier>
-    pub fn Escape(_: &Window<TH>, ident: DOMString) -> Fallible<DOMString, TH> {
+    pub fn Escape(_: &Window<TH>, ident: DOMString) -> Fallible<DOMString> {
         let mut escaped = String::new();
         serialize_identifier(&ident, &mut escaped).unwrap();
         Ok(DOMString::from(escaped))

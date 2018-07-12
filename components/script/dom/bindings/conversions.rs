@@ -486,11 +486,11 @@ pub unsafe fn is_array_like(cx: *mut JSContext, value: HandleValue) -> bool {
 }
 
 /// Get a property from a JS object.
-pub unsafe fn get_property_jsval<TH: TypeHolderTrait>(cx: *mut JSContext,
+pub unsafe fn get_property_jsval(cx: *mut JSContext,
                                  object: HandleObject,
                                  name: &str,
                                  mut rval: MutableHandleValue)
-                                 -> Fallible<(), TH>
+                                 -> Fallible<()>
 {
     rval.set(UndefinedValue());
     let cname = match ffi::CString::new(name) {
@@ -505,13 +505,12 @@ pub unsafe fn get_property_jsval<TH: TypeHolderTrait>(cx: *mut JSContext,
 }
 
 /// Get a property from a JS object, and convert it to a Rust value.
-pub unsafe fn get_property<T, TH>(cx: *mut JSContext,
+pub unsafe fn get_property<T>(cx: *mut JSContext,
                               object: HandleObject,
                               name: &str,
                               option: T::Config)
-                              -> Fallible<Option<T>, TH> where
-    T: FromJSValConvertible,
-    TH: TypeHolderTrait
+                              -> Fallible<Option<T>> where
+    T: FromJSValConvertible
 {
     debug!("Getting property {}.", name);
     rooted!(in(cx) let mut result = UndefinedValue());

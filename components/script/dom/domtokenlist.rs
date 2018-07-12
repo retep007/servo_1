@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> DOMTokenList<TH> {
         self.element.get_attribute(&ns!(), &self.local_name)
     }
 
-    fn check_token_exceptions(&self, token: &str) -> Fallible<Atom, TH> {
+    fn check_token_exceptions(&self, token: &str) -> Fallible<Atom> {
         match token {
             "" => Err(Error::Syntax),
             slice if slice.find(HTML_SPACE_CHARACTERS).is_some() => Err(Error::InvalidCharacter),
@@ -82,7 +82,7 @@ impl<TH: TypeHolderTrait> DOMTokenListMethods<TH> for DOMTokenList<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-add
-    fn Add(&self, tokens: Vec<DOMString>) -> ErrorResult<TH> {
+    fn Add(&self, tokens: Vec<DOMString>) -> ErrorResult {
         let mut atoms = self.element.get_tokenlist_attribute(&self.local_name);
         for token in &tokens {
             let token = self.check_token_exceptions(&token)?;
@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> DOMTokenListMethods<TH> for DOMTokenList<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-remove
-    fn Remove(&self, tokens: Vec<DOMString>) -> ErrorResult<TH> {
+    fn Remove(&self, tokens: Vec<DOMString>) -> ErrorResult {
         let mut atoms = self.element.get_tokenlist_attribute(&self.local_name);
         for token in &tokens {
             let token = self.check_token_exceptions(&token)?;
@@ -106,7 +106,7 @@ impl<TH: TypeHolderTrait> DOMTokenListMethods<TH> for DOMTokenList<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-toggle
-    fn Toggle(&self, token: DOMString, force: Option<bool>) -> Fallible<bool, TH> {
+    fn Toggle(&self, token: DOMString, force: Option<bool>) -> Fallible<bool> {
         let mut atoms = self.element.get_tokenlist_attribute(&self.local_name);
         let token = self.check_token_exceptions(&token)?;
         match atoms.iter().position(|atom| *atom == token) {
@@ -140,7 +140,7 @@ impl<TH: TypeHolderTrait> DOMTokenListMethods<TH> for DOMTokenList<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-domtokenlist-replace
-    fn Replace(&self, token: DOMString, new_token: DOMString) -> ErrorResult<TH> {
+    fn Replace(&self, token: DOMString, new_token: DOMString) -> ErrorResult {
         if token.is_empty() || new_token.is_empty() {
             // Step 1.
             return Err(Error::Syntax);

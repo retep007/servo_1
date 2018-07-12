@@ -38,7 +38,7 @@ pub trait PermissionAlgorithm<TH: TypeHolderTrait + 'static> {
     type Status;
     fn create_descriptor(cx: *mut JSContext,
                          permission_descriptor_obj: *mut JSObject)
-                         -> Result<Self::Descriptor, Error<TH>>;
+                         -> Result<Self::Descriptor, Error>;
     fn permission_query(cx: *mut JSContext, promise: &Rc<Promise<TH>>,
                         descriptor: &Self::Descriptor, status: &Self::Status);
     fn permission_request(cx: *mut JSContext, promise: &Rc<Promise<TH>>,
@@ -56,14 +56,12 @@ enum Operation {
 #[dom_struct]
 pub struct Permissions<TH: TypeHolderTrait + 'static> {
     reflector_: Reflector<TH>,
-    _p: PhantomData<TH>,
 }
 
 impl<TH: TypeHolderTrait> Permissions<TH> {
     pub fn new_inherited() -> Permissions<TH> {
         Permissions {
             reflector_: Reflector::new(),
-            _p: Default::default(),
         }
     }
 
@@ -90,7 +88,7 @@ impl<TH: TypeHolderTrait> Permissions<TH> {
         };
 
         // (Query, Request, Revoke) Step 1.
-        let root_desc = match Permissions::create_descriptor(cx, permissionDesc) {
+        let root_desc = match Permissions::<TH>::create_descriptor(cx, permissionDesc) {
             Ok(descriptor) => descriptor,
             Err(error) => {
                 p.reject_error(error);
@@ -104,7 +102,7 @@ impl<TH: TypeHolderTrait> Permissions<TH> {
         // (Query, Request, Revoke) Step 2.
         match root_desc.name {
             PermissionName::Bluetooth => {
-                let bluetooth_desc = match Bluetooth::create_descriptor(cx, permissionDesc) {
+                let bluetooth_desc = match Bluetooth::<TH>::create_descriptor(cx, permissionDesc) {
                     Ok(descriptor) => descriptor,
                     Err(error) => {
                         p.reject_error(error);
@@ -208,7 +206,7 @@ impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Permissions<TH> {
     #[allow(unsafe_code)]
     fn create_descriptor(cx: *mut JSContext,
                          permission_descriptor_obj: *mut JSObject)
-                         -> Result<PermissionDescriptor, Error<TH>> {
+                         -> Result<PermissionDescriptor, Error> {
         rooted!(in(cx) let mut property = UndefinedValue());
         property.handle_mut().set(ObjectValue(permission_descriptor_obj));
         unsafe {

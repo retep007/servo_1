@@ -534,7 +534,7 @@ unsafe extern fn set_name<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetName(arg0);
+        let result: Result<(), Error> = this.SetName(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -866,7 +866,7 @@ impl<TH: TypeHolderTrait> PartialEq for CSSKeyframesRule<TH> {
 
 pub trait CSSKeyframesRuleMethods<TH: TypeHolderTrait> {
     fn Name(&self) -> DOMString;
-    fn SetName(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetName(&self, value: DOMString) -> ErrorResult;
     fn CssRules(&self) -> DomRoot<CSSRuleList<TH>>;
     fn AppendRule(&self, rule: DOMString) -> ();
     fn DeleteRule(&self, select: DOMString) -> ();

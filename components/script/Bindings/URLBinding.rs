@@ -532,7 +532,7 @@ unsafe extern fn set_href<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetHref(arg0);
+        let result: Result<(), Error> = this.SetHref(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1472,7 +1472,7 @@ impl<TH: TypeHolderTrait> PartialEq for URL<TH> {
 
 pub trait URLMethods<TH: TypeHolderTrait> {
     fn Href(&self) -> USVString;
-    fn SetHref(&self, value: USVString) -> ErrorResult<TH>;
+    fn SetHref(&self, value: USVString) -> ErrorResult;
     fn Origin(&self) -> USVString;
     fn Protocol(&self) -> USVString;
     fn SetProtocol(&self, value: USVString) -> ();
@@ -1693,7 +1693,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<DomRoot<URL<TH>>, Error<TH>> = URL::Constructor(&global, arg0, arg1);
+        let result: Result<DomRoot<URL<TH>>, Error> = URL::Constructor(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

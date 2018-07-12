@@ -542,7 +542,7 @@ unsafe extern fn registerPaint<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error<TH>> = this.RegisterPaint(arg0, arg1);
+        let result: Result<(), Error> = this.RegisterPaint(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -751,7 +751,7 @@ impl<TH: TypeHolderTrait> PartialEq for PaintWorkletGlobalScope<TH> {
 }
 
 pub trait PaintWorkletGlobalScopeMethods<TH: TypeHolderTrait> {
-    fn RegisterPaint(&self, name: DOMString, paintCtor: Rc<VoidFunction<TH>>) -> Fallible<(), TH>;
+    fn RegisterPaint(&self, name: DOMString, paintCtor: Rc<VoidFunction<TH>>) -> Fallible<()>;
     fn Sleep(&self, ms: u64) -> ();
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[

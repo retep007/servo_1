@@ -750,7 +750,7 @@ unsafe extern fn toDataURL<TH: TypeHolderTrait>
                 arg1.push(slot);
             }
         }
-        let result: Result<DOMString, Error<TH>> = this.ToDataURL(cx, arg0, arg1);
+        let result: Result<DOMString, Error> = this.ToDataURL(cx, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -898,7 +898,7 @@ pub trait HTMLCanvasElementMethods<TH: TypeHolderTrait> {
     fn Height(&self) -> u32;
     fn SetHeight(&self, value: u32) -> ();
     unsafe fn GetContext(&self, cx: *mut JSContext, contextId: DOMString, arguments: Vec<HandleValue>) -> Option<UnionTypes::CanvasRenderingContext2DOrWebGLRenderingContextOrWebGL2RenderingContext<TH>>;
-    unsafe fn ToDataURL(&self, cx: *mut JSContext, type_: Option<DOMString>, arguments: Vec<HandleValue>) -> Fallible<DOMString, TH>;
+    unsafe fn ToDataURL(&self, cx: *mut JSContext, type_: Option<DOMString>, arguments: Vec<HandleValue>) -> Fallible<DOMString>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
@@ -1037,7 +1037,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLCanvasElement<TH>>, Error<TH>> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLCanvasElement<TH>>, Error> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

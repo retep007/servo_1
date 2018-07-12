@@ -61,24 +61,24 @@ impl<TH: TypeHolderTrait> NamedNodeMapMethods<TH> for NamedNodeMap<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-namednodemap-setnameditem
-    fn SetNamedItem(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>, TH> {
+    fn SetNamedItem(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>> {
         self.owner.SetAttributeNode(attr)
     }
 
     // https://dom.spec.whatwg.org/#dom-namednodemap-setnameditemns
-    fn SetNamedItemNS(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>, TH> {
+    fn SetNamedItemNS(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>> {
         self.SetNamedItem(attr)
     }
 
     // https://dom.spec.whatwg.org/#dom-namednodemap-removenameditem
-    fn RemoveNamedItem(&self, name: DOMString) -> Fallible<DomRoot<Attr<TH>>, TH> {
+    fn RemoveNamedItem(&self, name: DOMString) -> Fallible<DomRoot<Attr<TH>>> {
         let name = self.owner.parsed_name(name);
         self.owner.remove_attribute_by_name(&name).ok_or(Error::NotFound)
     }
 
     // https://dom.spec.whatwg.org/#dom-namednodemap-removenameditemns
     fn RemoveNamedItemNS(&self, namespace: Option<DOMString>, local_name: DOMString)
-                      -> Fallible<DomRoot<Attr<TH>>, TH> {
+                      -> Fallible<DomRoot<Attr<TH>>> {
         let ns = namespace_from_domstring(namespace);
         self.owner.remove_attribute(&ns, &LocalName::from(local_name))
             .ok_or(Error::NotFound)

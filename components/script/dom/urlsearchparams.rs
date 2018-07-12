@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> URLSearchParams<TH> {
 
     // https://url.spec.whatwg.org/#dom-urlsearchparams-urlsearchparams
     pub fn Constructor(global: &GlobalScope<TH>, init: Option<USVStringOrURLSearchParams<TH>>) ->
-                       Fallible<DomRoot<URLSearchParams<TH>>, TH> {
+                       Fallible<DomRoot<URLSearchParams<TH>>> {
         // Step 1.
         let query = URLSearchParams::new(global, None);
         match init {

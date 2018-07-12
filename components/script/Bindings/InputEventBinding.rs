@@ -928,7 +928,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<InputEvent<TH>>, Error<TH>> = InputEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<InputEvent<TH>>, Error> = InputEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

@@ -1198,10 +1198,10 @@ impl<TH: TypeHolderTrait> Drop for WebGLRenderingContext<TH> {
 }
 
 #[allow(unsafe_code)]
-unsafe fn fallible_array_buffer_view_to_vec<TH: TypeHolderTrait>(
+unsafe fn fallible_array_buffer_view_to_vec(
     cx: *mut JSContext,
     abv: *mut JSObject,
-) -> Result<Vec<u8>, Error<TH>> {
+) -> Result<Vec<u8>, Error> {
     assert!(!abv.is_null());
     typedarray!(in(cx) let array_buffer_view: ArrayBufferView = abv);
     match array_buffer_view {
@@ -1675,7 +1675,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods<TH> for WebGLRenderingCon
         target: u32,
         data: *mut JSObject,
         usage: u32,
-    ) -> ErrorResult<TH> {
+    ) -> ErrorResult {
         if data.is_null() {
             return Ok(self.webgl_error(InvalidValue));
         }
@@ -1697,7 +1697,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods<TH> for WebGLRenderingCon
     }
 
     // https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.14.5
-    fn BufferData_(&self, target: u32, size: i64, usage: u32) -> ErrorResult<TH> {
+    fn BufferData_(&self, target: u32, size: i64, usage: u32) -> ErrorResult {
         let bound_buffer = handle_potential_webgl_error!(self, self.bound_buffer(target), return Ok(()));
         let bound_buffer = match bound_buffer {
             Some(bound_buffer) => bound_buffer,
@@ -3271,7 +3271,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods<TH> for WebGLRenderingCon
         format: u32,
         data_type: u32,
         mut pixels: CustomAutoRooterGuard<Option<ArrayBufferView>>,
-    ) -> ErrorResult<TH> {
+    ) -> ErrorResult {
         if !self.extension_manager.is_tex_type_enabled(data_type) {
             return Ok(self.webgl_error(InvalidEnum));
         }
@@ -3343,7 +3343,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods<TH> for WebGLRenderingCon
         format: u32,
         data_type: u32,
         source: ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>,
-    ) -> ErrorResult<TH> {
+    ) -> ErrorResult {
         if !self.extension_manager.is_tex_type_enabled(data_type) {
             return Ok(self.webgl_error(InvalidEnum));
         }
@@ -3395,7 +3395,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods<TH> for WebGLRenderingCon
                    height: i32,
                    format: u32,
                    data_type: u32,
-                   source: &HTMLIFrameElement<TH>) -> ErrorResult<TH> {
+                   source: &HTMLIFrameElement<TH>) -> ErrorResult {
         // Currently DOMToTexture only supports TEXTURE_2D, RGBA, UNSIGNED_BYTE and no levels.
         if target != constants::TEXTURE_2D || level != 0 || internal_format != constants::RGBA ||
             format != constants::RGBA || data_type != constants::UNSIGNED_BYTE {
@@ -3437,7 +3437,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods<TH> for WebGLRenderingCon
         format: u32,
         data_type: u32,
         mut pixels: CustomAutoRooterGuard<Option<ArrayBufferView>>,
-    ) -> ErrorResult<TH> {
+    ) -> ErrorResult {
         let validator = TexImage2DValidator::new(self, target, level,
                                                  format, width, height,
                                                  0, format, data_type);
@@ -3501,7 +3501,7 @@ impl<TH: TypeHolderTrait> WebGLRenderingContextMethods<TH> for WebGLRenderingCon
         format: u32,
         data_type: u32,
         source: ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>,
-    ) -> ErrorResult<TH> {
+    ) -> ErrorResult {
         let (pixels, size, premultiplied) = match self.get_image_pixels(source) {
             Ok((pixels, size, premultiplied)) => (pixels, size, premultiplied),
             Err(_) => return Ok(()),

@@ -289,7 +289,7 @@ impl<TH: TypeHolderTrait> PerformanceMethods<TH> for Performance<TH> {
     }
 
     // https://w3c.github.io/user-timing/#dom-performance-mark
-    fn Mark(&self, mark_name: DOMString) -> Fallible<(), TH> {
+    fn Mark(&self, mark_name: DOMString) -> Fallible<()> {
         let global = self.global();
         // Step 1.
         if global.is::<Window<TH>>() && INVALID_ENTRY_NAMES.contains(&mark_name.as_ref()) {
@@ -319,7 +319,7 @@ impl<TH: TypeHolderTrait> PerformanceMethods<TH> for Performance<TH> {
     fn Measure(&self,
                measure_name: DOMString,
                start_mark: Option<DOMString>,
-               end_mark: Option<DOMString>) -> Fallible<(), TH> {
+               end_mark: Option<DOMString>) -> Fallible<()> {
         // Steps 1 and 2.
         let end_time = match end_mark {
             Some(name) =>

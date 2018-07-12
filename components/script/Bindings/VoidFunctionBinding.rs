@@ -270,7 +270,7 @@ impl<TH: TypeHolderTrait> VoidFunction<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject>(&self, thisObj: &T, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -280,13 +280,13 @@ impl<TH: TypeHolderTrait> VoidFunction<TH> {
         unsafe { self.Call(s.get_context(), thisObjJS.handle()) }
     }
 
-    pub fn Call__(&self, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call__(&self, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.Call(s.get_context(), thisObjJS.handle()) }
     }
 
-    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject) -> Fallible<(), TH> {
+    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject) -> Fallible<()> {
         rooted!(in(cx) let mut rval = UndefinedValue());
 
 

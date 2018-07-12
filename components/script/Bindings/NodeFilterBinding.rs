@@ -623,7 +623,7 @@ impl<TH: TypeHolderTrait> NodeFilter<TH> {
         ret
     }
 
-    pub fn AcceptNode_<T: DomObject>(&self, thisObj: &T, node: &Node<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<u16, TH> {
+    pub fn AcceptNode_<T: DomObject>(&self, thisObj: &T, node: &Node<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<u16> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -633,13 +633,13 @@ impl<TH: TypeHolderTrait> NodeFilter<TH> {
         unsafe { self.AcceptNode(s.get_context(), thisObjJS.handle(), node) }
     }
 
-    pub fn AcceptNode__(&self, node: &Node<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<u16, TH> {
+    pub fn AcceptNode__(&self, node: &Node<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<u16> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.AcceptNode(s.get_context(), thisObjJS.handle(), node) }
     }
 
-    unsafe fn AcceptNode(&self, cx: *mut JSContext, aThisObj: HandleObject, node: &Node<TH>) -> Fallible<u16, TH> {
+    unsafe fn AcceptNode(&self, cx: *mut JSContext, aThisObj: HandleObject, node: &Node<TH>) -> Fallible<u16> {
         rooted!(in(cx) let mut rval = UndefinedValue());
         rooted_vec!(let mut argv);
         argv.extend((0..1).map(|_| Heap::default()));

@@ -535,7 +535,7 @@ unsafe extern fn getService<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error<TH>> = BluetoothUUID::GetService(&global, arg0);
+        let result: Result<DOMString, Error> = BluetoothUUID::GetService(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -571,7 +571,7 @@ unsafe extern fn getCharacteristic<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error<TH>> = BluetoothUUID::GetCharacteristic(&global, arg0);
+        let result: Result<DOMString, Error> = BluetoothUUID::GetCharacteristic(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -607,7 +607,7 @@ unsafe extern fn getDescriptor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error<TH>> = BluetoothUUID::GetDescriptor(&global, arg0);
+        let result: Result<DOMString, Error> = BluetoothUUID::GetDescriptor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

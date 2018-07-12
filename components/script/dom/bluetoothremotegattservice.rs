@@ -86,7 +86,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServiceMethods<TH> for BluetoothRem
     fn GetCharacteristic(&self,
                          characteristic: BluetoothCharacteristicUUID)
                          -> Rc<Promise<TH>> {
-        get_gatt_children(self, true, BluetoothUUID::characteristic, Some(characteristic), self.get_instance_id(),
+        get_gatt_children(self, true, BluetoothUUID::<TH>::characteristic, Some(characteristic), self.get_instance_id(),
                           self.Device().get_gatt().Connected(), GATTType::Characteristic)
     }
 
@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServiceMethods<TH> for BluetoothRem
     fn GetCharacteristics(&self,
                           characteristic: Option<BluetoothCharacteristicUUID>)
                           -> Rc<Promise<TH>> {
-        get_gatt_children(self, false, BluetoothUUID::characteristic, characteristic, self.get_instance_id(),
+        get_gatt_children(self, false, BluetoothUUID::<TH>::characteristic, characteristic, self.get_instance_id(),
                           self.Device().get_gatt().Connected(), GATTType::Characteristic)
     }
 
@@ -104,7 +104,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServiceMethods<TH> for BluetoothRem
     fn GetIncludedService(&self,
                           service: BluetoothServiceUUID)
                           -> Rc<Promise<TH>> {
-        get_gatt_children(self, false, BluetoothUUID::service, Some(service), self.get_instance_id(),
+        get_gatt_children(self, false, BluetoothUUID::<TH>::service, Some(service), self.get_instance_id(),
                           self.Device().get_gatt().Connected(), GATTType::IncludedService)
     }
 
@@ -114,7 +114,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServiceMethods<TH> for BluetoothRem
     fn GetIncludedServices(&self,
                           service: Option<BluetoothServiceUUID>)
                           -> Rc<Promise<TH>> {
-        get_gatt_children(self, false, BluetoothUUID::service, service, self.get_instance_id(),
+        get_gatt_children(self, false, BluetoothUUID::<TH>::service, service, self.get_instance_id(),
                           self.Device().get_gatt().Connected(), GATTType::IncludedService)
     }
 

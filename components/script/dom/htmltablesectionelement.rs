@@ -60,7 +60,7 @@ impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods<TH> for HTMLTableSectio
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tbody-insertrow
-    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>, TH> {
+    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>> {
         let node = self.upcast::<Node<TH>>();
         node.insert_cell_or_row(
             index,
@@ -69,7 +69,7 @@ impl<TH: TypeHolderTrait> HTMLTableSectionElementMethods<TH> for HTMLTableSectio
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-tbody-deleterow
-    fn DeleteRow(&self, index: i32) -> ErrorResult<TH> {
+    fn DeleteRow(&self, index: i32) -> ErrorResult {
         let node = self.upcast::<Node<TH>>();
         node.delete_cell_or_row(
             index,

@@ -83,7 +83,7 @@ use dom::bindings::conversions::DerivedFrom;
 
 pub trait XMLHttpRequestTrait<TH: TypeHolderTrait>: DomObject + MutDomObject + IDLInterface + MallocSizeOf + JSTraceable + XMLHttpRequestMethods<TH> + Castable + DerivedFrom<EventTarget<TH>> + DerivedFrom<XMLHttpRequestEventTarget<TH>> {
     // https://xhr.spec.whatwg.org/#constructors
-    fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TH::XMLHttpRequest>, TH>;
+    fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TH::XMLHttpRequest>>;
 }
 
 pub trait XHRTimeoutCallbackTrait<TH: TypeHolderTrait>: JSTraceable + MallocSizeOf {

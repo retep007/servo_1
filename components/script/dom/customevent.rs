@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> CustomEvent<TH> {
     #[allow(unsafe_code)]
     pub fn Constructor(global: &GlobalScope<TH>,                       type_: DOMString,
                        init: RootedTraceableBox<CustomEventBinding::CustomEventInit>)
-                       -> Fallible<DomRoot<CustomEvent<TH>>, TH> {
+                       -> Fallible<DomRoot<CustomEvent<TH>>> {
         Ok(CustomEvent::new(global,
                             Atom::from(type_),
                             init.parent.bubbles,

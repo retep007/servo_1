@@ -624,7 +624,7 @@ unsafe extern fn before<TH: TypeHolderTrait>
         }
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Before(arg0);
+        let result: Result<(), Error> = this.Before(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -684,7 +684,7 @@ unsafe extern fn after<TH: TypeHolderTrait>
         }
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.After(arg0);
+        let result: Result<(), Error> = this.After(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -744,7 +744,7 @@ unsafe extern fn replaceWith<TH: TypeHolderTrait>
         }
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.ReplaceWith(arg0);
+        let result: Result<(), Error> = this.ReplaceWith(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -935,9 +935,9 @@ pub trait DocumentTypeMethods<TH: TypeHolderTrait> {
     fn Name(&self) -> DOMString;
     fn PublicId(&self) -> DOMString;
     fn SystemId(&self) -> DOMString;
-    fn Before(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<(), TH>;
-    fn After(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<(), TH>;
-    fn ReplaceWith(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<(), TH>;
+    fn Before(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<()>;
+    fn After(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<()>;
+    fn ReplaceWith(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<()>;
     fn Remove(&self) -> ();
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[

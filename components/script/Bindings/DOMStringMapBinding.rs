@@ -767,7 +767,7 @@ unsafe extern fn defineProperty<TH: TypeHolderTrait>
             };
             push_new_element_queue::<TH>();
 
-            let result: Result<(), Error<TH>> = this.NamedSetter(name, value);
+            let result: Result<(), Error> = this.NamedSetter(name, value);
             pop_current_element_queue::<TH>();
 
             let result = match result {
@@ -841,7 +841,7 @@ impl<TH: TypeHolderTrait> PartialEq for DOMStringMap<TH> {
 }
 
 pub trait DOMStringMapMethods<TH: TypeHolderTrait> {
-    fn NamedSetter(&self, name: DOMString, value: DOMString) -> Fallible<(), TH>;
+    fn NamedSetter(&self, name: DOMString, value: DOMString) -> Fallible<()>;
     fn SupportedPropertyNames(&self) -> Vec<DOMString>;
     fn NamedGetter(&self, name: DOMString) -> Option<DOMString>;
     fn NamedDeleter(&self, name: DOMString) -> ();

@@ -977,7 +977,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<ExtendableMessageEvent<TH>>, Error<TH>> = ExtendableMessageEvent::Constructor(&global, arg0, arg1);
+        let result: Result<DomRoot<ExtendableMessageEvent<TH>>, Error> = ExtendableMessageEvent::Constructor(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

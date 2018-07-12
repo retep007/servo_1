@@ -29,7 +29,7 @@ macro_rules! make_bool_getter(
 #[macro_export]
 macro_rules! make_limited_int_setter(
     ($attr:ident, $htmlname:tt, $default:expr) => (
-        fn $attr(&self, value: i32) -> $crate::dom::bindings::error::ErrorResult<TH> {
+        fn $attr(&self, value: i32) -> $crate::dom::bindings::error::ErrorResult {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
 
@@ -207,7 +207,7 @@ macro_rules! make_uint_setter(
 #[macro_export]
 macro_rules! make_limited_uint_setter(
     ($attr:ident, $htmlname:tt, $default:expr) => (
-        fn $attr(&self, value: u32) -> $crate::dom::bindings::error::ErrorResult<TH> {
+        fn $attr(&self, value: u32) -> $crate::dom::bindings::error::ErrorResult {
             use dom::bindings::inheritance::Castable;
             use dom::element::Element;
             use dom::values::UNSIGNED_LONG_MAX;

@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> Headers<TH> {
 
     // https://fetch.spec.whatwg.org/#dom-headers
     pub fn Constructor(global: &GlobalScope<TH>, init: Option<HeadersInit<TH>>)
-                       -> Fallible<DomRoot<Headers<TH>>, TH> {
+                       -> Fallible<DomRoot<Headers<TH>>> {
         let dom_headers_new = Headers::new(global);
         dom_headers_new.fill(init)?;
         Ok(dom_headers_new)
@@ -63,7 +63,7 @@ impl<TH: TypeHolderTrait> Headers<TH> {
 
 impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-append
-    fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult<TH> {
+    fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult {
         // Step 1
         let value = normalize_value(value);
         // Step 2
@@ -97,7 +97,7 @@ impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-delete
-    fn Delete(&self, name: ByteString) -> ErrorResult<TH> {
+    fn Delete(&self, name: ByteString) -> ErrorResult {
         // Step 1
         let valid_name = validate_name(name)?;
         // Step 2
@@ -123,7 +123,7 @@ impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-get
-    fn Get(&self, name: ByteString) -> Fallible<Option<ByteString>, TH> {
+    fn Get(&self, name: ByteString) -> Fallible<Option<ByteString>> {
         // Step 1
         let valid_name = &validate_name(name)?;
         Ok(self.header_list.borrow().get_raw(&valid_name).map(|v| {
@@ -132,7 +132,7 @@ impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-has
-    fn Has(&self, name: ByteString) -> Fallible<bool, TH> {
+    fn Has(&self, name: ByteString) -> Fallible<bool> {
         // Step 1
         let valid_name = validate_name(name)?;
         // Step 2
@@ -140,7 +140,7 @@ impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-headers-set
-    fn Set(&self, name: ByteString, value: ByteString) -> Fallible<(), TH> {
+    fn Set(&self, name: ByteString, value: ByteString) -> Fallible<()> {
         // Step 1
         let value = normalize_value(value);
         // Step 2
@@ -171,7 +171,7 @@ impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
 
 impl<TH: TypeHolderTrait> Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-fill
-    pub fn fill(&self, filler: Option<HeadersInit<TH>>) -> ErrorResult<TH> {
+    pub fn fill(&self, filler: Option<HeadersInit<TH>>) -> ErrorResult {
         match filler {
             // Step 1
             Some(HeadersInit::Headers(h)) => {
@@ -368,8 +368,8 @@ pub fn is_forbidden_header_name(name: &str) -> bool {
 // [2] https://tools.ietf.org/html/rfc7230#section-3.2
 // [3] https://tools.ietf.org/html/rfc7230#section-3.2.6
 // [4] https://www.rfc-editor.org/errata_search.php?rfc=7230
-fn validate_name_and_value<TH: TypeHolderTrait>(name: ByteString, value: ByteString)
-                           -> Fallible<(String, Vec<u8>), TH> {
+fn validate_name_and_value(name: ByteString, value: ByteString)
+                           -> Fallible<(String, Vec<u8>)> {
     let valid_name = validate_name(name)?;
     if !is_field_content(&value) {
         return Err(Error::Type("Value is not valid".to_string()));
@@ -377,7 +377,7 @@ fn validate_name_and_value<TH: TypeHolderTrait>(name: ByteString, value: ByteStr
     Ok((valid_name, value.into()))
 }
 
-fn validate_name<TH: TypeHolderTrait>(name: ByteString) -> Fallible<String, TH> {
+fn validate_name(name: ByteString) -> Fallible<String> {
     if !is_field_name(&name) {
         return Err(Error::Type("Name is not valid".to_string()));
     }

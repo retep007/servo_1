@@ -88,13 +88,13 @@ impl<TH: TypeHolderTrait> ServiceWorkerMethods<TH> for ServiceWorker<TH> {
 
     #[allow(unsafe_code)]
     // https://w3c.github.io/ServiceWorker/#service-worker-postmessage
-    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {
+    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult {
         // Step 1
         if let ServiceWorkerState::Redundant = self.state.get() {
             return Err(Error::InvalidState);
         }
         // Step 7
-        let data = StructuredCloneData::write(cx, message)?;
+        let data = StructuredCloneData::<TH>::write(cx, message)?;
         let msg_vec = DOMMessage(data.move_to_arraybuffer());
         let _ =
             self.global()

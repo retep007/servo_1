@@ -724,7 +724,7 @@ unsafe extern fn setNamedItem<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetNamedItem(&arg0);
+        let result: Result<Option<DomRoot<Attr<TH>>>, Error> = this.SetNamedItem(&arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -787,7 +787,7 @@ unsafe extern fn setNamedItemNS<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<Option<DomRoot<Attr<TH>>>, Error<TH>> = this.SetNamedItemNS(&arg0);
+        let result: Result<Option<DomRoot<Attr<TH>>>, Error> = this.SetNamedItemNS(&arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -845,7 +845,7 @@ unsafe extern fn removeNamedItem<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.RemoveNamedItem(arg0);
+        let result: Result<DomRoot<Attr<TH>>, Error> = this.RemoveNamedItem(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -913,7 +913,7 @@ unsafe extern fn removeNamedItemNS<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.RemoveNamedItemNS(arg0, arg1);
+        let result: Result<DomRoot<Attr<TH>>, Error> = this.RemoveNamedItemNS(arg0, arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1300,10 +1300,10 @@ pub trait NamedNodeMapMethods<TH: TypeHolderTrait> {
     fn Item(&self, index: u32) -> Option<DomRoot<Attr<TH>>>;
     fn GetNamedItem(&self, qualifiedName: DOMString) -> Option<DomRoot<Attr<TH>>>;
     fn GetNamedItemNS(&self, namespace: Option<DOMString>, localName: DOMString) -> Option<DomRoot<Attr<TH>>>;
-    fn SetNamedItem(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>, TH>;
-    fn SetNamedItemNS(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>, TH>;
-    fn RemoveNamedItem(&self, qualifiedName: DOMString) -> Fallible<DomRoot<Attr<TH>>, TH>;
-    fn RemoveNamedItemNS(&self, namespace: Option<DOMString>, localName: DOMString) -> Fallible<DomRoot<Attr<TH>>, TH>;
+    fn SetNamedItem(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>>;
+    fn SetNamedItemNS(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>>;
+    fn RemoveNamedItem(&self, qualifiedName: DOMString) -> Fallible<DomRoot<Attr<TH>>>;
+    fn RemoveNamedItemNS(&self, namespace: Option<DOMString>, localName: DOMString) -> Fallible<DomRoot<Attr<TH>>>;
     fn SupportedPropertyNames(&self) -> Vec<DOMString>;
     fn NamedGetter(&self, qualifiedName: DOMString) -> Option<DomRoot<Attr<TH>>>;
     fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Attr<TH>>>;

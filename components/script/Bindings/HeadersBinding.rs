@@ -540,7 +540,7 @@ unsafe extern fn append<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.Append(arg0, arg1);
+        let result: Result<(), Error> = this.Append(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -594,7 +594,7 @@ unsafe extern fn delete<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.Delete(arg0);
+        let result: Result<(), Error> = this.Delete(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -648,7 +648,7 @@ unsafe extern fn get<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<Option<ByteString>, Error<TH>> = this.Get(arg0);
+        let result: Result<Option<ByteString>, Error> = this.Get(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -702,7 +702,7 @@ unsafe extern fn has<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<bool, Error<TH>> = this.Has(arg0);
+        let result: Result<bool, Error> = this.Has(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -766,7 +766,7 @@ unsafe extern fn set<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.Set(arg0, arg1);
+        let result: Result<(), Error> = this.Set(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1094,11 +1094,11 @@ impl<TH: TypeHolderTrait> PartialEq for Headers<TH> {
 }
 
 pub trait HeadersMethods<TH: TypeHolderTrait> {
-    fn Append(&self, name: ByteString, value: ByteString) -> Fallible<(), TH>;
-    fn Delete(&self, name: ByteString) -> Fallible<(), TH>;
-    fn Get(&self, name: ByteString) -> Fallible<Option<ByteString>, TH>;
-    fn Has(&self, name: ByteString) -> Fallible<bool, TH>;
-    fn Set(&self, name: ByteString, value: ByteString) -> Fallible<(), TH>;
+    fn Append(&self, name: ByteString, value: ByteString) -> Fallible<()>;
+    fn Delete(&self, name: ByteString) -> Fallible<()>;
+    fn Get(&self, name: ByteString) -> Fallible<Option<ByteString>>;
+    fn Has(&self, name: ByteString) -> Fallible<bool>;
+    fn Set(&self, name: ByteString, value: ByteString) -> Fallible<()>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
@@ -1225,7 +1225,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<DomRoot<Headers<TH>>, Error<TH>> = Headers::Constructor(&global, arg0);
+        let result: Result<DomRoot<Headers<TH>>, Error> = Headers::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1584,7 +1584,7 @@ unsafe extern fn next<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<NonNull<JSObject>, Error<TH>> = this.Next(cx);
+        let result: Result<NonNull<JSObject>, Error> = this.Next(cx);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1727,7 +1727,7 @@ impl<TH: TypeHolderTrait> PartialEq for IterableIterator<Headers<TH>> {
 }
 
 pub trait HeadersIteratorMethods<TH: TypeHolderTrait> {
-    unsafe fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>, TH>;
+    unsafe fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

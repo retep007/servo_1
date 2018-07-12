@@ -340,7 +340,7 @@ impl<TH: TypeHolderTrait> HTMLCanvasElementMethods<TH> for HTMLCanvasElement<TH>
     unsafe fn ToDataURL(&self,
                  _context: *mut JSContext,
                  _mime_type: Option<DOMString>,
-                 _arguments: Vec<HandleValue>) -> Fallible<DOMString, TH> {
+                 _arguments: Vec<HandleValue>) -> Fallible<DOMString> {
         // Step 1.
         if let Some(CanvasContext::Context2d(ref context)) = *self.context.borrow() {
             if !context.origin_is_clean() {

@@ -620,7 +620,7 @@ unsafe extern fn insertCell<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<DomRoot<HTMLElement<TH>>, Error<TH>> = this.InsertCell(arg0);
+        let result: Result<DomRoot<HTMLElement<TH>>, Error> = this.InsertCell(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -676,7 +676,7 @@ unsafe extern fn deleteCell<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.DeleteCell(arg0);
+        let result: Result<(), Error> = this.DeleteCell(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -900,8 +900,8 @@ pub trait HTMLTableRowElementMethods<TH: TypeHolderTrait> {
     fn RowIndex(&self) -> i32;
     fn SectionRowIndex(&self) -> i32;
     fn Cells(&self) -> DomRoot<HTMLCollection<TH>>;
-    fn InsertCell(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>, TH>;
-    fn DeleteCell(&self, index: i32) -> Fallible<(), TH>;
+    fn InsertCell(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>>;
+    fn DeleteCell(&self, index: i32) -> Fallible<()>;
     fn BgColor(&self) -> DOMString;
     fn SetBgColor(&self, value: DOMString) -> ();
 }
@@ -1054,7 +1054,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLTableRowElement<TH>>, Error<TH>> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLTableRowElement<TH>>, Error> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

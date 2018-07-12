@@ -1414,7 +1414,7 @@ unsafe extern fn clone<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<DomRoot<Request<TH>>, Error<TH>> = this.Clone();
+        let result: Result<DomRoot<Request<TH>>, Error> = this.Clone();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1758,7 +1758,7 @@ pub trait RequestMethods<TH: TypeHolderTrait> {
     fn Cache(&self) -> RequestCache;
     fn Redirect(&self) -> RequestRedirect;
     fn Integrity(&self) -> DOMString;
-    fn Clone(&self) -> Fallible<DomRoot<Request<TH>>, TH>;
+    fn Clone(&self) -> Fallible<DomRoot<Request<TH>>>;
     fn BodyUsed(&self) -> bool;
     fn ArrayBuffer(&self) -> Rc<Promise<TH>>;
     fn Blob(&self) -> Rc<Promise<TH>>;
@@ -1970,7 +1970,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<Request<TH>>, Error<TH>> = Request::Constructor(&global, arg0, arg1);
+        let result: Result<DomRoot<Request<TH>>, Error> = Request::Constructor(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

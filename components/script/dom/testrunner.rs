@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> TestRunner<TH> {
 
 impl<TH: TypeHolderTrait> TestRunnerMethods<TH> for TestRunner<TH> {
     // https://webbluetoothcg.github.io/web-bluetooth/tests#setBluetoothMockDataSet
-    fn SetBluetoothMockDataSet(&self, dataSetName: DOMString) -> ErrorResult<TH> {
+    fn SetBluetoothMockDataSet(&self, dataSetName: DOMString) -> ErrorResult {
         let (sender, receiver) = ipc::channel(self.global().time_profiler_chan().clone()).unwrap();
         self.get_bluetooth_thread().send(BluetoothRequest::Test(String::from(dataSetName), sender)).unwrap();
         match receiver.recv().unwrap().into() {

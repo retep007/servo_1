@@ -46,7 +46,7 @@ impl<TH: TypeHolderTrait> DOMPointReadOnly<TH> {
                        y: f64,
                        z: f64,
                        w: f64)
-                       -> Fallible<DomRoot<DOMPointReadOnly<TH>>, TH> {
+                       -> Fallible<DomRoot<DOMPointReadOnly<TH>>> {
         Ok(DOMPointReadOnly::new(global, x, y, z, w))
     }
 }

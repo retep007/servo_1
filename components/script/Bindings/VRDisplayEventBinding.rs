@@ -970,7 +970,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<VRDisplayEvent<TH>>, Error<TH>> = VRDisplayEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<VRDisplayEvent<TH>>, Error> = VRDisplayEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

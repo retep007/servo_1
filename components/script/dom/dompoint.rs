@@ -34,7 +34,7 @@ impl<TH: TypeHolderTrait> DOMPoint<TH> {
                        y: f64,
                        z: f64,
                        w: f64)
-                       -> Fallible<DomRoot<DOMPoint<TH>>, TH> {
+                       -> Fallible<DomRoot<DOMPoint<TH>>> {
         Ok(DOMPoint::new(global, x, y, z, w))
     }
 

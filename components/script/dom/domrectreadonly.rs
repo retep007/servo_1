@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> DOMRectReadOnly<TH> {
                        y: f64,
                        width: f64,
                        height: f64)
-                       -> Fallible<DomRoot<DOMRectReadOnly<TH>>, TH> {
+                       -> Fallible<DomRoot<DOMRectReadOnly<TH>>> {
         Ok(DOMRectReadOnly::new(global, x, y, width, height))
     }
 

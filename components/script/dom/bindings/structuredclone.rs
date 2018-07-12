@@ -213,7 +213,7 @@ unsafe fn init_structured_clone<TH: TypeHolderTrait>() {
 
 impl<TH: TypeHolderTrait> StructuredCloneData<TH> {
     /// Writes a structured clone. Returns a `DataClone` error if that fails.
-    pub fn write(cx: *mut JSContext, message: HandleValue) -> Fallible<StructuredCloneData<TH>, TH> {
+    pub fn write(cx: *mut JSContext, message: HandleValue) -> Fallible<StructuredCloneData<TH>> {
         let mut data = ptr::null_mut();
         let mut nbytes = 0;
         unsafe {

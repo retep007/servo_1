@@ -1575,7 +1575,7 @@ unsafe extern fn set_maxLength<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMaxLength(arg0);
+        let result: Result<(), Error> = this.SetMaxLength(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1734,7 +1734,7 @@ unsafe extern fn set_minLength<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMinLength(arg0);
+        let result: Result<(), Error> = this.SetMinLength(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2273,7 +2273,7 @@ unsafe extern fn set_size<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetSize(arg0);
+        let result: Result<(), Error> = this.SetSize(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2660,7 +2660,7 @@ unsafe extern fn set_value<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetValue(arg0);
+        let result: Result<(), Error> = this.SetValue(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2799,7 +2799,7 @@ unsafe extern fn set_selectionStart<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error<TH>> = this.SetSelectionStart(arg0);
+        let result: Result<(), Error> = this.SetSelectionStart(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2874,7 +2874,7 @@ unsafe extern fn set_selectionEnd<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error<TH>> = this.SetSelectionEnd(arg0);
+        let result: Result<(), Error> = this.SetSelectionEnd(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2949,7 +2949,7 @@ unsafe extern fn set_selectionDirection<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetSelectionDirection(arg0);
+        let result: Result<(), Error> = this.SetSelectionDirection(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -3019,7 +3019,7 @@ unsafe extern fn setRangeText<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error<TH>> = this.SetRangeText(arg0);
+                let result: Result<(), Error> = this.SetRangeText(arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -3073,7 +3073,7 @@ unsafe extern fn setRangeText<TH: TypeHolderTrait>
                         Ok((Some(&value), _)) => value,
                     }
                 };
-                let result: Result<(), Error<TH>> = this.SetRangeText_(arg0, arg1, arg2, arg3);
+                let result: Result<(), Error> = this.SetRangeText_(arg0, arg1, arg2, arg3);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -3127,7 +3127,7 @@ unsafe extern fn setRangeText<TH: TypeHolderTrait>
                         Ok((Some(&value), _)) => value,
                     }
                 };
-                let result: Result<(), Error<TH>> = this.SetRangeText_(arg0, arg1, arg2, arg3);
+                let result: Result<(), Error> = this.SetRangeText_(arg0, arg1, arg2, arg3);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -3211,7 +3211,7 @@ unsafe extern fn setSelectionRange<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<(), Error<TH>> = this.SetSelectionRange(arg0, arg1, arg2);
+        let result: Result<(), Error> = this.SetSelectionRange(arg0, arg1, arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -3430,11 +3430,11 @@ pub trait HTMLInputElementMethods<TH: TypeHolderTrait> {
     fn Max(&self) -> DOMString;
     fn SetMax(&self, value: DOMString) -> ();
     fn MaxLength(&self) -> i32;
-    fn SetMaxLength(&self, value: i32) -> ErrorResult<TH>;
+    fn SetMaxLength(&self, value: i32) -> ErrorResult;
     fn Min(&self) -> DOMString;
     fn SetMin(&self, value: DOMString) -> ();
     fn MinLength(&self) -> i32;
-    fn SetMinLength(&self, value: i32) -> ErrorResult<TH>;
+    fn SetMinLength(&self, value: i32) -> ErrorResult;
     fn Multiple(&self) -> bool;
     fn SetMultiple(&self, value: bool) -> ();
     fn Name(&self) -> DOMString;
@@ -3448,7 +3448,7 @@ pub trait HTMLInputElementMethods<TH: TypeHolderTrait> {
     fn Required(&self) -> bool;
     fn SetRequired(&self, value: bool) -> ();
     fn Size(&self) -> u32;
-    fn SetSize(&self, value: u32) -> ErrorResult<TH>;
+    fn SetSize(&self, value: u32) -> ErrorResult;
     fn Src(&self) -> DOMString;
     fn SetSrc(&self, value: DOMString) -> ();
     fn Step(&self) -> DOMString;
@@ -3458,18 +3458,18 @@ pub trait HTMLInputElementMethods<TH: TypeHolderTrait> {
     fn DefaultValue(&self) -> DOMString;
     fn SetDefaultValue(&self, value: DOMString) -> ();
     fn Value(&self) -> DOMString;
-    fn SetValue(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetValue(&self, value: DOMString) -> ErrorResult;
     fn Labels(&self) -> DomRoot<NodeList<TH>>;
     fn Select(&self) -> ();
     fn GetSelectionStart(&self) -> Option<u32>;
-    fn SetSelectionStart(&self, value: Option<u32>) -> ErrorResult<TH>;
+    fn SetSelectionStart(&self, value: Option<u32>) -> ErrorResult;
     fn GetSelectionEnd(&self) -> Option<u32>;
-    fn SetSelectionEnd(&self, value: Option<u32>) -> ErrorResult<TH>;
+    fn SetSelectionEnd(&self, value: Option<u32>) -> ErrorResult;
     fn GetSelectionDirection(&self) -> Option<DOMString>;
-    fn SetSelectionDirection(&self, value: Option<DOMString>) -> ErrorResult<TH>;
-    fn SetRangeText(&self, replacement: DOMString) -> Fallible<(), TH>;
-    fn SetRangeText_(&self, replacement: DOMString, start: u32, end: u32, selectionMode: SelectionMode) -> Fallible<(), TH>;
-    fn SetSelectionRange(&self, start: u32, end: u32, direction: Option<DOMString>) -> Fallible<(), TH>;
+    fn SetSelectionDirection(&self, value: Option<DOMString>) -> ErrorResult;
+    fn SetRangeText(&self, replacement: DOMString) -> Fallible<()>;
+    fn SetRangeText_(&self, replacement: DOMString, start: u32, end: u32, selectionMode: SelectionMode) -> Fallible<()>;
+    fn SetSelectionRange(&self, start: u32, end: u32, direction: Option<DOMString>) -> Fallible<()>;
     fn SelectFiles(&self, path: Vec<DOMString>) -> ();
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
@@ -3825,7 +3825,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLInputElement<TH>>, Error<TH>> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLInputElement<TH>>, Error> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

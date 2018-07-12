@@ -969,7 +969,7 @@ unsafe extern fn drawImage<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<(), Error<TH>> = this.DrawImage(arg0, arg1, arg2);
+                let result: Result<(), Error> = this.DrawImage(arg0, arg1, arg2);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1032,7 +1032,7 @@ unsafe extern fn drawImage<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<(), Error<TH>> = this.DrawImage_(arg0, arg1, arg2, arg3, arg4);
+                let result: Result<(), Error> = this.DrawImage_(arg0, arg1, arg2, arg3, arg4);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1135,7 +1135,7 @@ unsafe extern fn drawImage<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<(), Error<TH>> = this.DrawImage__(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+                let result: Result<(), Error> = this.DrawImage__(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1676,7 +1676,7 @@ unsafe extern fn createRadialGradient<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<DomRoot<CanvasGradient<TH>>, Error<TH>> = this.CreateRadialGradient(arg0, arg1, arg2, arg3, arg4, arg5);
+        let result: Result<DomRoot<CanvasGradient<TH>>, Error> = this.CreateRadialGradient(arg0, arg1, arg2, arg3, arg4, arg5);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1740,7 +1740,7 @@ unsafe extern fn createPattern<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<CanvasPattern<TH>>, Error<TH>> = this.CreatePattern(arg0, arg1);
+        let result: Result<DomRoot<CanvasPattern<TH>>, Error> = this.CreatePattern(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1798,7 +1798,7 @@ unsafe extern fn createImageData<TH: TypeHolderTrait>
                     return false;
 
                 };
-                let result: Result<DomRoot<ImageData<TH>>, Error<TH>> = this.CreateImageData_(&arg0);
+                let result: Result<DomRoot<ImageData<TH>>, Error> = this.CreateImageData_(&arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1831,7 +1831,7 @@ unsafe extern fn createImageData<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<DomRoot<ImageData<TH>>, Error<TH>> = this.CreateImageData(arg0, arg1);
+                let result: Result<DomRoot<ImageData<TH>>, Error> = this.CreateImageData(arg0, arg1);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1921,7 +1921,7 @@ unsafe extern fn getImageData<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<DomRoot<ImageData<TH>>, Error<TH>> = this.GetImageData(arg0, arg1, arg2, arg3);
+        let result: Result<DomRoot<ImageData<TH>>, Error> = this.GetImageData(arg0, arg1, arg2, arg3);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2561,7 +2561,7 @@ unsafe extern fn arcTo<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error<TH>> = this.ArcTo(arg0, arg1, arg2, arg3, arg4);
+        let result: Result<(), Error> = this.ArcTo(arg0, arg1, arg2, arg3, arg4);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2746,7 +2746,7 @@ unsafe extern fn arc<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<(), Error<TH>> = this.Arc(arg0, arg1, arg2, arg3, arg4, arg5);
+        let result: Result<(), Error> = this.Arc(arg0, arg1, arg2, arg3, arg4, arg5);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2874,7 +2874,7 @@ unsafe extern fn ellipse<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<(), Error<TH>> = this.Ellipse(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+        let result: Result<(), Error> = this.Ellipse(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -4321,9 +4321,9 @@ pub trait CanvasRenderingContext2DMethods<TH: TypeHolderTrait> {
     fn SetGlobalAlpha(&self, value: f64) -> ();
     fn GlobalCompositeOperation(&self) -> DOMString;
     fn SetGlobalCompositeOperation(&self, value: DOMString) -> ();
-    fn DrawImage(&self, image: UnionTypes::HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>, dx: f64, dy: f64) -> Fallible<(), TH>;
-    fn DrawImage_(&self, image: UnionTypes::HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>, dx: f64, dy: f64, dw: f64, dh: f64) -> Fallible<(), TH>;
-    fn DrawImage__(&self, image: UnionTypes::HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>, sx: f64, sy: f64, sw: f64, sh: f64, dx: f64, dy: f64, dw: f64, dh: f64) -> Fallible<(), TH>;
+    fn DrawImage(&self, image: UnionTypes::HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>, dx: f64, dy: f64) -> Fallible<()>;
+    fn DrawImage_(&self, image: UnionTypes::HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>, dx: f64, dy: f64, dw: f64, dh: f64) -> Fallible<()>;
+    fn DrawImage__(&self, image: UnionTypes::HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>, sx: f64, sy: f64, sw: f64, sh: f64, dx: f64, dy: f64, dw: f64, dh: f64) -> Fallible<()>;
     fn BeginPath(&self) -> ();
     fn Fill(&self, fillRule: CanvasFillRule) -> ();
     fn Stroke(&self) -> ();
@@ -4334,11 +4334,11 @@ pub trait CanvasRenderingContext2DMethods<TH: TypeHolderTrait> {
     fn FillStyle(&self) -> UnionTypes::StringOrCanvasGradientOrCanvasPattern<TH>;
     fn SetFillStyle(&self, value: UnionTypes::StringOrCanvasGradientOrCanvasPattern<TH>) -> ();
     fn CreateLinearGradient(&self, x0: Finite<f64>, y0: Finite<f64>, x1: Finite<f64>, y1: Finite<f64>) -> DomRoot<CanvasGradient<TH>>;
-    fn CreateRadialGradient(&self, x0: Finite<f64>, y0: Finite<f64>, r0: Finite<f64>, x1: Finite<f64>, y1: Finite<f64>, r1: Finite<f64>) -> Fallible<DomRoot<CanvasGradient<TH>>, TH>;
-    fn CreatePattern(&self, image: UnionTypes::HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>, repetition: DOMString) -> Fallible<DomRoot<CanvasPattern<TH>>, TH>;
-    fn CreateImageData(&self, sw: Finite<f64>, sh: Finite<f64>) -> Fallible<DomRoot<ImageData<TH>>, TH>;
-    fn CreateImageData_(&self, imagedata: &ImageData<TH>) -> Fallible<DomRoot<ImageData<TH>>, TH>;
-    fn GetImageData(&self, sx: Finite<f64>, sy: Finite<f64>, sw: Finite<f64>, sh: Finite<f64>) -> Fallible<DomRoot<ImageData<TH>>, TH>;
+    fn CreateRadialGradient(&self, x0: Finite<f64>, y0: Finite<f64>, r0: Finite<f64>, x1: Finite<f64>, y1: Finite<f64>, r1: Finite<f64>) -> Fallible<DomRoot<CanvasGradient<TH>>>;
+    fn CreatePattern(&self, image: UnionTypes::HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>, repetition: DOMString) -> Fallible<DomRoot<CanvasPattern<TH>>>;
+    fn CreateImageData(&self, sw: Finite<f64>, sh: Finite<f64>) -> Fallible<DomRoot<ImageData<TH>>>;
+    fn CreateImageData_(&self, imagedata: &ImageData<TH>) -> Fallible<DomRoot<ImageData<TH>>>;
+    fn GetImageData(&self, sx: Finite<f64>, sy: Finite<f64>, sw: Finite<f64>, sh: Finite<f64>) -> Fallible<DomRoot<ImageData<TH>>>;
     fn PutImageData(&self, imagedata: &ImageData<TH>, dx: Finite<f64>, dy: Finite<f64>) -> ();
     fn PutImageData_(&self, imagedata: &ImageData<TH>, dx: Finite<f64>, dy: Finite<f64>, dirtyX: Finite<f64>, dirtyY: Finite<f64>, dirtyWidth: Finite<f64>, dirtyHeight: Finite<f64>) -> ();
     fn ImageSmoothingEnabled(&self) -> bool;
@@ -4348,10 +4348,10 @@ pub trait CanvasRenderingContext2DMethods<TH: TypeHolderTrait> {
     fn LineTo(&self, x: f64, y: f64) -> ();
     fn QuadraticCurveTo(&self, cpx: f64, cpy: f64, x: f64, y: f64) -> ();
     fn BezierCurveTo(&self, cp1x: f64, cp1y: f64, cp2x: f64, cp2y: f64, x: f64, y: f64) -> ();
-    fn ArcTo(&self, x1: f64, y1: f64, x2: f64, y2: f64, radius: f64) -> Fallible<(), TH>;
+    fn ArcTo(&self, x1: f64, y1: f64, x2: f64, y2: f64, radius: f64) -> Fallible<()>;
     fn Rect(&self, x: f64, y: f64, w: f64, h: f64) -> ();
-    fn Arc(&self, x: f64, y: f64, radius: f64, startAngle: f64, endAngle: f64, anticlockwise: bool) -> Fallible<(), TH>;
-    fn Ellipse(&self, x: f64, y: f64, radius_x: f64, radius_y: f64, rotation: f64, startAngle: f64, endAngle: f64, anticlockwise: bool) -> Fallible<(), TH>;
+    fn Arc(&self, x: f64, y: f64, radius: f64, startAngle: f64, endAngle: f64, anticlockwise: bool) -> Fallible<()>;
+    fn Ellipse(&self, x: f64, y: f64, radius_x: f64, radius_y: f64, rotation: f64, startAngle: f64, endAngle: f64, anticlockwise: bool) -> Fallible<()>;
     fn LineWidth(&self) -> f64;
     fn SetLineWidth(&self, value: f64) -> ();
     fn LineCap(&self) -> CanvasLineCap;

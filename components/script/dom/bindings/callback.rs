@@ -185,7 +185,7 @@ impl<TH: TypeHolderTrait> CallbackInterface<TH> {
 
     /// Returns the property with the given `name`, if it is a callable object,
     /// or an error otherwise.
-    pub fn get_callable_property(&self, cx: *mut JSContext, name: &str) -> Fallible<JSVal, TH> {
+    pub fn get_callable_property(&self, cx: *mut JSContext, name: &str) -> Fallible<JSVal> {
         rooted!(in(cx) let mut callable = UndefinedValue());
         rooted!(in(cx) let obj = self.callback_holder().get());
         unsafe {

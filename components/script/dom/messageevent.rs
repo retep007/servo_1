@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> MessageEvent<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
                        init: RootedTraceableBox<MessageEventBinding::MessageEventInit>)
-                       -> Fallible<DomRoot<MessageEvent<TH>>, TH> {
+                       -> Fallible<DomRoot<MessageEvent<TH>>> {
         let ev = MessageEvent::new(global,
                                    Atom::from(type_),
                                    init.parent.bubbles,

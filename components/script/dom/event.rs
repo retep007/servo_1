@@ -82,7 +82,7 @@ impl<TH: TypeHolderTrait> Event<TH> {
 
     pub fn Constructor(global: &GlobalScope<TH>,
                        type_: DOMString,
-                       init: &EventBinding::EventInit) -> Fallible<DomRoot<Event<TH>>, TH> {
+                       init: &EventBinding::EventInit) -> Fallible<DomRoot<Event<TH>>> {
         let bubbles = EventBubbles::from(init.bubbles);
         let cancelable = EventCancelable::from(init.cancelable);
         Ok(Event::new(global, Atom::from(type_), bubbles, cancelable))

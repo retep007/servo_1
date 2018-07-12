@@ -65,7 +65,7 @@ impl <TH: TypeHolderTrait> History<TH> {
 }
 
 impl<TH: TypeHolderTrait> History<TH> {
-    fn traverse_history(&self, direction: TraversalDirection) -> ErrorResult<TH> {
+    fn traverse_history(&self, direction: TraversalDirection) -> ErrorResult {
         if !self.window.Document().is_fully_active() {
             return Err(Error::Security);
         }
@@ -152,7 +152,7 @@ impl<TH: TypeHolderTrait> History<TH> {
                              data: HandleValue,
                              _title: DOMString,
                              url: Option<USVString>,
-                             push_or_replace: PushOrReplace) -> ErrorResult<TH> {
+                             push_or_replace: PushOrReplace) -> ErrorResult {
         // Step 1
         let document = self.window.Document();
 
@@ -167,7 +167,7 @@ impl<TH: TypeHolderTrait> History<TH> {
         // TODO: Step 4
 
         // Step 5
-        let serialized_data = StructuredCloneData::write(cx, data)?.move_to_arraybuffer();
+        let serialized_data = StructuredCloneData::<TH>::write(cx, data)?.move_to_arraybuffer();
 
         let new_url: ServoUrl = match url {
             // Step 6
@@ -259,7 +259,7 @@ impl<TH: TypeHolderTrait> History<TH> {
 impl<TH: TypeHolderTrait> HistoryMethods<TH> for History<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-history-state
     #[allow(unsafe_code)]
-    unsafe fn GetState(&self, _cx: *mut JSContext) -> Fallible<JSVal, TH> {
+    unsafe fn GetState(&self, _cx: *mut JSContext) -> Fallible<JSVal> {
         if !self.window.Document().is_fully_active() {
             return Err(Error::Security);
         }
@@ -267,7 +267,7 @@ impl<TH: TypeHolderTrait> HistoryMethods<TH> for History<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-history-length
-    fn GetLength(&self) -> Fallible<u32, TH> {
+    fn GetLength(&self) -> Fallible<u32> {
         if !self.window.Document().is_fully_active() {
             return Err(Error::Security);
         }
@@ -279,7 +279,7 @@ impl<TH: TypeHolderTrait> HistoryMethods<TH> for History<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-history-go
-    fn Go(&self, delta: i32) -> ErrorResult<TH> {
+    fn Go(&self, delta: i32) -> ErrorResult {
         let direction = if delta > 0 {
             TraversalDirection::Forward(delta as usize)
         } else if delta < 0 {
@@ -292,12 +292,12 @@ impl<TH: TypeHolderTrait> HistoryMethods<TH> for History<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-history-back
-    fn Back(&self) -> ErrorResult<TH> {
+    fn Back(&self) -> ErrorResult {
         self.traverse_history(TraversalDirection::Back(1))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-history-forward
-    fn Forward(&self) -> ErrorResult<TH> {
+    fn Forward(&self) -> ErrorResult {
         self.traverse_history(TraversalDirection::Forward(1))
     }
 
@@ -307,7 +307,7 @@ impl<TH: TypeHolderTrait> HistoryMethods<TH> for History<TH> {
                         cx: *mut JSContext,
                         data: HandleValue,
                         title: DOMString,
-                        url: Option<USVString>) -> ErrorResult<TH> {
+                        url: Option<USVString>) -> ErrorResult {
         self.push_or_replace_state(cx, data, title, url, PushOrReplace::Push)
     }
 
@@ -317,7 +317,7 @@ impl<TH: TypeHolderTrait> HistoryMethods<TH> for History<TH> {
                            cx: *mut JSContext,
                            data: HandleValue,
                            title: DOMString,
-                           url: Option<USVString>) -> ErrorResult<TH> {
+                           url: Option<USVString>) -> ErrorResult {
         self.push_or_replace_state(cx, data, title, url, PushOrReplace::Replace)
     }
 }

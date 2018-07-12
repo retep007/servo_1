@@ -799,7 +799,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLDetailsElement<TH>>, Error<TH>> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLDetailsElement<TH>>, Error> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

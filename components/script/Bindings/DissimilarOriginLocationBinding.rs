@@ -509,7 +509,7 @@ unsafe extern fn get_href<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const DissimilarOriginLocation<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetHref();
+        let result: Result<USVString, Error> = this.GetHref();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -537,7 +537,7 @@ unsafe extern fn set_href<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetHref(arg0);
+        let result: Result<(), Error> = this.SetHref(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -608,7 +608,7 @@ unsafe extern fn assign<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.Assign(arg0);
+        let result: Result<(), Error> = this.Assign(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -662,7 +662,7 @@ unsafe extern fn replace<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.Replace(arg0);
+        let result: Result<(), Error> = this.Replace(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -701,7 +701,7 @@ unsafe extern fn reload<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<(), Error<TH>> = this.Reload();
+        let result: Result<(), Error> = this.Reload();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -740,7 +740,7 @@ unsafe extern fn __stringifier<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<DOMString, Error<TH>> = this.Stringifier();
+        let result: Result<DOMString, Error> = this.Stringifier();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -887,12 +887,12 @@ impl<TH: TypeHolderTrait> PartialEq for DissimilarOriginLocation<TH> {
 }
 
 pub trait DissimilarOriginLocationMethods<TH: TypeHolderTrait> {
-    fn GetHref(&self) -> Fallible<USVString, TH>;
-    fn SetHref(&self, value: USVString) -> ErrorResult<TH>;
-    fn Assign(&self, url: USVString) -> Fallible<(), TH>;
-    fn Replace(&self, url: USVString) -> Fallible<(), TH>;
-    fn Reload(&self) -> Fallible<(), TH>;
-    fn Stringifier(&self) -> Fallible<DOMString, TH>;
+    fn GetHref(&self) -> Fallible<USVString>;
+    fn SetHref(&self, value: USVString) -> ErrorResult;
+    fn Assign(&self, url: USVString) -> Fallible<()>;
+    fn Replace(&self, url: USVString) -> Fallible<()>;
+    fn Reload(&self) -> Fallible<()>;
+    fn Stringifier(&self) -> Fallible<DOMString>;
 }
 const sUnforgeableMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

@@ -59,12 +59,12 @@ impl<TH: TypeHolderTrait> CSSGroupingRuleMethods<TH> for CSSGroupingRule<TH> {
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssgroupingrule-insertrule
-    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32, TH> {
+    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32> {
         self.rulelist().insert_rule(&rule, index, /* nested */ true)
     }
 
     // https://drafts.csswg.org/cssom/#dom-cssgroupingrule-deleterule
-    fn DeleteRule(&self, index: u32) -> ErrorResult<TH> {
+    fn DeleteRule(&self, index: u32) -> ErrorResult {
         self.rulelist().remove_rule(index)
     }
 }

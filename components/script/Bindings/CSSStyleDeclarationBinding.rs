@@ -536,7 +536,7 @@ unsafe extern fn set_cssText<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCssText(arg0);
+        let result: Result<(), Error> = this.SetCssText(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -806,7 +806,7 @@ unsafe extern fn setProperty<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetProperty(arg0, arg1, arg2);
+        let result: Result<(), Error> = this.SetProperty(arg0, arg1, arg2);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -874,7 +874,7 @@ unsafe extern fn setPropertyValue<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPropertyValue(arg0, arg1);
+        let result: Result<(), Error> = this.SetPropertyValue(arg0, arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -942,7 +942,7 @@ unsafe extern fn setPropertyPriority<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPropertyPriority(arg0, arg1);
+        let result: Result<(), Error> = this.SetPropertyPriority(arg0, arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1000,7 +1000,7 @@ unsafe extern fn removeProperty<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DOMString, Error<TH>> = this.RemoveProperty(arg0);
+        let result: Result<DOMString, Error> = this.RemoveProperty(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1066,7 +1066,7 @@ unsafe extern fn set_cssFloat<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCssFloat(arg0);
+        let result: Result<(), Error> = this.SetCssFloat(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1149,7 +1149,7 @@ unsafe extern fn set_all<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAll(arg0);
+        let result: Result<(), Error> = this.SetAll(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1232,7 +1232,7 @@ unsafe extern fn set_background<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground(arg0);
+        let result: Result<(), Error> = this.SetBackground(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1315,7 +1315,7 @@ unsafe extern fn set_backgroundColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundColor(arg0);
+        let result: Result<(), Error> = this.SetBackgroundColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1398,7 +1398,7 @@ unsafe extern fn set_background_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_color(arg0);
+        let result: Result<(), Error> = this.SetBackground_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1481,7 +1481,7 @@ unsafe extern fn set_backgroundPosition<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundPosition(arg0);
+        let result: Result<(), Error> = this.SetBackgroundPosition(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1564,7 +1564,7 @@ unsafe extern fn set_background_position<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_position(arg0);
+        let result: Result<(), Error> = this.SetBackground_position(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1647,7 +1647,7 @@ unsafe extern fn set_backgroundPositionX<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundPositionX(arg0);
+        let result: Result<(), Error> = this.SetBackgroundPositionX(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1730,7 +1730,7 @@ unsafe extern fn set_background_position_x<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_position_x(arg0);
+        let result: Result<(), Error> = this.SetBackground_position_x(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1813,7 +1813,7 @@ unsafe extern fn set_backgroundPositionY<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundPositionY(arg0);
+        let result: Result<(), Error> = this.SetBackgroundPositionY(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1896,7 +1896,7 @@ unsafe extern fn set_background_position_y<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_position_y(arg0);
+        let result: Result<(), Error> = this.SetBackground_position_y(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1979,7 +1979,7 @@ unsafe extern fn set_backgroundRepeat<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundRepeat(arg0);
+        let result: Result<(), Error> = this.SetBackgroundRepeat(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2062,7 +2062,7 @@ unsafe extern fn set_background_repeat<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_repeat(arg0);
+        let result: Result<(), Error> = this.SetBackground_repeat(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2145,7 +2145,7 @@ unsafe extern fn set_backgroundImage<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundImage(arg0);
+        let result: Result<(), Error> = this.SetBackgroundImage(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2228,7 +2228,7 @@ unsafe extern fn set_background_image<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_image(arg0);
+        let result: Result<(), Error> = this.SetBackground_image(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2311,7 +2311,7 @@ unsafe extern fn set_backgroundAttachment<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundAttachment(arg0);
+        let result: Result<(), Error> = this.SetBackgroundAttachment(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2394,7 +2394,7 @@ unsafe extern fn set_background_attachment<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_attachment(arg0);
+        let result: Result<(), Error> = this.SetBackground_attachment(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2477,7 +2477,7 @@ unsafe extern fn set_backgroundSize<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundSize(arg0);
+        let result: Result<(), Error> = this.SetBackgroundSize(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2560,7 +2560,7 @@ unsafe extern fn set_background_size<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_size(arg0);
+        let result: Result<(), Error> = this.SetBackground_size(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2643,7 +2643,7 @@ unsafe extern fn set_backgroundOrigin<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundOrigin(arg0);
+        let result: Result<(), Error> = this.SetBackgroundOrigin(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2726,7 +2726,7 @@ unsafe extern fn set_background_origin<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_origin(arg0);
+        let result: Result<(), Error> = this.SetBackground_origin(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2809,7 +2809,7 @@ unsafe extern fn set_backgroundClip<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackgroundClip(arg0);
+        let result: Result<(), Error> = this.SetBackgroundClip(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2892,7 +2892,7 @@ unsafe extern fn set_background_clip<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackground_clip(arg0);
+        let result: Result<(), Error> = this.SetBackground_clip(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2975,7 +2975,7 @@ unsafe extern fn set_border<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder(arg0);
+        let result: Result<(), Error> = this.SetBorder(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3058,7 +3058,7 @@ unsafe extern fn set_borderColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderColor(arg0);
+        let result: Result<(), Error> = this.SetBorderColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3141,7 +3141,7 @@ unsafe extern fn set_border_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_color(arg0);
+        let result: Result<(), Error> = this.SetBorder_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3224,7 +3224,7 @@ unsafe extern fn set_borderRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderRadius(arg0);
+        let result: Result<(), Error> = this.SetBorderRadius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3307,7 +3307,7 @@ unsafe extern fn set_border_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_radius(arg0);
+        let result: Result<(), Error> = this.SetBorder_radius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3390,7 +3390,7 @@ unsafe extern fn set_borderSpacing<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderSpacing(arg0);
+        let result: Result<(), Error> = this.SetBorderSpacing(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3473,7 +3473,7 @@ unsafe extern fn set_border_spacing<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_spacing(arg0);
+        let result: Result<(), Error> = this.SetBorder_spacing(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3556,7 +3556,7 @@ unsafe extern fn set_borderStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderStyle(arg0);
+        let result: Result<(), Error> = this.SetBorderStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3639,7 +3639,7 @@ unsafe extern fn set_border_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_style(arg0);
+        let result: Result<(), Error> = this.SetBorder_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3722,7 +3722,7 @@ unsafe extern fn set_borderWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3805,7 +3805,7 @@ unsafe extern fn set_border_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3888,7 +3888,7 @@ unsafe extern fn set_borderBottom<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBottom(arg0);
+        let result: Result<(), Error> = this.SetBorderBottom(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -3971,7 +3971,7 @@ unsafe extern fn set_border_bottom<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_bottom(arg0);
+        let result: Result<(), Error> = this.SetBorder_bottom(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4054,7 +4054,7 @@ unsafe extern fn set_borderBottomColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBottomColor(arg0);
+        let result: Result<(), Error> = this.SetBorderBottomColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4137,7 +4137,7 @@ unsafe extern fn set_border_bottom_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_bottom_color(arg0);
+        let result: Result<(), Error> = this.SetBorder_bottom_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4220,7 +4220,7 @@ unsafe extern fn set_borderBottomLeftRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBottomLeftRadius(arg0);
+        let result: Result<(), Error> = this.SetBorderBottomLeftRadius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4303,7 +4303,7 @@ unsafe extern fn set_border_bottom_left_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_bottom_left_radius(arg0);
+        let result: Result<(), Error> = this.SetBorder_bottom_left_radius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4386,7 +4386,7 @@ unsafe extern fn set_borderBottomRightRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBottomRightRadius(arg0);
+        let result: Result<(), Error> = this.SetBorderBottomRightRadius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4469,7 +4469,7 @@ unsafe extern fn set_border_bottom_right_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_bottom_right_radius(arg0);
+        let result: Result<(), Error> = this.SetBorder_bottom_right_radius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4552,7 +4552,7 @@ unsafe extern fn set_borderBottomStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBottomStyle(arg0);
+        let result: Result<(), Error> = this.SetBorderBottomStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4635,7 +4635,7 @@ unsafe extern fn set_border_bottom_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_bottom_style(arg0);
+        let result: Result<(), Error> = this.SetBorder_bottom_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4718,7 +4718,7 @@ unsafe extern fn set_borderBottomWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBottomWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderBottomWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4801,7 +4801,7 @@ unsafe extern fn set_border_bottom_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_bottom_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_bottom_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4884,7 +4884,7 @@ unsafe extern fn set_borderLeft<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderLeft(arg0);
+        let result: Result<(), Error> = this.SetBorderLeft(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -4967,7 +4967,7 @@ unsafe extern fn set_border_left<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_left(arg0);
+        let result: Result<(), Error> = this.SetBorder_left(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5050,7 +5050,7 @@ unsafe extern fn set_borderLeftColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderLeftColor(arg0);
+        let result: Result<(), Error> = this.SetBorderLeftColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5133,7 +5133,7 @@ unsafe extern fn set_border_left_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_left_color(arg0);
+        let result: Result<(), Error> = this.SetBorder_left_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5216,7 +5216,7 @@ unsafe extern fn set_borderLeftStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderLeftStyle(arg0);
+        let result: Result<(), Error> = this.SetBorderLeftStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5299,7 +5299,7 @@ unsafe extern fn set_border_left_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_left_style(arg0);
+        let result: Result<(), Error> = this.SetBorder_left_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5382,7 +5382,7 @@ unsafe extern fn set_borderLeftWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderLeftWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderLeftWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5465,7 +5465,7 @@ unsafe extern fn set_border_left_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_left_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_left_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5548,7 +5548,7 @@ unsafe extern fn set_borderRight<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderRight(arg0);
+        let result: Result<(), Error> = this.SetBorderRight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5631,7 +5631,7 @@ unsafe extern fn set_border_right<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_right(arg0);
+        let result: Result<(), Error> = this.SetBorder_right(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5714,7 +5714,7 @@ unsafe extern fn set_borderRightColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderRightColor(arg0);
+        let result: Result<(), Error> = this.SetBorderRightColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5797,7 +5797,7 @@ unsafe extern fn set_border_right_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_right_color(arg0);
+        let result: Result<(), Error> = this.SetBorder_right_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5880,7 +5880,7 @@ unsafe extern fn set_borderRightStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderRightStyle(arg0);
+        let result: Result<(), Error> = this.SetBorderRightStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -5963,7 +5963,7 @@ unsafe extern fn set_border_right_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_right_style(arg0);
+        let result: Result<(), Error> = this.SetBorder_right_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6046,7 +6046,7 @@ unsafe extern fn set_borderRightWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderRightWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderRightWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6129,7 +6129,7 @@ unsafe extern fn set_border_right_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_right_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_right_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6212,7 +6212,7 @@ unsafe extern fn set_borderTop<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderTop(arg0);
+        let result: Result<(), Error> = this.SetBorderTop(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6295,7 +6295,7 @@ unsafe extern fn set_border_top<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_top(arg0);
+        let result: Result<(), Error> = this.SetBorder_top(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6378,7 +6378,7 @@ unsafe extern fn set_borderTopColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderTopColor(arg0);
+        let result: Result<(), Error> = this.SetBorderTopColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6461,7 +6461,7 @@ unsafe extern fn set_border_top_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_top_color(arg0);
+        let result: Result<(), Error> = this.SetBorder_top_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6544,7 +6544,7 @@ unsafe extern fn set_borderTopLeftRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderTopLeftRadius(arg0);
+        let result: Result<(), Error> = this.SetBorderTopLeftRadius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6627,7 +6627,7 @@ unsafe extern fn set_border_top_left_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_top_left_radius(arg0);
+        let result: Result<(), Error> = this.SetBorder_top_left_radius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6710,7 +6710,7 @@ unsafe extern fn set_borderTopRightRadius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderTopRightRadius(arg0);
+        let result: Result<(), Error> = this.SetBorderTopRightRadius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6793,7 +6793,7 @@ unsafe extern fn set_border_top_right_radius<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_top_right_radius(arg0);
+        let result: Result<(), Error> = this.SetBorder_top_right_radius(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6876,7 +6876,7 @@ unsafe extern fn set_borderTopStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderTopStyle(arg0);
+        let result: Result<(), Error> = this.SetBorderTopStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -6959,7 +6959,7 @@ unsafe extern fn set_border_top_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_top_style(arg0);
+        let result: Result<(), Error> = this.SetBorder_top_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7042,7 +7042,7 @@ unsafe extern fn set_borderTopWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderTopWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderTopWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7125,7 +7125,7 @@ unsafe extern fn set_border_top_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_top_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_top_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7208,7 +7208,7 @@ unsafe extern fn set_border_image_source<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_image_source(arg0);
+        let result: Result<(), Error> = this.SetBorder_image_source(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7291,7 +7291,7 @@ unsafe extern fn set_borderImageSource<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderImageSource(arg0);
+        let result: Result<(), Error> = this.SetBorderImageSource(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7374,7 +7374,7 @@ unsafe extern fn set_border_image_slice<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_image_slice(arg0);
+        let result: Result<(), Error> = this.SetBorder_image_slice(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7457,7 +7457,7 @@ unsafe extern fn set_borderImageSlice<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderImageSlice(arg0);
+        let result: Result<(), Error> = this.SetBorderImageSlice(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7540,7 +7540,7 @@ unsafe extern fn set_border_image_repeat<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_image_repeat(arg0);
+        let result: Result<(), Error> = this.SetBorder_image_repeat(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7623,7 +7623,7 @@ unsafe extern fn set_borderImageRepeat<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderImageRepeat(arg0);
+        let result: Result<(), Error> = this.SetBorderImageRepeat(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7706,7 +7706,7 @@ unsafe extern fn set_border_image_outset<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_image_outset(arg0);
+        let result: Result<(), Error> = this.SetBorder_image_outset(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7789,7 +7789,7 @@ unsafe extern fn set_borderImageOutset<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderImageOutset(arg0);
+        let result: Result<(), Error> = this.SetBorderImageOutset(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7872,7 +7872,7 @@ unsafe extern fn set_border_image_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_image_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_image_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -7955,7 +7955,7 @@ unsafe extern fn set_borderImageWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderImageWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderImageWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8038,7 +8038,7 @@ unsafe extern fn set_border_image<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_image(arg0);
+        let result: Result<(), Error> = this.SetBorder_image(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8121,7 +8121,7 @@ unsafe extern fn set_borderImage<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderImage(arg0);
+        let result: Result<(), Error> = this.SetBorderImage(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8204,7 +8204,7 @@ unsafe extern fn set_border_block_start_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_block_start_color(arg0);
+        let result: Result<(), Error> = this.SetBorder_block_start_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8287,7 +8287,7 @@ unsafe extern fn set_borderBlockStartColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBlockStartColor(arg0);
+        let result: Result<(), Error> = this.SetBorderBlockStartColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8370,7 +8370,7 @@ unsafe extern fn set_border_block_start_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_block_start_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_block_start_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8453,7 +8453,7 @@ unsafe extern fn set_borderBlockStartWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBlockStartWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderBlockStartWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8536,7 +8536,7 @@ unsafe extern fn set_border_block_start_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_block_start_style(arg0);
+        let result: Result<(), Error> = this.SetBorder_block_start_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8619,7 +8619,7 @@ unsafe extern fn set_borderBlockStartStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBlockStartStyle(arg0);
+        let result: Result<(), Error> = this.SetBorderBlockStartStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8702,7 +8702,7 @@ unsafe extern fn set_border_block_end_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_block_end_color(arg0);
+        let result: Result<(), Error> = this.SetBorder_block_end_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8785,7 +8785,7 @@ unsafe extern fn set_borderBlockEndColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBlockEndColor(arg0);
+        let result: Result<(), Error> = this.SetBorderBlockEndColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8868,7 +8868,7 @@ unsafe extern fn set_border_block_end_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_block_end_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_block_end_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8951,7 +8951,7 @@ unsafe extern fn set_borderBlockEndWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBlockEndWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderBlockEndWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9034,7 +9034,7 @@ unsafe extern fn set_border_block_end_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_block_end_style(arg0);
+        let result: Result<(), Error> = this.SetBorder_block_end_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9117,7 +9117,7 @@ unsafe extern fn set_borderBlockEndStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBlockEndStyle(arg0);
+        let result: Result<(), Error> = this.SetBorderBlockEndStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9200,7 +9200,7 @@ unsafe extern fn set_border_inline_start_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_inline_start_color(arg0);
+        let result: Result<(), Error> = this.SetBorder_inline_start_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9283,7 +9283,7 @@ unsafe extern fn set_borderInlineStartColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderInlineStartColor(arg0);
+        let result: Result<(), Error> = this.SetBorderInlineStartColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9366,7 +9366,7 @@ unsafe extern fn set_border_inline_start_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_inline_start_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_inline_start_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9449,7 +9449,7 @@ unsafe extern fn set_borderInlineStartWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderInlineStartWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderInlineStartWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9532,7 +9532,7 @@ unsafe extern fn set_border_inline_start_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_inline_start_style(arg0);
+        let result: Result<(), Error> = this.SetBorder_inline_start_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9615,7 +9615,7 @@ unsafe extern fn set_borderInlineStartStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderInlineStartStyle(arg0);
+        let result: Result<(), Error> = this.SetBorderInlineStartStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9698,7 +9698,7 @@ unsafe extern fn set_border_inline_end_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_inline_end_color(arg0);
+        let result: Result<(), Error> = this.SetBorder_inline_end_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9781,7 +9781,7 @@ unsafe extern fn set_borderInlineEndColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderInlineEndColor(arg0);
+        let result: Result<(), Error> = this.SetBorderInlineEndColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9864,7 +9864,7 @@ unsafe extern fn set_border_inline_end_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_inline_end_width(arg0);
+        let result: Result<(), Error> = this.SetBorder_inline_end_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -9947,7 +9947,7 @@ unsafe extern fn set_borderInlineEndWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderInlineEndWidth(arg0);
+        let result: Result<(), Error> = this.SetBorderInlineEndWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10030,7 +10030,7 @@ unsafe extern fn set_border_inline_end_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_inline_end_style(arg0);
+        let result: Result<(), Error> = this.SetBorder_inline_end_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10113,7 +10113,7 @@ unsafe extern fn set_borderInlineEndStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderInlineEndStyle(arg0);
+        let result: Result<(), Error> = this.SetBorderInlineEndStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10196,7 +10196,7 @@ unsafe extern fn set_border_block_start<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_block_start(arg0);
+        let result: Result<(), Error> = this.SetBorder_block_start(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10279,7 +10279,7 @@ unsafe extern fn set_borderBlockStart<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBlockStart(arg0);
+        let result: Result<(), Error> = this.SetBorderBlockStart(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10362,7 +10362,7 @@ unsafe extern fn set_border_block_end<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_block_end(arg0);
+        let result: Result<(), Error> = this.SetBorder_block_end(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10445,7 +10445,7 @@ unsafe extern fn set_borderBlockEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderBlockEnd(arg0);
+        let result: Result<(), Error> = this.SetBorderBlockEnd(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10528,7 +10528,7 @@ unsafe extern fn set_border_inline_start<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_inline_start(arg0);
+        let result: Result<(), Error> = this.SetBorder_inline_start(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10611,7 +10611,7 @@ unsafe extern fn set_borderInlineStart<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderInlineStart(arg0);
+        let result: Result<(), Error> = this.SetBorderInlineStart(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10694,7 +10694,7 @@ unsafe extern fn set_border_inline_end<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_inline_end(arg0);
+        let result: Result<(), Error> = this.SetBorder_inline_end(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10777,7 +10777,7 @@ unsafe extern fn set_borderInlineEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderInlineEnd(arg0);
+        let result: Result<(), Error> = this.SetBorderInlineEnd(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10860,7 +10860,7 @@ unsafe extern fn set_content<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetContent(arg0);
+        let result: Result<(), Error> = this.SetContent(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -10943,7 +10943,7 @@ unsafe extern fn set_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetColor(arg0);
+        let result: Result<(), Error> = this.SetColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11026,7 +11026,7 @@ unsafe extern fn set_display<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetDisplay(arg0);
+        let result: Result<(), Error> = this.SetDisplay(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11109,7 +11109,7 @@ unsafe extern fn set_opacity<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOpacity(arg0);
+        let result: Result<(), Error> = this.SetOpacity(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11192,7 +11192,7 @@ unsafe extern fn set_visibility<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetVisibility(arg0);
+        let result: Result<(), Error> = this.SetVisibility(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11275,7 +11275,7 @@ unsafe extern fn set_cursor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCursor(arg0);
+        let result: Result<(), Error> = this.SetCursor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11358,7 +11358,7 @@ unsafe extern fn set_boxSizing<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBoxSizing(arg0);
+        let result: Result<(), Error> = this.SetBoxSizing(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11441,7 +11441,7 @@ unsafe extern fn set_box_sizing<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBox_sizing(arg0);
+        let result: Result<(), Error> = this.SetBox_sizing(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11524,7 +11524,7 @@ unsafe extern fn set_boxShadow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBoxShadow(arg0);
+        let result: Result<(), Error> = this.SetBoxShadow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11607,7 +11607,7 @@ unsafe extern fn set_box_shadow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBox_shadow(arg0);
+        let result: Result<(), Error> = this.SetBox_shadow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11690,7 +11690,7 @@ unsafe extern fn set_textShadow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTextShadow(arg0);
+        let result: Result<(), Error> = this.SetTextShadow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11773,7 +11773,7 @@ unsafe extern fn set_text_shadow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetText_shadow(arg0);
+        let result: Result<(), Error> = this.SetText_shadow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11856,7 +11856,7 @@ unsafe extern fn set_float<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFloat(arg0);
+        let result: Result<(), Error> = this.SetFloat(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -11939,7 +11939,7 @@ unsafe extern fn set_clear<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetClear(arg0);
+        let result: Result<(), Error> = this.SetClear(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12022,7 +12022,7 @@ unsafe extern fn set_clip<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetClip(arg0);
+        let result: Result<(), Error> = this.SetClip(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12105,7 +12105,7 @@ unsafe extern fn set_transform<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransform(arg0);
+        let result: Result<(), Error> = this.SetTransform(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12188,7 +12188,7 @@ unsafe extern fn set_transformOrigin<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransformOrigin(arg0);
+        let result: Result<(), Error> = this.SetTransformOrigin(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12271,7 +12271,7 @@ unsafe extern fn set_transform_origin<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransform_origin(arg0);
+        let result: Result<(), Error> = this.SetTransform_origin(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12354,7 +12354,7 @@ unsafe extern fn set_perspective<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPerspective(arg0);
+        let result: Result<(), Error> = this.SetPerspective(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12437,7 +12437,7 @@ unsafe extern fn set_perspectiveOrigin<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPerspectiveOrigin(arg0);
+        let result: Result<(), Error> = this.SetPerspectiveOrigin(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12520,7 +12520,7 @@ unsafe extern fn set_perspective_origin<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPerspective_origin(arg0);
+        let result: Result<(), Error> = this.SetPerspective_origin(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12603,7 +12603,7 @@ unsafe extern fn set_transformStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransformStyle(arg0);
+        let result: Result<(), Error> = this.SetTransformStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12686,7 +12686,7 @@ unsafe extern fn set_transform_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransform_style(arg0);
+        let result: Result<(), Error> = this.SetTransform_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12769,7 +12769,7 @@ unsafe extern fn set_backfaceVisibility<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackfaceVisibility(arg0);
+        let result: Result<(), Error> = this.SetBackfaceVisibility(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12852,7 +12852,7 @@ unsafe extern fn set_backface_visibility<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBackface_visibility(arg0);
+        let result: Result<(), Error> = this.SetBackface_visibility(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -12935,7 +12935,7 @@ unsafe extern fn set_rotate<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetRotate(arg0);
+        let result: Result<(), Error> = this.SetRotate(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13018,7 +13018,7 @@ unsafe extern fn set_scale<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetScale(arg0);
+        let result: Result<(), Error> = this.SetScale(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13101,7 +13101,7 @@ unsafe extern fn set_translate<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTranslate(arg0);
+        let result: Result<(), Error> = this.SetTranslate(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13184,7 +13184,7 @@ unsafe extern fn set_direction<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetDirection(arg0);
+        let result: Result<(), Error> = this.SetDirection(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13267,7 +13267,7 @@ unsafe extern fn set_unicodeBidi<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetUnicodeBidi(arg0);
+        let result: Result<(), Error> = this.SetUnicodeBidi(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13350,7 +13350,7 @@ unsafe extern fn set_unicode_bidi<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetUnicode_bidi(arg0);
+        let result: Result<(), Error> = this.SetUnicode_bidi(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13433,7 +13433,7 @@ unsafe extern fn set_filter<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFilter(arg0);
+        let result: Result<(), Error> = this.SetFilter(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13516,7 +13516,7 @@ unsafe extern fn set_lineHeight<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetLineHeight(arg0);
+        let result: Result<(), Error> = this.SetLineHeight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13599,7 +13599,7 @@ unsafe extern fn set_line_height<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetLine_height(arg0);
+        let result: Result<(), Error> = this.SetLine_height(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13682,7 +13682,7 @@ unsafe extern fn set_mixBlendMode<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMixBlendMode(arg0);
+        let result: Result<(), Error> = this.SetMixBlendMode(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13765,7 +13765,7 @@ unsafe extern fn set_mix_blend_mode<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMix_blend_mode(arg0);
+        let result: Result<(), Error> = this.SetMix_blend_mode(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13848,7 +13848,7 @@ unsafe extern fn set_verticalAlign<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetVerticalAlign(arg0);
+        let result: Result<(), Error> = this.SetVerticalAlign(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -13931,7 +13931,7 @@ unsafe extern fn set_vertical_align<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetVertical_align(arg0);
+        let result: Result<(), Error> = this.SetVertical_align(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14014,7 +14014,7 @@ unsafe extern fn set_listStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetListStyle(arg0);
+        let result: Result<(), Error> = this.SetListStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14097,7 +14097,7 @@ unsafe extern fn set_list_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetList_style(arg0);
+        let result: Result<(), Error> = this.SetList_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14180,7 +14180,7 @@ unsafe extern fn set_listStylePosition<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetListStylePosition(arg0);
+        let result: Result<(), Error> = this.SetListStylePosition(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14263,7 +14263,7 @@ unsafe extern fn set_list_style_position<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetList_style_position(arg0);
+        let result: Result<(), Error> = this.SetList_style_position(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14346,7 +14346,7 @@ unsafe extern fn set_listStyleType<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetListStyleType(arg0);
+        let result: Result<(), Error> = this.SetListStyleType(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14429,7 +14429,7 @@ unsafe extern fn set_list_style_type<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetList_style_type(arg0);
+        let result: Result<(), Error> = this.SetList_style_type(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14512,7 +14512,7 @@ unsafe extern fn set_listStyleImage<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetListStyleImage(arg0);
+        let result: Result<(), Error> = this.SetListStyleImage(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14595,7 +14595,7 @@ unsafe extern fn set_list_style_image<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetList_style_image(arg0);
+        let result: Result<(), Error> = this.SetList_style_image(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14678,7 +14678,7 @@ unsafe extern fn set_quotes<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetQuotes(arg0);
+        let result: Result<(), Error> = this.SetQuotes(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14761,7 +14761,7 @@ unsafe extern fn set_counterIncrement<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCounterIncrement(arg0);
+        let result: Result<(), Error> = this.SetCounterIncrement(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14844,7 +14844,7 @@ unsafe extern fn set_counter_increment<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCounter_increment(arg0);
+        let result: Result<(), Error> = this.SetCounter_increment(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -14927,7 +14927,7 @@ unsafe extern fn set_counterReset<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCounterReset(arg0);
+        let result: Result<(), Error> = this.SetCounterReset(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15010,7 +15010,7 @@ unsafe extern fn set_counter_reset<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCounter_reset(arg0);
+        let result: Result<(), Error> = this.SetCounter_reset(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15093,7 +15093,7 @@ unsafe extern fn set_overflow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOverflow(arg0);
+        let result: Result<(), Error> = this.SetOverflow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15176,7 +15176,7 @@ unsafe extern fn set_overflowX<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOverflowX(arg0);
+        let result: Result<(), Error> = this.SetOverflowX(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15259,7 +15259,7 @@ unsafe extern fn set_overflow_x<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOverflow_x(arg0);
+        let result: Result<(), Error> = this.SetOverflow_x(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15342,7 +15342,7 @@ unsafe extern fn set_overflowY<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOverflowY(arg0);
+        let result: Result<(), Error> = this.SetOverflowY(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15425,7 +15425,7 @@ unsafe extern fn set_overflow_y<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOverflow_y(arg0);
+        let result: Result<(), Error> = this.SetOverflow_y(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15508,7 +15508,7 @@ unsafe extern fn set_overflowWrap<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOverflowWrap(arg0);
+        let result: Result<(), Error> = this.SetOverflowWrap(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15591,7 +15591,7 @@ unsafe extern fn set_overflow_wrap<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOverflow_wrap(arg0);
+        let result: Result<(), Error> = this.SetOverflow_wrap(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15674,7 +15674,7 @@ unsafe extern fn set_tableLayout<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTableLayout(arg0);
+        let result: Result<(), Error> = this.SetTableLayout(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15757,7 +15757,7 @@ unsafe extern fn set_table_layout<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTable_layout(arg0);
+        let result: Result<(), Error> = this.SetTable_layout(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15840,7 +15840,7 @@ unsafe extern fn set_borderCollapse<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorderCollapse(arg0);
+        let result: Result<(), Error> = this.SetBorderCollapse(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -15923,7 +15923,7 @@ unsafe extern fn set_border_collapse<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBorder_collapse(arg0);
+        let result: Result<(), Error> = this.SetBorder_collapse(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16006,7 +16006,7 @@ unsafe extern fn set_emptyCells<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetEmptyCells(arg0);
+        let result: Result<(), Error> = this.SetEmptyCells(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16089,7 +16089,7 @@ unsafe extern fn set_empty_cells<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetEmpty_cells(arg0);
+        let result: Result<(), Error> = this.SetEmpty_cells(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16172,7 +16172,7 @@ unsafe extern fn set_captionSide<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCaptionSide(arg0);
+        let result: Result<(), Error> = this.SetCaptionSide(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16255,7 +16255,7 @@ unsafe extern fn set_caption_side<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCaption_side(arg0);
+        let result: Result<(), Error> = this.SetCaption_side(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16338,7 +16338,7 @@ unsafe extern fn set_whiteSpace<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWhiteSpace(arg0);
+        let result: Result<(), Error> = this.SetWhiteSpace(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16421,7 +16421,7 @@ unsafe extern fn set_white_space<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWhite_space(arg0);
+        let result: Result<(), Error> = this.SetWhite_space(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16504,7 +16504,7 @@ unsafe extern fn set_writingMode<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWritingMode(arg0);
+        let result: Result<(), Error> = this.SetWritingMode(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16587,7 +16587,7 @@ unsafe extern fn set_writing_mode<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWriting_mode(arg0);
+        let result: Result<(), Error> = this.SetWriting_mode(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16670,7 +16670,7 @@ unsafe extern fn set_letterSpacing<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetLetterSpacing(arg0);
+        let result: Result<(), Error> = this.SetLetterSpacing(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16753,7 +16753,7 @@ unsafe extern fn set_letter_spacing<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetLetter_spacing(arg0);
+        let result: Result<(), Error> = this.SetLetter_spacing(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16836,7 +16836,7 @@ unsafe extern fn set_wordBreak<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWordBreak(arg0);
+        let result: Result<(), Error> = this.SetWordBreak(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -16919,7 +16919,7 @@ unsafe extern fn set_word_break<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWord_break(arg0);
+        let result: Result<(), Error> = this.SetWord_break(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17002,7 +17002,7 @@ unsafe extern fn set_wordSpacing<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWordSpacing(arg0);
+        let result: Result<(), Error> = this.SetWordSpacing(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17085,7 +17085,7 @@ unsafe extern fn set_word_spacing<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWord_spacing(arg0);
+        let result: Result<(), Error> = this.SetWord_spacing(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17168,7 +17168,7 @@ unsafe extern fn set_wordWrap<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWordWrap(arg0);
+        let result: Result<(), Error> = this.SetWordWrap(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17251,7 +17251,7 @@ unsafe extern fn set_word_wrap<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWord_wrap(arg0);
+        let result: Result<(), Error> = this.SetWord_wrap(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17334,7 +17334,7 @@ unsafe extern fn set_textOverflow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTextOverflow(arg0);
+        let result: Result<(), Error> = this.SetTextOverflow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17417,7 +17417,7 @@ unsafe extern fn set_text_overflow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetText_overflow(arg0);
+        let result: Result<(), Error> = this.SetText_overflow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17500,7 +17500,7 @@ unsafe extern fn set_textAlign<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTextAlign(arg0);
+        let result: Result<(), Error> = this.SetTextAlign(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17583,7 +17583,7 @@ unsafe extern fn set_text_align<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetText_align(arg0);
+        let result: Result<(), Error> = this.SetText_align(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17666,7 +17666,7 @@ unsafe extern fn set_textDecoration<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTextDecoration(arg0);
+        let result: Result<(), Error> = this.SetTextDecoration(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17749,7 +17749,7 @@ unsafe extern fn set_text_decoration<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetText_decoration(arg0);
+        let result: Result<(), Error> = this.SetText_decoration(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17832,7 +17832,7 @@ unsafe extern fn set_textDecorationLine<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTextDecorationLine(arg0);
+        let result: Result<(), Error> = this.SetTextDecorationLine(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17915,7 +17915,7 @@ unsafe extern fn set_text_decoration_line<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetText_decoration_line(arg0);
+        let result: Result<(), Error> = this.SetText_decoration_line(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -17998,7 +17998,7 @@ unsafe extern fn set_textIndent<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTextIndent(arg0);
+        let result: Result<(), Error> = this.SetTextIndent(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18081,7 +18081,7 @@ unsafe extern fn set_text_indent<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetText_indent(arg0);
+        let result: Result<(), Error> = this.SetText_indent(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18164,7 +18164,7 @@ unsafe extern fn set_textJustify<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTextJustify(arg0);
+        let result: Result<(), Error> = this.SetTextJustify(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18247,7 +18247,7 @@ unsafe extern fn set_text_justify<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetText_justify(arg0);
+        let result: Result<(), Error> = this.SetText_justify(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18330,7 +18330,7 @@ unsafe extern fn set_textRendering<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTextRendering(arg0);
+        let result: Result<(), Error> = this.SetTextRendering(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18413,7 +18413,7 @@ unsafe extern fn set_text_rendering<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetText_rendering(arg0);
+        let result: Result<(), Error> = this.SetText_rendering(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18496,7 +18496,7 @@ unsafe extern fn set_textTransform<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTextTransform(arg0);
+        let result: Result<(), Error> = this.SetTextTransform(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18579,7 +18579,7 @@ unsafe extern fn set_text_transform<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetText_transform(arg0);
+        let result: Result<(), Error> = this.SetText_transform(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18662,7 +18662,7 @@ unsafe extern fn set_font<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFont(arg0);
+        let result: Result<(), Error> = this.SetFont(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18745,7 +18745,7 @@ unsafe extern fn set_fontFamily<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFontFamily(arg0);
+        let result: Result<(), Error> = this.SetFontFamily(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18828,7 +18828,7 @@ unsafe extern fn set_font_family<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFont_family(arg0);
+        let result: Result<(), Error> = this.SetFont_family(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18911,7 +18911,7 @@ unsafe extern fn set_fontSize<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFontSize(arg0);
+        let result: Result<(), Error> = this.SetFontSize(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -18994,7 +18994,7 @@ unsafe extern fn set_font_size<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFont_size(arg0);
+        let result: Result<(), Error> = this.SetFont_size(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19077,7 +19077,7 @@ unsafe extern fn set_fontStretch<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFontStretch(arg0);
+        let result: Result<(), Error> = this.SetFontStretch(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19160,7 +19160,7 @@ unsafe extern fn set_font_stretch<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFont_stretch(arg0);
+        let result: Result<(), Error> = this.SetFont_stretch(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19243,7 +19243,7 @@ unsafe extern fn set_fontStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFontStyle(arg0);
+        let result: Result<(), Error> = this.SetFontStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19326,7 +19326,7 @@ unsafe extern fn set_font_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFont_style(arg0);
+        let result: Result<(), Error> = this.SetFont_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19409,7 +19409,7 @@ unsafe extern fn set_fontVariant<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFontVariant(arg0);
+        let result: Result<(), Error> = this.SetFontVariant(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19492,7 +19492,7 @@ unsafe extern fn set_font_variant<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFont_variant(arg0);
+        let result: Result<(), Error> = this.SetFont_variant(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19575,7 +19575,7 @@ unsafe extern fn set_fontVariantCaps<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFontVariantCaps(arg0);
+        let result: Result<(), Error> = this.SetFontVariantCaps(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19658,7 +19658,7 @@ unsafe extern fn set_font_variant_caps<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFont_variant_caps(arg0);
+        let result: Result<(), Error> = this.SetFont_variant_caps(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19741,7 +19741,7 @@ unsafe extern fn set_fontWeight<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFontWeight(arg0);
+        let result: Result<(), Error> = this.SetFontWeight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19824,7 +19824,7 @@ unsafe extern fn set_font_weight<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFont_weight(arg0);
+        let result: Result<(), Error> = this.SetFont_weight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19907,7 +19907,7 @@ unsafe extern fn set_margin<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMargin(arg0);
+        let result: Result<(), Error> = this.SetMargin(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -19990,7 +19990,7 @@ unsafe extern fn set_marginBottom<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMarginBottom(arg0);
+        let result: Result<(), Error> = this.SetMarginBottom(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20073,7 +20073,7 @@ unsafe extern fn set_margin_bottom<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMargin_bottom(arg0);
+        let result: Result<(), Error> = this.SetMargin_bottom(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20156,7 +20156,7 @@ unsafe extern fn set_marginLeft<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMarginLeft(arg0);
+        let result: Result<(), Error> = this.SetMarginLeft(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20239,7 +20239,7 @@ unsafe extern fn set_margin_left<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMargin_left(arg0);
+        let result: Result<(), Error> = this.SetMargin_left(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20322,7 +20322,7 @@ unsafe extern fn set_marginRight<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMarginRight(arg0);
+        let result: Result<(), Error> = this.SetMarginRight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20405,7 +20405,7 @@ unsafe extern fn set_margin_right<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMargin_right(arg0);
+        let result: Result<(), Error> = this.SetMargin_right(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20488,7 +20488,7 @@ unsafe extern fn set_marginTop<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMarginTop(arg0);
+        let result: Result<(), Error> = this.SetMarginTop(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20571,7 +20571,7 @@ unsafe extern fn set_margin_top<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMargin_top(arg0);
+        let result: Result<(), Error> = this.SetMargin_top(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20654,7 +20654,7 @@ unsafe extern fn set_margin_block_start<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMargin_block_start(arg0);
+        let result: Result<(), Error> = this.SetMargin_block_start(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20737,7 +20737,7 @@ unsafe extern fn set_marginBlockStart<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMarginBlockStart(arg0);
+        let result: Result<(), Error> = this.SetMarginBlockStart(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20820,7 +20820,7 @@ unsafe extern fn set_margin_block_end<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMargin_block_end(arg0);
+        let result: Result<(), Error> = this.SetMargin_block_end(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20903,7 +20903,7 @@ unsafe extern fn set_marginBlockEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMarginBlockEnd(arg0);
+        let result: Result<(), Error> = this.SetMarginBlockEnd(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -20986,7 +20986,7 @@ unsafe extern fn set_margin_inline_start<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMargin_inline_start(arg0);
+        let result: Result<(), Error> = this.SetMargin_inline_start(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21069,7 +21069,7 @@ unsafe extern fn set_marginInlineStart<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMarginInlineStart(arg0);
+        let result: Result<(), Error> = this.SetMarginInlineStart(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21152,7 +21152,7 @@ unsafe extern fn set_margin_inline_end<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMargin_inline_end(arg0);
+        let result: Result<(), Error> = this.SetMargin_inline_end(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21235,7 +21235,7 @@ unsafe extern fn set_marginInlineEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMarginInlineEnd(arg0);
+        let result: Result<(), Error> = this.SetMarginInlineEnd(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21318,7 +21318,7 @@ unsafe extern fn set_padding<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPadding(arg0);
+        let result: Result<(), Error> = this.SetPadding(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21401,7 +21401,7 @@ unsafe extern fn set_paddingBottom<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPaddingBottom(arg0);
+        let result: Result<(), Error> = this.SetPaddingBottom(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21484,7 +21484,7 @@ unsafe extern fn set_padding_bottom<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPadding_bottom(arg0);
+        let result: Result<(), Error> = this.SetPadding_bottom(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21567,7 +21567,7 @@ unsafe extern fn set_paddingLeft<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPaddingLeft(arg0);
+        let result: Result<(), Error> = this.SetPaddingLeft(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21650,7 +21650,7 @@ unsafe extern fn set_padding_left<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPadding_left(arg0);
+        let result: Result<(), Error> = this.SetPadding_left(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21733,7 +21733,7 @@ unsafe extern fn set_paddingRight<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPaddingRight(arg0);
+        let result: Result<(), Error> = this.SetPaddingRight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21816,7 +21816,7 @@ unsafe extern fn set_padding_right<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPadding_right(arg0);
+        let result: Result<(), Error> = this.SetPadding_right(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21899,7 +21899,7 @@ unsafe extern fn set_paddingTop<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPaddingTop(arg0);
+        let result: Result<(), Error> = this.SetPaddingTop(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -21982,7 +21982,7 @@ unsafe extern fn set_padding_top<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPadding_top(arg0);
+        let result: Result<(), Error> = this.SetPadding_top(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22065,7 +22065,7 @@ unsafe extern fn set_padding_block_start<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPadding_block_start(arg0);
+        let result: Result<(), Error> = this.SetPadding_block_start(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22148,7 +22148,7 @@ unsafe extern fn set_paddingBlockStart<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPaddingBlockStart(arg0);
+        let result: Result<(), Error> = this.SetPaddingBlockStart(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22231,7 +22231,7 @@ unsafe extern fn set_padding_block_end<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPadding_block_end(arg0);
+        let result: Result<(), Error> = this.SetPadding_block_end(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22314,7 +22314,7 @@ unsafe extern fn set_paddingBlockEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPaddingBlockEnd(arg0);
+        let result: Result<(), Error> = this.SetPaddingBlockEnd(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22397,7 +22397,7 @@ unsafe extern fn set_padding_inline_start<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPadding_inline_start(arg0);
+        let result: Result<(), Error> = this.SetPadding_inline_start(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22480,7 +22480,7 @@ unsafe extern fn set_paddingInlineStart<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPaddingInlineStart(arg0);
+        let result: Result<(), Error> = this.SetPaddingInlineStart(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22563,7 +22563,7 @@ unsafe extern fn set_padding_inline_end<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPadding_inline_end(arg0);
+        let result: Result<(), Error> = this.SetPadding_inline_end(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22646,7 +22646,7 @@ unsafe extern fn set_paddingInlineEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPaddingInlineEnd(arg0);
+        let result: Result<(), Error> = this.SetPaddingInlineEnd(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22729,7 +22729,7 @@ unsafe extern fn set_outline<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOutline(arg0);
+        let result: Result<(), Error> = this.SetOutline(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22812,7 +22812,7 @@ unsafe extern fn set_outlineColor<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOutlineColor(arg0);
+        let result: Result<(), Error> = this.SetOutlineColor(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22895,7 +22895,7 @@ unsafe extern fn set_outline_color<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOutline_color(arg0);
+        let result: Result<(), Error> = this.SetOutline_color(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -22978,7 +22978,7 @@ unsafe extern fn set_outlineStyle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOutlineStyle(arg0);
+        let result: Result<(), Error> = this.SetOutlineStyle(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23061,7 +23061,7 @@ unsafe extern fn set_outline_style<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOutline_style(arg0);
+        let result: Result<(), Error> = this.SetOutline_style(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23144,7 +23144,7 @@ unsafe extern fn set_outlineWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOutlineWidth(arg0);
+        let result: Result<(), Error> = this.SetOutlineWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23227,7 +23227,7 @@ unsafe extern fn set_outline_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOutline_width(arg0);
+        let result: Result<(), Error> = this.SetOutline_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23310,7 +23310,7 @@ unsafe extern fn set_outlineOffset<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOutlineOffset(arg0);
+        let result: Result<(), Error> = this.SetOutlineOffset(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23393,7 +23393,7 @@ unsafe extern fn set_outline_offset<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOutline_offset(arg0);
+        let result: Result<(), Error> = this.SetOutline_offset(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23476,7 +23476,7 @@ unsafe extern fn set_position<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPosition(arg0);
+        let result: Result<(), Error> = this.SetPosition(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23559,7 +23559,7 @@ unsafe extern fn set_pointerEvents<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPointerEvents(arg0);
+        let result: Result<(), Error> = this.SetPointerEvents(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23642,7 +23642,7 @@ unsafe extern fn set_pointer_events<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetPointer_events(arg0);
+        let result: Result<(), Error> = this.SetPointer_events(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23725,7 +23725,7 @@ unsafe extern fn set_top<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTop(arg0);
+        let result: Result<(), Error> = this.SetTop(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23808,7 +23808,7 @@ unsafe extern fn set_right<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetRight(arg0);
+        let result: Result<(), Error> = this.SetRight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23891,7 +23891,7 @@ unsafe extern fn set_left<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetLeft(arg0);
+        let result: Result<(), Error> = this.SetLeft(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -23974,7 +23974,7 @@ unsafe extern fn set_bottom<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBottom(arg0);
+        let result: Result<(), Error> = this.SetBottom(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24057,7 +24057,7 @@ unsafe extern fn set_offset_block_start<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOffset_block_start(arg0);
+        let result: Result<(), Error> = this.SetOffset_block_start(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24140,7 +24140,7 @@ unsafe extern fn set_offsetBlockStart<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOffsetBlockStart(arg0);
+        let result: Result<(), Error> = this.SetOffsetBlockStart(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24223,7 +24223,7 @@ unsafe extern fn set_offset_block_end<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOffset_block_end(arg0);
+        let result: Result<(), Error> = this.SetOffset_block_end(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24306,7 +24306,7 @@ unsafe extern fn set_offsetBlockEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOffsetBlockEnd(arg0);
+        let result: Result<(), Error> = this.SetOffsetBlockEnd(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24389,7 +24389,7 @@ unsafe extern fn set_offset_inline_start<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOffset_inline_start(arg0);
+        let result: Result<(), Error> = this.SetOffset_inline_start(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24472,7 +24472,7 @@ unsafe extern fn set_offsetInlineStart<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOffsetInlineStart(arg0);
+        let result: Result<(), Error> = this.SetOffsetInlineStart(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24555,7 +24555,7 @@ unsafe extern fn set_offset_inline_end<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOffset_inline_end(arg0);
+        let result: Result<(), Error> = this.SetOffset_inline_end(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24638,7 +24638,7 @@ unsafe extern fn set_offsetInlineEnd<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOffsetInlineEnd(arg0);
+        let result: Result<(), Error> = this.SetOffsetInlineEnd(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24721,7 +24721,7 @@ unsafe extern fn set_height<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetHeight(arg0);
+        let result: Result<(), Error> = this.SetHeight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24804,7 +24804,7 @@ unsafe extern fn set_minHeight<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMinHeight(arg0);
+        let result: Result<(), Error> = this.SetMinHeight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24887,7 +24887,7 @@ unsafe extern fn set_min_height<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMin_height(arg0);
+        let result: Result<(), Error> = this.SetMin_height(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -24970,7 +24970,7 @@ unsafe extern fn set_maxHeight<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMaxHeight(arg0);
+        let result: Result<(), Error> = this.SetMaxHeight(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25053,7 +25053,7 @@ unsafe extern fn set_max_height<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMax_height(arg0);
+        let result: Result<(), Error> = this.SetMax_height(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25136,7 +25136,7 @@ unsafe extern fn set_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetWidth(arg0);
+        let result: Result<(), Error> = this.SetWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25219,7 +25219,7 @@ unsafe extern fn set_minWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMinWidth(arg0);
+        let result: Result<(), Error> = this.SetMinWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25302,7 +25302,7 @@ unsafe extern fn set_min_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMin_width(arg0);
+        let result: Result<(), Error> = this.SetMin_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25385,7 +25385,7 @@ unsafe extern fn set_maxWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMaxWidth(arg0);
+        let result: Result<(), Error> = this.SetMaxWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25468,7 +25468,7 @@ unsafe extern fn set_max_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMax_width(arg0);
+        let result: Result<(), Error> = this.SetMax_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25551,7 +25551,7 @@ unsafe extern fn set_block_size<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBlock_size(arg0);
+        let result: Result<(), Error> = this.SetBlock_size(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25634,7 +25634,7 @@ unsafe extern fn set_blockSize<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBlockSize(arg0);
+        let result: Result<(), Error> = this.SetBlockSize(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25717,7 +25717,7 @@ unsafe extern fn set_inline_size<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetInline_size(arg0);
+        let result: Result<(), Error> = this.SetInline_size(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25800,7 +25800,7 @@ unsafe extern fn set_inlineSize<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetInlineSize(arg0);
+        let result: Result<(), Error> = this.SetInlineSize(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25883,7 +25883,7 @@ unsafe extern fn set_max_block_size<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMax_block_size(arg0);
+        let result: Result<(), Error> = this.SetMax_block_size(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -25966,7 +25966,7 @@ unsafe extern fn set_maxBlockSize<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMaxBlockSize(arg0);
+        let result: Result<(), Error> = this.SetMaxBlockSize(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26049,7 +26049,7 @@ unsafe extern fn set_max_inline_size<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMax_inline_size(arg0);
+        let result: Result<(), Error> = this.SetMax_inline_size(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26132,7 +26132,7 @@ unsafe extern fn set_maxInlineSize<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMaxInlineSize(arg0);
+        let result: Result<(), Error> = this.SetMaxInlineSize(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26215,7 +26215,7 @@ unsafe extern fn set_min_block_size<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMin_block_size(arg0);
+        let result: Result<(), Error> = this.SetMin_block_size(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26298,7 +26298,7 @@ unsafe extern fn set_minBlockSize<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMinBlockSize(arg0);
+        let result: Result<(), Error> = this.SetMinBlockSize(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26381,7 +26381,7 @@ unsafe extern fn set_min_inline_size<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMin_inline_size(arg0);
+        let result: Result<(), Error> = this.SetMin_inline_size(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26464,7 +26464,7 @@ unsafe extern fn set_minInlineSize<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetMinInlineSize(arg0);
+        let result: Result<(), Error> = this.SetMinInlineSize(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26547,7 +26547,7 @@ unsafe extern fn set_zIndex<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetZIndex(arg0);
+        let result: Result<(), Error> = this.SetZIndex(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26630,7 +26630,7 @@ unsafe extern fn set_z_index<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetZ_index(arg0);
+        let result: Result<(), Error> = this.SetZ_index(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26713,7 +26713,7 @@ unsafe extern fn set_imageRendering<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetImageRendering(arg0);
+        let result: Result<(), Error> = this.SetImageRendering(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26796,7 +26796,7 @@ unsafe extern fn set_image_rendering<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetImage_rendering(arg0);
+        let result: Result<(), Error> = this.SetImage_rendering(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26879,7 +26879,7 @@ unsafe extern fn set_columnCount<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetColumnCount(arg0);
+        let result: Result<(), Error> = this.SetColumnCount(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -26962,7 +26962,7 @@ unsafe extern fn set_column_count<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetColumn_count(arg0);
+        let result: Result<(), Error> = this.SetColumn_count(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27045,7 +27045,7 @@ unsafe extern fn set_columnWidth<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetColumnWidth(arg0);
+        let result: Result<(), Error> = this.SetColumnWidth(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27128,7 +27128,7 @@ unsafe extern fn set_column_width<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetColumn_width(arg0);
+        let result: Result<(), Error> = this.SetColumn_width(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27211,7 +27211,7 @@ unsafe extern fn set_columns<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetColumns(arg0);
+        let result: Result<(), Error> = this.SetColumns(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27294,7 +27294,7 @@ unsafe extern fn set_columnGap<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetColumnGap(arg0);
+        let result: Result<(), Error> = this.SetColumnGap(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27377,7 +27377,7 @@ unsafe extern fn set_column_gap<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetColumn_gap(arg0);
+        let result: Result<(), Error> = this.SetColumn_gap(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27460,7 +27460,7 @@ unsafe extern fn set_transition<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransition(arg0);
+        let result: Result<(), Error> = this.SetTransition(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27543,7 +27543,7 @@ unsafe extern fn set_transitionDuration<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransitionDuration(arg0);
+        let result: Result<(), Error> = this.SetTransitionDuration(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27626,7 +27626,7 @@ unsafe extern fn set_transition_duration<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransition_duration(arg0);
+        let result: Result<(), Error> = this.SetTransition_duration(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27709,7 +27709,7 @@ unsafe extern fn set_transitionTimingFunction<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransitionTimingFunction(arg0);
+        let result: Result<(), Error> = this.SetTransitionTimingFunction(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27792,7 +27792,7 @@ unsafe extern fn set_transition_timing_function<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransition_timing_function(arg0);
+        let result: Result<(), Error> = this.SetTransition_timing_function(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27875,7 +27875,7 @@ unsafe extern fn set_transitionProperty<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransitionProperty(arg0);
+        let result: Result<(), Error> = this.SetTransitionProperty(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -27958,7 +27958,7 @@ unsafe extern fn set_transition_property<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransition_property(arg0);
+        let result: Result<(), Error> = this.SetTransition_property(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28041,7 +28041,7 @@ unsafe extern fn set_transitionDelay<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransitionDelay(arg0);
+        let result: Result<(), Error> = this.SetTransitionDelay(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28124,7 +28124,7 @@ unsafe extern fn set_transition_delay<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetTransition_delay(arg0);
+        let result: Result<(), Error> = this.SetTransition_delay(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28207,7 +28207,7 @@ unsafe extern fn set_flex<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlex(arg0);
+        let result: Result<(), Error> = this.SetFlex(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28290,7 +28290,7 @@ unsafe extern fn set_flexFlow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlexFlow(arg0);
+        let result: Result<(), Error> = this.SetFlexFlow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28373,7 +28373,7 @@ unsafe extern fn set_flex_flow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlex_flow(arg0);
+        let result: Result<(), Error> = this.SetFlex_flow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28456,7 +28456,7 @@ unsafe extern fn set_flexDirection<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlexDirection(arg0);
+        let result: Result<(), Error> = this.SetFlexDirection(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28539,7 +28539,7 @@ unsafe extern fn set_flex_direction<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlex_direction(arg0);
+        let result: Result<(), Error> = this.SetFlex_direction(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28622,7 +28622,7 @@ unsafe extern fn set_flexWrap<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlexWrap(arg0);
+        let result: Result<(), Error> = this.SetFlexWrap(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28705,7 +28705,7 @@ unsafe extern fn set_flex_wrap<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlex_wrap(arg0);
+        let result: Result<(), Error> = this.SetFlex_wrap(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28788,7 +28788,7 @@ unsafe extern fn set_justifyContent<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetJustifyContent(arg0);
+        let result: Result<(), Error> = this.SetJustifyContent(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28871,7 +28871,7 @@ unsafe extern fn set_justify_content<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetJustify_content(arg0);
+        let result: Result<(), Error> = this.SetJustify_content(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -28954,7 +28954,7 @@ unsafe extern fn set_alignItems<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAlignItems(arg0);
+        let result: Result<(), Error> = this.SetAlignItems(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29037,7 +29037,7 @@ unsafe extern fn set_align_items<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAlign_items(arg0);
+        let result: Result<(), Error> = this.SetAlign_items(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29120,7 +29120,7 @@ unsafe extern fn set_alignContent<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAlignContent(arg0);
+        let result: Result<(), Error> = this.SetAlignContent(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29203,7 +29203,7 @@ unsafe extern fn set_align_content<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAlign_content(arg0);
+        let result: Result<(), Error> = this.SetAlign_content(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29286,7 +29286,7 @@ unsafe extern fn set_order<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetOrder(arg0);
+        let result: Result<(), Error> = this.SetOrder(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29369,7 +29369,7 @@ unsafe extern fn set_flexBasis<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlexBasis(arg0);
+        let result: Result<(), Error> = this.SetFlexBasis(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29452,7 +29452,7 @@ unsafe extern fn set_flex_basis<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlex_basis(arg0);
+        let result: Result<(), Error> = this.SetFlex_basis(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29535,7 +29535,7 @@ unsafe extern fn set_flexGrow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlexGrow(arg0);
+        let result: Result<(), Error> = this.SetFlexGrow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29618,7 +29618,7 @@ unsafe extern fn set_flex_grow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlex_grow(arg0);
+        let result: Result<(), Error> = this.SetFlex_grow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29701,7 +29701,7 @@ unsafe extern fn set_flexShrink<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlexShrink(arg0);
+        let result: Result<(), Error> = this.SetFlexShrink(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29784,7 +29784,7 @@ unsafe extern fn set_flex_shrink<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetFlex_shrink(arg0);
+        let result: Result<(), Error> = this.SetFlex_shrink(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29867,7 +29867,7 @@ unsafe extern fn set_alignSelf<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAlignSelf(arg0);
+        let result: Result<(), Error> = this.SetAlignSelf(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -29950,7 +29950,7 @@ unsafe extern fn set_align_self<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAlign_self(arg0);
+        let result: Result<(), Error> = this.SetAlign_self(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30033,7 +30033,7 @@ unsafe extern fn set_animation<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimation(arg0);
+        let result: Result<(), Error> = this.SetAnimation(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30116,7 +30116,7 @@ unsafe extern fn set_animation_name<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimation_name(arg0);
+        let result: Result<(), Error> = this.SetAnimation_name(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30199,7 +30199,7 @@ unsafe extern fn set_animationName<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimationName(arg0);
+        let result: Result<(), Error> = this.SetAnimationName(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30282,7 +30282,7 @@ unsafe extern fn set_animation_duration<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimation_duration(arg0);
+        let result: Result<(), Error> = this.SetAnimation_duration(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30365,7 +30365,7 @@ unsafe extern fn set_animationDuration<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimationDuration(arg0);
+        let result: Result<(), Error> = this.SetAnimationDuration(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30448,7 +30448,7 @@ unsafe extern fn set_animation_timing_function<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimation_timing_function(arg0);
+        let result: Result<(), Error> = this.SetAnimation_timing_function(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30531,7 +30531,7 @@ unsafe extern fn set_animationTimingFunction<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimationTimingFunction(arg0);
+        let result: Result<(), Error> = this.SetAnimationTimingFunction(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30614,7 +30614,7 @@ unsafe extern fn set_animation_iteration_count<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimation_iteration_count(arg0);
+        let result: Result<(), Error> = this.SetAnimation_iteration_count(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30697,7 +30697,7 @@ unsafe extern fn set_animationIterationCount<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimationIterationCount(arg0);
+        let result: Result<(), Error> = this.SetAnimationIterationCount(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30780,7 +30780,7 @@ unsafe extern fn set_animation_direction<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimation_direction(arg0);
+        let result: Result<(), Error> = this.SetAnimation_direction(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30863,7 +30863,7 @@ unsafe extern fn set_animationDirection<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimationDirection(arg0);
+        let result: Result<(), Error> = this.SetAnimationDirection(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -30946,7 +30946,7 @@ unsafe extern fn set_animation_play_state<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimation_play_state(arg0);
+        let result: Result<(), Error> = this.SetAnimation_play_state(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -31029,7 +31029,7 @@ unsafe extern fn set_animationPlayState<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimationPlayState(arg0);
+        let result: Result<(), Error> = this.SetAnimationPlayState(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -31112,7 +31112,7 @@ unsafe extern fn set_animation_fill_mode<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimation_fill_mode(arg0);
+        let result: Result<(), Error> = this.SetAnimation_fill_mode(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -31195,7 +31195,7 @@ unsafe extern fn set_animationFillMode<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimationFillMode(arg0);
+        let result: Result<(), Error> = this.SetAnimationFillMode(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -31278,7 +31278,7 @@ unsafe extern fn set_animation_delay<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimation_delay(arg0);
+        let result: Result<(), Error> = this.SetAnimation_delay(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -31361,7 +31361,7 @@ unsafe extern fn set_animationDelay<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetAnimationDelay(arg0);
+        let result: Result<(), Error> = this.SetAnimationDelay(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -31687,747 +31687,747 @@ impl<TH: TypeHolderTrait> PartialEq for CSSStyleDeclaration<TH> {
 
 pub trait CSSStyleDeclarationMethods<TH: TypeHolderTrait> {
     fn CssText(&self) -> DOMString;
-    fn SetCssText(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetCssText(&self, value: DOMString) -> ErrorResult;
     fn Length(&self) -> u32;
     fn Item(&self, index: u32) -> DOMString;
     fn GetPropertyValue(&self, property: DOMString) -> DOMString;
     fn GetPropertyPriority(&self, property: DOMString) -> DOMString;
-    fn SetProperty(&self, property: DOMString, value: DOMString, priority: DOMString) -> Fallible<(), TH>;
-    fn SetPropertyValue(&self, property: DOMString, value: DOMString) -> Fallible<(), TH>;
-    fn SetPropertyPriority(&self, property: DOMString, priority: DOMString) -> Fallible<(), TH>;
-    fn RemoveProperty(&self, property: DOMString) -> Fallible<DOMString, TH>;
+    fn SetProperty(&self, property: DOMString, value: DOMString, priority: DOMString) -> Fallible<()>;
+    fn SetPropertyValue(&self, property: DOMString, value: DOMString) -> Fallible<()>;
+    fn SetPropertyPriority(&self, property: DOMString, priority: DOMString) -> Fallible<()>;
+    fn RemoveProperty(&self, property: DOMString) -> Fallible<DOMString>;
     fn CssFloat(&self) -> DOMString;
-    fn SetCssFloat(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetCssFloat(&self, value: DOMString) -> ErrorResult;
     fn All(&self) -> DOMString;
-    fn SetAll(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAll(&self, value: DOMString) -> ErrorResult;
     fn Background(&self) -> DOMString;
-    fn SetBackground(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground(&self, value: DOMString) -> ErrorResult;
     fn BackgroundColor(&self) -> DOMString;
-    fn SetBackgroundColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundColor(&self, value: DOMString) -> ErrorResult;
     fn Background_color(&self) -> DOMString;
-    fn SetBackground_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_color(&self, value: DOMString) -> ErrorResult;
     fn BackgroundPosition(&self) -> DOMString;
-    fn SetBackgroundPosition(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundPosition(&self, value: DOMString) -> ErrorResult;
     fn Background_position(&self) -> DOMString;
-    fn SetBackground_position(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_position(&self, value: DOMString) -> ErrorResult;
     fn BackgroundPositionX(&self) -> DOMString;
-    fn SetBackgroundPositionX(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundPositionX(&self, value: DOMString) -> ErrorResult;
     fn Background_position_x(&self) -> DOMString;
-    fn SetBackground_position_x(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_position_x(&self, value: DOMString) -> ErrorResult;
     fn BackgroundPositionY(&self) -> DOMString;
-    fn SetBackgroundPositionY(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundPositionY(&self, value: DOMString) -> ErrorResult;
     fn Background_position_y(&self) -> DOMString;
-    fn SetBackground_position_y(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_position_y(&self, value: DOMString) -> ErrorResult;
     fn BackgroundRepeat(&self) -> DOMString;
-    fn SetBackgroundRepeat(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundRepeat(&self, value: DOMString) -> ErrorResult;
     fn Background_repeat(&self) -> DOMString;
-    fn SetBackground_repeat(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_repeat(&self, value: DOMString) -> ErrorResult;
     fn BackgroundImage(&self) -> DOMString;
-    fn SetBackgroundImage(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundImage(&self, value: DOMString) -> ErrorResult;
     fn Background_image(&self) -> DOMString;
-    fn SetBackground_image(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_image(&self, value: DOMString) -> ErrorResult;
     fn BackgroundAttachment(&self) -> DOMString;
-    fn SetBackgroundAttachment(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundAttachment(&self, value: DOMString) -> ErrorResult;
     fn Background_attachment(&self) -> DOMString;
-    fn SetBackground_attachment(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_attachment(&self, value: DOMString) -> ErrorResult;
     fn BackgroundSize(&self) -> DOMString;
-    fn SetBackgroundSize(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundSize(&self, value: DOMString) -> ErrorResult;
     fn Background_size(&self) -> DOMString;
-    fn SetBackground_size(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_size(&self, value: DOMString) -> ErrorResult;
     fn BackgroundOrigin(&self) -> DOMString;
-    fn SetBackgroundOrigin(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundOrigin(&self, value: DOMString) -> ErrorResult;
     fn Background_origin(&self) -> DOMString;
-    fn SetBackground_origin(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_origin(&self, value: DOMString) -> ErrorResult;
     fn BackgroundClip(&self) -> DOMString;
-    fn SetBackgroundClip(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackgroundClip(&self, value: DOMString) -> ErrorResult;
     fn Background_clip(&self) -> DOMString;
-    fn SetBackground_clip(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackground_clip(&self, value: DOMString) -> ErrorResult;
     fn Border(&self) -> DOMString;
-    fn SetBorder(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder(&self, value: DOMString) -> ErrorResult;
     fn BorderColor(&self) -> DOMString;
-    fn SetBorderColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderColor(&self, value: DOMString) -> ErrorResult;
     fn Border_color(&self) -> DOMString;
-    fn SetBorder_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_color(&self, value: DOMString) -> ErrorResult;
     fn BorderRadius(&self) -> DOMString;
-    fn SetBorderRadius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderRadius(&self, value: DOMString) -> ErrorResult;
     fn Border_radius(&self) -> DOMString;
-    fn SetBorder_radius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_radius(&self, value: DOMString) -> ErrorResult;
     fn BorderSpacing(&self) -> DOMString;
-    fn SetBorderSpacing(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderSpacing(&self, value: DOMString) -> ErrorResult;
     fn Border_spacing(&self) -> DOMString;
-    fn SetBorder_spacing(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_spacing(&self, value: DOMString) -> ErrorResult;
     fn BorderStyle(&self) -> DOMString;
-    fn SetBorderStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderStyle(&self, value: DOMString) -> ErrorResult;
     fn Border_style(&self) -> DOMString;
-    fn SetBorder_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_style(&self, value: DOMString) -> ErrorResult;
     fn BorderWidth(&self) -> DOMString;
-    fn SetBorderWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_width(&self) -> DOMString;
-    fn SetBorder_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_width(&self, value: DOMString) -> ErrorResult;
     fn BorderBottom(&self) -> DOMString;
-    fn SetBorderBottom(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBottom(&self, value: DOMString) -> ErrorResult;
     fn Border_bottom(&self) -> DOMString;
-    fn SetBorder_bottom(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_bottom(&self, value: DOMString) -> ErrorResult;
     fn BorderBottomColor(&self) -> DOMString;
-    fn SetBorderBottomColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBottomColor(&self, value: DOMString) -> ErrorResult;
     fn Border_bottom_color(&self) -> DOMString;
-    fn SetBorder_bottom_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_bottom_color(&self, value: DOMString) -> ErrorResult;
     fn BorderBottomLeftRadius(&self) -> DOMString;
-    fn SetBorderBottomLeftRadius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBottomLeftRadius(&self, value: DOMString) -> ErrorResult;
     fn Border_bottom_left_radius(&self) -> DOMString;
-    fn SetBorder_bottom_left_radius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_bottom_left_radius(&self, value: DOMString) -> ErrorResult;
     fn BorderBottomRightRadius(&self) -> DOMString;
-    fn SetBorderBottomRightRadius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBottomRightRadius(&self, value: DOMString) -> ErrorResult;
     fn Border_bottom_right_radius(&self) -> DOMString;
-    fn SetBorder_bottom_right_radius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_bottom_right_radius(&self, value: DOMString) -> ErrorResult;
     fn BorderBottomStyle(&self) -> DOMString;
-    fn SetBorderBottomStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBottomStyle(&self, value: DOMString) -> ErrorResult;
     fn Border_bottom_style(&self) -> DOMString;
-    fn SetBorder_bottom_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_bottom_style(&self, value: DOMString) -> ErrorResult;
     fn BorderBottomWidth(&self) -> DOMString;
-    fn SetBorderBottomWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBottomWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_bottom_width(&self) -> DOMString;
-    fn SetBorder_bottom_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_bottom_width(&self, value: DOMString) -> ErrorResult;
     fn BorderLeft(&self) -> DOMString;
-    fn SetBorderLeft(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderLeft(&self, value: DOMString) -> ErrorResult;
     fn Border_left(&self) -> DOMString;
-    fn SetBorder_left(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_left(&self, value: DOMString) -> ErrorResult;
     fn BorderLeftColor(&self) -> DOMString;
-    fn SetBorderLeftColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderLeftColor(&self, value: DOMString) -> ErrorResult;
     fn Border_left_color(&self) -> DOMString;
-    fn SetBorder_left_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_left_color(&self, value: DOMString) -> ErrorResult;
     fn BorderLeftStyle(&self) -> DOMString;
-    fn SetBorderLeftStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderLeftStyle(&self, value: DOMString) -> ErrorResult;
     fn Border_left_style(&self) -> DOMString;
-    fn SetBorder_left_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_left_style(&self, value: DOMString) -> ErrorResult;
     fn BorderLeftWidth(&self) -> DOMString;
-    fn SetBorderLeftWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderLeftWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_left_width(&self) -> DOMString;
-    fn SetBorder_left_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_left_width(&self, value: DOMString) -> ErrorResult;
     fn BorderRight(&self) -> DOMString;
-    fn SetBorderRight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderRight(&self, value: DOMString) -> ErrorResult;
     fn Border_right(&self) -> DOMString;
-    fn SetBorder_right(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_right(&self, value: DOMString) -> ErrorResult;
     fn BorderRightColor(&self) -> DOMString;
-    fn SetBorderRightColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderRightColor(&self, value: DOMString) -> ErrorResult;
     fn Border_right_color(&self) -> DOMString;
-    fn SetBorder_right_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_right_color(&self, value: DOMString) -> ErrorResult;
     fn BorderRightStyle(&self) -> DOMString;
-    fn SetBorderRightStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderRightStyle(&self, value: DOMString) -> ErrorResult;
     fn Border_right_style(&self) -> DOMString;
-    fn SetBorder_right_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_right_style(&self, value: DOMString) -> ErrorResult;
     fn BorderRightWidth(&self) -> DOMString;
-    fn SetBorderRightWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderRightWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_right_width(&self) -> DOMString;
-    fn SetBorder_right_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_right_width(&self, value: DOMString) -> ErrorResult;
     fn BorderTop(&self) -> DOMString;
-    fn SetBorderTop(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderTop(&self, value: DOMString) -> ErrorResult;
     fn Border_top(&self) -> DOMString;
-    fn SetBorder_top(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_top(&self, value: DOMString) -> ErrorResult;
     fn BorderTopColor(&self) -> DOMString;
-    fn SetBorderTopColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderTopColor(&self, value: DOMString) -> ErrorResult;
     fn Border_top_color(&self) -> DOMString;
-    fn SetBorder_top_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_top_color(&self, value: DOMString) -> ErrorResult;
     fn BorderTopLeftRadius(&self) -> DOMString;
-    fn SetBorderTopLeftRadius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderTopLeftRadius(&self, value: DOMString) -> ErrorResult;
     fn Border_top_left_radius(&self) -> DOMString;
-    fn SetBorder_top_left_radius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_top_left_radius(&self, value: DOMString) -> ErrorResult;
     fn BorderTopRightRadius(&self) -> DOMString;
-    fn SetBorderTopRightRadius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderTopRightRadius(&self, value: DOMString) -> ErrorResult;
     fn Border_top_right_radius(&self) -> DOMString;
-    fn SetBorder_top_right_radius(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_top_right_radius(&self, value: DOMString) -> ErrorResult;
     fn BorderTopStyle(&self) -> DOMString;
-    fn SetBorderTopStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderTopStyle(&self, value: DOMString) -> ErrorResult;
     fn Border_top_style(&self) -> DOMString;
-    fn SetBorder_top_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_top_style(&self, value: DOMString) -> ErrorResult;
     fn BorderTopWidth(&self) -> DOMString;
-    fn SetBorderTopWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderTopWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_top_width(&self) -> DOMString;
-    fn SetBorder_top_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_top_width(&self, value: DOMString) -> ErrorResult;
     fn Border_image_source(&self) -> DOMString;
-    fn SetBorder_image_source(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_image_source(&self, value: DOMString) -> ErrorResult;
     fn BorderImageSource(&self) -> DOMString;
-    fn SetBorderImageSource(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderImageSource(&self, value: DOMString) -> ErrorResult;
     fn Border_image_slice(&self) -> DOMString;
-    fn SetBorder_image_slice(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_image_slice(&self, value: DOMString) -> ErrorResult;
     fn BorderImageSlice(&self) -> DOMString;
-    fn SetBorderImageSlice(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderImageSlice(&self, value: DOMString) -> ErrorResult;
     fn Border_image_repeat(&self) -> DOMString;
-    fn SetBorder_image_repeat(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_image_repeat(&self, value: DOMString) -> ErrorResult;
     fn BorderImageRepeat(&self) -> DOMString;
-    fn SetBorderImageRepeat(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderImageRepeat(&self, value: DOMString) -> ErrorResult;
     fn Border_image_outset(&self) -> DOMString;
-    fn SetBorder_image_outset(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_image_outset(&self, value: DOMString) -> ErrorResult;
     fn BorderImageOutset(&self) -> DOMString;
-    fn SetBorderImageOutset(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderImageOutset(&self, value: DOMString) -> ErrorResult;
     fn Border_image_width(&self) -> DOMString;
-    fn SetBorder_image_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_image_width(&self, value: DOMString) -> ErrorResult;
     fn BorderImageWidth(&self) -> DOMString;
-    fn SetBorderImageWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderImageWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_image(&self) -> DOMString;
-    fn SetBorder_image(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_image(&self, value: DOMString) -> ErrorResult;
     fn BorderImage(&self) -> DOMString;
-    fn SetBorderImage(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderImage(&self, value: DOMString) -> ErrorResult;
     fn Border_block_start_color(&self) -> DOMString;
-    fn SetBorder_block_start_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_block_start_color(&self, value: DOMString) -> ErrorResult;
     fn BorderBlockStartColor(&self) -> DOMString;
-    fn SetBorderBlockStartColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBlockStartColor(&self, value: DOMString) -> ErrorResult;
     fn Border_block_start_width(&self) -> DOMString;
-    fn SetBorder_block_start_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_block_start_width(&self, value: DOMString) -> ErrorResult;
     fn BorderBlockStartWidth(&self) -> DOMString;
-    fn SetBorderBlockStartWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBlockStartWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_block_start_style(&self) -> DOMString;
-    fn SetBorder_block_start_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_block_start_style(&self, value: DOMString) -> ErrorResult;
     fn BorderBlockStartStyle(&self) -> DOMString;
-    fn SetBorderBlockStartStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBlockStartStyle(&self, value: DOMString) -> ErrorResult;
     fn Border_block_end_color(&self) -> DOMString;
-    fn SetBorder_block_end_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_block_end_color(&self, value: DOMString) -> ErrorResult;
     fn BorderBlockEndColor(&self) -> DOMString;
-    fn SetBorderBlockEndColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBlockEndColor(&self, value: DOMString) -> ErrorResult;
     fn Border_block_end_width(&self) -> DOMString;
-    fn SetBorder_block_end_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_block_end_width(&self, value: DOMString) -> ErrorResult;
     fn BorderBlockEndWidth(&self) -> DOMString;
-    fn SetBorderBlockEndWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBlockEndWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_block_end_style(&self) -> DOMString;
-    fn SetBorder_block_end_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_block_end_style(&self, value: DOMString) -> ErrorResult;
     fn BorderBlockEndStyle(&self) -> DOMString;
-    fn SetBorderBlockEndStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBlockEndStyle(&self, value: DOMString) -> ErrorResult;
     fn Border_inline_start_color(&self) -> DOMString;
-    fn SetBorder_inline_start_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_inline_start_color(&self, value: DOMString) -> ErrorResult;
     fn BorderInlineStartColor(&self) -> DOMString;
-    fn SetBorderInlineStartColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderInlineStartColor(&self, value: DOMString) -> ErrorResult;
     fn Border_inline_start_width(&self) -> DOMString;
-    fn SetBorder_inline_start_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_inline_start_width(&self, value: DOMString) -> ErrorResult;
     fn BorderInlineStartWidth(&self) -> DOMString;
-    fn SetBorderInlineStartWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderInlineStartWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_inline_start_style(&self) -> DOMString;
-    fn SetBorder_inline_start_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_inline_start_style(&self, value: DOMString) -> ErrorResult;
     fn BorderInlineStartStyle(&self) -> DOMString;
-    fn SetBorderInlineStartStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderInlineStartStyle(&self, value: DOMString) -> ErrorResult;
     fn Border_inline_end_color(&self) -> DOMString;
-    fn SetBorder_inline_end_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_inline_end_color(&self, value: DOMString) -> ErrorResult;
     fn BorderInlineEndColor(&self) -> DOMString;
-    fn SetBorderInlineEndColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderInlineEndColor(&self, value: DOMString) -> ErrorResult;
     fn Border_inline_end_width(&self) -> DOMString;
-    fn SetBorder_inline_end_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_inline_end_width(&self, value: DOMString) -> ErrorResult;
     fn BorderInlineEndWidth(&self) -> DOMString;
-    fn SetBorderInlineEndWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderInlineEndWidth(&self, value: DOMString) -> ErrorResult;
     fn Border_inline_end_style(&self) -> DOMString;
-    fn SetBorder_inline_end_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_inline_end_style(&self, value: DOMString) -> ErrorResult;
     fn BorderInlineEndStyle(&self) -> DOMString;
-    fn SetBorderInlineEndStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderInlineEndStyle(&self, value: DOMString) -> ErrorResult;
     fn Border_block_start(&self) -> DOMString;
-    fn SetBorder_block_start(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_block_start(&self, value: DOMString) -> ErrorResult;
     fn BorderBlockStart(&self) -> DOMString;
-    fn SetBorderBlockStart(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBlockStart(&self, value: DOMString) -> ErrorResult;
     fn Border_block_end(&self) -> DOMString;
-    fn SetBorder_block_end(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_block_end(&self, value: DOMString) -> ErrorResult;
     fn BorderBlockEnd(&self) -> DOMString;
-    fn SetBorderBlockEnd(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderBlockEnd(&self, value: DOMString) -> ErrorResult;
     fn Border_inline_start(&self) -> DOMString;
-    fn SetBorder_inline_start(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_inline_start(&self, value: DOMString) -> ErrorResult;
     fn BorderInlineStart(&self) -> DOMString;
-    fn SetBorderInlineStart(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderInlineStart(&self, value: DOMString) -> ErrorResult;
     fn Border_inline_end(&self) -> DOMString;
-    fn SetBorder_inline_end(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_inline_end(&self, value: DOMString) -> ErrorResult;
     fn BorderInlineEnd(&self) -> DOMString;
-    fn SetBorderInlineEnd(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderInlineEnd(&self, value: DOMString) -> ErrorResult;
     fn Content(&self) -> DOMString;
-    fn SetContent(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetContent(&self, value: DOMString) -> ErrorResult;
     fn Color(&self) -> DOMString;
-    fn SetColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetColor(&self, value: DOMString) -> ErrorResult;
     fn Display(&self) -> DOMString;
-    fn SetDisplay(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetDisplay(&self, value: DOMString) -> ErrorResult;
     fn Opacity(&self) -> DOMString;
-    fn SetOpacity(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOpacity(&self, value: DOMString) -> ErrorResult;
     fn Visibility(&self) -> DOMString;
-    fn SetVisibility(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetVisibility(&self, value: DOMString) -> ErrorResult;
     fn Cursor(&self) -> DOMString;
-    fn SetCursor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetCursor(&self, value: DOMString) -> ErrorResult;
     fn BoxSizing(&self) -> DOMString;
-    fn SetBoxSizing(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBoxSizing(&self, value: DOMString) -> ErrorResult;
     fn Box_sizing(&self) -> DOMString;
-    fn SetBox_sizing(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBox_sizing(&self, value: DOMString) -> ErrorResult;
     fn BoxShadow(&self) -> DOMString;
-    fn SetBoxShadow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBoxShadow(&self, value: DOMString) -> ErrorResult;
     fn Box_shadow(&self) -> DOMString;
-    fn SetBox_shadow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBox_shadow(&self, value: DOMString) -> ErrorResult;
     fn TextShadow(&self) -> DOMString;
-    fn SetTextShadow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTextShadow(&self, value: DOMString) -> ErrorResult;
     fn Text_shadow(&self) -> DOMString;
-    fn SetText_shadow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetText_shadow(&self, value: DOMString) -> ErrorResult;
     fn Float(&self) -> DOMString;
-    fn SetFloat(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFloat(&self, value: DOMString) -> ErrorResult;
     fn Clear(&self) -> DOMString;
-    fn SetClear(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetClear(&self, value: DOMString) -> ErrorResult;
     fn Clip(&self) -> DOMString;
-    fn SetClip(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetClip(&self, value: DOMString) -> ErrorResult;
     fn Transform(&self) -> DOMString;
-    fn SetTransform(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransform(&self, value: DOMString) -> ErrorResult;
     fn TransformOrigin(&self) -> DOMString;
-    fn SetTransformOrigin(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransformOrigin(&self, value: DOMString) -> ErrorResult;
     fn Transform_origin(&self) -> DOMString;
-    fn SetTransform_origin(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransform_origin(&self, value: DOMString) -> ErrorResult;
     fn Perspective(&self) -> DOMString;
-    fn SetPerspective(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPerspective(&self, value: DOMString) -> ErrorResult;
     fn PerspectiveOrigin(&self) -> DOMString;
-    fn SetPerspectiveOrigin(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPerspectiveOrigin(&self, value: DOMString) -> ErrorResult;
     fn Perspective_origin(&self) -> DOMString;
-    fn SetPerspective_origin(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPerspective_origin(&self, value: DOMString) -> ErrorResult;
     fn TransformStyle(&self) -> DOMString;
-    fn SetTransformStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransformStyle(&self, value: DOMString) -> ErrorResult;
     fn Transform_style(&self) -> DOMString;
-    fn SetTransform_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransform_style(&self, value: DOMString) -> ErrorResult;
     fn BackfaceVisibility(&self) -> DOMString;
-    fn SetBackfaceVisibility(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackfaceVisibility(&self, value: DOMString) -> ErrorResult;
     fn Backface_visibility(&self) -> DOMString;
-    fn SetBackface_visibility(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBackface_visibility(&self, value: DOMString) -> ErrorResult;
     fn Rotate(&self) -> DOMString;
-    fn SetRotate(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetRotate(&self, value: DOMString) -> ErrorResult;
     fn Scale(&self) -> DOMString;
-    fn SetScale(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetScale(&self, value: DOMString) -> ErrorResult;
     fn Translate(&self) -> DOMString;
-    fn SetTranslate(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTranslate(&self, value: DOMString) -> ErrorResult;
     fn Direction(&self) -> DOMString;
-    fn SetDirection(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetDirection(&self, value: DOMString) -> ErrorResult;
     fn UnicodeBidi(&self) -> DOMString;
-    fn SetUnicodeBidi(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetUnicodeBidi(&self, value: DOMString) -> ErrorResult;
     fn Unicode_bidi(&self) -> DOMString;
-    fn SetUnicode_bidi(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetUnicode_bidi(&self, value: DOMString) -> ErrorResult;
     fn Filter(&self) -> DOMString;
-    fn SetFilter(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFilter(&self, value: DOMString) -> ErrorResult;
     fn LineHeight(&self) -> DOMString;
-    fn SetLineHeight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetLineHeight(&self, value: DOMString) -> ErrorResult;
     fn Line_height(&self) -> DOMString;
-    fn SetLine_height(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetLine_height(&self, value: DOMString) -> ErrorResult;
     fn MixBlendMode(&self) -> DOMString;
-    fn SetMixBlendMode(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMixBlendMode(&self, value: DOMString) -> ErrorResult;
     fn Mix_blend_mode(&self) -> DOMString;
-    fn SetMix_blend_mode(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMix_blend_mode(&self, value: DOMString) -> ErrorResult;
     fn VerticalAlign(&self) -> DOMString;
-    fn SetVerticalAlign(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetVerticalAlign(&self, value: DOMString) -> ErrorResult;
     fn Vertical_align(&self) -> DOMString;
-    fn SetVertical_align(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetVertical_align(&self, value: DOMString) -> ErrorResult;
     fn ListStyle(&self) -> DOMString;
-    fn SetListStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetListStyle(&self, value: DOMString) -> ErrorResult;
     fn List_style(&self) -> DOMString;
-    fn SetList_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetList_style(&self, value: DOMString) -> ErrorResult;
     fn ListStylePosition(&self) -> DOMString;
-    fn SetListStylePosition(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetListStylePosition(&self, value: DOMString) -> ErrorResult;
     fn List_style_position(&self) -> DOMString;
-    fn SetList_style_position(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetList_style_position(&self, value: DOMString) -> ErrorResult;
     fn ListStyleType(&self) -> DOMString;
-    fn SetListStyleType(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetListStyleType(&self, value: DOMString) -> ErrorResult;
     fn List_style_type(&self) -> DOMString;
-    fn SetList_style_type(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetList_style_type(&self, value: DOMString) -> ErrorResult;
     fn ListStyleImage(&self) -> DOMString;
-    fn SetListStyleImage(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetListStyleImage(&self, value: DOMString) -> ErrorResult;
     fn List_style_image(&self) -> DOMString;
-    fn SetList_style_image(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetList_style_image(&self, value: DOMString) -> ErrorResult;
     fn Quotes(&self) -> DOMString;
-    fn SetQuotes(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetQuotes(&self, value: DOMString) -> ErrorResult;
     fn CounterIncrement(&self) -> DOMString;
-    fn SetCounterIncrement(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetCounterIncrement(&self, value: DOMString) -> ErrorResult;
     fn Counter_increment(&self) -> DOMString;
-    fn SetCounter_increment(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetCounter_increment(&self, value: DOMString) -> ErrorResult;
     fn CounterReset(&self) -> DOMString;
-    fn SetCounterReset(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetCounterReset(&self, value: DOMString) -> ErrorResult;
     fn Counter_reset(&self) -> DOMString;
-    fn SetCounter_reset(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetCounter_reset(&self, value: DOMString) -> ErrorResult;
     fn Overflow(&self) -> DOMString;
-    fn SetOverflow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOverflow(&self, value: DOMString) -> ErrorResult;
     fn OverflowX(&self) -> DOMString;
-    fn SetOverflowX(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOverflowX(&self, value: DOMString) -> ErrorResult;
     fn Overflow_x(&self) -> DOMString;
-    fn SetOverflow_x(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOverflow_x(&self, value: DOMString) -> ErrorResult;
     fn OverflowY(&self) -> DOMString;
-    fn SetOverflowY(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOverflowY(&self, value: DOMString) -> ErrorResult;
     fn Overflow_y(&self) -> DOMString;
-    fn SetOverflow_y(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOverflow_y(&self, value: DOMString) -> ErrorResult;
     fn OverflowWrap(&self) -> DOMString;
-    fn SetOverflowWrap(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOverflowWrap(&self, value: DOMString) -> ErrorResult;
     fn Overflow_wrap(&self) -> DOMString;
-    fn SetOverflow_wrap(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOverflow_wrap(&self, value: DOMString) -> ErrorResult;
     fn TableLayout(&self) -> DOMString;
-    fn SetTableLayout(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTableLayout(&self, value: DOMString) -> ErrorResult;
     fn Table_layout(&self) -> DOMString;
-    fn SetTable_layout(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTable_layout(&self, value: DOMString) -> ErrorResult;
     fn BorderCollapse(&self) -> DOMString;
-    fn SetBorderCollapse(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorderCollapse(&self, value: DOMString) -> ErrorResult;
     fn Border_collapse(&self) -> DOMString;
-    fn SetBorder_collapse(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBorder_collapse(&self, value: DOMString) -> ErrorResult;
     fn EmptyCells(&self) -> DOMString;
-    fn SetEmptyCells(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetEmptyCells(&self, value: DOMString) -> ErrorResult;
     fn Empty_cells(&self) -> DOMString;
-    fn SetEmpty_cells(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetEmpty_cells(&self, value: DOMString) -> ErrorResult;
     fn CaptionSide(&self) -> DOMString;
-    fn SetCaptionSide(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetCaptionSide(&self, value: DOMString) -> ErrorResult;
     fn Caption_side(&self) -> DOMString;
-    fn SetCaption_side(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetCaption_side(&self, value: DOMString) -> ErrorResult;
     fn WhiteSpace(&self) -> DOMString;
-    fn SetWhiteSpace(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWhiteSpace(&self, value: DOMString) -> ErrorResult;
     fn White_space(&self) -> DOMString;
-    fn SetWhite_space(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWhite_space(&self, value: DOMString) -> ErrorResult;
     fn WritingMode(&self) -> DOMString;
-    fn SetWritingMode(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWritingMode(&self, value: DOMString) -> ErrorResult;
     fn Writing_mode(&self) -> DOMString;
-    fn SetWriting_mode(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWriting_mode(&self, value: DOMString) -> ErrorResult;
     fn LetterSpacing(&self) -> DOMString;
-    fn SetLetterSpacing(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetLetterSpacing(&self, value: DOMString) -> ErrorResult;
     fn Letter_spacing(&self) -> DOMString;
-    fn SetLetter_spacing(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetLetter_spacing(&self, value: DOMString) -> ErrorResult;
     fn WordBreak(&self) -> DOMString;
-    fn SetWordBreak(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWordBreak(&self, value: DOMString) -> ErrorResult;
     fn Word_break(&self) -> DOMString;
-    fn SetWord_break(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWord_break(&self, value: DOMString) -> ErrorResult;
     fn WordSpacing(&self) -> DOMString;
-    fn SetWordSpacing(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWordSpacing(&self, value: DOMString) -> ErrorResult;
     fn Word_spacing(&self) -> DOMString;
-    fn SetWord_spacing(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWord_spacing(&self, value: DOMString) -> ErrorResult;
     fn WordWrap(&self) -> DOMString;
-    fn SetWordWrap(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWordWrap(&self, value: DOMString) -> ErrorResult;
     fn Word_wrap(&self) -> DOMString;
-    fn SetWord_wrap(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWord_wrap(&self, value: DOMString) -> ErrorResult;
     fn TextOverflow(&self) -> DOMString;
-    fn SetTextOverflow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTextOverflow(&self, value: DOMString) -> ErrorResult;
     fn Text_overflow(&self) -> DOMString;
-    fn SetText_overflow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetText_overflow(&self, value: DOMString) -> ErrorResult;
     fn TextAlign(&self) -> DOMString;
-    fn SetTextAlign(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTextAlign(&self, value: DOMString) -> ErrorResult;
     fn Text_align(&self) -> DOMString;
-    fn SetText_align(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetText_align(&self, value: DOMString) -> ErrorResult;
     fn TextDecoration(&self) -> DOMString;
-    fn SetTextDecoration(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTextDecoration(&self, value: DOMString) -> ErrorResult;
     fn Text_decoration(&self) -> DOMString;
-    fn SetText_decoration(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetText_decoration(&self, value: DOMString) -> ErrorResult;
     fn TextDecorationLine(&self) -> DOMString;
-    fn SetTextDecorationLine(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTextDecorationLine(&self, value: DOMString) -> ErrorResult;
     fn Text_decoration_line(&self) -> DOMString;
-    fn SetText_decoration_line(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetText_decoration_line(&self, value: DOMString) -> ErrorResult;
     fn TextIndent(&self) -> DOMString;
-    fn SetTextIndent(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTextIndent(&self, value: DOMString) -> ErrorResult;
     fn Text_indent(&self) -> DOMString;
-    fn SetText_indent(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetText_indent(&self, value: DOMString) -> ErrorResult;
     fn TextJustify(&self) -> DOMString;
-    fn SetTextJustify(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTextJustify(&self, value: DOMString) -> ErrorResult;
     fn Text_justify(&self) -> DOMString;
-    fn SetText_justify(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetText_justify(&self, value: DOMString) -> ErrorResult;
     fn TextRendering(&self) -> DOMString;
-    fn SetTextRendering(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTextRendering(&self, value: DOMString) -> ErrorResult;
     fn Text_rendering(&self) -> DOMString;
-    fn SetText_rendering(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetText_rendering(&self, value: DOMString) -> ErrorResult;
     fn TextTransform(&self) -> DOMString;
-    fn SetTextTransform(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTextTransform(&self, value: DOMString) -> ErrorResult;
     fn Text_transform(&self) -> DOMString;
-    fn SetText_transform(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetText_transform(&self, value: DOMString) -> ErrorResult;
     fn Font(&self) -> DOMString;
-    fn SetFont(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFont(&self, value: DOMString) -> ErrorResult;
     fn FontFamily(&self) -> DOMString;
-    fn SetFontFamily(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFontFamily(&self, value: DOMString) -> ErrorResult;
     fn Font_family(&self) -> DOMString;
-    fn SetFont_family(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFont_family(&self, value: DOMString) -> ErrorResult;
     fn FontSize(&self) -> DOMString;
-    fn SetFontSize(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFontSize(&self, value: DOMString) -> ErrorResult;
     fn Font_size(&self) -> DOMString;
-    fn SetFont_size(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFont_size(&self, value: DOMString) -> ErrorResult;
     fn FontStretch(&self) -> DOMString;
-    fn SetFontStretch(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFontStretch(&self, value: DOMString) -> ErrorResult;
     fn Font_stretch(&self) -> DOMString;
-    fn SetFont_stretch(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFont_stretch(&self, value: DOMString) -> ErrorResult;
     fn FontStyle(&self) -> DOMString;
-    fn SetFontStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFontStyle(&self, value: DOMString) -> ErrorResult;
     fn Font_style(&self) -> DOMString;
-    fn SetFont_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFont_style(&self, value: DOMString) -> ErrorResult;
     fn FontVariant(&self) -> DOMString;
-    fn SetFontVariant(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFontVariant(&self, value: DOMString) -> ErrorResult;
     fn Font_variant(&self) -> DOMString;
-    fn SetFont_variant(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFont_variant(&self, value: DOMString) -> ErrorResult;
     fn FontVariantCaps(&self) -> DOMString;
-    fn SetFontVariantCaps(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFontVariantCaps(&self, value: DOMString) -> ErrorResult;
     fn Font_variant_caps(&self) -> DOMString;
-    fn SetFont_variant_caps(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFont_variant_caps(&self, value: DOMString) -> ErrorResult;
     fn FontWeight(&self) -> DOMString;
-    fn SetFontWeight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFontWeight(&self, value: DOMString) -> ErrorResult;
     fn Font_weight(&self) -> DOMString;
-    fn SetFont_weight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFont_weight(&self, value: DOMString) -> ErrorResult;
     fn Margin(&self) -> DOMString;
-    fn SetMargin(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMargin(&self, value: DOMString) -> ErrorResult;
     fn MarginBottom(&self) -> DOMString;
-    fn SetMarginBottom(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMarginBottom(&self, value: DOMString) -> ErrorResult;
     fn Margin_bottom(&self) -> DOMString;
-    fn SetMargin_bottom(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMargin_bottom(&self, value: DOMString) -> ErrorResult;
     fn MarginLeft(&self) -> DOMString;
-    fn SetMarginLeft(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMarginLeft(&self, value: DOMString) -> ErrorResult;
     fn Margin_left(&self) -> DOMString;
-    fn SetMargin_left(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMargin_left(&self, value: DOMString) -> ErrorResult;
     fn MarginRight(&self) -> DOMString;
-    fn SetMarginRight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMarginRight(&self, value: DOMString) -> ErrorResult;
     fn Margin_right(&self) -> DOMString;
-    fn SetMargin_right(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMargin_right(&self, value: DOMString) -> ErrorResult;
     fn MarginTop(&self) -> DOMString;
-    fn SetMarginTop(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMarginTop(&self, value: DOMString) -> ErrorResult;
     fn Margin_top(&self) -> DOMString;
-    fn SetMargin_top(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMargin_top(&self, value: DOMString) -> ErrorResult;
     fn Margin_block_start(&self) -> DOMString;
-    fn SetMargin_block_start(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMargin_block_start(&self, value: DOMString) -> ErrorResult;
     fn MarginBlockStart(&self) -> DOMString;
-    fn SetMarginBlockStart(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMarginBlockStart(&self, value: DOMString) -> ErrorResult;
     fn Margin_block_end(&self) -> DOMString;
-    fn SetMargin_block_end(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMargin_block_end(&self, value: DOMString) -> ErrorResult;
     fn MarginBlockEnd(&self) -> DOMString;
-    fn SetMarginBlockEnd(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMarginBlockEnd(&self, value: DOMString) -> ErrorResult;
     fn Margin_inline_start(&self) -> DOMString;
-    fn SetMargin_inline_start(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMargin_inline_start(&self, value: DOMString) -> ErrorResult;
     fn MarginInlineStart(&self) -> DOMString;
-    fn SetMarginInlineStart(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMarginInlineStart(&self, value: DOMString) -> ErrorResult;
     fn Margin_inline_end(&self) -> DOMString;
-    fn SetMargin_inline_end(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMargin_inline_end(&self, value: DOMString) -> ErrorResult;
     fn MarginInlineEnd(&self) -> DOMString;
-    fn SetMarginInlineEnd(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMarginInlineEnd(&self, value: DOMString) -> ErrorResult;
     fn Padding(&self) -> DOMString;
-    fn SetPadding(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPadding(&self, value: DOMString) -> ErrorResult;
     fn PaddingBottom(&self) -> DOMString;
-    fn SetPaddingBottom(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPaddingBottom(&self, value: DOMString) -> ErrorResult;
     fn Padding_bottom(&self) -> DOMString;
-    fn SetPadding_bottom(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPadding_bottom(&self, value: DOMString) -> ErrorResult;
     fn PaddingLeft(&self) -> DOMString;
-    fn SetPaddingLeft(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPaddingLeft(&self, value: DOMString) -> ErrorResult;
     fn Padding_left(&self) -> DOMString;
-    fn SetPadding_left(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPadding_left(&self, value: DOMString) -> ErrorResult;
     fn PaddingRight(&self) -> DOMString;
-    fn SetPaddingRight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPaddingRight(&self, value: DOMString) -> ErrorResult;
     fn Padding_right(&self) -> DOMString;
-    fn SetPadding_right(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPadding_right(&self, value: DOMString) -> ErrorResult;
     fn PaddingTop(&self) -> DOMString;
-    fn SetPaddingTop(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPaddingTop(&self, value: DOMString) -> ErrorResult;
     fn Padding_top(&self) -> DOMString;
-    fn SetPadding_top(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPadding_top(&self, value: DOMString) -> ErrorResult;
     fn Padding_block_start(&self) -> DOMString;
-    fn SetPadding_block_start(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPadding_block_start(&self, value: DOMString) -> ErrorResult;
     fn PaddingBlockStart(&self) -> DOMString;
-    fn SetPaddingBlockStart(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPaddingBlockStart(&self, value: DOMString) -> ErrorResult;
     fn Padding_block_end(&self) -> DOMString;
-    fn SetPadding_block_end(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPadding_block_end(&self, value: DOMString) -> ErrorResult;
     fn PaddingBlockEnd(&self) -> DOMString;
-    fn SetPaddingBlockEnd(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPaddingBlockEnd(&self, value: DOMString) -> ErrorResult;
     fn Padding_inline_start(&self) -> DOMString;
-    fn SetPadding_inline_start(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPadding_inline_start(&self, value: DOMString) -> ErrorResult;
     fn PaddingInlineStart(&self) -> DOMString;
-    fn SetPaddingInlineStart(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPaddingInlineStart(&self, value: DOMString) -> ErrorResult;
     fn Padding_inline_end(&self) -> DOMString;
-    fn SetPadding_inline_end(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPadding_inline_end(&self, value: DOMString) -> ErrorResult;
     fn PaddingInlineEnd(&self) -> DOMString;
-    fn SetPaddingInlineEnd(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPaddingInlineEnd(&self, value: DOMString) -> ErrorResult;
     fn Outline(&self) -> DOMString;
-    fn SetOutline(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOutline(&self, value: DOMString) -> ErrorResult;
     fn OutlineColor(&self) -> DOMString;
-    fn SetOutlineColor(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOutlineColor(&self, value: DOMString) -> ErrorResult;
     fn Outline_color(&self) -> DOMString;
-    fn SetOutline_color(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOutline_color(&self, value: DOMString) -> ErrorResult;
     fn OutlineStyle(&self) -> DOMString;
-    fn SetOutlineStyle(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOutlineStyle(&self, value: DOMString) -> ErrorResult;
     fn Outline_style(&self) -> DOMString;
-    fn SetOutline_style(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOutline_style(&self, value: DOMString) -> ErrorResult;
     fn OutlineWidth(&self) -> DOMString;
-    fn SetOutlineWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOutlineWidth(&self, value: DOMString) -> ErrorResult;
     fn Outline_width(&self) -> DOMString;
-    fn SetOutline_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOutline_width(&self, value: DOMString) -> ErrorResult;
     fn OutlineOffset(&self) -> DOMString;
-    fn SetOutlineOffset(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOutlineOffset(&self, value: DOMString) -> ErrorResult;
     fn Outline_offset(&self) -> DOMString;
-    fn SetOutline_offset(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOutline_offset(&self, value: DOMString) -> ErrorResult;
     fn Position(&self) -> DOMString;
-    fn SetPosition(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPosition(&self, value: DOMString) -> ErrorResult;
     fn PointerEvents(&self) -> DOMString;
-    fn SetPointerEvents(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPointerEvents(&self, value: DOMString) -> ErrorResult;
     fn Pointer_events(&self) -> DOMString;
-    fn SetPointer_events(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetPointer_events(&self, value: DOMString) -> ErrorResult;
     fn Top(&self) -> DOMString;
-    fn SetTop(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTop(&self, value: DOMString) -> ErrorResult;
     fn Right(&self) -> DOMString;
-    fn SetRight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetRight(&self, value: DOMString) -> ErrorResult;
     fn Left(&self) -> DOMString;
-    fn SetLeft(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetLeft(&self, value: DOMString) -> ErrorResult;
     fn Bottom(&self) -> DOMString;
-    fn SetBottom(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBottom(&self, value: DOMString) -> ErrorResult;
     fn Offset_block_start(&self) -> DOMString;
-    fn SetOffset_block_start(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOffset_block_start(&self, value: DOMString) -> ErrorResult;
     fn OffsetBlockStart(&self) -> DOMString;
-    fn SetOffsetBlockStart(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOffsetBlockStart(&self, value: DOMString) -> ErrorResult;
     fn Offset_block_end(&self) -> DOMString;
-    fn SetOffset_block_end(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOffset_block_end(&self, value: DOMString) -> ErrorResult;
     fn OffsetBlockEnd(&self) -> DOMString;
-    fn SetOffsetBlockEnd(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOffsetBlockEnd(&self, value: DOMString) -> ErrorResult;
     fn Offset_inline_start(&self) -> DOMString;
-    fn SetOffset_inline_start(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOffset_inline_start(&self, value: DOMString) -> ErrorResult;
     fn OffsetInlineStart(&self) -> DOMString;
-    fn SetOffsetInlineStart(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOffsetInlineStart(&self, value: DOMString) -> ErrorResult;
     fn Offset_inline_end(&self) -> DOMString;
-    fn SetOffset_inline_end(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOffset_inline_end(&self, value: DOMString) -> ErrorResult;
     fn OffsetInlineEnd(&self) -> DOMString;
-    fn SetOffsetInlineEnd(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOffsetInlineEnd(&self, value: DOMString) -> ErrorResult;
     fn Height(&self) -> DOMString;
-    fn SetHeight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetHeight(&self, value: DOMString) -> ErrorResult;
     fn MinHeight(&self) -> DOMString;
-    fn SetMinHeight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMinHeight(&self, value: DOMString) -> ErrorResult;
     fn Min_height(&self) -> DOMString;
-    fn SetMin_height(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMin_height(&self, value: DOMString) -> ErrorResult;
     fn MaxHeight(&self) -> DOMString;
-    fn SetMaxHeight(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMaxHeight(&self, value: DOMString) -> ErrorResult;
     fn Max_height(&self) -> DOMString;
-    fn SetMax_height(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMax_height(&self, value: DOMString) -> ErrorResult;
     fn Width(&self) -> DOMString;
-    fn SetWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetWidth(&self, value: DOMString) -> ErrorResult;
     fn MinWidth(&self) -> DOMString;
-    fn SetMinWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMinWidth(&self, value: DOMString) -> ErrorResult;
     fn Min_width(&self) -> DOMString;
-    fn SetMin_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMin_width(&self, value: DOMString) -> ErrorResult;
     fn MaxWidth(&self) -> DOMString;
-    fn SetMaxWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMaxWidth(&self, value: DOMString) -> ErrorResult;
     fn Max_width(&self) -> DOMString;
-    fn SetMax_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMax_width(&self, value: DOMString) -> ErrorResult;
     fn Block_size(&self) -> DOMString;
-    fn SetBlock_size(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBlock_size(&self, value: DOMString) -> ErrorResult;
     fn BlockSize(&self) -> DOMString;
-    fn SetBlockSize(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetBlockSize(&self, value: DOMString) -> ErrorResult;
     fn Inline_size(&self) -> DOMString;
-    fn SetInline_size(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetInline_size(&self, value: DOMString) -> ErrorResult;
     fn InlineSize(&self) -> DOMString;
-    fn SetInlineSize(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetInlineSize(&self, value: DOMString) -> ErrorResult;
     fn Max_block_size(&self) -> DOMString;
-    fn SetMax_block_size(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMax_block_size(&self, value: DOMString) -> ErrorResult;
     fn MaxBlockSize(&self) -> DOMString;
-    fn SetMaxBlockSize(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMaxBlockSize(&self, value: DOMString) -> ErrorResult;
     fn Max_inline_size(&self) -> DOMString;
-    fn SetMax_inline_size(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMax_inline_size(&self, value: DOMString) -> ErrorResult;
     fn MaxInlineSize(&self) -> DOMString;
-    fn SetMaxInlineSize(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMaxInlineSize(&self, value: DOMString) -> ErrorResult;
     fn Min_block_size(&self) -> DOMString;
-    fn SetMin_block_size(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMin_block_size(&self, value: DOMString) -> ErrorResult;
     fn MinBlockSize(&self) -> DOMString;
-    fn SetMinBlockSize(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMinBlockSize(&self, value: DOMString) -> ErrorResult;
     fn Min_inline_size(&self) -> DOMString;
-    fn SetMin_inline_size(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMin_inline_size(&self, value: DOMString) -> ErrorResult;
     fn MinInlineSize(&self) -> DOMString;
-    fn SetMinInlineSize(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetMinInlineSize(&self, value: DOMString) -> ErrorResult;
     fn ZIndex(&self) -> DOMString;
-    fn SetZIndex(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetZIndex(&self, value: DOMString) -> ErrorResult;
     fn Z_index(&self) -> DOMString;
-    fn SetZ_index(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetZ_index(&self, value: DOMString) -> ErrorResult;
     fn ImageRendering(&self) -> DOMString;
-    fn SetImageRendering(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetImageRendering(&self, value: DOMString) -> ErrorResult;
     fn Image_rendering(&self) -> DOMString;
-    fn SetImage_rendering(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetImage_rendering(&self, value: DOMString) -> ErrorResult;
     fn ColumnCount(&self) -> DOMString;
-    fn SetColumnCount(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetColumnCount(&self, value: DOMString) -> ErrorResult;
     fn Column_count(&self) -> DOMString;
-    fn SetColumn_count(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetColumn_count(&self, value: DOMString) -> ErrorResult;
     fn ColumnWidth(&self) -> DOMString;
-    fn SetColumnWidth(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetColumnWidth(&self, value: DOMString) -> ErrorResult;
     fn Column_width(&self) -> DOMString;
-    fn SetColumn_width(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetColumn_width(&self, value: DOMString) -> ErrorResult;
     fn Columns(&self) -> DOMString;
-    fn SetColumns(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetColumns(&self, value: DOMString) -> ErrorResult;
     fn ColumnGap(&self) -> DOMString;
-    fn SetColumnGap(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetColumnGap(&self, value: DOMString) -> ErrorResult;
     fn Column_gap(&self) -> DOMString;
-    fn SetColumn_gap(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetColumn_gap(&self, value: DOMString) -> ErrorResult;
     fn Transition(&self) -> DOMString;
-    fn SetTransition(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransition(&self, value: DOMString) -> ErrorResult;
     fn TransitionDuration(&self) -> DOMString;
-    fn SetTransitionDuration(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransitionDuration(&self, value: DOMString) -> ErrorResult;
     fn Transition_duration(&self) -> DOMString;
-    fn SetTransition_duration(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransition_duration(&self, value: DOMString) -> ErrorResult;
     fn TransitionTimingFunction(&self) -> DOMString;
-    fn SetTransitionTimingFunction(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransitionTimingFunction(&self, value: DOMString) -> ErrorResult;
     fn Transition_timing_function(&self) -> DOMString;
-    fn SetTransition_timing_function(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransition_timing_function(&self, value: DOMString) -> ErrorResult;
     fn TransitionProperty(&self) -> DOMString;
-    fn SetTransitionProperty(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransitionProperty(&self, value: DOMString) -> ErrorResult;
     fn Transition_property(&self) -> DOMString;
-    fn SetTransition_property(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransition_property(&self, value: DOMString) -> ErrorResult;
     fn TransitionDelay(&self) -> DOMString;
-    fn SetTransitionDelay(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransitionDelay(&self, value: DOMString) -> ErrorResult;
     fn Transition_delay(&self) -> DOMString;
-    fn SetTransition_delay(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetTransition_delay(&self, value: DOMString) -> ErrorResult;
     fn Flex(&self) -> DOMString;
-    fn SetFlex(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlex(&self, value: DOMString) -> ErrorResult;
     fn FlexFlow(&self) -> DOMString;
-    fn SetFlexFlow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlexFlow(&self, value: DOMString) -> ErrorResult;
     fn Flex_flow(&self) -> DOMString;
-    fn SetFlex_flow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlex_flow(&self, value: DOMString) -> ErrorResult;
     fn FlexDirection(&self) -> DOMString;
-    fn SetFlexDirection(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlexDirection(&self, value: DOMString) -> ErrorResult;
     fn Flex_direction(&self) -> DOMString;
-    fn SetFlex_direction(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlex_direction(&self, value: DOMString) -> ErrorResult;
     fn FlexWrap(&self) -> DOMString;
-    fn SetFlexWrap(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlexWrap(&self, value: DOMString) -> ErrorResult;
     fn Flex_wrap(&self) -> DOMString;
-    fn SetFlex_wrap(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlex_wrap(&self, value: DOMString) -> ErrorResult;
     fn JustifyContent(&self) -> DOMString;
-    fn SetJustifyContent(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetJustifyContent(&self, value: DOMString) -> ErrorResult;
     fn Justify_content(&self) -> DOMString;
-    fn SetJustify_content(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetJustify_content(&self, value: DOMString) -> ErrorResult;
     fn AlignItems(&self) -> DOMString;
-    fn SetAlignItems(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAlignItems(&self, value: DOMString) -> ErrorResult;
     fn Align_items(&self) -> DOMString;
-    fn SetAlign_items(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAlign_items(&self, value: DOMString) -> ErrorResult;
     fn AlignContent(&self) -> DOMString;
-    fn SetAlignContent(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAlignContent(&self, value: DOMString) -> ErrorResult;
     fn Align_content(&self) -> DOMString;
-    fn SetAlign_content(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAlign_content(&self, value: DOMString) -> ErrorResult;
     fn Order(&self) -> DOMString;
-    fn SetOrder(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetOrder(&self, value: DOMString) -> ErrorResult;
     fn FlexBasis(&self) -> DOMString;
-    fn SetFlexBasis(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlexBasis(&self, value: DOMString) -> ErrorResult;
     fn Flex_basis(&self) -> DOMString;
-    fn SetFlex_basis(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlex_basis(&self, value: DOMString) -> ErrorResult;
     fn FlexGrow(&self) -> DOMString;
-    fn SetFlexGrow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlexGrow(&self, value: DOMString) -> ErrorResult;
     fn Flex_grow(&self) -> DOMString;
-    fn SetFlex_grow(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlex_grow(&self, value: DOMString) -> ErrorResult;
     fn FlexShrink(&self) -> DOMString;
-    fn SetFlexShrink(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlexShrink(&self, value: DOMString) -> ErrorResult;
     fn Flex_shrink(&self) -> DOMString;
-    fn SetFlex_shrink(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetFlex_shrink(&self, value: DOMString) -> ErrorResult;
     fn AlignSelf(&self) -> DOMString;
-    fn SetAlignSelf(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAlignSelf(&self, value: DOMString) -> ErrorResult;
     fn Align_self(&self) -> DOMString;
-    fn SetAlign_self(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAlign_self(&self, value: DOMString) -> ErrorResult;
     fn Animation(&self) -> DOMString;
-    fn SetAnimation(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimation(&self, value: DOMString) -> ErrorResult;
     fn Animation_name(&self) -> DOMString;
-    fn SetAnimation_name(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimation_name(&self, value: DOMString) -> ErrorResult;
     fn AnimationName(&self) -> DOMString;
-    fn SetAnimationName(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimationName(&self, value: DOMString) -> ErrorResult;
     fn Animation_duration(&self) -> DOMString;
-    fn SetAnimation_duration(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimation_duration(&self, value: DOMString) -> ErrorResult;
     fn AnimationDuration(&self) -> DOMString;
-    fn SetAnimationDuration(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimationDuration(&self, value: DOMString) -> ErrorResult;
     fn Animation_timing_function(&self) -> DOMString;
-    fn SetAnimation_timing_function(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimation_timing_function(&self, value: DOMString) -> ErrorResult;
     fn AnimationTimingFunction(&self) -> DOMString;
-    fn SetAnimationTimingFunction(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimationTimingFunction(&self, value: DOMString) -> ErrorResult;
     fn Animation_iteration_count(&self) -> DOMString;
-    fn SetAnimation_iteration_count(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimation_iteration_count(&self, value: DOMString) -> ErrorResult;
     fn AnimationIterationCount(&self) -> DOMString;
-    fn SetAnimationIterationCount(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimationIterationCount(&self, value: DOMString) -> ErrorResult;
     fn Animation_direction(&self) -> DOMString;
-    fn SetAnimation_direction(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimation_direction(&self, value: DOMString) -> ErrorResult;
     fn AnimationDirection(&self) -> DOMString;
-    fn SetAnimationDirection(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimationDirection(&self, value: DOMString) -> ErrorResult;
     fn Animation_play_state(&self) -> DOMString;
-    fn SetAnimation_play_state(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimation_play_state(&self, value: DOMString) -> ErrorResult;
     fn AnimationPlayState(&self) -> DOMString;
-    fn SetAnimationPlayState(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimationPlayState(&self, value: DOMString) -> ErrorResult;
     fn Animation_fill_mode(&self) -> DOMString;
-    fn SetAnimation_fill_mode(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimation_fill_mode(&self, value: DOMString) -> ErrorResult;
     fn AnimationFillMode(&self) -> DOMString;
-    fn SetAnimationFillMode(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimationFillMode(&self, value: DOMString) -> ErrorResult;
     fn Animation_delay(&self) -> DOMString;
-    fn SetAnimation_delay(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimation_delay(&self, value: DOMString) -> ErrorResult;
     fn AnimationDelay(&self) -> DOMString;
-    fn SetAnimationDelay(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetAnimationDelay(&self, value: DOMString) -> ErrorResult;
     fn IndexedGetter(&self, index: u32) -> Option<DOMString>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[

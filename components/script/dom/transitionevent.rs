@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> TransitionEvent<TH> {
 
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
-                       init: &TransitionEventInit) -> Fallible<DomRoot<TransitionEvent<TH>>, TH> {
+                       init: &TransitionEventInit) -> Fallible<DomRoot<TransitionEvent<TH>>> {
         Ok(TransitionEvent::new(window, Atom::from(type_), init))
     }
 }

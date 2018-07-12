@@ -23,7 +23,7 @@ unsafe_no_jsmanaged_fields!(RulesSource);
 
 unsafe_no_jsmanaged_fields!(CssRules);
 
-impl<TH: TypeHolderTrait> From<RulesMutateError> for Error<TH> {
+impl From<RulesMutateError> for Error {
     fn from(other: RulesMutateError) -> Self {
         match other {
             RulesMutateError::Syntax => Error::Syntax,
@@ -79,7 +79,7 @@ impl<TH: TypeHolderTrait> CSSRuleList<TH> {
 
     /// Should only be called for CssRules-backed rules. Use append_lazy_rule
     /// for keyframes-backed rules.
-    pub fn insert_rule(&self, rule: &str, idx: u32, nested: bool) -> Fallible<u32, TH> {
+    pub fn insert_rule(&self, rule: &str, idx: u32, nested: bool) -> Fallible<u32> {
         let css_rules = if let RulesSource::Rules(ref rules) = self.rules {
             rules
         } else {
@@ -108,7 +108,7 @@ impl<TH: TypeHolderTrait> CSSRuleList<TH> {
     }
 
     // In case of a keyframe rule, index must be valid.
-    pub fn remove_rule(&self, index: u32) -> ErrorResult<TH> {
+    pub fn remove_rule(&self, index: u32) -> ErrorResult {
         let index = index as usize;
         let mut guard = self.parent_stylesheet.shared_lock().write();
 

@@ -1114,7 +1114,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<BluetoothAdvertisingEvent<TH>>, Error<TH>> = BluetoothAdvertisingEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<BluetoothAdvertisingEvent<TH>>, Error> = BluetoothAdvertisingEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

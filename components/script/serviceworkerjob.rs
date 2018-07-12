@@ -36,7 +36,7 @@ pub enum JobType {
 #[derive(Clone)]
 pub enum SettleType<TH: TypeHolderTrait + 'static> {
     Resolve(Trusted<ServiceWorkerRegistration<TH>>),
-    Reject(Error<TH>)
+    Reject(Error)
 }
 
 #[must_root]
@@ -296,7 +296,7 @@ fn queue_settle_promise<TH: TypeHolderTrait>(job: &Job<TH>, settle: SettleType<T
     }
 }
 
-fn reject_job_promise<TH: TypeHolderTrait>(job: &Job<TH>, err: Error<TH>, task_source: &DOMManipulationTaskSource<TH>) {
+fn reject_job_promise<TH: TypeHolderTrait>(job: &Job<TH>, err: Error, task_source: &DOMManipulationTaskSource<TH>) {
     queue_settle_promise(job, SettleType::Reject(err), task_source)
 }
 

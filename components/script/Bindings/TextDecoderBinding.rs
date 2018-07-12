@@ -784,7 +784,7 @@ unsafe extern fn decode<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<USVString, Error<TH>> = this.Decode(arg0, &arg1);
+        let result: Result<USVString, Error> = this.Decode(arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -930,7 +930,7 @@ pub trait TextDecoderMethods<TH: TypeHolderTrait> {
     fn Encoding(&self) -> DOMString;
     fn Fatal(&self) -> bool;
     fn IgnoreBOM(&self) -> bool;
-    fn Decode(&self, input: Option<UnionTypes::ArrayBufferViewOrArrayBuffer>, options: &dom::bindings::codegen::Bindings::TextDecoderBinding::TextDecodeOptions) -> Fallible<USVString, TH>;
+    fn Decode(&self, input: Option<UnionTypes::ArrayBufferViewOrArrayBuffer>, options: &dom::bindings::codegen::Bindings::TextDecoderBinding::TextDecodeOptions) -> Fallible<USVString>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
@@ -1046,7 +1046,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<TextDecoder<TH>>, Error<TH>> = TextDecoder::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<TextDecoder<TH>>, Error> = TextDecoder::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

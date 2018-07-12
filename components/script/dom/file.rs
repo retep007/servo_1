@@ -64,7 +64,7 @@ impl<TH: TypeHolderTrait> File<TH> {
                        fileBits: Vec<ArrayBufferOrArrayBufferViewOrBlobOrString<TH>>,
                        filename: DOMString,
                        filePropertyBag: &FileBinding::FilePropertyBag)
-                       -> Fallible<DomRoot<File<TH>>, TH> {
+                       -> Fallible<DomRoot<File<TH>>> {
         let bytes: Vec<u8> = match blob_parts_to_bytes(fileBits) {
             Ok(bytes) => bytes,
             Err(_) => return Err(Error::InvalidCharacter),

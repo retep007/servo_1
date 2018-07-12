@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> ExtendableMessageEvent<TH> {
     pub fn Constructor(worker: &ServiceWorkerGlobalScope<TH>,
                        type_: DOMString,
                        init: RootedTraceableBox<ExtendableMessageEventBinding::ExtendableMessageEventInit>)
-                       -> Fallible<DomRoot<ExtendableMessageEvent<TH>>, TH> {
+                       -> Fallible<DomRoot<ExtendableMessageEvent<TH>>> {
         let global = worker.upcast::<GlobalScope<TH>>();
         let ev = ExtendableMessageEvent::new(global,
                                              Atom::from(type_),

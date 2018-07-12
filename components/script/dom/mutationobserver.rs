@@ -67,7 +67,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
         }
     }
 
-    pub fn Constructor(global: &Window<TH>, callback: Rc<MutationCallback<TH>>) -> Fallible<DomRoot<MutationObserver<TH>>, TH> {
+    pub fn Constructor(global: &Window<TH>, callback: Rc<MutationCallback<TH>>) -> Fallible<DomRoot<MutationObserver<TH>>> {
         global.set_exists_mut_observer();
         let observer = MutationObserver::<TH>::new(global, callback);
         ScriptThread::<TH>::add_mutation_observer(&*observer);
@@ -188,7 +188,7 @@ impl<TH: TypeHolderTrait> MutationObserver<TH> {
 
 impl<TH: TypeHolderTrait> MutationObserverMethods<TH> for MutationObserver<TH> {
     /// <https://dom.spec.whatwg.org/#dom-mutationobserver-observe>
-    fn Observe(&self, target: &Node<TH>, options: &MutationObserverInit) -> Fallible<(), TH> {
+    fn Observe(&self, target: &Node<TH>, options: &MutationObserverInit) -> Fallible<()> {
         let attribute_filter = options.attributeFilter.clone().unwrap_or(vec![]);
         let attribute_old_value = options.attributeOldValue.unwrap_or(false);
         let mut attributes = options.attributes.unwrap_or(false);

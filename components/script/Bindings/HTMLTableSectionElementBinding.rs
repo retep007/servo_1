@@ -560,7 +560,7 @@ unsafe extern fn insertRow<TH: TypeHolderTrait>
              }
             }
         };
-        let result: Result<DomRoot<HTMLElement<TH>>, Error<TH>> = this.InsertRow(arg0);
+        let result: Result<DomRoot<HTMLElement<TH>>, Error> = this.InsertRow(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -616,7 +616,7 @@ unsafe extern fn deleteRow<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.DeleteRow(arg0);
+        let result: Result<(), Error> = this.DeleteRow(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -762,8 +762,8 @@ impl<TH: TypeHolderTrait> PartialEq for HTMLTableSectionElement<TH> {
 
 pub trait HTMLTableSectionElementMethods<TH: TypeHolderTrait> {
     fn Rows(&self) -> DomRoot<HTMLCollection<TH>>;
-    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>, TH>;
-    fn DeleteRow(&self, index: i32) -> Fallible<(), TH>;
+    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLElement<TH>>>;
+    fn DeleteRow(&self, index: i32) -> Fallible<()>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
@@ -896,7 +896,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLTableSectionElement<TH>>, Error<TH>> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLTableSectionElement<TH>>, Error> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

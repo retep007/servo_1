@@ -880,7 +880,7 @@ unsafe extern fn postMessage<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.PostMessage(cx, arg0, arg1);
+        let result: Result<(), Error> = this.PostMessage(cx, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1179,7 +1179,7 @@ pub trait DissimilarOriginWindowMethods<TH: TypeHolderTrait> {
     fn Location(&self) -> DomRoot<DissimilarOriginLocation<TH>>;
     fn Close(&self) -> ();
     fn Closed(&self) -> bool;
-    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue, targetOrigin: DOMString) -> Fallible<(), TH>;
+    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue, targetOrigin: DOMString) -> Fallible<()>;
     unsafe fn Opener(&self, cx: *mut JSContext) -> JSVal;
     unsafe fn SetOpener(&self, cx: *mut JSContext, value: HandleValue) -> ();
     fn Blur(&self) -> ();

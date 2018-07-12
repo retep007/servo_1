@@ -607,7 +607,7 @@ unsafe extern fn disconnect<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<(), Error<TH>> = this.Disconnect();
+        let result: Result<(), Error> = this.Disconnect();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -846,7 +846,7 @@ pub trait BluetoothRemoteGATTServerMethods<TH: TypeHolderTrait> {
     fn Device(&self) -> DomRoot<BluetoothDevice<TH>>;
     fn Connected(&self) -> bool;
     fn Connect(&self) -> Rc<Promise<TH>>;
-    fn Disconnect(&self) -> Fallible<(), TH>;
+    fn Disconnect(&self) -> Fallible<()>;
     fn GetPrimaryService(&self, service: UnionTypes::StringOrUnsignedLong) -> Rc<Promise<TH>>;
     fn GetPrimaryServices(&self, service: Option<UnionTypes::StringOrUnsignedLong>) -> Rc<Promise<TH>>;
 }

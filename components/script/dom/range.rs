@@ -74,7 +74,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range
-    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<Range<TH>>, TH> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<Range<TH>>> {
         let document = window.Document();
         Ok(Range::new_with_doc(&document))
     }
@@ -97,7 +97,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     // https://dom.spec.whatwg.org/#concept-range-clone
     fn contained_children(&self) -> Fallible<(Option<DomRoot<Node<TH>>>,
                                               Option<DomRoot<Node<TH>>>,
-                                              Vec<DomRoot<Node<TH>>>), TH> {
+                                              Vec<DomRoot<Node<TH>>>)> {
         let start_node = self.StartContainer();
         let end_node = self.EndContainer();
         // Steps 5-6.
@@ -164,7 +164,7 @@ impl<TH: TypeHolderTrait> Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-comparepointnode-offset
-    fn compare_point(&self, node: &Node<TH>, offset: u32) -> Fallible<Ordering, TH> {
+    fn compare_point(&self, node: &Node<TH>, offset: u32) -> Fallible<Ordering> {
         let start_node = self.StartContainer();
         let start_node_root = start_node.inclusive_ancestors().last().unwrap();
         let node_root = node.inclusive_ancestors().last().unwrap();
@@ -234,7 +234,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setstart
-    fn SetStart(&self, node: &Node<TH>, offset: u32) -> ErrorResult<TH> {
+    fn SetStart(&self, node: &Node<TH>, offset: u32) -> ErrorResult {
         if node.is_doctype() {
             // Step 1.
             Err(Error::InvalidNodeType)
@@ -253,7 +253,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setend
-    fn SetEnd(&self, node: &Node<TH>, offset: u32) -> ErrorResult<TH> {
+    fn SetEnd(&self, node: &Node<TH>, offset: u32) -> ErrorResult {
         if node.is_doctype() {
             // Step 1.
             Err(Error::InvalidNodeType)
@@ -272,25 +272,25 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setstartbefore
-    fn SetStartBefore(&self, node: &Node<TH>) -> ErrorResult<TH> {
+    fn SetStartBefore(&self, node: &Node<TH>) -> ErrorResult {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetStart(&parent, node.index())
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setstartafter
-    fn SetStartAfter(&self, node: &Node<TH>) -> ErrorResult<TH> {
+    fn SetStartAfter(&self, node: &Node<TH>) -> ErrorResult {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetStart(&parent, node.index() + 1)
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setendbefore
-    fn SetEndBefore(&self, node: &Node<TH>) -> ErrorResult<TH> {
+    fn SetEndBefore(&self, node: &Node<TH>) -> ErrorResult {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetEnd(&parent, node.index())
     }
 
     // https://dom.spec.whatwg.org/#dom-range-setendafter
-    fn SetEndAfter(&self, node: &Node<TH>) -> ErrorResult<TH> {
+    fn SetEndAfter(&self, node: &Node<TH>) -> ErrorResult {
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         self.SetEnd(&parent, node.index() + 1)
     }
@@ -305,7 +305,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-selectnode
-    fn SelectNode(&self, node: &Node<TH>) -> ErrorResult<TH> {
+    fn SelectNode(&self, node: &Node<TH>) -> ErrorResult {
         // Steps 1, 2.
         let parent = node.GetParentNode().ok_or(Error::InvalidNodeType)?;
         // Step 3.
@@ -318,7 +318,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-selectnodecontents
-    fn SelectNodeContents(&self, node: &Node<TH>) -> ErrorResult<TH> {
+    fn SelectNodeContents(&self, node: &Node<TH>) -> ErrorResult {
         if node.is_doctype() {
             // Step 1.
             return Err(Error::InvalidNodeType);
@@ -334,7 +334,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-compareboundarypoints
     fn CompareBoundaryPoints(&self, how: u16, other: &Range<TH>)
-                             -> Fallible<i16, TH> {
+                             -> Fallible<i16> {
         if how > RangeConstants::END_TO_START {
             // Step 1.
             return Err(Error::NotSupported);
@@ -378,7 +378,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-ispointinrange
-    fn IsPointInRange(&self, node: &Node<TH>, offset: u32) -> Fallible<bool, TH> {
+    fn IsPointInRange(&self, node: &Node<TH>, offset: u32) -> Fallible<bool> {
         match self.compare_point(node, offset) {
             Ok(Ordering::Less) => Ok(false),
             Ok(Ordering::Equal) => Ok(true),
@@ -392,7 +392,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-comparepoint
-    fn ComparePoint(&self, node: &Node<TH>, offset: u32) -> Fallible<i16, TH> {
+    fn ComparePoint(&self, node: &Node<TH>, offset: u32) -> Fallible<i16> {
         self.compare_point(node, offset).map(|order| {
             match order {
                 Ordering::Less => -1,
@@ -429,7 +429,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-clonecontents
     // https://dom.spec.whatwg.org/#concept-range-clone
-    fn CloneContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
+    fn CloneContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         // Step 3.
         let start_node = self.StartContainer();
         let start_offset = self.StartOffset();
@@ -528,7 +528,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-extractcontents
     // https://dom.spec.whatwg.org/#concept-range-extract
-    fn ExtractContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
+    fn ExtractContents(&self) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         // Step 3.
         let start_node = self.StartContainer();
         let start_offset = self.StartOffset();
@@ -661,7 +661,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
 
     // https://dom.spec.whatwg.org/#dom-range-insertnode
     // https://dom.spec.whatwg.org/#concept-range-insert
-    fn InsertNode(&self, node: &Node<TH>) -> ErrorResult<TH> {
+    fn InsertNode(&self, node: &Node<TH>) -> ErrorResult {
         let start_node = self.StartContainer();
         let start_offset = self.StartOffset();
 
@@ -744,7 +744,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-deletecontents
-    fn DeleteContents(&self) -> ErrorResult<TH> {
+    fn DeleteContents(&self) -> ErrorResult {
         // Step 1.
         if self.Collapsed() {
             return Ok(());
@@ -824,7 +824,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-range-surroundcontents
-    fn SurroundContents(&self, new_parent: &Node<TH>) -> ErrorResult<TH> {
+    fn SurroundContents(&self, new_parent: &Node<TH>) -> ErrorResult {
         // Step 1.
         let start = self.StartContainer();
         let end = self.EndContainer();
@@ -902,7 +902,7 @@ impl<TH: TypeHolderTrait> RangeMethods<TH> for Range<TH> {
     }
 
     // https://dvcs.w3.org/hg/innerhtml/raw-file/tip/index.html#extensions-to-the-range-interface
-    fn CreateContextualFragment(&self, fragment: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
+    fn CreateContextualFragment(&self, fragment: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         // Step 1.
         let node = self.StartContainer();
         let owner_doc = node.owner_doc();

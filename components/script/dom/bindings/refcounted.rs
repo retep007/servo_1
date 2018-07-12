@@ -122,7 +122,7 @@ impl<TH: TypeHolderTrait> TrustedPromise<TH> {
 
     /// A task which will reject the promise.
     #[allow(unrooted_must_root)]
-    pub fn reject_task(self, error: Error<TH>) -> impl TaskOnce {
+    pub fn reject_task(self, error: Error) -> impl TaskOnce {
         let this = self;
         task!(reject_promise: move || {
             debug!("Rejecting promise.");

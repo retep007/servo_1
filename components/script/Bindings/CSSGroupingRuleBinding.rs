@@ -569,7 +569,7 @@ unsafe extern fn insertRule<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<u32, Error<TH>> = this.InsertRule(arg0, arg1);
+        let result: Result<u32, Error> = this.InsertRule(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -623,7 +623,7 @@ unsafe extern fn deleteRule<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error<TH>> = this.DeleteRule(arg0);
+        let result: Result<(), Error> = this.DeleteRule(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -671,8 +671,8 @@ impl<TH: TypeHolderTrait> PartialEq for CSSGroupingRule<TH> {
 
 pub trait CSSGroupingRuleMethods<TH: TypeHolderTrait> {
     fn CssRules(&self) -> DomRoot<CSSRuleList<TH>>;
-    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32, TH>;
-    fn DeleteRule(&self, index: u32) -> Fallible<(), TH>;
+    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32>;
+    fn DeleteRule(&self, index: u32) -> Fallible<()>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

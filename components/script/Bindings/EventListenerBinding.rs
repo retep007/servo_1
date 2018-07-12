@@ -271,7 +271,7 @@ impl<TH: TypeHolderTrait> EventListener<TH> {
         ret
     }
 
-    pub fn HandleEvent_<T: DomObject>(&self, thisObj: &T, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn HandleEvent_<T: DomObject>(&self, thisObj: &T, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -281,13 +281,13 @@ impl<TH: TypeHolderTrait> EventListener<TH> {
         unsafe { self.HandleEvent(s.get_context(), thisObjJS.handle(), event) }
     }
 
-    pub fn HandleEvent__(&self, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn HandleEvent__(&self, event: &Event<TH>, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.HandleEvent(s.get_context(), thisObjJS.handle(), event) }
     }
 
-    unsafe fn HandleEvent(&self, cx: *mut JSContext, aThisObj: HandleObject, event: &Event<TH>) -> Fallible<(), TH> {
+    unsafe fn HandleEvent(&self, cx: *mut JSContext, aThisObj: HandleObject, event: &Event<TH>) -> Fallible<()> {
         rooted!(in(cx) let mut rval = UndefinedValue());
         rooted_vec!(let mut argv);
         argv.extend((0..1).map(|_| Heap::default()));

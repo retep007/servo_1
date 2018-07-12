@@ -1051,7 +1051,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<UIEvent<TH>>, Error<TH>> = UIEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<UIEvent<TH>>, Error> = UIEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

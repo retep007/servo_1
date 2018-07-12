@@ -82,7 +82,7 @@ pub struct HTMLMediaElement<TH: TypeHolderTrait + 'static> {
     pending_play_promises: DomRefCell<Vec<Rc<Promise<TH>>>>,
     /// Play promises which are soon to be fulfilled by a queued task.
     #[ignore_malloc_size_of = "promises are hard"]
-    in_flight_play_promises_queue: DomRefCell<VecDeque<(Box<[Rc<Promise<TH>>]>, ErrorResult<TH>)>>,
+    in_flight_play_promises_queue: DomRefCell<VecDeque<(Box<[Rc<Promise<TH>>]>, ErrorResult)>>,
 }
 
 /// <https://html.spec.whatwg.org/multipage/#dom-media-networkstate>
@@ -769,7 +769,7 @@ impl<TH: TypeHolderTrait> HTMLMediaElement<TH> {
     /// `fulfill_in_flight_play_promises`, to actually fulfill the promises
     /// which were taken and moved to the in-flight queue.
     #[allow(unrooted_must_root)]
-    fn take_pending_play_promises(&self, result: ErrorResult<TH>) {
+    fn take_pending_play_promises(&self, result: ErrorResult) {
         let pending_play_promises = mem::replace(
             &mut *self.pending_play_promises.borrow_mut(),
             vec![],

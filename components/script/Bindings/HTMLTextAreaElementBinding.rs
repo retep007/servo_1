@@ -542,7 +542,7 @@ unsafe extern fn set_cols<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetCols(arg0);
+        let result: Result<(), Error> = this.SetCols(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1027,7 +1027,7 @@ unsafe extern fn set_rows<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetRows(arg0);
+        let result: Result<(), Error> = this.SetRows(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1424,7 +1424,7 @@ unsafe extern fn set_selectionStart<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error<TH>> = this.SetSelectionStart(arg0);
+        let result: Result<(), Error> = this.SetSelectionStart(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1499,7 +1499,7 @@ unsafe extern fn set_selectionEnd<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error<TH>> = this.SetSelectionEnd(arg0);
+        let result: Result<(), Error> = this.SetSelectionEnd(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1574,7 +1574,7 @@ unsafe extern fn set_selectionDirection<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetSelectionDirection(arg0);
+        let result: Result<(), Error> = this.SetSelectionDirection(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1644,7 +1644,7 @@ unsafe extern fn setRangeText<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error<TH>> = this.SetRangeText(arg0);
+                let result: Result<(), Error> = this.SetRangeText(arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1698,7 +1698,7 @@ unsafe extern fn setRangeText<TH: TypeHolderTrait>
                         Ok((Some(&value), _)) => value,
                     }
                 };
-                let result: Result<(), Error<TH>> = this.SetRangeText_(arg0, arg1, arg2, arg3);
+                let result: Result<(), Error> = this.SetRangeText_(arg0, arg1, arg2, arg3);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1752,7 +1752,7 @@ unsafe extern fn setRangeText<TH: TypeHolderTrait>
                         Ok((Some(&value), _)) => value,
                     }
                 };
-                let result: Result<(), Error<TH>> = this.SetRangeText_(arg0, arg1, arg2, arg3);
+                let result: Result<(), Error> = this.SetRangeText_(arg0, arg1, arg2, arg3);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1836,7 +1836,7 @@ unsafe extern fn setSelectionRange<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<(), Error<TH>> = this.SetSelectionRange(arg0, arg1, arg2);
+        let result: Result<(), Error> = this.SetSelectionRange(arg0, arg1, arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1980,7 +1980,7 @@ impl<TH: TypeHolderTrait> PartialEq for HTMLTextAreaElement<TH> {
 
 pub trait HTMLTextAreaElementMethods<TH: TypeHolderTrait> {
     fn Cols(&self) -> u32;
-    fn SetCols(&self, value: u32) -> ErrorResult<TH>;
+    fn SetCols(&self, value: u32) -> ErrorResult;
     fn Disabled(&self) -> bool;
     fn SetDisabled(&self, value: bool) -> ();
     fn GetForm(&self) -> Option<DomRoot<HTMLFormElement<TH>>>;
@@ -1993,7 +1993,7 @@ pub trait HTMLTextAreaElementMethods<TH: TypeHolderTrait> {
     fn Required(&self) -> bool;
     fn SetRequired(&self, value: bool) -> ();
     fn Rows(&self) -> u32;
-    fn SetRows(&self, value: u32) -> ErrorResult<TH>;
+    fn SetRows(&self, value: u32) -> ErrorResult;
     fn Wrap(&self) -> DOMString;
     fn SetWrap(&self, value: DOMString) -> ();
     fn Type(&self) -> DOMString;
@@ -2004,14 +2004,14 @@ pub trait HTMLTextAreaElementMethods<TH: TypeHolderTrait> {
     fn Labels(&self) -> DomRoot<NodeList<TH>>;
     fn Select(&self) -> ();
     fn GetSelectionStart(&self) -> Option<u32>;
-    fn SetSelectionStart(&self, value: Option<u32>) -> ErrorResult<TH>;
+    fn SetSelectionStart(&self, value: Option<u32>) -> ErrorResult;
     fn GetSelectionEnd(&self) -> Option<u32>;
-    fn SetSelectionEnd(&self, value: Option<u32>) -> ErrorResult<TH>;
+    fn SetSelectionEnd(&self, value: Option<u32>) -> ErrorResult;
     fn GetSelectionDirection(&self) -> Option<DOMString>;
-    fn SetSelectionDirection(&self, value: Option<DOMString>) -> ErrorResult<TH>;
-    fn SetRangeText(&self, replacement: DOMString) -> Fallible<(), TH>;
-    fn SetRangeText_(&self, replacement: DOMString, start: u32, end: u32, selectionMode: SelectionMode) -> Fallible<(), TH>;
-    fn SetSelectionRange(&self, start: u32, end: u32, direction: Option<DOMString>) -> Fallible<(), TH>;
+    fn SetSelectionDirection(&self, value: Option<DOMString>) -> ErrorResult;
+    fn SetRangeText(&self, replacement: DOMString) -> Fallible<()>;
+    fn SetRangeText_(&self, replacement: DOMString, start: u32, end: u32, selectionMode: SelectionMode) -> Fallible<()>;
+    fn SetSelectionRange(&self, start: u32, end: u32, direction: Option<DOMString>) -> Fallible<()>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
@@ -2241,7 +2241,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLTextAreaElement<TH>>, Error<TH>> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLTextAreaElement<TH>>, Error> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

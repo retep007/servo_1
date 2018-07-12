@@ -43,7 +43,7 @@ impl<TH: TypeHolderTrait> HTMLOptionsCollection<TH> {
                            HTMLOptionsCollectionBinding::Wrap)
     }
 
-    fn add_new_elements(&self, count: u32) -> ErrorResult<TH> {
+    fn add_new_elements(&self, count: u32) -> ErrorResult {
         let root = self.upcast().root_node();
         let document = document_from_node(&*root);
 
@@ -81,7 +81,7 @@ impl<TH: TypeHolderTrait> HTMLOptionsCollectionMethods<TH> for HTMLOptionsCollec
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-htmloptionscollection-setter
-    fn IndexedSetter(&self, index: u32, value: Option<&HTMLOptionElement<TH>>) -> ErrorResult<TH> {
+    fn IndexedSetter(&self, index: u32, value: Option<&HTMLOptionElement<TH>>) -> ErrorResult {
         if let Some(value) = value {
             // Step 2
             let length = self.upcast().Length();
@@ -133,7 +133,7 @@ impl<TH: TypeHolderTrait> HTMLOptionsCollectionMethods<TH> for HTMLOptionsCollec
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-htmloptionscollection-add
-    fn Add(&self, element: HTMLOptionElementOrHTMLOptGroupElement<TH>, before: Option<HTMLElementOrLong<TH>>) -> ErrorResult<TH> {
+    fn Add(&self, element: HTMLOptionElementOrHTMLOptGroupElement<TH>, before: Option<HTMLElementOrLong<TH>>) -> ErrorResult {
         let root = self.upcast().root_node();
 
         let node: &Node<TH> = match element {

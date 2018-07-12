@@ -108,7 +108,7 @@ impl<TH: TypeHolderTrait> FileReader<TH> {
                            global, FileReaderBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<FileReader<TH>>, TH> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<FileReader<TH>>> {
         Ok(FileReader::<TH>::new(global))
     }
 
@@ -295,17 +295,17 @@ impl<TH: TypeHolderTrait> FileReaderMethods<TH> for FileReader<TH> {
     event_handler!(loadend, GetOnloadend, SetOnloadend);
 
     // https://w3c.github.io/FileAPI/#dfn-readAsArrayBuffer
-    fn ReadAsArrayBuffer(&self, blob: &Blob<TH>) -> ErrorResult<TH> {
+    fn ReadAsArrayBuffer(&self, blob: &Blob<TH>) -> ErrorResult {
         self.read(FileReaderFunction::ReadAsArrayBuffer, blob, None)
     }
 
     // https://w3c.github.io/FileAPI/#dfn-readAsDataURL
-    fn ReadAsDataURL(&self, blob: &Blob<TH>) -> ErrorResult<TH> {
+    fn ReadAsDataURL(&self, blob: &Blob<TH>) -> ErrorResult {
         self.read(FileReaderFunction::ReadAsDataUrl, blob, None)
     }
 
     // https://w3c.github.io/FileAPI/#dfn-readAsText
-    fn ReadAsText(&self, blob: &Blob<TH>, label: Option<DOMString>) -> ErrorResult<TH> {
+    fn ReadAsText(&self, blob: &Blob<TH>, label: Option<DOMString>) -> ErrorResult {
         self.read(FileReaderFunction::ReadAsText, blob, label)
     }
 
@@ -366,7 +366,7 @@ impl<TH: TypeHolderTrait> FileReader<TH> {
         self.generation_id.set(GenerationId(prev_id + 1));
     }
 
-    fn read(&self, function: FileReaderFunction, blob: &Blob<TH>, label: Option<DOMString>) -> ErrorResult<TH> {
+    fn read(&self, function: FileReaderFunction, blob: &Blob<TH>, label: Option<DOMString>) -> ErrorResult {
         // Step 1
         if self.ready_state.get() == FileReaderReadyState::Loading {
             return Err(Error::InvalidState);

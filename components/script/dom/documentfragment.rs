@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> DocumentFragment<TH> {
                            DocumentFragmentBinding::Wrap)
     }
 
-    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         let document = window.Document();
 
         Ok(DocumentFragment::new(&document))
@@ -82,22 +82,22 @@ impl<TH: TypeHolderTrait> DocumentFragmentMethods<TH> for DocumentFragment<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
-    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().prepend(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
-    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().append(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
-    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
+    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
         self.upcast::<Node<TH>>().query_selector(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
-    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>, TH> {
+    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>> {
         self.upcast::<Node<TH>>().query_selector_all(selectors)
     }
 }

@@ -223,7 +223,7 @@ pub enum AdjacentPosition<TH: TypeHolderTrait + 'static> {
 }
 
 impl<TH: TypeHolderTrait> FromStr for AdjacentPosition<TH> {
-    type Err = Error<TH>;
+    type Err = Error;
 
     fn from_str(position: &str) -> Result<Self, Self::Err> {
         match_ignore_ascii_case! { &*position,
@@ -1027,7 +1027,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         }
     }
 
-    pub fn serialize(&self, traversal_scope: TraversalScope) -> Fallible<DOMString, TH> {
+    pub fn serialize(&self, traversal_scope: TraversalScope) -> Fallible<DOMString> {
         let mut writer = vec![];
         match serialize(&mut writer,
                         &self.upcast::<Node<TH>>(),
@@ -1041,7 +1041,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
         }
     }
 
-    pub fn xmlSerialize(&self, traversal_scope: XmlTraversalScope) -> Fallible<DOMString, TH> {
+    pub fn xmlSerialize(&self, traversal_scope: XmlTraversalScope) -> Fallible<DOMString> {
         let mut writer = vec![];
         match xmlSerialize::serialize(&mut writer,
                         &self.upcast::<Node<TH>>(),
@@ -1238,7 +1238,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#attr-data-*
-    pub fn set_custom_attribute(&self, name: DOMString, value: DOMString) -> ErrorResult<TH> {
+    pub fn set_custom_attribute(&self, name: DOMString, value: DOMString) -> ErrorResult {
         // Step 1.
         if let InvalidXMLName = xml_name_type(&name) {
             return Err(Error::InvalidCharacter);
@@ -1457,7 +1457,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
 
     // https://dom.spec.whatwg.org/#insert-adjacent
     pub fn insert_adjacent(&self, where_: AdjacentPosition<TH>, node: &Node<TH>)
-                           -> Fallible<Option<DomRoot<Node<TH>>>, TH> {
+                           -> Fallible<Option<DomRoot<Node<TH>>>> {
         let self_node = self.upcast::<Node<TH>>();
         match where_ {
             AdjacentPosition::BeforeBegin => {
@@ -1536,7 +1536,7 @@ impl<TH: TypeHolderTrait> Element<TH> {
     }
 
     // https://w3c.github.io/DOM-Parsing/#parsing
-    pub fn parse_fragment(&self, markup: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>, TH> {
+    pub fn parse_fragment(&self, markup: DOMString) -> Fallible<DomRoot<DocumentFragment<TH>>> {
         // Steps 1-2.
         let context_document = document_from_node(self);
         // TODO(#11995): XML case.
@@ -1685,7 +1685,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-setattribute
-    fn SetAttribute(&self, name: DOMString, value: DOMString) -> ErrorResult<TH> {
+    fn SetAttribute(&self, name: DOMString, value: DOMString) -> ErrorResult {
         // Step 1.
         if xml_name_type(&name) == InvalidXMLName {
             return Err(Error::InvalidCharacter);
@@ -1706,7 +1706,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     fn SetAttributeNS(&self,
                       namespace: Option<DOMString>,
                       qualified_name: DOMString,
-                      value: DOMString) -> ErrorResult<TH> {
+                      value: DOMString) -> ErrorResult {
         let (namespace, prefix, local_name) =
             validate_and_extract(namespace, &qualified_name)?;
         let qualified_name = LocalName::from(qualified_name);
@@ -1718,7 +1718,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-setattributenode
-    fn SetAttributeNode(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>, TH> {
+    fn SetAttributeNode(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>> {
         // Step 1.
         if let Some(owner) = attr.GetOwnerElement() {
             if &*owner != self {
@@ -1780,7 +1780,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-setattributenodens
-    fn SetAttributeNodeNS(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>, TH> {
+    fn SetAttributeNodeNS(&self, attr: &Attr<TH>) -> Fallible<Option<DomRoot<Attr<TH>>>> {
         self.SetAttributeNode(attr)
     }
 
@@ -1798,7 +1798,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-removeattributenode
-    fn RemoveAttributeNode(&self, attr: &Attr<TH>) -> Fallible<DomRoot<Attr<TH>>, TH> {
+    fn RemoveAttributeNode(&self, attr: &Attr<TH>) -> Fallible<DomRoot<Attr<TH>>> {
         self.remove_first_matching_attribute(|a| a == attr)
             .ok_or(Error::NotFound)
     }
@@ -2127,7 +2127,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     /// <https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML>
-    fn GetInnerHTML(&self) -> Fallible<DOMString, TH> {
+    fn GetInnerHTML(&self) -> Fallible<DOMString> {
         let qname = QualName::new(self.prefix().clone(),
                                   self.namespace().clone(),
                                   self.local_name().clone());
@@ -2139,7 +2139,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     /// <https://w3c.github.io/DOM-Parsing/#widl-Element-innerHTML>
-    fn SetInnerHTML(&self, value: DOMString) -> ErrorResult<TH> {
+    fn SetInnerHTML(&self, value: DOMString) -> ErrorResult {
         // Step 1.
         let frag = self.parse_fragment(value)?;
         // Step 2.
@@ -2154,7 +2154,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dvcs.w3.org/hg/innerhtml/raw-file/tip/index.html#widl-Element-outerHTML
-    fn GetOuterHTML(&self) -> Fallible<DOMString, TH> {
+    fn GetOuterHTML(&self) -> Fallible<DOMString> {
         if document_from_node(self).is_html_document() {
             return self.serialize(IncludeNode);
         } else {
@@ -2163,7 +2163,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://w3c.github.io/DOM-Parsing/#dom-element-outerhtml
-    fn SetOuterHTML(&self, value: DOMString) -> ErrorResult<TH> {
+    fn SetOuterHTML(&self, value: DOMString) -> ErrorResult {
         let context_document = document_from_node(self);
         let context_node = self.upcast::<Node<TH>>();
         // Step 1.
@@ -2230,39 +2230,39 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
-    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    fn Prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().prepend(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
-    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    fn Append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().append(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
-    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
+    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
         let root = self.upcast::<Node<TH>>();
         root.query_selector(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
-    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>, TH> {
+    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>> {
         let root = self.upcast::<Node<TH>>();
         root.query_selector_all(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
-    fn Before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    fn Before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().before(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
-    fn After(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    fn After(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().after(nodes)
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
-    fn ReplaceWith(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    fn ReplaceWith(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         self.upcast::<Node<TH>>().replace_with(nodes)
     }
 
@@ -2272,7 +2272,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-matches
-    fn Matches(&self, selectors: DOMString) -> Fallible<bool, TH> {
+    fn Matches(&self, selectors: DOMString) -> Fallible<bool> {
         let selectors =
             match SelectorParser::parse_author_origin_no_namespace(&selectors) {
                 Err(_) => return Err(Error::Syntax),
@@ -2286,12 +2286,12 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-element-webkitmatchesselector
-    fn WebkitMatchesSelector(&self, selectors: DOMString) -> Fallible<bool, TH> {
+    fn WebkitMatchesSelector(&self, selectors: DOMString) -> Fallible<bool> {
         self.Matches(selectors)
     }
 
     // https://dom.spec.whatwg.org/#dom-element-closest
-    fn Closest(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
+    fn Closest(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
         let selectors =
             match SelectorParser::parse_author_origin_no_namespace(&selectors) {
                 Err(_) => return Err(Error::Syntax),
@@ -2308,7 +2308,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
 
     // https://dom.spec.whatwg.org/#dom-element-insertadjacentelement
     fn InsertAdjacentElement(&self, where_: DOMString, element: &Element<TH>)
-                             -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
+                             -> Fallible<Option<DomRoot<Element<TH>>>> {
         let where_ = where_.parse::<AdjacentPosition<TH>>()?;
         let inserted_node = self.insert_adjacent(where_, element.upcast())?;
         Ok(inserted_node.map(|node| DomRoot::downcast(node).unwrap()))
@@ -2316,7 +2316,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
 
     // https://dom.spec.whatwg.org/#dom-element-insertadjacenttext
     fn InsertAdjacentText(&self, where_: DOMString, data: DOMString)
-                          -> ErrorResult<TH> {
+                          -> ErrorResult {
         // Step 1.
         let text = Text::new(data, &document_from_node(self));
 
@@ -2327,7 +2327,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
 
     // https://w3c.github.io/DOM-Parsing/#dom-element-insertadjacenthtml
     fn InsertAdjacentHTML(&self, position: DOMString, text: DOMString)
-                          -> ErrorResult<TH> {
+                          -> ErrorResult {
         // Step 1.
         let position = position.parse::<AdjacentPosition<TH>>()?;
 
@@ -2360,7 +2360,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
     }
 
     // check-tidy: no specs after this line
-    fn EnterFormalActivationState(&self) -> ErrorResult<TH> {
+    fn EnterFormalActivationState(&self) -> ErrorResult {
         match self.as_maybe_activatable() {
             Some(a) => {
                 a.enter_formal_activation_state();
@@ -2370,7 +2370,7 @@ impl<TH: TypeHolderTrait> ElementMethods<TH> for Element<TH> {
         }
     }
 
-    fn ExitFormalActivationState(&self) -> ErrorResult<TH> {
+    fn ExitFormalActivationState(&self) -> ErrorResult {
         match self.as_maybe_activatable() {
             Some(a) => {
                 a.exit_formal_activation_state();

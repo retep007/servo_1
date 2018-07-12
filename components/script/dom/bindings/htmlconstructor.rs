@@ -89,7 +89,7 @@ use std::ptr;
 use typeholder::TypeHolderTrait;
 
 // https://html.spec.whatwg.org/multipage/#htmlconstructor
-pub unsafe fn html_constructor<T, TH: TypeHolderTrait>(window: &Window<TH>, call_args: &CallArgs) -> Fallible<DomRoot<T>, TH>
+pub unsafe fn html_constructor<T, TH: TypeHolderTrait>(window: &Window<TH>, call_args: &CallArgs) -> Fallible<DomRoot<T>>
                                   where T: DerivedFrom<Element<TH>> {
     let document = window.Document();
 

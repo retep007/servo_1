@@ -25,9 +25,11 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
         _ => false,
     }).collect::<Vec<_>>();
     let mut base = quote::Tokens::new();
+    let mut th = quote!{TH};
     if attrs.len() > 0 {
             if let syn::Meta::NameValue(syn::MetaNameValue { lit: syn::Lit::Str(st), .. }) = attrs[0].interpret_meta().unwrap() {
                 syn::Ident::from(&st.value()[..]).to_tokens(&mut base);
+                th = quote!{TypeHolder};
             }
     }
 
@@ -63,7 +65,7 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
         }
 
         impl #impl_generics #base::dom::bindings::reflector::DomObject for #name #ty_generics #where_clause {
-            type TypeHolder = TH;
+            type TypeHolder = #th;
 
             #[inline]
             fn reflector(&self) -> &#base::dom::bindings::reflector::Reflector<Self::TypeHolder> {
@@ -77,6 +79,35 @@ fn expand_dom_object(input: syn::DeriveInput) -> quote::Tokens {
             }
         }
     };
+    if name == "IterableIterator" {
+        items = quote! {
+            impl #impl_generics ::js::conversions::ToJSValConvertible for #name #ty_generics #where_clause {
+                #[allow(unsafe_code)]
+                unsafe fn to_jsval(&self,
+                                    cx: *mut ::js::jsapi::JSContext,
+                                    rval: ::js::rust::MutableHandleValue) {
+                    let object = #base::dom::bindings::reflector::DomObject::reflector(self).get_jsobject();
+                    object.to_jsval(cx, rval)
+                }
+            }
+
+            impl #impl_generics #base::dom::bindings::reflector::DomObject for #name #ty_generics #where_clause {
+                type TypeHolder = T::TypeHolder;
+
+                #[inline]
+                fn reflector(&self) -> &#base::dom::bindings::reflector::Reflector<Self::TypeHolder> {
+                    self.#first_field_name.reflector()
+                }
+            }
+
+            impl #impl_generics #base::dom::bindings::reflector::MutDomObject for #name #ty_generics #where_clause {
+                fn init_reflector(&mut self, obj: *mut ::js::jsapi::JSObject) {
+                    self.#first_field_name.init_reflector(obj);
+                }
+            }
+        };
+    }
+
     let mut params = quote::Tokens::new();
     params.append_separated(input.generics.type_params().map(|param| param.ident), quote!(,));
 

@@ -104,7 +104,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTCharacteristicMethods<TH> for Bluet
     #[allow(unrooted_must_root)]
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattcharacteristic-getdescriptor
     fn GetDescriptor(&self, descriptor: BluetoothDescriptorUUID) -> Rc<Promise<TH>> {
-        get_gatt_children(self, true, BluetoothUUID::descriptor, Some(descriptor), self.get_instance_id(),
+        get_gatt_children(self, true, BluetoothUUID::<TH>::descriptor, Some(descriptor), self.get_instance_id(),
                           self.Service().Device().get_gatt().Connected(), GATTType::Descriptor)
     }
 
@@ -113,7 +113,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTCharacteristicMethods<TH> for Bluet
     fn GetDescriptors(&self,
                       descriptor: Option<BluetoothDescriptorUUID>)
                       -> Rc<Promise<TH>> {
-        get_gatt_children(self, false, BluetoothUUID::descriptor, descriptor, self.get_instance_id(),
+        get_gatt_children(self, false, BluetoothUUID::<TH>::descriptor, descriptor, self.get_instance_id(),
                           self.Service().Device().get_gatt().Connected(), GATTType::Descriptor)
     }
 

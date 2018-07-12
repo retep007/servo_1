@@ -190,7 +190,7 @@ impl<TH: TypeHolderTrait> BluetoothDevice<TH> {
 
     // https://webbluetoothcg.github.io/web-bluetooth/#garbage-collect-the-connection
     #[allow(unrooted_must_root)]
-    pub fn garbage_collect_the_connection(&self) -> ErrorResult<TH> {
+    pub fn garbage_collect_the_connection(&self) -> ErrorResult {
         // Step 1: TODO: Check if other systems using this device.
 
         // Step 2.

@@ -578,7 +578,7 @@ unsafe extern fn parseFromString<TH: TypeHolderTrait>
          },
             Ok((Some(&value), _)) => value,
         };
-        let result: Result<DomRoot<Document<TH>>, Error<TH>> = this.ParseFromString(arg0, arg1);
+        let result: Result<DomRoot<Document<TH>>, Error> = this.ParseFromString(arg0, arg1);
 
         let result = match result {
             Ok(result) => result,
@@ -722,7 +722,7 @@ pub unsafe fn Wrap<TH: TypeHolderTrait>
 // }
 
 pub trait DOMParserMethods<TH: TypeHolderTrait> {
-    fn ParseFromString(&self, str: DOMString, type_: SupportedType) -> Fallible<DomRoot<Document<TH>>, TH>;
+    fn ParseFromString(&self, str: DOMString, type_: SupportedType) -> Fallible<DomRoot<Document<TH>>>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
@@ -780,7 +780,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<TH::DOMParser>, Error<TH>> = TH::DOMParser::Constructor(&global);
+        let result: Result<DomRoot<TH::DOMParser>, Error> = TH::DOMParser::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

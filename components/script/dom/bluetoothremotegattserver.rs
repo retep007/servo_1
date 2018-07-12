@@ -86,7 +86,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServerMethods<TH> for BluetoothRemo
     }
 
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-disconnect
-    fn Disconnect(&self) -> ErrorResult<TH> {
+    fn Disconnect(&self) -> ErrorResult {
         // TODO: Step 1: Implement activeAlgorithms internal slot for BluetoothRemoteGATTServer.
 
         // Step 2.
@@ -105,7 +105,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServerMethods<TH> for BluetoothRemo
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-getprimaryservice
     fn GetPrimaryService(&self, service: BluetoothServiceUUID) -> Rc<Promise<TH>> {
         // Step 1 - 2.
-        get_gatt_children(self, true, BluetoothUUID::service, Some(service), String::from(self.Device().Id()),
+        get_gatt_children(self, true, BluetoothUUID::<TH>::service, Some(service), String::from(self.Device().Id()),
                           self.Device().get_gatt().Connected(), GATTType::PrimaryService)
     }
 
@@ -113,7 +113,7 @@ impl<TH: TypeHolderTrait> BluetoothRemoteGATTServerMethods<TH> for BluetoothRemo
     // https://webbluetoothcg.github.io/web-bluetooth/#dom-bluetoothremotegattserver-getprimaryservices
     fn GetPrimaryServices(&self, service: Option<BluetoothServiceUUID>) -> Rc<Promise<TH>> {
         // Step 1 - 2.
-        get_gatt_children(self, false, BluetoothUUID::service, service, String::from(self.Device().Id()),
+        get_gatt_children(self, false, BluetoothUUID::<TH>::service, service, String::from(self.Device().Id()),
                           self.Connected(), GATTType::PrimaryService)
 
     }

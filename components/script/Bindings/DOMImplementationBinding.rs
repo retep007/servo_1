@@ -552,7 +552,7 @@ unsafe extern fn createDocumentType<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<DocumentType<TH>>, Error<TH>> = this.CreateDocumentType(arg0, arg1, arg2);
+        let result: Result<DomRoot<DocumentType<TH>>, Error> = this.CreateDocumentType(arg0, arg1, arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -637,7 +637,7 @@ unsafe extern fn createDocument<TH: TypeHolderTrait>
 
             }
         };
-        let result: Result<DomRoot<XMLDocument<TH>>, Error<TH>> = this.CreateDocument(arg0, arg1, arg2.r());
+        let result: Result<DomRoot<XMLDocument<TH>>, Error> = this.CreateDocument(arg0, arg1, arg2.r());
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -861,8 +861,8 @@ impl<TH: TypeHolderTrait> PartialEq for DOMImplementation<TH> {
 }
 
 pub trait DOMImplementationMethods<TH: TypeHolderTrait> {
-    fn CreateDocumentType(&self, qualifiedName: DOMString, publicId: DOMString, systemId: DOMString) -> Fallible<DomRoot<DocumentType<TH>>, TH>;
-    fn CreateDocument(&self, namespace: Option<DOMString>, qualifiedName: DOMString, doctype: Option<&DocumentType<TH>>) -> Fallible<DomRoot<XMLDocument<TH>>, TH>;
+    fn CreateDocumentType(&self, qualifiedName: DOMString, publicId: DOMString, systemId: DOMString) -> Fallible<DomRoot<DocumentType<TH>>>;
+    fn CreateDocument(&self, namespace: Option<DOMString>, qualifiedName: DOMString, doctype: Option<&DocumentType<TH>>) -> Fallible<DomRoot<XMLDocument<TH>>>;
     fn CreateHTMLDocument(&self, title: Option<DOMString>) -> DomRoot<Document<TH>>;
     fn HasFeature(&self) -> bool;
 }

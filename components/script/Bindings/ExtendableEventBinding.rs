@@ -573,7 +573,7 @@ unsafe extern fn waitUntil<TH: TypeHolderTrait>
             return false;
         }
         let arg0: HandleValue = args.get(0);
-        let result: Result<(), Error<TH>> = this.WaitUntil(cx, arg0);
+        let result: Result<(), Error> = this.WaitUntil(cx, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -750,7 +750,7 @@ impl<TH: TypeHolderTrait> PartialEq for ExtendableEvent<TH> {
 }
 
 pub trait ExtendableEventMethods<TH: TypeHolderTrait> {
-    unsafe fn WaitUntil(&self, cx: *mut JSContext, f: HandleValue) -> Fallible<(), TH>;
+    unsafe fn WaitUntil(&self, cx: *mut JSContext, f: HandleValue) -> Fallible<()>;
     fn IsTrusted(&self) -> bool;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
@@ -857,7 +857,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<ExtendableEvent<TH>>, Error<TH>> = ExtendableEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<ExtendableEvent<TH>>, Error> = ExtendableEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

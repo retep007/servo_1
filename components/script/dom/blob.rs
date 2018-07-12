@@ -120,7 +120,7 @@ impl<TH: TypeHolderTrait> Blob<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        blobParts: Option<Vec<ArrayBufferOrArrayBufferViewOrBlobOrString<TH>>>,
                        blobPropertyBag: &BlobBinding::BlobPropertyBag)
-                       -> Fallible<DomRoot<Blob<TH>>, TH> {
+                       -> Fallible<DomRoot<Blob<TH>>> {
         // TODO: accept other blobParts types - ArrayBuffer or ArrayBufferView
         let bytes: Vec<u8> = match blobParts {
             None => Vec::new(),

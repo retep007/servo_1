@@ -280,7 +280,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElementMethods<TH> for HTMLTextAreaElement
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-selectionstart
-    fn SetSelectionStart(&self, start: Option<u32>) -> ErrorResult<TH> {
+    fn SetSelectionStart(&self, start: Option<u32>) -> ErrorResult {
         self.selection().set_dom_start(start)
     }
 
@@ -290,7 +290,7 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElementMethods<TH> for HTMLTextAreaElement
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-selectionend
-    fn SetSelectionEnd(&self, end: Option<u32>) -> ErrorResult<TH> {
+    fn SetSelectionEnd(&self, end: Option<u32>) -> ErrorResult {
         self.selection().set_dom_end(end)
     }
 
@@ -300,23 +300,23 @@ impl<TH: TypeHolderTrait> HTMLTextAreaElementMethods<TH> for HTMLTextAreaElement
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-selectiondirection
-    fn SetSelectionDirection(&self, direction: Option<DOMString>) -> ErrorResult<TH> {
+    fn SetSelectionDirection(&self, direction: Option<DOMString>) -> ErrorResult {
         self.selection().set_dom_direction(direction)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-setselectionrange
-    fn SetSelectionRange(&self, start: u32, end: u32, direction: Option<DOMString>) -> ErrorResult<TH> {
+    fn SetSelectionRange(&self, start: u32, end: u32, direction: Option<DOMString>) -> ErrorResult {
         self.selection().set_dom_range(start, end, direction)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-setrangetext
-    fn SetRangeText(&self, replacement: DOMString) -> ErrorResult<TH> {
+    fn SetRangeText(&self, replacement: DOMString) -> ErrorResult {
         self.selection().set_dom_range_text(replacement, None, None, Default::default())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-textarea/input-setrangetext
     fn SetRangeText_(&self, replacement: DOMString, start: u32, end: u32,
-                     selection_mode: SelectionMode) -> ErrorResult<TH> {
+                     selection_mode: SelectionMode) -> ErrorResult {
         self.selection().set_dom_range_text(replacement, Some(start), Some(end), selection_mode)
     }
 }

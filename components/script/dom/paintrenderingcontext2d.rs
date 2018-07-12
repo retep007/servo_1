@@ -199,7 +199,7 @@ impl<TH: TypeHolderTrait> PaintRenderingContext2DMethods<TH> for PaintRenderingC
                  image: HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>,
                  dx: f64,
                  dy: f64)
-                 -> ErrorResult<TH> {
+                 -> ErrorResult {
         self.context.DrawImage(image, dx, dy)
     }
 
@@ -210,7 +210,7 @@ impl<TH: TypeHolderTrait> PaintRenderingContext2DMethods<TH> for PaintRenderingC
                   dy: f64,
                   dw: f64,
                   dh: f64)
-                  -> ErrorResult<TH> {
+                  -> ErrorResult {
         self.context.DrawImage_(image, dx, dy, dw, dh)
     }
 
@@ -225,7 +225,7 @@ impl<TH: TypeHolderTrait> PaintRenderingContext2DMethods<TH> for PaintRenderingC
                    dy: f64,
                    dw: f64,
                    dh: f64)
-                   -> ErrorResult<TH> {
+                   -> ErrorResult {
         self.context.DrawImage__(image, sx, sy, sw, sh, dx, dy, dw, dh)
     }
 
@@ -255,17 +255,17 @@ impl<TH: TypeHolderTrait> PaintRenderingContext2DMethods<TH> for PaintRenderingC
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-arc
-    fn Arc(&self, x: f64, y: f64, r: f64, start: f64, end: f64, ccw: bool) -> ErrorResult<TH> {
+    fn Arc(&self, x: f64, y: f64, r: f64, start: f64, end: f64, ccw: bool) -> ErrorResult {
         self.context.Arc(x, y, r, start, end, ccw)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-arcto
-    fn ArcTo(&self, cp1x: f64, cp1y: f64, cp2x: f64, cp2y: f64, r: f64) -> ErrorResult<TH> {
+    fn ArcTo(&self, cp1x: f64, cp1y: f64, cp2x: f64, cp2y: f64, r: f64) -> ErrorResult {
         self.context.ArcTo(cp1x, cp1y, cp2x, cp2y, r)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-context-2d-ellipse
-    fn Ellipse(&self, x: f64, y: f64, rx: f64, ry: f64, rotation: f64, start: f64, end: f64, ccw: bool) -> ErrorResult<TH> {
+    fn Ellipse(&self, x: f64, y: f64, rx: f64, ry: f64, rotation: f64, start: f64, end: f64, ccw: bool) -> ErrorResult {
         self.context.Ellipse(x, y, rx, ry, rotation, start, end, ccw)
     }
 
@@ -317,7 +317,7 @@ impl<TH: TypeHolderTrait> PaintRenderingContext2DMethods<TH> for PaintRenderingC
                             x1: Finite<f64>,
                             y1: Finite<f64>,
                             r1: Finite<f64>)
-                            -> Fallible<DomRoot<CanvasGradient<TH>>, TH> {
+                            -> Fallible<DomRoot<CanvasGradient<TH>>> {
         self.context.CreateRadialGradient(x0, y0, r0, x1, y1, r1)
     }
 
@@ -325,7 +325,7 @@ impl<TH: TypeHolderTrait> PaintRenderingContext2DMethods<TH> for PaintRenderingC
     fn CreatePattern(&self,
                      image: HTMLImageElementOrHTMLCanvasElementOrCanvasRenderingContext2DOrCSSStyleValue<TH>,
                      repetition: DOMString)
-                     -> Fallible<DomRoot<CanvasPattern<TH>>, TH> {
+                     -> Fallible<DomRoot<CanvasPattern<TH>>> {
         self.context.CreatePattern(image, repetition)
     }
 

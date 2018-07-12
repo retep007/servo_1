@@ -735,7 +735,7 @@ unsafe extern fn mark<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.Mark(arg0);
+        let result: Result<(), Error> = this.Mark(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -863,7 +863,7 @@ unsafe extern fn measure<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<(), Error<TH>> = this.Measure(arg0, arg1, arg2);
+        let result: Result<(), Error> = this.Measure(arg0, arg1, arg2);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1057,9 +1057,9 @@ pub trait PerformanceMethods<TH: TypeHolderTrait> {
     fn GetEntries(&self) -> Vec<DomRoot<PerformanceEntry<TH>>>;
     fn GetEntriesByType(&self, type_: DOMString) -> Vec<DomRoot<PerformanceEntry<TH>>>;
     fn GetEntriesByName(&self, name: DOMString, type_: Option<DOMString>) -> Vec<DomRoot<PerformanceEntry<TH>>>;
-    fn Mark(&self, markName: DOMString) -> Fallible<(), TH>;
+    fn Mark(&self, markName: DOMString) -> Fallible<()>;
     fn ClearMarks(&self, markName: Option<DOMString>) -> ();
-    fn Measure(&self, measureName: DOMString, startMark: Option<DOMString>, endMark: Option<DOMString>) -> Fallible<(), TH>;
+    fn Measure(&self, measureName: DOMString, startMark: Option<DOMString>, endMark: Option<DOMString>) -> Fallible<()>;
     fn ClearMeasures(&self, measureName: Option<DOMString>) -> ();
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[

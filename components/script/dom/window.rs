@@ -458,7 +458,7 @@ fn display_alert_dialog(_message: &str) {
 }
 
 // https://html.spec.whatwg.org/multipage/#atob
-pub fn base64_btoa<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString, TH> {
+pub fn base64_btoa(input: DOMString) -> Fallible<DOMString> {
     // "The btoa() method must throw an InvalidCharacterError exception if
     //  the method's first argument contains any character whose code point
     //  is greater than U+00FF."
@@ -478,7 +478,7 @@ pub fn base64_btoa<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString,
 }
 
 // https://html.spec.whatwg.org/multipage/#atob
-pub fn base64_atob<TH: TypeHolderTrait>(input: DOMString) -> Fallible<DOMString, TH> {
+pub fn base64_atob(input: DOMString) -> Fallible<DOMString> {
     // "Remove all space characters from input."
     fn is_html_space(c: char) -> bool {
         HTML_SPACE_CHARACTERS.iter().any(|&m| m == c)
@@ -737,12 +737,12 @@ impl<TH: TypeHolderTrait> WindowMethods<TH> for Window<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-windowbase64-btoa
-    fn Btoa(&self, btoa: DOMString) -> Fallible<DOMString, TH> {
+    fn Btoa(&self, btoa: DOMString) -> Fallible<DOMString> {
         base64_btoa(btoa)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-windowbase64-atob
-    fn Atob(&self, atob: DOMString) -> Fallible<DOMString, TH> {
+    fn Atob(&self, atob: DOMString) -> Fallible<DOMString> {
         base64_atob(atob)
     }
 
@@ -764,7 +764,7 @@ impl<TH: TypeHolderTrait> WindowMethods<TH> for Window<TH> {
                    cx: *mut JSContext,
                    message: HandleValue,
                    origin: DOMString)
-                   -> ErrorResult<TH> {
+                   -> ErrorResult {
         // Step 3-5.
         let origin = match &origin[..] {
             "*" => None,

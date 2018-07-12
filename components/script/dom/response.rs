@@ -72,7 +72,7 @@ impl<TH: TypeHolderTrait> Response<TH> {
     }
 
     pub fn Constructor(global: &GlobalScope<TH>, body: Option<BodyInit<TH>>, init: &ResponseBinding::ResponseInit<TH>)
-                       -> Fallible<DomRoot<Response<TH>>, TH> {
+                       -> Fallible<DomRoot<Response<TH>>> {
         // Step 1
         if init.status < 200 || init.status > 599 {
             return Err(Error::Range(
@@ -148,7 +148,7 @@ impl<TH: TypeHolderTrait> Response<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-response-redirect
-    pub fn Redirect(global: &GlobalScope<TH>, url: USVString, status: u16) -> Fallible<DomRoot<Response<TH>>, TH> {
+    pub fn Redirect(global: &GlobalScope<TH>, url: USVString, status: u16) -> Fallible<DomRoot<Response<TH>>> {
         // Step 1
         let base_url = global.api_base_url();
         let parsed_url = base_url.join(&url.0);
@@ -296,7 +296,7 @@ impl<TH: TypeHolderTrait> ResponseMethods<TH> for Response<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-response-clone
-    fn Clone(&self) -> Fallible<DomRoot<Response<TH>>, TH> {
+    fn Clone(&self) -> Fallible<DomRoot<Response<TH>>> {
         // Step 1
         if self.is_locked() || self.body_used.get() {
             return Err(Error::Type("cannot clone a disturbed response".to_string()));

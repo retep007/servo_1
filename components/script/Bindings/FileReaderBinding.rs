@@ -538,7 +538,7 @@ unsafe extern fn readAsArrayBuffer<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error<TH>> = this.ReadAsArrayBuffer(&arg0);
+        let result: Result<(), Error> = this.ReadAsArrayBuffer(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -611,7 +611,7 @@ unsafe extern fn readAsText<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<(), Error<TH>> = this.ReadAsText(&arg0, arg1);
+        let result: Result<(), Error> = this.ReadAsText(&arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -670,7 +670,7 @@ unsafe extern fn readAsDataURL<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error<TH>> = this.ReadAsDataURL(&arg0);
+        let result: Result<(), Error> = this.ReadAsDataURL(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1318,9 +1318,9 @@ impl<TH: TypeHolderTrait> PartialEq for FileReader<TH> {
 }
 
 pub trait FileReaderMethods<TH: TypeHolderTrait> {
-    fn ReadAsArrayBuffer(&self, blob: &Blob<TH>) -> Fallible<(), TH>;
-    fn ReadAsText(&self, blob: &Blob<TH>, label: Option<DOMString>) -> Fallible<(), TH>;
-    fn ReadAsDataURL(&self, blob: &Blob<TH>) -> Fallible<(), TH>;
+    fn ReadAsArrayBuffer(&self, blob: &Blob<TH>) -> Fallible<()>;
+    fn ReadAsText(&self, blob: &Blob<TH>, label: Option<DOMString>) -> Fallible<()>;
+    fn ReadAsDataURL(&self, blob: &Blob<TH>) -> Fallible<()>;
     fn Abort(&self) -> ();
     fn ReadyState(&self) -> u16;
     unsafe fn GetResult(&self, cx: *mut JSContext) -> Option<UnionTypes::StringOrObject>;
@@ -1491,7 +1491,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<FileReader<TH>>, Error<TH>> = FileReader::Constructor(&global);
+        let result: Result<DomRoot<FileReader<TH>>, Error> = FileReader::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

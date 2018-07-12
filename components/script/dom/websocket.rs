@@ -135,7 +135,7 @@ impl<TH: TypeHolderTrait> WebSocket<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        url: DOMString,
                        protocols: Option<StringOrStringSequence>)
-                       -> Fallible<DomRoot<WebSocket<TH>>, TH> {
+                       -> Fallible<DomRoot<WebSocket<TH>>> {
         // Steps 1-2.
         let url_record = ServoUrl::parse(&url).or(Err(Error::Syntax))?;
 
@@ -236,7 +236,7 @@ impl<TH: TypeHolderTrait> WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn send_impl(&self, data_byte_len: u64) -> Fallible<bool, TH> {
+    fn send_impl(&self, data_byte_len: u64) -> Fallible<bool> {
         let return_after_buffer = match self.ready_state.get() {
             WebSocketRequestState::Connecting => {
                 return Err(Error::InvalidState);
@@ -318,7 +318,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn Send(&self, data: USVString) -> ErrorResult<TH> {
+    fn Send(&self, data: USVString) -> ErrorResult {
         let data_byte_len = data.0.as_bytes().len() as u64;
         let send_data = self.send_impl(data_byte_len)?;
 
@@ -330,7 +330,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn Send_(&self, blob: &Blob<TH>) -> ErrorResult<TH> {
+    fn Send_(&self, blob: &Blob<TH>) -> ErrorResult {
         /* As per https://html.spec.whatwg.org/multipage/#websocket
            the buffered amount needs to be clamped to u32, even though Blob.Size() is u64
            If the buffer limit is reached in the first place, there are likely other major problems
@@ -347,7 +347,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn Send__(&self, array: CustomAutoRooterGuard<ArrayBuffer>) -> ErrorResult<TH> {
+    fn Send__(&self, array: CustomAutoRooterGuard<ArrayBuffer>) -> ErrorResult {
         let bytes = array.to_vec();
         let data_byte_len = bytes.len();
         let send_data = self.send_impl(data_byte_len as u64)?;
@@ -359,7 +359,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-send
-    fn Send___(&self, array: CustomAutoRooterGuard<ArrayBufferView>) -> ErrorResult<TH> {
+    fn Send___(&self, array: CustomAutoRooterGuard<ArrayBufferView>) -> ErrorResult {
         let bytes = array.to_vec();
         let data_byte_len = bytes.len();
         let send_data = self.send_impl(data_byte_len as u64)?;
@@ -371,7 +371,7 @@ impl<TH: TypeHolderTrait> WebSocketMethods<TH> for WebSocket<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-websocket-close
-    fn Close(&self, code: Option<u16>, reason: Option<USVString>) -> ErrorResult<TH> {
+    fn Close(&self, code: Option<u16>, reason: Option<USVString>) -> ErrorResult {
         if let Some(code) = code {
             //Fail if the supplied code isn't normal and isn't reserved for libraries, frameworks, and applications
             if code != close_code::NORMAL && (code < 3000 || code > 4999) {

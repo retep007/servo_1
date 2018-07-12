@@ -170,7 +170,7 @@ impl<TH: TypeHolderTrait> Bluetooth<TH> {
             // Step 2.4.
             for filter in filters {
                 // Step 2.4.1.
-                match canonicalize_filter(&filter) {
+                match canonicalize_filter::<TH>(&filter) {
                     // Step 2.4.2.
                     Ok(f) => uuid_filters.push(f),
                     Err(e) => {
@@ -186,7 +186,7 @@ impl<TH: TypeHolderTrait> Bluetooth<TH> {
         if let &Some(ref opt_services) = optional_services {
             for opt_service in opt_services {
                 // Step 2.5 - 2.6.
-                let uuid = match BluetoothUUID::service(opt_service.clone()) {
+                let uuid = match BluetoothUUID::<TH>::service(opt_service.clone()) {
                     Ok(u) => u.to_string(),
                     Err(e) => {
                         p.reject_error(e);
@@ -268,7 +268,7 @@ pub fn get_gatt_children<T, F, TH: TypeHolderTrait> (
         child_type: GATTType)
         -> Rc<Promise<TH>>
         where T: AsyncBluetoothListener<TH> + DomObject<TypeHolder=TH> + 'static,
-              F: FnOnce(StringOrUnsignedLong) -> Fallible<UUID, TH> {
+              F: FnOnce(StringOrUnsignedLong) -> Fallible<UUID> {
     let p= Promise::<TH>::new(&attribute.global());
 
     let result_uuid = if let Some(u) = uuid {
@@ -307,7 +307,7 @@ pub fn get_gatt_children<T, F, TH: TypeHolderTrait> (
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothlescanfilterinit-canonicalizing
-fn canonicalize_filter<TH: TypeHolderTrait>(filter: &BluetoothLEScanFilterInit) -> Fallible<BluetoothScanfilter, TH> {
+fn canonicalize_filter<TH: TypeHolderTrait>(filter: &BluetoothLEScanFilterInit) -> Fallible<BluetoothScanfilter> {
     // Step 1.
     if filter.services.is_none() &&
        filter.name.is_none() &&
@@ -332,7 +332,7 @@ fn canonicalize_filter<TH: TypeHolderTrait>(filter: &BluetoothLEScanFilterInit) 
 
             for service in services {
                 // Step 3.2 - 3.3.
-                let uuid = BluetoothUUID::service(service.clone())?.to_string();
+                let uuid = BluetoothUUID::<TH>::service(service.clone())?.to_string();
 
                 // Step 3.4.
                 if uuid_is_blocklisted(uuid.as_ref(), Blocklist::All) {
@@ -421,7 +421,7 @@ fn canonicalize_filter<TH: TypeHolderTrait>(filter: &BluetoothLEScanFilterInit) 
                 };
 
                 // Step 9.3 - 9.4.
-                let service = BluetoothUUID::service(service_name)?.to_string();
+                let service = BluetoothUUID::<TH>::service(service_name)?.to_string();
 
                 // Step 9.5.
                 if uuid_is_blocklisted(service.as_ref(), Blocklist::All) {
@@ -443,7 +443,7 @@ fn canonicalize_filter<TH: TypeHolderTrait>(filter: &BluetoothLEScanFilterInit) 
 }
 
 // https://webbluetoothcg.github.io/web-bluetooth/#bluetoothdatafilterinit-canonicalizing
-fn canonicalize_bluetooth_data_filter_init<TH: TypeHolderTrait>(bdfi: &BluetoothDataFilterInit) -> Fallible<(Vec<u8>, Vec<u8>), TH> {
+fn canonicalize_bluetooth_data_filter_init(bdfi: &BluetoothDataFilterInit) -> Fallible<(Vec<u8>, Vec<u8>)> {
     // Step 1.
     let data_prefix = match bdfi.dataPrefix {
         Some(ArrayBufferViewOrArrayBuffer::ArrayBufferView(ref avb)) => avb.to_vec(),
@@ -469,7 +469,7 @@ fn canonicalize_bluetooth_data_filter_init<TH: TypeHolderTrait>(bdfi: &Bluetooth
     Ok((data_prefix, mask))
 }
 
-impl<TH: TypeHolderTrait> From<BluetoothError> for Error<TH> {
+impl From<BluetoothError> for Error {
     fn from(error: BluetoothError) -> Self {
         match error {
             BluetoothError::Type(message) => Error::Type(message),
@@ -560,7 +560,7 @@ impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Bluetooth<TH> {
     #[allow(unsafe_code)]
     fn create_descriptor(cx: *mut JSContext,
                          permission_descriptor_obj: *mut JSObject)
-                         -> Result<BluetoothPermissionDescriptor, Error<TH>> {
+                         -> Result<BluetoothPermissionDescriptor, Error> {
         rooted!(in(cx) let mut property = UndefinedValue());
         property.handle_mut().set(ObjectValue(permission_descriptor_obj));
         unsafe {
@@ -616,7 +616,7 @@ impl<TH: TypeHolderTrait> PermissionAlgorithm<TH> for Bluetooth<TH> {
 
                 // Step 6.2.1.
                 for filter in filters {
-                    match canonicalize_filter(&filter) {
+                    match canonicalize_filter::<TH>(&filter) {
                         Ok(f) => scan_filters.push(f),
                         Err(error) => return promise.reject_error(error),
                     }

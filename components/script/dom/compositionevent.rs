@@ -40,7 +40,7 @@ impl<TH: TypeHolderTrait> CompositionEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &CompositionEventBinding::CompositionEventInit<TH>)
-                       -> Fallible<DomRoot<Self>, TH> {
+                       -> Fallible<DomRoot<Self>> {
         let event = CompositionEvent::new(window,
                                     type_,
                                     init.parent.parent.bubbles,

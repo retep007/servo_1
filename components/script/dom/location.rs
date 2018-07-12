@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> Location<TH> {
         self.window.load_url(url, false, false, None);
     }
 
-    fn check_same_origin_domain(&self) -> ErrorResult<TH> {
+    fn check_same_origin_domain(&self) -> ErrorResult {
         let entry_document = GlobalScope::<TH>::entry().as_window().Document();
         let this_document = self.window.Document();
         if entry_document.origin().same_origin_domain(this_document.origin()) {
@@ -70,7 +70,7 @@ impl<TH: TypeHolderTrait> Location<TH> {
 
 impl<TH: TypeHolderTrait> LocationMethods<TH> for Location<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-assign
-    fn Assign(&self, url: USVString) -> ErrorResult<TH> {
+    fn Assign(&self, url: USVString) -> ErrorResult {
         self.check_same_origin_domain()?;
         // TODO: per spec, we should use the _API base URL_ specified by the
         //       _entry settings object_.
@@ -84,14 +84,14 @@ impl<TH: TypeHolderTrait> LocationMethods<TH> for Location<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-reload
-    fn Reload(&self) -> ErrorResult<TH> {
+    fn Reload(&self) -> ErrorResult {
         self.check_same_origin_domain()?;
         self.window.load_url(self.get_url(), true, true, None);
         Ok(())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-replace
-    fn Replace(&self, url: USVString) -> ErrorResult<TH> {
+    fn Replace(&self, url: USVString) -> ErrorResult {
         // Note: no call to self.check_same_origin_domain()
         // TODO: per spec, we should use the _API base URL_ specified by the
         //       _entry settings object_.
@@ -105,13 +105,13 @@ impl<TH: TypeHolderTrait> LocationMethods<TH> for Location<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-hash
-    fn GetHash(&self) -> Fallible<USVString, TH> {
+    fn GetHash(&self) -> Fallible<USVString> {
         self.check_same_origin_domain()?;
         Ok(UrlHelper::Hash(&self.get_url()))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-hash
-    fn SetHash(&self, mut value: USVString) -> ErrorResult<TH> {
+    fn SetHash(&self, mut value: USVString) -> ErrorResult {
         if value.0.is_empty() {
             value = USVString("#".to_owned());
         }
@@ -121,45 +121,45 @@ impl<TH: TypeHolderTrait> LocationMethods<TH> for Location<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-host
-    fn GetHost(&self) -> Fallible<USVString, TH> {
+    fn GetHost(&self) -> Fallible<USVString> {
         self.check_same_origin_domain()?;
         Ok(UrlHelper::Host(&self.get_url()))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-host
-    fn SetHost(&self, value: USVString) -> ErrorResult<TH> {
+    fn SetHost(&self, value: USVString) -> ErrorResult {
         self.check_same_origin_domain()?;
         self.set_url_component(value, UrlHelper::SetHost);
         Ok(())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-origin
-    fn GetOrigin(&self) -> Fallible<USVString, TH> {
+    fn GetOrigin(&self) -> Fallible<USVString> {
         self.check_same_origin_domain()?;
         Ok(UrlHelper::Origin(&self.get_url()))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-hostname
-    fn GetHostname(&self) -> Fallible<USVString, TH> {
+    fn GetHostname(&self) -> Fallible<USVString> {
         self.check_same_origin_domain()?;
         Ok(UrlHelper::Hostname(&self.get_url()))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-hostname
-    fn SetHostname(&self, value: USVString) -> ErrorResult<TH> {
+    fn SetHostname(&self, value: USVString) -> ErrorResult {
         self.check_same_origin_domain()?;
         self.set_url_component(value, UrlHelper::SetHostname);
         Ok(())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn GetHref(&self) -> Fallible<USVString, TH> {
+    fn GetHref(&self) -> Fallible<USVString> {
         self.check_same_origin_domain()?;
         Ok(UrlHelper::Href(&self.get_url()))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn SetHref(&self, value: USVString) -> ErrorResult<TH> {
+    fn SetHref(&self, value: USVString) -> ErrorResult {
         // Note: no call to self.check_same_origin_domain()
         let url = match self.window.get_url().join(&value.0) {
             Ok(url) => url,
@@ -170,57 +170,57 @@ impl<TH: TypeHolderTrait> LocationMethods<TH> for Location<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-pathname
-    fn GetPathname(&self) -> Fallible<USVString, TH> {
+    fn GetPathname(&self) -> Fallible<USVString> {
         self.check_same_origin_domain()?;
         Ok(UrlHelper::Pathname(&self.get_url()))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-pathname
-    fn SetPathname(&self, value: USVString) -> ErrorResult<TH> {
+    fn SetPathname(&self, value: USVString) -> ErrorResult {
         self.check_same_origin_domain()?;
         self.set_url_component(value, UrlHelper::SetPathname);
         Ok(())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-port
-    fn GetPort(&self) -> Fallible<USVString, TH> {
+    fn GetPort(&self) -> Fallible<USVString> {
         self.check_same_origin_domain()?;
         Ok(UrlHelper::Port(&self.get_url()))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-port
-    fn SetPort(&self, value: USVString) -> ErrorResult<TH> {
+    fn SetPort(&self, value: USVString) -> ErrorResult {
         self.check_same_origin_domain()?;
         self.set_url_component(value, UrlHelper::SetPort);
         Ok(())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-protocol
-    fn GetProtocol(&self) -> Fallible<USVString, TH> {
+    fn GetProtocol(&self) -> Fallible<USVString> {
         self.check_same_origin_domain()?;
         Ok(UrlHelper::Protocol(&self.get_url()))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-protocol
-    fn SetProtocol(&self, value: USVString) -> ErrorResult<TH> {
+    fn SetProtocol(&self, value: USVString) -> ErrorResult {
         self.check_same_origin_domain()?;
         self.set_url_component(value, UrlHelper::SetProtocol);
         Ok(())
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn Stringifier(&self) -> Fallible<DOMString, TH> {
+    fn Stringifier(&self) -> Fallible<DOMString> {
         Ok(DOMString::from(self.GetHref()?.0))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-search
-    fn GetSearch(&self) -> Fallible<USVString, TH> {
+    fn GetSearch(&self) -> Fallible<USVString> {
         self.check_same_origin_domain()?;
         Ok(UrlHelper::Search(&self.get_url()))
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-search
-    fn SetSearch(&self, value: USVString) -> ErrorResult<TH> {
+    fn SetSearch(&self, value: USVString) -> ErrorResult {
         self.check_same_origin_domain()?;
         self.set_url_component(value, UrlHelper::SetSearch);
         Ok(())

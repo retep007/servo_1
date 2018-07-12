@@ -527,7 +527,7 @@ unsafe extern fn escape<TH: TypeHolderTrait>(cx: *mut JSContext, argc: libc::c_u
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error<TH>> = CSS::Escape(&global, arg0);
+        let result: Result<DOMString, Error> = CSS::Escape(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

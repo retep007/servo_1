@@ -28,14 +28,17 @@ use script::dom::bindings::conversions::IDLInterface;
 use TypeHolder;
 use dom_struct::dom_struct;
 
-#[dom_struct(script)]
+#[derive(DomObject, DenyPublicFields, JSTraceable, MallocSizeOf)]
+        #[base = "script"]
+        #[must_root]
+        #[repr(C)]
 pub struct DOMParser {
     reflector_: Reflector<TypeHolder>,
     window: Dom<Window<TypeHolder>>, // XXXjdm Document instead?
 }
 
 impl DOMParserTrait<TypeHolder> for DOMParser  {
-    fn Constructor(window: &Window<TypeHolder>) -> Fallible<DomRoot<DOMParser>, TypeHolder> {
+    fn Constructor(window: &Window<TypeHolder>) -> Fallible<DomRoot<DOMParser>> {
         Ok(DOMParser::new(window))
     }
 }
@@ -67,7 +70,7 @@ impl DOMParserMethods<TypeHolder> for DOMParser {
     fn ParseFromString(&self,
                        s: DOMString,
                        ty: DOMParserBinding::SupportedType)
-                       -> Fallible<DomRoot<Document<TypeHolder>>, TypeHolder> {
+                       -> Fallible<DomRoot<Document<TypeHolder>>> {
         let url = self.window.get_url();
         let content_type = ty.as_str().parse().expect("Supported type is not a MIME type");
         let doc = self.window.Document();

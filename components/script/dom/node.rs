@@ -659,7 +659,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-before
-    pub fn before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    pub fn before(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let parent = &self.parent_node;
 
@@ -688,7 +688,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-after
-    pub fn after(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    pub fn after(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let parent = &self.parent_node;
 
@@ -711,7 +711,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-childnode-replacewith
-    pub fn replace_with(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    pub fn replace_with(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let parent = if let Some(parent) = self.GetParentNode() {
             parent
@@ -734,7 +734,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-prepend
-    pub fn prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    pub fn prepend(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let doc = self.owner_doc();
         let node = doc.node_from_nodes_and_strings(nodes)?;
@@ -744,7 +744,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-append
-    pub fn append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult<TH> {
+    pub fn append(&self, nodes: Vec<NodeOrString<TH>>) -> ErrorResult {
         // Step 1.
         let doc = self.owner_doc();
         let node = doc.node_from_nodes_and_strings(nodes)?;
@@ -753,7 +753,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselector
-    pub fn query_selector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>, TH> {
+    pub fn query_selector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>> {
         // Step 1.
         match SelectorParser::parse_author_origin_no_namespace(&selectors) {
             // Step 2.
@@ -775,7 +775,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     /// Be careful not to do anything which may manipulate the DOM tree
     /// whilst iterating, otherwise the iterator may be invalidated.
     pub fn query_selector_iter(&self, selectors: DOMString)
-                                  -> Fallible<QuerySelectorIterator<TH>, TH> {
+                                  -> Fallible<QuerySelectorIterator<TH>> {
         // Step 1.
         match SelectorParser::parse_author_origin_no_namespace(&selectors) {
             // Step 2.
@@ -792,7 +792,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
 
     // https://dom.spec.whatwg.org/#dom-parentnode-queryselectorall
     #[allow(unsafe_code)]
-    pub fn query_selector_all(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>, TH> {
+    pub fn query_selector_all(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>> {
         let window = window_from_node(self);
         let iter = self.query_selector_iter(selectors)?;
         Ok(NodeList::new_simple_list(&window, iter))
@@ -884,7 +884,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     /// Used by `HTMLTableSectionElement::InsertRow` and `HTMLTableRowElement::InsertCell`
-    pub fn insert_cell_or_row<F, G, I>(&self, index: i32, get_items: F, new_child: G) -> Fallible<DomRoot<HTMLElement<TH>>, TH>
+    pub fn insert_cell_or_row<F, G, I>(&self, index: i32, get_items: F, new_child: G) -> Fallible<DomRoot<HTMLElement<TH>>>
         where F: Fn() -> DomRoot<HTMLCollection<TH>>,
               G: Fn() -> DomRoot<I>,
               I: DerivedFrom<Node<TH>> + DerivedFrom<HTMLElement<TH>> + DomObject,
@@ -918,7 +918,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     /// Used by `HTMLTableSectionElement::DeleteRow` and `HTMLTableRowElement::DeleteCell`
-    pub fn delete_cell_or_row<F, G>(&self, index: i32, get_items: F, is_delete_type: G) -> ErrorResult<TH>
+    pub fn delete_cell_or_row<F, G>(&self, index: i32, get_items: F, is_delete_type: G) -> ErrorResult
         where F: Fn() -> DomRoot<HTMLCollection<TH>>,
               G: Fn(&Element<TH>) -> bool
     {
@@ -1439,7 +1439,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     // https://dom.spec.whatwg.org/#concept-node-ensure-pre-insertion-validity
     pub fn ensure_pre_insertion_validity(node: &Node<TH>,
                                          parent: &Node<TH>,
-                                         child: Option<&Node<TH>>) -> ErrorResult<TH> {
+                                         child: Option<&Node<TH>>) -> ErrorResult {
         // Step 1.
         match parent.type_id() {
             NodeTypeId::Document(_) |
@@ -1552,7 +1552,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
 
     // https://dom.spec.whatwg.org/#concept-node-pre-insert
     pub fn pre_insert(node: &Node<TH>, parent: &Node<TH>, child: Option<&Node<TH>>)
-                      -> Fallible<DomRoot<Node<TH>>, TH> {
+                      -> Fallible<DomRoot<Node<TH>>> {
         // Step 1.
         Node::<TH>::ensure_pre_insertion_validity(node, parent, child)?;
 
@@ -1709,7 +1709,7 @@ impl<TH: TypeHolderTrait> Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#concept-node-pre-remove
-    fn pre_remove(child: &Node<TH>, parent: &Node<TH>) -> Fallible<DomRoot<Node<TH>>, TH> {
+    fn pre_remove(child: &Node<TH>, parent: &Node<TH>) -> Fallible<DomRoot<Node<TH>>> {
         // Step 1.
         match child.GetParentNode() {
             Some(ref node) if &**node != parent => return Err(Error::NotFound),
@@ -2082,17 +2082,17 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
     }
 
     // https://dom.spec.whatwg.org/#dom-node-insertbefore
-    fn InsertBefore(&self, node: &Node<TH>, child: Option<&Node<TH>>) -> Fallible<DomRoot<Node<TH>>, TH> {
+    fn InsertBefore(&self, node: &Node<TH>, child: Option<&Node<TH>>) -> Fallible<DomRoot<Node<TH>>> {
         Node::<TH>::pre_insert(node, self, child)
     }
 
     // https://dom.spec.whatwg.org/#dom-node-appendchild
-    fn AppendChild(&self, node: &Node<TH>) -> Fallible<DomRoot<Node<TH>>, TH> {
+    fn AppendChild(&self, node: &Node<TH>) -> Fallible<DomRoot<Node<TH>>> {
         Node::<TH>::pre_insert(node, self, None)
     }
 
     // https://dom.spec.whatwg.org/#concept-node-replace
-    fn ReplaceChild(&self, node: &Node<TH>, child: &Node<TH>) -> Fallible<DomRoot<Node<TH>>, TH> {
+    fn ReplaceChild(&self, node: &Node<TH>, child: &Node<TH>) -> Fallible<DomRoot<Node<TH>>> {
         // Step 1.
         match self.type_id() {
             NodeTypeId::Document(_) |
@@ -2235,7 +2235,7 @@ impl<TH: TypeHolderTrait> NodeMethods<TH> for Node<TH> {
 
     // https://dom.spec.whatwg.org/#dom-node-removechild
     fn RemoveChild(&self, node: &Node<TH>)
-                       -> Fallible<DomRoot<Node<TH>>, TH> {
+                       -> Fallible<DomRoot<Node<TH>>> {
         Node::<TH>::pre_remove(node, self)
     }
 

@@ -139,7 +139,7 @@ impl<TH: TypeHolderTrait> DissimilarOriginWindowMethods<TH> for DissimilarOrigin
 
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-window-postmessage
-    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue, origin: DOMString) -> ErrorResult<TH> {
+    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue, origin: DOMString) -> ErrorResult {
         // Step 3-5.
         let origin = match &origin[..] {
             "*" => None,

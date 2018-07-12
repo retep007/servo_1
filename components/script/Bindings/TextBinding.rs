@@ -528,7 +528,7 @@ unsafe extern fn splitText<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<DomRoot<Text<TH>>, Error<TH>> = this.SplitText(arg0);
+        let result: Result<DomRoot<Text<TH>>, Error> = this.SplitText(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -701,7 +701,7 @@ impl<TH: TypeHolderTrait> PartialEq for Text<TH> {
 }
 
 pub trait TextMethods<TH: TypeHolderTrait> {
-    fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text<TH>>, TH>;
+    fn SplitText(&self, offset: u32) -> Fallible<DomRoot<Text<TH>>>;
     fn WholeText(&self) -> DOMString;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
@@ -793,7 +793,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<Text<TH>>, Error<TH>> = Text::Constructor(&global, arg0);
+        let result: Result<DomRoot<Text<TH>>, Error> = Text::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

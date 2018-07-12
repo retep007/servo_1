@@ -628,7 +628,7 @@ unsafe extern fn add<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Add(arg0, arg1);
+        let result: Result<(), Error> = this.Add(arg0, arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1093,7 +1093,7 @@ unsafe extern fn defineProperty<TH: TypeHolderTrait>
             };
             push_new_element_queue::<TH>();
 
-            let result: Result<(), Error<TH>> = this.IndexedSetter(index, option.r());
+            let result: Result<(), Error> = this.IndexedSetter(index, option.r());
             pop_current_element_queue::<TH>();
 
             let result = match result {
@@ -1163,14 +1163,14 @@ impl<TH: TypeHolderTrait> PartialEq for HTMLOptionsCollection<TH> {
 pub trait HTMLOptionsCollectionMethods<TH: TypeHolderTrait> {
     fn Length(&self) -> u32;
     fn SetLength(&self, value: u32) -> ();
-    fn Add(&self, element: UnionTypes::HTMLOptionElementOrHTMLOptGroupElement<TH>, before: Option<UnionTypes::HTMLElementOrLong<TH>>) -> Fallible<(), TH>;
+    fn Add(&self, element: UnionTypes::HTMLOptionElementOrHTMLOptGroupElement<TH>, before: Option<UnionTypes::HTMLElementOrLong<TH>>) -> Fallible<()>;
     fn Remove(&self, index: i32) -> ();
     fn SelectedIndex(&self) -> i32;
     fn SetSelectedIndex(&self, value: i32) -> ();
     fn SupportedPropertyNames(&self) -> Vec<DOMString>;
     fn NamedGetter(&self, name: DOMString) -> Option<DomRoot<Element<TH>>>;
     fn IndexedGetter(&self, index: u32) -> Option<DomRoot<Element<TH>>>;
-    fn IndexedSetter(&self, index: u32, option: Option<&HTMLOptionElement<TH>>) -> Fallible<(), TH>;
+    fn IndexedSetter(&self, index: u32, option: Option<&HTMLOptionElement<TH>>) -> Fallible<()>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

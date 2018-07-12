@@ -66,7 +66,7 @@ impl<TH: TypeHolderTrait> VRFrameData<TH> {
         root
     }
 
-    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<VRFrameData<TH>>, TH> {
+    pub fn Constructor(window: &Window<TH>) -> Fallible<DomRoot<VRFrameData<TH>>> {
         Ok(VRFrameData::new(&window.global()))
     }
 }

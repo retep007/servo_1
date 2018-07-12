@@ -1955,7 +1955,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             return false;
         }
 
-        let result: Result<DomRoot<HTMLImageElement<TH>>, Error<TH>> = html_constructor(&global, &args);
+        let result: Result<DomRoot<HTMLImageElement<TH>>, Error> = html_constructor(&global, &args);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2011,7 +2011,7 @@ unsafe extern fn _constructor_Image<TH: TypeHolderTrait>
              }
             })
         };
-        let result: Result<DomRoot<HTMLImageElement<TH>>, Error<TH>> = HTMLImageElement::Image(&global, arg0, arg1);
+        let result: Result<DomRoot<HTMLImageElement<TH>>, Error> = HTMLImageElement::Image(&global, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

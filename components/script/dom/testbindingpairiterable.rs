@@ -47,7 +47,7 @@ impl<TH: TypeHolderTrait> TestBindingPairIterable<TH> {
         }), global, TestBindingPairIterableBinding::TestBindingPairIterableWrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBindingPairIterable<TH>>, TH> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TestBindingPairIterable<TH>>> {
         Ok(TestBindingPairIterable::new(global))
     }
 }

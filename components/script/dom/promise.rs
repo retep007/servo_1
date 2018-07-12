@@ -128,7 +128,7 @@ impl<TH: TypeHolderTrait> Promise<TH> {
         global: &GlobalScope<TH>,
         cx: *mut JSContext,
         value: HandleValue,
-    ) -> Fallible<Rc<Promise<TH>>, TH> {
+    ) -> Fallible<Rc<Promise<TH>>> {
         let _ac = JSAutoCompartment::new(cx, global.reflector().get_jsobject().get());
         rooted!(in(cx) let p = CallOriginalPromiseResolve(cx, value));
         assert!(!p.handle().is_null());
@@ -140,7 +140,7 @@ impl<TH: TypeHolderTrait> Promise<TH> {
         global: &GlobalScope<TH>,
         cx: *mut JSContext,
         value: HandleValue,
-    ) -> Fallible<Rc<Promise<TH>>, TH> {
+    ) -> Fallible<Rc<Promise<TH>>> {
         let _ac = JSAutoCompartment::new(cx, global.reflector().get_jsobject().get());
         rooted!(in(cx) let p = CallOriginalPromiseReject(cx, value));
         assert!(!p.handle().is_null());
@@ -177,7 +177,7 @@ impl<TH: TypeHolderTrait> Promise<TH> {
     }
 
     #[allow(unsafe_code)]
-    pub fn reject_error(&self, error: Error<TH>) {
+    pub fn reject_error(&self, error: Error) {
         let cx = self.global().get_cx();
         let _ac = JSAutoCompartment::new(cx, self.reflector().get_jsobject().get());
         rooted!(in(cx) let mut v = UndefinedValue());

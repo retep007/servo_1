@@ -28,7 +28,7 @@ impl<TH: TypeHolderTrait> FileReaderSync<TH> {
                            global, FileReaderSyncBinding::Wrap)
     }
 
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<FileReaderSync<TH>>, TH> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<FileReaderSync<TH>>> {
         Ok(FileReaderSync::new(global))
     }
 }

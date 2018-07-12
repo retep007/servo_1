@@ -863,7 +863,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<WebGLContextEvent<TH>>, Error<TH>> = WebGLContextEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<WebGLContextEvent<TH>>, Error> = WebGLContextEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

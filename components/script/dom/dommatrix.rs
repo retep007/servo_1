@@ -35,12 +35,12 @@ impl<TH: TypeHolderTrait> DOMMatrix<TH> {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-dommatrix
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<Self>, TH> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<Self>> {
         Self::Constructor_(global, vec![1.0, 0.0, 0.0, 1.0, 0.0, 0.0])
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-dommatrix-numbersequence
-    pub fn Constructor_(global: &GlobalScope<TH>, entries: Vec<f64>) -> Fallible<DomRoot<Self>, TH> {
+    pub fn Constructor_(global: &GlobalScope<TH>, entries: Vec<f64>) -> Fallible<DomRoot<Self>> {
         entries_to_matrix(&entries[..])
             .map(|(is2D, matrix)| {
                 Self::new(global, is2D, matrix)
@@ -48,7 +48,7 @@ impl<TH: TypeHolderTrait> DOMMatrix<TH> {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-frommatrix
-    pub fn FromMatrix(global: &GlobalScope<TH>, other: &DOMMatrixInit) -> Fallible<DomRoot<Self>, TH> {
+    pub fn FromMatrix(global: &GlobalScope<TH>, other: &DOMMatrixInit) -> Fallible<DomRoot<Self>> {
         dommatrixinit_to_matrix(&other)
             .map(|(is2D, matrix)| {
                 Self::new(global, is2D, matrix)
@@ -63,7 +63,7 @@ impl<TH: TypeHolderTrait> DOMMatrix<TH> {
     pub fn FromFloat32Array(
         global: &GlobalScope<TH>,
         array: CustomAutoRooterGuard<Float32Array>,
-    ) -> Fallible<DomRoot<DOMMatrix<TH>>, TH> {
+    ) -> Fallible<DomRoot<DOMMatrix<TH>>> {
         let vec: Vec<f64> = array.to_vec().iter().map(|&x| x as f64).collect();
         DOMMatrix::Constructor_(global, vec)
     }
@@ -72,7 +72,7 @@ impl<TH: TypeHolderTrait> DOMMatrix<TH> {
     pub fn FromFloat64Array(
         global: &GlobalScope<TH>,
         array: CustomAutoRooterGuard<Float64Array>,
-    ) -> Fallible<DomRoot<DOMMatrix<TH>>, TH> {
+    ) -> Fallible<DomRoot<DOMMatrix<TH>>> {
         let vec: Vec<f64> = array.to_vec();
         DOMMatrix::Constructor_(global, vec)
     }
@@ -300,7 +300,7 @@ impl<TH: TypeHolderTrait> DOMMatrixMethods<TH> for DOMMatrix<TH> {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-multiplyself
-    fn MultiplySelf(&self, other:&DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>, TH> {
+    fn MultiplySelf(&self, other:&DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>> {
         // Steps 1-3.
         self.upcast::<DOMMatrixReadOnly<TH>>().multiply_self(other)
             // Step 4.
@@ -308,7 +308,7 @@ impl<TH: TypeHolderTrait> DOMMatrixMethods<TH> for DOMMatrix<TH> {
     }
 
     // https://drafts.fxtf.org/geometry-1/#dom-dommatrix-premultiplyself
-    fn PreMultiplySelf(&self, other:&DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>, TH> {
+    fn PreMultiplySelf(&self, other:&DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>> {
         // Steps 1-3.
         self.upcast::<DOMMatrixReadOnly<TH>>().pre_multiply_self(other)
             // Step 4.

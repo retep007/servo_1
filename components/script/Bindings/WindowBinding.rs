@@ -470,7 +470,7 @@ impl<TH: TypeHolderTrait> FrameRequestCallback<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject>(&self, thisObj: &T, time: Finite<f64>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, time: Finite<f64>, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -480,13 +480,13 @@ impl<TH: TypeHolderTrait> FrameRequestCallback<TH> {
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), time) }
     }
 
-    pub fn Call__(&self, time: Finite<f64>, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call__(&self, time: Finite<f64>, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), time) }
     }
 
-    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, time: Finite<f64>) -> Fallible<(), TH> {
+    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, time: Finite<f64>) -> Fallible<()> {
         rooted!(in(cx) let mut rval = UndefinedValue());
         rooted_vec!(let mut argv);
         argv.extend((0..1).map(|_| Heap::default()));
@@ -1583,7 +1583,7 @@ unsafe extern fn postMessage<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.PostMessage(cx, arg0, arg1);
+        let result: Result<(), Error> = this.PostMessage(cx, arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -8263,7 +8263,7 @@ unsafe extern fn btoa<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error<TH>> = this.Btoa(arg0);
+        let result: Result<DOMString, Error> = this.Btoa(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -8317,7 +8317,7 @@ unsafe extern fn atob<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DOMString, Error<TH>> = this.Atob(arg0);
+        let result: Result<DOMString, Error> = this.Atob(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -9290,7 +9290,7 @@ pub trait WindowMethods<TH: TypeHolderTrait> {
     fn Alert_(&self) -> ();
     fn RequestAnimationFrame(&self, callback: Rc<FrameRequestCallback<TH>>) -> u32;
     fn CancelAnimationFrame(&self, handle: u32) -> ();
-    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue, targetOrigin: DOMString) -> Fallible<(), TH>;
+    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue, targetOrigin: DOMString) -> Fallible<()>;
     fn CaptureEvents(&self) -> ();
     fn ReleaseEvents(&self) -> ();
     fn GetComputedStyle(&self, elt: &Element<TH>, pseudoElt: Option<DOMString>) -> DomRoot<CSSStyleDeclaration<TH>>;
@@ -9492,8 +9492,8 @@ pub trait WindowMethods<TH: TypeHolderTrait> {
     fn SetOnvrdisplaypresentchange(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
     fn LocalStorage(&self) -> DomRoot<Storage<TH>>;
     fn Origin(&self) -> USVString;
-    fn Btoa(&self, data: DOMString) -> Fallible<DOMString, TH>;
-    fn Atob(&self, data: DOMString) -> Fallible<DOMString, TH>;
+    fn Btoa(&self, data: DOMString) -> Fallible<DOMString>;
+    fn Atob(&self, data: DOMString) -> Fallible<DOMString>;
     unsafe fn SetTimeout(&self, cx: *mut JSContext, handler: Rc<Function<TH>>, timeout: i32, arguments: Vec<HandleValue>) -> i32;
     unsafe fn SetTimeout_(&self, cx: *mut JSContext, handler: DOMString, timeout: i32, arguments: Vec<HandleValue>) -> i32;
     fn ClearTimeout(&self, handle: i32) -> ();

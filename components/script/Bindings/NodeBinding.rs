@@ -1570,7 +1570,7 @@ unsafe extern fn insertBefore<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.InsertBefore(&arg0, arg1.r());
+        let result: Result<DomRoot<Node<TH>>, Error> = this.InsertBefore(&arg0, arg1.r());
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1633,7 +1633,7 @@ unsafe extern fn appendChild<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.AppendChild(&arg0);
+        let result: Result<DomRoot<Node<TH>>, Error> = this.AppendChild(&arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1711,7 +1711,7 @@ unsafe extern fn replaceChild<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.ReplaceChild(&arg0, &arg1);
+        let result: Result<DomRoot<Node<TH>>, Error> = this.ReplaceChild(&arg0, &arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1774,7 +1774,7 @@ unsafe extern fn removeChild<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.RemoveChild(&arg0);
+        let result: Result<DomRoot<Node<TH>>, Error> = this.RemoveChild(&arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1869,10 +1869,10 @@ pub trait NodeMethods<TH: TypeHolderTrait> {
     fn LookupPrefix(&self, namespace: Option<DOMString>) -> Option<DOMString>;
     fn LookupNamespaceURI(&self, prefix: Option<DOMString>) -> Option<DOMString>;
     fn IsDefaultNamespace(&self, namespace: Option<DOMString>) -> bool;
-    fn InsertBefore(&self, node: &Node<TH>, child: Option<&Node<TH>>) -> Fallible<DomRoot<Node<TH>>, TH>;
-    fn AppendChild(&self, node: &Node<TH>) -> Fallible<DomRoot<Node<TH>>, TH>;
-    fn ReplaceChild(&self, node: &Node<TH>, child: &Node<TH>) -> Fallible<DomRoot<Node<TH>>, TH>;
-    fn RemoveChild(&self, child: &Node<TH>) -> Fallible<DomRoot<Node<TH>>, TH>;
+    fn InsertBefore(&self, node: &Node<TH>, child: Option<&Node<TH>>) -> Fallible<DomRoot<Node<TH>>>;
+    fn AppendChild(&self, node: &Node<TH>) -> Fallible<DomRoot<Node<TH>>>;
+    fn ReplaceChild(&self, node: &Node<TH>, child: &Node<TH>) -> Fallible<DomRoot<Node<TH>>>;
+    fn RemoveChild(&self, child: &Node<TH>) -> Fallible<DomRoot<Node<TH>>>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

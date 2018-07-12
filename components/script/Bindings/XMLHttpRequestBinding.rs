@@ -565,7 +565,6 @@ use std::rc::Rc;
 use std::str;
 use typeholder::TypeHolderTrait;
 use dom::xmlhttprequest::XMLHttpRequestTrait;
-use dom::bindings::error::throw_dom_exception_THH;
 
 unsafe extern fn get_onreadystatechange<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TH::XMLHttpRequest, args: JSJitGetterCallArgs) -> bool {
@@ -690,11 +689,11 @@ unsafe extern fn open<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error<TH>> = this.Open(arg0, arg1);
+                let result: Result<(), Error> = this.Open(arg0, arg1);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
-                        throw_dom_exception_THH(cx, &this.global(), e);
+                        throw_dom_exception(cx, &this.global(), e);
                         return false;
                     },
                 };
@@ -761,11 +760,11 @@ unsafe extern fn open<TH: TypeHolderTrait>
                      },
                     }
                 };
-                let result: Result<(), Error<TH>> = this.Open_(arg0, arg1, arg2, arg3, arg4);
+                let result: Result<(), Error> = this.Open_(arg0, arg1, arg2, arg3, arg4);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
-                        throw_dom_exception_THH(cx, &this.global(), e);
+                        throw_dom_exception(cx, &this.global(), e);
                         return false;
                     },
                 };
@@ -832,11 +831,11 @@ unsafe extern fn open<TH: TypeHolderTrait>
                      },
                     }
                 };
-                let result: Result<(), Error<TH>> = this.Open_(arg0, arg1, arg2, arg3, arg4);
+                let result: Result<(), Error> = this.Open_(arg0, arg1, arg2, arg3, arg4);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
-                        throw_dom_exception_THH(cx, &this.global(), e);
+                        throw_dom_exception(cx, &this.global(), e);
                         return false;
                     },
                 };
@@ -903,11 +902,11 @@ unsafe extern fn open<TH: TypeHolderTrait>
                      },
                     }
                 };
-                let result: Result<(), Error<TH>> = this.Open_(arg0, arg1, arg2, arg3, arg4);
+                let result: Result<(), Error> = this.Open_(arg0, arg1, arg2, arg3, arg4);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
-                        throw_dom_exception_THH(cx, &this.global(), e);
+                        throw_dom_exception(cx, &this.global(), e);
                         return false;
                     },
                 };
@@ -973,11 +972,11 @@ unsafe extern fn setRequestHeader<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetRequestHeader(arg0, arg1);
+        let result: Result<(), Error> = this.SetRequestHeader(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
-                throw_dom_exception_THH(cx, &this.global(), e);
+                throw_dom_exception(cx, &this.global(), e);
                 return false;
             },
         };
@@ -1031,11 +1030,11 @@ unsafe extern fn set_timeout<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error<TH>> = this.SetTimeout(arg0);
+        let result: Result<(), Error> = this.SetTimeout(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
-                throw_dom_exception_THH(cx, &this.global(), e);
+                throw_dom_exception(cx, &this.global(), e);
                 return false;
             },
         };
@@ -1106,11 +1105,11 @@ unsafe extern fn set_withCredentials<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error<TH>> = this.SetWithCredentials(arg0);
+        let result: Result<(), Error> = this.SetWithCredentials(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
-                throw_dom_exception_THH(cx, &this.global(), e);
+                throw_dom_exception(cx, &this.global(), e);
                 return false;
             },
         };
@@ -1206,11 +1205,11 @@ unsafe extern fn send<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<(), Error<TH>> = this.Send(arg0);
+        let result: Result<(), Error> = this.Send(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
-                throw_dom_exception_THH(cx, &this.global(), e);
+                throw_dom_exception(cx, &this.global(), e);
                 return false;
             },
         };
@@ -1461,11 +1460,11 @@ unsafe extern fn overrideMimeType<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.OverrideMimeType(arg0);
+        let result: Result<(), Error> = this.OverrideMimeType(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
-                throw_dom_exception_THH(cx, &this.global(), e);
+                throw_dom_exception(cx, &this.global(), e);
                 return false;
             },
         };
@@ -1515,11 +1514,11 @@ unsafe extern fn set_responseType<TH: TypeHolderTrait>
             Ok((None, search)) => { return true; },
             Ok((Some(&value), _)) => value,
         };
-        let result: Result<(), Error<TH>> = this.SetResponseType(arg0);
+        let result: Result<(), Error> = this.SetResponseType(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
-                throw_dom_exception_THH(cx, &this.global(), e);
+                throw_dom_exception(cx, &this.global(), e);
                 return false;
             },
         };
@@ -1599,11 +1598,11 @@ unsafe extern fn get_responseText<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TH::XMLHttpRequest, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetResponseText();
+        let result: Result<USVString, Error> = this.GetResponseText();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
-                throw_dom_exception_THH(cx, &this.global(), e);
+                throw_dom_exception(cx, &this.global(), e);
                 return false;
             },
         };
@@ -1636,11 +1635,11 @@ unsafe extern fn get_responseXML<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const TH::XMLHttpRequest, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<Option<DomRoot<Document<TH>>>, Error<TH>> = this.GetResponseXML();
+        let result: Result<Option<DomRoot<Document<TH>>>, Error> = this.GetResponseXML();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
-                throw_dom_exception_THH(cx, &this.global(), e);
+                throw_dom_exception(cx, &this.global(), e);
                 return false;
             },
         };
@@ -1782,27 +1781,27 @@ pub trait XMLHttpRequestMethods<TH: TypeHolderTrait> {
     fn GetOnreadystatechange(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnreadystatechange(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
     fn ReadyState(&self) -> u16;
-    fn Open(&self, method: ByteString, url: USVString) -> Fallible<(), TH>;
-    fn Open_(&self, method: ByteString, url: USVString, async: bool, username: Option<USVString>, password: Option<USVString>) -> Fallible<(), TH>;
-    fn SetRequestHeader(&self, name: ByteString, value: ByteString) -> Fallible<(), TH>;
+    fn Open(&self, method: ByteString, url: USVString) -> Fallible<()>;
+    fn Open_(&self, method: ByteString, url: USVString, async: bool, username: Option<USVString>, password: Option<USVString>) -> Fallible<()>;
+    fn SetRequestHeader(&self, name: ByteString, value: ByteString) -> Fallible<()>;
     fn Timeout(&self) -> u32;
-    fn SetTimeout(&self, value: u32) -> ErrorResult<TH>;
+    fn SetTimeout(&self, value: u32) -> ErrorResult;
     fn WithCredentials(&self) -> bool;
-    fn SetWithCredentials(&self, value: bool) -> ErrorResult<TH>;
+    fn SetWithCredentials(&self, value: bool) -> ErrorResult;
     fn Upload(&self) -> DomRoot<XMLHttpRequestUpload<TH>>;
-    fn Send(&self, data: Option<UnionTypes::DocumentOrBodyInit<TH>>) -> Fallible<(), TH>;
+    fn Send(&self, data: Option<UnionTypes::DocumentOrBodyInit<TH>>) -> Fallible<()>;
     fn Abort(&self) -> ();
     fn ResponseURL(&self) -> USVString;
     fn Status(&self) -> u16;
     fn StatusText(&self) -> ByteString;
     fn GetResponseHeader(&self, name: ByteString) -> Option<ByteString>;
     fn GetAllResponseHeaders(&self) -> ByteString;
-    fn OverrideMimeType(&self, mime: DOMString) -> Fallible<(), TH>;
+    fn OverrideMimeType(&self, mime: DOMString) -> Fallible<()>;
     fn ResponseType(&self) -> XMLHttpRequestResponseType;
-    fn SetResponseType(&self, value: XMLHttpRequestResponseType) -> ErrorResult<TH>;
+    fn SetResponseType(&self, value: XMLHttpRequestResponseType) -> ErrorResult;
     unsafe fn Response(&self, cx: *mut JSContext) -> JSVal;
-    fn GetResponseText(&self) -> Fallible<USVString, TH>;
-    fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document<TH>>>, TH>;
+    fn GetResponseText(&self) -> Fallible<USVString>;
+    fn GetResponseXML(&self) -> Fallible<Option<DomRoot<Document<TH>>>>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[
@@ -1998,7 +1997,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<TH::XMLHttpRequest>, Error<TH>> = TH::XMLHttpRequest::Constructor(&global);
+        let result: Result<DomRoot<TH::XMLHttpRequest>, Error> = TH::XMLHttpRequest::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

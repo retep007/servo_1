@@ -74,7 +74,7 @@ impl<TH: TypeHolderTrait> StorageEvent<TH> {
 
     pub fn Constructor(global: &Window<TH>,
                        type_: DOMString,
-                       init: &StorageEventBinding::StorageEventInit<TH>) -> Fallible<DomRoot<StorageEvent<TH>>, TH> {
+                       init: &StorageEventBinding::StorageEventInit<TH>) -> Fallible<DomRoot<StorageEvent<TH>>> {
         let key = init.key.clone();
         let oldValue = init.oldValue.clone();
         let newValue = init.newValue.clone();

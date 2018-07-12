@@ -647,7 +647,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<FileReaderSync<TH>>, Error<TH>> = FileReaderSync::Constructor(&global);
+        let result: Result<DomRoot<FileReaderSync<TH>>, Error> = FileReaderSync::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

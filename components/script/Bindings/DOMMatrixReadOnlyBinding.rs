@@ -531,7 +531,7 @@ unsafe extern fn fromMatrix<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error<TH>> = DOMMatrixReadOnly::FromMatrix(&global, &arg0);
+        let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error> = DOMMatrixReadOnly::FromMatrix(&global, &arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -571,7 +571,7 @@ unsafe extern fn fromFloat32Array<TH: TypeHolderTrait>
 
         };
         auto_root!(in(cx) let arg0 = arg0);
-        let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error<TH>> = DOMMatrixReadOnly::FromFloat32Array(&global, arg0);
+        let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error> = DOMMatrixReadOnly::FromFloat32Array(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -611,7 +611,7 @@ unsafe extern fn fromFloat64Array<TH: TypeHolderTrait>
 
         };
         auto_root!(in(cx) let arg0 = arg0);
-        let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error<TH>> = DOMMatrixReadOnly::FromFloat64Array(&global, arg0);
+        let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error> = DOMMatrixReadOnly::FromFloat64Array(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1957,7 +1957,7 @@ unsafe extern fn multiply<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = this.Multiply(&arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = this.Multiply(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2338,7 +2338,7 @@ pub trait DOMMatrixReadOnlyMethods<TH: TypeHolderTrait> {
     fn RotateAxisAngle(&self, x: f64, y: f64, z: f64, angle: f64) -> DomRoot<DOMMatrix<TH>>;
     fn SkewX(&self, sx: f64) -> DomRoot<DOMMatrix<TH>>;
     fn SkewY(&self, sy: f64) -> DomRoot<DOMMatrix<TH>>;
-    fn Multiply(&self, other: &dom::bindings::codegen::Bindings::DOMMatrixBinding::DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>, TH>;
+    fn Multiply(&self, other: &dom::bindings::codegen::Bindings::DOMMatrixBinding::DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>>;
     fn FlipX(&self) -> DomRoot<DOMMatrix<TH>>;
     fn FlipY(&self) -> DomRoot<DOMMatrix<TH>>;
     fn Inverse(&self) -> DomRoot<DOMMatrix<TH>>;
@@ -2695,7 +2695,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
         let argcount = cmp::min(argc, 1);
         match argcount {
             0 => {
-                let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error<TH>> = DOMMatrixReadOnly::Constructor(&global);
+                let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error> = DOMMatrixReadOnly::Constructor(&global);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -2718,7 +2718,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error<TH>> = DOMMatrixReadOnly::Constructor_(&global, arg0);
+                let result: Result<DomRoot<DOMMatrixReadOnly<TH>>, Error> = DOMMatrixReadOnly::Constructor_(&global, arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {

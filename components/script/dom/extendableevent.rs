@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> ExtendableEvent<TH> {
 
     pub fn Constructor(worker: &ServiceWorkerGlobalScope<TH>,
                        type_: DOMString,
-                       init: &ExtendableEventBinding::ExtendableEventInit) -> Fallible<DomRoot<ExtendableEvent<TH>>, TH> {
+                       init: &ExtendableEventBinding::ExtendableEventInit) -> Fallible<DomRoot<ExtendableEvent<TH>>> {
         Ok(ExtendableEvent::new(worker,
                                 Atom::from(type_),
                                 init.parent.bubbles,
@@ -58,7 +58,7 @@ impl<TH: TypeHolderTrait> ExtendableEvent<TH> {
     }
 
     // https://w3c.github.io/ServiceWorker/#wait-until-method
-    pub fn WaitUntil(&self, _cx: *mut JSContext, _val: HandleValue) -> ErrorResult<TH> {
+    pub fn WaitUntil(&self, _cx: *mut JSContext, _val: HandleValue) -> ErrorResult {
         // Step 1
         if !self.extensions_allowed {
             return Err(Error::InvalidState);

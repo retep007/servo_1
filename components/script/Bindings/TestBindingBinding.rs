@@ -1849,7 +1849,7 @@ impl<TH: TypeHolderTrait> SimpleCallback<TH> {
         ret
     }
 
-    pub fn Call_<T: DomObject>(&self, thisObj: &T, value: HandleValue, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call_<T: DomObject>(&self, thisObj: &T, value: HandleValue, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let mut thisObjJS = ptr::null_mut::<JSObject>());
         wrap_call_this_object(s.get_context(), thisObj, thisObjJS.handle_mut());
@@ -1859,13 +1859,13 @@ impl<TH: TypeHolderTrait> SimpleCallback<TH> {
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), value) }
     }
 
-    pub fn Call__(&self, value: HandleValue, aExceptionHandling: ExceptionHandling) -> Fallible<(), TH> {
+    pub fn Call__(&self, value: HandleValue, aExceptionHandling: ExceptionHandling) -> Fallible<()> {
         let s = CallSetup::new(self, aExceptionHandling);
         rooted!(in(s.get_context()) let thisObjJS = ptr::null_mut::<JSObject>());
         unsafe { self.Call(s.get_context(), thisObjJS.handle(), value) }
     }
 
-    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, value: HandleValue) -> Fallible<(), TH> {
+    unsafe fn Call(&self, cx: *mut JSContext, aThisObj: HandleObject, value: HandleValue) -> Fallible<()> {
         rooted!(in(cx) let mut rval = UndefinedValue());
         rooted_vec!(let mut argv);
         argv.extend((0..1).map(|_| Heap::default()));
@@ -19610,7 +19610,7 @@ unsafe extern fn returnResolvedPromise<TH: TypeHolderTrait>
             return false;
         }
         let arg0: HandleValue = args.get(0);
-        let result: Result<Rc<Promise<TH>>, Error<TH>> = this.ReturnResolvedPromise(cx, arg0);
+        let result: Result<Rc<Promise<TH>>, Error> = this.ReturnResolvedPromise(cx, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -19655,7 +19655,7 @@ unsafe extern fn returnRejectedPromise<TH: TypeHolderTrait>
             return false;
         }
         let arg0: HandleValue = args.get(0);
-        let result: Result<Rc<Promise<TH>>, Error<TH>> = this.ReturnRejectedPromise(cx, arg0);
+        let result: Result<Rc<Promise<TH>>, Error> = this.ReturnRejectedPromise(cx, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -20764,8 +20764,8 @@ pub trait TestBindingMethods<TH: TypeHolderTrait> {
     fn FuncControlledMethodDisabled(&self) -> ();
     fn FuncControlledAttributeEnabled(&self) -> bool;
     fn FuncControlledMethodEnabled(&self) -> ();
-    unsafe fn ReturnResolvedPromise(&self, cx: *mut JSContext, value: HandleValue) -> Fallible<Rc<Promise<TH>>, TH>;
-    unsafe fn ReturnRejectedPromise(&self, cx: *mut JSContext, value: HandleValue) -> Fallible<Rc<Promise<TH>>, TH>;
+    unsafe fn ReturnResolvedPromise(&self, cx: *mut JSContext, value: HandleValue) -> Fallible<Rc<Promise<TH>>>;
+    unsafe fn ReturnRejectedPromise(&self, cx: *mut JSContext, value: HandleValue) -> Fallible<Rc<Promise<TH>>>;
     fn PromiseAttribute(&self) -> Rc<Promise<TH>>;
     fn AcceptPromise(&self, string: &Promise<TH>) -> ();
     fn PromiseNativeHandler(&self, resolve: Option<Rc<SimpleCallback<TH>>>, reject: Option<Rc<SimpleCallback<TH>>>) -> Rc<Promise<TH>>;
@@ -23722,7 +23722,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
         let argcount = cmp::min(argc, 1);
         match argcount {
             0 => {
-                let result: Result<DomRoot<TestBinding<TH>>, Error<TH>> = TestBinding::<TH>::Constructor(&global);
+                let result: Result<DomRoot<TestBinding<TH>>, Error> = TestBinding::<TH>::Constructor(&global);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -23746,7 +23746,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                         _ => { return false;
                      },
                     };
-                    let result: Result<DomRoot<TestBinding<TH>>, Error<TH>> = TestBinding::<TH>::Constructor_(&global, arg0);
+                    let result: Result<DomRoot<TestBinding<TH>>, Error> = TestBinding::<TH>::Constructor_(&global, arg0);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -23768,7 +23768,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<DomRoot<TestBinding<TH>>, Error<TH>> = TestBinding::<TH>::Constructor__(&global, arg0);
+                let result: Result<DomRoot<TestBinding<TH>>, Error> = TestBinding::<TH>::Constructor__(&global, arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {

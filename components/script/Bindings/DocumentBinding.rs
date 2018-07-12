@@ -1134,7 +1134,7 @@ unsafe extern fn createElement<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Element<TH>>, Error<TH>> = this.CreateElement(arg0, &arg1);
+        let result: Result<DomRoot<Element<TH>>, Error> = this.CreateElement(arg0, &arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1216,7 +1216,7 @@ unsafe extern fn createElementNS<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Element<TH>>, Error<TH>> = this.CreateElementNS(arg0, arg1, &arg2);
+        let result: Result<DomRoot<Element<TH>>, Error> = this.CreateElementNS(arg0, arg1, &arg2);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1408,7 +1408,7 @@ unsafe extern fn createProcessingInstruction<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<ProcessingInstruction<TH>>, Error<TH>> = this.CreateProcessingInstruction(arg0, arg1);
+        let result: Result<DomRoot<ProcessingInstruction<TH>>, Error> = this.CreateProcessingInstruction(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1483,7 +1483,7 @@ unsafe extern fn importNode<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.ImportNode(&arg0, arg1);
+        let result: Result<DomRoot<Node<TH>>, Error> = this.ImportNode(&arg0, arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1546,7 +1546,7 @@ unsafe extern fn adoptNode<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Node<TH>>, Error<TH>> = this.AdoptNode(&arg0);
+        let result: Result<DomRoot<Node<TH>>, Error> = this.AdoptNode(&arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1602,7 +1602,7 @@ unsafe extern fn createAttribute<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.CreateAttribute(arg0);
+        let result: Result<DomRoot<Attr<TH>>, Error> = this.CreateAttribute(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1666,7 +1666,7 @@ unsafe extern fn createAttributeNS<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<Attr<TH>>, Error<TH>> = this.CreateAttributeNS(arg0, arg1);
+        let result: Result<DomRoot<Attr<TH>>, Error> = this.CreateAttributeNS(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1720,7 +1720,7 @@ unsafe extern fn createEvent<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<Event<TH>>, Error<TH>> = this.CreateEvent(arg0);
+        let result: Result<DomRoot<Event<TH>>, Error> = this.CreateEvent(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1998,7 +1998,7 @@ unsafe extern fn set_domain<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetDomain(arg0);
+        let result: Result<(), Error> = this.SetDomain(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2082,7 +2082,7 @@ unsafe extern fn get_cookie<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Document<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<DOMString, Error<TH>> = this.GetCookie();
+        let result: Result<DOMString, Error> = this.GetCookie();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2110,7 +2110,7 @@ unsafe extern fn set_cookie<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetCookie(arg0);
+        let result: Result<(), Error> = this.SetCookie(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2334,7 +2334,7 @@ unsafe extern fn set_body<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.SetBody(arg0.r());
+        let result: Result<(), Error> = this.SetBody(arg0.r());
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2709,7 +2709,7 @@ unsafe extern fn open<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<DomRoot<Document<TH>>, Error<TH>> = this.Open(arg0, arg1);
+        let result: Result<DomRoot<Document<TH>>, Error> = this.Open(arg0, arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2752,7 +2752,7 @@ unsafe extern fn close<TH: TypeHolderTrait>
         let argc = args._base.argc_;
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Close();
+        let result: Result<(), Error> = this.Close();
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2812,7 +2812,7 @@ unsafe extern fn write<TH: TypeHolderTrait>
         }
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Write(arg0);
+        let result: Result<(), Error> = this.Write(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -2872,7 +2872,7 @@ unsafe extern fn writeln<TH: TypeHolderTrait>
         }
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Writeln(arg0);
+        let result: Result<(), Error> = this.Writeln(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8160,7 +8160,7 @@ unsafe extern fn prepend<TH: TypeHolderTrait>
         }
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Prepend(arg0);
+        let result: Result<(), Error> = this.Prepend(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8220,7 +8220,7 @@ unsafe extern fn append<TH: TypeHolderTrait>
         }
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Append(arg0);
+        let result: Result<(), Error> = this.Append(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -8276,7 +8276,7 @@ unsafe extern fn querySelector<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<Option<DomRoot<Element<TH>>>, Error<TH>> = this.QuerySelector(arg0);
+        let result: Result<Option<DomRoot<Element<TH>>>, Error> = this.QuerySelector(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -8333,7 +8333,7 @@ unsafe extern fn querySelectorAll<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<NodeList<TH>>, Error<TH>> = this.QuerySelectorAll(arg0);
+        let result: Result<DomRoot<NodeList<TH>>, Error> = this.QuerySelectorAll(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -8677,32 +8677,32 @@ pub trait DocumentMethods<TH: TypeHolderTrait> {
     fn GetElementsByTagName(&self, qualifiedName: DOMString) -> DomRoot<HTMLCollection<TH>>;
     fn GetElementsByTagNameNS(&self, namespace: Option<DOMString>, qualifiedName: DOMString) -> DomRoot<HTMLCollection<TH>>;
     fn GetElementsByClassName(&self, classNames: DOMString) -> DomRoot<HTMLCollection<TH>>;
-    fn CreateElement(&self, localName: DOMString, options: &dom::bindings::codegen::Bindings::DocumentBinding::ElementCreationOptions) -> Fallible<DomRoot<Element<TH>>, TH>;
-    fn CreateElementNS(&self, namespace: Option<DOMString>, qualifiedName: DOMString, options: &dom::bindings::codegen::Bindings::DocumentBinding::ElementCreationOptions) -> Fallible<DomRoot<Element<TH>>, TH>;
+    fn CreateElement(&self, localName: DOMString, options: &dom::bindings::codegen::Bindings::DocumentBinding::ElementCreationOptions) -> Fallible<DomRoot<Element<TH>>>;
+    fn CreateElementNS(&self, namespace: Option<DOMString>, qualifiedName: DOMString, options: &dom::bindings::codegen::Bindings::DocumentBinding::ElementCreationOptions) -> Fallible<DomRoot<Element<TH>>>;
     fn CreateDocumentFragment(&self) -> DomRoot<DocumentFragment<TH>>;
     fn CreateTextNode(&self, data: DOMString) -> DomRoot<Text<TH>>;
     fn CreateComment(&self, data: DOMString) -> DomRoot<Comment<TH>>;
-    fn CreateProcessingInstruction(&self, target: DOMString, data: DOMString) -> Fallible<DomRoot<ProcessingInstruction<TH>>, TH>;
-    fn ImportNode(&self, node: &Node<TH>, deep: bool) -> Fallible<DomRoot<Node<TH>>, TH>;
-    fn AdoptNode(&self, node: &Node<TH>) -> Fallible<DomRoot<Node<TH>>, TH>;
-    fn CreateAttribute(&self, localName: DOMString) -> Fallible<DomRoot<Attr<TH>>, TH>;
-    fn CreateAttributeNS(&self, namespace: Option<DOMString>, qualifiedName: DOMString) -> Fallible<DomRoot<Attr<TH>>, TH>;
-    fn CreateEvent(&self, interface_: DOMString) -> Fallible<DomRoot<Event<TH>>, TH>;
+    fn CreateProcessingInstruction(&self, target: DOMString, data: DOMString) -> Fallible<DomRoot<ProcessingInstruction<TH>>>;
+    fn ImportNode(&self, node: &Node<TH>, deep: bool) -> Fallible<DomRoot<Node<TH>>>;
+    fn AdoptNode(&self, node: &Node<TH>) -> Fallible<DomRoot<Node<TH>>>;
+    fn CreateAttribute(&self, localName: DOMString) -> Fallible<DomRoot<Attr<TH>>>;
+    fn CreateAttributeNS(&self, namespace: Option<DOMString>, qualifiedName: DOMString) -> Fallible<DomRoot<Attr<TH>>>;
+    fn CreateEvent(&self, interface_: DOMString) -> Fallible<DomRoot<Event<TH>>>;
     fn CreateRange(&self) -> DomRoot<Range<TH>>;
     fn CreateNodeIterator(&self, root: &Node<TH>, whatToShow: u32, filter: Option<Rc<dom::bindings::codegen::Bindings::NodeFilterBinding::NodeFilter<TH>>>) -> DomRoot<NodeIterator<TH>>;
     fn CreateTreeWalker(&self, root: &Node<TH>, whatToShow: u32, filter: Option<Rc<dom::bindings::codegen::Bindings::NodeFilterBinding::NodeFilter<TH>>>) -> DomRoot<TreeWalker<TH>>;
     fn GetLocation(&self) -> Option<DomRoot<Location<TH>>>;
     fn Domain(&self) -> DOMString;
-    fn SetDomain(&self, value: DOMString) -> ErrorResult<TH>;
+    fn SetDomain(&self, value: DOMString) -> ErrorResult;
     fn Referrer(&self) -> DOMString;
-    fn GetCookie(&self) -> Fallible<DOMString, TH>;
-    fn SetCookie(&self, value: DOMString) -> ErrorResult<TH>;
+    fn GetCookie(&self) -> Fallible<DOMString>;
+    fn SetCookie(&self, value: DOMString) -> ErrorResult;
     fn LastModified(&self) -> DOMString;
     fn ReadyState(&self) -> DocumentReadyState;
     fn Title(&self) -> DOMString;
     fn SetTitle(&self, value: DOMString) -> ();
     fn GetBody(&self) -> Option<DomRoot<HTMLElement<TH>>>;
-    fn SetBody(&self, value: Option<&HTMLElement<TH>>) -> ErrorResult<TH>;
+    fn SetBody(&self, value: Option<&HTMLElement<TH>>) -> ErrorResult;
     fn GetHead(&self) -> Option<DomRoot<HTMLHeadElement<TH>>>;
     fn Images(&self) -> DomRoot<HTMLCollection<TH>>;
     fn Embeds(&self) -> DomRoot<HTMLCollection<TH>>;
@@ -8712,10 +8712,10 @@ pub trait DocumentMethods<TH: TypeHolderTrait> {
     fn Scripts(&self) -> DomRoot<HTMLCollection<TH>>;
     fn GetElementsByName(&self, elementName: DOMString) -> DomRoot<NodeList<TH>>;
     fn GetCurrentScript(&self) -> Option<DomRoot<HTMLScriptElement<TH>>>;
-    fn Open(&self, type_: Option<DOMString>, replace: DOMString) -> Fallible<DomRoot<Document<TH>>, TH>;
-    fn Close(&self) -> Fallible<(), TH>;
-    fn Write(&self, text: Vec<DOMString>) -> Fallible<(), TH>;
-    fn Writeln(&self, text: Vec<DOMString>) -> Fallible<(), TH>;
+    fn Open(&self, type_: Option<DOMString>, replace: DOMString) -> Fallible<DomRoot<Document<TH>>>;
+    fn Close(&self) -> Fallible<()>;
+    fn Write(&self, text: Vec<DOMString>) -> Fallible<()>;
+    fn Writeln(&self, text: Vec<DOMString>) -> Fallible<()>;
     fn GetDefaultView(&self) -> Option<DomRoot<Window<TH>>>;
     fn GetActiveElement(&self) -> Option<DomRoot<Element<TH>>>;
     fn HasFocus(&self) -> bool;
@@ -8876,10 +8876,10 @@ pub trait DocumentMethods<TH: TypeHolderTrait> {
     fn GetFirstElementChild(&self) -> Option<DomRoot<Element<TH>>>;
     fn GetLastElementChild(&self) -> Option<DomRoot<Element<TH>>>;
     fn ChildElementCount(&self) -> u32;
-    fn Prepend(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<(), TH>;
-    fn Append(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<(), TH>;
-    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>, TH>;
-    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>, TH>;
+    fn Prepend(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<()>;
+    fn Append(&self, nodes: Vec<UnionTypes::NodeOrString<TH>>) -> Fallible<()>;
+    fn QuerySelector(&self, selectors: DOMString) -> Fallible<Option<DomRoot<Element<TH>>>>;
+    fn QuerySelectorAll(&self, selectors: DOMString) -> Fallible<DomRoot<NodeList<TH>>>;
     fn SupportedPropertyNames(&self) -> Vec<DOMString>;
     unsafe fn NamedGetter(&self, cx: *mut JSContext, name: DOMString) -> Option<NonNull<JSObject>>;
 }
@@ -9852,7 +9852,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
         let global = GlobalScope::<TH>::from_object(JS_CALLEE(cx, vp).to_object());
         let global = DomRoot::downcast::<dom::types::Window<TH>>(global).unwrap();
         let args = CallArgs::from_vp(vp, argc);
-        let result: Result<DomRoot<Document<TH>>, Error<TH>> = Document::Constructor(&global);
+        let result: Result<DomRoot<Document<TH>>, Error> = Document::Constructor(&global);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

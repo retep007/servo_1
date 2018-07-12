@@ -866,7 +866,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<DomRoot<GamepadEvent<TH>>, Error<TH>> = GamepadEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<GamepadEvent<TH>>, Error> = GamepadEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

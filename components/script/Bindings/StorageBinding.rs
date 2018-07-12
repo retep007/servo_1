@@ -660,7 +660,7 @@ unsafe extern fn setItem<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetItem(arg0, arg1);
+        let result: Result<(), Error> = this.SetItem(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1032,7 +1032,7 @@ unsafe extern fn defineProperty<TH: TypeHolderTrait>
                 }
                 _ => { return false; },
             };
-            let result: Result<(), Error<TH>> = this.NamedSetter(name, value);
+            let result: Result<(), Error> = this.NamedSetter(name, value);
             let result = match result {
                 Ok(result) => result,
                 Err(e) => {
@@ -1103,10 +1103,10 @@ pub trait StorageMethods<TH: TypeHolderTrait> {
     fn Length(&self) -> u32;
     fn Key(&self, index: u32) -> Option<DOMString>;
     fn GetItem(&self, name: DOMString) -> Option<DOMString>;
-    fn SetItem(&self, name: DOMString, value: DOMString) -> Fallible<(), TH>;
+    fn SetItem(&self, name: DOMString, value: DOMString) -> Fallible<()>;
     fn RemoveItem(&self, name: DOMString) -> ();
     fn Clear(&self) -> ();
-    fn NamedSetter(&self, name: DOMString, value: DOMString) -> Fallible<(), TH>;
+    fn NamedSetter(&self, name: DOMString, value: DOMString) -> Fallible<()>;
     fn SupportedPropertyNames(&self) -> Vec<DOMString>;
     fn NamedGetter(&self, name: DOMString) -> Option<DOMString>;
     fn NamedDeleter(&self, name: DOMString) -> ();

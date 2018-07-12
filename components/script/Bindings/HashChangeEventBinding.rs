@@ -922,7 +922,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<HashChangeEvent<TH>>, Error<TH>> = HashChangeEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<HashChangeEvent<TH>>, Error> = HashChangeEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

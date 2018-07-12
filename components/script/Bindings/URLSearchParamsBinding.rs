@@ -1282,7 +1282,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             })
         };
-        let result: Result<DomRoot<URLSearchParams<TH>>, Error<TH>> = URLSearchParams::Constructor(&global, arg0);
+        let result: Result<DomRoot<URLSearchParams<TH>>, Error> = URLSearchParams::Constructor(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1641,7 +1641,7 @@ unsafe extern fn next<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<NonNull<JSObject>, Error<TH>> = this.Next(cx);
+        let result: Result<NonNull<JSObject>, Error> = this.Next(cx);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1784,7 +1784,7 @@ impl<TH: TypeHolderTrait> PartialEq for IterableIterator<URLSearchParams<TH>> {
 }
 
 pub trait URLSearchParamsIteratorMethods<TH: TypeHolderTrait> {
-    unsafe fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>, TH>;
+    unsafe fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

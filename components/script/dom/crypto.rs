@@ -50,7 +50,7 @@ impl<TH: TypeHolderTrait> CryptoMethods<TH> for Crypto<TH> {
     unsafe fn GetRandomValues(&self,
                        _cx: *mut JSContext,
                        mut input: CustomAutoRooterGuard<ArrayBufferView>)
-                       -> Fallible<NonNull<JSObject>, TH> {
+                       -> Fallible<NonNull<JSObject>> {
         let array_type = input.get_array_type();
 
         if !is_integer_buffer(array_type) {

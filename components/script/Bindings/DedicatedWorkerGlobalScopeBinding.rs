@@ -520,7 +520,7 @@ unsafe extern fn postMessage<TH: TypeHolderTrait>
             return false;
         }
         let arg0: HandleValue = args.get(0);
-        let result: Result<(), Error<TH>> = this.PostMessage(cx, arg0);
+        let result: Result<(), Error> = this.PostMessage(cx, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -778,7 +778,7 @@ impl<TH: TypeHolderTrait> PartialEq for DedicatedWorkerGlobalScope<TH> {
 }
 
 pub trait DedicatedWorkerGlobalScopeMethods<TH: TypeHolderTrait> {
-    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> Fallible<(), TH>;
+    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> Fallible<()>;
     fn GetOnmessage(&self) -> Option<Rc<dom::bindings::codegen::Bindings::EventHandlerBinding::EventHandlerNonNull<TH>>>;
     fn SetOnmessage(&self, value: Option<Rc<EventHandlerNonNull<TH>>>) -> ();
     fn Close(&self) -> ();

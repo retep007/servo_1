@@ -665,7 +665,7 @@ unsafe extern fn nextNode<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.NextNode();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.NextNode();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -704,7 +704,7 @@ unsafe extern fn previousNode<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.PreviousNode();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.PreviousNode();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -887,8 +887,8 @@ pub trait NodeIteratorMethods<TH: TypeHolderTrait> {
     fn PointerBeforeReferenceNode(&self) -> bool;
     fn WhatToShow(&self) -> u32;
     fn GetFilter(&self) -> Option<Rc<dom::bindings::codegen::Bindings::NodeFilterBinding::NodeFilter<TH>>>;
-    fn NextNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH>;
-    fn PreviousNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH>;
+    fn NextNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>>;
+    fn PreviousNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>>;
     fn Detach(&self) -> ();
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[

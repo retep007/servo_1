@@ -75,7 +75,7 @@ impl<TH: TypeHolderTrait> Request<TH> {
     pub fn Constructor(global: &GlobalScope<TH>,
                        input: RequestInfo<TH>,
                        init: RootedTraceableBox<RequestInit<TH>>)
-                       -> Fallible<DomRoot<Request<TH>>, TH> {
+                       -> Fallible<DomRoot<Request<TH>>> {
         // Step 1
         let temporary_request: NetTraitsRequest;
 
@@ -413,7 +413,7 @@ impl<TH: TypeHolderTrait> Request<TH> {
         r
     }
 
-    fn clone_from(r: &Request<TH>) -> Fallible<DomRoot<Request<TH>>, TH> {
+    fn clone_from(r: &Request<TH>) -> Fallible<DomRoot<Request<TH>>> {
         let req = r.request.borrow();
         let url = req.url();
         let body_used = r.body_used.get();
@@ -576,7 +576,7 @@ impl<TH: TypeHolderTrait> RequestMethods<TH> for Request<TH> {
     }
 
     // https://fetch.spec.whatwg.org/#dom-request-clone
-    fn Clone(&self) -> Fallible<DomRoot<Request<TH>>, TH> {
+    fn Clone(&self) -> Fallible<DomRoot<Request<TH>>> {
         // Step 1
         if request_is_locked(self) {
             return Err(Error::Type("Request is locked".to_string()));

@@ -56,7 +56,6 @@ pub struct IterableIterator<T: DomObject + JSTraceable + Iterable> {
     iterable: Dom<T>,
     type_: IteratorType,
     index: Cell<u32>,
-    _p: PhantomData<T::TypeHolder>,
 }
 
 impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T> {
@@ -70,14 +69,13 @@ impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T> {
             type_: type_,
             iterable: Dom::from_ref(iterable),
             index: Cell::new(0),
-            _p: Default::default(),
         });
         reflect_dom_object::<Self, GlobalScope<T::TypeHolder>,T::TypeHolder>(iterator, &*iterable.global(), wrap)
     }
 
     /// Return the next value from the iterable object.
     #[allow(non_snake_case)]
-    pub fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>, T::TypeHolder> {
+    pub fn Next(&self, cx: *mut JSContext) -> Fallible<NonNull<JSObject>> {
         let index = self.index.get();
         rooted!(in(cx) let mut value = UndefinedValue());
         rooted!(in(cx) let mut rval = ptr::null_mut::<JSObject>());
@@ -114,10 +112,10 @@ impl<T: DomObject + JSTraceable + Iterable> IterableIterator<T> {
     }
 }
 
-fn dict_return<TH: TypeHolderTrait>(cx: *mut JSContext,
+fn dict_return(cx: *mut JSContext,
                mut result: MutableHandleObject,
                done: bool,
-               value: HandleValue) -> Fallible<(), TH> {
+               value: HandleValue) -> Fallible<()> {
     let mut dict = unsafe { IterableKeyOrValueResult::empty(cx) };
     dict.done = done;
     dict.value.set(value.get());
@@ -129,10 +127,10 @@ fn dict_return<TH: TypeHolderTrait>(cx: *mut JSContext,
     Ok(())
 }
 
-fn key_and_value_return<TH: TypeHolderTrait>(cx: *mut JSContext,
+fn key_and_value_return(cx: *mut JSContext,
                         mut result: MutableHandleObject,
                         key: HandleValue,
-                        value: HandleValue) -> Fallible<(), TH> {
+                        value: HandleValue) -> Fallible<()> {
     let mut dict = unsafe { IterableKeyAndValueResult::empty(cx) };
     dict.done = false;
     dict.value = Some(vec![key, value]

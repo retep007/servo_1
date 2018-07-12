@@ -868,7 +868,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<CompositionEvent<TH>>, Error<TH>> = CompositionEvent::Constructor(&global, arg0, &arg1);
+        let result: Result<DomRoot<CompositionEvent<TH>>, Error> = CompositionEvent::Constructor(&global, arg0, &arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {

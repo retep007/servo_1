@@ -509,7 +509,7 @@ unsafe extern fn get_href<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Location<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetHref();
+        let result: Result<USVString, Error> = this.GetHref();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -537,7 +537,7 @@ unsafe extern fn set_href<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetHref(arg0);
+        let result: Result<(), Error> = this.SetHref(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -591,7 +591,7 @@ unsafe extern fn get_origin<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Location<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetOrigin();
+        let result: Result<USVString, Error> = this.GetOrigin();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -628,7 +628,7 @@ unsafe extern fn get_protocol<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Location<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetProtocol();
+        let result: Result<USVString, Error> = this.GetProtocol();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -656,7 +656,7 @@ unsafe extern fn set_protocol<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetProtocol(arg0);
+        let result: Result<(), Error> = this.SetProtocol(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -710,7 +710,7 @@ unsafe extern fn get_host<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Location<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetHost();
+        let result: Result<USVString, Error> = this.GetHost();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -738,7 +738,7 @@ unsafe extern fn set_host<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetHost(arg0);
+        let result: Result<(), Error> = this.SetHost(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -792,7 +792,7 @@ unsafe extern fn get_hostname<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Location<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetHostname();
+        let result: Result<USVString, Error> = this.GetHostname();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -820,7 +820,7 @@ unsafe extern fn set_hostname<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetHostname(arg0);
+        let result: Result<(), Error> = this.SetHostname(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -874,7 +874,7 @@ unsafe extern fn get_port<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Location<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetPort();
+        let result: Result<USVString, Error> = this.GetPort();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -902,7 +902,7 @@ unsafe extern fn set_port<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetPort(arg0);
+        let result: Result<(), Error> = this.SetPort(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -956,7 +956,7 @@ unsafe extern fn get_pathname<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Location<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetPathname();
+        let result: Result<USVString, Error> = this.GetPathname();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -984,7 +984,7 @@ unsafe extern fn set_pathname<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetPathname(arg0);
+        let result: Result<(), Error> = this.SetPathname(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1038,7 +1038,7 @@ unsafe extern fn get_search<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Location<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetSearch();
+        let result: Result<USVString, Error> = this.GetSearch();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1066,7 +1066,7 @@ unsafe extern fn set_search<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetSearch(arg0);
+        let result: Result<(), Error> = this.SetSearch(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1120,7 +1120,7 @@ unsafe extern fn get_hash<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const Location<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<USVString, Error<TH>> = this.GetHash();
+        let result: Result<USVString, Error> = this.GetHash();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1148,7 +1148,7 @@ unsafe extern fn set_hash<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.SetHash(arg0);
+        let result: Result<(), Error> = this.SetHash(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1219,7 +1219,7 @@ unsafe extern fn assign<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.Assign(arg0);
+        let result: Result<(), Error> = this.Assign(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1273,7 +1273,7 @@ unsafe extern fn replace<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.Replace(arg0);
+        let result: Result<(), Error> = this.Replace(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1312,7 +1312,7 @@ unsafe extern fn reload<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<(), Error<TH>> = this.Reload();
+        let result: Result<(), Error> = this.Reload();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1351,7 +1351,7 @@ unsafe extern fn __stringifier<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<DOMString, Error<TH>> = this.Stringifier();
+        let result: Result<DOMString, Error> = this.Stringifier();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1498,27 +1498,27 @@ impl<TH: TypeHolderTrait> PartialEq for Location<TH> {
 }
 
 pub trait LocationMethods<TH: TypeHolderTrait> {
-    fn GetHref(&self) -> Fallible<USVString, TH>;
-    fn SetHref(&self, value: USVString) -> ErrorResult<TH>;
-    fn GetOrigin(&self) -> Fallible<USVString, TH>;
-    fn GetProtocol(&self) -> Fallible<USVString, TH>;
-    fn SetProtocol(&self, value: USVString) -> ErrorResult<TH>;
-    fn GetHost(&self) -> Fallible<USVString, TH>;
-    fn SetHost(&self, value: USVString) -> ErrorResult<TH>;
-    fn GetHostname(&self) -> Fallible<USVString, TH>;
-    fn SetHostname(&self, value: USVString) -> ErrorResult<TH>;
-    fn GetPort(&self) -> Fallible<USVString, TH>;
-    fn SetPort(&self, value: USVString) -> ErrorResult<TH>;
-    fn GetPathname(&self) -> Fallible<USVString, TH>;
-    fn SetPathname(&self, value: USVString) -> ErrorResult<TH>;
-    fn GetSearch(&self) -> Fallible<USVString, TH>;
-    fn SetSearch(&self, value: USVString) -> ErrorResult<TH>;
-    fn GetHash(&self) -> Fallible<USVString, TH>;
-    fn SetHash(&self, value: USVString) -> ErrorResult<TH>;
-    fn Assign(&self, url: USVString) -> Fallible<(), TH>;
-    fn Replace(&self, url: USVString) -> Fallible<(), TH>;
-    fn Reload(&self) -> Fallible<(), TH>;
-    fn Stringifier(&self) -> Fallible<DOMString, TH>;
+    fn GetHref(&self) -> Fallible<USVString>;
+    fn SetHref(&self, value: USVString) -> ErrorResult;
+    fn GetOrigin(&self) -> Fallible<USVString>;
+    fn GetProtocol(&self) -> Fallible<USVString>;
+    fn SetProtocol(&self, value: USVString) -> ErrorResult;
+    fn GetHost(&self) -> Fallible<USVString>;
+    fn SetHost(&self, value: USVString) -> ErrorResult;
+    fn GetHostname(&self) -> Fallible<USVString>;
+    fn SetHostname(&self, value: USVString) -> ErrorResult;
+    fn GetPort(&self) -> Fallible<USVString>;
+    fn SetPort(&self, value: USVString) -> ErrorResult;
+    fn GetPathname(&self) -> Fallible<USVString>;
+    fn SetPathname(&self, value: USVString) -> ErrorResult;
+    fn GetSearch(&self) -> Fallible<USVString>;
+    fn SetSearch(&self, value: USVString) -> ErrorResult;
+    fn GetHash(&self) -> Fallible<USVString>;
+    fn SetHash(&self, value: USVString) -> ErrorResult;
+    fn Assign(&self, url: USVString) -> Fallible<()>;
+    fn Replace(&self, url: USVString) -> Fallible<()>;
+    fn Reload(&self) -> Fallible<()>;
+    fn Stringifier(&self) -> Fallible<DOMString>;
 }
 const sUnforgeableMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

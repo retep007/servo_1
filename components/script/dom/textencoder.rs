@@ -38,7 +38,7 @@ impl<TH: TypeHolderTrait> TextEncoder<TH> {
     }
 
     // https://encoding.spec.whatwg.org/#dom-textencoder
-    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TextEncoder<TH>>, TH> {
+    pub fn Constructor(global: &GlobalScope<TH>) -> Fallible<DomRoot<TextEncoder<TH>>> {
         Ok(TextEncoder::new(global))
     }
 }

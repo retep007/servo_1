@@ -55,7 +55,7 @@ impl<TH: TypeHolderTrait> PageTransitionEvent<TH> {
     pub fn Constructor(window: &Window<TH>,
                        type_: DOMString,
                        init: &PageTransitionEventBinding::PageTransitionEventInit)
-                       -> Fallible<DomRoot<PageTransitionEvent<TH>>, TH> {
+                       -> Fallible<DomRoot<PageTransitionEvent<TH>>> {
         Ok(PageTransitionEvent::new(window,
                               Atom::from(type_),
                               init.parent.bubbles,

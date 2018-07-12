@@ -118,7 +118,7 @@ impl<TH: TypeHolderTrait> CSSKeyframesRuleMethods<TH> for CSSKeyframesRule<TH> {
     }
 
     // https://drafts.csswg.org/css-animations/#dom-csskeyframesrule-name
-    fn SetName(&self, value: DOMString) -> ErrorResult<TH> {
+    fn SetName(&self, value: DOMString) -> ErrorResult {
         // Spec deviation: https://github.com/w3c/csswg-drafts/issues/801
         // Setting this property to a CSS-wide keyword or `none` does not throw,
         // it stores a value that serializes as a quoted string.

@@ -624,7 +624,7 @@ unsafe extern fn define<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Define(arg0, arg1, &arg2);
+        let result: Result<(), Error> = this.Define(arg0, arg1, &arg2);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -863,7 +863,7 @@ impl<TH: TypeHolderTrait> PartialEq for CustomElementRegistry<TH> {
 }
 
 pub trait CustomElementRegistryMethods<TH: TypeHolderTrait> {
-    fn Define(&self, name: DOMString, constructor_: Rc<Function<TH>>, options: &dom::bindings::codegen::Bindings::CustomElementRegistryBinding::ElementDefinitionOptions) -> Fallible<(), TH>;
+    fn Define(&self, name: DOMString, constructor_: Rc<Function<TH>>, options: &dom::bindings::codegen::Bindings::CustomElementRegistryBinding::ElementDefinitionOptions) -> Fallible<()>;
     unsafe fn Get(&self, cx: *mut JSContext, name: DOMString) -> JSVal;
     fn WhenDefined(&self, name: DOMString) -> Rc<Promise<TH>>;
 }

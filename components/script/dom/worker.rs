@@ -71,7 +71,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
 
     // https://html.spec.whatwg.org/multipage/#dom-worker
     #[allow(unsafe_code)]
-    pub fn Constructor(global: &GlobalScope<TH>, script_url: DOMString) -> Fallible<DomRoot<Worker<TH>>, TH> {
+    pub fn Constructor(global: &GlobalScope<TH>, script_url: DOMString) -> Fallible<DomRoot<Worker<TH>>> {
         // Step 2-4.
         let worker_url = match global.api_base_url().join(&script_url) {
             Ok(url) => url,
@@ -146,7 +146,7 @@ impl<TH: TypeHolderTrait> Worker<TH> {
 impl<TH: TypeHolderTrait> WorkerMethods<TH> for Worker<TH> {
     #[allow(unsafe_code)]
     // https://html.spec.whatwg.org/multipage/#dom-worker-postmessage
-    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult<TH> {
+    unsafe fn PostMessage(&self, cx: *mut JSContext, message: HandleValue) -> ErrorResult {
         let data = StructuredCloneData::write(cx, message)?;
         let address = Trusted::new(self);
 

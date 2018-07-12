@@ -1111,7 +1111,7 @@ unsafe extern fn fromMatrix<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::FromMatrix(&global, &arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::FromMatrix(&global, &arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1151,7 +1151,7 @@ unsafe extern fn fromFloat32Array<TH: TypeHolderTrait>
 
         };
         auto_root!(in(cx) let arg0 = arg0);
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::FromFloat32Array(&global, arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::FromFloat32Array(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1191,7 +1191,7 @@ unsafe extern fn fromFloat64Array<TH: TypeHolderTrait>
 
         };
         auto_root!(in(cx) let arg0 = arg0);
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::FromFloat64Array(&global, arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::FromFloat64Array(&global, arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2721,7 +2721,7 @@ unsafe extern fn multiplySelf<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = this.MultiplySelf(&arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = this.MultiplySelf(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -2774,7 +2774,7 @@ unsafe extern fn preMultiplySelf<TH: TypeHolderTrait>
              },
             }
         };
-        let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = this.PreMultiplySelf(&arg0);
+        let result: Result<DomRoot<DOMMatrix<TH>>, Error> = this.PreMultiplySelf(&arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -3585,8 +3585,8 @@ pub trait DOMMatrixMethods<TH: TypeHolderTrait> {
     fn SetM43(&self, value: f64) -> ();
     fn M44(&self) -> f64;
     fn SetM44(&self, value: f64) -> ();
-    fn MultiplySelf(&self, other: &dom::bindings::codegen::Bindings::DOMMatrixBinding::DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>, TH>;
-    fn PreMultiplySelf(&self, other: &dom::bindings::codegen::Bindings::DOMMatrixBinding::DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>, TH>;
+    fn MultiplySelf(&self, other: &dom::bindings::codegen::Bindings::DOMMatrixBinding::DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>>;
+    fn PreMultiplySelf(&self, other: &dom::bindings::codegen::Bindings::DOMMatrixBinding::DOMMatrixInit) -> Fallible<DomRoot<DOMMatrix<TH>>>;
     fn TranslateSelf(&self, tx: f64, ty: f64, tz: f64) -> DomRoot<DOMMatrix<TH>>;
     fn ScaleSelf(&self, scaleX: f64, scaleY: Option<f64>, scaleZ: f64, originX: f64, originY: f64, originZ: f64) -> DomRoot<DOMMatrix<TH>>;
     fn Scale3dSelf(&self, scale: f64, originX: f64, originY: f64, originZ: f64) -> DomRoot<DOMMatrix<TH>>;
@@ -3906,7 +3906,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
         let argcount = cmp::min(argc, 1);
         match argcount {
             0 => {
-                let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::Constructor(&global);
+                let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::Constructor(&global);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -3929,7 +3929,7 @@ unsafe extern fn _constructor<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<DomRoot<DOMMatrix<TH>>, Error<TH>> = DOMMatrix::Constructor_(&global, arg0);
+                let result: Result<DomRoot<DOMMatrix<TH>>, Error> = DOMMatrix::Constructor_(&global, arg0);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {

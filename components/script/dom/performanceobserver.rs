@@ -59,7 +59,7 @@ impl<TH: TypeHolderTrait> PerformanceObserver<TH> {
     }
 
     pub fn Constructor(global: &GlobalScope<TH>, callback: Rc<PerformanceObserverCallback<TH>>)
-        -> Fallible<DomRoot<PerformanceObserver<TH>>, TH> {
+        -> Fallible<DomRoot<PerformanceObserver<TH>>> {
         Ok(PerformanceObserver::new(global, callback, Vec::new()))
     }
 
@@ -97,7 +97,7 @@ impl<TH: TypeHolderTrait> PerformanceObserver<TH> {
 
 impl<TH: TypeHolderTrait> PerformanceObserverMethods<TH> for PerformanceObserver<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver-observe()
-    fn Observe(&self, options: &PerformanceObserverInit) -> Fallible<(), TH> {
+    fn Observe(&self, options: &PerformanceObserverInit) -> Fallible<()> {
         // step 1
         // Make sure the client is asking to observe events from allowed entry types.
         let entry_types = options.entryTypes.iter()

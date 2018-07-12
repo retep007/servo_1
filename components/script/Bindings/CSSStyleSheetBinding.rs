@@ -512,7 +512,7 @@ unsafe extern fn get_cssRules<TH: TypeHolderTrait>
 (cx: *mut JSContext, _obj: HandleObject, this: *const CSSStyleSheet<TH>, args: JSJitGetterCallArgs) -> bool {
     return wrap_panic(panic::AssertUnwindSafe(|| {
         let this = &*this;
-        let result: Result<DomRoot<CSSRuleList<TH>>, Error<TH>> = this.GetCssRules();
+        let result: Result<DomRoot<CSSRuleList<TH>>, Error> = this.GetCssRules();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -576,7 +576,7 @@ unsafe extern fn insertRule<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<u32, Error<TH>> = this.InsertRule(arg0, arg1);
+        let result: Result<u32, Error> = this.InsertRule(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -630,7 +630,7 @@ unsafe extern fn deleteRule<TH: TypeHolderTrait>
             _ => { return false;
          }
         };
-        let result: Result<(), Error<TH>> = this.DeleteRule(arg0);
+        let result: Result<(), Error> = this.DeleteRule(arg0);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -773,9 +773,9 @@ impl<TH: TypeHolderTrait> PartialEq for CSSStyleSheet<TH> {
 }
 
 pub trait CSSStyleSheetMethods<TH: TypeHolderTrait> {
-    fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList<TH>>, TH>;
-    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32, TH>;
-    fn DeleteRule(&self, index: u32) -> Fallible<(), TH>;
+    fn GetCssRules(&self) -> Fallible<DomRoot<CSSRuleList<TH>>>;
+    fn InsertRule(&self, rule: DOMString, index: u32) -> Fallible<u32>;
+    fn DeleteRule(&self, index: u32) -> Fallible<()>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

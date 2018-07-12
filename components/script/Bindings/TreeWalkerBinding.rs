@@ -678,7 +678,7 @@ unsafe extern fn parentNode<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.ParentNode();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.ParentNode();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -717,7 +717,7 @@ unsafe extern fn firstChild<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.FirstChild();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.FirstChild();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -756,7 +756,7 @@ unsafe extern fn lastChild<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.LastChild();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.LastChild();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -795,7 +795,7 @@ unsafe extern fn previousSibling<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.PreviousSibling();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.PreviousSibling();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -834,7 +834,7 @@ unsafe extern fn nextSibling<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.NextSibling();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.NextSibling();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -873,7 +873,7 @@ unsafe extern fn previousNode<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.PreviousNode();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.PreviousNode();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -912,7 +912,7 @@ unsafe extern fn nextNode<TH: TypeHolderTrait>
         let this = &*this;
         let args = &*args;
         let argc = args._base.argc_;
-        let result: Result<Option<DomRoot<Node<TH>>>, Error<TH>> = this.NextNode();
+        let result: Result<Option<DomRoot<Node<TH>>>, Error> = this.NextNode();
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -1060,13 +1060,13 @@ pub trait TreeWalkerMethods<TH: TypeHolderTrait> {
     fn GetFilter(&self) -> Option<Rc<dom::bindings::codegen::Bindings::NodeFilterBinding::NodeFilter<TH>>>;
     fn CurrentNode(&self) -> DomRoot<Node<TH>>;
     fn SetCurrentNode(&self, value: &Node<TH>) -> ();
-    fn ParentNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH>;
-    fn FirstChild(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH>;
-    fn LastChild(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH>;
-    fn PreviousSibling(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH>;
-    fn NextSibling(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH>;
-    fn PreviousNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH>;
-    fn NextNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>, TH>;
+    fn ParentNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>>;
+    fn FirstChild(&self) -> Fallible<Option<DomRoot<Node<TH>>>>;
+    fn LastChild(&self) -> Fallible<Option<DomRoot<Node<TH>>>>;
+    fn PreviousSibling(&self) -> Fallible<Option<DomRoot<Node<TH>>>>;
+    fn NextSibling(&self) -> Fallible<Option<DomRoot<Node<TH>>>>;
+    fn PreviousNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>>;
+    fn NextNode(&self) -> Fallible<Option<DomRoot<Node<TH>>>>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

@@ -660,7 +660,7 @@ unsafe extern fn add<TH: TypeHolderTrait>
         }
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Add(arg0);
+        let result: Result<(), Error> = this.Add(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -720,7 +720,7 @@ unsafe extern fn remove<TH: TypeHolderTrait>
         }
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Remove(arg0);
+        let result: Result<(), Error> = this.Remove(arg0);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -792,7 +792,7 @@ unsafe extern fn toggle<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<bool, Error<TH>> = this.Toggle(arg0, arg1);
+        let result: Result<bool, Error> = this.Toggle(arg0, arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -860,7 +860,7 @@ unsafe extern fn replace<TH: TypeHolderTrait>
         };
         push_new_element_queue::<TH>();
 
-        let result: Result<(), Error<TH>> = this.Replace(arg0, arg1);
+        let result: Result<(), Error> = this.Replace(arg0, arg1);
         pop_current_element_queue::<TH>();
 
         let result = match result {
@@ -1279,10 +1279,10 @@ pub trait DOMTokenListMethods<TH: TypeHolderTrait> {
     fn Length(&self) -> u32;
     fn Item(&self, index: u32) -> Option<DOMString>;
     fn Contains(&self, token: DOMString) -> bool;
-    fn Add(&self, tokens: Vec<DOMString>) -> Fallible<(), TH>;
-    fn Remove(&self, tokens: Vec<DOMString>) -> Fallible<(), TH>;
-    fn Toggle(&self, token: DOMString, force: Option<bool>) -> Fallible<bool, TH>;
-    fn Replace(&self, token: DOMString, newToken: DOMString) -> Fallible<(), TH>;
+    fn Add(&self, tokens: Vec<DOMString>) -> Fallible<()>;
+    fn Remove(&self, tokens: Vec<DOMString>) -> Fallible<()>;
+    fn Toggle(&self, token: DOMString, force: Option<bool>) -> Fallible<bool>;
+    fn Replace(&self, token: DOMString, newToken: DOMString) -> Fallible<()>;
     fn Value(&self) -> DOMString;
     fn SetValue(&self, value: DOMString) -> ();
     fn Stringifier(&self) -> DOMString;

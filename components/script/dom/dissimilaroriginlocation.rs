@@ -54,35 +54,35 @@ impl<TH: TypeHolderTrait> DissimilarOriginLocation<TH> {
 
 impl<TH: TypeHolderTrait> DissimilarOriginLocationMethods<TH> for DissimilarOriginLocation<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn GetHref(&self) -> Fallible<USVString, TH> {
+    fn GetHref(&self) -> Fallible<USVString> {
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn SetHref(&self, _: USVString) -> ErrorResult<TH> {
+    fn SetHref(&self, _: USVString) -> ErrorResult {
         // TODO: setting href on a cross-origin window should succeed?
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-assign
-    fn Assign(&self, _: USVString) -> Fallible<(), TH> {
+    fn Assign(&self, _: USVString) -> Fallible<()> {
         // TODO: setting href on a cross-origin window should succeed?
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-replace
-    fn Replace(&self, _: USVString) -> Fallible<(), TH> {
+    fn Replace(&self, _: USVString) -> Fallible<()> {
         // TODO: replacing href on a cross-origin window should succeed?
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-reload
-    fn Reload(&self) -> Fallible<(), TH> {
+    fn Reload(&self) -> Fallible<()> {
         Err(Error::Security)
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-location-href
-    fn Stringifier(&self) -> Fallible<DOMString, TH> {
+    fn Stringifier(&self) -> Fallible<DOMString> {
         Err(Error::Security)
     }
 }

@@ -536,7 +536,7 @@ unsafe extern fn addColorStop<TH: TypeHolderTrait>
             _ => { return false;
          },
         };
-        let result: Result<(), Error<TH>> = this.AddColorStop(arg0, arg1);
+        let result: Result<(), Error> = this.AddColorStop(arg0, arg1);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -679,7 +679,7 @@ impl<TH: TypeHolderTrait> PartialEq for CanvasGradient<TH> {
 }
 
 pub trait CanvasGradientMethods<TH: TypeHolderTrait> {
-    fn AddColorStop(&self, offset: Finite<f64>, color: DOMString) -> Fallible<(), TH>;
+    fn AddColorStop(&self, offset: Finite<f64>, color: DOMString) -> Fallible<()>;
 }
 const sMethods_specs: &'static [&'static[JSFunctionSpec]] = &[
 &[

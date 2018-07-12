@@ -570,7 +570,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -595,7 +595,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -628,7 +628,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -660,7 +660,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -692,7 +692,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                         _ => { return false;
                      }
                     };
-                    let result: Result<(), Error<TH>> = this.BufferData(cx, arg0, arg1, arg2);
+                    let result: Result<(), Error> = this.BufferData(cx, arg0, arg1, arg2);
                     let result = match result {
                         Ok(result) => result,
                         Err(e) => {
@@ -724,7 +724,7 @@ unsafe extern fn bufferData<TH: TypeHolderTrait>
                     _ => { return false;
                  }
                 };
-                let result: Result<(), Error<TH>> = this.BufferData_(arg0, arg1, arg2);
+                let result: Result<(), Error> = this.BufferData_(arg0, arg1, arg2);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -900,7 +900,7 @@ unsafe extern fn texImage2D<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error<TH>> = this.TexImage2D_(arg0, arg1, arg2, arg3, arg4, arg5);
+                let result: Result<(), Error> = this.TexImage2D_(arg0, arg1, arg2, arg3, arg4, arg5);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1011,7 +1011,7 @@ unsafe extern fn texImage2D<TH: TypeHolderTrait>
 
                 };
                 auto_root!(in(cx) let arg8 = arg8);
-                let result: Result<(), Error<TH>> = this.TexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+                let result: Result<(), Error> = this.TexImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1130,7 +1130,7 @@ unsafe extern fn texSubImage2D<TH: TypeHolderTrait>
                     _ => { return false;
                  },
                 };
-                let result: Result<(), Error<TH>> = this.TexSubImage2D_(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+                let result: Result<(), Error> = this.TexSubImage2D_(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -1241,7 +1241,7 @@ unsafe extern fn texSubImage2D<TH: TypeHolderTrait>
 
                 };
                 auto_root!(in(cx) let arg8 = arg8);
-                let result: Result<(), Error<TH>> = this.TexSubImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+                let result: Result<(), Error> = this.TexSubImage2D(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 let result = match result {
                     Ok(result) => result,
                     Err(e) => {
@@ -7153,7 +7153,7 @@ unsafe extern fn texImageDOM<TH: TypeHolderTrait>
             return false;
 
         };
-        let result: Result<(), Error<TH>> = this.TexImageDOM(arg0, arg1, arg2, arg3, arg4, arg5, arg6, &arg7);
+        let result: Result<(), Error> = this.TexImageDOM(arg0, arg1, arg2, arg3, arg4, arg5, arg6, &arg7);
         let result = match result {
             Ok(result) => result,
             Err(e) => {
@@ -10154,13 +10154,13 @@ impl<TH: TypeHolderTrait> PartialEq for WebGL2RenderingContext<TH> {
 }
 
 pub trait WebGL2RenderingContextMethods<TH: TypeHolderTrait> {
-    unsafe fn BufferData(&self, cx: *mut JSContext, target: u32, data: *mut JSObject, usage: u32) -> Fallible<(), TH>;
-    fn BufferData_(&self, target: u32, size: i64, usage: u32) -> Fallible<(), TH>;
+    unsafe fn BufferData(&self, cx: *mut JSContext, target: u32, data: *mut JSObject, usage: u32) -> Fallible<()>;
+    fn BufferData_(&self, target: u32, size: i64, usage: u32) -> Fallible<()>;
     fn BufferSubData(&self, target: u32, dstByteOffset: i64, srcData: UnionTypes::ArrayBufferViewOrArrayBuffer) -> ();
-    fn TexImage2D(&self, target: u32, level: i32, internalformat: u32, width: i32, height: i32, border: i32, format: u32, type_: u32, pixels: CustomAutoRooterGuard<Option<typedarray::ArrayBufferView>>) -> Fallible<(), TH>;
-    fn TexImage2D_(&self, target: u32, level: i32, internalformat: u32, format: u32, type_: u32, source: UnionTypes::ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>) -> Fallible<(), TH>;
-    fn TexSubImage2D(&self, target: u32, level: i32, xoffset: i32, yoffset: i32, width: i32, height: i32, format: u32, type_: u32, pixels: CustomAutoRooterGuard<Option<typedarray::ArrayBufferView>>) -> Fallible<(), TH>;
-    fn TexSubImage2D_(&self, target: u32, level: i32, xoffset: i32, yoffset: i32, format: u32, type_: u32, source: UnionTypes::ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>) -> Fallible<(), TH>;
+    fn TexImage2D(&self, target: u32, level: i32, internalformat: u32, width: i32, height: i32, border: i32, format: u32, type_: u32, pixels: CustomAutoRooterGuard<Option<typedarray::ArrayBufferView>>) -> Fallible<()>;
+    fn TexImage2D_(&self, target: u32, level: i32, internalformat: u32, format: u32, type_: u32, source: UnionTypes::ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>) -> Fallible<()>;
+    fn TexSubImage2D(&self, target: u32, level: i32, xoffset: i32, yoffset: i32, width: i32, height: i32, format: u32, type_: u32, pixels: CustomAutoRooterGuard<Option<typedarray::ArrayBufferView>>) -> Fallible<()>;
+    fn TexSubImage2D_(&self, target: u32, level: i32, xoffset: i32, yoffset: i32, format: u32, type_: u32, source: UnionTypes::ImageDataOrHTMLImageElementOrHTMLCanvasElementOrHTMLVideoElement<TH>) -> Fallible<()>;
     fn ReadPixels(&self, x: i32, y: i32, width: i32, height: i32, format: u32, type_: u32, dstData: CustomAutoRooterGuard<Option<typedarray::ArrayBufferView>>) -> ();
     fn Canvas(&self) -> DomRoot<HTMLCanvasElement<TH>>;
     fn DrawingBufferWidth(&self) -> i32;
@@ -10261,7 +10261,7 @@ pub trait WebGL2RenderingContextMethods<TH: TypeHolderTrait> {
     fn StencilMaskSeparate(&self, face: u32, mask: u32) -> ();
     fn StencilOp(&self, fail: u32, zfail: u32, zpass: u32) -> ();
     fn StencilOpSeparate(&self, face: u32, fail: u32, zfail: u32, zpass: u32) -> ();
-    fn TexImageDOM(&self, target: u32, level: i32, internalformat: u32, width: i32, height: i32, format: u32, type_: u32, source: &HTMLIFrameElement<TH>) -> Fallible<(), TH>;
+    fn TexImageDOM(&self, target: u32, level: i32, internalformat: u32, width: i32, height: i32, format: u32, type_: u32, source: &HTMLIFrameElement<TH>) -> Fallible<()>;
     fn TexParameterf(&self, target: u32, pname: u32, param: f32) -> ();
     fn TexParameteri(&self, target: u32, pname: u32, param: i32) -> ();
     fn Uniform1f(&self, location: Option<&WebGLUniformLocation<TH>>, x: f32) -> ();

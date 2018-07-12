@@ -89,7 +89,7 @@ impl<TH: TypeHolderTrait> HTMLTableElement<TH> {
                                     atom: &LocalName,
                                     section: Option<&HTMLTableSectionElement<TH>>,
                                     reference_predicate: P)
-                                    -> ErrorResult<TH>
+                                    -> ErrorResult
                                     where P: FnMut(&DomRoot<Element<TH>>) -> bool {
         if let Some(e) = section {
             if e.upcast::<Element<TH>>().local_name() != atom {
@@ -202,7 +202,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-thead
-    fn SetTHead(&self, thead: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult<TH> {
+    fn SetTHead(&self, thead: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult {
         self.set_first_section_of_type(&local_name!("thead"), thead, |n| {
             !n.is::<HTMLTableCaptionElement<TH>>() && !n.is::<HTMLTableColElement<TH>>()
         })
@@ -224,7 +224,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-tfoot
-    fn SetTFoot(&self, tfoot: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult<TH> {
+    fn SetTFoot(&self, tfoot: Option<&HTMLTableSectionElement<TH>>) -> ErrorResult {
         self.set_first_section_of_type(&local_name!("tfoot"), tfoot, |n| {
             if n.is::<HTMLTableCaptionElement<TH>>() || n.is::<HTMLTableColElement<TH>>() {
                 return false;
@@ -291,7 +291,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-insertrow
-    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLTableRowElement<TH>>, TH> {
+    fn InsertRow(&self, index: i32) -> Fallible<DomRoot<HTMLTableRowElement<TH>>> {
         let rows = self.Rows();
         let number_of_row_elements = rows.Length();
 
@@ -346,7 +346,7 @@ impl<TH: TypeHolderTrait> HTMLTableElementMethods<TH> for HTMLTableElement<TH> {
     }
 
     // https://html.spec.whatwg.org/multipage/#dom-table-deleterow
-    fn DeleteRow(&self, mut index: i32) -> Fallible<(), TH> {
+    fn DeleteRow(&self, mut index: i32) -> Fallible<()> {
         let rows = self.Rows();
         // Step 1.
         if index == -1 {
