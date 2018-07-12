@@ -329,7 +329,7 @@ impl<TH: TypeHolderTrait> GlobalScope<TH> {
     }
 
     /// <https://html.spec.whatwg.org/multipage/#report-the-error>
-    pub fn report_an_error(&self, error_info: ErrorInfo<TH>, value: HandleValue) {
+    pub fn report_an_error(&self, error_info: ErrorInfo, value: HandleValue) {
         // Step 1.
         if self.in_error_reporting_mode.get() {
             return;

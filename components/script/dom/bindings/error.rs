@@ -136,7 +136,7 @@ pub unsafe fn throw_dom_exception<TH: TypeHolderTrait>(cx: *mut JSContext, globa
 }
 
 /// A struct encapsulating information about a runtime script error.
-pub struct ErrorInfo<TH: TypeHolderTrait + 'static> {
+pub struct ErrorInfo {
     /// The error message.
     pub message: String,
     /// The file name.
@@ -145,12 +145,11 @@ pub struct ErrorInfo<TH: TypeHolderTrait + 'static> {
     pub lineno: c_uint,
     /// The column number.
     pub column: c_uint,
-    _p: PhantomData<TH>,
 }
 
-impl<TH: TypeHolderTrait> ErrorInfo<TH> {
+impl ErrorInfo {
     unsafe fn from_native_error(cx: *mut JSContext, object: HandleObject)
-                                -> Option<ErrorInfo<TH>> {
+                                -> Option<ErrorInfo> {
         let report = JS_ErrorFromException(cx, object);
         if report.is_null() {
             return None;
@@ -182,11 +181,10 @@ impl<TH: TypeHolderTrait> ErrorInfo<TH> {
             message: message,
             lineno: lineno,
             column: column,
-            _p: Default::default(),
         })
     }
 
-    fn from_dom_exception(object: HandleObject) -> Option<ErrorInfo<TH>> {
+    fn from_dom_exception<TH: TypeHolderTrait>(object: HandleObject) -> Option<ErrorInfo> {
         let exception = match root_from_object::<DOMException<TH>>(object.get()) {
             Ok(exception) => exception,
             Err(_) => return None,
@@ -197,7 +195,6 @@ impl<TH: TypeHolderTrait> ErrorInfo<TH> {
             message: exception.Stringifier().into(),
             lineno: 0,
             column: 0,
-            _p: Default::default(),
         })
     }
 }
@@ -219,15 +216,14 @@ pub unsafe fn report_pending_exception<TH: TypeHolderTrait>(cx: *mut JSContext, 
     JS_ClearPendingException(cx);
     let error_info = if value.is_object() {
         rooted!(in(cx) let object = value.to_object());
-        ErrorInfo::<TH>::from_native_error(cx, object.handle())
-            .or_else(|| ErrorInfo::from_dom_exception(object.handle()))
+        ErrorInfo::from_native_error(cx, object.handle())
+            .or_else(|| ErrorInfo::from_dom_exception::<TH>(object.handle()))
             .unwrap_or_else(|| {
                 ErrorInfo {
                     message: format!("uncaught exception: unknown (can't convert to string)"),
                     filename: String::new(),
                     lineno: 0,
                     column: 0,
-                    _p: Default::default(),
                 }
             })
     } else {
@@ -238,7 +234,6 @@ pub unsafe fn report_pending_exception<TH: TypeHolderTrait>(cx: *mut JSContext, 
                     filename: String::new(),
                     lineno: 0,
                     column: 0,
-                    _p: Default::default(),
                 }
             },
             _ => {

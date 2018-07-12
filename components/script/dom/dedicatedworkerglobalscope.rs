@@ -358,7 +358,7 @@ impl<TH: TypeHolderTrait> DedicatedWorkerGlobalScope<TH> {
 
     // https://html.spec.whatwg.org/multipage/#runtime-script-errors-2
     #[allow(unsafe_code)]
-    pub fn forward_error_to_worker_object(&self, error_info: ErrorInfo<TH>) {
+    pub fn forward_error_to_worker_object(&self, error_info: ErrorInfo) {
         let worker = self.worker.borrow().as_ref().unwrap().clone();
         let pipeline_id = self.upcast::<GlobalScope<TH>>().pipeline_id();
         let task = Box::new(task!(forward_error_to_worker_object: move || {
