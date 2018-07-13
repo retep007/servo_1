@@ -28,7 +28,7 @@ impl<TH: TypeHolderTrait> fmt::Debug for UserInteractionTaskSource<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TaskSource<TH> for UserInteractionTaskSource<TH> {
+impl<TH: TypeHolderTrait> TaskSource for UserInteractionTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,

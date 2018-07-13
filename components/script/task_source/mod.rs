@@ -14,7 +14,7 @@ use std::result::Result;
 use task::{TaskCanceller, TaskOnce};
 use typeholder::TypeHolderTrait;
 
-pub trait TaskSource<TH: TypeHolderTrait + 'static> {
+pub trait TaskSource {
     fn queue_with_canceller<T>(
         &self,
         task: T,
@@ -23,9 +23,10 @@ pub trait TaskSource<TH: TypeHolderTrait + 'static> {
     where
         T: TaskOnce + 'static;
 
-    fn queue<T>(&self, task: T, global: &GlobalScope<TH>) -> Result<(), ()>
+    fn queue<T, TH>(&self, task: T, global: &GlobalScope<TH>) -> Result<(), ()>
     where
         T: TaskOnce + 'static,
+        TH: TypeHolderTrait,
     {
         self.queue_with_canceller(task, &global.task_canceller())
     }

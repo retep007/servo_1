@@ -28,7 +28,7 @@ impl<TH: TypeHolderTrait> fmt::Debug for DOMManipulationTaskSource<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TaskSource<TH> for DOMManipulationTaskSource<TH> {
+impl<TH: TypeHolderTrait> TaskSource for DOMManipulationTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,

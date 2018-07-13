@@ -32,7 +32,7 @@ impl<TH: TypeHolderTrait> fmt::Debug for PerformanceTimelineTaskSource<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TaskSource<TH> for PerformanceTimelineTaskSource<TH> {
+impl<TH: TypeHolderTrait> TaskSource for PerformanceTimelineTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,

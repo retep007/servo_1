@@ -21,7 +21,7 @@ impl<TH: TypeHolderTrait> Clone for FileReadingTaskSource<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> TaskSource<TH> for FileReadingTaskSource<TH> {
+impl<TH: TypeHolderTrait> TaskSource for FileReadingTaskSource<TH> {
     fn queue_with_canceller<T>(
         &self,
         task: T,
