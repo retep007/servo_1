@@ -2186,6 +2186,11 @@ class IDLType(IDLObject):
     def isExposedInAllOf(self, exposureSet):
         return True
 
+    def isGenericOverTypeHolder(self):
+        return self.isGeckoInterface()
+
+    def isTypeHolded(self):
+        return False
 
 class IDLUnresolvedType(IDLType):
     """
@@ -2379,6 +2384,9 @@ class IDLNullableType(IDLParametrizedType):
             # Can't tell which type null should become
             return False
         return self.inner.isDistinguishableFrom(other)
+
+    def isGenericOverTypeHolder(self):
+        return self.inner.isGenericOverTypeHolder()
 
 
 class IDLSequenceType(IDLParametrizedType):
@@ -2635,6 +2643,14 @@ class IDLUnionType(IDLType):
 
     def _getDependentObjects(self):
         return set(self.memberTypes)
+
+    def isGenericOverTypeHolder(self):
+        for member in self.memberTypes:
+            if member.isGenericOverTypeHolder():
+                return True
+        if self.unroll().name == 'TestDictionaryOrLong':
+            return True
+        return False
 
 
 class IDLTypedefType(IDLType):

@@ -21,7 +21,6 @@ use js::rust::{HandleValue, MutableHandleObject};
 use std::cell::Cell;
 use std::ptr;
 use std::ptr::NonNull;
-use typeholder::TypeHolderTrait;
 use std::marker::PhantomData;
 
 /// The values that an iterator will iterate over.

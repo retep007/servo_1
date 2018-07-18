@@ -165,7 +165,316 @@ def MemberIsUnforgeable(member, descriptor):
             (member.isUnforgeable() or
              bool(descriptor.interface.getExtendedAttribute("Unforgeable"))))
 
+GenericTypes = [
+    'AnyCallback',
+    'Attr',
+    'BeforeUnloadEvent',
+    'Blob',
+    'BluetoothAdvertisingEvent',
+    'Bluetooth',
+    'BluetoothCharacteristicProperties',
+    'BluetoothDevice',
+    'BluetoothPermissionResult',
+    'BluetoothRemoteGATTCharacteristic',
+    'BluetoothRemoteGATTDescriptor',
+    'BluetoothRemoteGATTServer',
+    'BluetoothRemoteGATTService',
+    'BluetoothUUID',
+    'CanvasGradient',
+    'CanvasPattern',
+    'CanvasRenderingContext2D',
+    'CharacterData',
+    'Client',
+    'CloseEvent',
+    'Comment',
+    'CompositionEvent',
+    'Console',
+    'Crypto',
+    'CSS',
+    'CSSConditionRule',
+    'CSSFontFaceRule',
+    'CSSGroupingRule',
+    'CSSImportRule',
+    'CSSKeyframeRule',
+    'CSSKeyframesRule',
+    'CSSMediaRule',
+    'CSSNamespaceRule',
+    'CSSRule',
+    'CSSRuleList',
+    'CSSStyleDeclaration',
+    'CSSStyleRule',
+    'CSSStyleSheet',
+    'CSSStyleValue',
+    'CSSSupportsRule',
+    'CSSViewportRule',
+    'CustomElementRegistry',
+    'CustomEvent',
+    'DedicatedWorkerGlobalScope',
+    'DissimilarOriginLocation',
+    'DissimilarOriginWindow',
+    'Document',
+    'DocumentFragment',
+    'DocumentType',
+    'DOMException',
+    'DOMImplementation',
+    'DOMMatrix',
+    'DOMMatrixReadOnly',
+    'DOMParse',
+    'DOMPoint',
+    'DOMPointReadOnly',
+    'DOMPerformanceEntryList',
+    'DOMQuad',
+    'DOMRect',
+    'DOMRectReadOnly',
+    'DOMStringMap',
+    'DOMTokenList',
+    'Element',
+    'ErrorEvent',
+    'Event',
+    'EventHandler',
+    'EventListener',
+    'EventModifierInit',
+    'EventSource',
+    'EventTarget',
+    'ExtendableEvent',
+    'ExtendableMessageEvent',
+    'File',
+    'FileList',
+    'FileReader',
+    'FileReaderSync',
+    'FocusEvent',
+    'FormData',
+    'Gamepad',
+    'GamepadButton',
+    'GamepadButtonList',
+    'GamepadEvent',
+    'GamepadList',
+    'GlobalScope',
+    'HashChangeEvent',
+    'Header',
+    'Headers',
+    'History',
+    'HTMLAnchorElement',
+    'HTMLAreaElement',
+    'HTMLAudioElement',
+    'HTMLBaseElement',
+    'HTMLBodyElement',
+    'HTMLBRElement',
+    'HTMLButtonElement',
+    'HTMLCanvasElement',
+    'HTMLCollection',
+    'HTMLDataElement',
+    'HTMLDataListElement',
+    'HTMLDetailsElement',
+    'HTMLDialogElement',
+    'HTMLDirectoryElement',
+    'HTMLDivElement',
+    'HTMLDListElement',
+    'HTMLElement',
+    'HTMLEmbedElement',
+    'HTMLFieldSetElement',
+    'HTMLFontElement',
+    'HTMLFormControlsCollection',
+    'HTMLFormElement',
+    'HTMLFrameElement',
+    'HTMLFrameSetElement',
+    'HTMLHeadElement',
+    'HTMLHeadingElement',
+    'HTMLHRElement',
+    'HTMLHtmlElement',
+    'HTMLIFrameElement',
+    'HTMLImageElement',
+    'HTMLInputElement',
+    'HTMLLabelElement',
+    'HTMLLegendElement',
+    'HTMLLIElement',
+    'HTMLLinkElement',
+    'HTMLMapElement',
+    'HTMLMediaElement',
+    'HTMLMetaElement',
+    'HTMLMeterElement',
+    'HTMLModElement',
+    'HTMLObjectElement',
+    'HTMLOListElement',
+    'HTMLOptGroupElement',
+    'HTMLOptionElement',
+    'HTMLOptionsElement',
+    'HTMLOptionsCollection',
+    'HTMLOutputElement',
+    'HTMLParagraphElement',
+    'HTMLParamElement',
+    'HTMLPictureElement',
+    'HTMLPreElement',
+    'HTMLProgressElement',
+    'HTMLQuoteElement',
+    'HTMLScriptElement',
+    'HTMLSelectElement',
+    'HTMLSourceElement',
+    'HTMLSpanElement',
+    'HTMLStyleElement',
+    'HTMLTableCaptionElement',
+    'HTMLTableCellElement',
+    'HTMLTableColElement',
+    'HTMLTableDataCellElement',
+    'HTMLTableElement',
+    'HTMLTableRowElement',
+    'HTMLTableSectionElement',
+    'HTMLTableHeaderCellElement',
+    'HTMLTemplateElement',
+    'HTMLTextAreaElement',
+    'HTMLTimeElement',
+    'HTMLTitleElement',
+    'HTMLTrackElement',
+    'HTMLUListElement',
+    'HTMLUnknownElement',
+    'HTMLVideoElement',
+    'ImageData',
+    'InputEvent',
+    'IterableIterator',
+    'KeyboardEvent',
+    'Location',
+    'MediaError',
+    'MediaList',
+    'MediaQueryList',
+    'MediaQueryListEvent',
+    'MessageEvent',
+    'MimeTypeArray',
+    'MimeType',
+    'MouseEvent',
+    'MutationObserver',
+    'MutationRecord',
+    'NamedNodeMap',
+    'Navigator',
+    'Node',
+    'NodeFilter',
+    'NodeIterator',
+    'NodeList',
+    'OESElementIndexUint',
+    'OESStandardDerivatives',
+    'OESTextureFloat',
+    'OESTextureFloatLinear',
+    'OESTextureHalfFloat',
+    'OESTextureHalfFloatLinear',
+    'OESVertexArrayObject',
+    'PageTransitionEvent',
+    'PaintRenderingContext2D',
+    'PaintSize',
+    'PaintWorkletGlobalScope',
+    'Performance',
+    'PerformanceEntry',
+    'PerformanceMark',
+    'PerformanceMeasure',
+    'PerformanceObserver',
+    'PerformanceObserverEntryList',
+    'PerformancePaintTiming',
+    'PerformanceTiming',
+    'Permissions',
+    'PermissionStatus',
+    'PluginArray',
+    'Plugin',
+    'PopStateEvent',
+    'ProcessingInstruction',
+    'ProgressEvent',
+    'Promise',
+    'PromiseNativeHandler',
+    'RadioNodeList',
+    'Range',
+    'Request',
+    'Response',
+    'Screen',
+    'ServiceWorker',
+    'ServiceWorkerContainer',
+    'ServiceWorkerGlobalScope',
+    'ServiceWorkerRegistration',
+    'Storage',
+    'StorageEvent',
+    'StylePropertyMapReadOnly',
+    'StyleSheet',
+    'StyleSheetList',
+    'SVGElement',
+    'SVGGraphicsElement',
+    'SVGSVGElement',
+    'TestBinding',
+    'TestBindingIterable',
+    'TestBindingPairIterable',
+    'TestBindingProxy',
+    'TestRunner',
+    'TestWorklet',
+    'TestWorkletGlobalScope',
+    'Text',
+    'TextDecoder',
+    'TextEncoder',
+    'Touch',
+    'TouchEvent',
+    'TouchList',
+    'TransitionEvent',
+    'TreeWalker',
+    'UIEvent',
+    'URL',
+    'URLSearchParams',
+    'ValidityState',
+    'VoidFunction',
+    'VR',
+    'VRLayer',
+    'VRDisplay',
+    'VRDisplayCapabilities',
+    'VRDisplayEvent',
+    'VREyeParameters',
+    'VRFieldOfView',
+    'VRFrameData',
+    'VRPose',
+    'VRStageParameters',
+    'WebGL2RenderingContext',
+    'WebGLActiveInfo',
+    'WebGLBuffer',
+    'WebGLContextEvent',
+    'WebGLFramebuffer',
+    'WebGLObject',
+    'WebGLProgram',
+    'WebGLRenderbuffer',
+    'WebGLRenderingContext',
+    'WebGLShader',
+    'WebGLShaderPrecisionFormat',
+    'WebGLTexture',
+    'WebGLUniformLocation',
+    'WebGLVertexArrayObjectOES',
+    'WebSocket',
+    'Window',
+    'WindowProxy',
+    'Worker',
+    'WorkerGlobalScope',
+    'WorkerLocation',
+    'WorkerNavigator',
+    'Worklet',
+    'WorkletGlobalScope',
+    'XMLDocument',
+    'XMLHttpRequest',
+    'XMLHttpRequestEvent',
+    'XMLHttpRequestEventTarget',
+    'XMLHttpRequestUpload',
+    'TestDictionary',
 
+    'EventHandlerNonNull',
+    'CallbackObject',
+    'FrameRequestCallback',
+
+    'BluetoothAdvertisingEventInit',
+    'RequestInit',
+    'VRDisplayEventInit',
+    'RequestInit',
+    'UIEventInit',
+    'StorageEventInit',
+    'ResponseInit',
+    'MouseEventInit',
+    'InputEventInit',
+    'GamepadEventInit',
+    'FocusEventInit',
+    'CompositionEventInit',
+    'EventModifierInit',
+    'KeyboardEventInit',
+    ]
+
+THTYPES = ['DOMParser', 'XMLHttpRequest', 'ServoParser']
 class Descriptor(DescriptorProvider):
     """
     Represents a single descriptor for an interface. See Bindings.conf.
@@ -183,7 +492,8 @@ class Descriptor(DescriptorProvider):
         # Read the desc, and fill in the relevant defaults.
         ifaceName = self.interface.identifier.name
         nativeTypeDefault = ifaceName
-
+        self.isGeneric = False
+        self.typeHolded = False
         # For generated iterator interfaces for other iterable interfaces, we
         # just use IterableIterator as the native type, templated on the
         # nativeType of the iterable interface. That way we can have a
@@ -192,35 +502,46 @@ class Descriptor(DescriptorProvider):
         if self.interface.isIteratorInterface():
             itrName = self.interface.iterableInterface.identifier.name
             itrDesc = self.getDescriptor(itrName)
+            self.isGeneric = itrDesc.isGeneric
+            self.typeHolded = itrDesc.typeHolded
             nativeTypeDefault = iteratorNativeType(itrDesc)
-
         typeName = desc.get('nativeType', nativeTypeDefault)
-
+        genericTypeName = typeName
+        self.concreteType2 = typeName
+        if typeName in GenericTypes:
+            genericTypeName = '%s<TH>' % typeName
+            self.concreteType2 = '%s::<TH>' % typeName
+            self.isGeneric = True
+        if typeName in THTYPES:
+            genericTypeName = 'TH::%s' % typeName
+            self.concreteType2 = 'TH::%s' % typeName
+            self.isGeneric = True
+            self.typeHolded = True
         spiderMonkeyInterface = desc.get('spiderMonkeyInterface', False)
 
         # Callback and SpiderMonkey types do not use JS smart pointers, so we should not use the
         # built-in rooting mechanisms for them.
         if spiderMonkeyInterface:
-            self.returnType = 'Rc<%s>' % typeName
-            self.argumentType = '&%s' % typeName
+            self.returnType = 'Rc<%s>' % genericTypeName
+            self.argumentType = '&%s' % genericTypeName
             self.nativeType = typeName
             pathDefault = 'dom::types::%s' % typeName
         elif self.interface.isCallback():
             ty = 'dom::bindings::codegen::Bindings::%sBinding::%s' % (ifaceName, ifaceName)
             pathDefault = ty
-            self.returnType = "Rc<%s>" % ty
+            self.returnType = "Rc<%s>" % genericTypeName
             self.argumentType = "???"
             self.nativeType = ty
         else:
-            self.returnType = "DomRoot<%s>" % typeName
-            self.argumentType = "&%s" % typeName
-            self.nativeType = "*const %s" % typeName
+            self.returnType = "DomRoot<%s>" % genericTypeName
+            self.argumentType = "&%s" % genericTypeName
+            self.nativeType = "*const %s" % genericTypeName
             if self.interface.isIteratorInterface():
                 pathDefault = 'dom::bindings::iterable::IterableIterator'
             else:
                 pathDefault = 'dom::types::%s' % MakeNativeName(typeName)
 
-        self.concreteType = typeName
+        self.concreteType = genericTypeName
         self.register = desc.get('register', True)
         self.path = desc.get('path', pathDefault)
         self.bindingPath = 'dom::bindings::codegen::Bindings::%s' % ('::'.join([ifaceName + 'Binding'] * 2))
@@ -481,4 +802,4 @@ def iteratorNativeType(descriptor, infer=False):
     assert descriptor.interface.isIterable()
     iterableDecl = descriptor.interface.maplikeOrSetlikeOrIterable
     assert iterableDecl.isPairIterator()
-    return "IterableIterator%s" % ("" if infer else '<%s>' % descriptor.interface.identifier.name)
+    return "IterableIterator%s" % ("" if infer else '<%s>' % descriptor.concreteType)

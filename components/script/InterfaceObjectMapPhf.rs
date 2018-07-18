@@ -123,7 +123,7 @@ pub unsafe fn init_MAP<TH: TypeHolderTrait>() {
         (b"DOMPoint" as &'static [u8], codegen::Bindings::DOMPointBinding::DOMPointBinding::DefineDOMInterface::<TH>),
         (b"TreeWalker" as &'static [u8], codegen::Bindings::TreeWalkerBinding::TreeWalkerBinding::DefineDOMInterface::<TH>),
         (b"VRPose" as &'static [u8], codegen::Bindings::VRPoseBinding::VRPoseBinding::DefineDOMInterface::<TH>),
-        (b"console" as &'static [u8], codegen::Bindings::ConsoleBinding::ConsoleBinding::DefineDOMInterface::<TH>),
+        (b"console" as &'static [u8], codegen::Bindings::ConsoleBinding::ConsoleBinding::DefineDOMInterface),
         (b"HTMLPictureElement" as &'static [u8], codegen::Bindings::HTMLPictureElementBinding::HTMLPictureElementBinding::DefineDOMInterface::<TH>),
         (b"CompositionEvent" as &'static [u8], codegen::Bindings::CompositionEventBinding::CompositionEventBinding::DefineDOMInterface::<TH>),
         (b"CSSStyleDeclaration" as &'static [u8], codegen::Bindings::CSSStyleDeclarationBinding::CSSStyleDeclarationBinding::DefineDOMInterface::<TH>),
