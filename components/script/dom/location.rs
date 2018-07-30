@@ -68,7 +68,7 @@ impl<TH: TypeHolderTrait> Location<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> LocationMethods<TH> for Location<TH> {
+impl<TH: TypeHolderTrait> LocationMethods for Location<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-assign
     fn Assign(&self, url: USVString) -> ErrorResult {
         self.check_same_origin_domain()?;

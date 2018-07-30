@@ -95,7 +95,7 @@ impl<TH: TypeHolderTrait> PerformanceObserver<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> PerformanceObserverMethods<TH> for PerformanceObserver<TH> {
+impl<TH: TypeHolderTrait> PerformanceObserverMethods for PerformanceObserver<TH> {
     // https://w3c.github.io/performance-timeline/#dom-performanceobserver-observe()
     fn Observe(&self, options: &PerformanceObserverInit) -> Fallible<()> {
         // step 1

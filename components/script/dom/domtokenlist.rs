@@ -54,7 +54,7 @@ impl<TH: TypeHolderTrait> DOMTokenList<TH> {
 }
 
 // https://dom.spec.whatwg.org/#domtokenlist
-impl<TH: TypeHolderTrait> DOMTokenListMethods<TH> for DOMTokenList<TH> {
+impl<TH: TypeHolderTrait> DOMTokenListMethods for DOMTokenList<TH> {
     // https://dom.spec.whatwg.org/#dom-domtokenlist-length
     fn Length(&self) -> u32 {
         self.attribute().map_or(0, |attr| {

@@ -206,7 +206,7 @@
 pub mod macros;
 
 pub mod types {
-    include!("../InterfaceTypes.rs");
+    include!(concat!(env!("OUT_DIR"), "/InterfaceTypes.rs"));
 }
 
 pub mod abstractworker;

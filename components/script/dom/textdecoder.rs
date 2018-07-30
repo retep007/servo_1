@@ -71,7 +71,7 @@ impl<TH: TypeHolderTrait> TextDecoder<TH> {
 }
 
 
-impl<TH: TypeHolderTrait> TextDecoderMethods<TH> for TextDecoder<TH> {
+impl<TH: TypeHolderTrait> TextDecoderMethods for TextDecoder<TH> {
     // https://encoding.spec.whatwg.org/#dom-textdecoder-encoding
     fn Encoding(&self) -> DOMString {
         DOMString::from(self.encoding.name().to_ascii_lowercase())

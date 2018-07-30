@@ -61,7 +61,7 @@ impl<TH: TypeHolderTrait> Headers<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> HeadersMethods<TH> for Headers<TH> {
+impl<TH: TypeHolderTrait> HeadersMethods for Headers<TH> {
     // https://fetch.spec.whatwg.org/#concept-headers-append
     fn Append(&self, name: ByteString, value: ByteString) -> ErrorResult {
         // Step 1

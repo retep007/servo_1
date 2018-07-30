@@ -10,7 +10,6 @@ use dom::bindings::conversions::{DerivedFrom, IDLInterface};
 use dom::bindings::conversions::get_dom_class;
 use dom::bindings::reflector::DomObject;
 use std::mem;
-use typeholder::TypeHolderTrait;
 
 /// A trait to hold the cast functions of IDL interfaces that either derive
 /// or are derived from other interfaces.

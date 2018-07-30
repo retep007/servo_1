@@ -298,7 +298,7 @@ impl<TH: TypeHolderTrait> CSSStyleDeclaration<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CSSStyleDeclarationMethods<TH> for CSSStyleDeclaration<TH> {
+impl<TH: TypeHolderTrait> CSSStyleDeclarationMethods for CSSStyleDeclaration<TH> {
     // https://dev.w3.org/csswg/cssom/#dom-cssstyledeclaration-length
     fn Length(&self) -> u32 {
         self.owner.with_block(|pdb| {

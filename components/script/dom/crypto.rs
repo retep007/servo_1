@@ -44,7 +44,7 @@ impl<TH: TypeHolderTrait> Crypto<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> CryptoMethods<TH> for Crypto<TH> {
+impl<TH: TypeHolderTrait> CryptoMethods for Crypto<TH> {
     #[allow(unsafe_code)]
     // https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#Crypto-method-getRandomValues
     unsafe fn GetRandomValues(&self,

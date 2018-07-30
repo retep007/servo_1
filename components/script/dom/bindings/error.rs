@@ -24,7 +24,6 @@ use js::rust::wrappers::JS_SetPendingException;
 use libc::c_uint;
 use std::slice::from_raw_parts;
 use typeholder::TypeHolderTrait;
-use std::marker::PhantomData;
 
 /// DOM exceptions that can be thrown by a native DOM method.
 #[derive(Clone, Debug, MallocSizeOf)]

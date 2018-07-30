@@ -52,7 +52,7 @@ impl<TH: TypeHolderTrait> DissimilarOriginLocation<TH> {
     }
 }
 
-impl<TH: TypeHolderTrait> DissimilarOriginLocationMethods<TH> for DissimilarOriginLocation<TH> {
+impl<TH: TypeHolderTrait> DissimilarOriginLocationMethods for DissimilarOriginLocation<TH> {
     // https://html.spec.whatwg.org/multipage/#dom-location-href
     fn GetHref(&self) -> Fallible<USVString> {
         Err(Error::Security)
